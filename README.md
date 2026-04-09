@@ -3,8 +3,8 @@
 **Industrial-grade context engineering for stateful AI agents.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-v4.2-blue)](https://github.com/LucassVal/llm-context-optimizer)
-[![TurboQuant](https://img.shields.io/badge/TurboQuant-v4.2--Cortex-blue)](#)
+[![Version](https://img.shields.io/badge/Version-4.2.0-blue.svg)](https://github.com/LucassVal/llm-context-optimizer)
+[![TurboQuant](https://img.shields.io/badge/Framework-TurboQuant_Cortex-blueviolet.svg)](#)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/LucassVal/llm-context-optimizer/pulls)
 
 ## 🎯 What Problem Does This Solve?
@@ -24,6 +24,8 @@ LLM agents suffer from:
 | Tokens Consumed | 370,000 | 230,000 | **-38%** |
 | Context Drift Errors | 3-5/session | 0-1/session | **-80%** |
 | Session Continuity | ~60% | 100% | **+67%** |
+
+> 📈 **Scaling to 1 Million Tokens:** Working on massive monorepos? Check out our [Extrapolated Scalability Benchmarks](BENCHMARKS.md) to see how TurboQuant achieves O(1) context growth while standard agents suffer from linear O(N) token explosion.
 
 ## 🚀 Quick Start (30 seconds)
 
