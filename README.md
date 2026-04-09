@@ -60,6 +60,11 @@ cp llm-context-optimizer/templates/00-cortex-STARTER.mdc your-project/.agents/ru
 
 **That's it.** Your AI agent now has persistent memory, mandatory compact encoding, and STEP 0 regression checking.
 
+## 💡 Real-World Example
+
+Check out the [`examples/demo-api`](examples/demo-api) directory.
+It contains a simple Node.js Express server to demonstrate the framework in action. By reading the internal `.agents/rules/00-cortex.mdc` of that demo, you can see how the instructions prevent the agent from wandering aimlessly, ensuring it knows exactly where the entry points and rules are.
+
 ## 📚 Documentation
 
 - [Full Prompt Specification](turboquant_memory_prompt.md)
