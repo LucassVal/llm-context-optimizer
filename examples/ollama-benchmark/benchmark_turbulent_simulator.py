@@ -20,7 +20,7 @@ import time
 
 OLLAMA_API = "http://localhost:11434/api/generate"
 # Switching to a respectable industrial model limit. 
-MODEL = "llama3.1:latest" # or "qwen2.5-coder:latest"
+MODEL = "qwen2.5-coder:latest" # High density coding model available locally
 
 def prompt_model(prompt):
     payload = {"model": MODEL, "prompt": prompt, "stream": False, "options": {"temperature": 0.1}}
