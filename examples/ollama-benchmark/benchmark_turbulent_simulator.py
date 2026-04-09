@@ -25,7 +25,7 @@ MODEL = "qwen2.5-coder:latest" # High density coding model available locally
 def prompt_model(prompt):
     payload = {"model": MODEL, "prompt": prompt, "stream": False, "options": {"temperature": 0.1}}
     try:
-        r = requests.post(OLLAMA_API, json=payload, timeout=45)
+        r = requests.post(OLLAMA_API, json=payload, timeout=180)
         data = r.json()
         if "error" in r.text.lower(): return "[OLLAMA MODEL/MEMORY OOM ERROR]"
         return data.get("response", "").strip()
