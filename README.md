@@ -27,14 +27,26 @@ LLM agents suffer from:
 
 ## 🚀 Quick Start (30 seconds)
 
-### Method 1: Using the PowerShell Setup Script (Windows Only)
+### Method 1: Using the Setup Scripts
+**For Windows (PowerShell):**
 ```powershell
 # Clone the repo
 git clone https://github.com/LucassVal/llm-context-optimizer.git
 cd llm-context-optimizer
 
 # Run the initialization script
-.\init-turboquant.ps1 -ProjectName "MyProject"
+.\install.ps1 -ProjectName "MyProject"
+```
+
+**For Linux / macOS (Bash):**
+```bash
+# Clone the repo
+git clone https://github.com/LucassVal/llm-context-optimizer.git
+cd llm-context-optimizer
+
+# Run the initialization script
+chmod +x install.sh
+./install.sh "MyProject"
 ```
 
 ### Method 2: Manual Setup
