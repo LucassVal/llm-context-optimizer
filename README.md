@@ -27,6 +27,17 @@ LLM agents suffer from:
 
 > 📈 **Scaling to 1 Million Tokens:** Working on massive monorepos? Check out our [Extrapolated Scalability Benchmarks](BENCHMARKS.md) to see how TurboQuant achieves O(1) context growth while standard agents suffer from linear O(N) token explosion.
 
+## 🧪 Live Master Benchmark Suite
+
+We've built an **Empirical Interactive A/B Testing Lab** (`examples/ollama-benchmark/benchmark_master_suite.py`) that you can run locally against your own models (like `qwen2.5` or `llama3.1`). It proves the difference between a Stateless standard agent versus our TurboQuant architecture across 4 massive stress tests:
+
+1. **Empirical Token Optimization (20 Turns):** Proves O(1) cost reduction.
+2. **Industrial Stress Test (100 Turns):** Forces the model to hit the 2048 KV-Cache limit and watches standard agents collapse while TQ survives.
+3. **Cognitive Drift (11 Turns):** Proves standard models forget core passwords after 10 turns of code noise, whereas TQ isolates and recalls it continuously.
+4. **The Turbulent Development Simulator (Red Teaming):** Evaluates Cross-Session Amnesia, compliance constraints (Nuclear Locks), and exact architectural merge conflict resolutions.
+
+Read the [Benchmark Lab Documentation](examples/ollama-benchmark/README.md) for deeper instructions!
+
 ## 🚀 Quick Start (30 seconds)
 
 ### Method 1: Using the Setup Scripts
