@@ -8,7 +8,7 @@ import json
 # =======================================================
 
 OLLAMA_API = "http://localhost:11434/api/generate"
-MODEL = "llama3"  # Change to your installed model (e.g., 'mistral', 'deepseek-coder')
+MODEL = "qwen2.5-coder:latest"  # Changed to the model installed on your machine
 
 # 1. Simulate a large repository (Context Bloat)
 # In reality, this would be thousands of lines of code. For this test, 
@@ -27,6 +27,11 @@ def measure_tokens(prompt):
     try:
         response = requests.post(OLLAMA_API, json=payload)
         data = response.json()
+        
+        if "error" in data:
+            print(f"\n[!] Ollama API Error: {data['error']}")
+            return 0
+            
         # prompt_eval_count = tokens processed in the input
         # eval_count = tokens generated in the output
         return data.get("prompt_eval_count", 0)
@@ -35,7 +40,7 @@ def measure_tokens(prompt):
         return 0
 
 def run_test():
-    print(f"🚀 Starting Benchmark against Ollama ({MODEL})...\n")
+    print(f"Starting Benchmark against Ollama ({MODEL})...\n")
     
     # -------------------------------------------------------------
     # TEST A: STANDARD AGENT (Stateless O(N) Explosion)
@@ -44,7 +49,7 @@ def run_test():
     history_standard = ""
     total_tokens_standard = 0
     
-    print("❌ Running STANDARD Agent Simulation (Context Amnesia)...")
+    print("[x] Running STANDARD Agent Simulation (Context Amnesia)...")
     for turn in range(1, 6):
         prompt = f"Repo context: {DUMMY_REPO_FILE}\nHistory: {history_standard}\nTurn {turn} instruction: Fix the bug."
         tokens = measure_tokens(prompt)
@@ -59,7 +64,7 @@ def run_test():
     history_tq = ""
     total_tokens_tq = 0
     
-    print("\n✅ Running TURBOQUANT Agent Simulation (Stateful JSON Ledger)...")
+    print("\n[OK] Running TURBOQUANT Agent Simulation (Stateful JSON Ledger)...")
     for turn in range(1, 6):
         # Emulating TQ: It only reads the JSON ledger + the specific small file in question
         prompt = f"Ledger: {TQ_JSON_LEDGER}\nHistory: {history_tq}\nTurn {turn} instruction: Apply step {turn}."
@@ -69,7 +74,7 @@ def run_test():
         print(f"   Turn {turn} consumed: {tokens} tokens")
         
     print("\n" + "="*50)
-    print("📊 BENCHMARK RESULTS")
+    print("[RESULTS] BENCHMARK")
     print("="*50)
     print(f"Standard Total Tokens Used:  {total_tokens_standard}")
     print(f"TurboQuant Total Tokens Used: {total_tokens_tq}")
