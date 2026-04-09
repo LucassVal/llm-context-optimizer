@@ -93,6 +93,29 @@ def simulate_turbulent_environment():
     print(f"    [-] TEST A (Stateless) Answer : \"{ans_a3}\"")
     print(f"    [-] TEST B (TurboQuant) Answer: \"{ans_b3}\"")
     
+    # --------------------------------------------------------------------------
+    # CHALLENGE 4: THE MONDAY MORNING AMNESIA TEST (CROSS-SESSION RECALL)
+    # --------------------------------------------------------------------------
+    print("\n[x] CHALLENGE 4: THE MONDAY MORNING AMNESIA (CROSS-SESSION RECALL)")
+    print("    Context: A fresh session on Monday. The agent must recall a bug fixed on Friday.")
+    
+    # TEST A: Standard Agent (Fresh Chat)
+    history_a4 = "" # Monday morning, new chat window, context is totally blank
+    prompt_a4 = f"Conversation History:\n{history_a4}\n\nUser: Hey, remember that complex tax calculation bug we fixed on Friday in the billing module? What exactly had we done wrong and how did we fix it?"
+    ans_a4 = prompt_model(prompt_a4)
+    
+    # TEST B: TurboQuant Agent (Fresh Chat, but with Regression Buffer loaded via Lobes)
+    lobe_billing_regression = "BILLING_LOBE: [REGRESSION BUFFER]: On Friday, a bug was fixed where ISS tax was applied to GROSS value instead of NET value. Commit a1b2c3d reverted this logic to apply to NET."
+    prompt_b4 = (
+        "SYSTEM: You are the TurboQuant core engine. You MUST answer the user based ONLY on the Active Semantic Lobe. Do not invent scenarios.\n"
+        f"Active Semantic Lobe: {lobe_billing_regression}\n\n"
+        "User: Hey, remember that complex tax calculation bug we fixed on Friday in the billing module? What exactly had we done wrong and how did we fix it?"
+    )
+    ans_b4 = prompt_model(prompt_b4)
+    
+    print(f"    [-] TEST A (Stateless) Answer : \"{ans_a4}\"")
+    print(f"    [-] TEST B (TurboQuant) Answer: \"{ans_b4}\"")
+    
     print("\n" + "="*80)
     print("📊 ROBUSTNESS & RESILIENCE VERIFICATION COMPLETE")
     print("="*80 + "\n")
