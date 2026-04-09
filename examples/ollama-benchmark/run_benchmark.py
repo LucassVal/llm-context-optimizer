@@ -68,10 +68,16 @@ def run_extreme_benchmark():
     print_header()
     
     phases = [
-        "Ph1: Database Setup",
-        "Ph2: Auth Architecture",
-        "Ph3: Microservices",
-        "Ph4: Deployment Pipelines"
+        "Ph01: Project Scaffolding",
+        "Ph02: Database Schema",
+        "Ph03: Auth Architecture",
+        "Ph04: Microservices Layer",
+        "Ph05: Frontend Integration",
+        "Ph06: State Management",
+        "Ph07: Real-time WebSockets",
+        "Ph08: Payment Gateway",
+        "Ph09: Security Auditing",
+        "Ph10: CI/CD Pipelines"
     ]
     
     # -------------------------------------------------------------
@@ -89,7 +95,7 @@ def run_extreme_benchmark():
         print(f"\n    ► {phase} Started")
         repo_files_standard += BASE_FILE_MOCK
         
-        for step in range(1, 6):
+        for step in range(1, 11):
             prompt = f"Repo: {repo_files_standard}\nHistory: {history_standard}\nInstruction: Step {step}"
             tk = measure_tokens(prompt)
             tokens_standard += tk
