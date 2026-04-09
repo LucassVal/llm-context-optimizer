@@ -1,0 +1,66 @@
+---
+alwaysApply: true
+description: "Cortex STARTER – only the essentials for the first sessions. TurboQuant v4.2."
+---
+
+# 🧠 Cortex: [PROJECT_NAME] (STARTER)
+
+<!--
+  USE THIS FILE for the first 3-5 sessions.
+  When you feel limitations, migrate to 00-cortex-FULL.mdc.
+  Add aliases and rules as suggested by the AI.
+-->
+
+## 🚨 STEP 0 — Do this BEFORE any action
+> 1. Check the Regression Buffer table below
+> 2. If similar to a previous error → advise the user
+> 3. Confirm: "I will work on [MODULE/FILE] only"
+
+## 📍 Essential Workspace Map
+
+| File/Dir | Alias | Purpose |
+| :--- | :--- | :--- |
+| `[MAIN_FILE]` | `$main` | [Description] |
+| `[CONFIG]` | `$cfg` | [Main configuration] |
+| `[SRC_DIR]` | `@src` | [Source code] |
+| `[TESTS_DIR]` | `@tst` | [Tests] |
+| `memory_turboquant_[PROJ].json` | `$MEM` | State ledger |
+
+## ⚡ Compact Encoding (MANDATORY)
+> ✅ `"$main section X"` | ❌ `"full/path/to/file.ext section X"`
+
+| $ = file | @ = directory | ! = command | ? = pattern |
+
+## ⚙️ Essential Commands
+
+| Alias | Real Command |
+| :--- | :--- |
+| `!build` | `[BUILD_COMMAND]` |
+| `!test` | `[TEST_COMMAND]` |
+| `!lint` | `[LINT_COMMAND]` |
+| `!backup` | `$ts=(Get-Date -Format 'yyyyMMdd_HHmmss'); Copy-Item $MEM backup\$ts.json` |
+| `!token-check` | `$json = Get-Content memory_turboquant_*.json -Raw; Write-Host "Tokens: $([math]::Round($json.Length/4))"` |
+
+## 🚫 Never Do
+- ❌ Rewrite an entire file — minimal diffs only
+- ❌ Modify `$MEM` without reading it first
+- ❌ [PROJECT_SPECIFIC_CONSTRAINT]
+
+## 📉 Regression Buffer (STEP 0 — always verify)
+| Error | Attempt | Lesson |
+| :--- | :--- | :--- |
+| ← AI fills this in when finding/solving errors |  |  |
+
+## 🏁 Wrap Up Session (ALWAYS when finishing)
+**Triggers:** "wrap up", "that's it for today", "see you later"
+1. Update "Current State" below
+2. `!backup`
+3. Tell the user: "Session saved. Next session resumes at [CHECKPOINT]."
+
+## 🎯 Current State
+<!-- UPDATE at the end of every session -->
+- **Phase:** [CURRENT_PHASE]
+- **Last checkpoint:** [DESCRIPTION]
+- **Next steps:**
+  - [ ] [TASK_1]
+  - [ ] [TASK_2]

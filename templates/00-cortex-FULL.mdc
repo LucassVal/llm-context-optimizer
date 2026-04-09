@@ -1,0 +1,102 @@
+---
+alwaysApply: true
+description: "Central Cortex – universal rules. TurboQuant v4.2-Cortex."
+---
+
+# 🧠 Cortex: [PROJECT_NAME]
+<!-- v4.2-Cortex | INSTRUCTIONS file — do not duplicate data from JSON -->
+
+## 🚨 STEP 0 — REGRESSION + GOAL CHECK (NON-NEGOTIABLE)
+> 1. Read Regression Buffer (cortex + active lobe)
+> 2. If similar to an error → ADVise before proceeding  
+> 3. Reaffirm goal: "[SESSION_GOAL]"
+> 4. Confirm scope: "I will work on [MODULE/FILE] only"
+
+## 🧪 SCRATCHPAD (Isolated Reasoning — ReAct)
+> Use `<thinking>` internally before any complex response.
+> Scratchpad content DOES NOT appear in the final response.
+> Structure: Thought → Plan → Risks → Regression Check
+
+## 📍 Workspace Map
+| File/Dir | Alias | Purpose |
+| :--- | :--- | :--- |
+| `[PATH]` | `$alias` | [Description] |
+
+## ⚡ Compact Encoding (MANDATORY — NO EXCEPTIONS)
+> ✅ `$alias` | ❌ `full/path.ext`
+> Automatically create alias if reference repeats > 2×
+
+| $ = file | @ = directory | ! = command | ? = pattern |
+| :--- | :--- | :--- | :--- |
+| `$alias` | `@dir` | `!cmd` | `?pattern` |
+
+## ⚙️ Stack & Commands
+| Alias | Real Command | Description |
+| :--- | :--- | :--- |
+| `!build` | `[CMD]` | Build |
+| `!test` | `[CMD]` | Tests |
+| `!lint` | `[CMD]` | Lint |
+| `!backup` | `[CMD_BACKUP_WITH_TIMESTAMP]` | JSON Backup |
+| `!token-check` | `[CMD_JSON_TOKEN_COUNT]` | Monitor Budget limits |
+
+## 📖 Ubiquitous Language (NO SYNONYMS)
+| Term | Definition | ❌ Prohibited |
+| :--- | :--- | :--- |
+| `[TERM]` | [DEF] | `[SYN1]` |
+
+## 🚫 Negative Constraints (What to NEVER do)
+- ❌ Rewrite entire files — minimal diffs only
+- ❌ Modify Atomic Locks without explicit unlock
+- ❌ Use synonyms from the ubiquitous language
+- ❌ Write full path if there is an alias
+- ❌ [PROJECT_SPECIFIC_CONSTRAINT]
+
+## 🔒 Atomic Locks (SSOT — Do Not Modify)
+- `$alias` — Reason: [EXPLANATION]
+
+## 🗺️ Workflows
+
+### 🔁 Active Lobe (Semantic)
+> Even without an open file: if the subject mentions [LOBE_DOMAIN],
+> apply patterns from the corresponding phase lobe `[FILE].mdc`.
+
+### 🔍 Workflow: Explore-Plan-Act (For complex features)
+1. **STEP 0** ← MANDATORY
+2. **Explore** (read-only): map files, identify deps
+3. **Plan**: `<thinking>` + propose plan in 2-3 points → AWAIT OK
+4. **Act**: execute in minimal diffs
+5. **Observe**: `!lint` + `!test` → validate against goal
+6. **Persist**: update state + `!backup`
+
+**Example (few-shot):**
+> User: "Add validation"
+> AI: Explore → reads auth.ts → Plan: [1. Zod, 2. Handler] → Awaits OK → Act
+
+### 🐛 Workflow: Debug
+1. **STEP 0** ← MANDATORY
+2. Reproduce → Single Hypothesis → Confirm → Apply → Regression Buffer
+
+### 🏁 Workflow: Wrap Up Session (ALWAYS when finishing)
+**Triggers:** "wrap up", "see you later", "that's it for today", task completed
+1. Update Current State + next steps in Cortex
+2. Check off checkpoint in active lobe
+3. Add session_timeline in JSON
+4. Compact hot_context if > 5 entries
+5. `!backup`
+6. Register CHANGELOG
+7. "Session saved. Next resumes at [CHECKPOINT]."
+
+## 📉 Regression Buffer (CHECK IN STEP 0)
+| Error | Failed Attempt | Lesson |
+| :--- | :--- | :--- |
+| [ERROR] | [ATTEMPT] | [LESSON] |
+
+## 🎯 Current State (Checkpoint)
+- **Version:** TurboQuant v4.2-Cortex
+- **Active Phase:** [PHASE]
+- **Active Lobe:** `.agents/rules/[FILE].mdc`
+- **Token Budget:** ~[N] tokens
+- **Last Checkpoint:** [ID] — [DESCRIPTION] ✅
+- **Next Steps:**
+  - [ ] [TASK_1]
+  - [ ] [TASK_2]
