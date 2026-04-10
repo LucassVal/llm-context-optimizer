@@ -1,0 +1,713 @@
+{
+  "version": "4.2-cortex",
+  "schema_version": "1.0.0",
+  "generated_at": "2026-04-10T12:30:00Z",
+  "total_tools": 16,
+  "total_actions": 57,
+  "tools": [
+    {
+      "name": "neocortex_cortex",
+      "module": "cortex",
+      "description": "Acesso ao cortex central.",
+      "full_description": "Acesso ao cortex central.\n\nActions:\n- get_full: Retorna o conteudo completo do cortex\n- get_section: Retorna uma secao especifica\n- get_aliases: Retorna todos os aliases definidos\n- get_workflows: Retorna os workflows definidos\n- validate_alias: Valida se um alias esta correto",
+      "actions": [
+        {
+          "name": "get_full",
+          "description": "Retorna o conteudo completo do cortex"
+        },
+        {
+          "name": "get_section",
+          "description": "Retorna uma secao especifica"
+        },
+        {
+          "name": "get_aliases",
+          "description": "Retorna todos os aliases definidos"
+        },
+        {
+          "name": "get_workflows",
+          "description": "Retorna os workflows definidos"
+        },
+        {
+          "name": "validate_alias",
+          "description": "Valida se um alias esta correto"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "action",
+          "type": "<class 'str'>",
+          "default": null,
+          "required": true
+        },
+        {
+          "name": "section",
+          "type": "<class 'str'>",
+          "default": "",
+          "required": false
+        }
+      ],
+      "action_count": 5
+    },
+    {
+      "name": "neocortex_lobes",
+      "module": "lobes",
+      "description": "Gerenciamento de lobos.",
+      "full_description": "Gerenciamento de lobos.\n\nActions:\n- list_active: Lista todos os lobos disponiveis\n- get_content: Retorna o conteudo de um lobe especifico\n- get_checkpoint_tree: Extrai a arvore de checkpoints de um lobe\n- activate: Marca um lobe como ativo (simulado)\n- deactivate: Marca um lobe como inativo (simulado)",
+      "actions": [
+        {
+          "name": "list_active",
+          "description": "Lista todos os lobos disponiveis"
+        },
+        {
+          "name": "get_content",
+          "description": "Retorna o conteudo de um lobe especifico"
+        },
+        {
+          "name": "get_checkpoint_tree",
+          "description": "Extrai a arvore de checkpoints de um lobe"
+        },
+        {
+          "name": "activate",
+          "description": "Marca um lobe como ativo (simulado)"
+        },
+        {
+          "name": "deactivate",
+          "description": "Marca um lobe como inativo (simulado)"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "action",
+          "type": "<class 'str'>",
+          "default": null,
+          "required": true
+        },
+        {
+          "name": "lobe_name",
+          "type": "<class 'str'>",
+          "default": "",
+          "required": false
+        }
+      ],
+      "action_count": 5
+    },
+    {
+      "name": "neocortex_checkpoint",
+      "module": "checkpoint",
+      "description": "Controle de checkpoints.",
+      "full_description": "Controle de checkpoints.\n\nActions:\n- get_current: Retorna o checkpoint atual\n- set_current: Define um novo checkpoint atual\n- complete_task: Marca uma tarefa como completa\n- list_history: Lista o historico de checkpoints",
+      "actions": [
+        {
+          "name": "get_current",
+          "description": "Retorna o checkpoint atual"
+        },
+        {
+          "name": "set_current",
+          "description": "Define um novo checkpoint atual"
+        },
+        {
+          "name": "complete_task",
+          "description": "Marca uma tarefa como completa"
+        },
+        {
+          "name": "list_history",
+          "description": "Lista o historico de checkpoints"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "action",
+          "type": "<class 'str'>",
+          "default": null,
+          "required": true
+        },
+        {
+          "name": "checkpoint_id",
+          "type": "<class 'str'>",
+          "default": "",
+          "required": false
+        },
+        {
+          "name": "description",
+          "type": "<class 'str'>",
+          "default": "",
+          "required": false
+        }
+      ],
+      "action_count": 4
+    },
+    {
+      "name": "neocortex_regression",
+      "module": "regression",
+      "description": "STEP 0 e buffer de regressao.",
+      "full_description": "STEP 0 e buffer de regressao.\n\nActions:\n- check: Verifica se ha regressoes similares\n- add_entry: Adiciona uma nova entrada ao buffer\n- list_all: Lista todas as entradas do buffer",
+      "actions": [
+        {
+          "name": "check",
+          "description": "Verifica se ha regressoes similares"
+        },
+        {
+          "name": "add_entry",
+          "description": "Adiciona uma nova entrada ao buffer"
+        },
+        {
+          "name": "list_all",
+          "description": "Lista todas as entradas do buffer"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "action",
+          "type": "<class 'str'>",
+          "default": null,
+          "required": true
+        },
+        {
+          "name": "error",
+          "type": "<class 'str'>",
+          "default": "",
+          "required": false
+        },
+        {
+          "name": "attempt",
+          "type": "<class 'str'>",
+          "default": "",
+          "required": false
+        },
+        {
+          "name": "lesson",
+          "type": "<class 'str'>",
+          "default": "",
+          "required": false
+        }
+      ],
+      "action_count": 3
+    },
+    {
+      "name": "neocortex_ledger",
+      "module": "ledger",
+      "description": "Acesso ao ledger JSON.",
+      "full_description": "Acesso ao ledger JSON.\n\nActions:\n- get_metrics: Retorna metricas da sessao\n- get_atomic_locks: Retorna os atomic locks\n- get_dependency_graph: Retorna o grafo de dependencias\n- prune_context: Executa poda de contexto",
+      "actions": [
+        {
+          "name": "get_metrics",
+          "description": "Retorna metricas da sessao"
+        },
+        {
+          "name": "get_atomic_locks",
+          "description": "Retorna os atomic locks"
+        },
+        {
+          "name": "get_dependency_graph",
+          "description": "Retorna o grafo de dependencias"
+        },
+        {
+          "name": "prune_context",
+          "description": "Executa poda de contexto"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "action",
+          "type": "<class 'str'>",
+          "default": null,
+          "required": true
+        },
+        {
+          "name": "metric",
+          "type": "<class 'str'>",
+          "default": "",
+          "required": false
+        }
+      ],
+      "action_count": 4
+    },
+    {
+      "name": "neocortex_benchmark",
+      "module": "benchmark",
+      "description": "Execucao de benchmarks.",
+      "full_description": "Execucao de benchmarks.\n\nActions:\n- run_drift: Executa benchmark Drift Exhaustion\n- run_titanomachy: Executa benchmark Titanomachy\n- get_last_report: Retorna o ultimo relatorio de benchmark",
+      "actions": [
+        {
+          "name": "run_drift",
+          "description": "Executa benchmark Drift Exhaustion"
+        },
+        {
+          "name": "run_titanomachy",
+          "description": "Executa benchmark Titanomachy"
+        },
+        {
+          "name": "get_last_report",
+          "description": "Retorna o ultimo relatorio de benchmark"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "action",
+          "type": "<class 'str'>",
+          "default": null,
+          "required": true
+        },
+        {
+          "name": "benchmark_type",
+          "type": "<class 'str'>",
+          "default": "",
+          "required": false
+        }
+      ],
+      "action_count": 3
+    },
+    {
+      "name": "neocortex_agent",
+      "module": "agent",
+      "description": "Orquestracao de agentes efemeros.",
+      "full_description": "Orquestracao de agentes efemeros.\n\nActions:\n- spawn: Cria um novo agente efemero\n- heartbeat: Verifica status do agente\n- consume: Consome resultados do agente\n- list_ephemeral: Lista agentes efemeros ativos",
+      "actions": [
+        {
+          "name": "spawn",
+          "description": "Cria um novo agente efemero"
+        },
+        {
+          "name": "heartbeat",
+          "description": "Verifica status do agente"
+        },
+        {
+          "name": "consume",
+          "description": "Consome resultados do agente"
+        },
+        {
+          "name": "list_ephemeral",
+          "description": "Lista agentes efemeros ativos"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "action",
+          "type": "<class 'str'>",
+          "default": null,
+          "required": true
+        },
+        {
+          "name": "agent_id",
+          "type": "<class 'str'>",
+          "default": "",
+          "required": false
+        },
+        {
+          "name": "role",
+          "type": "<class 'str'>",
+          "default": "",
+          "required": false
+        }
+      ],
+      "action_count": 4
+    },
+    {
+      "name": "neocortex_init",
+      "module": "init",
+      "description": "Inicializacao de projetos.",
+      "full_description": "Inicializacao de projetos.\n\nActions:\n- scan_project: Analisa a estrutura do projeto atual\n- generate_cortex: Gera um cortex inicial\n- generate_lobe: Gera um lobe inicial para um modulo",
+      "actions": [
+        {
+          "name": "scan_project",
+          "description": "Analisa a estrutura do projeto atual"
+        },
+        {
+          "name": "generate_cortex",
+          "description": "Gera um cortex inicial"
+        },
+        {
+          "name": "generate_lobe",
+          "description": "Gera um lobe inicial para um modulo"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "action",
+          "type": "<class 'str'>",
+          "default": null,
+          "required": true
+        },
+        {
+          "name": "project_name",
+          "type": "<class 'str'>",
+          "default": "",
+          "required": false
+        }
+      ],
+      "action_count": 3
+    },
+    {
+      "name": "neocortex_config",
+      "module": "config",
+      "description": "Configuracao do sistema.",
+      "full_description": "Configuracao do sistema.\n\nActions:\n- get_config: Retorna configuracao atual\n- set_model: Define o modelo LLM a ser usado\n- list_models: Lista modelos disponiveis",
+      "actions": [
+        {
+          "name": "get_config",
+          "description": "Retorna configuracao atual"
+        },
+        {
+          "name": "set_model",
+          "description": "Define o modelo LLM a ser usado"
+        },
+        {
+          "name": "list_models",
+          "description": "Lista modelos disponiveis"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "action",
+          "type": "<class 'str'>",
+          "default": null,
+          "required": true
+        },
+        {
+          "name": "key",
+          "type": "<class 'str'>",
+          "default": "",
+          "required": false
+        },
+        {
+          "name": "value",
+          "type": "<class 'str'>",
+          "default": "",
+          "required": false
+        }
+      ],
+      "action_count": 3
+    },
+    {
+      "name": "neocortex_export",
+      "module": "export",
+      "description": "Exportacao de dados.",
+      "full_description": "Exportacao de dados.\n\nActions:\n- to_markdown: Exporta estado para markdown\n- to_json: Exporta estado para JSON\n- to_graph: Exporta para formato de grafo",
+      "actions": [
+        {
+          "name": "to_markdown",
+          "description": "Exporta estado para markdown"
+        },
+        {
+          "name": "to_json",
+          "description": "Exporta estado para JSON"
+        },
+        {
+          "name": "to_graph",
+          "description": "Exporta para formato de grafo"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "action",
+          "type": "<class 'str'>",
+          "default": null,
+          "required": true
+        },
+        {
+          "name": "format",
+          "type": "<class 'str'>",
+          "default": "markdown",
+          "required": false
+        }
+      ],
+      "action_count": 3
+    },
+    {
+      "name": "neocortex_manifest",
+      "module": "manifest",
+      "description": "Gerenciamento de manifestos (indices leves de lobos/cortex).",
+      "full_description": "Gerenciamento de manifestos (indices leves de lobos/cortex).\n\nActions:\n- generate: Gera um manifesto para um lobe ou cortex\n- update: Atualiza metadados de um manifesto existente\n- query: Consulta manifestos por tags, dominio ou entidades",
+      "actions": [
+        {
+          "name": "generate",
+          "description": "Gera um manifesto para um lobe ou cortex"
+        },
+        {
+          "name": "update",
+          "description": "Atualiza metadados de um manifesto existente"
+        },
+        {
+          "name": "query",
+          "description": "Consulta manifestos por tags, dominio ou entidades"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "action",
+          "type": "<class 'str'>",
+          "default": null,
+          "required": true
+        },
+        {
+          "name": "target",
+          "type": "<class 'str'>",
+          "default": "",
+          "required": false
+        },
+        {
+          "name": "metadata",
+          "type": "<class 'str'>",
+          "default": "",
+          "required": false
+        }
+      ],
+      "action_count": 3
+    },
+    {
+      "name": "neocortex_kg",
+      "module": "kg",
+      "description": "Mini Knowledge Graph  grafo semantico local (evolucao do Compact Encoding).",
+      "full_description": "Mini Knowledge Graph  grafo semantico local (evolucao do Compact Encoding).\n\nActions:\n- add_entity: Adiciona uma entidade ao Mini-KG\n- add_relation: Adiciona uma relacao entre entidades\n- query_relations: Retorna todas as relacoes de uma entidade\n- find_similar: Encontra entidades/lobos com caracteristicas semelhantes\n- visualize: Exporta o grafo em formato DOT ou estrutura simplificada",
+      "actions": [
+        {
+          "name": "add_entity",
+          "description": "Adiciona uma entidade ao Mini-KG"
+        },
+        {
+          "name": "add_relation",
+          "description": "Adiciona uma relacao entre entidades"
+        },
+        {
+          "name": "query_relations",
+          "description": "Retorna todas as relacoes de uma entidade"
+        },
+        {
+          "name": "find_similar",
+          "description": "Encontra entidades/lobos com caracteristicas semelhantes"
+        },
+        {
+          "name": "visualize",
+          "description": "Exporta o grafo em formato DOT ou estrutura simplificada"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "action",
+          "type": "<class 'str'>",
+          "default": null,
+          "required": true
+        },
+        {
+          "name": "entity",
+          "type": "<class 'str'>",
+          "default": "",
+          "required": false
+        },
+        {
+          "name": "relation",
+          "type": "<class 'str'>",
+          "default": "",
+          "required": false
+        },
+        {
+          "name": "target",
+          "type": "<class 'str'>",
+          "default": "",
+          "required": false
+        },
+        {
+          "name": "metadata",
+          "type": "<class 'str'>",
+          "default": "",
+          "required": false
+        }
+      ],
+      "action_count": 5
+    },
+    {
+      "name": "neocortex_consolidation",
+      "module": "consolidation",
+      "description": "Consolidacao Semantica  transforma experiencia efemera em regras permanentes.",
+      "full_description": "Consolidacao Semantica  transforma experiencia efemera em regras permanentes.\n\nActions:\n- summarize_session: Resume uma sessao em regras concisas\n- merge_learnings: Combina aprendizados de multiplos agentes\n- promote_to_rule: Promove entrada do Regression Buffer a regra permanente",
+      "actions": [
+        {
+          "name": "summarize_session",
+          "description": "Resume uma sessao em regras concisas"
+        },
+        {
+          "name": "merge_learnings",
+          "description": "Combina aprendizados de multiplos agentes"
+        },
+        {
+          "name": "promote_to_rule",
+          "description": "Promove entrada do Regression Buffer a regra permanente"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "action",
+          "type": "<class 'str'>",
+          "default": null,
+          "required": true
+        },
+        {
+          "name": "session_id",
+          "type": "<class 'str'>",
+          "default": "",
+          "required": false
+        },
+        {
+          "name": "summary",
+          "type": "<class 'str'>",
+          "default": "",
+          "required": false
+        },
+        {
+          "name": "target",
+          "type": "<class 'str'>",
+          "default": "",
+          "required": false
+        },
+        {
+          "name": "metadata",
+          "type": "<class 'str'>",
+          "default": "",
+          "required": false
+        }
+      ],
+      "action_count": 3
+    },
+    {
+      "name": "neocortex_akl",
+      "module": "akl",
+      "description": "Adaptive Knowledge Lifecycle  gerencia relevancia do conhecimento.",
+      "full_description": "Adaptive Knowledge Lifecycle  gerencia relevancia do conhecimento.\n\nActions:\n- assess_importance: Avalia importancia de regras com base no uso\n- decay_knowledge: Aplica decaimento a regras nao utilizadas\n- suggest_cleanup: Lista regras candidatas a arquivamento",
+      "actions": [
+        {
+          "name": "assess_importance",
+          "description": "Avalia importancia de regras com base no uso"
+        },
+        {
+          "name": "decay_knowledge",
+          "description": "Aplica decaimento a regras nao utilizadas"
+        },
+        {
+          "name": "suggest_cleanup",
+          "description": "Lista regras candidatas a arquivamento"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "action",
+          "type": "<class 'str'>",
+          "default": null,
+          "required": true
+        },
+        {
+          "name": "target",
+          "type": "<class 'str'>",
+          "default": "",
+          "required": false
+        },
+        {
+          "name": "metadata",
+          "type": "<class 'str'>",
+          "default": "",
+          "required": false
+        }
+      ],
+      "action_count": 3
+    },
+    {
+      "name": "neocortex_peers",
+      "module": "peers",
+      "description": "Gerenciamento de peers  coordenacao entre multiplas instancias NeoCortex.",
+      "full_description": "Gerenciamento de peers  coordenacao entre multiplas instancias NeoCortex.\n\nActions:\n- discover: Descobrir peers disponiveis\n- sync_state: Sincronizar estado entre peers\n- resolve_conflict: Resolver conflitos de estado",
+      "actions": [
+        {
+          "name": "discover",
+          "description": "Descobrir peers disponiveis"
+        },
+        {
+          "name": "sync_state",
+          "description": "Sincronizar estado entre peers"
+        },
+        {
+          "name": "resolve_conflict",
+          "description": "Resolver conflitos de estado"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "action",
+          "type": "<class 'str'>",
+          "default": null,
+          "required": true
+        },
+        {
+          "name": "peer_id",
+          "type": "<class 'str'>",
+          "default": "",
+          "required": false
+        },
+        {
+          "name": "state_data",
+          "type": "<class 'str'>",
+          "default": "",
+          "required": false
+        }
+      ],
+      "action_count": 3
+    },
+    {
+      "name": "neocortex_security",
+      "module": "security",
+      "description": "Seguranca e controle de acesso  validacao, auditoria e criptografia.",
+      "full_description": "Seguranca e controle de acesso  validacao, auditoria e criptografia.\n\nActions:\n- validate_access: Validar acesso a recursos\n- audit_changes: Auditoria de alteracoes\n- encrypt_sensitive: Criptografar dados sensiveis\n\nParameters for validate_access:\n- current_user_id: ID do usuario atual (se vazio, usa do ledger)\n- target_user_id: ID do usuario alvo (se vazio, usa resource como alvo)\n- access_type: 'read' ou 'write' (padrao: read)\n- resource: Recurso a ser acessado (alternativo a target_user_id)",
+      "actions": [
+        {
+          "name": "validate_access",
+          "description": "Validar acesso a recursos"
+        },
+        {
+          "name": "audit_changes",
+          "description": "Auditoria de alteracoes"
+        },
+        {
+          "name": "encrypt_sensitive",
+          "description": "Criptografar dados sensiveis"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "action",
+          "type": "<class 'str'>",
+          "default": null,
+          "required": true
+        },
+        {
+          "name": "resource",
+          "type": "<class 'str'>",
+          "default": "",
+          "required": false
+        },
+        {
+          "name": "audit_data",
+          "type": "<class 'str'>",
+          "default": "",
+          "required": false
+        },
+        {
+          "name": "current_user_id",
+          "type": "<class 'str'>",
+          "default": "",
+          "required": false
+        },
+        {
+          "name": "target_user_id",
+          "type": "<class 'str'>",
+          "default": "",
+          "required": false
+        },
+        {
+          "name": "access_type",
+          "type": "<class 'str'>",
+          "default": "read",
+          "required": false
+        }
+      ],
+      "action_count": 3
+    }
+  ]
+}

@@ -1,0 +1,548 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/neocortex-framework/neocortex/schemas/ledger_schema.json",
+  "title": "NeoCortex Ledger Schema",
+  "description": "JSON Schema for NeoCortex Framework Ledger state file",
+  "type": "object",
+  "required": [
+    "neocortex_version",
+    "system_type",
+    "architecture",
+    "system_constraints",
+    "granular_state_management",
+    "hierarchical_validation",
+    "memory_temperature",
+    "ubiquitous_language",
+    "agent_session",
+    "project_identity",
+    "collaboration",
+    "session_metrics",
+    "memory_cortex"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Reference to this schema"
+    },
+    "separation_rule": {
+      "type": "string",
+      "description": "Separation rule between JSON (ledger) and MDC (instructions)"
+    },
+    "neocortex_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+(-[a-zA-Z0-9]+)?$",
+      "description": "Version of NeoCortex framework"
+    },
+    "system_type": {
+      "type": "string",
+      "enum": ["framework", "project", "agent"],
+      "description": "Type of system using NeoCortex"
+    },
+    "architecture": {
+      "type": "string",
+      "description": "Architectural description"
+    },
+    "system_constraints": {
+      "type": "object",
+      "required": ["max_context_depth", "enforce_ssot", "token_optimization", "hot_context_limit"],
+      "properties": {
+        "max_context_depth": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "enforce_ssot": {
+          "type": "boolean"
+        },
+        "token_optimization": {
+          "type": "boolean"
+        },
+        "hot_context_limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 20
+        },
+        "max_json_size_tokens": {
+          "type": "integer",
+          "minimum": 1000
+        },
+        "warning_threshold_tokens": {
+          "type": "integer",
+          "minimum": 500
+        },
+        "scratchpad_enabled": {
+          "type": "boolean"
+        },
+        "react_loop_enabled": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "granular_state_management": {
+      "type": "object",
+      "required": ["atomic_locks", "session_scope"],
+      "properties": {
+        "atomic_locks": {
+          "type": "object",
+          "required": ["locked_modules"],
+          "properties": {
+            "locked_modules": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "session_scope": {
+          "type": "object",
+          "required": ["current_focus_module", "allowed_write_paths", "readonly_paths"],
+          "properties": {
+            "current_focus_module": {
+              "type": "string"
+            },
+            "allowed_write_paths": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "readonly_paths": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "hierarchical_validation": {
+      "type": "object",
+      "required": ["regression_buffer", "audit_trail", "changelog"],
+      "properties": {
+        "regression_buffer": {
+          "type": "object",
+          "required": ["failed_attempts"],
+          "properties": {
+            "failed_attempts": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "attempt": {
+                    "type": "string"
+                  },
+                  "reason": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "audit_trail": {
+          "type": "object",
+          "required": ["entries"],
+          "properties": {
+            "entries": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "action": {
+                    "type": "string"
+                  },
+                  "user": {
+                    "type": "string"
+                  },
+                  "details": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "changelog": {
+          "type": "object",
+          "required": ["entries"],
+          "properties": {
+            "entries": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["timestamp", "change", "impact"],
+                "properties": {
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "change": {
+                    "type": "string"
+                  },
+                  "impact": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "memory_temperature": {
+      "type": "object",
+      "required": ["hot_context", "cold_storage", "compaction_log"],
+      "properties": {
+        "hot_context": {
+          "type": "object",
+          "required": ["interactions"],
+          "properties": {
+            "interactions": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "cold_storage": {
+          "type": "object",
+          "required": ["archived_interactions"],
+          "properties": {
+            "archived_interactions": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "compaction_log": {
+          "type": "object",
+          "required": ["entries"],
+          "properties": {
+            "entries": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "timestamp": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "action": {
+                    "type": "string"
+                  },
+                  "details": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "ubiquitous_language": {
+      "type": "object",
+      "required": ["domain_vocabulary", "compact_encoding"],
+      "properties": {
+        "domain_vocabulary": {
+          "type": "object",
+          "required": ["terms"],
+          "properties": {
+            "terms": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "compact_encoding": {
+          "type": "object",
+          "required": ["files", "directories", "commands"],
+          "properties": {
+            "files": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "directories": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "commands": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "patterns": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "agent_session": {
+      "type": "object",
+      "required": ["model_id", "mode", "scratchpad_enabled"],
+      "properties": {
+        "model_id": {
+          "type": "string"
+        },
+        "mode": {
+          "type": "string",
+          "enum": ["single_agent", "multi_agent", "orchestrator"]
+        },
+        "scratchpad_enabled": {
+          "type": "boolean"
+        },
+        "token_budget_warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "project_identity": {
+      "type": "object",
+      "required": ["name", "path", "type"],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["framework", "project", "library", "tool"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "collaboration": {
+      "type": "object",
+      "required": ["enabled", "mode", "profiles_path"],
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "mode": {
+          "type": "string",
+          "enum": ["single_user", "multi_user", "team"]
+        },
+        "profiles_path": {
+          "type": "string"
+        },
+        "active_users": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "permissions": {
+          "type": "object",
+          "properties": {
+            "read": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "write": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "admin": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "blocked": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "validation_checkpoints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["passed", "failed", "pending"]
+          },
+          "details": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "session_metrics": {
+      "type": "object",
+      "required": ["total_interactions", "compactions_executed", "token_budget_warnings"],
+      "properties": {
+        "total_interactions": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "compactions_executed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "token_budget_warnings": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "memory_cortex": {
+      "type": "object",
+      "required": ["active_lobes", "consolidation_sessions", "akl_metrics", "synapses", "global_checkpoint_index"],
+      "properties": {
+        "active_lobes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "consolidation_sessions": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "akl_metrics": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "synapses": {
+          "type": "object",
+          "required": ["current_context"],
+          "properties": {
+            "current_context": {
+              "type": "object",
+              "required": ["lobe_id", "checkpoint_id"],
+              "properties": {
+                "lobe_id": {
+                  "type": "string"
+                },
+                "checkpoint_id": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "global_checkpoint_index": {
+          "type": "object",
+          "required": ["checkpoints"],
+          "properties": {
+            "checkpoints": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "mcp_tools": {
+      "type": "object",
+      "required": ["manifest_path", "schema_path", "total_tools", "total_actions", "categories_count", "version", "schema_version", "last_updated"],
+      "properties": {
+        "manifest_path": {
+          "type": "string"
+        },
+        "schema_path": {
+          "type": "string"
+        },
+        "total_tools": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "total_actions": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "categories_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        },
+        "schema_version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        },
+        "last_updated": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

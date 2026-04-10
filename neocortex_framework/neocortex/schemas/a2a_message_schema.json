@@ -1,0 +1,223 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/neocortex-framework/neocortex/schemas/a2a_message_schema.json",
+  "title": "NeoCortex A2A (Agent-to-Agent) Message Schema",
+  "description": "JSON Schema for messages exchanged between NeoCortex agents",
+  "type": "object",
+  "required": [
+    "message_id",
+    "sender",
+    "timestamp",
+    "type",
+    "payload"
+  ],
+  "properties": {
+    "message_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for the message"
+    },
+    "sender": {
+      "type": "string",
+      "description": "Identifier of the sending agent",
+      "examples": ["agent-t0", "agent-security", "hub-orchestrator"]
+    },
+    "receiver": {
+      "type": ["string", "array", "null"],
+      "description": "Identifier(s) of the receiving agent(s). Null for broadcast.",
+      "oneOf": [
+        {
+          "type": "string",
+          "description": "Single receiver"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Multiple receivers"
+        },
+        {
+          "type": "null",
+          "description": "Broadcast to all agents"
+        }
+      ]
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when message was created"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "request",
+        "response",
+        "notification",
+        "error",
+        "heartbeat",
+        "task_assignment",
+        "task_result",
+        "knowledge_update",
+        "context_sync"
+      ],
+      "description": "Type of message"
+    },
+    "payload": {
+      "type": "object",
+      "description": "Message content",
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "action": {
+              "type": "string",
+              "description": "Action to perform"
+            },
+            "parameters": {
+              "type": "object",
+              "description": "Action parameters"
+            },
+            "expected_response": {
+              "type": "string",
+              "enum": ["immediate", "async", "none"],
+              "description": "Response expectation"
+            }
+          },
+          "required": ["action"],
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "result": {
+              "type": ["string", "number", "boolean", "object", "array", "null"],
+              "description": "Result of a previous request"
+            },
+            "status": {
+              "type": "string",
+              "enum": ["success", "partial", "failed"],
+              "description": "Status of the operation"
+            },
+            "error": {
+              "type": ["string", "null"],
+              "description": "Error message if failed"
+            }
+          },
+          "required": ["status"],
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "event": {
+              "type": "string",
+              "description": "Event type"
+            },
+            "data": {
+              "type": ["object", "array", "string", "number", "boolean", "null"],
+              "description": "Event data"
+            }
+          },
+          "required": ["event"],
+          "additionalProperties": true
+        }
+      ]
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional metadata about the message",
+      "properties": {
+        "priority": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10,
+          "default": 5,
+          "description": "Message priority (1=low, 10=high)"
+        },
+        "ttl": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Time-to-live in seconds"
+        },
+        "correlation_id": {
+          "type": ["string", "null"],
+          "format": "uuid",
+          "description": "ID for correlating request/response pairs"
+        },
+        "requires_ack": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether message requires acknowledgement"
+        },
+        "source_session": {
+          "type": ["string", "null"],
+          "description": "Session ID where message originated"
+        },
+        "target_sessions": {
+          "type": ["array", "null"],
+          "items": {
+            "type": "string"
+          },
+          "description": "Target session IDs"
+        }
+      },
+      "additionalProperties": false
+    },
+    "signature": {
+      "type": ["string", "null"],
+      "description": "Digital signature for message authentication"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "default": "1.0.0",
+      "description": "A2A protocol version"
+    }
+  },
+  "additionalProperties": false,
+  "examples": [
+    {
+      "message_id": "123e4567-e89b-12d3-a456-426614174000",
+      "sender": "agent-t0",
+      "receiver": "agent-security",
+      "timestamp": "2026-04-10T12:30:00Z",
+      "type": "request",
+      "payload": {
+        "action": "validate_access",
+        "parameters": {
+          "user_id": "lucas",
+          "resource": "cortex",
+          "operation": "read"
+        },
+        "expected_response": "immediate"
+      },
+      "metadata": {
+        "priority": 8,
+        "ttl": 30,
+        "correlation_id": "123e4567-e89b-12d3-a456-426614174001",
+        "requires_ack": true
+      },
+      "version": "1.0.0"
+    },
+    {
+      "message_id": "123e4567-e89b-12d3-a456-426614174002",
+      "sender": "agent-security",
+      "receiver": "agent-t0",
+      "timestamp": "2026-04-10T12:30:01Z",
+      "type": "response",
+      "payload": {
+        "result": {
+          "allowed": true,
+          "reason": "user has developer access"
+        },
+        "status": "success",
+        "error": null
+      },
+      "metadata": {
+        "correlation_id": "123e4567-e89b-12d3-a456-426614174001"
+      },
+      "version": "1.0.0"
+    }
+  ]
+}
