@@ -1,0 +1,134 @@
+---
+alwaysApply: true
+description: "Central Cortex – universal rules. NeoCortex v4.2-Cortex."
+---
+
+# 🧠 Cortex: NeoCortex Framework
+<!-- v4.2-Cortex | INSTRUCTIONS file — do not duplicate data from JSON -->
+
+## 🚨 STEP 0 — REGRESSION + GOAL CHECK (NON-NEGOTIABLE)
+> 1. Read Regression Buffer (cortex + active lobe)
+> 2. If similar to an error → ADVISE before proceeding  
+> 3. Reaffirm goal: "[SESSION_GOAL]"
+> 4. Confirm scope: "I will work on [MODULE/FILE] only"
+
+## 🧪 SCRATCHPAD (Isolated Reasoning — ReAct)
+> Use `<thinking>` internally before any complex response.
+> Scratchpad content DOES NOT appear in the final response.
+> Structure: Thought → Plan → Risks → Regression Check
+
+## 📍 Workspace Map
+| File/Dir | Alias | Purpose |
+| :--- | :--- | :--- |
+| `.agents/rules/NC-CTX-FR-001-cortex-central.mdc` | `$ctx` | Central cortex rules |
+| `NC-LED-FR-001-framework-ledger.json` | `$ldg` | State ledger (JSON) |
+| `DIR-CORE-FR-001-core-central/` | `@core` | Core framework directory |
+| `DIR-MCP-FR-001-mcp-server/` | `@mcp` | MCP server directory |
+| `DIR-TMP-FR-001-templates-main/` | `@tpl` | Template files for new projects |
+| `examples/` | `@ex` | Example projects and benchmarks |
+| `DIR-ARC-FR-001-archive-main/` | `@arc` | Archived lobes and summaries |
+| `DIR-BAK-FR-001-backup-main/` | `@bak` | Timestamped backups |
+| `DIR-DOC-FR-001-docs-main/` | `@doc` | Documentation directory |
+| `DIR-SRC-FR-001-source-main/` | `@src` | Source code utilities directory |
+
+## ⚡ Compact Encoding (MANDATORY — NO EXCEPTIONS)
+> ✅ `$alias` | ❌ `full/path.ext`
+> Automatically create alias if reference repeats > 2×
+
+| $ = file | @ = directory | ! = command | ? = pattern |
+| :--- | :--- | :--- | :--- |
+| `$alias` | `@dir` | `!cmd` | `?pattern` |
+
+## ⚙️ Stack & Commands
+| Alias | Real Command | Description |
+| :--- | :--- | :--- |
+| `!init` | `python -m neocortex.init` | Initialize NeoCortex in a project |
+| `!bench` | `python examples/benchmark_master_suite.py` | Run benchmark suite |
+| `!backup` | `$ts=(Get-Date -Format 'yyyyMMdd_HHmmss'); Copy-Item $ldg backup\$ts.json` | JSON Backup |
+| `!token-check` | `$json = Get-Content $ldg -Raw; Write-Host "Tokens: $([math]::Round($json.Length/4))"` | Monitor Budget limits |
+
+## 📖 Ubiquitous Language (NO SYNONYMS)
+| Term | Definition | ❌ Prohibited |
+| :--- | :--- | :--- |
+| `Cortex` | Central rule set (.mdc file) | `rules`, `instructions`, `config` |
+| `Lobe` | Phase/module-specific context | `module`, `phase`, `context` |
+| `Ledger` | JSON state file | `state`, `memory`, `database` |
+| `STEP 0` | Mandatory regression check | `pre-check`, `validation` |
+| `Compact Encoding` | Symbolic references ($ @ ! ?) | `aliases`, `shortcuts`, `symbols` |
+
+## 🚫 Negative Constraints (What to NEVER do)
+- ❌ Rewrite entire files — minimal diffs only
+- ❌ Modify $ldg without reading it first
+- ❌ Use synonyms from the ubiquitous language
+- ❌ Write full path if there is an alias
+- ❌ Bypass STEP 0 regression check
+
+## 🔒 Atomic Locks (SSOT — Do Not Modify)
+- `$ctx` — Reason: Core rules, never modify directly without version control
+- `$ldg` — Reason: State file, modify only through approved workflows
+- `@tpl/*-TEMPLATE.*` — Reason: Template files, copy and customize instead
+
+## 🗺️ Workflows
+
+### 🔁 Active Lobe (Semantic)
+> Even without an open file: if the subject mentions [LOBE_DOMAIN],
+> apply patterns from the corresponding phase lobe `[FILE].mdc`.
+
+### 🔍 Workflow: Explore-Plan-Act (For complex features)
+1. **STEP 0** ← MANDATORY
+2. **Explore** (read-only): map files, identify deps
+3. **Plan**: `<thinking>` + propose plan in 2-3 points → AWAIT OK
+4. **Act**: execute in minimal diffs
+5. **Observe**: `!lint` + `!test` → validate against goal
+6. **Persist**: update state + `!backup`
+
+**Example (few-shot):**
+> User: "Add validation to /login endpoint"
+> AI: Explore → reads auth.ts + validators/ → Plan: [1. Add Zod schema, 2. Update handler, 3. Add test] → Awaits OK → Act
+
+### 🐛 Workflow: Debug
+1. **STEP 0** ← MANDATORY
+2. Reproduce → Single Hypothesis → Confirm → Apply → Document in Regression Buffer
+
+### 🏁 Workflow: Wrap Up Session (ALWAYS when finishing)
+**Triggers:** "wrap up", "see you later", "that's it for today", task completed
+1. Update Current State + next steps
+2. Check off checkpoint in active lobe
+3. Add session_timeline in JSON
+4. action_queue: in_progress → completed/pending
+5. Compact hot_context if > 5 entries
+6. `!backup`
+7. Update CHANGELOG: record 1 line of structural change
+8. "Session saved. Next resumes at [CHECKPOINT]."
+
+## 📉 Regression Buffer (CHECK IN STEP 0)
+| Error | Failed Attempt | Lesson |
+| :--- | :--- | :--- |
+| ← AI fills this in when finding/solving errors |  |  |
+
+## 🎯 Current State (Checkpoint)
+<!-- UPDATE in Wrap Up Session Workflow -->
+- **Version:** NeoCortex v6.0 Stability-First Roadmap
+- **Active Phase:** PHASE 1.5 COMPLETED ✅ | PHASE 2 – Local Agent Isolation & Mentor Mode (IN PROGRESS 🔄)
+- **Active Lobe:** `NC-TODO-FR-001-project-roadmap-v6-stability.md` (Roadmap v6.0)
+- **Token Budget:** ~[N] tokens (update when starting long session)
+- **Last Checkpoint:** METR-109 — Phase 1.5 (Metrics & Reporting) completed ✅
+- **Phase 1.5 (Metrics & Reporting) Completed:**
+  - [x] **METR-106:** Extend MetricsStore with domain tables (daily_token_usage, cost_summary, agent_activity, pulse_health) ✅
+  - [x] **METR-107:** Integrate MetricsStore with core components (PulseScheduler, AgentExecutor, MCP server) ✅
+  - [x] **METR-108:** Create MCP Report Tool (`neocortex/mcp/tools/report.py`) with 3 actions ✅
+  - [x] **METR-109:** Validation & sanity integration (11/11 tests passing) ✅
+- **Phase 2 (Agent Isolation) In Progress:**
+  - [x] **AGENT-201:** Create isolated agent environments (courier/engineer directories) ✅
+  - [x] **AGENT-201:** Courier STARTER cortex created (`lobes/courier/DIR-CORE-FR-001-core-central/.agents/rules/00-cortex-STARTER.mdc`) ✅
+  - [ ] **AGENT-201:** Create memory ledger templates for courier and engineer
+  - [ ] **AGENT-202:** Enhance sub-server with role configuration
+  - [ ] **AGENT-203:** Implement mentor mode per agent
+  - [ ] **AGENT-204:** Configure tool allow/deny lists
+  - [ ] **AGENT-205:** Test isolation & mentor enforcement
+  - [ ] **GPU/iGPU Optimization:** Configure Qwen 3B for GPU, Qwen 1.5B for iGPU
+- **Next Immediate Steps:**
+  - [ ] Update $ldg (ledger) action_queue with Phase 2 tasks
+  - [ ] Create memory ledger for courier agent
+  - [ ] Enhance sub_server.py with --role parameter and config.yaml reading
+  - [ ] Implement mentor_step_0() function for tool restrictions

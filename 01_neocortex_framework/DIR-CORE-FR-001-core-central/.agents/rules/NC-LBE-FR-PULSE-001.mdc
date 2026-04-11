@@ -1,0 +1,57 @@
+<!-- module: pulse -->
+<!-- status: active -->
+
+# NC-LBE-FR-PULSE-001
+
+Lobe para o módulo pulse do framework NeoCortex.
+
+## Propósito
+Gerenciar conhecimento específico do módulo pulse.
+
+## Status
+Ativo
+
+## Tags
+#pulse, #framework, #neocortex
+
+## Checkpoints
+- CP-PULSE-001: Criação inicial
+
+
+# NC-LBE-FR-PULSE-001
+
+Pulse Scheduler, execução periódica
+
+## Status
+Ativo (povoado automaticamente)
+
+## Tags
+#pulse, #framework, #neocortex, #auto_populated
+
+## Checkpoints
+- CP-PULSE-001: Criação inicial
+- CP-PULSE-002: Povoamento automático
+
+## Análise do Diretório
+- **Total de arquivos**: 1
+
+### Arquivos Principais
+- `neocortex_framework\neocortex\core\pulse_scheduler.py` (226 linhas, 8037 bytes)
+
+### Análise de Código Python
+
+#### `neocortex_framework\neocortex\core\pulse_scheduler.py`
+- **Classes**: 1
+  - PulseScheduler
+- **Funções**: 0
+- **Imports**: 5
+  - threading, datetime, logging, time, typing
+
+## Contexto do Projeto
+- **Nome do projeto**: N/A
+- **Total de arquivos no projeto**: 0
+
+## Notas de Povoamento
+- Povoado automaticamente por OpenCode
+- Data: 2026-04-10 15:57:55
+- Foco da análise: scheduling, periodic_tasks, automation

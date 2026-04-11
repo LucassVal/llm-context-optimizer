@@ -1,0 +1,125 @@
+<!-- module: monitoring -->
+<!-- category: operations -->
+<!-- status: suggested -->
+<!-- suggested_by: opencode -->
+
+# Monitoramento e Logs
+
+Monitoramento, métricas, logs e alertas.
+
+## Propósito
+Gerenciar conhecimento específico do módulo monitoring.
+
+## Status
+Sugerido
+
+## Tags
+#monitoring, #framework, #neocortex
+
+## Checkpoints
+- CP-MONITORING-001: Criação inicial
+
+## Conteúdo Inicial
+*Este lobe está em construção. Adicione aqui:*
+
+### 1. Visão Geral
+- Objetivos principais
+- Escopo do módulo
+- Integrações com outros módulos
+
+### 2. Componentes Principais
+- Lista de componentes/classes
+- Responsabilidades
+- Dependências
+
+### 3. Padrões e Convenções
+- Padrões de código
+- Convenções de nomenclatura
+- Boas práticas
+
+### 4. Exemplos de Uso
+- Exemplos básicos
+- Casos de uso comuns
+- Configurações típicas
+
+### 5. Referências
+- Links para documentação
+- Arquivos relevantes no projeto
+- Exemplos externos
+
+## Notas
+- Criado automaticamente por OpenCode
+- Data: 2026-04-10 15:36:46
+- Revisão necessária para conteúdo específico do projeto
+
+## Monitoramento e Logs
+
+### Métricas
+- Request latency
+- Error rates
+- Memory usage
+- Active sessions
+- Tool usage statistics
+
+### Logging
+- Structured logging (JSON)
+- Log levels: DEBUG, INFO, WARNING, ERROR
+- Log rotation and retention
+- Centralized log aggregation
+
+### Alertas
+- Threshold-based alerts
+- Anomaly detection
+- Notification channels: email, Slack, PagerDuty
+- Escalation policies
+
+### Dashboard
+- Grafana dashboards
+- Real-time metrics
+- Historical trends
+- Custom visualizations
+
+### Tracing
+- Distributed tracing
+- Request correlation
+- Performance profiling
+- Dependency mapping
+
+
+# NC-LBE-FR-MONITORING-001
+
+Monitoramento, logs, métricas
+
+## Status
+Ativo (povoado automaticamente)
+
+## Tags
+#monitoring, #framework, #neocortex, #auto_populated
+
+## Checkpoints
+- CP-MONITORING-001: Criação inicial
+- CP-MONITORING-002: Povoamento automático
+
+## Análise do Diretório
+- **Total de arquivos**: 1
+
+### Arquivos Principais
+- `neocortex_framework\neocortex\core\pulse_scheduler.py` (226 linhas, 8037 bytes)
+
+### Análise de Código Python
+
+#### `neocortex_framework\neocortex\core\pulse_scheduler.py`
+- **Classes**: 1
+  - PulseScheduler
+- **Funções**: 0
+- **Imports**: 5
+  - threading, datetime, logging, time, typing
+
+## Contexto do Projeto
+- **Nome do projeto**: N/A
+- **Total de arquivos no projeto**: 0
+
+## Notas de Povoamento
+- Povoado automaticamente por OpenCode
+- Data: 2026-04-10 15:57:55
+- Foco da análise: monitoring_tools, logs, metrics

@@ -1,0 +1,16 @@
+# Backend Development Lobe Rules
+
+## Development Rules
+1. All code changes require peer review
+2. Unit test coverage must exceed 80%
+3. API endpoints must have OpenAPI documentation
+
+## Database Rules
+1. No raw SQL queries without parameterization
+2. Database migrations must be versioned
+3. Connection pooling required for production
+
+## Performance Rules
+1. API response time < 200ms for 95th percentile
+2. Database query time < 100ms for 95th percentile
+3. Memory usage < 1GB per instance

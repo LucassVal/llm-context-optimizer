@@ -1,0 +1,118 @@
+---
+alwaysApply: true
+description: "Central Cortex – universal rules. NeoCortex v4.2-Cortex."
+---
+
+# 🧠 Cortex: NeoCortex Framework
+<!-- v4.2-Cortex | INSTRUCTIONS file — do not duplicate data from JSON -->
+
+## 🚨 STEP 0 — REGRESSION + GOAL CHECK (NON-NEGOTIABLE)
+> 1. Read Regression Buffer (cortex + active lobe)
+> 2. If similar to an error → ADVISE before proceeding  
+> 3. Reaffirm goal: "[SESSION_GOAL]"
+> 4. Confirm scope: "I will work on [MODULE/FILE] only"
+
+## 🧪 SCRATCHPAD (Isolated Reasoning — ReAct)
+> Use `<thinking>` internally before any complex response.
+> Scratchpad content DOES NOT appear in the final response.
+> Structure: Thought → Plan → Risks → Regression Check
+
+## 📍 Workspace Map
+| File/Dir | Alias | Purpose |
+| :--- | :--- | :--- |
+| `.agents/rules/00-cortex.mdc` | `$ctx` | Central cortex rules |
+| `memory_neocortex_framework.json` | `$ldg` | State ledger (JSON) |
+| `templates/` | `@tpl` | Template files for new projects |
+| `examples/` | `@ex` | Example projects and benchmarks |
+| `archive/` | `@arc` | Archived lobes and summaries |
+| `backup/` | `@bak` | Timestamped backups |
+
+## ⚡ Compact Encoding (MANDATORY — NO EXCEPTIONS)
+> ✅ `$alias` | ❌ `full/path.ext`
+> Automatically create alias if reference repeats > 2×
+
+| $ = file | @ = directory | ! = command | ? = pattern |
+| :--- | :--- | :--- | :--- |
+| `$alias` | `@dir` | `!cmd` | `?pattern` |
+
+## ⚙️ Stack & Commands
+| Alias | Real Command | Description |
+| :--- | :--- | :--- |
+| `!init` | `python -m neocortex.init` | Initialize NeoCortex in a project |
+| `!bench` | `python examples/benchmark_master_suite.py` | Run benchmark suite |
+| `!backup` | `$ts=(Get-Date -Format 'yyyyMMdd_HHmmss'); Copy-Item $ldg backup\$ts.json` | JSON Backup |
+| `!token-check` | `$json = Get-Content $ldg -Raw; Write-Host "Tokens: $([math]::Round($json.Length/4))"` | Monitor Budget limits |
+
+## 📖 Ubiquitous Language (NO SYNONYMS)
+| Term | Definition | ❌ Prohibited |
+| :--- | :--- | :--- |
+| `Cortex` | Central rule set (.mdc file) | `rules`, `instructions`, `config` |
+| `Lobe` | Phase/module-specific context | `module`, `phase`, `context` |
+| `Ledger` | JSON state file | `state`, `memory`, `database` |
+| `STEP 0` | Mandatory regression check | `pre-check`, `validation` |
+| `Compact Encoding` | Symbolic references ($ @ ! ?) | `aliases`, `shortcuts`, `symbols` |
+
+## 🚫 Negative Constraints (What to NEVER do)
+- ❌ Rewrite entire files — minimal diffs only
+- ❌ Modify $ldg without reading it first
+- ❌ Use synonyms from the ubiquitous language
+- ❌ Write full path if there is an alias
+- ❌ Bypass STEP 0 regression check
+
+## 🔒 Atomic Locks (SSOT — Do Not Modify)
+- `$ctx` — Reason: Core rules, never modify directly without version control
+- `$ldg` — Reason: State file, modify only through approved workflows
+- `@tpl/*-TEMPLATE.*` — Reason: Template files, copy and customize instead
+
+## 🗺️ Workflows
+
+### 🔁 Active Lobe (Semantic)
+> Even without an open file: if the subject mentions [LOBE_DOMAIN],
+> apply patterns from the corresponding phase lobe `[FILE].mdc`.
+
+### 🔍 Workflow: Explore-Plan-Act (For complex features)
+1. **STEP 0** ← MANDATORY
+2. **Explore** (read-only): map files, identify deps
+3. **Plan**: `<thinking>` + propose plan in 2-3 points → AWAIT OK
+4. **Act**: execute in minimal diffs
+5. **Observe**: `!lint` + `!test` → validate against goal
+6. **Persist**: update state + `!backup`
+
+**Example (few-shot):**
+> User: "Add validation to /login endpoint"
+> AI: Explore → reads auth.ts + validators/ → Plan: [1. Add Zod schema, 2. Update handler, 3. Add test] → Awaits OK → Act
+
+### 🐛 Workflow: Debug
+1. **STEP 0** ← MANDATORY
+2. Reproduce → Single Hypothesis → Confirm → Apply → Document in Regression Buffer
+
+### 🏁 Workflow: Wrap Up Session (ALWAYS when finishing)
+**Triggers:** "wrap up", "see you later", "that's it for today", task completed
+1. Update Current State + next steps
+2. Check off checkpoint in active lobe
+3. Add session_timeline in JSON
+4. action_queue: in_progress → completed/pending
+5. Compact hot_context if > 5 entries
+6. `!backup`
+7. Update CHANGELOG: record 1 line of structural change
+8. "Session saved. Next resumes at [CHECKPOINT]."
+
+## 📉 Regression Buffer (CHECK IN STEP 0)
+| Error | Failed Attempt | Lesson |
+| :--- | :--- | :--- |
+| ← AI fills this in when finding/solving errors |  |  |
+
+ ## 🎯 Current State (Checkpoint)
+<!-- UPDATE in Wrap Up Session Workflow -->
+- **Version:** NeoCortex v4.2-Cortex
+- **Active Phase:** Framework Integration
+- **Active Lobe:** `.agents/rules/00-cortex.mdc`
+- **Token Budget:** ~[N] tokens (update when starting long session)
+- **Last Checkpoint:** CP-002 — White label structure created ✅
+- **Next Steps:**
+  - [ ] Implement naming convention standard
+  - [ ] Rename existing files to NC- format
+  - [ ] Implement framework in opencode system
+  - [ ] Create MCP server foundation
+  - [ ] Integrate benchmark suite
+  - [ ] Document all components

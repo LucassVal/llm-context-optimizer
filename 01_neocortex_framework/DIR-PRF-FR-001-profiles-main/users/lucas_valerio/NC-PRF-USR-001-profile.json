@@ -1,0 +1,188 @@
+{
+  "$schema": "neocortex-profile-v1.0",
+  "profile_type": "developer",
+  "version": "1.0.0",
+  "identity": {
+    "user_id": "lucas_valerio",
+    "display_name": "Lucas Valerio",
+    "email": "",
+    "avatar_url": "",
+    "created_at": "2026-02-18",
+    "updated_at": "2026-04-05"
+  },
+  "hierarchy": {
+    "level": 5,
+    "parent_id": "org_panda_factory",
+    "children_ids": [],
+    "ancestors": [
+      "root_global",
+      "org_brazil",
+      "org_sao_paulo",
+      "org_panda_factory"
+    ],
+    "descendants_count": 0,
+    "sibling_ids": [],
+    "visibility_rules": {
+      "can_read_upwards": false,
+      "can_read_siblings": true,
+      "can_read_descendants": true,
+      "max_read_depth": -1,
+      "write_permission": [
+        "self",
+        "descendants"
+      ]
+    }
+  },
+  "permissions": {
+    "roles": [
+      "developer",
+      "admin",
+      "founder"
+    ],
+    "scopes": [
+      "project:read",
+      "project:write",
+      "team:manage",
+      "user:invite",
+      "billing:view"
+    ],
+    "constraints": {
+      "max_projects": 50,
+      "max_storage_mb": 1024,
+      "max_api_calls_per_day": 10000
+    }
+  },
+  "personal_patterns": {
+    "productivity": {
+      "peak_hours": [
+        "09:00-12:00",
+        "14:00-18:00"
+      ],
+      "session_duration_avg": "2.5h",
+      "context_switch_tolerance": "medium",
+      "preferred_days": [
+        "segunda",
+        "terca",
+        "quarta",
+        "quinta",
+        "sexta"
+      ]
+    },
+    "tech_preferences": {
+      "frontend": [
+        "React (Vite — 11.pf-app, 47 components)",
+        "Vanilla CSS (pf.css — 5500+ lines, custom design system)",
+        "tldraw (Canvas system — PFCanvas.jsx)",
+        "i18n (3 languages: PT-BR, EN, ES — 100% covered)",
+        "HTML-based CRM UI (Kanban, PDF generation)"
+      ],
+      "backend": [
+        "Google Apps Script (The Orchestrator — 9 .gs files, PF_Dispatcher as router)",
+        "Firebase RTDB (The Memory — project: panda-hook-master)",
+        "Firebase Auth (Google Sign-In — dual mode: real + mock)",
+        "Gemini AI (API key configured, VITE integration)",
+        "Google Sheets (TitanGestão fusion — CRM data source)",
+        "Google Colab (The Lab — ML experiments)"
+      ],
+      "trading": [
+        "cTrader (C# indicators — Titan Fusion)",
+        "Deriv API",
+        "Python Scalping Bots (NovaPulse — auto_profiler.py observed)",
+        "Machine Learning for Pattern Recognition",
+        "cTrader Open API (OAuth configured, access+refresh tokens)"
+      ],
+      "automation": [
+        "Python Web Scraping (Lead generation mapping architects/engineers)",
+        "Automated CRM synchronization via Google Sheets"
+      ],
+      "mastery_levels": {
+        "agentic_orchestration": "Advanced. Transitioning from user to architect of autonomous systems.",
+        "google_core": "Intermediate-Advanced. Has working code for all, pushing to production.",
+        "frontend": "Working knowledge. Builds functional UIs but delegates aesthetics refinement to AI agents."
+      }
+    },
+    "communication": {
+      "preferred_languages": [
+        "pt-BR",
+        "en"
+      ],
+      "message_style": "fragmented",
+      "response_expectation": "fast",
+      "syntax_patterns": [
+        "Uses software metaphors for life (e.g., 'debugging this relationship', 'refactoring my routine').",
+        "Uses RPG/Mythic metaphors for challenges (e.g., 'boss fight', 'grinding XP', 'realm defense').",
+        "References musical structure when explaining timing or patience.",
+        "Sends rapid-fire short messages instead of long paragraphs.",
+        "Mixes Portuguese and English naturally.",
+        "Uses '???' and '!!!' for emphasis.",
+        "Asks multiple questions in the same message, expects all answered."
+      ]
+    },
+    "personal_rules": [
+      "documentation_is_architecture: If it's not in a PF_ doc, it doesn't exist in the system.",
+      "naming_is_design: Every component, sprint, and concept gets a deliberate name. Names carry meaning.",
+      "folder_is_domain: The directory structure IS the DDD map. No config files needed — the tree speaks.",
+      "mock_before_real: Build the full UI with mock data first. Wire real backends only when the UX is validated.",
+      "append_only_decisions: DRs are append-only. No editing past decisions. New data = new DR.",
+      "founder_first: 2-tier model: Founder (full access) + User (MVP demo). No 'admin' layer — that's bureaucracy.",
+      "guerrilla_strategy: Solo founder. No team. AI agents ARE the team. Every tool must multiply, not add.",
+      "agentic_delegation: Stop coding what an agent can code. Focus on the architecture.",
+      "build_for_humans: Systems must be cold and logical so the humans using them can be warm and free."
+    ]
+  },
+  "learning_engine": {
+    "common_mistakes": [],
+    "historical_patterns": {
+      "project_completion_rate": "85%",
+      "bug_resolution_time_avg": "1.2h",
+      "feature_development_speed": "3.5 dias",
+      "preferred_project_size": "medium"
+    },
+    "prediction_model": {
+      "next_best_action_accuracy": "0%",
+      "stack_suggestion_accuracy": "0%",
+      "time_estimation_accuracy": "0%",
+      "last_training_date": "2026-04-10T11:10:55.100217Z"
+    }
+  },
+  "current_context": {
+    "active_projects": [
+      "neocortex_framework",
+      "panda_factory"
+    ],
+    "current_focus": "mcp_hub_development",
+    "available_hours_weekly": 40,
+    "location": {
+      "city": "Americana",
+      "state": "Sao Paulo",
+      "country": "Brasil",
+      "timezone": "America/Sao_Paulo"
+    },
+    "device_preferences": [
+      "desktop",
+      "dual_monitor"
+    ]
+  },
+  "integrations": {
+    "mcp_servers": [
+      "antigravity",
+      "vscode"
+    ],
+    "external_tools": [
+      "github",
+      "discord"
+    ],
+    "api_keys": {
+      "firebase": "configured",
+      "gemini": "configured",
+      "stripe": "configured"
+    }
+  },
+  "metadata": {
+    "source": "lucas.json_v6.2.0_converted",
+    "conversion_date": "2026-04-10T11:10:55.100217Z",
+    "privacy_level": "private",
+    "sync_status": "local",
+    "backup_frequency": "daily"
+  }
+}

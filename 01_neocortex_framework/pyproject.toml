@@ -1,0 +1,104 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "neocortex-framework"
+version = "4.2.0"
+description = "NeoCortex Framework - A structured, extensible framework for AI-assisted development with MCP protocol integration"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Lucas Valério", email = "lucas@example.com"},
+]
+maintainers = [
+    {name = "NeoCortex Team", email = "team@neocortex.dev"},
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+keywords = ["mcp", "ai", "framework", "development", "tools", "neocortex"]
+dependencies = [
+    "mcp>=0.1.0",
+]
+requires-python = ">=3.8"
+
+[project.optional-dependencies]
+dev = [
+    "black>=24.0.0",
+    "ruff>=0.4.0",
+    "pytest>=8.0.0",
+    "pytest-cov>=4.0.0",
+]
+validation = [
+    "jsonschema>=4.0.0",
+]
+full = [
+    "mcp>=0.1.0",
+    "jsonschema>=4.0.0",
+    "watchdog>=3.0.0",
+    "pydantic>=2.0.0",
+]
+infra = [
+    "msgspec>=0.18.0",
+    "diskcache>=5.6.0",
+    "sqlite-utils>=3.35.0",
+    "xapian-bindings>=1.4.0; sys_platform != 'win32'",
+    "speedb>=0.1.0; platform_machine == 'x86_64' or platform_machine == 'aarch64'",
+    "diskcache-rs>=0.4.0",
+    "duckdb>=1.0.0",
+    "redis>=4.0.0; extra == 'redis'",
+    "lancedb>=0.30.0; extra == 'vectors'",
+    "tantivy>=0.25.0; extra == 'search'",
+]
+llm = [
+    "openai>=1.0.0",
+    "ollama>=0.1.0",
+    "httpx>=0.26.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/neocortex-framework/neocortex"
+Documentation = "https://neocortex-framework.github.io/neocortex"
+Repository = "https://github.com/neocortex-framework/neocortex.git"
+Issues = "https://github.com/neocortex-framework/neocortex/issues"
+
+[project.scripts]
+neocortex = "neocortex.cli.main:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["neocortex*"]
+exclude = ["tests*", "examples*", "white_label*"]
+
+[tool.setuptools.package-data]
+"neocortex.schemas" = ["*.json"]
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+
+[tool.ruff]
+line-length = 88
+target-version = "py38"
+select = ["E", "F", "I", "B", "C4", "W"]
+ignore = ["E501", "B008"]
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F401"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "--verbose --cov=neocortex --cov-report=term-missing"

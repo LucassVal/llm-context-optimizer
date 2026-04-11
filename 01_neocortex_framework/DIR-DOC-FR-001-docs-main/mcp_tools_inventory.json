@@ -1,0 +1,340 @@
+{
+  "timestamp": "2026-04-10T18:00:00Z",
+  "total_tools": 17,
+  "tools": [
+    {
+      "name": "neocortex_agent",
+      "description": "Orquestracao de agentes efemeros.\n\nActions:\n- spawn: Cria um novo agente efemero\n- heartbeat: Verifica status do agente\n- consume: Consome resultados do agente\n- list_ephemeral: Lista agentes efemeros ativos",
+      "actions": [],
+      "function_name": "tool_agent",
+      "parameters": [
+        "action",
+        "agent_id",
+        "role"
+      ],
+      "action_patterns": [
+        "spawn",
+        "list_ephemeral",
+        "heartbeat",
+        "consume"
+      ],
+      "file": "agent.py"
+    },
+    {
+      "name": "neocortex_akl",
+      "description": "Adaptive Knowledge Lifecycle  gerencia relevancia do conhecimento.\n\nActions:\n- assess_importance: Avalia importancia de regras com base no uso\n- decay_knowledge: Aplica decaimento a regras nao utilizadas\n- suggest_cleanup: Lista regras candidatas a arquivamento",
+      "actions": [],
+      "function_name": "tool_akl",
+      "parameters": [
+        "action",
+        "target",
+        "metadata"
+      ],
+      "action_patterns": [
+        "assess_importance",
+        "decay_knowledge",
+        "suggest_cleanup"
+      ],
+      "file": "akl.py"
+    },
+    {
+      "name": "neocortex_benchmark",
+      "description": "Execucao de benchmarks.\n\nActions:\n- run_drift: Executa benchmark Drift Exhaustion\n- run_titanomachy: Executa benchmark Titanomachy\n- get_last_report: Retorna o ultimo relatorio de benchmark",
+      "actions": [],
+      "function_name": "tool_benchmark",
+      "parameters": [
+        "action",
+        "benchmark_type"
+      ],
+      "action_patterns": [
+        "run_drift",
+        "run_titanomachy",
+        "get_last_report"
+      ],
+      "file": "benchmark.py"
+    },
+    {
+      "name": "neocortex_checkpoint",
+      "description": "Checkpoint control.\n\nActions:\n- get_current: Get current checkpoint\n- set_current: Set new current checkpoint\n- complete_task: Mark a task as complete\n- list_history: List checkpoint history\n- list_index: List global checkpoint index",
+      "actions": [],
+      "function_name": "tool_checkpoint",
+      "parameters": [
+        "action",
+        "checkpoint_id",
+        "description"
+      ],
+      "action_patterns": [
+        "get_current",
+        "set_current",
+        "complete_task",
+        "list_history",
+        "list_index"
+      ],
+      "file": "checkpoint.py"
+    },
+    {
+      "name": "neocortex_config",
+      "description": "System configuration.\n\nActions:\n- get_config: Get current configuration\n- set_model: Set LLM model to use\n- list_models: List available models\n- set_constraint: Set system constraint (key=constraint, value=new_value)\n- list_constraints: List system constraints",
+      "actions": [],
+      "function_name": "tool_config",
+      "parameters": [
+        "action",
+        "key",
+        "value"
+      ],
+      "action_patterns": [
+        "get_config",
+        "set_model",
+        "list_models",
+        "set_constraint",
+        "list_constraints"
+      ],
+      "file": "config.py"
+    },
+    {
+      "name": "neocortex_consolidation",
+      "description": "Consolidacao Semantica  transforma experiencia efemera em regras permanentes.\n\nActions:\n- summarize_session: Resume uma sessao em regras concisas\n- merge_learnings: Combina aprendizados de multiplos agentes\n- promote_to_rule: Promove entrada do Regression Buffer a regra permanente",
+      "actions": [],
+      "function_name": "tool_consolidation",
+      "parameters": [
+        "action",
+        "session_id",
+        "summary",
+        "target",
+        "metadata"
+      ],
+      "action_patterns": [
+        "summarize_session",
+        "merge_learnings",
+        "promote_to_rule"
+      ],
+      "file": "consolidation.py"
+    },
+    {
+      "name": "neocortex_cortex",
+      "description": "Access to central cortex",
+      "actions": [
+        {
+          "name": "get_full",
+          "description": "Return full cortex content with metadata"
+        },
+        {
+          "name": "get_section",
+          "description": "Return a specific section"
+        },
+        {
+          "name": "get_aliases",
+          "description": "Return all defined aliases"
+        },
+        {
+          "name": "get_workflows",
+          "description": "Return defined workflows"
+        },
+        {
+          "name": "validate_alias",
+          "description": "Validate if an alias is correct"
+        }
+      ],
+      "function_name": "tool_cortex",
+      "parameters": [
+        "action",
+        "section"
+      ],
+      "action_patterns": [
+        "get_full",
+        "get_section",
+        "get_aliases",
+        "get_workflows",
+        "validate_alias"
+      ],
+      "file": "cortex.py"
+    },
+    {
+      "name": "neocortex_export",
+      "description": "Data export.\n\nActions:\n- to_markdown: Export state to markdown\n- to_json: Export state to JSON\n- to_graph: Export to graph format\n- export_lobes: Export lobes to markdown",
+      "actions": [],
+      "function_name": "tool_export",
+      "parameters": [
+        "action",
+        "format"
+      ],
+      "action_patterns": [
+        "to_markdown",
+        "to_json",
+        "to_graph",
+        "export_lobes"
+      ],
+      "file": "export.py"
+    },
+    {
+      "name": "neocortex_init",
+      "description": "Project initialization.\n\nActions:\n- scan_project: Analyze current project structure\n- generate_cortex: Generate initial cortex\n- generate_lobe: Generate initial lobe for a module",
+      "actions": [],
+      "function_name": "tool_init",
+      "parameters": [
+        "action",
+        "project_name",
+        "lobe_type"
+      ],
+      "action_patterns": [
+        "scan_project",
+        "generate_cortex",
+        "generate_lobe"
+      ],
+      "file": "init.py"
+    },
+    {
+      "name": "neocortex_kg",
+      "description": "Mini Knowledge Graph  grafo semantico local (evolucao do Compact Encoding).\n\nActions:\n- add_entity: Adiciona uma entidade ao Mini-KG\n- add_relation: Adiciona uma relacao entre entidades\n- query_relations: Retorna todas as relacoes de uma entidade\n- find_similar: Encontra entidades/lobos com caracteristicas semelhantes\n- visualize: Exporta o grafo em formato DOT ou estrutura simplificada",
+      "actions": [],
+      "function_name": "tool_kg",
+      "parameters": [
+        "action",
+        "entity",
+        "relation",
+        "target",
+        "metadata"
+      ],
+      "action_patterns": [
+        "add_entity",
+        "add_relation",
+        "query_relations",
+        "find_similar",
+        "visualize"
+      ],
+      "file": "kg.py"
+    },
+    {
+      "name": "neocortex_ledger",
+      "description": "Access to JSON ledger.\n\nActions:\n- get_metrics: Returns session metrics\n- get_atomic_locks: Returns atomic locks\n- get_dependency_graph: Returns dependency graph\n- prune_context: Execute context pruning",
+      "actions": [],
+      "function_name": "tool_ledger",
+      "parameters": [
+        "action",
+        "metric"
+      ],
+      "action_patterns": [
+        "get_metrics",
+        "get_atomic_locks",
+        "get_dependency_graph",
+        "prune_context"
+      ],
+      "file": "ledger.py"
+    },
+    {
+      "name": "neocortex_lobes",
+      "description": "Lobe management.\n\nActions:\n- list_active: List all available lobes with active status\n- get_content: Get content of a specific lobe\n- get_checkpoint_tree: Extract checkpoint tree from a lobe\n- activate: Activate a lobe\n- deactivate: Deactivate a lobe\n- list_all: List all lobes with metadata\n- search: Search for text across lobes",
+      "actions": [],
+      "function_name": "tool_lobes",
+      "parameters": [
+        "action",
+        "lobe_name"
+      ],
+      "action_patterns": [
+        "list_active",
+        "list_all",
+        "get_content",
+        "get_checkpoint_tree",
+        "activate",
+        "deactivate",
+        "search"
+      ],
+      "file": "lobes.py"
+    },
+    {
+      "name": "neocortex_manifest",
+      "description": "Manifest management (lightweight indices for lobes/cortex).\n\nActions:\n- generate: Generate manifest for a lobe or cortex\n- update: Update metadata of an existing manifest\n- query: Query manifests by tags, domain or entities\n- get: Get specific manifest\n- list: List all manifests\n- delete: Delete a manifest\n- generate_all: Generate manifests for all lobes and cortex",
+      "actions": [],
+      "function_name": "tool_manifest",
+      "parameters": [
+        "action",
+        "target",
+        "metadata"
+      ],
+      "action_patterns": [
+        "generate",
+        "update",
+        "query",
+        "get",
+        "list",
+        "delete",
+        "generate_all"
+      ],
+      "file": "manifest.py"
+    },
+    {
+      "name": "neocortex_peers",
+      "description": "Gerenciamento de peers  coordenacao entre multiplas instancias NeoCortex.\n\nActions:\n- discover: Descobrir peers disponiveis\n- sync_state: Sincronizar estado entre peers\n- resolve_conflict: Resolver conflitos de estado",
+      "actions": [],
+      "function_name": "tool_peers",
+      "parameters": [
+        "action",
+        "peer_id",
+        "state_data"
+      ],
+      "action_patterns": [
+        "discover",
+        "sync_state",
+        "resolve_conflict"
+      ],
+      "file": "peers.py"
+    },
+    {
+      "name": "neocortex_pulse",
+      "description": "Controle do Pulso Cognitivo.\n\nActions:\n- status: Retorna o status atual do pulso\n- force: Força a execução de uma tarefa (pruning, consolidation, akl, backup, checkpoint)\n- start: Inicia o agendador\n- stop: Para o agendador",
+      "actions": [],
+      "function_name": "tool_pulse",
+      "parameters": [
+        "action",
+        "task_name"
+      ],
+      "action_patterns": [
+        "status",
+        "force",
+        "start",
+        "stop"
+      ],
+      "file": "pulse.py"
+    },
+    {
+      "name": "neocortex_regression",
+      "description": "STEP 0 and regression buffer.\n\nActions:\n- check: Check for similar regression errors\n- add_entry: Add new entry to regression buffer\n- list_all: List all entries in buffer\n- clear: Clear regression buffer (requires confirm=True)\n- stats: Get buffer statistics",
+      "actions": [],
+      "function_name": "tool_regression",
+      "parameters": [
+        "action",
+        "error",
+        "attempt",
+        "lesson"
+      ],
+      "action_patterns": [
+        "check",
+        "add_entry",
+        "list_all",
+        "clear",
+        "stats"
+      ],
+      "file": "regression.py"
+    },
+    {
+      "name": "neocortex_security",
+      "description": "Seguranca e controle de acesso  validacao, auditoria e criptografia.\n\nActions:\n- validate_access: Validar acesso a recursos\n- audit_changes: Auditoria de alteracoes\n- encrypt_sensitive: Criptografar dados sensiveis\n\nParameters for validate_access:\n- current_user_id: ID do usuario atual (se vazio, usa do ledger)\n- target_user_id: ID do usuario alvo (se vazio, usa resource como alvo)\n- access_type: 'read' ou 'write' (padrao: read)\n- resource: Recurso a ser acessado (alternativo a target_user_id)",
+      "actions": [],
+      "function_name": "tool_security",
+      "parameters": [
+        "action",
+        "resource",
+        "audit_data",
+        "current_user_id",
+        "target_user_id",
+        "access_type"
+      ],
+      "action_patterns": [
+        "validate_access",
+        "audit_changes",
+        "encrypt_sensitive"
+      ],
+      "file": "security.py"
+    }
+  ]
+}

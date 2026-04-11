@@ -1,0 +1,212 @@
+<!-- module: legacy -->
+<!-- category: operations -->
+<!-- status: active -->
+<!-- purpose: legacy_management -->
+<!-- created_by: opencode_sanitization -->
+
+# NC-LBE-FR-LEGACY-001
+
+Gestão de arquivos e diretórios legados no projeto TURBOQUANT_V42.
+
+## Propósito
+Documentar e gerenciar arquivos legados, utilitários de desenvolvimento, 
+e estruturas antigas que não fazem parte do framework NeoCortex consolidado.
+
+## Status
+Ativo (arquivamento)
+
+## Tags
+#legacy, #archive, #cleanup, #framework
+
+## Checkpoints
+- CP-LEGACY-001: Criação inicial do Lobo LEGACY
+- CP-LEGACY-002: Inventário de arquivos legados
+- CP-LEGACY-003: Movimentação para archive
+- CP-LEGACY-004: Limpeza da raiz
+
+## Inventário de Arquivos Legados
+
+### Arquivos na Raiz (pré-saneamento)
+| Arquivo | Descrição | Status | Ação Recomendada |
+|---------|-----------|--------|------------------|
+| clean_security.py | Limpeza do módulo security.py | Obsoleto | Mover para archive |
+| extract_all_tools.py | Extração de ferramentas MCP | Obsoleto | Mover para archive |
+| extract_tools_final.py | Extração final de ferramentas | Obsoleto | Mover para archive |
+| extract_tools_robust.py | Extração robusta de ferramentas | Obsoleto | Mover para archive |
+| fix_indentation.py | Correção de indentação | Obsoleto | Mover para archive |
+| update_phase3_progress.py | Atualização de progresso | Obsoleto | Mover para archive |
+| update_ledger_status.py | Atualização de status do ledger | Obsoleto | Mover para archive |
+| verify_mcp.py | Verificação de MCP | Obsoleto | Mover para archive |
+| update_antigravity_confirmation.py | Confirmação Antigravity | Obsoleto | Mover para archive |
+| add_root_sanitize_event.py | Evento de saneamento | Obsoleto | Mover para archive |
+
+### Diretórios na Raiz (pré-saneamento)
+| Diretório | Descrição | Status | Ação Recomendada |
+|-----------|-----------|--------|------------------|
+| .agents/ | Regras e workflows antigos | Legado | Manter (pode conter histórico) |
+| backup_root/ | Backups antigos do projeto | Legado | Mover para archive do framework |
+| white_label/ | Template de white label | Ativo | Manter como template |
+| examples/ | Exemplos diversos | Ativo | Manter |
+| .ruff_cache/ | Cache do ruff | Temporário | Excluir (pode ser recriado) |
+
+### Arquivos em backup_root/
+| Arquivo | Descrição | Ação |
+|---------|-----------|------|
+| CHEATSHEET.md | Cheatsheet do projeto | Mover para docs |
+| Sem título.txt | Arquivo temporário | Excluir |
+| install.ps1 / install.sh | Scripts de instalação | Mover para archive |
+| Vários scripts .py | Utilitários de desenvolvimento | Mover para archive |
+
+## Plano de Saneamento
+
+### Fase 1: Documentação
+- [x] Criar Lobo LEGACY
+- [x] Inventariar arquivos e diretórios
+- [x] Definir ações para cada item
+
+### Fase 2: Movimentação
+- [ ] Mover arquivos .py utilitários para DIR-ARC-FR-001-archive-main
+- [ ] Mover conteúdo de backup_root para DIR-BAK-FR-001-backup-main
+- [ ] Organizar white_label dentro da estrutura do framework
+- [ ] Preservar .agents/ como histórico
+
+### Fase 3: Limpeza
+- [ ] Remover arquivos .py da raiz
+- [ ] Remover backup_root/ vazio
+- [ ] Limpar .ruff_cache/
+- [ ] Verificar integridade após movimentação
+
+### Fase 4: Validação
+- [ ] Verificar se framework ainda funciona
+- [ ] Atualizar referências se necessário
+- [ ] Criar checkpoint final
+
+## Notas Importantes
+
+1. **Preservação de Histórico**: Arquivos legados são movidos, não excluídos
+2. **Estrutura do Framework**: Usar diretórios existentes do NeoCortex:
+   - DIR-ARC-FR-001-archive-main: Para arquivos utilitários obsoletos
+   - DIR-BAK-FR-001-backup-main: Para backups antigos
+   - DIR-DOC-FR-001-docs-main: Para documentação legada
+3. **White Label**: O diretório white_label/ na raiz será mantido como template
+4. **Exemplos**: O diretório examples/ será mantido para referência
+
+## Log de Execução
+- **Data do saneamento**: 2026-04-10 15:50:23
+- **Executado por**: OpenCode (assistente)
+- **Framework NeoCortex**: v4.2-cortex
+- **Estado inicial**: 7 arquivos .py na raiz
+
+## Referências
+- NC-CTX-FR-001-cortex-central.mdc: Cortex central do framework
+- NC-LBE-FR-ARCHITECTURE-001.mdc: Arquitetura do framework
+- NC-LBE-FR-DEVELOPMENT-001.mdc: Guias de desenvolvimento
+
+---
+*Este Lobo será atualizado durante o processo de saneamento.*
+
+
+## Resultados do Saneamento
+
+### Arquivos Movidos (10)
+| Arquivo | Destino | Tamanho | Descrição |
+|---------|---------|---------|-----------|
+| clean_security.py | `neocortex_framework\DIR-ARC-FR-001-archive-main\development_utilities\clean_security.py` | 1190 bytes | Security cleaning utility |
+| extract_all_tools.py | `neocortex_framework\DIR-ARC-FR-001-archive-main\development_utilities\extract_all_tools.py` | 4227 bytes | MCP tools extraction |
+| extract_tools_final.py | `neocortex_framework\DIR-ARC-FR-001-archive-main\development_utilities\extract_tools_final.py` | 2927 bytes | Final tools extraction |
+| extract_tools_robust.py | `neocortex_framework\DIR-ARC-FR-001-archive-main\development_utilities\extract_tools_robust.py` | 2506 bytes | Robust tools extraction |
+| fix_indentation.py | `neocortex_framework\DIR-ARC-FR-001-archive-main\development_utilities\fix_indentation.py` | 4505 bytes | Indentation fix utility |
+| update_phase3_progress.py | `neocortex_framework\DIR-ARC-FR-001-archive-main\scripts\update_phase3_progress.py` | 5597 bytes | Phase 3 progress update |
+| backup_root\add_root_sanitize_event.py | `neocortex_framework\DIR-ARC-FR-001-archive-main\scripts\add_root_sanitize_event.py` | 1274 bytes | Backup utility script |
+| backup_root\update_antigravity_confirmation.py | `neocortex_framework\DIR-ARC-FR-001-archive-main\scripts\update_antigravity_confirmation.py` | 3388 bytes | Backup utility script |
+| backup_root\update_ledger_status.py | `neocortex_framework\DIR-ARC-FR-001-archive-main\scripts\update_ledger_status.py` | 2255 bytes | Backup utility script |
+| backup_root\verify_mcp.py | `neocortex_framework\DIR-ARC-FR-001-archive-main\scripts\verify_mcp.py` | 7406 bytes | Backup utility script |
+
+
+### Estado Pós-Saneamento
+- **Data conclusão**: 2026-04-10 15:50:23
+- **Arquivos movidos**: 10
+- **Falhas**: 0
+- **Próximas ações**: Remoção segura dos arquivos da raiz após validação
+
+### Checkpoints Concluídos
+- [x] CP-LEGACY-001: Criação inicial do Lobo LEGACY
+- [x] CP-LEGACY-002: Inventário de arquivos legados
+- [x] CP-LEGACY-003: Movimentação para archive
+- [ ] CP-LEGACY-004: Limpeza da raiz (pendente validação)
+
+
+# NC-LBE-FR-LEGACY-001
+
+Arquivos legados, archive
+
+## Status
+Ativo (povoado automaticamente)
+
+## Tags
+#legacy, #framework, #neocortex, #auto_populated
+
+## Checkpoints
+- CP-LEGACY-001: Criação inicial
+- CP-LEGACY-002: Povoamento automático
+
+## Análise do Diretório
+- **Total de arquivos**: 17
+
+### Arquivos Principais
+- `neocortex_framework\DIR-ARC-FR-001-archive-main\development_utilities\clean_security.py` (46 linhas, 1190 bytes)
+- `neocortex_framework\DIR-ARC-FR-001-archive-main\development_utilities\extract_all_tools.py` (136 linhas, 4227 bytes)
+- `neocortex_framework\DIR-ARC-FR-001-archive-main\development_utilities\extract_tools_final.py` (104 linhas, 2927 bytes)
+- `neocortex_framework\DIR-ARC-FR-001-archive-main\development_utilities\extract_tools_robust.py` (91 linhas, 2506 bytes)
+- `neocortex_framework\DIR-ARC-FR-001-archive-main\development_utilities\fix_indentation.py` (127 linhas, 4505 bytes)
+- `neocortex_framework\DIR-ARC-FR-001-archive-main\mcp_server_legacy\NC-MCP-FR-001-mcp-server.py` (1870 linhas, 64445 bytes)
+- `neocortex_framework\DIR-ARC-FR-001-archive-main\scripts\add_root_sanitize_event.py` (37 linhas, 1274 bytes)
+- `neocortex_framework\DIR-ARC-FR-001-archive-main\scripts\update_antigravity_confirmation.py` (86 linhas, 3388 bytes)
+- `neocortex_framework\DIR-ARC-FR-001-archive-main\scripts\update_ledger_status.py` (64 linhas, 2255 bytes)
+- `neocortex_framework\DIR-ARC-FR-001-archive-main\scripts\update_phase3_progress.py` (160 linhas, 5597 bytes)
+
+### Análise de Código Python
+
+#### `neocortex_framework\DIR-ARC-FR-001-archive-main\development_utilities\clean_security.py`
+- **Classes**: 0
+- **Funções**: 1
+  - main
+- **Imports**: 1
+  - pathlib
+
+#### `neocortex_framework\DIR-ARC-FR-001-archive-main\development_utilities\extract_all_tools.py`
+- **Classes**: 0
+- **Funções**: 4
+  - extract_tools, generate_tool_module, register_tool, main
+- **Imports**: 3
+  - pathlib, typing, re
+
+#### `neocortex_framework\DIR-ARC-FR-001-archive-main\development_utilities\extract_tools_final.py`
+- **Classes**: 0
+- **Funções**: 5
+  - extract_tools_robust, process_tool_block, generate_tool_module, register_tool, main
+- **Imports**: 3
+  - pathlib, typing, re
+
+#### `neocortex_framework\DIR-ARC-FR-001-archive-main\development_utilities\extract_tools_robust.py`
+- **Classes**: 0
+- **Funções**: 4
+  - extract_tools_robust, generate_tool_module, register_tool, main
+- **Imports**: 3
+  - pathlib, typing, re
+
+#### `neocortex_framework\DIR-ARC-FR-001-archive-main\development_utilities\fix_indentation.py`
+- **Classes**: 0
+- **Funções**: 2
+  - fix_file, main
+- **Imports**: 2
+  - pathlib, re
+
+## Contexto do Projeto
+- **Nome do projeto**: N/A
+- **Total de arquivos no projeto**: 0
+
+## Notas de Povoamento
+- Povoado automaticamente por OpenCode
+- Data: 2026-04-10 15:57:55
+- Foco da análise: legacy_files, archive_structure, migration_info

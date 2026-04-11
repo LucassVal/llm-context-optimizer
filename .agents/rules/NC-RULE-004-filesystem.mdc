@@ -1,0 +1,69 @@
+---
+description: "NC-RULE-004 | Filesystem & Governance — Auto-attach em DIR-* e docs-main/**"
+globs: ["**/DIR-*/**", "**/DIR-DOC-FR-001-docs-main/**", "**/DIR-CFG-FR-001-config-main/**", "**/scripts/**"]
+alwaysApply: false
+---
+
+<!-- NC-READ-HASH: RULE004-FS-v2 -->
+<!-- DEDUP: Se RULE004-FS-v2 já está no contexto desta sessão, SALTE. -->
+
+# NeoCortex — Filesystem & Governance Rules
+
+> Ativo para: pastas DIR-* e scripts/ | Complementa: NC-RULE-001-core-ssot.mdc
+
+## Zonas de Escrita Autorizadas
+
+| Zona | Caminho | Quem Escreve |
+| `ZONE:PROD` | `01_neocortex_framework/neocortex/` | T0 + agentes autorizados |
+| `ZONE:DOCS` | `01_neocortex_framework/DIR-DOC-FR-001-docs-main/` | T0 apenas |
+| `ZONE:TEST` | `05_examples/` + `DIR-TEST-FR-001/` | T2 (Courier), T3 (Engineer) |
+| `ZONE:LOBES` | `02_memory_lobes/` | Script @POPULATE apenas |
+| `ZONE:ARCH` | `DIR-ARC-FR-001-archive-main/` | Qualquer (somente movimentos) |
+| `ZONE:BOOT` | `DIR-BOOT-FR-001-bootup-main/` | T0 apenas |
+
+## R06 — Restrição de Zona (🔴 CRÍTICO)
+NUNCA escreva código de produção fora de `ZONE:PROD` sem autorização.
+Testes → `ZONE:TEST`. Documentação → `ZONE:DOCS`.
+
+## R07 — Hierarquia Numérica (🟡 ALTO)
+```
+TURBOQUANT_V42/
+├── 01_neocortex_framework/   ← ZONA PROD
+├── 02_memory_lobes/          ← ZONA LOBES
+├── 03_white_label_templates/ ← ZONA WL
+├── 04_user_docs/             ← Leitura apenas
+├── 05_examples/              ← ZONA TEST
+├── DIR-BOOT-FR-001-bootup-main/  ← ZONA BOOT
+└── .agents/                  ← Rules e Workflows
+```
+Pastas devem ter prefixo 2 dígitos `01_`…`99_` OU padrão `DIR-TIPO-SIGLA-NUM`.
+
+## R08 — Gitignore (🟡 MÉDIO)
+NUNCA commite: `*.db`, `*.wal`, `*.log`, `__pycache__/`, `.venv/`, `.neocortex/metrics/`, `lobes/*/`
+Fonte de verdade: `.gitignore` na raiz do projeto.
+
+## R18 — Validação antes de Escrever (🟡 ALTO)
+```python
+# Antes de qualquer write em arquivo existente:
+# 1. Checar @LOCKS
+locks = yaml.safe_load(open("NC-SEC-FR-001-atomic-locks.yaml"))
+if any(fnmatch(target, p) for p in locks["atomic_locks"]...):
+    raise PermissionError("Arquivo bloqueado")
+# 2. Criar checkpoint se disponível
+# 3. Confirmar que arquivo não está em uso pelo MCP host
+```
+
+## R19 — Uma Tarefa por Sessão (🟡 ALTO)
+Foco em UM ÚNICO TICKET de `@ROADMAP` por sessão.
+Simbologia: `%AGENT203`, `%ORCH301`, `%ORCH302`, `%SEC401`, `%SEC403`
+Interrupção → `neocortex_checkpoint.create(label="parcial-<data>")` antes de sair.
+
+## Checklist de Criação de Arquivo (Obrigatório)
+```
+[ ] 1. Nome segue NC-<TIPO>-<SIGLA>-<NUM>-<desc>.ext?
+[ ] 2. Zona de escrita correta (ZONE:PROD, ZONE:DOCS, etc)?
+[ ] 3. Arquivo está em @LOCKS? (se sim, PARAR)
+[ ] 4. Entry criada na tabela SSOT de @SSOT?
+[ ] 5. Changelog @SSOT atualizado com [YYYY-MM-DD]?
+[ ] 6. Ticket em @ROADMAP referenciado?
+```

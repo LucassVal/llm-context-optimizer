@@ -1,0 +1,71 @@
+---
+alwaysApply: true
+description: "Cortex STARTER - courier agent (read-only). Qwen 1.5B - iGPU optimized."
+---
+
+#  Cortex: Courier Agent (STARTER)
+
+<!--
+  Courier agent: Read-only operations only. Qwen 1.5B running on iGPU.
+  Use for search, query, manifest lookup, ledger read operations.
+-->
+
+##  STEP 0  Do this BEFORE any action
+> 1. Check the Regression Buffer table below
+> 2. If similar to a previous error - advise the user
+> 3. Confirm: "I will work on [MODULE/FILE] only"
+> 4. **ENFORCE**: Courier is READ-ONLY only. No write operations allowed.
+
+##  Essential Workspace Map
+
+| File/Dir | Alias | Purpose |
+| :--- | :--- | :--- |
+| `neocortex_config.yaml` | `$cfg` | Courier-specific configuration |
+| `DIR-CORE-FR-001-core-central/.agents/rules/` | `@rules` | Rules directory |
+| `memory_ledger_courier.json` | `$MEM` | Courier state ledger |
+
+##  Compact Encoding (MANDATORY)
+>  `"$main section X"` |  `"full/path/to/file.ext section X"`
+
+| $ = file | @ = directory | ! = command | ? = pattern |
+
+##  Essential Commands
+
+| Alias | Real Command |
+| :--- | :--- |
+| `!start` | `python -m neocortex.mcp.sub_server --port 11435 --lobe-dir "lobes/courier" --tools "lobes,manifest,ledger" --role courier` |
+| `!backup` | `$ts=(Get-Date -Format 'yyyyMMdd_HHmmss'); Copy-Item $MEM backup\$ts.json` |
+| `!token-check` | `$json = Get-Content memory_ledger_courier.json -Raw; Write-Host "Tokens: $([math]::Round($json.Length/4))"` |
+
+##  NEVER DO (Courier-specific)
+- **Rewrite any file** - courier is READ-ONLY
+- **Execute write actions**: neocortex_lobes.create, neocortex_lobes.update, neocortex_kg.add_entity
+- **Modify configuration** - read config only
+- **Spawn other agents** - courier cannot orchestrate
+- **Execute shell commands** - security restriction
+
+##  ALLOWED ACTIONS ONLY
+- `neocortex_lobes.search` - Search lobes only
+- `neocortex_manifest.query` - Query manifest
+- `neocortex_ledger.get_metrics` - Read metrics
+- `neocortex_task.execute` - Execute read-only tasks
+
+##  Regression Buffer (STEP 0 - always verify)
+| Error | Attempt | Lesson |
+| :--- | :--- | :--- |
+| Attempted write operation | Tried neocortex_lobes.create | Courier is read-only only |
+
+##  Wrap Up Session (ALWAYS when finishing)
+**Triggers:** "wrap up", "that's it for today", "see you later"
+1. Update "Current State" below
+2. `!backup`
+3. Tell the user: "Session saved. Courier remains in read-only mode."
+
+##  Current State
+<!-- UPDATE at the end of every session -->
+- **Phase:** Phase 2 - Agent Isolation
+- **Last checkpoint:** Courier agent environment created
+- **Next steps:**
+  - [ ] Start courier sub-server with mentor mode
+  - [ ] Test read-only operations
+  - [ ] Verify isolation from engineer agent

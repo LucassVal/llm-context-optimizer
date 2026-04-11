@@ -1,0 +1,761 @@
+# NC-LBE-FR-PROFILES-001
+
+> Lobo SSOT auto-gerado pelo script populate_lobes_from_ssot. Não edite manualmente.
+
+<!-- source: NC-PRF-FR-001-developer-schema.md -->
+<!-- tags: ssot, profile, developer, schema -->
+<!-- auto-generated: true -->
+
+#  NC-PRF-FR-001 - Developer Profile Schema (Hierarchical)
+
+> **Schema para perfis de desenvolvedor com suporte a hierarquias ilimitadas, controle de acesso e multi-tenancy.**
+
+---
+
+##  Visao Geral
+
+O **NeoCortex Developer Profile** estende a estrutura pessoal (baseada no `Lucas.json`) para suportar:
+- **Hierarquias ilimitadas** (usuarios, hosts, organizacoes)
+- **Controle de acesso baseado em nivel** (ler iguais/laterais/inferiores, nao superiores)
+- **Multi-tenancy** (empresas, lan houses, escolas, governos)
+- **Escalabilidade horizontal** (sem limites de usuarios)
+
+---
+
+##  Estrutura do Schema
+
+### **Arquivo:** `NC-PRF-USR-{user_id}-profile.json`
+
+```json
+{
+  "$schema": "neocortex-profile-v1.0",
+  "profile_type": "developer",
+  "version": "1.0.0",
+  
+  // ==================== IDENTIFICACAO ====================
+  "identity": {
+    "user_id": "lucas_valerio",                    // ID unico (email/uuid)
+    "display_name": "Lucas Valerio",
+    "email": "lucas@example.com",
+    "avatar_url": "optional_url",
+    "created_at": "2026-02-18T00:00:00Z",
+    "updated_at": "2026-04-10T10:00:00Z"
+  },
+  
+  // ==================== HIERARQUIA ====================
+  "hierarchy": {
+    "level": 5,                                    // Nivel hierarquico (0 = root)
+    "parent_id": "org_panda_factory",              // ID do pai direto
+    "children_ids": ["user_dev1", "user_dev2"],    // IDs dos filhos diretos
+    "ancestors": [                                 // Caminho ate a raiz
+      "root_global",
+      "org_brazil",
+      "org_sao_paulo", 
+      "org_panda_factory"
+    ],
+    "descendants_count": 2,                        // Numero total de descendentes
+    "sibling_ids": ["user_colleague1"],            // IDs dos irmaos (mesmo nivel)
+    "visibility_rules": {
+      "can_read_upwards": false,                   // Pode ler niveis superiores? (NAO)
+      "can_read_siblings": true,                   // Pode ler irmaos/laterais? (SIM)
+      "can_read_descendants": true,                // Pode ler inferiores? (SIM)
+      "max_read_depth": -1,                        // -1 = todos os inferiores
+      "write_permission": ["self", "descendants"]  // Onde pode escrever
+    }
+  },
+  
+  // ==================== PERMISSOES ====================
+  "permissions": {
+    "roles": ["developer", "admin", "mentor"],     // Roles funcionais
+    "scopes": [
+      "project:read",
+      "project:write", 
+      "team:manage",
+      "billing:view",
+      "user:invite"
+    ],
+    "constraints": {
+      "max_projects": 50,                          // Limites por usuario
+      "max_storage_mb": 1024,
+      "max_api_calls_per_day": 10000
+    }
+  },
+  
+  // ==================== PADROES PESSOAIS ====================
+  "personal_patterns": {
+    "productivity": {
+      "peak_hours": ["09:00-12:00", "21:00-02:00"],
+      "session_duration_avg": "2.5h",
+      "context_switch_tolerance": "high",
+      "preferred_days": ["segunda", "terca", "quarta", "quinta", "sexta"]
+    },
+    
+    "tech_preferences": {
+      "frontend": ["React + Vite", "Vanilla CSS", "tldraw"],
+      "backend": ["Google Apps Script", "Firebase RTDB", "Python"],
+      "trading": ["cTrader", "Deriv API", "ML Python"],
+      "automation": ["MCP", "Google Sheets", "Web Scraping"],
+      "mastery_levels": {
+        "mcp": "advanced",
+        "react": "intermediate", 
+        "python": "advanced",
+        "gas": "intermediate_advanced"
+      }
+    },
+    
+    "communication": {
+      "preferred_languages": ["pt-BR", "en"],
+      "message_style": "fragmented",               // Mensagens fragmentadas
+      "response_expectation": "fast",              // Espera respostas rapidas
+      "syntax_patterns": [
+        "Usa metaforas de software para vida",
+        "Mistura portugues e ingles naturalmente",
+        "Envia 3-5 mensagens onde outros enviariam 1 paragrafo"
+      ]
+    }
+  },
+  
+  // ==================== MOTOR DE APRENDIZADO ====================
+  "learning_engine": {
+    "common_mistakes": [
+      {
+        "error": "Esquecer aliases no tsconfig.json",
+        "solution": "Adicionar automaticamente via scaffold",
+        "context": "frontend_projects",
+        "occurrences": 5,
+        "last_occurrence": "2026-04-09",
+        "severity": "medium",
+        "prevention_strategy": "check_aliases_on_init"
+      }
+    ],
+    
+    "historical_patterns": {
+      "project_completion_rate": "85%",
+      "bug_resolution_time_avg": "1.2h",
+      "feature_development_speed": "3.5 dias",
+      "preferred_project_size": "medium"           // small/medium/large
+    },
+    
+    "prediction_model": {
+      "next_best_action_accuracy": "85%",
+      "stack_suggestion_accuracy": "92%",
+      "time_estimation_accuracy": "78%",
+      "last_training_date": "2026-04-10"
+    }
+  },
+  
+  // ==================== CONTEXTO ATUAL ====================
+  "current_context": {
+    "active_projects": ["neocortex_framework", "panda_factory"],
+    "current_focus": "mcp_hub_development",
+    "available_hours_weekly": 40,
+    "location": {
+      "city": "Americana",
+      "state": "Sao Paulo", 
+      "country": "Brasil",
+      "timezone": "America/Sao_Paulo"
+    },
+    "device_preferences": ["desktop", "dual_monitor"]
+  },
+  
+  // ==================== INTEGRACOES ====================
+  "integrations": {
+    "mcp_servers": ["antigravity", "vscode", "cursor"],
+    "external_tools": ["github", "linear", "discord"],
+    "api_keys": {                                  // Referencias apenas, nao valores
+      "firebase": "configured",
+      "gemini": "configured",
+      "stripe": "configured"
+    }
+  },
+  
+  // ==================== METADADOS ====================
+  "metadata": {
+    "source": "lucas.json_v6.2.0_converted",
+    "conversion_date": "2026-04-10",
+    "privacy_level": "private",                    // private/team/public
+    "sync_status": "local",                        // local/cloud/synced
+    "backup_frequency": "daily"
+  }
+}
+```
+
+---
+
+##  Regras de Controle de Acesso Hierarquico
+
+### **Principio Fundamental:**
+> **"Um usuario pode ler informacoes de niveis iguais, laterais e inferiores, mas NAO pode ler informacoes de niveis superiores."**
+
+### **Exemplo Pratico:**
+```
+Nivel 0: ROOT (Governo Federal)
+   Nivel 1: Estado (Sao Paulo)
+      Nivel 2: Cidade (Campinas)
+         Nivel 3: Escola (Escola Tec)
+            Nivel 4: Professor (Prof. Silva)
+               Nivel 5: Aluno (Joao)    Nivel atual
+```
+
+**Permissoes do Aluno (Nivel 5):**
+-  **Pode ler:** Alunos (nivel 5), Professor (4), Escola (3), Cidade (2), Estado (1), ROOT (0)
+-  **Nao pode ler:** Informacoes sensiveis de niveis superiores (ex: salario do professor)
+-  **Pode escrever:** Apenas seu proprio perfil (5)
+-  **Pode ver:** Media da turma (laterais), notas pessoais (inferior = self)
+
+**Permissoes do Professor (Nivel 4):**
+-  **Pode ler:** Professores (4), Escola (3), Cidade (2), Estado (1), ROOT (0)
+-  **Pode escrever:** Alunos (5), seu proprio perfil (4)
+-  **Nao pode ler:** Outros professores (laterais) so com permissao explicita
+
+---
+
+##  Casos de Uso
+
+### **1. Empresa Corporativa**
+```
+ROOT (CEO)
+ Diretoria (CTO, CFO)
+    Gerentes
+       Team Leads
+          Desenvolvedores
+```
+
+### **2. Lan House / Cyber Cafe**
+```
+ROOT (Proprietario)
+ Funcionarios (Admin)
+    Maquinas (Grupos)
+       Usuarios (Clientes por hora)
+```
+
+### **3. Escola / Universidade**
+```
+ROOT (Reitoria)
+ Departamentos
+    Professores
+       Turmas
+          Alunos
+```
+
+### **4. Governo Municipal**
+```
+ROOT (Prefeitura)
+ Secretarias
+    Departamentos
+       Funcionarios
+          Cidadaos (acesso publico)
+```
+
+---
+
+##  API de Verificacao de Acesso
+
+### **Funcao:** `can_access(resource_level, user_level, resource_owner_id)`
+```python
+def can_access(resource_level, user_level, resource_owner_id, user_id):
+    """
+    Verifica se usuario pode acessar recurso baseado em hierarquia.
+    
+    Regras:
+    1. Usuario pode acessar recursos do MESMO nivel se for dono OU se recurso for publico
+    2. Usuario pode acessar recursos de NIVEIS INFERIORES sempre
+    3. Usuario NAO pode acessar recursos de NIVEIS SUPERIORES
+    4. Recursos laterais (mesmo nivel, dono diferente) requerem permissao explicita
+    
+    Retorna: { "allowed": bool, "reason": str }
+    """
+    if user_level > resource_level:
+        # Usuario e SUPERIOR ao recurso  PERMITIDO
+        return {"allowed": True, "reason": "hierarchy_superior"}
+    
+    elif user_level == resource_level:
+        # Mesmo nivel  verificar ownership
+        if resource_owner_id == user_id:
+            return {"allowed": True, "reason": "self_ownership"}
+        else:
+            # Recurso lateral  precisa de permissao explicita
+            return {"allowed": False, "reason": "lateral_access_requires_permission"}
+    
+    else:
+        # Usuario e INFERIOR ao recurso  NEGADO
+        return {"allowed": False, "reason": "hierarchy_inferior_cannot_read_upwards"}
+```
+
+---
+
+##  Migracao do Lucas.json Existente
+
+### **Script de Conversao:**
+```bash
+python DIR-PRF-FR-001-profiles-main/NC-PRF-FR-003-profile-loader.py \
+  --input "C:/Users/Lucas Valerio/Desktop/JSON LUCAS/Lucas.json" \
+  --output "DIR-PRF-FR-001-profiles-main/users/lucas_valerio/NC-PRF-USR-001-profile.json" \
+  --hierarchy_level 5 \
+  --parent_id "org_panda_factory"
+```
+
+### **Mapeamento de Campos:**
+| Campo Lucas.json | Campo NeoCortex Profile | Transformacao |
+|-----------------|------------------------|---------------|
+| `work_style.session_pattern` | `personal_patterns.productivity.peak_hours` | Parse para array |
+| `knowledge_graph.tech_stack_mastery` | `personal_patterns.tech_preferences` | Reestruturacao |
+| `linguistic_fingerprint` | `personal_patterns.communication` | Mapeamento direto |
+| `operating_principles` | `metadata.personal_rules` | Array de strings |
+| `pf_hive_mind_council` | `integrations.expert_network` | Simplificacao |
+| `active_directives` | `current_context.active_projects` | Extracao |
+
+---
+
+##  Proximos Passos
+
+1. **Criar template JSON** (`NC-PRF-TMP-001-dev-profile-template.json`)
+2. **Implementar loader** (`NC-PRF-FR-003-profile-loader.py`)
+3. **Converter Lucas.json** para novo schema
+4. **Adicionar verificacao hierarquica** no MCP server
+5. **Testar com 3 niveis hierarquicos** simulados
+
+---
+
+**Versao:** 1.0.0  
+**Data:** 2026-04-10  
+**Status:** Draft  
+**Proxima Revisao:** Apos implementacao do loader
+
+---
+
+<!-- source: NC-PRF-FR-002-team-schema.md -->
+<!-- tags: ssot, profile, team, schema -->
+<!-- auto-generated: true -->
+
+#  NC-PRF-FR-002 - Team Profile Schema (Hierarchical)
+
+> **Schema para perfis de equipe com hierarquias aninhadas, controle de acesso granular e conhecimento coletivo.**
+
+---
+
+##  Visao Geral
+
+O **NeoCortex Team Profile** gerencia equipes de qualquer tamanho com:
+- **Hierarquias aninhadas** (equipes dentro de equipes)
+- **Controle de acesso baseado em funcao**
+- **Conhecimento coletivo compartilhado**
+- **Integracao com hierarquia de usuarios**
+- **Multi-tenant para organizacoes complexas**
+
+---
+
+##  Estrutura do Schema
+
+### **Arquivo:** `NC-PRF-TEM-{team_id}-profile.json`
+
+```json
+{
+  "$schema": "neocortex-team-v1.0",
+  "profile_type": "team",
+  "version": "1.0.0",
+  
+  // ==================== IDENTIFICACAO ====================
+  "identity": {
+    "team_id": "panda_factory_core",
+    "name": "Panda Factory Core Team",
+    "description": "Equipe central de desenvolvimento do Panda Factory",
+    "avatar_url": "optional_url",
+    "created_at": "2026-02-18T00:00:00Z",
+    "updated_at": "2026-04-10T10:00:00Z",
+    "owner_id": "lucas_valerio"
+  },
+  
+  // ==================== HIERARQUIA DA EQUIPE ====================
+  "hierarchy": {
+    "level": 3,                                    // Nivel na organizacao
+    "parent_team_id": "org_panda_factory",         // Equipe pai
+    "child_team_ids": ["team_frontend", "team_backend"], // Sub-equipes
+    "organization_path": [                         // Caminho organizacional
+      "root_global",
+      "org_brazil", 
+      "org_panda_factory",
+      "team_core"
+    ],
+    
+    "access_control": {
+      "visibility": "restricted",                  // public/restricted/private
+      "join_policy": "invite_only",                // open/approval/invite_only
+      "read_access": ["members", "parent_teams"],  // Quem pode ler
+      "write_access": ["owners", "admins"],        // Quem pode escrever
+      "inherit_parent_permissions": true           // Herda permissoes do pai
+    }
+  },
+  
+  // ==================== MEMBROS ====================
+  "members": {
+    "total_count": 8,
+    "active_count": 8,
+    "list": [
+      {
+        "user_id": "lucas_valerio",
+        "role": "founder_architect",
+        "joined_at": "2026-02-18T00:00:00Z",
+        "permissions": ["admin", "deploy", "finance", "invite"],
+        "expertise_domains": ["system_architecture", "mcp", "trading"],
+        "contribution_score": 95,
+        "status": "active"
+      },
+      {
+        "user_id": "dev_frontend_1",
+        "role": "frontend_developer",
+        "joined_at": "2026-03-15T00:00:00Z",
+        "permissions": ["project:write", "code:review"],
+        "expertise_domains": ["react", "css", "ui_ux"],
+        "contribution_score": 78,
+        "status": "active"
+      }
+    ],
+    
+    "roles_definition": {
+      "founder_architect": {
+        "description": "Arquiteto fundador com acesso total",
+        "permissions": ["*"],
+        "max_count": 1
+      },
+      "team_lead": {
+        "description": "Lider de equipe com poderes administrativos",
+        "permissions": ["admin", "deploy", "review"],
+        "max_count": 3
+      },
+      "developer": {
+        "description": "Desenvolvedor com acesso a projetos",
+        "permissions": ["project:write", "code:review"],
+        "max_count": 20
+      }
+    }
+  },
+  
+  // ==================== CONHECIMENTO COLETIVO ====================
+  "shared_knowledge": {
+    "team_rules": [
+      "Documentation_is_architecture",
+      "Mock_before_real", 
+      "Agentic_delegation",
+      "Revenue_generating_tasks_first"
+    ],
+    
+    "common_solutions": [
+      {
+        "problem": "CORS configuration issues in Firebase",
+        "solution": "Use cors({ origin: ['https://yourdomain.com'] }) middleware",
+        "code_snippet": "app.use(cors({ origin: ['https://panda-factory.com'] }))",
+        "applied_by": ["lucas_valerio", "dev_backend_1"],
+        "success_rate": "100%",
+        "last_used": "2026-04-09",
+        "tags": ["firebase", "cors", "backend"]
+      },
+      {
+        "problem": "React state management in large forms",
+        "solution": "Use React Hook Form with Zod validation",
+        "code_snippet": "const form = useForm({ resolver: zodResolver(schema) })",
+        "applied_by": ["dev_frontend_1", "dev_frontend_2"],
+        "success_rate": "95%",
+        "last_used": "2026-04-08",
+        "tags": ["react", "forms", "validation"]
+      }
+    ],
+    
+    "project_templates": {
+      "saas_crm": {
+        "template_id": "template_saas_crm_v1",
+        "description": "Template completo para SaaS CRM com autenticacao",
+        "tech_stack": ["React", "Firebase", "MCP"],
+        "created_by": "lucas_valerio",
+        "usage_count": 3,
+        "last_used": "2026-04-07"
+      },
+      "trading_bot": {
+        "template_id": "template_trading_bot_v1",
+        "description": "Bot de trading com cTrader e ML",
+        "tech_stack": ["Python", "cTrader API", "scikit-learn"],
+        "created_by": "lucas_valerio",
+        "usage_count": 2,
+        "last_used": "2026-04-06"
+      }
+    },
+    
+    "learning_resources": {
+      "internal_docs": [
+        "https://docs.panda-factory.com/mcp-integration",
+        "https://docs.panda-factory.com/firebase-setup"
+      ],
+      "external_links": [
+        "https://developers.google.com/apps-script",
+        "https://firebase.google.com/docs"
+      ]
+    }
+  },
+  
+  // ==================== COLABORACAO ====================
+  "collaboration": {
+    "communication_channels": [
+      {
+        "type": "mcp",
+        "enabled": true,
+        "description": "Comunicacao via MCP tools em tempo real"
+      },
+      {
+        "type": "discord",
+        "enabled": true,
+        "url": "https://discord.gg/panda-factory"
+      },
+      {
+        "type": "a2a_direct",
+        "enabled": true,
+        "port": 8770,
+        "description": "Comunicacao direta agent-to-agent"
+      }
+    ],
+    
+    "workflow": {
+      "code_review_required": true,
+      "auto_merge_on_approval": true,
+      "default_branch": "main",
+      "deployment_gates": ["tests_passing", "security_scan"]
+    },
+    
+    "sync_settings": {
+      "frequency": "realtime",
+      "conflict_resolution": "merge_auto",
+      "offline_support": true,
+      "max_offline_time": "24h"
+    }
+  },
+  
+  // ==================== PROJETOS ATIVOS ====================
+  "active_projects": [
+    {
+      "project_id": "neocortex_framework",
+      "name": "NeoCortex Framework",
+      "description": "Framework de contexto para agentes de IA",
+      "status": "active",
+      "progress": 85,
+      "team_members": ["lucas_valerio", "dev_frontend_1", "dev_backend_1"],
+      "tech_stack": ["Python", "MCP", "FastAPI", "WebSocket"],
+      "repository": "https://github.com/panda-factory/neocortex",
+      "last_activity": "2026-04-10T10:00:00Z"
+    },
+    {
+      "project_id": "panda_factory_ui",
+      "name": "Panda Factory UI",
+      "description": "Interface do Panda Factory SaaS",
+      "status": "active",
+      "progress": 95,
+      "team_members": ["dev_frontend_1", "dev_frontend_2"],
+      "tech_stack": ["React", "Vite", "Firebase"],
+      "repository": "https://github.com/panda-factory/ui",
+      "last_activity": "2026-04-09T15:30:00Z"
+    }
+  ],
+  
+  // ==================== METRICAS DA EQUIPE ====================
+  "metrics": {
+    "performance": {
+      "velocity_weekly": 42,                      // Story points por semana
+      "bug_resolution_time_avg": "6h",
+      "deployment_frequency": "daily",
+      "change_failure_rate": "2%"
+    },
+    
+    "engagement": {
+      "active_members_percentage": "100%",
+      "average_session_duration": "3.2h",
+      "knowledge_sharing_score": 88,
+      "satisfaction_score": 92
+    },
+    
+    "knowledge_growth": {
+      "new_solutions_monthly": 15,
+      "template_usage_increase": "25%",
+      "skill_development_rate": "18%"
+    }
+  },
+  
+  // ==================== METADADOS ====================
+  "metadata": {
+    "privacy_level": "team_private",              // public/team_private/org_private
+    "retention_policy": "keep_forever",
+    "backup_schedule": "daily",
+    "compliance": ["gdpr", "lgpd"],
+    "tags": ["development", "ai", "saas", "trading"]
+  }
+}
+```
+
+---
+
+##  Integracao com Hierarquia de Usuarios
+
+### **Relacao Usuario-Equipe:**
+```
+Usuario (nivel 5)  Pertence a  Equipe (nivel 3)
+                                  
+Hierarquia pessoal          Hierarquia da equipe
+```
+
+### **Regras de Acesso Cruzado:**
+1. **Usuario em equipe** herda visibilidade da equipe
+2. **Equipe pode ver** apenas seus membros e equipes filhas
+3. **Hierarquia dupla**: Usuario tem nivel pessoal + nivel na equipe
+
+### **Exemplo: Escola**
+```
+Equipe ROOT: Escola (nivel 0)
+   Equipe: Professores (nivel 1)
+      Usuario: Prof. Silva (nivel 2 pessoal, nivel 1 na equipe)
+      Usuario: Prof. Santos (nivel 2 pessoal, nivel 1 na equipe)
+  
+   Equipe: Alunos (nivel 1)
+       Usuario: Joao (nivel 3 pessoal, nivel 1 na equipe)
+       Usuario: Maria (nivel 3 pessoal, nivel 1 na equipe)
+```
+
+---
+
+##  Casos de Uso Hierarquicos
+
+### **1. Corporacao Multinacional**
+```
+Equipe ROOT: Corporacao Global (nivel 0)
+ Equipe: America Latina (nivel 1)
+    Equipe: Brasil (nivel 2)
+       Equipe: Sao Paulo (nivel 3)
+          Equipe: TI (nivel 4)
+             Usuarios: Devs (nivel 5+)
+```
+
+### **2. Governo Estadual**
+```
+Equipe ROOT: Governo Estadual (nivel 0)
+ Equipe: Secretaria Educacao (nivel 1)
+    Equipe: Departamento Ensino (nivel 2)
+       Equipe: Escolas (nivel 3)
+ Equipe: Secretaria Saude (nivel 1)
+    Equipe: Hospitais (nivel 2)
+```
+
+### **3. Lan House Franchise**
+```
+Equipe ROOT: Franquia (nivel 0)
+ Equipe: Unidade Centro (nivel 1)
+    Equipe: Funcionarios (nivel 2)
+    Equipe: Maquinas (nivel 2)
+ Equipe: Unidade Shopping (nivel 1)
+    Equipe: Funcionarios (nivel 2)
+    Equipe: Maquinas (nivel 2)
+```
+
+---
+
+##  Controle de Acesso em Equipes
+
+### **Matriz de Permissoes:**
+| Acao | Dono | Admin | Membro | Convidado |
+|------|------|-------|--------|-----------|
+| **Ver equipe** |  |  |  |  |
+| **Ver membros** |  |  |  |  |
+| **Ver conhecimento** |  |  |  |  |
+| **Adicionar solucao** |  |  |  |  |
+| **Convidar membros** |  |  |  |  |
+| **Excluir equipe** |  |  |  |  |
+| **Ver metricas** |  |  |  |  |
+
+### **Heranca Hierarquica:**
+- **Equipe filha** herda regras de acesso da **equipe pai**
+- **Usuario** herda permissoes da **equipe principal**
+- **Acesso pode ser restrito** por nivel (ex: nivel 3+ nao ve financas)
+
+---
+
+##  API de Gerenciamento de Equipes
+
+### **Endpoints Principais:**
+```python
+# Criar equipe
+POST /teams { parent_id, name, visibility }
+
+# Adicionar membro  
+POST /teams/{team_id}/members { user_id, role }
+
+# Compartilhar solucao
+POST /teams/{team_id}/knowledge { problem, solution, tags }
+
+# Verificar acesso
+GET /teams/{team_id}/access { user_id, action }
+
+# Listar equipes acessiveis
+GET /users/{user_id}/accessible_teams
+```
+
+### **Verificacao de Acesso:**
+```python
+def team_can_access(user_team_level, resource_team_level, user_role):
+    """
+    Verifica acesso entre equipes hierarquicas.
+    
+    Niveis de equipe:
+    0: ROOT (corporacao)
+    1: Regiao/Departamento
+    2: Unidade/Time
+    3: Sub-time/Projeto
+    
+    Regras:
+    - Equipes podem ver equipes do MESMO nivel (com permissao)
+    - Equipes podem ver equipes de NIVEIS INFERIORES
+    - Equipes NAO podem ver equipes de NIVEIS SUPERIORES
+    - Roles definem acoes dentro da propria equipe
+    """
+    if user_team_level >= resource_team_level:
+        # Equipe e SUPERIOR ou IGUAL  pode acessar
+        return check_role_permission(user_role)
+    else:
+        # Equipe e INFERIOR  NAO pode acessar
+        return False
+```
+
+---
+
+##  Implementacao Gradual
+
+### **Fase 1: Equipes Simples** (Sem hierarquia)
+- [ ] Criar equipe unica
+- [ ] Adicionar membros
+- [ ] Compartilhar solucoes basicas
+
+### **Fase 2: Hierarquia Basica** (2 niveis)
+- [ ] Equipes pai/filha
+- [ ] Heranca de permissoes
+- [ ] Controle de visibilidade
+
+### **Fase 3: Organizacoes Complexas** (N niveis)
+- [ ] Hierarquias aninhadas ilimitadas
+- [ ] Matriz de permissoes avancada
+- [ ] Integracao com sistemas externos
+
+### **Fase 4: Multi-tenancy Completo**
+- [ ] Isolamento de dados por tenant
+- [ ] Billing e limites por organizacao
+- [ ] API de administracao multi-nivel
+
+---
+
+##  Metricas de Sucesso
+
+- **Adocao de equipes**: >80% dos usuarios em pelo menos 1 equipe
+- **Compartilhamento de conhecimento**: 5+ solucoes/equipe/mes
+- **Reducao de duplicacao**: -40% codigo duplicado
+- **Velocidade de onboarding**: -60% tempo para novos membros
+- **Satisfacao com colaboracao**: >85% dos membros
+
+---
+
+**Versao:** 1.0.0  
+**Data:** 2026-04-10  
+**Status:** Draft  
+**Proxima Revisao:** Apos implementacao do sistema basico

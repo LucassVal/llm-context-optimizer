@@ -1,0 +1,109 @@
+<!-- module: performance -->
+<!-- category: quality -->
+<!-- status: suggested -->
+<!-- suggested_by: opencode -->
+
+# Performance e Otimização
+
+Otimização de performance, profiling e benchmarking.
+
+## Propósito
+Gerenciar conhecimento específico do módulo performance.
+
+## Status
+Sugerido
+
+## Tags
+#performance, #framework, #neocortex
+
+## Checkpoints
+- CP-PERFORMANCE-001: Criação inicial
+
+## Conteúdo Inicial
+*Este lobe está em construção. Adicione aqui:*
+
+### 1. Visão Geral
+- Objetivos principais
+- Escopo do módulo
+- Integrações com outros módulos
+
+### 2. Componentes Principais
+- Lista de componentes/classes
+- Responsabilidades
+- Dependências
+
+### 3. Padrões e Convenções
+- Padrões de código
+- Convenções de nomenclatura
+- Boas práticas
+
+### 4. Exemplos de Uso
+- Exemplos básicos
+- Casos de uso comuns
+- Configurações típicas
+
+### 5. Referências
+- Links para documentação
+- Arquivos relevantes no projeto
+- Exemplos externos
+
+## Notas
+- Criado automaticamente por OpenCode
+- Data: 2026-04-10 15:36:46
+- Revisão necessária para conteúdo específico do projeto
+
+## Performance e Otimização
+
+### Benchmarks
+- `BenchmarkService`: Medição de performance
+- Metrics: latency, throughput, memory, CPU
+- Comparative analysis
+
+### Otimizações
+- Caching strategies
+- Database/index optimization
+- Query optimization
+- Memory management
+
+### Profiling
+- CPU profiling
+- Memory profiling
+- I/O profiling
+- Network profiling
+
+### Load Testing
+- Simulated user loads
+- Stress testing
+- Soak testing
+- Spike testing
+
+### Tuning
+- Configuration tuning
+- Resource allocation
+- Concurrency tuning
+- Batch processing optimization
+
+
+# NC-LBE-FR-PERFORMANCE-001
+
+Performance, benchmarks, otimização
+
+## Status
+Ativo (povoado automaticamente)
+
+## Tags
+#performance, #framework, #neocortex, #auto_populated
+
+## Checkpoints
+- CP-PERFORMANCE-001: Criação inicial
+- CP-PERFORMANCE-002: Povoamento automático
+
+
+## Contexto do Projeto
+- **Nome do projeto**: N/A
+- **Total de arquivos no projeto**: 0
+
+## Notas de Povoamento
+- Povoado automaticamente por OpenCode
+- Data: 2026-04-10 15:57:55
+- Foco da análise: benchmarks, performance_metrics, optimization

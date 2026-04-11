@@ -1,0 +1,117 @@
+<!-- module: cli -->
+<!-- category: core -->
+<!-- status: active -->
+<!-- created_by: opencode -->
+
+# Interface de Linha de Comando (CLI)
+
+CLI do NeoCortex: comandos, opções e extensibilidade.
+
+## Propósito
+Gerenciar conhecimento específico do módulo cli.
+
+## Status
+Sugerido
+
+## Tags
+#cli, #framework, #neocortex
+
+## Checkpoints
+- CP-CLI-001: Criação inicial
+
+## Conteúdo Inicial
+*Este lobe está em construção. Adicione aqui:*
+
+### 1. Visão Geral
+- Objetivos principais
+- Escopo do módulo
+- Integrações com outros módulos
+
+### 2. Componentes Principais
+- Lista de componentes/classes
+- Responsabilidades
+- Dependências
+
+### 3. Padrões e Convenções
+- Padrões de código
+- Convenções de nomenclatura
+- Boas práticas
+
+### 4. Exemplos de Uso
+- Exemplos básicos
+- Casos de uso comuns
+- Configurações típicas
+
+### 5. Referências
+- Links para documentação
+- Arquivos relevantes no projeto
+- Exemplos externos
+
+## Notas
+- Criado automaticamente por OpenCode
+- Data: 2026-04-10 15:36:46
+- Revisão necessária para conteúdo específico do projeto
+
+## Interface de Linha de Comando (CLI)
+
+### Comandos Disponíveis
+1. `neocortex server`: Inicia servidor MCP
+2. `neocortex info`: Mostra informações do framework
+3. `neocortex tools`: Lista ferramentas MCP disponíveis
+4. `neocortex version`: Mostra versão do framework
+
+### Modos de Operação
+- **Modo stdio**: Para integração com IDEs (VS Code, Cursor)
+- **Modo socket**: Para integração via rede (em desenvolvimento)
+
+### Extensão de Comandos
+```python
+# Exemplo de adição de novo comando
+# Em neocortex/cli/main.py, adicionar:
+new_parser = subparsers.add_parser("novo", help="Novo comando")
+new_parser.add_argument("--opcao", help="Opção do comando")
+```
+
+### Integração com Serviços
+- CLI usa os mesmos serviços que o MCP server
+- Acesso ao cortex, ledger, lobes via services
+- Configuração via environment variables
+
+### Exemplos de Uso
+```bash
+# Iniciar servidor MCP para IDE
+neocortex server --stdio
+
+# Ver informações detalhadas
+neocortex info --verbose
+
+# Listar todas as ferramentas MCP
+neocortex tools
+```
+
+
+# NC-LBE-FR-CLI-001
+
+Interface de linha de comando
+
+## Status
+Ativo (povoado automaticamente)
+
+## Tags
+#cli, #framework, #neocortex, #auto_populated
+
+## Checkpoints
+- CP-CLI-001: Criação inicial
+- CP-CLI-002: Povoamento automático
+
+## Análise do Diretório
+- **Total de arquivos**: 0
+
+## Contexto do Projeto
+- **Nome do projeto**: N/A
+- **Total de arquivos no projeto**: 0
+
+## Notas de Povoamento
+- Povoado automaticamente por OpenCode
+- Data: 2026-04-10 15:57:54
+- Foco da análise: commands, arguments, cli_structure

@@ -1,0 +1,66 @@
+---
+description: "NC-RULE-002 | Python & MCP Patterns — Auto-attach em arquivos .py e tools/"
+globs: ["**/*.py", "**/mcp/tools/**", "**/neocortex/mcp/**"]
+alwaysApply: false
+---
+
+<!-- NC-READ-HASH: RULE002-PY-v2 -->
+<!-- DEDUP: Se RULE002-PY-v2 já está no contexto desta sessão, SALTE. -->
+
+# NeoCortex — Python & MCP Rules
+
+> Ativo para: `**/*.py` e `**/mcp/**` | Complementa: NC-RULE-001-core-ssot.mdc
+
+## R09 — Import com Hífen (🔴 CRÍTICO)
+```python
+# ❌ ERRADO — causa ModuleNotFoundError
+import NC-TOOL-FR-001-cortex
+
+# ✅ CORRETO
+importlib.import_module(".tools.NC-TOOL-FR-001-cortex", package="neocortex.mcp")
+```
+Padrão: ver `01_neocortex_framework/neocortex/mcp/sub_server.py` → `TOOL_MODULE_MAP`.
+
+## R10 — Sem Hardcode de Paths (🔴 CRÍTICO)
+```python
+# ❌ ERRADO
+path = Path("C:/Users/Lucas Valério/Desktop/TURBOQUANT_V42/...")
+
+# ✅ CORRETO
+config = get_config()
+path = config.cortex_path / "arquivo"
+```
+Referência: `01_neocortex_framework/neocortex/config.py`.
+
+## R11 — Logger por Módulo (🟡 ALTO)
+```python
+# Todo módulo Python:
+logger = logging.getLogger(__name__)
+
+# Módulos críticos — logger nomeado:
+mentor_logger = logging.getLogger("neocortex.mentor")
+security_logger = logging.getLogger("neocortex.security")
+
+# NUNCA em produção:
+print("debug")  # ← proibido
+```
+
+## R12 — Registro Modular de Tools MCP (🟡 ALTO)
+Nova ferramenta MCP:
+1. Arquivo: `neocortex/mcp/tools/NC-TOOL-FR-<NUM>-<nome>.py`
+2. Entry point: `def register_tool(server: FastMCP): ...`
+3. Registrar em `TOOL_MODULE_MAP` no `sub_server.py`
+4. Documentar em `NC-API-FR-001-mcp-api-reference.md`
+
+## R13 — Policy por Sub-Servidor (🟡 ALTO)
+Cada sub-servidor `$COURIER` / `$ENGINEER` / `$GUARDIAN` DEVE ter policy baseada em `@POLICY`.
+`allowed_tools` + `forbidden_actions` + `limits.*` OBRIGATÓRIOS.
+
+## Mentor Mode — Padrão de Implementação
+```python
+# Invocar mentor_step_0 ANTES de qualquer call LLM:
+instruction = mentor_step_0(agent_role, task_description)
+final_prompt = f"{instruction}\n\n[TAREFA]\n{task_description}" if instruction else task_description
+response = llm_backend.generate(final_prompt)
+```
+Referência: `01_neocortex_framework/neocortex/mcp/sub_server.py` → `handle_task()`.

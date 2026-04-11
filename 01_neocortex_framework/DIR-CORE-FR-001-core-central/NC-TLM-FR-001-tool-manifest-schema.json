@@ -1,0 +1,186 @@
+{
+  "$schema": "http://json-schema.org/draft/2020-12/schema",
+  "$id": "https://neocortex.ai/schemas/tool-manifest-v1.0.json",
+  "title": "NeoCortex Tool Manifest Schema",
+  "description": "Schema for the NeoCortex MCP Tool Manifest, describing available tools and their capabilities.",
+  "type": "object",
+  "required": ["$schema", "version", "generated_at", "server_name", "tools"],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "URI pointing to this JSON schema for validation.",
+      "const": "neocortex-tool-manifest-v1.0"
+    },
+    "version": {
+      "type": "string",
+      "description": "Version of the Tool Manifest format.",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when this manifest was generated."
+    },
+    "server_name": {
+      "type": "string",
+      "description": "Name of the MCP server (e.g., 'neocortex')."
+    },
+    "tools": {
+      "type": "array",
+      "description": "List of official MCP tools exposed by the server.",
+      "items": {
+        "$ref": "#/$defs/tool"
+      }
+    },
+    "custom_tools": {
+      "type": "array",
+      "description": "Optional list of custom tools defined by users or teams.",
+      "items": {
+        "$ref": "#/$defs/tool"
+      },
+      "default": []
+    },
+    "categories": {
+      "type": "object",
+      "description": "Mapping of category IDs to human-readable descriptions.",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "default": {}
+    }
+  },
+  "$defs": {
+    "tool": {
+      "type": "object",
+      "required": ["name", "display_name", "description", "category", "version", "actions"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Canonical tool name as registered with MCP (e.g., 'neocortex_cortex')."
+        },
+        "display_name": {
+          "type": "string",
+          "description": "Human-readable name for UI display (e.g., 'Córtex Central')."
+        },
+        "description": {
+          "type": "string",
+          "description": "Brief description of what the tool does."
+        },
+        "category": {
+          "type": "string",
+          "description": "Category ID (e.g., 'core', 'security', 'collaboration')."
+        },
+        "version": {
+          "type": "string",
+          "description": "Tool version (e.g., '1.0.0')."
+        },
+        "actions": {
+          "type": "array",
+          "description": "List of actions (sub-commands) the tool supports.",
+          "items": {
+            "$ref": "#/$defs/action"
+          }
+        },
+        "access_control": {
+          "type": "object",
+          "description": "Access control rules for the tool.",
+          "properties": {
+            "default_read": {
+              "type": "string",
+              "enum": ["public", "authenticated", "admin", "system"],
+              "description": "Default permission level required to read/invoke the tool."
+            },
+            "default_write": {
+              "type": "string",
+              "enum": ["authenticated", "admin", "system"],
+              "description": "Default permission level required for write/state-modifying actions."
+            },
+            "allowed_roles": {
+              "type": "array",
+              "description": "Specific role names allowed to use this tool.",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "default": {
+            "default_read": "authenticated",
+            "default_write": "admin"
+          }
+        },
+        "metadata": {
+          "type": "object",
+          "description": "Additional arbitrary metadata.",
+          "additionalProperties": true
+        }
+      }
+    },
+    "action": {
+      "type": "object",
+      "required": ["name", "description"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Action name (e.g., 'get_full')."
+        },
+        "description": {
+          "type": "string",
+          "description": "Brief description of what the action does."
+        },
+        "parameters": {
+          "type": "object",
+          "description": "Mapping of parameter names to their schemas.",
+          "additionalProperties": {
+            "$ref": "#/$defs/parameter"
+          },
+          "default": {}
+        },
+        "returns": {
+          "type": "object",
+          "description": "Schema describing the return value.",
+          "properties": {
+            "type": {
+              "type": "string",
+              "description": "Return type (e.g., 'object', 'string', 'array')."
+            },
+            "description": {
+              "type": "string",
+              "description": "Description of the return value."
+            }
+          }
+        }
+      }
+    },
+    "parameter": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["string", "number", "boolean", "object", "array", "any"],
+          "description": "Parameter data type."
+        },
+        "description": {
+          "type": "string",
+          "description": "Human-readable description of the parameter."
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Whether the parameter is mandatory.",
+          "default": false
+        },
+        "default": {
+          "type": ["string", "number", "boolean", "null"],
+          "description": "Default value if not provided."
+        },
+        "enum": {
+          "type": "array",
+          "description": "Allowed values for this parameter.",
+          "items": {
+            "type": ["string", "number", "boolean"]
+          }
+        }
+      }
+    }
+  }
+}

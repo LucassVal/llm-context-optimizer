@@ -1,0 +1,9 @@
+{
+  "lobe_id": "guardian",
+  "name": "Guardian Lobe",
+  "description": "Security and compliance monitoring lobe for fire test",
+  "version": "1.0",
+  "created_at": "2026-04-10T22:08:00Z",
+  "rules_file": "rules.txt",
+  "capabilities": ["security_monitoring", "compliance_check", "access_control"]
+}

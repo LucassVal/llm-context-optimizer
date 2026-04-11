@@ -1,0 +1,207 @@
+Aqui está o prompt ajustado exatamente como você solicitou, focado na raiz `TURBOQUANT_V42` e estruturado em etapas claras para o Gemini executar.
+
+```markdown
+# Prompt para o Gemini: Mapeamento, Consolidação e Preparação para Sanitização da Raiz TURBOQUANT_V42
+
+## 🎯 Objetivo Geral
+Realizar uma análise completa da pasta raiz `TURBOQUANT_V42` e de todas as suas subpastas, gerando artefatos de documentação que consolidem o estado atual do projeto e estabeleçam as bases para uma sanitização futura (a ser executada manualmente depois).
+
+**Atenção:** Este prompt NÃO solicita a execução da sanitização (renomeação/movimentação de arquivos). Ele solicita a **geração de mapas, convenções e documentos consolidados** que guiarão essa sanitização.
+
+## 📂 1. Localização da Raiz do Projeto
+```
+C:\Users\Lucas Valério\Desktop\TURBOQUANT_V42\
+```
+
+## 📋 2. Etapas a Serem Executadas
+
+### 🗺️ ETAPA 1: Mapeamento Completo da Estrutura de Diretórios e Arquivos
+- **Ação:** Varrer recursivamente a pasta `TURBOQUANT_V42` e todas as suas subpastas.
+- **Artefato de Saída:** `PROJECT_MAP.md` (a ser salvo em `TURBOQUANT_V42/DIR-DOC-FR-001-docs-main/`).
+- **Formato do Arquivo `PROJECT_MAP.md`:**
+  ```markdown
+  # Mapa Completo do Projeto NeoCortex
+  **Data de Geração:** [DATA]
+  **Raiz:** C:\Users\Lucas Valério\Desktop\TURBOQUANT_V42\
+
+  ## Estrutura de Diretórios
+  ```
+  📁 TURBOQUANT_V42/
+  ├── 📄 README.md (descrição do propósito)
+  ├── 📁 neocortex_framework/ (núcleo do framework)
+  │   ├── 📄 __init__.py
+  │   ├── 📁 neocortex/ (código fonte principal)
+  │   │   ├── 📄 config.py (ConfigProvider)
+  │   │   ├── 📁 core/ (serviços de domínio)
+  │   │   │   ├── 📄 cortex_service.py
+  │   │   │   └── ...
+  │   │   ├── 📁 mcp/ (servidor e ferramentas MCP)
+  │   │   │   ├── 📄 server.py
+  │   │   │   └── 📁 tools/ (17+ ferramentas)
+  │   │   │       ├── 📄 cortex.py
+  │   │   │       └── ...
+  │   │   ├── 📁 infra/ (repositórios, stores, llm)
+  │   │   │   ├── 📄 ledger_store.py
+  │   │   │   └── ...
+  │   │   └── 📁 agent/ (agentes autônomos)
+  │   ├── 📁 DIR-PRF-FR-001-profiles-main/ (perfis de usuário)
+  │   ├── 📁 DIR-DOC-FR-001-docs-main/ (documentação e roadmaps)
+  │   ├── 📁 white_label/ (templates para novos projetos)
+  │   ├── 📁 examples/ (benchmarks e exemplos)
+  │   ├── 📁 backup_root/ (backups antigos)
+  │   └── 📁 archive/ (arquivos obsoletos)
+  ├── 📁 .agents/ (regras e lobos do próprio projeto)
+  └── ... (outros arquivos soltos)
+  ```
+  ```
+- **Requisitos:**
+  - A lista deve ser **exaustiva** (todos os arquivos e pastas).
+  - Para cada arquivo, incluir uma breve descrição do seu propósito (baseada no nome e no conteúdo).
+  - Destacar arquivos que estão **fora do padrão de nomenclatura** `NC-...` ou que parecem ser temporários/obsoletos.
+
+### 📚 ETAPA 2: Consolidação dos Roadmaps (3 → 1)
+- **Ação:** Localizar os três arquivos de roadmap existentes na pasta `DIR-DOC-FR-001-docs-main/`:
+  1. `NC-TODO-FR-001-project-roadmap.md` (v5.0 - macro)
+  2. `NC-TODO-FR-001-project-roadmap-v6-stability.md` (v6.0 - estabilidade)
+  3. `NC-TODO-FR-001-project-roadmap-ENGLISH.md` (versão em inglês)
+- **Artefato de Saída:** `NC-TODO-FR-001-project-roadmap-consolidated.md` (a ser salvo no mesmo diretório).
+- **Requisitos:**
+  - **Consolidar todo o conteúdo** dos três arquivos em um único documento.
+  - **Estrutura do Documento Consolidado:**
+    1. **Visão Macro (v5.0):** Objetivos de longo prazo e fases completas do projeto.
+    2. **Plano Tático de Estabilidade (v6.0):** Detalhamento da PHASE 1 (estabilidade do core) com tickets e status.
+    3. **Resumo Executivo em Inglês:** Incluir a versão em inglês como uma seção separada ou como tradução dos resumos.
+  - **Marcação de Itens Concluídos:** Ao lado de cada tarefa/ticket concluído, adicionar um marcador `✅ (OK)`. Exemplo: `- [x] STAB-104: Fix LLM Factory Config Handling ✅ (OK)`
+  - **NENHUM conteúdo deve ser perdido.** Se houver sobreposição, priorize a versão mais recente (v6.0 para estabilidade, v5.0 para visão de longo prazo).
+
+### 📜 ETAPA 3: Criação do Arquivo de Histórico de Logs (CHANGELOG)
+- **Ação:** Criar um arquivo de changelog que registre as principais alterações e marcos do projeto.
+- **Artefato de Saída:** `CHANGELOG.md` (a ser salvo em `TURBOQUANT_V42/DIR-DOC-FR-001-docs-main/`).
+- **Formato do Arquivo:**
+  ```markdown
+  # Changelog - NeoCortex Framework
+
+  ## [2026-04-11]
+  ### Added
+  - Ferramenta MCP `neocortex_brain` para integração com DeepSeek API como T-0 Assistente.
+  - Correção do servidor MCP para modo WebSocket (host/port).
+
+  ### Changed
+  - Consolidados 3 roadmaps em um único arquivo `NC-TODO-FR-001-project-roadmap-consolidated.md`.
+
+  ### Fixed
+  - Erro `FastMCP.run()` não aceitava host/port. Corrigido com `asyncio`.
+
+  ## [2026-04-10]
+  ### Added
+  - Integração do MetricsStore com DuckDB (OPT-010).
+  - Ferramenta MCP `neocortex_report` para geração de relatórios.
+
+  ## [2026-04-08]
+  ### Added
+  - Primeira versão operacional do NeoCortex com 17 ferramentas MCP.
+  - Integração com DeepSeek API e primeiros benchmarks de economia.
+  ```
+- **Requisitos:**
+  - Baseie as entradas no histórico de commits do Git (se disponível) e nas discussões que tivemos.
+  - Inclua marcos importantes: início do projeto (08/04), implementação das 12 tarefas de otimização, correção do servidor MCP, etc.
+
+### 📐 ETAPA 4: Definição de Convenções de Nomenclatura e Estrutura de Pastas
+- **Ação:** Criar um documento que estabeleça o **padrão oficial** de nomenclatura de arquivos e pastas para o projeto NeoCortex, baseado no sistema `NC-...` já utilizado.
+- **Artefato de Saída:** `NC-NAM-FR-001-naming-convention.md` (a ser salvo em `TURBOQUANT_V42/DIR-DOC-FR-001-docs-main/`).
+- **Conteúdo Esperado:**
+  ```markdown
+  # NC-NAM-FR-001 - Convenções de Nomenclatura e Estrutura do Projeto NeoCortex
+
+  ## 1. Estrutura de Diretórios Proposta
+  ```
+  TURBOQUANT_V42/
+  ├── neocortex_framework/           # Código fonte principal
+  │   ├── neocortex/                 # Pacote Python
+  │   │   ├── core/                  # Serviços de domínio (DDD)
+  │   │   ├── mcp/                   # Servidor e ferramentas MCP
+  │   │   │   └── tools/             # Ferramentas MCP individuais
+  │   │   ├── infra/                 # Implementações concretas (repositórios, stores)
+  │   │   └── agent/                 # Agentes autônomos
+  │   ├── DIR-PRF-FR-001-profiles-main/ # Perfis de usuário
+  │   ├── DIR-DOC-FR-001-docs-main/     # Documentação e roadmaps
+  │   ├── white_label/               # Templates para distribuição
+  │   ├── examples/                  # Exemplos e benchmarks
+  │   ├── archive/                   # Arquivos obsoletos (não versionados ativamente)
+  │   └── backup/                    # Backups automáticos (!backup)
+  ├── .agents/                       # Regras e lobos do próprio projeto
+  │   └── rules/
+  └── memory_lobes/                  # Lobos ativos (dados)
+  ```
+
+  ## 2. Padrão de Nomenclatura de Arquivos
+  Formato: `NC-<TIPO>-<SIGLA>-<NUM>-<desc>.ext`
+
+  | Elemento | Descrição | Exemplos |
+  | :--- | :--- | :--- |
+  | **NC** | Prefixo fixo (NeoCortex) | NC |
+  | **<TIPO>** | Categoria do arquivo | MCP (MCP Server), TOOL (Ferramenta), CORE (Serviço), INFRA (Infraestrutura), DOC (Documentação), PRF (Perfil), TKT (Ticket) |
+  | **<SIGLA>** | Abreviação do propósito | FR (Framework), WL (White Label), TMP (Template) |
+  | **<NUM>** | Número sequencial (3 dígitos) | 001, 002 |
+  | **<desc>** | Descrição curta em kebab-case | cortex-tool, ledger-store |
+
+  **Exemplos:**
+  - `NC-MCP-FR-001-server.py` (Servidor MCP principal)
+  - `NC-TOOL-FR-001-cortex.py` (Ferramenta MCP do córtex)
+  - `NC-CORE-FR-001-cortex-service.py` (Serviço de domínio Cortex)
+  - `NC-DOC-FR-001-project-roadmap.md` (Documento de roadmap)
+  - `NC-PRF-USR-001-lucas-profile.json` (Perfil de usuário)
+
+  ## 3. Regras para Manutenção
+  - **Arquivos Novos:** Devem seguir o padrão de nomenclatura.
+  - **Arquivos Obsoletos:** Devem ser movidos para `archive/` com um prefixo de data (ex: `20260411_old_script.py`).
+  - **Backups:** Gerados automaticamente pelo `PulseScheduler` na pasta `backup/` com timestamp.
+  ```
+
+### 🧹 ETAPA 5: Preparação para Sanitização (Checklist)
+- **Ação:** Com base no `PROJECT_MAP.md` e nas convenções definidas, gerar uma **checklist de sanitização**.
+- **Artefato de Saída:** `SANITIZATION_CHECKLIST.md` (a ser salvo em `TURBOQUANT_V42/DIR-DOC-FR-001-docs-main/`).
+- **Formato do Arquivo:**
+  ```markdown
+  # Checklist de Sanitização - NeoCortex
+
+  ## Arquivos a Serem Renomeados
+  - [ ] `neocortex/mcp/server.py` → `NC-MCP-FR-001-server.py`
+  - [ ] `neocortex/mcp/tools/cortex.py` → `NC-TOOL-FR-001-cortex.py`
+  - [ ] ... (lista completa)
+
+  ## Arquivos a Serem Movidos para `archive/`
+  - [ ] `backup_root/old_backup_20260409.zip`
+  - [ ] `test_mcp_responsive.py`
+  - [ ] ... (lista completa)
+
+  ## Pastas a Serem Criadas (se não existirem)
+  - [ ] `neocortex_framework/archive/`
+  - [ ] `neocortex_framework/backup/`
+
+  ## Ações de Consolidação
+  - [ ] Mover `NC-TODO-FR-001-project-roadmap.md` (antigo) para `archive/`
+  - [ ] Mover `NC-TODO-FR-001-project-roadmap-v6-stability.md` para `archive/`
+  - [ ] Mover `NC-TODO-FR-001-project-roadmap-ENGLISH.md` para `archive/`
+  - [ ] Manter apenas `NC-TODO-FR-001-project-roadmap-consolidated.md` como ativo.
+  ```
+- **Requisitos:**
+  - A checklist deve ser **acionável**. Cada item deve ser uma tarefa clara que o usuário pode executar manualmente (ou solicitar a uma IA para executar).
+  - Deve ser baseada no `PROJECT_MAP.md` gerado na Etapa 1.
+
+## 📦 6. Entregáveis Esperados
+Ao final da execução, os seguintes arquivos devem ser criados/atualizados em `TURBOQUANT_V42/DIR-DOC-FR-001-docs-main/`:
+
+1. `PROJECT_MAP.md` (Mapa completo da raiz)
+2. `NC-TODO-FR-001-project-roadmap-consolidated.md` (Roadmap único consolidado)
+3. `CHANGELOG.md` (Histórico de alterações)
+4. `NC-NAM-FR-001-naming-convention.md` (Convenções de nomenclatura)
+5. `SANITIZATION_CHECKLIST.md` (Checklist para sanitização futura)
+
+## ⚠️ 7. Observações Importantes
+- **NÃO execute a sanitização (renomeação/movimentação) ainda.** Apenas gere os artefatos de planejamento.
+- A chave de API mencionada (`sk-204a0b5f38a04c99b1c85dbbc7cdc041`) é um exemplo. **NÃO a inclua em arquivos de código.** Ela deve ser lida de variáveis de ambiente ou do `ConfigProvider`.
+- O foco é **TURBOQUANT_V42** (a raiz completa), e não apenas `neocortex_framework`.
+```
+
+Com este prompt, o Gemini terá instruções precisas para gerar todos os artefatos de planejamento e documentação que você precisa, sem executar a sanitização prematuramente. Você terá um mapa completo do projeto, um roadmap unificado, convenções claras e uma checklist pronta para quando decidir fazer a limpeza. 🚀

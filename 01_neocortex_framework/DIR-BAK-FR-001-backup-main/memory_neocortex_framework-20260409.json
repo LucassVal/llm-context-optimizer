@@ -1,0 +1,98 @@
+{
+  "$schema": "neocortex-v4.2-cortex",
+  "separation_rule": "JSON = LEDGER. MDC = INSTRUCTIONS. Never duplicate.",
+  "neocortex_version": "4.2-cortex",
+  "system_type": "framework",
+  "architecture": "6_layer_conceptual_fractal",
+  "system_constraints": {
+    "max_context_depth": 3,
+    "enforce_ssot": true,
+    "token_optimization": true,
+    "hot_context_limit": 5,
+    "max_json_size_tokens": 8000,
+    "warning_threshold_tokens": 6000,
+    "scratchpad_enabled": true,
+    "react_loop_enabled": true
+  },
+  "granular_state_management": {
+    "atomic_locks": { "locked_modules": ["00-cortex.mdc", "memory_neocortex_framework.json"] },
+    "session_scope": {
+      "current_focus_module": "framework_development",
+      "allowed_write_paths": ["white_label/", "examples/", "templates/"],
+      "readonly_paths": [".agents/rules/00-cortex.mdc", "memory_neocortex_framework.json"]
+    }
+  },
+  "hierarchical_validation": {
+    "regression_buffer": { "failed_attempts": [] },
+    "audit_trail": { "entries": [] },
+    "changelog": { "entries": [] }
+  },
+  "memory_temperature": {
+    "hot_context": { "interactions": [] },
+    "cold_storage": { "archived_interactions": [] },
+    "compaction_log": { "entries": [] }
+  },
+  "ubiquitous_language": {
+    "domain_vocabulary": {
+      "terms": {
+        "Cortex": "Central rule set (.mdc file)",
+        "Lobe": "Phase/module-specific context",
+        "Ledger": "JSON state file",
+        "STEP 0": "Mandatory regression check",
+        "Compact Encoding": "Symbolic references ($ @ ! ?)"
+      }
+    },
+    "compact_encoding": {
+       "files": {
+        "ctx": ".agents/rules/NC-CTX-FR-001-cortex-central.mdc",
+        "ldg": "NC-LED-FR-001-framework-ledger.json"
+      },
+      "directories": {
+        "tpl": "templates/",
+        "ex": "examples/",
+        "arc": "archive/",
+        "bak": "backup/"
+      },
+      "commands": {
+        "init": "python -m neocortex.init",
+        "bench": "python examples/benchmark_master_suite.py"
+      },
+      "patterns": {}
+    }
+  },
+  "agent_session": {
+    "model_id": "deepseek-reasoner",
+    "mode": "single_agent",
+    "scratchpad_enabled": true,
+    "token_budget_warnings": []
+  },
+  "project_identity": {
+    "name": "NeoCortex Framework",
+    "path": "C:\\Users\\Lucas Valerio\\Desktop\\TURBOQUANT_V42\\neocortex_framework",
+    "type": "framework"
+  },
+  "session_timeline": [
+    {
+      "timestamp": "2026-04-09T12:00:00Z",
+      "event": "cortex_created",
+      "description": "Created central cortex ($ctx) and ledger ($ldg) with NeoCortex v4.2 structure"
+    }
+  ],
+  "action_queue": {
+    "pending": ["implement_naming_convention", "rename_existing_files", "implement_mcp_server", "create_benchmark_integration", "document_components", "implement_framework_in_opencode"],
+    "in_progress": [],
+    "completed": ["create_cortex_structure", "create_white_label_structure"],
+    "blocked": []
+  },
+  "validation_checkpoints": [],
+  "session_metrics": {
+    "total_interactions": 0,
+    "compactions_executed": 0,
+    "token_budget_warnings": 0
+  },
+  "memory_cortex": {
+    "active_lobes": ["NC-CTX-FR-001-cortex-central"],
+    "synapses": { "current_context": { "lobe_id": "NC-CTX-FR-001-cortex-central", "checkpoint_id": "CP-001" } },
+    "global_checkpoint_index": { "checkpoints": ["CP-001", "CP-002"] }
+  }
+}

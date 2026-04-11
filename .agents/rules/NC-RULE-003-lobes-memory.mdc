@@ -1,0 +1,66 @@
+---
+description: "NC-RULE-003 | Lobes & Memory — Auto-attach em lobe_service.py e lobes/**"
+globs: ["**/lobes/**", "**/lobe_service.py", "**/core/lobe*", "**/*lobe*.py"]
+alwaysApply: false
+---
+
+<!-- NC-READ-HASH: RULE003-LOBES-v2 -->
+<!-- DEDUP: Se RULE003-LOBES-v2 já está no contexto desta sessão, SALTE. -->
+
+# NeoCortex — Lobes & Memory Rules
+
+> Ativo para: arquivos de lobos e lobe_service | Complementa: NC-RULE-001-core-ssot.mdc
+
+## Mapa de Lobos Ativos
+
+| Símbolo | Lobo | Conteúdo |
+| `$ARCH` | NC-LBE-FR-ARCHITECTURE-001.mdc | Roadmap + Naming + ADRs + Apêndice |
+| `$SEC` | NC-LBE-FR-SECURITY-001.mdc | Locks + Policy + SOP |
+| `$DEV` | NC-LBE-FR-DEVELOPMENT-001.mdc | Auditorias + Alinhamentos |
+| `$COURIER` | lobes/courier/ | Ambiente isolado Qwen 1.5B |
+| `$ENGINEER` | lobes/engineer/ | Ambiente isolado Qwen 3B |
+| `$GUARDIAN` | lobes/guardian/ | Ambiente de validação |
+
+## R14 — Isolamento de Lobos (🟡 ALTO)
+Agente com `lobe_dir = '$COURIER'` NUNCA escreve em `$ENGINEER` ou `$GUARDIAN`.
+Cross-lobe write exige autorização T0 explícita + registro no ledger.
+
+## R15 — Busca Antes de Perguntar (🟡 MÉDIO)
+```python
+# ANTES de perguntar ao usuário:
+result = lobe_service.search(query="AGENT-203 mentor_step_0")
+if result["hits"]:
+    return result["hits"][0]["content"]  # resposta dos lobos
+# Só se vazio → perguntar ao usuário
+```
+Ordem: 1) `$ARCH` / `$SEC` FTS5 → 2) `@SSOT` direto → 3) Usuário
+
+## R16 — Boot Lobe Obrigatório (ver NC-RULE-001 — redundância intencional)
+Ao trabalhar com qualquer lobo, verificar se `$BOOT_LOBE` foi carregado.
+
+## Padrão de Poblamento de Lobos
+```bash
+# Verificar status dos lobos (sem gravar):
+python scripts/NC-SCR-FR-001-populate-lobes-ssot.py --dry-run
+
+# Popular/atualizar após mudanças no SSOT:
+python scripts/NC-SCR-FR-001-populate-lobes-ssot.py
+```
+Script de referência: `@POPULATE` = `01_neocortex_framework/scripts/NC-SCR-FR-001-populate-lobes-ssot.py`
+
+## API do LobeService (padrões obrigatórios)
+```python
+from neocortex.core.lobe_service import get_lobe_service
+svc = get_lobe_service()
+
+# Criar lobo novo:
+svc.create_lobe("NC-LBE-FR-MINHALOBE-001", content, metadata={})
+
+# Atualizar lobo existente:
+svc.update_lobe("NC-LBE-FR-MINHALOBE-001.mdc", new_content)
+
+# Buscar por keywords:
+svc.search("mentor_step_0 courier")
+
+# NUNCA use paths absolutos no lobe_name — use apenas o nome do arquivo sem path
+```

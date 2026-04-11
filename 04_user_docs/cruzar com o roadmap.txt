@@ -1,0 +1,169 @@
+Aqui está a análise ampliada e detalhada do seu roadmap `NC-TODO-FR-001 - NeoCortex Combined Stability Roadmap (v7.0 Consolidated Master)`. Cada item das listas de tickets (T0, OPT, LLM, STAB, METR, AGENT, ORCH, SEC, TEST, DOC) foi analisado e descrito com o que ele representa, o que deve conter/entregar e sua função no projeto.
+
+---
+
+## 📊 Análise Geral do Roadmap Consolidado
+
+O roadmap está **estruturalmente completo e abrangente**. Ele combina com sucesso:
+
+- A visão macro de longo prazo (v5.0) com todas as fases e tickets originais.
+- O plano tático de estabilidade (v6.0) com os tickets de refinamento do core.
+- Um resumo executivo em inglês para comunicação externa.
+
+**Não há perda de conteúdo dos roadmaps anteriores.** Todos os tickets T0, OPT, LLM, STAB, METR, AGENT, ORCH, SEC, TEST e DOC estão presentes.
+
+O **risco** que você menciona não está na ausência de itens no roadmap, mas sim na **correta interpretação e execução** dos itens restantes, especialmente os que garantem a estabilidade e a orquestração manual (AGENT, ORCH, SEC).
+
+---
+
+## 📋 Descrições Detalhadas por Categoria de Tickets
+
+A seguir, cada ticket é descrito com seu propósito, entregável esperado e por que ele é crítico para o projeto.
+
+### 🧱 Fase 1: Fundação (Tickets T0 e OPT)
+
+| Ticket | Descrição Detalhada | O Que Deve Conter/Entregar |
+| :--- | :--- | :--- |
+| **T0-001** | Refatoração para arquitetura modular. | Código organizado em `neocortex/core/`, `neocortex/mcp/`, `neocortex/infra/`. Serviços separados por domínio. **✅ Concluído.** |
+| **T0-002** | Criação de `requirements.txt` e `pyproject.toml`. | Arquivos de configuração para instalação via `pip install -e .`. Dependências listadas. |
+| **T0-003** | README.md completo. | Documentação de instalação, uso rápido, exemplos, badges. |
+| **T0-004** | Documentação white-label. | Guia para novos usuários copiarem a estrutura e iniciarem um projeto. |
+| **T0-005** | Testes unitários para funções auxiliares. | Testes para `file_utils.py`, `profile_manager.py` com `pytest`. Cobertura >70%. |
+| **T0-006** | GitHub Actions CI. | Pipeline de integração contínua rodando testes e lint automaticamente. |
+| **T0-007** | Benchmark completo. | Execução do `Titanomachy` e `Drift Exhaustion` e publicação dos resultados em `BENCHMARKS.md`. |
+| **OPT-001** | LedgerStore com Speedb + msgspec. | Persistência de estado (`$LDG`) com alta performance e validação. **✅ Concluído.** |
+| **OPT-002** | ManifestStore com Speedb + msgspec. | Armazenamento de manifestos com validação e alta velocidade. **✅ Concluído.** |
+| **OPT-003** | LobeIndex com SQLite + FTS5. | Índice de metadados de lobos e busca textual. **✅ Concluído.** |
+| **OPT-004** | SearchEngine (Xapian/FTS5). | Motor de busca textual escalável. **✅ Concluído (com FTS5).** |
+| **OPT-005** | HotCache com diskcache-rs. | Cache volátil de alta performance para `hot_context`. **✅ Concluído.** |
+| **OPT-006** | Integração LobeIndex no LobeService. | Método `search_lobes()` unificado. **✅ Concluído.** |
+| **OPT-007** | Ferramenta MCP `neocortex_search`. | Exposição da busca textual para a IA. **✅ Concluído.** |
+| **OPT-008** | Script de migração de dados. | Migração de JSON antigo para os novos stores. **✅ Concluído.** |
+| **OPT-009** | Implementar ConfigProvider. | Centralização de paths, chaves e flags. **✅ Concluído.** |
+| **OPT-010** | Integrar PulseScheduler. | Uso do LedgerStore e HotCache pelo agendador. **✅ Concluído.** |
+| **OPT-011** | CacheBackend abstrato. | Interface para múltiplos backends de cache (diskcache, Redis). |
+| **OPT-012** | VectorStore abstrato. | Interface para busca vetorial (Infinity/LanceDB). |
+
+### 🤖 Fase 1: LLM Híbrido (Tickets LLM)
+
+| Ticket | Descrição Detalhada | O Que Deve Conter/Entregar |
+| :--- | :--- | :--- |
+| **LLM-001** | Design do modo híbrido. | Especificação da arquitetura de backends plugáveis. **✅ Concluído.** |
+| **LLM-002** | LLMBackend ABC. | Classe abstrata com métodos `generate()`, `get_model_name()`. **✅ Concluído.** |
+| **LLM-003** | OllamaBackend. | Implementação para modelos locais. **✅ Concluído.** |
+| **LLM-004** | DeepSeekBackend. | Implementação para API DeepSeek. **✅ Concluído.** |
+| **LLM-005** | OpenAIBackend. | Implementação para API OpenAI. **✅ Concluído.** |
+| **LLM-006** | LLMFactory. | Fábrica que retorna o backend correto baseado em configuração. **✅ Concluído.** |
+| **LLM-007** | AgentExecutor. | Script que monitora fila de tarefas e as executa com o backend apropriado. **✅ Concluído.** |
+| **LLM-008** | Ação `set_agent_backend` no MCP. | Ferramenta para alterar o backend de um agente em tempo real. **✅ Concluído.** |
+| **LLM-009** | Parâmetro `backend_override` no spawn. | Permite sobrescrever o backend ao spawnar um agente. **✅ Concluído.** |
+| **LLM-010** | Documentação híbrida. | Guia de configuração do modo híbrido. **✅ Concluído.** |
+| **LLM-011** | Testes híbridos. | Validação com dois LLMs locais simultâneos. **✅ Concluído.** |
+| **LLM-012** | Benchmarks híbridos. | Publicação dos resultados de economia. **✅ Concluído.** |
+
+### 🔌 Fase 2: MCP & Ferramentas Avançadas (Tickets T1)
+
+| Ticket | Descrição Detalhada | O Que Deve Conter/Entregar |
+| :--- | :--- | :--- |
+| **T1-001** | Autenticação JWT no MCP. | Validação de tokens para acesso às ferramentas. |
+| **T1-002** | Cliente CLI (`neocortex`). | Interface de linha de comando para interagir com o servidor MCP. |
+| **T1-003** | Testes de integração com IDE. | Validação com Antigravity, VS Code, Cursor. |
+| **T1-004** | Documentação de ferramentas. | API Reference com todas as ações e parâmetros. |
+| **T1-005** | Geração de Tool Manifest. | Arquivo JSON descrevendo todas as ferramentas MCP. |
+| **T1-006** | Versionamento de ferramentas. | Suporte a múltiplas versões de uma mesma ferramenta. |
+
+### 🧠 Fases 3 & 4: Aprendizado e Inteligência Coletiva (Tickets T2 e T3)
+
+| Ticket | Descrição Detalhada | O Que Deve Conter/Entregar |
+| :--- | :--- | :--- |
+| **T2-001** | Perfis de desenvolvedor. | Estrutura `developer_profile` com preferências, histórico, padrões. |
+| **T2-002** | Loop de aprendizado. | Atualização automática do perfil com base nas interações. |
+| **T2-003** | Predições. | Sugestões proativas baseadas no perfil (ex: stack, comandos). |
+| **T3-001** | MCP Hub com WebSocket. | Servidor central para múltiplos clientes e agentes. |
+| **T3-002** | Governança de equipe. | Perfis de equipe, políticas compartilhadas, atomic locks coletivos. |
+| **T3-003** | Descoberta e sincronização de peers. | mDNS, sincronização de estado entre hubs. |
+
+### 🚀 Fases 5, 6 & 7: Distribuição, Orquestração e Conectividade (Tickets T4, ORCH, HIER, CONN, TEST, DOC)
+
+| Ticket | Descrição Detalhada | O Que Deve Conter/Entregar |
+| :--- | :--- | :--- |
+| **T4-001** | Publicação no PyPI. | Pacote `neocortex-mcp` disponível via `pip install`. |
+| **T4-002** | Site de documentação. | MkDocs ou Docusaurus com documentação completa. |
+| **T4-003** | Artigo técnico. | Publicação sobre a arquitetura e benchmarks. |
+| **ORCH-001** | Script `sub_server.py`. | Inicialização de sub-MCP servers isolados. **✅ Concluído.** |
+| **ORCH-002** | Ferramenta `neocortex_subserver`. | Ações `spawn`, `stop`, `list`, `send_task`. **✅ Concluído.** |
+| **ORCH-003** | Ferramenta `neocortex_task`. | Ação `execute` para receber tarefas. **✅ Concluído.** |
+| **ORCH-004** | Lobos isolados para fire test. | Diretórios `lobes/courier/`, `lobes/engineer/`. **✅ Concluído.** |
+| **ORCH-005** | Execução do fire test. | Spawn de múltiplos agentes e validação de isolamento. |
+| **ORCH-006** | Validação de resiliência. | Testes de falha, recuperação, concorrência. |
+| **HIER-001 a HIER-005** | Hierarquia de lobos e agentes. | Ferramentas `neocortex_hierarchy`, `neocortex_visibility`. |
+| **CONN-001 a CONN-004** | Conectividade avançada. | mDNS, gRPC stubs, Tailscale setup, MCP Gateway. |
+| **TEST-001 a TEST-003** | Testes de hierarquia, conectividade e segurança. | Validação dos novos protocolos. |
+| **DOC-001 a DOC-005** | Documentação final de arquitetura. | Relatórios de auditoria, white papers. |
+| **VAL-001** | Pergunta final de validação. | "Os lobos locais podem criar filhos e a visibilidade lateral é controlada?" |
+
+---
+
+### 🛡️ Plano Tático de Estabilidade (v6.0) - Status Detalhado
+
+#### ✅ Concluídos (Estabilidade do Core)
+
+| Ticket | O que foi feito | Impacto |
+| :--- | :--- | :--- |
+| **STAB-101** | ConfigProvider 100% integrado. | Elimina paths hardcoded e permite configuração dinâmica. |
+| **STAB-102** | Auditoria de factories e singletons. | Remove estado global oculto, facilita testes. |
+| **STAB-103** | Suíte de testes de sanidade. | Detecta falhas críticas rapidamente. |
+| **STAB-104** | Correção do LLM Factory. | Resolve erro `unhashable type: 'list'` no fallback_chain. |
+| **STAB-105** | HotCache robusto com diskcache-rs. | Cache volátil de alta performance com TTL. |
+
+#### ✅ Métricas e Reporting (METR)
+
+| Ticket | Descrição | Status |
+| :--- | :--- | :---: |
+| **METR-106** | Extensão do MetricsStore com tabelas de domínio. | ✅ Concluído |
+| **METR-107** | Integração com componentes core (PulseScheduler, AgentExecutor). | ✅ Concluído |
+| **METR-108** | Ferramenta MCP `neocortex_report`. | ✅ Concluído |
+| **METR-109** | Validação e integração com testes de sanidade. | ✅ Concluído |
+
+#### 🟡 Em Andamento (Agentes Isolados - Crítico)
+
+| Ticket | O que falta | Por que é crítico |
+| :--- | :--- | :--- |
+| **AGENT-201** | Criar ambientes isolados completos. | Diretórios existem, mas a lógica de inicialização e isolamento total no `sub_server.py` precisa ser finalizada. |
+| **AGENT-203** | Implementar `mentor_step_0()` por agente. | É o coração do Modo Mentor. Sem isso, o agente local (1.5B) pode alucinar ou executar ações proibidas. |
+| **AGENT-205** | Testar isolamento e Modo Mentor. | Validar que as restrições são aplicadas e que o agente não viola regras. |
+
+#### 🔴 Pendentes Restritivos (Orquestração e Segurança)
+
+| Ticket | Descrição | Por que é crítico |
+| :--- | :--- | :--- |
+| **ORCH-301** | Completar ferramenta `neocortex_subserver`. | Ações `spawn`, `stop`, `send_task` precisam ser robustas para gerenciar agentes locais. |
+| **ORCH-302** | Completar `neocortex_task` no Sub-Server. | A ação `execute` deve integrar `mentor_step_0()` e o `LLMBackend`. |
+| **ORCH-304** | Testar fluxo manual completo. | Spawnar courier, enviar tarefa, verificar resultado, encerrar. |
+| **SEC-401** | Implementar `neocortex_guardian`. | Validação avançada de tool calls, auditoria. |
+| **SEC-402** | Criar `neocortex_failsafe`. | Recuperação de falhas, rollback, switch de backend. |
+| **SEC-403** | Políticas de uso por agente. | Limites de tokens, tempo de execução, recursos. |
+| **SEC-404** | Auto-reparo para stores. | Corrupção de cache ou índice deve ser recuperável. |
+| **SEC-405** | Autenticação e API Keys (do v5.0 T1-001). | Essencial para expor o MCP em rede. |
+
+### 📈 Otimizações Testáveis Futuras (Fase 5 - Documentação e Testes)
+
+| Ticket | Descrição | Status |
+| :--- | :--- | :---: |
+| **TEST-501** | Suíte de testes de integração. | Pendente |
+| **TEST-502** | Teste de estresse (Hybrid Titanomachy). | Pendente |
+| **DOC-503** | Documentação white-label. | Pendente |
+| **DOC-504** | Relatório final de ROI. | Pendente |
+
+---
+
+## ✅ Conclusão: O Projeto Está em Risco?
+
+**Não, o projeto não está em risco de perda de informação ou desvio de rota.** O roadmap consolidado é completo e claro. O risco está **exclusivamente na execução das tarefas pendentes críticas**, especialmente as da categoria **AGENT** (isolamento e Modo Mentor) e **ORCH/SEC** (orquestração manual e segurança).
+
+**Ação Imediata Recomendada:**
+1.  **Focar 100% em AGENT-201, AGENT-203, AGENT-205.** Sem o Modo Mentor, os agentes locais (Qwen 1.5B) são inúteis ou perigosos.
+2.  **Concluir ORCH-301 e ORCH-302.** Sem essas ferramentas, você não consegue orquestrar os agentes locais a partir do OpenCode/Antigravity.
+3.  **Implementar SEC-401 (Guardian) e SEC-402 (Failsafe).** Essas são as camadas de segurança que impedem um agente de causar danos.
+
+Com essas tarefas concluídas, a fundação estará verdadeiramente estável e você poderá avançar com segurança para as fases de distribuição e conectividade avançada. O roadmap é o seu mapa; a execução disciplinada é o combustível. 🚀

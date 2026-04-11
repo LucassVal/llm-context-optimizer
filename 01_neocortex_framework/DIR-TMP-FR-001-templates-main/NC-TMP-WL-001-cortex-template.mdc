@@ -1,0 +1,109 @@
+---
+alwaysApply: true
+description: "White Label Cortex  universal rules. NeoCortex v4.2-Cortex."
+---
+
+#  Cortex: [CLIENT_PROJECT_NAME]
+<!-- v4.2-Cortex | INSTRUCTIONS file  do not duplicate data from JSON -->
+
+##  STEP 0  REGRESSION + GOAL CHECK (NON-NEGOTIABLE)
+> 1. Read Regression Buffer (cortex + active lobe)
+> 2. If similar to an error  ADVISE before proceeding  
+> 3. Reaffirm goal: "[SESSION_GOAL]"
+> 4. Confirm scope: "I will work on [MODULE/FILE] only"
+
+##  SCRATCHPAD (Isolated Reasoning  ReAct)
+> Use `<thinking>` internally before any complex response.
+> Scratchpad content DOES NOT appear in the final response.
+> Structure: Thought  Plan  Risks  Regression Check
+
+##  Workspace Map
+| File/Dir | Alias | Purpose |
+| :--- | :--- | :--- |
+| `.agents/rules/00-cortex.mdc` | `$ctx` | Central cortex rules |
+| `memory_neocortex_[PROJECT].json` | `$ldg` | State ledger (JSON) |
+| `src/` | `@src` | Source code |
+| `tests/` | `@tst` | Test files |
+| `config/` | `@cfg` | Configuration files |
+| `docs/` | `@doc` | Documentation |
+
+##  Compact Encoding (MANDATORY  NO EXCEPTIONS)
+>  `$alias` |  `full/path.ext`
+> Automatically create alias if reference repeats > 2
+
+| $ = file | @ = directory | ! = command | ? = pattern |
+| :--- | :--- | :--- | :--- |
+| `$alias` | `@dir` | `!cmd` | `?pattern` |
+
+##  Stack & Commands
+| Alias | Real Command | Description |
+| :--- | :--- | :--- |
+| `!build` | `[BUILD_COMMAND]` | Build project |
+| `!test` | `[TEST_COMMAND]` | Run tests |
+| `!lint` | `[LINT_COMMAND]` | Lint code |
+| `!dev` | `[DEV_SERVER_COMMAND]` | Start development server |
+| `!backup` | `$ts=(Get-Date -Format 'yyyyMMdd_HHmmss'); Copy-Item $ldg backup\$ts.json` | JSON Backup |
+| `!token-check` | `$json = Get-Content $ldg -Raw; Write-Host "Tokens: $([math]::Round($json.Length/4))"` | Monitor Budget limits |
+
+##  Ubiquitous Language (NO SYNONYMS)
+| Term | Definition |  Prohibited |
+| :--- | :--- | :--- |
+| `[DOMAIN_TERM_1]` | [DEFINITION] | `[SYNONYM]` |
+| `[DOMAIN_TERM_2]` | [DEFINITION] | `[SYNONYM]` |
+
+##  Negative Constraints (What to NEVER do)
+-  Rewrite entire files  minimal diffs only
+-  Modify $ldg without reading it first
+-  Use synonyms from the ubiquitous language
+-  Write full path if there is an alias
+-  Bypass STEP 0 regression check
+-  [PROJECT_SPECIFIC_CONSTRAINT]
+
+##  Atomic Locks (SSOT  Do Not Modify)
+- `$cfg_file`  Reason: [EXPLANATION]
+- `[OTHER_FILE]`  Reason: [EXPLANATION]
+
+##  Workflows
+
+###  Active Lobe (Semantic)
+> Even without an open file: if the subject mentions [LOBE_DOMAIN],
+> apply patterns from the corresponding phase lobe `[FILE].mdc`.
+
+###  Workflow: Explore-Plan-Act (For complex features)
+1. **STEP 0**  MANDATORY
+2. **Explore** (read-only): map files, identify deps
+3. **Plan**: `<thinking>` + propose plan in 2-3 points  AWAIT OK
+4. **Act**: execute in minimal diffs
+5. **Observe**: `!lint` + `!test`  validate against goal
+6. **Persist**: update state + `!backup`
+
+###  Workflow: Debug
+1. **STEP 0**  MANDATORY
+2. Reproduce  Single Hypothesis  Confirm  Apply  Document in Regression Buffer
+
+###  Workflow: Wrap Up Session (ALWAYS when finishing)
+**Triggers:** "wrap up", "see you later", "that's it for today", task completed
+1. Update Current State + next steps
+2. Check off checkpoint in active lobe
+3. Add session_timeline in JSON
+4. action_queue: in_progress  completed/pending
+5. Compact hot_context if > 5 entries
+6. `!backup`
+7. Update CHANGELOG: record 1 line of structural change
+8. "Session saved. Next resumes at [CHECKPOINT]."
+
+##  Regression Buffer (CHECK IN STEP 0)
+| Error | Failed Attempt | Lesson |
+| :--- | :--- | :--- |
+|  AI fills this in when finding/solving errors |  |  |
+
+##  Current State (Checkpoint)
+<!-- UPDATE in Wrap Up Session Workflow -->
+- **Version:** NeoCortex v4.2-Cortex
+- **Active Phase:** [PHASE]
+- **Active Lobe:** `.agents/rules/[FILE].mdc`
+- **Token Budget:** ~[N] tokens (update when starting long session)
+- **Last Checkpoint:** [ID]  [DESCRIPTION] 
+- **Next Steps:**
+  - [ ] [TASK_1]
+  - [ ] [TASK_2]

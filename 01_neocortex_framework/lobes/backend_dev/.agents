@@ -1,0 +1,9 @@
+{
+  "lobe_id": "backend_dev",
+  "name": "Backend Development Lobe",
+  "description": "Backend development and API testing lobe for fire test",
+  "version": "1.0",
+  "created_at": "2026-04-10T22:08:00Z",
+  "rules_file": "rules.txt",
+  "capabilities": ["api_development", "database_operations", "performance_testing"]
+}

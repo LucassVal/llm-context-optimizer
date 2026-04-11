@@ -1,0 +1,81 @@
+{
+  "mcpServers": {
+    "neocortex": {
+      "command": "python",
+      "args": [
+        "-m",
+        "neocortex.mcp.server",
+        "--transport",
+        "stdio"
+      ],
+      "env": {},
+      "disabled": false,
+      "autoApprove": [
+        "neocortex_cortex",
+        "neocortex_ledger",
+        "neocortex_report",
+        "neocortex_subserver",
+        "neocortex_task",
+        "neocortex_checkpoint",
+        "neocortex_config",
+        "neocortex_lobes",
+        "neocortex_search",
+        "neocortex_agent",
+        "neocortex_pulse"
+      ]
+    },
+    "neocortex-websocket": {
+      "url": "ws://localhost:8765",
+      "disabled": false,
+      "autoApprove": [
+        "neocortex_cortex",
+        "neocortex_ledger",
+        "neocortex_report",
+        "neocortex_subserver",
+        "neocortex_task",
+        "neocortex_checkpoint",
+        "neocortex_config",
+        "neocortex_lobes",
+        "neocortex_search",
+        "neocortex_agent",
+        "neocortex_pulse"
+      ]
+    }
+  }
+}
+
+/*
+INSTRUÇÕES PARA ANTIGRAVITY:
+
+1. Copie este arquivo para o diretório de configuração do Antigravity:
+   - Windows: %APPDATA%\antigravity\mcp-servers.json
+   - Mac/Linux: ~/.config/antigravity/mcp-servers.json
+
+2. OU adicione ao seu arquivo de configuração existente.
+
+3. Para usar WebSocket (recomendado):
+   - Execute o servidor primeiro: ./start_neocortex_mcp.ps1
+   - No Antigravity, use "neocortex-websocket"
+
+4. Para usar stdio (integração direta):
+   - Use "neocortex" (Antigravity iniciará o servidor automaticamente)
+
+FERRAMENTAS DISPONÍVEIS:
+- neocortex_cortex: Acesso ao cortex central (regras, aliases, workflows)
+- neocortex_ledger: Estado do sistema (JSON ledger)
+- neocortex_report: Relatórios de métricas (token economy, custos, saúde)
+- neocortex_subserver: Orquestração de agentes (spawn, stop, list, send_task)
+- neocortex_task: Execução de tarefas em sub-servers
+- neocortex_checkpoint: Checkpoints e restauração de estado
+- neocortex_config: Configuração do sistema
+- neocortex_lobes: Gerenciamento de lobos/fases
+- neocortex_search: Busca semântica no conhecimento
+- neocortex_agent: Execução de agentes LLM
+- neocortex_pulse: Agendamento automático (consolidação, pruning)
+- ...e mais 10 ferramentas
+
+EXEMPLO DE USO NO ANTIGRAVITY:
+> Use a ferramenta neocortex_cortex com ação get_full
+> Use a ferramenta neocortex_report com ação generate_daily_summary
+> Use a ferramenta neocortex_subserver com ação spawn (role: courier)
+*/

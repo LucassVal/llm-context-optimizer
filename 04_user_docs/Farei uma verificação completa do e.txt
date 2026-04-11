@@ -1,0 +1,159 @@
+Farei uma verificação completa do estado atual do NeoCortex, listando todas as regras e mecanismos que discutimos, onde cada um está implementado (ou deveria estar) e como validar sua presença e funcionamento.
+
+---
+
+## 🔍 Auditoria das Regras e Mecanismos do NeoCortex
+
+### 1. STEP 0 (Regression Check)
+
+| Aspecto | Detalhe |
+| :--- | :--- |
+| **O que é** | Verificação obrigatória antes de qualquer ação, consultando o `Regression Buffer` para evitar repetir erros. |
+| **Onde está implementado** | Ferramenta MCP `neocortex_regression` (ação `check`). <br> Arquivo: `neocortex/mcp/tools/regression.py` |
+| **Como deve ser invocado** | O agente (T0) deve chamar `neocortex_regression.check(task_description)` antes de executar qualquer ação de escrita ou modificação. |
+| **Validação** | Verificar se a ferramenta está registrada no `server.py` e se o método `check` consulta o `RegressionService`. |
+
+```python
+# neocortex/mcp/tools/regression.py
+@mcp.tool(name="neocortex_regression")
+def tool_regression(action: str, error: str = "", attempt: str = "", lesson: str = ""):
+    if action == "check":
+        # Consulta o RegressionService e retorna similaridades
+        ...
+```
+
+---
+
+### 2. Modo Mentor (STEP 0 Forçado para Agentes Locais)
+
+| Aspecto | Detalhe |
+| :--- | :--- |
+| **O que é** | Middleware no Sub-MCP Server que **força** a execução do STEP 0 antes de qualquer tool call, gerando instruções impositivas para modelos fracos (ex: TinyLlama 1.5B). |
+| **Onde deve estar implementado** | Função `mentor_step_0()` dentro de `neocortex/mcp/sub_server.py`. <br> **Status:** 🟡 Planejada (AGENT-203), **não totalmente implementada.** |
+| **Como deve ser implementado** | Interceptar chamadas de ferramentas, chamar `RegressionService.check()` e `SecurityService.validate_access()`, e prefixar uma instrução impositiva ao prompt do LLM. |
+| **Validação** | Verificar se `sub_server.py` contém a função `mentor_step_0` e se ela é chamada antes de `llm_backend.generate()`. |
+
+```python
+# neocortex/mcp/sub_server.py (a ser implementado)
+def mentor_step_0(tool_name: str, arguments: dict) -> Optional[str]:
+    # 1. Consultar RegressionService
+    # 2. Consultar SecurityService
+    # 3. Gerar instrução impositiva ou None
+    ...
+```
+
+---
+
+### 3. Atomic Locks
+
+| Aspecto | Detalhe |
+| :--- | :--- |
+| **O que é** | Lista de arquivos/diretórios que **nenhum** agente pode modificar sem autorização explícita. |
+| **Onde está implementado** | Definido no Córtex (`00-cortex.mdc` ou `config.yaml`). Aplicado pelo `SecurityService`. <br> Ferramenta MCP: `neocortex_security.validate_access`. |
+| **Como deve ser usado** | Antes de qualquer modificação em arquivo, o sistema valida se o caminho está na lista de `atomic_locks`. |
+| **Validação** | Verificar se o `SecurityService` carrega a lista de locks do `ConfigProvider` e se a ferramenta `validate_access` retorna `False` para recursos bloqueados. |
+
+---
+
+### 4. Políticas de Visibilidade Hierárquica
+
+| Aspecto | Detalhe |
+| :--- | :--- |
+| **O que é** | Regras que definem o que um agente pode ver: níveis inferiores, iguais (com permissão), mas nunca superiores. |
+| **Onde está implementado** | Planejado para a ferramenta `neocortex_visibility` e `neocortex_hierarchy`. <br> **Status:** 🔴 Não implementado (HIER-001 a HIER-005). |
+| **Como deve ser implementado** | Cada Lobo/agente tem um `level` e `parent_id`. Função `can_access(user_level, resource_level, user_id, owner_id)`. |
+| **Validação** | Verificar se os arquivos de configuração de agente (`lobes/*/config.yaml`) contêm campos `hierarchy.level` e `hierarchy.parent_id`. |
+
+---
+
+### 5. Políticas de Uso por Agente (Rate Limiting, Token Budget)
+
+| Aspecto | Detalhe |
+| :--- | :--- |
+| **O que é** | Limites de tokens por tarefa, tempo máximo de execução, orçamento diário. |
+| **Onde está implementado** | Planejado para `neocortex_failsafe` e `ConfigProvider`. <br> **Status:** 🔴 Não implementado (SEC-403). |
+| **Como deve ser implementado** | No `sub_server.py`, antes de enviar ao LLM, verificar se a tarefa excede `max_tokens_per_task` ou se o `daily_budget` foi atingido. |
+| **Validação** | Verificar se `config.yaml` do agente contém chaves `limits.max_tokens_per_task` e `limits.daily_budget`. |
+
+---
+
+### 6. Fallback Chain (Cadeia de Fallback para LLMs)
+
+| Aspecto | Detalhe |
+| :--- | :--- |
+| **O que é** | Sequência de backends LLM a serem tentados em caso de falha. |
+| **Onde está implementado** | `LLMBackendFactory` e `ConfigProvider`. <br> **Status:** ✅ Implementado (LLM-006). |
+| **Como funciona** | Se o backend primário falhar (timeout, erro), a factory tenta o próximo da lista `fallback_chain`. |
+| **Validação** | Verificar se `config.yaml` contém a chave `fallback_chain` e se o `AgentExecutor` a utiliza. |
+
+---
+
+### 7. Roteamento Inteligente por Role/Complexidade
+
+| Aspecto | Detalhe |
+| :--- | :--- |
+| **O que é** | Decisão automática de qual modelo LLM usar baseado no papel do agente ou na complexidade da tarefa. |
+| **Onde está implementado** | Planejado para o `T0 Autônomo` e `neocortex_brain`. <br> **Status:** 🟡 Parcial (backend_override no spawn, mas sem decisão automática). |
+| **Como deve ser implementado** | O T0 analisa a tarefa, consulta políticas no `ConfigProvider`, e decide o backend. |
+| **Validação** | Verificar se existe uma ferramenta `neocortex_brain.think` que retorna uma decisão de roteamento. |
+
+---
+
+### 8. Heartbeat e PulseScheduler (Manutenção Autônoma)
+
+| Aspecto | Detalhe |
+| :--- | :--- |
+| **O que é** | Sistema que mantém a saúde do contexto: checkpoints periódicos, pruning, consolidação, backups. |
+| **Onde está implementado** | `PulseScheduler` em `neocortex/core/pulse_scheduler.py`. <br> **Status:** ✅ Implementado e integrado (OPT-010). |
+| **Como funciona** | Tarefas agendadas: checkpoint (5min), pruning (15min), consolidação (30min), AKL (diário), backup (diário). |
+| **Validação** | Verificar logs do servidor MCP para mensagens `[Pulse] ...`. |
+
+---
+
+### 9. Auditoria e Audit Trail
+
+| Aspecto | Detalhe |
+| :--- | :--- |
+| **O que é** | Registro imutável de todas as ações (quem fez o quê, quando, resultado). |
+| **Onde está implementado** | `AuditTrail` dentro do `LedgerService`. <br> **Status:** 🟡 Parcial (serviço existe, mas não é invocado em todas as ações). |
+| **Como deve ser implementado** | Cada ferramenta MCP que modifica estado deve chamar `LedgerService.add_audit_entry()`. |
+| **Validação** | Verificar se o `$LDG` contém uma seção `audit_trail` com entradas recentes. |
+
+---
+
+### 10. Consolidação Semântica e AKL
+
+| Aspecto | Detalhe |
+| :--- | :--- |
+| **O que é** | Transformação de logs brutos em regras permanentes (Consolidação) e decaimento de conhecimento obsoleto (AKL). |
+| **Onde está implementado** | `ConsolidationService` e `AKLService`. Ferramentas MCP: `neocortex_consolidation`, `neocortex_akl`. <br> **Status:** ✅ Serviços prontos, agendados pelo PulseScheduler. |
+| **Como funciona** | O PulseScheduler chama `consolidation.summarize_session()` a cada 30min e `akl.assess_importance()` diariamente. |
+| **Validação** | Verificar se os logs de consolidação aparecem no `PulseScheduler` e se o Córtex é atualizado com novas regras. |
+
+---
+
+## 📋 Tabela Resumo: Regras x Localização x Status
+
+| Regra / Mecanismo | Localização Principal | Status | Validação Rápida |
+| :--- | :--- | :---: | :--- |
+| STEP 0 (Regression Check) | `neocortex/mcp/tools/regression.py` | ✅ | `neocortex call neocortex_regression check --error "teste"` |
+| Modo Mentor | `neocortex/mcp/sub_server.py` | 🟡 | Função `mentor_step_0()` existe? |
+| Atomic Locks | `SecurityService` + `config.yaml` | ✅ | `neocortex call neocortex_security validate_access` |
+| Visibilidade Hierárquica | `neocortex_hierarchy` (planejado) | 🔴 | Ferramenta não existe. |
+| Políticas de Uso | `sub_server.py` + `config.yaml` | 🔴 | Chaves `limits.*` no config do agente? |
+| Fallback Chain | `LLMBackendFactory` | ✅ | `config.yaml` contém `fallback_chain`? |
+| Roteamento Inteligente | `neocortex_brain` (planejado) | 🟡 | Ferramenta `brain.think` existe? |
+| PulseScheduler | `neocortex/core/pulse_scheduler.py` | ✅ | Logs `[Pulse] ...` no servidor. |
+| Audit Trail | `LedgerService` | 🟡 | Seção `audit_trail` no `$LDG`? |
+| Consolidação / AKL | `ConsolidationService` / `AKLService` | ✅ | Agendado no PulseScheduler. |
+
+---
+
+## 🎯 Ações Imediatas Recomendadas
+
+1. **Verificar a implementação do `mentor_step_0`** em `sub_server.py`. Se não existir, priorizar AGENT-203.
+2. **Validar se o `Audit Trail` está sendo populado** durante as operações normais.
+3. **Confirmar que o `fallback_chain` está configurado** no `config.yaml` e sendo usado pelo `AgentExecutor`.
+4. **Iniciar a implementação das ferramentas de hierarquia** (`neocortex_hierarchy`, `neocortex_visibility`) para suportar a visibilidade lateral e vertical.
+
+Com essa auditoria, você tem um mapa claro do que já está operacional e do que precisa ser finalizado para que o NeoCortex atinja seu potencial máximo de governança e orquestração.

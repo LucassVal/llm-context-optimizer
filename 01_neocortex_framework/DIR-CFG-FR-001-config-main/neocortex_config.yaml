@@ -1,0 +1,82 @@
+# NeoCortex Configuration
+# LLM Configuration
+llm:
+  # Primary provider (ollama, deepseek, openai)
+  provider: ollama
+  # Model name (must be available in provider)
+  model: qwen2.5-coder:1.5b-instruct
+  # Base URL for API (leave empty for default)
+  base_url: "http://localhost:11434"
+  # API key (for cloud providers)
+  api_key: ""
+  # Temperature (0.0 to 2.0)
+  temperature: 0.7
+  # Max tokens per response
+  max_tokens: 4096
+  # Fallback chain for redundancy
+  fallback_chain:
+    - provider: ollama
+      model: qwen2.5-coder:1.5b-instruct
+      base_url: "http://localhost:11434"
+    - provider: deepseek
+      model: deepseek-chat
+      base_url: "https://api.deepseek.com"
+      api_key: "${DEEPSEEK_API_KEY}"
+    - provider: openai
+      model: gpt-3.5-turbo
+      base_url: "https://api.openai.com/v1"
+      api_key: "${OPENAI_API_KEY}"
+  # Agent-specific backends
+  agent_backends:
+    default:
+      provider: ollama
+      model: qwen2.5-coder:1.5b-instruct
+      base_url: "http://localhost:11434"
+    courier:
+      provider: ollama
+      model: qwen2.5-coder:1.5b-instruct
+      base_url: "http://localhost:11434"
+    engineer:
+      provider: ollama
+      model: qwen2.5-coder:3b-instruct
+      base_url: "http://localhost:11434"
+
+# Paths configuration (relative to project root)
+paths:
+  core_central: "DIR-CORE-FR-001-core-central"
+  archive: "DIR-ARC-FR-001-archive-main"
+  backup: "DIR-BAK-FR-001-backup-main"
+  templates: "DIR-TMP-FR-001-templates-main"
+  docs: "DIR-DOC-FR-001-docs-main"
+  source: "DIR-SRC-FR-001-source-main"
+  mcp_server: "DIR-MCP-FR-001-mcp-server"
+  profiles: "DIR-PRF-FR-001-profiles-main"
+
+# Cache settings
+cache:
+  ledger_size_gb: 1
+  manifest_size_gb: 1
+  hot_cache_size_mb: 100
+  hot_cache_default_ttl: 300
+  hot_cache_use_memory: true
+
+# Search settings
+search:
+  engine: "xapian"  # xapian or sqlite_fts5
+  max_results: 100
+
+# Scheduler settings
+scheduler:
+  pruning_interval_minutes: 15
+  consolidation_interval_minutes: 30
+  akl_assessment_interval_hours: 24
+  akl_assessment_target_hour: 0
+  backup_interval_hours: 24
+  backup_target_hour: 3
+  checkpoint_interval_minutes: 5
+
+# Monitoring
+monitoring:
+  enable_metrics: true
+  metrics_store: "duckdb"  # duckdb or sqlite
+  health_check_interval_seconds: 60

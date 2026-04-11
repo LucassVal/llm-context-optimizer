@@ -1,140 +1,164 @@
-# 🧠 LLM Context Optimizer (TurboQuant v4.2-Cortex)
+# 🧠 NeoCortex — Industrial AI Orchestration Framework
 
-**Industrial-grade context engineering for stateful AI agents.**
+> **Formerly:** LLM Context Optimizer / TurboQuant v4.2-Cortex  
+> **GitHub:** [LucassVal/llm-context-optimizer](https://github.com/LucassVal/llm-context-optimizer)  
+> **Author:** Lucas Valério  
+> **Status:** Active Development — Phase 1 (Foundation) 80% complete
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/Version-4.2.0-blue.svg)](https://github.com/LucassVal/llm-context-optimizer)
-[![TurboQuant](https://img.shields.io/badge/Framework-TurboQuant_Cortex-blueviolet.svg)](#)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/LucassVal/llm-context-optimizer/pulls)
+---
 
-## 🎯 What Problem Does This Solve?
+## 🎯 O que o NeoCortex resolve?
 
-LLM agents suffer from:
-- ❌ **Context amnesia** — forgetting everything between sessions
-- ❌ **Token bloat** — wasting thousands of tokens on repeated discovery
-- ❌ **Hallucinated commands** — guessing wrong build/test commands
-- ❌ **Regression loops** — repeating the same failed solutions
+Agentes LLM sofrem de problemas estruturais graves:
 
-**TurboQuant v4.2-Cortex** solves all of this with a **fractal memory architecture** inspired by MemGPT, ReAct, and Context Engineering research.
+- ❌ **Context amnesia** — esquecem tudo entre sessões
+- ❌ **Token bloat** — gastam milhares de tokens redescobindo o que já sabem  
+- ❌ **Hallucinated commands** — chutam comandos errados por falta de contexto
+- ❌ **Regression loops** — repetem as mesmas soluções erradas
 
-## 📊 Key Results (10 Sessions, Medium Project)
+O NeoCortex resolve isso com uma **arquitetura de memória fractal** executada localmente via MCP (Model Context Protocol), inspirada em MemGPT, ReAct e pesquisas de Context Engineering.
 
-| Metric | Without TQ | With TQ v4.2 | Improvement |
-| :--- | :---: | :---: | :---: |
-| Tokens Consumed | 370,000 | 230,000 | **-38%** |
-| Context Drift Errors | 3-5/session | 0-1/session | **-80%** |
-| Session Continuity | ~60% | 100% | **+67%** |
+---
 
-> 📈 **Scaling to 1 Million Tokens:** Working on massive monorepos? Check out our [Extrapolated Scalability Benchmarks](BENCHMARKS.md) to see how TurboQuant achieves O(1) context growth while standard agents suffer from linear O(N) token explosion.
+## 📊 Resultados Comprovados
 
-## 🧪 Live Master Benchmark Suite
+> 📈 Escalabilidade para 1 Milhão de Tokens: veja os [Benchmarks](https://github.com/LucassVal/llm-context-optimizer/blob/main/BENCHMARKS.md)  
+> Crescimento O(1) de contexto enquanto agentes padrão sofrem explosão O(N).
 
-We've built an **Empirical Interactive A/B Testing Lab** (`examples/ollama-benchmark/benchmark_master_suite.py`) that you can run locally against your own models (like `qwen2.5` or `llama3.1`). It proves the difference between a Stateless standard agent versus our TurboQuant architecture across 4 massive stress tests:
+| Métrica | Agente Padrão | NeoCortex |
+| :--- | :---: | :---: |
+| Custo por sessão (20 turnos) | 100% | **~30%** |
+| Memória cross-session | ❌ | ✅ FTS5 + RocksDB |
+| Drift cognitivo (11 turnos) | Falha | ✅ Isolado |
+| Industrial Stress (100 turnos) | Colapso | ✅ Sobrevive |
 
-1. **Empirical Token Optimization (20 Turns):** Proves O(1) cost reduction.
-2. **Industrial Stress Test (100 Turns):** Forces the model to hit the 2048 KV-Cache limit and watches standard agents collapse while TQ survives.
-3. **Cognitive Drift (11 Turns):** Proves standard models forget core passwords after 10 turns of code noise, whereas TQ isolates and recalls it continuously.
-4. **The Turbulent Development Simulator (Red Teaming):** Evaluates Cross-Session Amnesia, compliance constraints (Nuclear Locks), and exact architectural merge conflict resolutions.
+---
 
-Read the [Benchmark Lab Documentation](examples/ollama-benchmark/README.md) for deeper instructions!
+## 🏗️ Arquitetura
 
-## 🚀 Quick Start (30 seconds)
+```
+┌──────────────────────────────────────────────────────────┐
+│                      NEOCORTEX v5.0                       │
+│                                                           │
+│  ┌─────────────┐  ┌──────────────┐  ┌─────────────────┐ │
+│  │ LedgerStore │  │  LobeService │  │   MCP Server    │ │
+│  │ (RocksDB)   │  │ (FTS5+SQLite)│  │  30 tools/114+  │ │
+│  └─────────────┘  └──────────────┘  │     actions     │ │
+│                                      └─────────────────┘ │
+│  ┌─────────────────────────────────────────────────────┐ │
+│  │           Lobes — Memória Semântica Persistente     │ │
+│  │  $ARCH  $SEC  $DEV  $COURIER  $ENGINEER  $GUARDIAN  │ │
+│  └─────────────────────────────────────────────────────┘ │
+│  ┌─────────────────────────────────────────────────────┐ │
+│  │   Hierarchical Memory: Hot Cache → Cold → Archive   │ │
+│  └─────────────────────────────────────────────────────┘ │
+│  ┌─────────────────────────────────────────────────────┐ │
+│  │   Multi-Agent: T0 (Orquestrador) → A2A Gateway     │ │
+│  │   → Courier (Qwen 1.5B) + Engineer (Qwen 3B)        │ │
+│  └─────────────────────────────────────────────────────┘ │
+└──────────────────────────────────────────────────────────┘
+```
 
-### Method 1: Using the Setup Scripts
-**For Windows (PowerShell):**
-```powershell
-# Clone the repo
+---
+
+## 🚀 Quick Start (30 segundos)
+
+```bash
 git clone https://github.com/LucassVal/llm-context-optimizer.git
 cd llm-context-optimizer
 
-# Run the initialization script
-.\install.ps1 -ProjectName "MyProject"
+# Instalar dependências
+pip install -r 01_neocortex_framework/requirements.txt
+
+# Iniciar MCP Server
+python 01_neocortex_framework/neocortex/mcp/server.py
+
+# Verificar ferramentas disponíveis (20 ferramentas, ~70 ações)
+python 01_neocortex_framework/neocortex/mcp/server.py --list-tools
 ```
 
-**For Linux / macOS (Bash):**
+---
+
+## 🧪 Benchmark Suite
+
 ```bash
-# Clone the repo
-git clone https://github.com/LucassVal/llm-context-optimizer.git
-cd llm-context-optimizer
+# Suite completa de testes (TurboQuant v4.2-Cortex)
+python examples/ollama-benchmark/benchmark_master_suite.py
 
-# Run the initialization script
-chmod +x install.sh
-./install.sh "MyProject"
+# Modelos suportados:
+# - qwen2.5-coder (local, grátis)
+# - llama3.1 (local, grátis)
+# - deepseek (API)
+# - openai (API)
 ```
 
-### Method 2: Manual Setup
-```bash
-# Clone the repo
-git clone https://github.com/LucassVal/llm-context-optimizer.git
+4 pilares de teste:
+1. **Empirical Token Optimization** (20 turnos) — prova redução O(1)
+2. **Industrial Stress Test** (100 turnos) — colapso KV-Cache 2048
+3. **Cognitive Drift** (11 turnos) — prova isolamento de memória
+4. **Turbulent Dev Simulator** — amnésia cross-session, Nuclear Locks, merge conflicts
 
-# Copy the starter cortex to your project
-cp llm-context-optimizer/templates/00-cortex-STARTER.mdc your-project/.agents/rules/00-cortex.mdc
-```
+---
 
-**That's it.** Your AI agent now has persistent memory, mandatory compact encoding, and STEP 0 regression checking.
+## 🌍 Casos de Uso
 
-## 💡 Real-World Example
+### 👨‍💻 Desenvolvedores Individuais
+Conecte seu editor (Cursor, OpenCode) ao NeoCortex MCP e ganhe memória persistente automática — sem copiar contexto manualmente.
 
-Check out the [`examples/demo-api`](examples/demo-api) directory.
-It contains a simple Node.js Express server to demonstrate the framework in action. By reading the internal `.agents/rules/00-cortex.mdc` of that demo, you can see how the instructions prevent the agent from wandering aimlessly, ensuring it knows exactly where the entry points and rules are.
+### 👥 Times de Engenharia
+Compartilhe lobos de memória entre agentes. Courier e Engineer trabalham em paralelo, cada um com seu domínio isolado.
 
-## 📚 Documentation
+### 🏢 Empresas
+Gateway centralizado com OAuth 2.1, rate limiting, audit trail e 30 ferramentas especializadas na Fase 2.
 
-- [Full Prompt Specification](turboquant_memory_prompt.md)
-- [Starter Cortex Template](templates/00-cortex-STARTER.mdc)
-- [Phase Lobe Template](templates/phase-lobe-TEMPLATE.mdc)
-- [JSON Ledger Schema](templates/memory-ledger-TEMPLATE.json)
-- [Cheat Sheet & Voice Triggers](CHEATSHEET.md)
+---
 
-## 🏗️ Architecture
+## 📚 Documentação
 
-```
-┌─────────────────────────────────────────────────┐
-│              TURBOQUANT v4.2-CORTEX             │
-│                                                 │
-│  ┌──────────────┐      ┌─────────────────────┐ │
-│  │ JSON Ledger  │      │   .mdc Cortex       │ │
-│  │ (State)      │      │   (Instructions)    │ │
-│  └──────────────┘      └─────────────────────┘ │
-│                                                 │
-│  ┌────────────────────────────────────────────┐│
-│  │  Lobes (Phase Modules) — Semantic Loading  ││
-│  └────────────────────────────────────────────┘│
-│                                                 │
-│  ┌────────────────────────────────────────────┐│
-│  │  Hierarchical Memory (Hot → Cold → Archive)││
-│  └────────────────────────────────────────────┘│
-└─────────────────────────────────────────────────┘
-```
+| Documento | Conteúdo |
+| :--- | :--- |
+| [SSOT & Naming](01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md) | Convenções + changelog |
+| [Roadmap](01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md) | Tickets e prioridades |
+| [Technical Appendix](01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-APP-FR-001-technical-appendix.md) | 30+ ferramentas, stores, DBs |
+| [Ubiquitous Language](01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-DOC-FR-001-ubiquitous-language-dictionary.md) | Dicionário @$% |
+| [Boot Manifest](DIR-BOOT-FR-001-bootup-main/NC-BOOT-FR-001-system-manifest.md) | Boot para qualquer IA |
+| [Benchmarks](https://github.com/LucassVal/llm-context-optimizer/blob/main/BENCHMARKS.md) | Resultados empíricos |
 
-## 🌍 Real-World Implications (Cloud & Local)
+---
 
-### 👨‍💻 For Individual Developers
-**Fim da frustração de repetir contexto.**
-Eliminate the need to manually explain your project architecture at the start of every new chat session. The framework ensures your AI "just knows" where you left off.
+## ⚙️ Stack Técnico
 
-### 👥 For Engineering Teams
-**Reliable, Auditability-first AI.**
-Agents become predictable enough to be integrated into **CI/CD pipelines**. TurboQuant provides an audit trail of state changes, preventing "black box" hallucinated deployments.
+| Camada | Tecnologia |
+| :--- | :--- |
+| MCP Framework | FastMCP (Python) |
+| State / Ledger | RocksDB via pyspeedb |
+| Lobe Index | SQLite FTS5 |
+| Metrics / Analytics | DuckDB |
+| Hot Cache | diskcache-rs |
+| LLM Local | Ollama (Qwen 2.5, Llama 3) |
+| LLM Cloud | DeepSeek, OpenAI (API) |
+| Embedding | sentence-transformers |
 
-### 🏢 For Enterprises
-**Cost Reduction & Security Governance.**
-- **90% API Savings**: Drastically lower billing by avoiding the linear context-window explosion of standard agents.
-- **Safety Locks**: Mitigate security risks by enforcing atomic rules and compliance lobes that override malicious or hallucinated user instructions.
+---
 
-## 🧪 Based On
+## 🔬 Baseado Em
 
-- MemGPT (UC Berkeley)
-- ReAct (Google DeepMind)
-- Acon Framework
-- Context Engineering Google
-- Cursor Rules Best Practices
-- Anthropic CLAUDE.md Specification
+- [MemGPT](https://arxiv.org/abs/2310.08560) — Memória hierárquica para LLMs
+- [ReAct](https://arxiv.org/abs/2210.03629) — Reasoning + Acting unificados
+- [Model Context Protocol](https://modelcontextprotocol.io) — Anthropic MCP spec
+- [Google A2A Protocol](https://google.github.io/A2A) — Agent-to-Agent (Fase 2)
 
-## 📄 License
+---
 
-MIT — use freely in any project, commercial or personal.
+## 📄 Licença
 
-## ⭐ Star This Repo
+MIT — Livre para uso pessoal e comercial.
 
-If this saves you tokens and headaches, a star helps others discover it!
+---
+
+## ⭐ Contribuiu?
+
+Se o NeoCortex economizou seus tokens ou melhorou seu workflow, considere dar uma ⭐ no GitHub.
+
+> *"O objetivo não é uma IA mais inteligente. É uma IA que se lembra."*
+

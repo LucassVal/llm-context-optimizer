@@ -1,0 +1,85 @@
+{
+  "$schema": "turboquant-v4.2-cortex",
+  "separation_rule": "JSON = LEDGER. MDC = INSTRUCTIONS. Never duplicate.",
+  "turboquant_version": "4.2-cortex",
+  "system_type": "agent-courier",
+  "architecture": "6_layer_conceptual_fractal",
+  "system_constraints": {
+    "max_context_depth": 3,
+    "enforce_ssot": true,
+    "token_optimization": true,
+    "hot_context_limit": 5,
+    "max_json_size_tokens": 4000,
+    "warning_threshold_tokens": 3000,
+    "scratchpad_enabled": true,
+    "react_loop_enabled": true
+  },
+  "granular_state_management": {
+    "atomic_locks": { "locked_modules": [] },
+    "session_scope": {
+      "current_focus_module": "",
+      "allowed_write_paths": [],
+      "readonly_paths": [
+        "lobes/courier/DIR-CORE-FR-001-core-central/.agents/rules/00-cortex-STARTER.mdc",
+        "neocortex_config.yaml"
+      ]
+    }
+  },
+  "hierarchical_validation": {
+    "regression_buffer": { "failed_attempts": [] },
+    "audit_trail": { "entries": [] },
+    "changelog": { "entries": [] }
+  },
+  "memory_temperature": {
+    "hot_context": { "interactions": [] },
+    "cold_storage": { "archived_interactions": [] },
+    "compaction_log": { "entries": [] }
+  },
+  "ubiquitous_language": {
+    "domain_vocabulary": { "terms": {} },
+    "compact_encoding": {
+      "files": {
+        "$cfg": "neocortex_config.yaml",
+        "$ctx": "DIR-CORE-FR-001-core-central/.agents/rules/00-cortex-STARTER.mdc",
+        "$MEM": "memory_ledger_courier.json"
+      },
+      "directories": {
+        "@core": "DIR-CORE-FR-001-core-central",
+        "@rules": "DIR-CORE-FR-001-core-central/.agents/rules"
+      },
+      "commands": {
+        "!start": "python -m neocortex.mcp.sub_server --port 11435 --lobe-dir \"lobes/courier\" --tools \"lobes,manifest,ledger\" --role courier"
+      },
+      "patterns": {}
+    }
+  },
+  "agent_session": {
+    "model_id": "qwen2.5-coder:1.5b-instruct",
+    "mode": "single_agent",
+    "scratchpad_enabled": true,
+    "token_budget_warnings": []
+  },
+  "project_identity": {
+    "name": "courier-agent",
+    "path": "lobes/courier",
+    "type": "agent"
+  },
+  "session_timeline": [],
+  "action_queue": {
+    "pending": [],
+    "in_progress": [],
+    "completed": [],
+    "blocked": []
+  },
+  "validation_checkpoints": [],
+  "session_metrics": {
+    "total_interactions": 0,
+    "compactions_executed": 0,
+    "token_budget_warnings": 0
+  },
+  "memory_cortex": {
+    "active_lobes": [],
+    "synapses": { "current_context": { "lobe_id": "", "checkpoint_id": "" } },
+    "global_checkpoint_index": { "checkpoints": [] }
+  }
+}

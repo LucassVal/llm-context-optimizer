@@ -1,0 +1,41 @@
+{
+  "phase": "Fase 1 - Fundação para Testabilidade",
+  "description": "ConfigProvider, Factory Pattern, PulseScheduler refinamento",
+  "checkpoints": [
+    {
+      "id": "CP-F1-001",
+      "name": "ConfigProvider implementado",
+      "description": "neocortex/config.py com classe Config centralizada",
+      "dependencies": [],
+      "estimated_hours": 0.5
+    },
+    {
+      "id": "CP-F1-002",
+      "name": "Factory Pattern implementado",
+      "description": "Funções fábrica para serviços, eliminação de singletons",
+      "dependencies": [
+        "CP-F1-001"
+      ],
+      "estimated_hours": 1.0
+    },
+    {
+      "id": "CP-F1-003",
+      "name": "PulseScheduler refinado",
+      "description": "Resolver duplicação de instâncias, otimizar intervals",
+      "dependencies": [],
+      "estimated_hours": 0.5
+    },
+    {
+      "id": "CP-F1-004",
+      "name": "Testes de sanidade",
+      "description": "neocortex server e tools funcionando após refatoração",
+      "dependencies": [
+        "CP-F1-001",
+        "CP-F1-002",
+        "CP-F1-003"
+      ],
+      "estimated_hours": 0.5
+    }
+  ],
+  "total_estimated_hours": 2.5
+}

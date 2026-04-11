@@ -1,0 +1,42 @@
+---
+alwaysApply: false
+description: "Phase Lobe: [PHASE_NAME/MODULE]. TurboQuant v4.2."
+globs: ["[PATH_PATTERN]/*"]
+---
+
+#  Lobe: [PHASE_NAME]
+<!-- Activated by glob OR semantic mention of the domain -->
+<!-- Isolated namespace: do not share variables with other lobes -->
+
+##  STEP 0  REGRESSION CHECK (MANDATORY)
+> Read table below. Similarity  advise before proceeding.
+
+##  Checkpoint Tree
+- [x] **CP-001:** [Completed Task]
+- [ ] **CP-002:** [Task In Progress]  **CURRENT**
+  - [ ] Sub-task 2.1  Few-shot: "[EXAMPLE_HERE]"
+- [ ] **CP-003:** [Pending Task]
+
+##  Negative Constraints for Phase
+-  [WHAT_NOT_TO_DO_IN_THIS_PHASE]
+-  Ex: Never delete the entity ID
+
+##  Regression Buffer  Specific
+| Error | Attempt | Lesson |
+| :--- | :--- | :--- |
+| [MODULE_SPECIFIC_ERROR] | [ATTEMPT] | [LESSON] |
+
+##  Local Compact Encoding
+| Symbol | Meaning |
+| :--- | :--- |
+| `$[alias]` | `[FILE_PATH_OF_THIS_MODULE]` |
+
+##  Phase Metrics
+> Update via Wrap Up Session Workflow.
+
+| Metric | Value |
+| :--- | :--- |
+| Interactions | 0 |
+| Files created | 0 |
+| Problems solved | 0 |
+| Token budget warnings | 0 |

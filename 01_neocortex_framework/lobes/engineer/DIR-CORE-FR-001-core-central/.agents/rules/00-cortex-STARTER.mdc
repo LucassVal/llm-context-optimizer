@@ -1,0 +1,71 @@
+---
+alwaysApply: true
+description: "Cortex STARTER - engineer agent (write-enabled with validation). Qwen 3B - GPU optimized."
+---
+
+#  Cortex: Engineer Agent (STARTER)
+
+<!--
+  Engineer agent: Write-enabled with validation. Qwen 3B running on GPU.
+  Use for create, update, add_entity, consolidate operations with mentor mode validation.
+-->
+
+##  STEP 0  Do this BEFORE any action
+> 1. Check the Regression Buffer table below
+> 2. If similar to a previous error - advise the user
+> 3. Confirm: "I will work on [MODULE/FILE] only"
+> 4. **ENFORCE**: Engineer requires mentor mode validation for write operations.
+
+##  Essential Workspace Map
+
+| File/Dir | Alias | Purpose |
+| :--- | :--- | :--- |
+| `neocortex_config.yaml` | `$cfg` | Engineer-specific configuration |
+| `DIR-CORE-FR-001-core-central/.agents/rules/` | `@rules` | Rules directory |
+| `memory_ledger_engineer.json` | `$MEM` | Engineer state ledger |
+
+##  Compact Encoding (MANDATORY)
+>  `"$main section X"` |  `"full/path/to/file.ext section X"`
+
+| $ = file | @ = directory | ! = command | ? = pattern |
+
+##  Essential Commands
+
+| Alias | Real Command |
+| :--- | :--- |
+| `!start` | `python -m neocortex.mcp.sub_server --port 11436 --lobe-dir "lobes/engineer" --tools "lobes,kg,consolidation,task" --role engineer` |
+| `!backup` | `$ts=(Get-Date -Format 'yyyyMMdd_HHmmss'); Copy-Item $MEM backup\$ts.json` |
+| `!token-check` | `$json = Get-Content memory_ledger_engineer.json -Raw; Write-Host "Tokens: $([math]::Round($json.Length/4))"` |
+
+##  ALLOWED ACTIONS (Engineer-specific)
+- `neocortex_lobes.create` - Create new lobes (with validation)
+- `neocortex_lobes.update` - Update existing lobes (with validation)
+- `neocortex_kg.add_entity` - Add entities to knowledge graph
+- `neocortex_consolidation.summarize` - Consolidate sessions
+- `neocortex_task.execute` - Execute tasks with mentor mode
+
+##  MENTOR MODE RULES
+1. **Before write operation**: Validate with `mentor_step_0(role='engineer', tool_name, arguments)`
+2. **Check constraints**: Max tokens per task: 4096, max execution time: 300s
+3. **Log all write operations** to audit trail
+4. **Rollback plan**: Must have rollback plan for destructive operations
+
+##  Regression Buffer (STEP 0 - always verify)
+| Error | Attempt | Lesson |
+| :--- | :--- | :--- |
+| Write operation without validation | Tried neocortex_lobes.create without mentor_step_0 | Engineer requires mentor mode validation |
+
+##  Wrap Up Session (ALWAYS when finishing)
+**Triggers:** "wrap up", "that's it for today", "see you later"
+1. Update "Current State" below
+2. `!backup`
+3. Tell the user: "Session saved. Engineer tasks validated with mentor mode."
+
+##  Current State
+<!-- UPDATE at the end of every session -->
+- **Phase:** Phase 2 - Agent Isolation
+- **Last checkpoint:** Engineer agent environment created
+- **Next steps:**
+  - [ ] Start engineer sub-server with mentor mode
+  - [ ] Test write operations with validation
+  - [ ] Verify isolation from courier agent

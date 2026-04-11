@@ -1,0 +1,2105 @@
+{
+  "$schema": "neocortex-tool-manifest-v1.0",
+  "version": "1.0.0",
+  "generated_at": "2026-04-10T12:28:32.612607Z",
+  "server_name": "neocortex",
+  "tools": [
+    {
+      "name": "neocortex_cortex",
+      "display_name": "Córtex Central",
+      "description": "Acesso ao cortex central.",
+      "category": "core",
+      "version": "1.0.0",
+      "actions": [
+        {
+          "name": "get_full",
+          "description": "Retorna o conteudo completo do cortex",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "section": {
+              "type": "string",
+              "description": "Parameter section",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "get_section",
+          "description": "Retorna uma secao especifica",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "section": {
+              "type": "string",
+              "description": "Parameter section",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "get_aliases",
+          "description": "Retorna todos os aliases definidos",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "section": {
+              "type": "string",
+              "description": "Parameter section",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "get_workflows",
+          "description": "Retorna os workflows definidos",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "section": {
+              "type": "string",
+              "description": "Parameter section",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "validate_alias",
+          "description": "Valida se um alias esta correto",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "section": {
+              "type": "string",
+              "description": "Parameter section",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        }
+      ],
+      "access_control": {
+        "default_read": "authenticated",
+        "default_write": "admin"
+      },
+      "metadata": {
+        "module": "cortex",
+        "action_count": 5
+      }
+    },
+    {
+      "name": "neocortex_lobes",
+      "display_name": "Lobos",
+      "description": "Gerenciamento de lobos.",
+      "category": "core",
+      "version": "1.0.0",
+      "actions": [
+        {
+          "name": "list_active",
+          "description": "Lista todos os lobos disponiveis",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "lobe_name": {
+              "type": "string",
+              "description": "Parameter lobe_name",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "get_content",
+          "description": "Retorna o conteudo de um lobe especifico",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "lobe_name": {
+              "type": "string",
+              "description": "Parameter lobe_name",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "get_checkpoint_tree",
+          "description": "Extrai a arvore de checkpoints de um lobe",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "lobe_name": {
+              "type": "string",
+              "description": "Parameter lobe_name",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "activate",
+          "description": "Marca um lobe como ativo (simulado)",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "lobe_name": {
+              "type": "string",
+              "description": "Parameter lobe_name",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "deactivate",
+          "description": "Marca um lobe como inativo (simulado)",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "lobe_name": {
+              "type": "string",
+              "description": "Parameter lobe_name",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        }
+      ],
+      "access_control": {
+        "default_read": "authenticated",
+        "default_write": "admin"
+      },
+      "metadata": {
+        "module": "lobes",
+        "action_count": 5
+      }
+    },
+    {
+      "name": "neocortex_checkpoint",
+      "display_name": "Checkpoint",
+      "description": "Controle de checkpoints.",
+      "category": "core",
+      "version": "1.0.0",
+      "actions": [
+        {
+          "name": "get_current",
+          "description": "Retorna o checkpoint atual",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "checkpoint_id": {
+              "type": "string",
+              "description": "Parameter checkpoint_id",
+              "required": false,
+              "default": ""
+            },
+            "description": {
+              "type": "string",
+              "description": "Parameter description",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "set_current",
+          "description": "Define um novo checkpoint atual",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "checkpoint_id": {
+              "type": "string",
+              "description": "Parameter checkpoint_id",
+              "required": false,
+              "default": ""
+            },
+            "description": {
+              "type": "string",
+              "description": "Parameter description",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "complete_task",
+          "description": "Marca uma tarefa como completa",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "checkpoint_id": {
+              "type": "string",
+              "description": "Parameter checkpoint_id",
+              "required": false,
+              "default": ""
+            },
+            "description": {
+              "type": "string",
+              "description": "Parameter description",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "list_history",
+          "description": "Lista o historico de checkpoints",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "checkpoint_id": {
+              "type": "string",
+              "description": "Parameter checkpoint_id",
+              "required": false,
+              "default": ""
+            },
+            "description": {
+              "type": "string",
+              "description": "Parameter description",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        }
+      ],
+      "access_control": {
+        "default_read": "authenticated",
+        "default_write": "admin"
+      },
+      "metadata": {
+        "module": "checkpoint",
+        "action_count": 4
+      }
+    },
+    {
+      "name": "neocortex_regression",
+      "display_name": "Regression",
+      "description": "STEP 0 e buffer de regressao.",
+      "category": "validation",
+      "version": "1.0.0",
+      "actions": [
+        {
+          "name": "check",
+          "description": "Verifica se ha regressoes similares",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "error": {
+              "type": "string",
+              "description": "Parameter error",
+              "required": false,
+              "default": ""
+            },
+            "attempt": {
+              "type": "string",
+              "description": "Parameter attempt",
+              "required": false,
+              "default": ""
+            },
+            "lesson": {
+              "type": "string",
+              "description": "Parameter lesson",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "add_entry",
+          "description": "Adiciona uma nova entrada ao buffer",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "error": {
+              "type": "string",
+              "description": "Parameter error",
+              "required": false,
+              "default": ""
+            },
+            "attempt": {
+              "type": "string",
+              "description": "Parameter attempt",
+              "required": false,
+              "default": ""
+            },
+            "lesson": {
+              "type": "string",
+              "description": "Parameter lesson",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "list_all",
+          "description": "Lista todas as entradas do buffer",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "error": {
+              "type": "string",
+              "description": "Parameter error",
+              "required": false,
+              "default": ""
+            },
+            "attempt": {
+              "type": "string",
+              "description": "Parameter attempt",
+              "required": false,
+              "default": ""
+            },
+            "lesson": {
+              "type": "string",
+              "description": "Parameter lesson",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        }
+      ],
+      "access_control": {
+        "default_read": "authenticated",
+        "default_write": "admin"
+      },
+      "metadata": {
+        "module": "regression",
+        "action_count": 3
+      }
+    },
+    {
+      "name": "neocortex_ledger",
+      "display_name": "Ledger",
+      "description": "Acesso ao ledger JSON.",
+      "category": "core",
+      "version": "1.0.0",
+      "actions": [
+        {
+          "name": "get_metrics",
+          "description": "Retorna metricas da sessao",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "metric": {
+              "type": "string",
+              "description": "Parameter metric",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "get_atomic_locks",
+          "description": "Retorna os atomic locks",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "metric": {
+              "type": "string",
+              "description": "Parameter metric",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "get_dependency_graph",
+          "description": "Retorna o grafo de dependencias",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "metric": {
+              "type": "string",
+              "description": "Parameter metric",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "prune_context",
+          "description": "Executa poda de contexto",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "metric": {
+              "type": "string",
+              "description": "Parameter metric",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        }
+      ],
+      "access_control": {
+        "default_read": "authenticated",
+        "default_write": "admin"
+      },
+      "metadata": {
+        "module": "ledger",
+        "action_count": 4
+      }
+    },
+    {
+      "name": "neocortex_benchmark",
+      "display_name": "Benchmark",
+      "description": "Execucao de benchmarks.",
+      "category": "monitoring",
+      "version": "1.0.0",
+      "actions": [
+        {
+          "name": "run_drift",
+          "description": "Executa benchmark Drift Exhaustion",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "benchmark_type": {
+              "type": "string",
+              "description": "Parameter benchmark_type",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "run_titanomachy",
+          "description": "Executa benchmark Titanomachy",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "benchmark_type": {
+              "type": "string",
+              "description": "Parameter benchmark_type",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "get_last_report",
+          "description": "Retorna o ultimo relatorio de benchmark",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "benchmark_type": {
+              "type": "string",
+              "description": "Parameter benchmark_type",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        }
+      ],
+      "access_control": {
+        "default_read": "authenticated",
+        "default_write": "admin"
+      },
+      "metadata": {
+        "module": "benchmark",
+        "action_count": 3
+      }
+    },
+    {
+      "name": "neocortex_agent",
+      "display_name": "Agent",
+      "description": "Orquestracao de agentes efemeros.",
+      "category": "automation",
+      "version": "1.0.0",
+      "actions": [
+        {
+          "name": "spawn",
+          "description": "Cria um novo agente efemero",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "agent_id": {
+              "type": "string",
+              "description": "Parameter agent_id",
+              "required": false,
+              "default": ""
+            },
+            "role": {
+              "type": "string",
+              "description": "Parameter role",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "heartbeat",
+          "description": "Verifica status do agente",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "agent_id": {
+              "type": "string",
+              "description": "Parameter agent_id",
+              "required": false,
+              "default": ""
+            },
+            "role": {
+              "type": "string",
+              "description": "Parameter role",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "consume",
+          "description": "Consome resultados do agente",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "agent_id": {
+              "type": "string",
+              "description": "Parameter agent_id",
+              "required": false,
+              "default": ""
+            },
+            "role": {
+              "type": "string",
+              "description": "Parameter role",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "list_ephemeral",
+          "description": "Lista agentes efemeros ativos",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "agent_id": {
+              "type": "string",
+              "description": "Parameter agent_id",
+              "required": false,
+              "default": ""
+            },
+            "role": {
+              "type": "string",
+              "description": "Parameter role",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        }
+      ],
+      "access_control": {
+        "default_read": "authenticated",
+        "default_write": "admin"
+      },
+      "metadata": {
+        "module": "agent",
+        "action_count": 4
+      }
+    },
+    {
+      "name": "neocortex_init",
+      "display_name": "Init",
+      "description": "Inicializacao de projetos.",
+      "category": "setup",
+      "version": "1.0.0",
+      "actions": [
+        {
+          "name": "scan_project",
+          "description": "Analisa a estrutura do projeto atual",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "project_name": {
+              "type": "string",
+              "description": "Parameter project_name",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "generate_cortex",
+          "description": "Gera um cortex inicial",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "project_name": {
+              "type": "string",
+              "description": "Parameter project_name",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "generate_lobe",
+          "description": "Gera um lobe inicial para um modulo",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "project_name": {
+              "type": "string",
+              "description": "Parameter project_name",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        }
+      ],
+      "access_control": {
+        "default_read": "authenticated",
+        "default_write": "admin"
+      },
+      "metadata": {
+        "module": "init",
+        "action_count": 3
+      }
+    },
+    {
+      "name": "neocortex_config",
+      "display_name": "Config",
+      "description": "Configuracao do sistema.",
+      "category": "configuration",
+      "version": "1.0.0",
+      "actions": [
+        {
+          "name": "get_config",
+          "description": "Retorna configuracao atual",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "key": {
+              "type": "string",
+              "description": "Parameter key",
+              "required": false,
+              "default": ""
+            },
+            "value": {
+              "type": "string",
+              "description": "Parameter value",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "set_model",
+          "description": "Define o modelo LLM a ser usado",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "key": {
+              "type": "string",
+              "description": "Parameter key",
+              "required": false,
+              "default": ""
+            },
+            "value": {
+              "type": "string",
+              "description": "Parameter value",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "list_models",
+          "description": "Lista modelos disponiveis",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "key": {
+              "type": "string",
+              "description": "Parameter key",
+              "required": false,
+              "default": ""
+            },
+            "value": {
+              "type": "string",
+              "description": "Parameter value",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        }
+      ],
+      "access_control": {
+        "default_read": "authenticated",
+        "default_write": "admin"
+      },
+      "metadata": {
+        "module": "config",
+        "action_count": 3
+      }
+    },
+    {
+      "name": "neocortex_export",
+      "display_name": "Export",
+      "description": "Exportacao de dados.",
+      "category": "data",
+      "version": "1.0.0",
+      "actions": [
+        {
+          "name": "to_markdown",
+          "description": "Exporta estado para markdown",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "format": {
+              "type": "string",
+              "description": "Parameter format",
+              "required": false,
+              "default": "markdown"
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "to_json",
+          "description": "Exporta estado para JSON",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "format": {
+              "type": "string",
+              "description": "Parameter format",
+              "required": false,
+              "default": "markdown"
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "to_graph",
+          "description": "Exporta para formato de grafo",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "format": {
+              "type": "string",
+              "description": "Parameter format",
+              "required": false,
+              "default": "markdown"
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        }
+      ],
+      "access_control": {
+        "default_read": "authenticated",
+        "default_write": "admin"
+      },
+      "metadata": {
+        "module": "export",
+        "action_count": 3
+      }
+    },
+    {
+      "name": "neocortex_manifest",
+      "display_name": "Manifest",
+      "description": "Gerenciamento de manifestos (indices leves de lobos/cortex).",
+      "category": "metadata",
+      "version": "1.0.0",
+      "actions": [
+        {
+          "name": "generate",
+          "description": "Gera um manifesto para um lobe ou cortex",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "target": {
+              "type": "string",
+              "description": "Parameter target",
+              "required": false,
+              "default": ""
+            },
+            "metadata": {
+              "type": "string",
+              "description": "Parameter metadata",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "update",
+          "description": "Atualiza metadados de um manifesto existente",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "target": {
+              "type": "string",
+              "description": "Parameter target",
+              "required": false,
+              "default": ""
+            },
+            "metadata": {
+              "type": "string",
+              "description": "Parameter metadata",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "query",
+          "description": "Consulta manifestos por tags, dominio ou entidades",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "target": {
+              "type": "string",
+              "description": "Parameter target",
+              "required": false,
+              "default": ""
+            },
+            "metadata": {
+              "type": "string",
+              "description": "Parameter metadata",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        }
+      ],
+      "access_control": {
+        "default_read": "authenticated",
+        "default_write": "admin"
+      },
+      "metadata": {
+        "module": "manifest",
+        "action_count": 3
+      }
+    },
+    {
+      "name": "neocortex_kg",
+      "display_name": "Knowledge Graph",
+      "description": "Mini Knowledge Graph  grafo semantico local (evolucao do Compact Encoding).",
+      "category": "knowledge",
+      "version": "1.0.0",
+      "actions": [
+        {
+          "name": "add_entity",
+          "description": "Adiciona uma entidade ao Mini-KG",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "entity": {
+              "type": "string",
+              "description": "Parameter entity",
+              "required": false,
+              "default": ""
+            },
+            "relation": {
+              "type": "string",
+              "description": "Parameter relation",
+              "required": false,
+              "default": ""
+            },
+            "target": {
+              "type": "string",
+              "description": "Parameter target",
+              "required": false,
+              "default": ""
+            },
+            "metadata": {
+              "type": "string",
+              "description": "Parameter metadata",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "add_relation",
+          "description": "Adiciona uma relacao entre entidades",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "entity": {
+              "type": "string",
+              "description": "Parameter entity",
+              "required": false,
+              "default": ""
+            },
+            "relation": {
+              "type": "string",
+              "description": "Parameter relation",
+              "required": false,
+              "default": ""
+            },
+            "target": {
+              "type": "string",
+              "description": "Parameter target",
+              "required": false,
+              "default": ""
+            },
+            "metadata": {
+              "type": "string",
+              "description": "Parameter metadata",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "query_relations",
+          "description": "Retorna todas as relacoes de uma entidade",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "entity": {
+              "type": "string",
+              "description": "Parameter entity",
+              "required": false,
+              "default": ""
+            },
+            "relation": {
+              "type": "string",
+              "description": "Parameter relation",
+              "required": false,
+              "default": ""
+            },
+            "target": {
+              "type": "string",
+              "description": "Parameter target",
+              "required": false,
+              "default": ""
+            },
+            "metadata": {
+              "type": "string",
+              "description": "Parameter metadata",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "find_similar",
+          "description": "Encontra entidades/lobos com caracteristicas semelhantes",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "entity": {
+              "type": "string",
+              "description": "Parameter entity",
+              "required": false,
+              "default": ""
+            },
+            "relation": {
+              "type": "string",
+              "description": "Parameter relation",
+              "required": false,
+              "default": ""
+            },
+            "target": {
+              "type": "string",
+              "description": "Parameter target",
+              "required": false,
+              "default": ""
+            },
+            "metadata": {
+              "type": "string",
+              "description": "Parameter metadata",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "visualize",
+          "description": "Exporta o grafo em formato DOT ou estrutura simplificada",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "entity": {
+              "type": "string",
+              "description": "Parameter entity",
+              "required": false,
+              "default": ""
+            },
+            "relation": {
+              "type": "string",
+              "description": "Parameter relation",
+              "required": false,
+              "default": ""
+            },
+            "target": {
+              "type": "string",
+              "description": "Parameter target",
+              "required": false,
+              "default": ""
+            },
+            "metadata": {
+              "type": "string",
+              "description": "Parameter metadata",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        }
+      ],
+      "access_control": {
+        "default_read": "authenticated",
+        "default_write": "admin"
+      },
+      "metadata": {
+        "module": "kg",
+        "action_count": 5
+      }
+    },
+    {
+      "name": "neocortex_consolidation",
+      "display_name": "Consolidation",
+      "description": "Consolidacao Semantica  transforma experiencia efemera em regras permanentes.",
+      "category": "learning",
+      "version": "1.0.0",
+      "actions": [
+        {
+          "name": "summarize_session",
+          "description": "Resume uma sessao em regras concisas",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "session_id": {
+              "type": "string",
+              "description": "Parameter session_id",
+              "required": false,
+              "default": ""
+            },
+            "summary": {
+              "type": "string",
+              "description": "Parameter summary",
+              "required": false,
+              "default": ""
+            },
+            "target": {
+              "type": "string",
+              "description": "Parameter target",
+              "required": false,
+              "default": ""
+            },
+            "metadata": {
+              "type": "string",
+              "description": "Parameter metadata",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "merge_learnings",
+          "description": "Combina aprendizados de multiplos agentes",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "session_id": {
+              "type": "string",
+              "description": "Parameter session_id",
+              "required": false,
+              "default": ""
+            },
+            "summary": {
+              "type": "string",
+              "description": "Parameter summary",
+              "required": false,
+              "default": ""
+            },
+            "target": {
+              "type": "string",
+              "description": "Parameter target",
+              "required": false,
+              "default": ""
+            },
+            "metadata": {
+              "type": "string",
+              "description": "Parameter metadata",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "promote_to_rule",
+          "description": "Promove entrada do Regression Buffer a regra permanente",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "session_id": {
+              "type": "string",
+              "description": "Parameter session_id",
+              "required": false,
+              "default": ""
+            },
+            "summary": {
+              "type": "string",
+              "description": "Parameter summary",
+              "required": false,
+              "default": ""
+            },
+            "target": {
+              "type": "string",
+              "description": "Parameter target",
+              "required": false,
+              "default": ""
+            },
+            "metadata": {
+              "type": "string",
+              "description": "Parameter metadata",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        }
+      ],
+      "access_control": {
+        "default_read": "authenticated",
+        "default_write": "admin"
+      },
+      "metadata": {
+        "module": "consolidation",
+        "action_count": 3
+      }
+    },
+    {
+      "name": "neocortex_akl",
+      "display_name": "Adaptive Knowledge Lifecycle",
+      "description": "Adaptive Knowledge Lifecycle  gerencia relevancia do conhecimento.",
+      "category": "knowledge",
+      "version": "1.0.0",
+      "actions": [
+        {
+          "name": "assess_importance",
+          "description": "Avalia importancia de regras com base no uso",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "target": {
+              "type": "string",
+              "description": "Parameter target",
+              "required": false,
+              "default": ""
+            },
+            "metadata": {
+              "type": "string",
+              "description": "Parameter metadata",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "decay_knowledge",
+          "description": "Aplica decaimento a regras nao utilizadas",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "target": {
+              "type": "string",
+              "description": "Parameter target",
+              "required": false,
+              "default": ""
+            },
+            "metadata": {
+              "type": "string",
+              "description": "Parameter metadata",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "suggest_cleanup",
+          "description": "Lista regras candidatas a arquivamento",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "target": {
+              "type": "string",
+              "description": "Parameter target",
+              "required": false,
+              "default": ""
+            },
+            "metadata": {
+              "type": "string",
+              "description": "Parameter metadata",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        }
+      ],
+      "access_control": {
+        "default_read": "authenticated",
+        "default_write": "admin"
+      },
+      "metadata": {
+        "module": "akl",
+        "action_count": 3
+      }
+    },
+    {
+      "name": "neocortex_peers",
+      "display_name": "Peers",
+      "description": "Gerenciamento de peers  coordenacao entre multiplas instancias NeoCortex.",
+      "category": "collaboration",
+      "version": "1.0.0",
+      "actions": [
+        {
+          "name": "discover",
+          "description": "Descobrir peers disponiveis",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "peer_id": {
+              "type": "string",
+              "description": "Parameter peer_id",
+              "required": false,
+              "default": ""
+            },
+            "state_data": {
+              "type": "string",
+              "description": "Parameter state_data",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "sync_state",
+          "description": "Sincronizar estado entre peers",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "peer_id": {
+              "type": "string",
+              "description": "Parameter peer_id",
+              "required": false,
+              "default": ""
+            },
+            "state_data": {
+              "type": "string",
+              "description": "Parameter state_data",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "resolve_conflict",
+          "description": "Resolver conflitos de estado",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "peer_id": {
+              "type": "string",
+              "description": "Parameter peer_id",
+              "required": false,
+              "default": ""
+            },
+            "state_data": {
+              "type": "string",
+              "description": "Parameter state_data",
+              "required": false,
+              "default": ""
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        }
+      ],
+      "access_control": {
+        "default_read": "authenticated",
+        "default_write": "admin"
+      },
+      "metadata": {
+        "module": "peers",
+        "action_count": 3
+      }
+    },
+    {
+      "name": "neocortex_security",
+      "display_name": "Security",
+      "description": "Seguranca e controle de acesso  validacao, auditoria e criptografia.",
+      "category": "security",
+      "version": "1.0.0",
+      "actions": [
+        {
+          "name": "validate_access",
+          "description": "Validar acesso a recursos",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "resource": {
+              "type": "string",
+              "description": "Parameter resource",
+              "required": false,
+              "default": ""
+            },
+            "audit_data": {
+              "type": "string",
+              "description": "Parameter audit_data",
+              "required": false,
+              "default": ""
+            },
+            "current_user_id": {
+              "type": "string",
+              "description": "Parameter current_user_id",
+              "required": false,
+              "default": ""
+            },
+            "target_user_id": {
+              "type": "string",
+              "description": "Parameter target_user_id",
+              "required": false,
+              "default": ""
+            },
+            "access_type": {
+              "type": "string",
+              "description": "Parameter access_type",
+              "required": false,
+              "default": "read"
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "audit_changes",
+          "description": "Auditoria de alteracoes",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "resource": {
+              "type": "string",
+              "description": "Parameter resource",
+              "required": false,
+              "default": ""
+            },
+            "audit_data": {
+              "type": "string",
+              "description": "Parameter audit_data",
+              "required": false,
+              "default": ""
+            },
+            "current_user_id": {
+              "type": "string",
+              "description": "Parameter current_user_id",
+              "required": false,
+              "default": ""
+            },
+            "target_user_id": {
+              "type": "string",
+              "description": "Parameter target_user_id",
+              "required": false,
+              "default": ""
+            },
+            "access_type": {
+              "type": "string",
+              "description": "Parameter access_type",
+              "required": false,
+              "default": "read"
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "encrypt_sensitive",
+          "description": "Criptografar dados sensiveis",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "resource": {
+              "type": "string",
+              "description": "Parameter resource",
+              "required": false,
+              "default": ""
+            },
+            "audit_data": {
+              "type": "string",
+              "description": "Parameter audit_data",
+              "required": false,
+              "default": ""
+            },
+            "current_user_id": {
+              "type": "string",
+              "description": "Parameter current_user_id",
+              "required": false,
+              "default": ""
+            },
+            "target_user_id": {
+              "type": "string",
+              "description": "Parameter target_user_id",
+              "required": false,
+              "default": ""
+            },
+            "access_type": {
+              "type": "string",
+              "description": "Parameter access_type",
+              "required": false,
+              "default": "read"
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "current_user_id",
+          "description": "ID do usuario atual (se vazio, usa do ledger)",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "resource": {
+              "type": "string",
+              "description": "Parameter resource",
+              "required": false,
+              "default": ""
+            },
+            "audit_data": {
+              "type": "string",
+              "description": "Parameter audit_data",
+              "required": false,
+              "default": ""
+            },
+            "current_user_id": {
+              "type": "string",
+              "description": "Parameter current_user_id",
+              "required": false,
+              "default": ""
+            },
+            "target_user_id": {
+              "type": "string",
+              "description": "Parameter target_user_id",
+              "required": false,
+              "default": ""
+            },
+            "access_type": {
+              "type": "string",
+              "description": "Parameter access_type",
+              "required": false,
+              "default": "read"
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "target_user_id",
+          "description": "ID do usuario alvo (se vazio, usa resource como alvo)",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "resource": {
+              "type": "string",
+              "description": "Parameter resource",
+              "required": false,
+              "default": ""
+            },
+            "audit_data": {
+              "type": "string",
+              "description": "Parameter audit_data",
+              "required": false,
+              "default": ""
+            },
+            "current_user_id": {
+              "type": "string",
+              "description": "Parameter current_user_id",
+              "required": false,
+              "default": ""
+            },
+            "target_user_id": {
+              "type": "string",
+              "description": "Parameter target_user_id",
+              "required": false,
+              "default": ""
+            },
+            "access_type": {
+              "type": "string",
+              "description": "Parameter access_type",
+              "required": false,
+              "default": "read"
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "access_type",
+          "description": "'read' ou 'write' (padrao: read)",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "resource": {
+              "type": "string",
+              "description": "Parameter resource",
+              "required": false,
+              "default": ""
+            },
+            "audit_data": {
+              "type": "string",
+              "description": "Parameter audit_data",
+              "required": false,
+              "default": ""
+            },
+            "current_user_id": {
+              "type": "string",
+              "description": "Parameter current_user_id",
+              "required": false,
+              "default": ""
+            },
+            "target_user_id": {
+              "type": "string",
+              "description": "Parameter target_user_id",
+              "required": false,
+              "default": ""
+            },
+            "access_type": {
+              "type": "string",
+              "description": "Parameter access_type",
+              "required": false,
+              "default": "read"
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        },
+        {
+          "name": "resource",
+          "description": "Recurso a ser acessado (alternativo a target_user_id)",
+          "parameters": {
+            "action": {
+              "type": "string",
+              "description": "Parameter action",
+              "required": true,
+              "default": null
+            },
+            "resource": {
+              "type": "string",
+              "description": "Parameter resource",
+              "required": false,
+              "default": ""
+            },
+            "audit_data": {
+              "type": "string",
+              "description": "Parameter audit_data",
+              "required": false,
+              "default": ""
+            },
+            "current_user_id": {
+              "type": "string",
+              "description": "Parameter current_user_id",
+              "required": false,
+              "default": ""
+            },
+            "target_user_id": {
+              "type": "string",
+              "description": "Parameter target_user_id",
+              "required": false,
+              "default": ""
+            },
+            "access_type": {
+              "type": "string",
+              "description": "Parameter access_type",
+              "required": false,
+              "default": "read"
+            }
+          },
+          "returns": {
+            "type": "object",
+            "description": "JSON object with 'success' boolean and result data"
+          }
+        }
+      ],
+      "access_control": {
+        "default_read": "admin",
+        "default_write": "system"
+      },
+      "metadata": {
+        "module": "security",
+        "action_count": 7
+      }
+    }
+  ],
+  "custom_tools": [],
+  "categories": {
+    "core": "Core framework operations and state management",
+    "validation": "Validation, regression testing, and error handling",
+    "monitoring": "Performance monitoring and benchmarking",
+    "automation": "Agent automation and task management",
+    "setup": "Project initialization and bootstrapping",
+    "configuration": "Configuration management and settings",
+    "data": "Data import/export and serialization",
+    "metadata": "Metadata management and indexing",
+    "knowledge": "Knowledge graph and semantic operations",
+    "learning": "Learning consolidation and experience capture",
+    "collaboration": "Multi-user and peer-to-peer collaboration",
+    "security": "Security, access control, and auditing"
+  }
+}

@@ -1,0 +1,41 @@
+---
+description: "NC-RULE-001 | Core SSOT Integrity | alwaysApply — Regras críticas em 50 linhas. Lida em TODA conversa."
+globs: "*"
+alwaysApply: true
+---
+
+<!-- NC-READ-HASH: RULE001-CORE-v2 -->
+<!-- DEDUP: Se este hash já está no teu contexto desta sessão, SALTE este bloco. -->
+
+# NeoCortex — Core Rules (Always-On)
+
+> Raiz: `C:\Users\Lucas Valério\Desktop\TURBOQUANT_V42\`  
+> SSOT: `@SSOT` | Roadmap: `@ROADMAP` | Boot: `@BOOT` | Dict: `@ULQ` (NC-DOC-FR-001)
+
+## R01 — Naming (🔴 CRÍTICO)
+Qualquer arquivo/pasta: `NC-<TIPO>-<SIGLA>-<NUM>-<desc>.ext`. Consulte `@SSOT` antes de criar.
+NUNCA crie sem prefixo NC-, mesmo que o usuário abrevie. Tipos: TOOL,SCR,DOC,TODO,LBE,CFG,SEC,SOP,ARC,BAK,BOOT,TST.
+
+## R02 — SSOT Update (🔴 CRÍTICO)
+Arquivo CRIADO/MOVIDO → atualizar tabela + changelog em `@SSOT` com data [YYYY-MM-DD]. Tarefa sem update = INCOMPLETA.
+
+## R03 — Roadmap Primeiro (🔴 CRÍTICO)
+Toda implementação referencia um ticket em `@ROADMAP`. Após concluir → marcar ✅ DONE.
+Símbolos: `%DONE` = concluído, `%NOW` = urgente, `%NEXT` = próximo.
+
+## R04 — Atomic Locks (🔴 CRÍTICO)
+Arquivos em `@LOCKS` são IMUTÁVEIS para agentes. Protegidos: `neocortex_config.yaml`, `server.py`, `sub_server.py`.
+
+## R05 — Sem Deleção (🔴 CRÍTICO)
+NUNCA delete. Obsoletos → `DIR-ARC-FR-001-archive-main/`. Backups → `DIR-BAK-FR-001-backup-main/`.
+
+## R17 — Economia de Tokens (🔴 CRÍTICO)
+`T2`=Courier(Qwen 1.5B) executa trabalho braçal. `T0`=você(DeepSeek/Claude) APENAS orquestra.
+Antes de perguntar ao usuário → busca em `$ARCH` via `neocortex_lobes.search(query="...")`.
+
+## R16 — Boot Manifest (🔴 OBRIGATÓRIO NO INÍCIO)
+Ao iniciar qualquer sessão → carregar `@BOOT` ou lobo `$BOOT_LOBE`. Sem boot = contexto incompleto.
+
+## R20 — Checklist de Fim de Sessão
+☑ SSOT atualizado (`@SSOT`) ☑ Changelog com [YYYY-MM-DD] ☑ Ticket `%DONE` no `@ROADMAP`
+☑ Lobos re-populados (`@POPULATE`) ☑ Nenhum *.db/*.wal/__pycache__ no git

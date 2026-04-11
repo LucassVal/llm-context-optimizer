@@ -1,0 +1,175 @@
+# NeoCortex — .gitignore
+# Proteção contra vazamento de API keys, credenciais e dados sensíveis
+
+# ─────────────────────────────────────────
+# 🔐 API KEYS E CREDENCIAIS (NUNCA commitar)
+# ─────────────────────────────────────────
+.env
+.env.*
+*.env
+.env.local
+.env.production
+.env.staging
+secrets.yaml
+secrets.yml
+secrets.json
+credentials.json
+service_account.json
+*_credentials.json
+*_api_key*
+*_secret*
+neocortex_config.yaml        # Contém API keys e paths locais
+config.local.yaml
+config.prod.yaml
+
+# Arquivos de key explícitos
+openai_key.txt
+deepseek_key.txt
+anthropic_key.txt
+*.key
+*.pem
+*.p12
+*.pfx
+id_rsa
+id_rsa.pub
+id_ed25519
+
+# ─────────────────────────────────────────
+# 🗄️ BANCOS DE DADOS (runtime, não versionar)
+# ─────────────────────────────────────────
+*.db
+*.sqlite
+*.sqlite3
+*.db-shm
+*.db-wal
+*.rocksdb/
+.neocortex/
+.neocortex/metrics/
+.neocortex/cache/
+.neocortex/ledger/
+
+# ─────────────────────────────────────────
+# 🧠 LOBOS (gerados pelo script de poblamento)
+# ─────────────────────────────────────────
+02_memory_lobes/*/
+!02_memory_lobes/.gitkeep
+
+# ─────────────────────────────────────────
+# 🐍 PYTHON
+# ─────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+.venv/
+venv/
+ENV/
+env/
+.virtualenv/
+.pyenv/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Type checkers / linters
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.ruff_cache/
+.pytype/
+
+# ─────────────────────────────────────────
+# 📊 LOGS E OUTPUTS TEMPORÁRIOS
+# ─────────────────────────────────────────
+*.log
+*.log.*
+logs/
+*.out
+*.err
+benchmark_results/
+*.csv          # Resultados de benchmark (gerados, não versionados)
+!examples/     # Exceto exemplos documentados
+
+# ─────────────────────────────────────────
+# 🛠️ IDEs E FERRAMENTAS
+# ─────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Cursor
+.cursor/
+!.cursor/rules/    # Rules SÃO versionadas
+!.agents/           # Agents SÃO versionados
+
+# ─────────────────────────────────────────
+# 📦 NODE (se usar)
+# ─────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ─────────────────────────────────────────
+# 🧪 TESTES E COBERTURA
+# ─────────────────────────────────────────
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# ─────────────────────────────────────────
+# 📁 BACKUPS LOCAIS
+# ─────────────────────────────────────────
+*.bak
+*.backup
+*.orig
+*.tmp
+*_backup/
+DIR-BAK-FR-001-backup-main/local/
+
+# ─────────────────────────────────────────
+# 🤖 MODELOS LLM (muito grandes para git)
+# ─────────────────────────────────────────
+models/
+*.gguf
+*.ggml
+*.bin          # Pesos de modelos
+*.safetensors
+
+# ─────────────────────────────────────────
+# ✅ EXCEÇÕES EXPLÍCITAS (manter no repo)
+# ─────────────────────────────────────────
+!.agents/
+!.agents/rules/
+!.agents/workflows/
+!01_neocortex_framework/
+!02_memory_lobes/.gitkeep
+!examples/
+!DIR-BOOT-FR-001-bootup-main/
+!README.md
