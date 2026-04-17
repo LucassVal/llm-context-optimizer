@@ -22,26 +22,26 @@ from mcp.server.models import InitializationOptions
 from ..core.pulse_scheduler import PulseScheduler
 from ..infra.metrics_store import create_metrics_store
 
-from .tools import (
-    cortex,
-    ledger,
-    regression,
-    checkpoint,
-    config,
-    init,
-    export,
-    lobes,
-    manifest,
-    kg,
-    consolidation,
-    akl,
-    agent,
-    benchmark,
-    peers,
-    security,
-    pulse,
-    search,
-)
+# from .tools import (
+#     cortex,
+#     ledger,
+#     regression,
+#     checkpoint,
+#     config,
+#     init,
+#     export,
+#     lobes,
+#     manifest,
+#     kg,
+#     consolidation,
+#     akl,
+#     agent,
+#     benchmark,
+#     peers,
+#     security,
+#     pulse,
+#     search,
+# )
 
 # Configuração de logging
 logging.basicConfig(
@@ -392,24 +392,27 @@ def create_mcp_server(host="127.0.0.1", port=8765):
         for file in tools_dir.glob("*.py"):
             if file.name == "__init__.py":
                 continue
-                
+
             module_name = file.stem
             try:
                 # Import dynamic module
                 module = importlib.import_module(
                     f".tools.{module_name}", package="neocortex.mcp"
                 )
-                
+
                 # Verify registration function exists
                 if hasattr(module, "register_tool"):
                     _register_tool_with_metrics(module, server)
                     loaded_tools += 1
-                    logger.debug(f"Ferramenta '{module_name}' carregada via {file.name}")
+                    logger.debug(
+                        f"Ferramenta '{module_name}' carregada via {file.name}"
+                    )
             except Exception as e:
                 logger.error(f"Erro ao carregar ferramenta '{module_name}': {e}")
-                
+
     logger.info(f"Carregadas dinamicamente {loaded_tools} ferramentas")
     return server
+
 
 def get_metrics_store():
     global metrics_store_instance
@@ -417,25 +420,34 @@ def get_metrics_store():
 
 
 # Create global mcp instance
-mcp = None # Will instantiate in main based on args
+mcp = None  # Will instantiate in main based on args
+
 
 def main():
     import argparse
+
     global mcp
-    
+
     parser = argparse.ArgumentParser(description="NeoCortex MCP Server")
-    parser.add_argument("--transport", choices=["stdio", "websocket", "sse"], default="stdio", help="Transport mode")
+    parser.add_argument(
+        "--transport",
+        choices=["stdio", "websocket", "sse"],
+        default="stdio",
+        help="Transport mode",
+    )
     parser.add_argument("--host", default="127.0.0.1", help="Host for WebSocketMode")
     parser.add_argument("--port", type=int, default=8765, help="Port for WebSocketMode")
     args = parser.parse_args()
 
     # Apply fix as requested by user
     transport = "sse" if args.transport in ["websocket", "sse"] else "stdio"
-    print(f"-> Iniciando NeoCortex MCP Server (Modo Selecionado: {args.transport} -> Adaptado para {transport})")
-    
+    print(
+        f"-> Iniciando NeoCortex MCP Server (Modo Selecionado: {args.transport} -> Adaptado para {transport})"
+    )
+
     # Instance server with explicit host and port parsed from args
     mcp = create_mcp_server(host=args.host, port=args.port)
-    
+
     if transport == "sse":
         print(f"-> SSE Host: {args.host}:{args.port}")
         if FAST_MCP_AVAILABLE:

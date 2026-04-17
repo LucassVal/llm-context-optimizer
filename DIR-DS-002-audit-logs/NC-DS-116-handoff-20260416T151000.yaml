@@ -1,0 +1,29 @@
+# NC-DS-116-handoff-20260416T151000.yaml
+# Handoff T0 — institucionalização protocolo auditoria handoff
+
+status: APPROVED
+ticket_id: NC-DS-116
+submitted_at: "2026-04-16T15:10:00-03:00"
+submitted_by: "T0-Claude-Code (Antigravity)"
+reviewed_at: "2026-04-16T15:10:00-03:00"
+reviewed_by: "T0-Claude-Code (Antigravity)"
+
+summary:
+  files_created: []
+  files_modified:
+    - ".agents/workflows/NC-WF-001-workspace-routine.md"
+  locks_violated: []
+  overall: SUCCESS
+  descricao: |
+    Adicionado bloco 'PROTOCOLO T0 — AUDITORIA DE HANDOFF RECEBIDO' ao Ciclo 2 do NC-WF-001.
+    Contém tabela de 7 passos obrigatórios, regra anti-%DONE-prematuro, e protocolo
+    para diff vazio e para falha de checklist. Versão NC-WF-001 atualizada para v3.6.
+
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  ssot_updated: true          # NC-WF-001 não requer entrada nova em NC-NAM-FR-001
+  no_locked_files_modified: true
+  handoff_yaml_complete: true
+  ruff_ok: true               # não é arquivo .py
+  py_compile_ok: true         # não é arquivo .py
