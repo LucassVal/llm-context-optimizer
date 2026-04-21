@@ -1,0 +1,160 @@
+# NC-TPL-FR-002-agent-dispatch.yaml
+# Template Oficial de Despacho de Agente T1
+# SSOT: todo dispatch YAML deve ser gerado a partir deste template (R24)
+# ─────────────────────────────────────────────────────────────────────────────
+# USO: Copiar este arquivo, substituir todos os {PLACEHOLDER} pelos valores reais.
+# DESTINO: DIR-DS-001-tickets/NC-DS-AGT-{ID}-dispatch-{tickets}.yaml
+# OBRIGATÓRIO: antes de despachar QUALQUER agente T1 (R24 / STAGE-02)
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  id: "NC-DS-AGT-{ID}"                        # ex: NC-DS-AGT-B1
+  version: "1.0"
+  hash: "NC-DS-AGT-{ID}-v1.0-{YYYYMMDD}"      # preencher com data real
+  created_at: "{YYYY-MM-DDTHH:MM:SS-03:00}"
+  created_by: "T0-Claude-Code"
+  agent: "AGENTE-{ID}"                         # ex: AGENTE-B1
+  sprint: "{SPRINT_ID}"                        # ex: FASE-1-MCP-MC
+  tickets: ["{NC-DS-XXX}", "{NC-DS-YYY}"]      # lista de tickets deste despacho
+  priority: "{HIGH|MEDIUM|LOW}"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# IDENTIDADE E PAPEL DO AGENTE
+# ─────────────────────────────────────────────────────────────────────────────
+identidade:
+  role: "{Descrição do papel — ex: Engenheiro T1 — MC Adapter Core}"
+  modelo: "DeepSeek (via PicoClaw :18790)"
+  supervisor: "T0-Claude-Code (Antigravity)"
+  escopo: "{Escopo preciso — o que este agente pode e não pode fazer}"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PASSO 0 — LER ANTES DE QUALQUER AÇÃO (OBRIGATÓRIO — R22)
+# ─────────────────────────────────────────────────────────────────────────────
+passo_0_leitura_obrigatoria:
+  instrucao: "Ler TODOS estes recursos antes de escrever uma linha de código."
+  recursos:
+    - path: "DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml"
+      motivo: "Template do handoff — gerar um por ticket ao concluir (R23)"
+    - path: "01_neocortex_framework/DIR-TMP-FR-001-templates-main/NC-TPL-FR-001-template-central-index.yaml"
+      motivo: "Índice de templates — consultar antes de criar qualquer artefato (R22)"
+    - path: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.yaml"
+      motivo: "24 regras de governança — R21/R22/R23/R24 críticas para agentes"
+    - path: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml"
+      motivo: "Lista completa de @LOCKS — memorize antes de tocar qualquer arquivo"
+    # Adicionar tickets específicos deste despacho:
+    - path: "DIR-DS-001-tickets/{NC-DS-XXX}-{desc}.yaml"
+      motivo: "Ticket {N} — leia task, write_zone e atomic_locks_proibidos"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# REGRA ZERO SUPOSIÇÕES (R21) — NUNCA IMPROVISAR
+# ─────────────────────────────────────────────────────────────────────────────
+regra_zero_suposicoes:
+  lei: "R21 — Em caso de QUALQUER dúvida: PARAR imediatamente e retornar ao T0."
+  nao_fazer:
+    - "NÃO assumir que um arquivo existe sem verificar fisicamente"
+    - "NÃO improvisar API ou estrutura não documentada no ticket"
+    - "NÃO continuar se a mudança necessária toca um @LOCK"
+    - "NÃO escolher entre dois caminhos sem confirmação explícita do T0"
+    - "NÃO criar artefatos sem consultar NC-TPL-FR-001 (R22)"
+  como_retornar: |
+    PARAR. Escrever ao T0:
+      (1) O que foi feito até agora (lista de arquivos tocados)
+      (2) Qual é a dúvida exata (uma frase precisa)
+      (3) Quais são as opções que você vê (enumerar)
+    Aguardar decisão do T0. NÃO prosseguir sem resposta.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ATOMIC LOCKS — NUNCA TOCAR SOB QUALQUER CIRCUNSTÂNCIA
+# ─────────────────────────────────────────────────────────────────────────────
+atomic_locks_absolutos:
+  files:
+    - "01_neocortex_framework/neocortex/mcp/server.py"
+    - "01_neocortex_framework/neocortex/mcp/sub_server.py"
+    - "01_neocortex_framework/DIR-CFG-FR-001-config-main/neocortex_config.yaml"
+    - "antigravity_neocortex_config.json"
+    - "start_neocortex_mcp.ps1"
+    - "01_neocortex_framework/DIR-CORE-FR-001-core-central/NC-LED-FR-001-framework-ledger.json"
+    - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
+    - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml"
+    - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.yaml"
+    # Adicionar locks específicos do contexto deste despacho se houver:
+    # - "{path/to/additional/lock}"
+  consequencia: "Violação = BLOQUEIO IMEDIATO. Gerar handoff ESCALATED. Retornar ao T0."
+
+# ─────────────────────────────────────────────────────────────────────────────
+# WRITE ZONES AUTORIZADAS
+# ─────────────────────────────────────────────────────────────────────────────
+write_zones_autorizadas:
+  files:
+    - "{path/autorizado/1}"
+    - "{path/autorizado/2}"
+    - "DIR-DS-002-audit-logs/"
+  nota: "Qualquer escrita FORA dessas zonas requer aprovação T0 ANTES de executar."
+
+# ─────────────────────────────────────────────────────────────────────────────
+# TAREFAS — EXECUÇÃO SEQUENCIAL (uma por ticket)
+# ─────────────────────────────────────────────────────────────────────────────
+tarefas:
+
+  ticket_1:
+    id: "{NC-DS-XXX}"
+    titulo: "{Título do ticket}"
+    arquivo_ticket: "DIR-DS-001-tickets/{NC-DS-XXX}-{desc}.yaml"
+
+    inicio:
+      - "Ler ticket {NC-DS-XXX} completo antes de qualquer ação"
+      - "Verificar existência dos arquivos mencionados no ticket"
+      - "Confirmar entry_state do ticket reflete o estado real"
+
+    meio:
+      - "{Passo 1 de implementação — específico, não genérico}"
+      - "{Passo 2 — mencionar arquivo, função ou estrutura exata}"
+      - "Zero print() — usar logger = logging.getLogger(__name__)"
+      - "Importar serviços via importlib.util (R09) — não import direto"
+
+    validacao_obrigatoria:
+      - cmd: "python -m py_compile {caminho/do/arquivo.py}"
+        esperado: "Sem erros de sintaxe"
+      - cmd: "python -m ruff check {caminho/do/arquivo.py}"
+        esperado: "0 erros"
+      - cmd: "python {caminho/do/arquivo.py} --dry-run"
+        esperado: "Executa sem exceção"
+
+    fim:
+      - "Gerar handoff YAML: DIR-DS-002-audit-logs/{NC-DS-XXX}-handoff-{YYYYMMDDTHHMMSS}.yaml"
+      - "Usar template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml"
+      - "Status: APPROVED | PARTIALLY_COMPLETED | FAILED | ESCALATED"
+      - "Preencher: ticket_id, status, summary, files_created, files_modified, locks_violated: []"
+
+  # Repetir bloco ticket_N para cada ticket adicional neste despacho
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CHECKLIST R20 — OBRIGATÓRIO EM CADA HANDOFF GERADO
+# ─────────────────────────────────────────────────────────────────────────────
+checklist_r20_por_handoff:
+  naming_convention: "Todos os arquivos criados seguem NC-<TIPO>-<SIGLA>-<NUM>-<desc>.ext"
+  no_print_statements: "Zero print() nos arquivos criados ou modificados"
+  ssot_updated: "Se criou artefato novo — informar T0 para atualizar NC-NAM-FR-001"
+  no_locked_files_modified: "locks_violated: [] obrigatório para status APPROVED"
+  handoff_yaml_complete: "Todos os campos do NC-DS-HANDOFF-TEMPLATE.yaml preenchidos"
+  ruff_ok: "python -m ruff check: 0 erros em todos os .py do diff"
+  py_compile_ok: "python -m py_compile: 0 erros em todos os .py criados/modificados"
+  roadmap_marked: "Informar T0 para marcar %DONE no @ROADMAP para este ticket"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PROTOCOLO DE FALHA OU BLOQUEIO
+# ─────────────────────────────────────────────────────────────────────────────
+protocolo_falha:
+  instrucao: |
+    Se falhar ou ficar bloqueado em qualquer ponto:
+    1. NÃO silenciar o erro — registrar tudo
+    2. NÃO usar workarounds que toquem @LOCKS
+    3. Gerar handoff com status: FAILED ou ESCALATED
+    4. Campo summary: (a) o que foi feito, (b) onde falhou, (c) erro exato com traceback
+    5. Retornar ao T0 com o handoff — aguardar instruções
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ESTADO DE ENTRADA E SAÍDA ESPERADO
+# ─────────────────────────────────────────────────────────────────────────────
+entry_state: "{Descrever estado real do sistema antes deste despacho}"
+exit_state: "{Descrever o estado esperado após todos os tickets concluídos}"

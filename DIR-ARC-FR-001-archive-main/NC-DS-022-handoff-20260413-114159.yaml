@@ -1,0 +1,31 @@
+# DIR-DS-002-audit-logs/NC-DS-022-handoff-20260413-114159.yaml
+ticket_id: NC-DS-022
+status: PENDING_REVIEW
+timestamp: "2026-04-13T11:41:59"
+agent_port: 0
+lines_added: 0
+files_modified:
+  - 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-006-metrics-collector.py
+summary: |
+  Verificação e ajustes no MetricsCollector existente: corrigido lint issues,
+  adicionado tratamento seguro para spec_from_file_location, fix set comprehension,
+  mantendo persistência JSON thread-safe.
+ajustes_aplicados:
+  - threading.Lock singleton thread-safe
+  - persistência JSON em data_dir/metrics/metrics-{date}.json
+  - get_session_summary() com total_tokens, cost, avg_duration_ms
+  - evento metrics.session_reset via EventBus (R09)
+metrics:
+  lines_real: 288
+  files_created: 0
+  dependencies_used: ["importlib", "json", "threading", "time", "datetime", "pathlib", "typing"]
+  write_zone_respected: true
+  locks_respected: true
+errors: []
+warnings: []
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  min_80_lines: true
+  no_locked_files_modified: true
+  handoff_yaml_complete: true

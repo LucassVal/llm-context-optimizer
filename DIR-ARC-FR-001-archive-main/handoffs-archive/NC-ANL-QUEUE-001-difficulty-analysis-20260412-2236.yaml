@@ -1,0 +1,120 @@
+# Análise de dificuldades na fila NC-CFG-DS-004-task-queue.yaml
+# Gerado por: worker-1702-2196eb
+# Data: 2026-04-12T22:36:00+00:00
+# Motivo: Usuário reportou dificuldade para achar tasks com 9 agentes simultâneos
+
+analysis_id: NC-ANL-QUEUE-001
+created_at: "2026-04-12T22:36:00+00:00"
+created_by: "worker-1702-2196eb"
+ticket_completed: NC-DS-028
+
+# ============================================================================
+# RESUMO DA SITUAÇÃO ATUAL
+# ============================================================================
+
+queue_status:
+  total_tasks: 15  # NC-DS-015 a NC-DS-029
+  by_status:
+    AVAILABLE: 7   # NC-DS-017,019,021,022,023,024,025
+    CLAIMED: 1     # NC-DS-026
+    ACTIVE: 5      # NC-DS-014,016,018,027,029  
+    DONE: 3        # NC-DS-015,020,028
+    BLOCKED: 0
+  active_workers: 5  # baseado em active_zones.yaml + ACTIVE/CLAIMED
+
+active_zones_snapshot:
+  NC-DS-014: "DIR-RES-CC-001-claude-leak-workzone/analysis-session-b/ | worker-direct-2196eb | 2026-04-12T19:23:39"
+  NC-DS-016: "01_neocortex_framework/DIR-TMP-FR-001-templates-main/ | worker-1776032900258-2196eb | 2026-04-12T19:28:23.777"
+
+# ============================================================================
+# PROBLEMAS IDENTIFICADOS
+# ============================================================================
+
+issues:
+  - issue: "stale_claims"
+    description: "Tasks com status AVAILABLE mas claimed_by não null"
+    examples: 
+      - "NC-DS-017: AVAILABLE, claimed_by: deepseek-chat-2026-04-12T18:37:16"
+      - "NC-DS-019: AVAILABLE, claimed_by: 2026-04-12T18:40:02.624"
+      - "NC-DS-021 a 025: similares"
+    impact: "Confusão no protocolo de claim. Workers podem pensar que task está ocupada."
+    root_cause: "Limpeza inadequada após task ser marcada DONE e reutilizada."
+
+  - issue: "claim_race_condition"
+    description: "Protocolo de claim baseado em timestamp com espera de 5s pode não escalar com 9 workers"
+    impact: "Múltiplos workers podem tentar claim simultâneo, causando perda de tempo com retries."
+    evidence: "Vários workers com IDs diferentes visíveis na fila."
+
+  - issue: "inconsistent_timestamps"
+    description: "Timestamps de claimed_at muito antigos (horas) em tasks ativas"
+    examples:
+      - "NC-DS-016: claimed_at 19:28, completed_at 18:34 (inconsistente)"
+    impact: "Dificulta monitoramento de health check de workers."
+
+  - issue: "lack_of_cleanup_mechanism"
+    description: "Sem processo automático para expirar claims antigos"
+    current_timeout: "300s (5 minutos) configurado mas não implementado"
+    impact: "Tasks podem ficar presas em estado CLAIMED indefinidamente se worker crashar."
+
+# ============================================================================
+# RETORNO SOBRE LOCKS
+# ============================================================================
+
+lock_status:
+  locks_violated: []
+  reason: "Worker operou estritamente dentro da write_zone (scripts/) e não tocou @LOCKS."
+  verification: "Ticket NC-DS-028 tinha forbidden_zone: [server.py, sub_server.py] que foi respeitada."
+
+# ============================================================================
+# SUGESTÕES PARA MELHORIA DA QUEUE
+# ============================================================================
+
+recommendations:
+  - priority: HIGH
+    title: "Implementar atomic lock files"
+    description: "Criar arquivo .lock com PID/timestamp exclusivo por task, em vez de confiar em write no YAML."
+    benefit: "Elimina race conditions, mais robusto com múltiplos workers."
+
+  - priority: HIGH
+    title: "Adicionar cleanup automático"
+    description: "Script periódico que: 1) Remove claimed_by de tasks AVAILABLE, 2) Expira claims >300s sem ACTIVE."
+    benefit: "Mantém fila limpa e consistente."
+
+  - priority: MEDIUM
+    title: "Implementar backoff exponencial"
+    description: "Workers aumentam intervalo entre retries após falhas consecutivas de claim."
+    benefit: "Reduz contenção em picos de atividade."
+
+  - priority: MEDIUM
+    title: "Adicionar health check de workers"
+    description: "Monitorar claimed_at vs tempo atual, alertar sobre workers inativos."
+    benefit: "Detecção precoce de workers travados."
+
+  - priority: LOW
+    title: "Melhorar logging de transições"
+    description: "Registrar todas as mudanças de status em log separado para auditoria."
+    benefit: "Melhor debugging de problemas de concorrência."
+
+# ============================================================================
+# CONCLUSÃO
+# ============================================================================
+
+conclusion: |
+  A dificuldade principal é concorrência entre múltiplos workers (9+) com protocolo
+  de claim não atômico. Tasks com stale claims poluem a fila e causam confusão.
+  Recomenda-se implementar locks atômicos e cleanup automático.
+
+next_steps:
+  - "T0 revisar esta análise"
+  - "Priorizar implementação de atomic lock files"
+  - "Executar cleanup manual imediato na fila atual"
+
+# ============================================================================
+# METADADOS
+# ============================================================================
+
+metadata:
+  queue_file: "DIR-DS-000-agent-config/NC-CFG-DS-004-task-queue.yaml"
+  queue_version: "2.0"
+  analysis_tool: "manual observation + reasoning"
+  worker_experience: "Consegui claim NC-DS-028 após uma tentativa (sortudo), mas vi múltiplos workers concorrendo."

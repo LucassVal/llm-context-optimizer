@@ -1,0 +1,42 @@
+ticket_id: "NC-DS-071"
+status: "DONE"
+priority: "HIGH"
+title: "SCR-FR-064 — Rastreabilidade: NC-SCR-FR-064-artifact-catalog.py"
+created_at: "2026-04-15T01:08:00-03:00"
+created_by: "T0-Antigravity"
+
+context:
+  origin: "Auditoria de scripts orfaos (Ciclo 1, sessao 2026-04-15)"
+  problem: |
+    NC-SCR-FR-064-artifact-catalog.py gera o artifact_catalog.json — base do
+    Ciclo 3 e do catálogo semântico usado para busca contextual. E usado no
+    NC-WF-001 linha 128 mas nao tem ticket formal.
+  scope: "Rastreabilidade + verificacao de saida do catalogo"
+
+task:
+  description: |
+    1. Verificar integridade do script (sintaxe, paths de saida, formato JSON).
+    2. Executar e validar que artifact_catalog.json e gerado corretamente.
+    3. Verificar que metadata.generated tem timestamp ISO 8601.
+    4. Documentar parametros e codigos de retorno.
+    5. Atualizar NC-NAM-FR-001 com entrada do script.
+    6. Gerar handoff APPROVED.
+  action_description:
+    utterances:
+      - "Regenerar catalogo semantico do projeto"
+      - "Atualizar artifact_catalog.json com artefatos recentes"
+    input_instructions: "Executar da raiz do projeto. Saida: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/artifact_catalog.json"
+    output_instructions: "JSON com metadata.generated (ISO 8601) e lista de artifacts com file_path, purpose, domain, tags."
+    usage_rules: "Ciclo 3: executar sempre que catalogo > 24h ou houver mudancas significativas."
+
+write_zone:
+  - "01_neocortex_framework/scripts/"
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/artifact_catalog.json"
+references:
+  - "01_neocortex_framework/scripts/NC-SCR-FR-064-artifact-catalog.py"
+  - ".agents/workflows/NC-WF-001-workspace-routine.md#L128"
+
+tags: ["ciclo3", "knowledge", "catalog", "semantic", "infra", "SCR"]
+domain: "knowledge"
+layer: "infra"
+type: "SCR"

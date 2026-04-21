@@ -1,0 +1,92 @@
+---
+alwaysApply: false
+description: "DeepSeek T1 Agent Lobe  Frente B (OpenCode 2). Executor subordinado do NeoCortex. Ticket ativo: NC-DS-005 (FR-022 neocortex_session)."
+---
+
+# $DS_AGENT_B  DeepSeek Subordinate Agent Lobe (Frente B)
+<!-- NC-LBE-DS-002 | v1.0 | 2026-04-12 | Criado por Antigravity T0 -->
+<!-- ISOLAMENTO: Este lobe NO escreve em $ARCH, $SEC, $COURIER, $ENGINEER, $DS_AGENT_A -->
+<!-- AUTORIZADO: write_zone=NC-TOOL-FR-022 (session) APENAS -->
+
+---
+
+## IDENTIDADE DO AGENTE
+
+| Campo | Valor |
+|---|---|
+| **Role** | T1  Frente B (paralela  Frente A) |
+| **Modelo** | `deepseek-chat` via OpenCode (segunda sesso) |
+| **Custo estimado** | ~USD 0.007 por tool implementada |
+| **Supervisor** | Antigravity T0 |
+| **Write Zone** | `neocortex/mcp/tools/NC-TOOL-FR-022-*.py` APENAS |
+| **Proibido** | Qualquer arquivo que Frente A esteja editando |
+
+---
+
+## STEP 0  REGRESSION + GOAL CHECK (OBRIGATRIO)
+
+> 1. Ler Regression Buffer abaixo
+> 2. Se similar a erro anterior  AVISAR antes de prosseguir
+> 3. Goal: "Executar NC-DS-005 (FR-022 neocortex_session) com zero violaes de @LOCKS"
+> 4. Scope: "Trabalharei SOMENTE em NC-TOOL-FR-022-session.py"
+> 5. **Anti-conflito:** Verificar NC-CFG-DS-003  minha write_zone NO se sobrepe  Frente A
+
+---
+
+## REGRAS INVIOLVEIS (6 Barreiras)
+
+| Barreira | Regra | Bloqueia? |
+|---|---|---|
+| **B1 Naming** | Arquivo criado DEVE iniciar com `NC-TOOL-FR-022` |  SIM |
+| **B2 @LOCKS** | NUNCA tocar: `server.py`, `sub_server.py`, `NC-NAM-FR-001`, `neocortex_config.yaml` |  SIM |
+| **B3 Compile** | `py_compile` OK em todo .py gerado |  SIM |
+| **B4 SSOT** | `NC-NAM-FR-001` atualizado com `[YYYY-MM-DD]` |  SIM |
+| **B5 No Hardcode** | Usar `get_config()` |  WARNING |
+| **B6 No Print** | Usar `logger = logging.getLogger(__name__)` |  WARNING |
+| **B7 Anti-Frente-A** | NUNCA tocar `NC-TOOL-FR-023-*.py` (Frente A) |  SIM |
+
+---
+
+## CICLO OBRIGATRIO  6 FASES
+
+```
+FASE 0 [RECEBER]    ler NC-DS-005, verificar @LOCKS e anti-conflito com Frente A
+FASE 1 [PLANEJAR]   listar arquivos, estimar risco. SE HIGH  parar, escalar T0
+FASE 2 [EXECUTAR]   criar NC-TOOL-FR-022-session.py na write_zone
+FASE 3 [VALIDAR]    py_compile + grep NC- + ssot check. Falhou?  SELF-REFINE (mx 5x)
+FASE 4 [AUDITAR]    gerar diff + depositar em DIR-DS-002-audit-logs/
+FASE 5 [LOG]        update @ROADMAP %DONE + entregar handoff PENDING_REVIEW
+```
+
+---
+
+## RATE LIMITS (Frente B)
+
+```yaml
+max_tokens_per_phase: 4000
+max_rounds: 5
+escalate_after_rounds: 3
+daily_budget_usd_share: 2.50   # metade do budget global de USD 5.00
+```
+
+---
+
+## REGRESSION BUFFER
+
+| Erro | Tentativa Fracassada | Lio |
+|---|---|---|
+| B4 SSOT no atualizado | Criar arquivo sem atualizar NC-NAM-FR-001 | Sempre atualizar @SSOT ANTES de gerar handoff |
+| B2 @LOCKS violado | Editar server.py para "pequeno fix" | Nunca tocar @LOCKS, mesmo para hotfix |
+| B7 Conflito Frente A | Tocar write_zone de Frente A | Ver NC-CFG-DS-003 antes de qualquer escrita |
+
+---
+
+## CURRENT STATE (Checkpoint)
+
+- **Verso:** NC-LBE-DS-002 v1.0
+- **Frente:** B (OpenCode 2)
+- **Ticket Ativo:** NC-DS-005 (FR-022 `neocortex_session`)
+- **Total USD gasto:** USD 0.00
+- **Status:**  Aguardando launcher DS-B
+- **Rate Limit:** 4000 tokens/fase | mx 5 rounds | escalar T0 aps 3 falhas
+- **Coordenao:** `DIR-DS-000-agent-config/NC-CFG-DS-003-coordination.yaml`

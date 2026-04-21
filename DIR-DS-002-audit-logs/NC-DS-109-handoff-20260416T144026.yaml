@@ -1,0 +1,68 @@
+  status: PENDING_REVIEW
+ticket_id: NC-DS-109
+roadmap_ticket: FR-0XX
+submitted_at: "2026-04-16T14:40:26"
+submitted_by: deepseek-chat
+review_by: antigravity-t0
+reviewed_at: null
+
+summary:
+  files_created: []
+  files_modified:
+    - "01_neocortex_framework/neocortex/core/NC-CORE-FR-014-lock-guard.py"
+    - "01_neocortex_framework/neocortex/core/cortex_service.py"
+    - "01_neocortex_framework/neocortex/core/export_service.py"
+    - "01_neocortex_framework/neocortex/core/ledger_service.py"
+    - "01_neocortex_framework/neocortex/core/manifest_service.py"
+    - "01_neocortex_framework/neocortex/core/profile_manager.py"
+    - "01_neocortex_framework/neocortex/core/services/NC-SVC-FR-017-crypto-hub.py"
+    - "01_neocortex_framework/neocortex/core/services/NC-SVC-FR-018-tag-normalizer.py"
+    # Note: ruff --fix automatically modified these files; full list can be obtained via git diff.
+  lines_added: 0
+  lines_removed: 0
+  validation_rounds: 1
+  barriers_passed:
+    - "BOM detection: 0 files with BOM UTF-8"
+    - "ruff lint: 26 errors fixed automatically, 13 errors remaining"
+  locks_violated: []
+  cost_usd: 0.0
+  overall: ESCALATED
+
+diff_path: "DIR-DS-002-audit-logs/NC-DS-109-diff.txt"
+
+# Checklist para T0 (preencher na revisão)
+t0_review:
+  compile_ok: null
+  naming_ok: null
+  ssot_updated: null
+  locks_clean: null
+  roadmap_done: null
+
+# Motivo da escalação
+escalation_reason: |
+  Dúvida sobre valores de genealogy header (topology, parent_ssot, tags) para arquivos sem _genealogy.
+  Necessário orientação do T0 antes de prosseguir.
+  O que foi feito:
+    - Verificação de BOM UTF-8: nenhum arquivo com BOM.
+    - Execução de ruff check --fix em neocortex/core/: 26 erros corrigidos, 13 restantes (undefined name, unused variables).
+    - Identificação de arquivos sem bloco _genealogy (pendente).
+    - Verificação de __init__.py (pendente).
+    - py_compile (pendente).
+  Dúvida específica:
+    - Quais valores usar para topology, parent_ssot, tags?
+    - Devo copiar de arquivo similar ou usar valores padrão?
+    - parent_ssot deve ser auto-referência ou deixar vazio?
+  Opções vistas:
+    1. Usar topology='neocortex-other', parent_ssot=self, tags=['neocortex-other','level-0','nc-prefix','python']
+    2. Deixar parent_ssot vazio.
+    3. Consultar genealogy_graph.json para determinar parent_ssot.
+    4. Ignorar headers e focar nas outras tarefas (ruff fixes restantes, __init__.py, py_compile).
+
+checklist_r20_por_handoff:
+  naming_convention: "Todos os arquivos criados seguem NC-<TIPO>-<SIGLA>-<NUM>"
+  no_print_statements: "Zero print() nos arquivos criados/modificados"
+  ssot_updated: "Se criou artefato novo — informar T0 para NC-NAM-FR-001"
+  no_locked_files_modified: "locks_violated: [] obrigatório para APPROVED"
+  handoff_yaml_complete: "Todos os campos do template preenchidos"
+  ruff_ok: "ruff check 0 erros nos arquivos do diff"
+  py_compile_ok: "py_compile sem erros em todos os .py criados/modificados"

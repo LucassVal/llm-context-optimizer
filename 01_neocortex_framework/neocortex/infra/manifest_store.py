@@ -1,3 +1,15 @@
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:59.545246'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+tags:
+  - neocortex-other
+  - level-0
+  - python
+---"""
 #!/usr/bin/env python3
 """
 ManifestStore - High-performance manifest storage using diskcache + msgspec.
@@ -5,13 +17,10 @@ ManifestStore - High-performance manifest storage using diskcache + msgspec.
 Stores and indexes manifests for fast querying by tags, entities, type, etc.
 """
 
-import json
 import logging
-import time
-from pathlib import Path
-from typing import Dict, Any, List, Optional, Set, Union
-from collections import defaultdict
 from datetime import datetime
+from pathlib import Path
+from typing import Any, Dict, List, Optional
 
 import msgspec
 from diskcache import Cache
@@ -635,8 +644,8 @@ class ManifestStoreAdapter:
 # Test function
 def test_manifest_store():
     """Test ManifestStore functionality."""
-    import tempfile
     import shutil
+    import tempfile
 
     # Create temporary directory
     temp_dir = Path(tempfile.mkdtemp())
@@ -695,7 +704,7 @@ def test_manifest_store():
         stats = store.get_stats()
         assert "total_manifests" in stats
 
-        print("✓ ManifestStore tests passed")
+        print(" ManifestStore tests passed")
 
     finally:
         # Cleanup

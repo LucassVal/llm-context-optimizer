@@ -1,3 +1,15 @@
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:24:00.000861'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+tags:
+  - neocortex-other
+  - level-0
+  - python
+---"""
 #!/usr/bin/env python3
 """
 LLMBackend - Abstract base class for LLM backends.
@@ -7,9 +19,9 @@ Provides unified interface for local and cloud LLM providers.
 
 import logging
 from abc import ABC, abstractmethod
-from typing import Dict, Any, List, Optional, AsyncGenerator, Union
 from dataclasses import dataclass, field
 from enum import Enum
+from typing import Any, AsyncGenerator, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 

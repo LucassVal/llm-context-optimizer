@@ -1,0 +1,66 @@
+{
+  "gateway": {
+    "host": "127.0.0.1",
+    "port": 18790,
+    "log_level": "info",
+    "public": false
+  },
+  "model_list": [
+    {
+      "model_name": "deepseek-v3",
+      "model": "deepseek/deepseek-v3",
+      "api_key": "sk-cc547db836f04d58a9aa651f1b0279c2"
+    }
+  ],
+  "agents": {
+    "defaults": {
+      "model_name": "deepseek-v3",
+      "temperature": 0.7,
+      "max_tokens": 4096
+    }
+  },
+  "tools": {
+    "exec": {
+      "enabled": true,
+      "enable_deny_patterns": true,
+      "custom_deny_patterns": []
+    },
+    "web": {
+      "enabled": true,
+      "duckduckgo": {
+        "enabled": true,
+        "max_results": 5
+      }
+    },
+    "cron": {
+      "enabled": false
+    },
+    "mcp": {
+      "enabled": true,
+      "discovery": {
+        "enabled": true,
+        "ttl": 5,
+        "max_search_results": 5,
+        "use_bm25": true
+      },
+      "servers": {
+        "neocortex": {
+          "enabled": true,
+          "command": "python",
+          "args": [
+            "-m",
+            "neocortex.mcp.server"
+          ],
+          "env": {
+            "PYTHONPATH": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework",
+            "PYTHONUTF8": "1"
+          }
+        }
+      }
+    }
+  },
+  "security": {
+    "filter_sensitive_data": true,
+    "filter_min_length": 8
+  }
+}

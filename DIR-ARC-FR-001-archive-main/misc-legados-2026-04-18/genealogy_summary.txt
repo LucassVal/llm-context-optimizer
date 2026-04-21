@@ -1,0 +1,17 @@
+Resumo do Grafo Genealgico
+===========================
+Arquivos processados: 634
+Total de ns: 1457
+Total de arestas: 7262
+
+Top 10 arquivos com mais conexes (grau de sada):
+  DIR-DOC-FR-001-docs-main/artifact_catalog.json: 332 conexes
+  01_neocortex_framework/DIR-DOC-FR-001-docs-main/renaming_analysis_summary.yaml: 216 conexes
+  01_neocortex_framework/DIR-DOC-FR-001-docs-main/renaming_plan.yaml: 216 conexes
+  01_neocortex_framework/DIR-DOC-FR-001-docs-main/renaming_plan_v2.yaml: 216 conexes
+  01_neocortex_framework/DIR-DOC-FR-001-docs-main/renaming_plan_v2_dedup.yaml: 216 conexes
+  DIR-DOC-FR-001-docs-main/rename_impact_analysis.json: 216 conexes
+  01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-MAN-FR-001-project-manifest.json: 199 conexes
+  01_neocortex_framework/DIR-DOC-FR-001-docs-main/PROJECT_MAP.md: 199 conexes
+  NC-IDX-FR-001-graph-extraction.json: 183 conexes
+  01_neocortex_framework/DIR-DOC-FR-001-docs-main/ssot_audit_report.json: 172 conexes

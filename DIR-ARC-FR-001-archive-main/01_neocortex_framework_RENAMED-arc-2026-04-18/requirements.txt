@@ -1,0 +1,25 @@
+# NeoCortex Framework Dependencies
+# Core dependencies for the MCP server and framework functionality
+
+# Protocol dependencies
+mcp>=0.1.0  # Model Context Protocol server implementation
+
+# Optional dependencies for enhanced functionality
+# jsonschema>=4.0.0  # For JSON schema validation (optional)
+# pydantic>=2.0.0   # For data validation (optional)
+# watchdog>=3.0.0   # For file system monitoring (optional)
+
+# Infrastructure optimization dependencies (install with: pip install "neocortex-framework[infra]")
+# msgspec>=0.18.0           # High-performance serialization
+# diskcache>=5.6.0          # Persistent disk caching
+# sqlite-utils>=3.35.0      # SQLite utilities with FTS5 support
+# xapian-bindings>=1.4.0    # Xapian search engine bindings (Linux/macOS only)
+# speedb>=0.1.0             # Speedb key-value store (x86_64/aarch64 only)
+
+# Development dependencies
+# black>=24.0.0      # Code formatting
+# ruff>=0.4.0       # Linting
+# pytest>=8.0.0     # Testing
+
+# Note: These are minimal dependencies. Additional dependencies can be added
+# based on which features are enabled.

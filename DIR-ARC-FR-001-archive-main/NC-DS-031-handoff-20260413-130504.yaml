@@ -1,0 +1,23 @@
+ticket_id: NC-DS-031
+status: PENDING_REVIEW
+timestamp: "2026-04-13T13:00:47-03:00"
+agent_port: 59520
+lines_added: 323
+files_modified:
+  - 01_neocortex_framework/neocortex/core/hooks/NC-HK-FR-001-hook-registry.py
+  - 01_neocortex_framework/neocortex/core/hooks/NC-HK-FR-002-example-hook.py
+  - 05_examples/.nc/hooks/ssot-guard.yaml
+summary: |
+  Implementado HookRegistry com suporte a hooks YAML e Python, eventos PreToolUse, PostToolUse, ToolError.
+  Integração com EventBus, timeout por hook, singleton get_hook_registry.
+metrics:
+  ruff_check: PASS
+  py_compile: PASS
+  write_zone_respected: true
+  locks_respected: true
+errors: []
+warnings: []
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  handoff_yaml_complete: true

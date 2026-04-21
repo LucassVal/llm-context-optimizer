@@ -1,0 +1,121 @@
+<!-- module: testing -->
+<!-- category: core -->
+<!-- status: active -->
+<!-- created_by: opencode -->
+
+# Testes no NeoCortex
+
+Estratégia de testes, ferramentas e cobertura.
+
+## Propósito
+Gerenciar conhecimento específico do módulo testing.
+
+## Status
+Sugerido
+
+## Tags
+#testing, #framework, #neocortex
+
+## Checkpoints
+- CP-TESTING-001: Criação inicial
+
+## Conteúdo Inicial
+*Este lobe está em construção. Adicione aqui:*
+
+### 1. Visão Geral
+- Objetivos principais
+- Escopo do módulo
+- Integrações com outros módulos
+
+### 2. Componentes Principais
+- Lista de componentes/classes
+- Responsabilidades
+- Dependências
+
+### 3. Padrões e Convenções
+- Padrões de código
+- Convenções de nomenclatura
+- Boas práticas
+
+### 4. Exemplos de Uso
+- Exemplos básicos
+- Casos de uso comuns
+- Configurações típicas
+
+### 5. Referências
+- Links para documentação
+- Arquivos relevantes no projeto
+- Exemplos externos
+
+## Notas
+- Criado automaticamente por OpenCode
+- Data: 2026-04-10 15:36:46
+- Revisão necessária para conteúdo específico do projeto
+
+## Estratégia de Testes NeoCortex
+
+### Tipos de Testes
+1. **Testes Unitários**: Serviços individuais
+2. **Testes de Integração**: Repositórios + Serviços
+3. **Testes End-to-End**: Fluxos completos MCP
+4. **Testes de Performance**: Benchmarks
+
+### Ferramentas
+- `pytest`: Framework principal
+- `unittest`: Para compatibilidade
+- `coverage.py`: Cobertura de código
+- `pytest-asyncio`: Testes assíncronos
+
+### Estrutura de Testes
+```
+tests/
+├── unit/
+│   ├── core/
+│   │   ├── test_cortex_service.py
+│   │   └── test_lobe_service.py
+│   └── repositories/
+│       ├── test_filesystem_repository.py
+│       └── test_ledger_repository.py
+├── integration/
+│   ├── test_service_integration.py
+│   └── test_mcp_integration.py
+└── e2e/
+    ├── test_cli_commands.py
+    └── test_mcp_tools.py
+```
+
+### Cobertura Alvo
+- Serviços Core: >80%
+- Repositórios: >70%
+- Ferramentas MCP: >60%
+- CLI: >50%
+
+### Mocking
+- Mock de repositórios para testes de serviço
+- Mock de serviços para testes de integração
+- Mock de MCP server para testes de ferramentas
+
+
+# NC-LBE-FR-TESTING-001
+
+Testes, qualidade, cobertura
+
+## Status
+Ativo (povoado automaticamente)
+
+## Tags
+#testing, #framework, #neocortex, #auto_populated
+
+## Checkpoints
+- CP-TESTING-001: Criação inicial
+- CP-TESTING-002: Povoamento automático
+
+
+## Contexto do Projeto
+- **Nome do projeto**: N/A
+- **Total de arquivos no projeto**: 0
+
+## Notas de Povoamento
+- Povoado automaticamente por OpenCode
+- Data: 2026-04-10 15:57:54
+- Foco da análise: test_cases, coverage, testing_patterns

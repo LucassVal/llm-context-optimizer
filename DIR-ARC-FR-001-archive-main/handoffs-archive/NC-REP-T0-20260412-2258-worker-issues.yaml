@@ -1,0 +1,172 @@
+# NC-REP-T0-20260412-2258 — Análise de problemas no sistema N-workers
+# Report gerado por: worker-68632-f87cfd
+# Data: 2026-04-12T22:58:33.356
+# Destinatário: T0 (Antigravity) — Revisão e ação necessária
+
+report_id: NC-REP-T0-20260412-2258
+generated_at: "2026-04-12T22:58:33.356"
+generated_by: "worker-68632-f87cfd"
+prompt_hash: "f87cfd178a00"
+target: T0-antigravity
+urgency: HIGH
+type: SYSTEM_ISSUE_ANALYSIS
+
+summary: "Sistema N-workers apresenta múltiplas inconsistências na fila central (NC-CFG-DS-004-task-queue.yaml): Tasks com handoff já entregue ainda marcadas como AVAILABLE/CLAIMED (violação EL-5), timestamps inconsistentes, claims expirados (>300s) ainda ativos, lock soft não sendo universalmente respeitado."
+
+issues:
+  - issue_id: EL5_VIOLATION_DUPLICATE_WORK
+    description: "Task com handoff já entregue ainda disponível na fila"
+    evidence_ticket: "NC-DS-019"
+    evidence_handoff: "DIR-DS-002-audit-logs/NC-DS-019-handoff-20260412-1843.yaml"
+    evidence_handoff_status: "PENDING_REVIEW"
+    evidence_handoff_submitted_at: "2026-04-12T18:44:25"
+    evidence_queue_status: "DONE (após intervenção)"
+    evidence_queue_claimed_at: "2026-04-12T22:51:41.188"
+    impact: "Trabalho duplicado — worker executou tarefa já concluída"
+    root_cause: "Auto-approve script não atualiza fila após aprovação"
+
+  - issue_id: TIMESTAMP_INCONSISTENCY  
+    description: "Timestamps logicamente impossíveis"
+    evidence:
+      - ticket: "NC-DS-016"
+        status: "ACTIVE"
+        claimed_at: "2026-04-12T19:28:23.777"
+        completed_at: "2026-04-12T18:34:46"
+        problem: "completed_at ANTES de claimed_at"
+      - ticket: "NC-DS-021"
+        status: "CLAIMED"
+        claimed_at: "2026-04-12T19:53:24.746"
+        completed_at: "2026-04-12T21:51:15"
+        problem: "completed_at preenchido, mas status CLAIMED"
+      - ticket: "NC-DS-022"
+        status: "CLAIMED"
+        claimed_at: "2026-04-12T19:55:33.570"
+        completed_at: "2026-04-12T18:47:53"
+        problem: "completed_at preenchido, mas status CLAIMED"
+      - ticket: "NC-DS-023"
+        status: "CLAIMED"
+        claimed_at: "2026-04-12T22:55:42.637712+00:00"
+        completed_at: "2026-04-12T18:56:53"
+        problem: "completed_at preenchido, mas status CLAIMED"
+    impact: "Estado da fila não confiável para tomada de decisão"
+    root_cause: "Atualização manual/parcial da fila sem validação"
+
+  - issue_id: EXPIRED_CLAIMS
+    description: "Claims além do timeout de 300s ainda ativos"
+    evidence:
+      - ticket: "NC-DS-026"
+        status: "CLAIMED"
+        claimed_at: "2026-04-12T19:32:10.084"
+        age_seconds: "~5,160s (86min)"
+        worker: "worker-1776032984606-2196eb"
+        timeout: "300s"
+        problem: "Claim expirado há mais de 80 minutos"
+    impact: "Tasks bloqueadas indefinidamente — outros workers não podem pegá-las"
+    root_cause: "Falta de garbage collector para claims expirados"
+
+  - issue_id: LOCK_SOFT_INCONSISTENT
+    description: "Protocolo queue.lock não sendo universalmente seguido"
+    evidence_scenario: "Ao tentar operar na fila, encontrei queue.lock existente ou ausente de forma inconsistente"
+    evidence_protocol: "PASSO 2A/B/C do NC-PROMPT-DS-002 (v2026-04-12b) define lock soft"
+    evidence_reality: "Outros workers podem estar operando sem lock"
+    impact: "Race conditions ainda possíveis mesmo com lock soft"
+    root_cause: "Migração em andamento — nem todos workers na versão mais recente"
+
+  - issue_id: AUTO_APPROVE_NOT_SYNCING
+    description: "Script NC-SCR-FR-005 não sincroniza status DONE → fila"
+    evidence_tickets_completed: ["NC-DS-020", "NC-DS-021", "NC-DS-022", "NC-DS-023"]
+    evidence_handoffs_exist: "Sim, em DIR-DS-002-audit-logs/"
+    evidence_queue_status: "CLAIMED ou inconsistente"
+    evidence_expected: "Status DONE com completed_at = handoff submitted_at"
+    impact: "Fila não reflete realidade — workers pegam tasks já concluídas"
+    root_cause: "Auto-approve foca apenas em aprovar handoffs, não atualizar fila"
+
+risk_assessment:
+  - risk: "Duplicação de trabalho massiva"
+    probability: "HIGH"
+    impact: "HIGH"
+    description: "10 workers pegando mesmas tasks já concluídas → desperdício de tokens"
+
+  - risk: "Deadlocks distribuídos"
+    probability: "MEDIUM"
+    impact: "HIGH"
+    description: "Vários workers com claims expirados bloqueando tasks"
+
+  - risk: "Corrupção de dados"
+    probability: "MEDIUM"
+    impact: "CRITICAL"
+    description: "Escrita concorrente na fila sem lock adequado"
+
+  - risk: "Perda de confiança no sistema"
+    probability: "HIGH"
+    impact: "HIGH"
+    description: "Workers entregando trabalho duplicado → T0 precisa revisar tudo manualmente"
+
+immediate_actions:
+  - action: "EXECUTAR CLEANUP SCRIPT"
+    description: "Criar/executar script que lê handoffs e corrige fila"
+    steps:
+      - "Lê todos handoffs aprovados/pendentes em DIR-DS-002-audit-logs/"
+      - "Atualiza NC-CFG-DS-004-task-queue.yaml: status: DONE, completed_at: submitted_at"
+      - "Limpa claims expirados (>300s) → status: AVAILABLE"
+      - "Corrige timestamps inconsistentes"
+
+  - action: "REFORÇAR LOCK PROTOCOL"
+    description: "Garantir que todos workers usem mesma versão do prompt"
+    steps:
+      - "Verificar hash PROMPT_SHA12 em todos workers ativos"
+      - "Forçar upgrade para v2026-04-12b (FILE_LOCK=ON)"
+      - "Adicionar verificação: worker recusa operar se lock não disponível"
+
+  - action: "ESTENDER AUTO-APPROVE SCRIPT"
+    description: "NC-SCR-FR-005 deve também atualizar fila"
+    steps:
+      - "Após aprovar handoff, script atualiza queue.yaml"
+      - "Muda status para DONE, preenche completed_at"
+      - "Remove claim do worker"
+
+  - action: "IMPLEMENTAR HEALTH CHECK"
+    description: "Monitor periódico da consistência da fila"
+    steps:
+      - "Script que roda a cada 5min verifica claims expirados"
+      - "Verifica handoffs vs status da fila"
+      - "Valida timestamps lógicos"
+      - "Gera alerta para T0 se inconsistências"
+
+long_term_improvements:
+  - improvement: "MCP-WQUEUE COM SQLITE"
+    description: "Solução definitiva mencionada no prompt"
+    benefit: "Transações ACID, locks nativos, queries atômicas"
+
+  - improvement: "HEARTBEAT DE WORKERS"
+    description: "Workers registram heartbeat a cada 30s"
+    benefit: "Detecção rápida de workers mortos, cleanup automático"
+
+  - improvement: "VERSIONAMENTO DE PROMPT OBRIGATÓRIO"
+    description: "Worker recusa operar se prompt_hash não for o mais recente"
+    benefit: "Consistência de protocolo entre todos workers"
+
+  - improvement: "FILA COM ESTADO FINITO (STATE MACHINE)"
+    description: "Transições validadas: AVAILABLE→CLAIMED→ACTIVE→DONE/BLOCKED"
+    benefit: "Impossível estados inválidos"
+
+conclusion: "O sistema N-workers está funcional mas com inconsistências críticas que se amplificarão com 10 workers simultâneos. Problemas principais: 1. Sincronização fila↔handoffs falhando, 2. Gerenciamento de claims expirados ausente, 3. Lock soft inconsistente entre workers."
+recommendation: "Pausar novos workers até correções implementadas. Prioridade: cleanup script + lock enforcement."
+
+technical_context:
+  queue_file: "DIR-DS-000-agent-config/NC-CFG-DS-004-task-queue.yaml"
+  lock_file: "DIR-DS-000-agent-config/queue.lock"
+  prompt_file: "DIR-DS-000-agent-config/NC-PROMPT-DS-002-worker-universal.md"
+  prompt_version: "v2026-04-12b"
+  prompt_hash: "f87cfd178a00"
+  workers_active_count: "5+ (inferido da fila)"
+  inconsistent_tasks: 6
+  expired_claims: 1
+  duplicate_work_cases: 1
+
+# Fim do relatório
+# Próximos passos sugeridos:
+# 1. T0 revisa este relatório
+# 2. Executa cleanup script
+# 3. Comunica novo protocolo a todos workers
+# 4. Monitora consistência por 24h antes de escalar

@@ -1,11 +1,27 @@
 #!/usr/bin/env python3
+
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:57.131177'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: tests
+level: 5
+tags:
+  - tests
+  - level-5
+  - python
+---"""
+
+
 import sys
 import traceback
 
 sys.path.insert(0, ".")
 
-from neocortex.mcp.tools.task import _execute_task
 import json
+
+from neocortex.mcp.tools.task import _execute_task
 
 task_data = json.dumps({"type": "test", "prompt": "Hello world", "context": {}})
 

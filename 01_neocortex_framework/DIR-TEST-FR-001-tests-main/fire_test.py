@@ -1,4 +1,19 @@
 #!/usr/bin/env python3
+
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:57.110028'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: tests
+level: 5
+tags:
+  - tests
+  - level-5
+  - python
+---"""
+
+
 """
 Fire Test for NeoCortex Multi-Agent Orchestration
 
@@ -8,10 +23,9 @@ coordination, isolation, and resilience.
 This test corresponds to ORCH-005 and ORCH-006 in the roadmap.
 """
 
+import json
 import sys
 import time
-import json
-import subprocess
 from pathlib import Path
 
 # Add current directory to path for imports
@@ -101,7 +115,7 @@ def test_spawn_three_servers():
         print(f"FAILED: Expected 3 active servers, got {active_count}")
         return False
 
-    print(f"SUCCESS: All 3 sub-servers are active and isolated")
+    print("SUCCESS: All 3 sub-servers are active and isolated")
 
     # Validate each server is registered (they may not be running due to stdio transport limitation)
     for server in active.get("servers", []):
@@ -146,7 +160,7 @@ def test_isolation():
         print("FAILED: Some sub-servers share the same lobe directory")
         return False
 
-    print(f"[PASS] Each sub-server has its own lobe directory")
+    print("[PASS] Each sub-server has its own lobe directory")
     return True
 
 
@@ -255,7 +269,7 @@ def cleanup():
         print(f"Stopping sub-server on port {port}...")
         result = stop_subserver(port)
         if result.get("success"):
-            print(f"  [PASS] Stopped")
+            print("  [PASS] Stopped")
         else:
             print(f"  [FAIL] Failed: {result.get('error')}")
 

@@ -1,0 +1,84 @@
+{
+  "mcpServers": {
+    "neocortex-stdio": {
+      "name": "NeoCortex Framework (stdio)",
+      "command": "python",
+      "args": [
+        "-m",
+        "neocortex.mcp.server",
+        "--transport",
+        "stdio"
+      ],
+      "env": {},
+      "disabled": false,
+      "autoApprove": [
+        "neocortex_cortex",
+        "neocortex_ledger",
+        "neocortex_report",
+        "neocortex_checkpoint",
+        "neocortex_config",
+        "neocortex_lobes",
+        "neocortex_search",
+        "neocortex_agent",
+        "neocortex_pulse",
+        "neocortex_governance"
+      ]
+    },
+    "neocortex-websocket": {
+      "name": "NeoCortex Framework (WebSocket)",
+      "url": "ws://localhost:8765",
+      "disabled": false,
+      "autoApprove": [
+        "neocortex_cortex",
+        "neocortex_ledger",
+        "neocortex_report",
+        "neocortex_checkpoint",
+        "neocortex_config",
+        "neocortex_lobes",
+        "neocortex_search",
+        "neocortex_agent",
+        "neocortex_pulse",
+        "neocortex_governance"
+      ]
+    }
+  }
+}
+
+/*
+INSTRUÇÕES PARA ANTIGRAVITY - CONFIGURAÇÃO CORRIGIDA (NC-SCR-FR-161)
+
+SERVIDORES DISPONÍVEIS:
+1. neocortex-stdio (RECOMENDADO)
+   - Usa servidor FastMCP real com governança ativada
+   - Carrega regras .mdc automaticamente
+   - Antigravity inicia servidor automaticamente
+
+2. neocortex-websocket
+   - Conecta ao mock server corrigido (:8765)
+   - Mock server agora carrega regras .mdc
+   - Bypass de governança foi eliminado
+
+FERRAMENTAS DE GOVERNANÇA:
+- neocortex_governance: Regras obrigatórias R01-R21 (.mdc)
+- Todas as ferramentas agora aplicam compliance
+
+CONFIGURAÇÃO:
+1. Copie o JSON acima (linhas 1-XX) para:
+   - Windows: %%APPDATA%%\antigravity\mcp-servers.json
+   - Mac/Linux: ~/.config/antigravity/mcp-servers.json
+
+2. OU adicione ao seu arquivo de configuração existente.
+
+USO RECOMENDADO:
+> Use "neocortex-stdio" para governança completa
+> Ferramenta "neocortex_governance" mostra regras
+
+CORREÇÕES APLICADAS:
+- JSON corrompido corrigido
+- Servidores atualizados para versões corrigidas
+- Ferramenta de governança adicionada
+- Bypass eliminado (NC-SCR-FR-157)
+
+DATA: 2026-04-21
+STATUS: Governança ativada
+*/

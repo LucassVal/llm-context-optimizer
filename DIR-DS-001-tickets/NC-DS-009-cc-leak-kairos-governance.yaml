@@ -1,0 +1,123 @@
+assigned_to: DS-B
+completed_at: '2026-04-15T13:39:18.378953'
+created_at: '2026-04-12T16:26:00'
+created_by: antigravity-t0
+depends_on: NC-DS-007
+description: 'Super varredura 100% com decodificação de padrões.
+
+  Foco: KAIROS loop proativo, DRM, flags futuras, governance patterns dos 13 plugins
+  oficiais.
+
+
+  INSIGHT CRÍTICO: official-claude-code tem 13 plugins completos com READMEs —
+
+  cada plugin é um padrão de extensão que a Anthropic usa internamente.
+
+  ''hookify'' e ''agent-sdk-dev'' são especialmente valiosos para o NeoCortex.
+
+  '
+exit_state:
+  files_created:
+  - DIR-RES-CC-001-claude-leak-workzone/analysis-session-b/NC-LBE-CC-004-governance.mdc
+  - DIR-RES-CC-001-claude-leak-workzone/analysis-session-b/NC-LBE-CC-005-features-kairos.mdc
+  - DIR-RES-CC-001-claude-leak-workzone/analysis-session-b/NC-ANA-CC-003-plugin-patterns.md
+  - DIR-RES-CC-001-claude-leak-workzone/analysis-session-b/NC-ANA-CC-004-competitive-intel.md
+forbidden_zone:
+- neocortex/mcp/
+- C:/Users/Lucas Valério/Desktop/CLAUDE_CODE_DISSECTION/
+handoff_ref: NC-DS-009-handoff-20260415T133918-retrospective.yaml
+integrity_hash: deb352ddfb9ad39f
+key_questions:
+- 'KAIROS: qual o critério de decisão agir vs. ficar quieto? É ML ou rule-based?'
+- 'hookify: como os hooks se integram ao Claude Code? É similar a git hooks?'
+- 'DRM original: como funcionava antes de morrer em 24h?'
+- 'BRIDGE_MODE: conecta a qual sistema externo (IDE? Browser? API)?'
+- 'Plugin system: como um plugin é carregado? YAML manifest? auto-discovery?'
+limits:
+  escalate_after_rounds: 8
+  max_rounds: 10
+  max_tokens_per_phase: 8000
+methodology: "=== FASE 0 — GREP GLOBAL free-code ===\nExecutar grep em free-code/src/\
+  \ pelos termos:\n  KAIROS, tick, SendUserFile, PushNotification, SubscribePR\n \
+  \ BRIDGE_MODE, VOICE_MODE, AFK, ULTRAPLAN, TELEPORT_LOCAL\n  DRM, license, telemetry,\
+  \ obfuscat\nListar TODOS os arquivos que contém cada termo.\n\n=== FASE 1 — KAIROS\
+  \ (assistant/ + grep results) ===\n1. Ler TODOS os arquivos de free-code/src/assistant/\n\
+  2. Para cada arquivo que contém 'KAIROS' ou 'tick': ler completo\n3. Extrair: como\
+  \ tick é disparado? Qual o critério de agir vs. ficar quieto?\n4. Extrair: como\
+  \ SendUserFile, PushNotification, SubscribePR são implementados?\n\n=== FASE 2 —\
+  \ BRIDGE + VOICE + BUDDY ===\n5. Ler todos os 31 arquivos de free-code/src/bridge/\
+  \ (BRIDGE_MODE)\n6. Ler free-code/src/voice/ (VOICE_MODE)\n7. Ler TODOS os 6 arquivos\
+  \ de free-code/src/buddy/ (gacha, Tamagotchi)\n8. Procurar ULTRAPLAN em free-code/src/remote/\
+  \ e free-code/src/commands/\n\n=== FASE 3 — 13 PLUGINS OFICIAIS (um a um) ===\n\
+  Para cada plugin em official-claude-code/plugins/:\n  a) Ler README.md completo\n\
+  \  b) Listar todos os arquivos do plugin\n  c) Ler main/index/config de cada um\n\
+  \  d) Extrair: padrão de extensão, hooks usados, formato de configuração\nPrioridade:\
+  \ hookify > agent-sdk-dev > security-guidance > pr-review-toolkit > plugin-dev\n\
+  \n=== FASE 4 — .CLAUDE CONFIG ===\n9. Ler official-claude-code/.claude/ (padrões\
+  \ de configuração)\n10. Ler official-claude-code/examples/settings/README.md\n\n\
+  === FASE 5 — VALIDAÇÃO CRUZADA ===\n11. Confirmar padrões KAIROS em leaked-claude-code/assistant/\n\
+  12. Confirmar DRM se existir\n\n=== FASE 6 — SÍNTESE ===\nProduzir NC-LBE-CC-004\
+  \ (governance: DRM, audit, locks, plugin system)\nProduzir NC-LBE-CC-005 (KAIROS,\
+  \ ULTRAPLAN, flags futuras, BUDDY)\nProduzir NC-ANA-CC-003 com padrão de cada plugin\
+  \ + recomendações para NeoCortex\nProduzir NC-ANA-CC-004 \"O que a Anthropic tem\
+  \ que nós não temos?\" (priorizados)\n"
+priority: RESEARCH
+roadmap_ticket: CC-001-B
+source_map:
+  B1_free-code_kairos_features:
+    estrategia: 'grep em TODO free-code por: KAIROS, tick, SendUserFile, PushNotification,
+
+      BRIDGE_MODE, VOICE_MODE, AFK, ULTRAPLAN, __ULTRAPLAN_TELEPORT_LOCAL__,
+
+      advisor, history_snipping, DRM, license, telemetry
+
+      Ler todos os arquivos onde esses termos aparecem.
+
+      '
+    linguagem: TypeScript (1358 .ts + 558 .tsx)
+    pastas_comandos:
+      commands: 208 arquivos — TODOS os comandos do CLI
+      plugins: 2 arquivos — plugin loader
+      skills: 20 arquivos — skills system
+    pastas_kairos:
+      assistant: 2 arquivos — KAIROS base implementation
+      bridge: 31 arquivos — BRIDGE_MODE?
+      buddy: 6 arquivos — Tamagotchi completo (gacha, stats, sprites ASCII)
+      voice: 1 arquivo — VOICE_MODE
+    path: C:/Users/Lucas Valério/Desktop/CLAUDE_CODE_DISSECTION/free-code/
+    total_files: 1950
+  B2_official-claude-code_plugins:
+    estrategia: 'Ler README.md de CADA plugin (13 ao todo) um a um.
+
+      Para cada plugin: extrair padrão de extensão, YAML/JSON de config, hooks usados.
+
+      '
+    estrutura_plugins:
+    - plugins/agent-sdk-dev/ — SDK para desenvolver agentes
+    - plugins/hookify/ — sistema de hooks
+    - plugins/pr-review-toolkit/ — toolkit de revisão de PR
+    - plugins/security-guidance/ — padrões de segurança
+    - plugins/feature-dev/ — fluxo de desenvolvimento de features
+    - plugins/code-review/ — padrões de code review
+    - plugins/commit-commands/ — padrões de commits
+    - plugins/frontend-design/ — padrões de design
+    - plugins/learning-output-style/ — estilo de output
+    - plugins/explanatory-output-style/
+    - plugins/plugin-dev/ — como criar plugins
+    - plugins/ralph-wiggum/ — (curiosidade)
+    - plugins/claude-opus-4-5-migration/
+    pastas_config:
+      .claude/: configurações padrão
+      examples/settings/: exemplos de configuração
+    path: C:/Users/Lucas Valério/Desktop/CLAUDE_CODE_DISSECTION/official-claude-code/
+    total_files: 184
+  B3_leaked-claude-code_verificacao_cruzada:
+    path: C:/Users/Lucas Valério/Desktop/CLAUDE_CODE_DISSECTION/leaked-claude-code/
+    total_files: 61
+    uso: Validação cruzada — confirmar padrões encontrados em free-code
+status: DONE
+ticket_id: NC-DS-009
+title: 'Claude Code Leak — Super Varredura B: KAIROS + Governance + Features + 13
+  Plugins Oficiais'
+updated_at: '2026-04-12T16:34:00'
+write_zone: DIR-RES-CC-001-claude-leak-workzone/analysis-session-b/

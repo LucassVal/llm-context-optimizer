@@ -1,0 +1,372 @@
+{
+  "timestamp": "2026-04-17T09:56:53.615611",
+  "summary": {
+    "total_tools": 35,
+    "ok": 20,
+    "fail": 15,
+    "success_rate": 0.5714285714285714,
+    "all_ok": false
+  },
+  "results": [
+    {
+      "tool": "NC-TOOL-FR-000-brain.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-000-brain.py",
+      "status": "OK",
+      "error": null,
+      "details": {
+        "has_register_tool": true,
+        "module_loaded": true
+      },
+      "syntax": "OK",
+      "import": "OK"
+    },
+    {
+      "tool": "NC-TOOL-FR-001-cortex.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-001-cortex.py",
+      "status": "FAIL_IMPORT",
+      "error": "attempted relative import beyond top-level package",
+      "details": null,
+      "syntax": "OK"
+    },
+    {
+      "tool": "NC-TOOL-FR-002-agent.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-002-agent.py",
+      "status": "FAIL_IMPORT",
+      "error": "attempted relative import beyond top-level package",
+      "details": null,
+      "syntax": "OK"
+    },
+    {
+      "tool": "NC-TOOL-FR-003-benchmark.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-003-benchmark.py",
+      "status": "FAIL_IMPORT",
+      "error": "attempted relative import beyond top-level package",
+      "details": null,
+      "syntax": "OK"
+    },
+    {
+      "tool": "NC-TOOL-FR-004-checkpoint.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-004-checkpoint.py",
+      "status": "FAIL_IMPORT",
+      "error": "attempted relative import beyond top-level package",
+      "details": null,
+      "syntax": "OK"
+    },
+    {
+      "tool": "NC-TOOL-FR-005-config.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-005-config.py",
+      "status": "FAIL_IMPORT",
+      "error": "attempted relative import beyond top-level package",
+      "details": null,
+      "syntax": "OK"
+    },
+    {
+      "tool": "NC-TOOL-FR-006-export.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-006-export.py",
+      "status": "FAIL_IMPORT",
+      "error": "attempted relative import beyond top-level package",
+      "details": null,
+      "syntax": "OK"
+    },
+    {
+      "tool": "NC-TOOL-FR-007-init.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-007-init.py",
+      "status": "FAIL_IMPORT",
+      "error": "attempted relative import beyond top-level package",
+      "details": null,
+      "syntax": "OK"
+    },
+    {
+      "tool": "NC-TOOL-FR-008-ledger.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-008-ledger.py",
+      "status": "FAIL_IMPORT",
+      "error": "attempted relative import beyond top-level package",
+      "details": null,
+      "syntax": "OK"
+    },
+    {
+      "tool": "NC-TOOL-FR-009-lobes.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-009-lobes.py",
+      "status": "FAIL_IMPORT",
+      "error": "attempted relative import beyond top-level package",
+      "details": null,
+      "syntax": "OK"
+    },
+    {
+      "tool": "NC-TOOL-FR-010-peers.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-010-peers.py",
+      "status": "FAIL_IMPORT",
+      "error": "attempted relative import beyond top-level package",
+      "details": null,
+      "syntax": "OK"
+    },
+    {
+      "tool": "NC-TOOL-FR-011-pulse.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-011-pulse.py",
+      "status": "OK",
+      "error": null,
+      "details": {
+        "has_register_tool": true,
+        "module_loaded": true
+      },
+      "syntax": "OK",
+      "import": "OK"
+    },
+    {
+      "tool": "NC-TOOL-FR-012-regression.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-012-regression.py",
+      "status": "FAIL_IMPORT",
+      "error": "attempted relative import beyond top-level package",
+      "details": null,
+      "syntax": "OK"
+    },
+    {
+      "tool": "NC-TOOL-FR-013-report.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-013-report.py",
+      "status": "OK",
+      "error": null,
+      "details": {
+        "has_register_tool": true,
+        "module_loaded": true
+      },
+      "syntax": "OK",
+      "import": "OK"
+    },
+    {
+      "tool": "NC-TOOL-FR-014-search.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-014-search.py",
+      "status": "FAIL_IMPORT",
+      "error": "attempted relative import beyond top-level package",
+      "details": null,
+      "syntax": "OK"
+    },
+    {
+      "tool": "NC-TOOL-FR-015-security.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-015-security.py",
+      "status": "FAIL_IMPORT",
+      "error": "attempted relative import beyond top-level package",
+      "details": null,
+      "syntax": "OK"
+    },
+    {
+      "tool": "NC-TOOL-FR-016-subserver.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-016-subserver.py",
+      "status": "OK",
+      "error": null,
+      "details": {
+        "has_register_tool": true,
+        "module_loaded": true
+      },
+      "syntax": "OK",
+      "import": "OK"
+    },
+    {
+      "tool": "NC-TOOL-FR-017-task.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-017-task.py",
+      "status": "FAIL_IMPORT",
+      "error": "attempted relative import beyond top-level package",
+      "details": null,
+      "syntax": "OK"
+    },
+    {
+      "tool": "NC-TOOL-FR-018-push-notification.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-018-push-notification.py",
+      "status": "OK",
+      "error": null,
+      "details": {
+        "has_register_tool": true,
+        "module_loaded": true
+      },
+      "syntax": "OK",
+      "import": "OK"
+    },
+    {
+      "tool": "NC-TOOL-FR-019-project-manifest.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-019-project-manifest.py",
+      "status": "OK",
+      "error": null,
+      "details": {
+        "has_register_tool": true,
+        "module_loaded": true
+      },
+      "syntax": "OK",
+      "import": "OK"
+    },
+    {
+      "tool": "NC-TOOL-FR-020-knowledge.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-020-knowledge.py",
+      "status": "FAIL_IMPORT",
+      "error": "attempted relative import beyond top-level package",
+      "details": null,
+      "syntax": "OK"
+    },
+    {
+      "tool": "NC-TOOL-FR-021-memory.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-021-memory.py",
+      "status": "OK",
+      "error": null,
+      "details": {
+        "has_register_tool": true,
+        "module_loaded": true
+      },
+      "syntax": "OK",
+      "import": "OK"
+    },
+    {
+      "tool": "NC-TOOL-FR-022-session.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-022-session.py",
+      "status": "OK",
+      "error": null,
+      "details": {
+        "has_register_tool": true,
+        "module_loaded": true
+      },
+      "syntax": "OK",
+      "import": "OK"
+    },
+    {
+      "tool": "NC-TOOL-FR-023-orchestration.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-023-orchestration.py",
+      "status": "OK",
+      "error": null,
+      "details": {
+        "has_register_tool": true,
+        "module_loaded": true
+      },
+      "syntax": "OK",
+      "import": "OK"
+    },
+    {
+      "tool": "NC-TOOL-FR-024-governance.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-024-governance.py",
+      "status": "OK",
+      "error": null,
+      "details": {
+        "has_register_tool": true,
+        "module_loaded": true
+      },
+      "syntax": "OK",
+      "import": "OK"
+    },
+    {
+      "tool": "NC-TOOL-FR-025-system.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-025-system.py",
+      "status": "OK",
+      "error": null,
+      "details": {
+        "has_register_tool": true,
+        "module_loaded": true
+      },
+      "syntax": "OK",
+      "import": "OK"
+    },
+    {
+      "tool": "NC-TOOL-FR-026-intelligence.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-026-intelligence.py",
+      "status": "OK",
+      "error": null,
+      "details": {
+        "has_register_tool": true,
+        "module_loaded": true
+      },
+      "syntax": "OK",
+      "import": "OK"
+    },
+    {
+      "tool": "NC-TOOL-FR-027-knowledge.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-027-knowledge.py",
+      "status": "OK",
+      "error": null,
+      "details": {
+        "has_register_tool": true,
+        "module_loaded": true
+      },
+      "syntax": "OK",
+      "import": "OK"
+    },
+    {
+      "tool": "NC-TOOL-FR-029-health.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-029-health.py",
+      "status": "OK",
+      "error": null,
+      "details": {
+        "has_register_tool": true,
+        "module_loaded": true
+      },
+      "syntax": "OK",
+      "import": "OK"
+    },
+    {
+      "tool": "NC-TOOL-FR-030-context.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-030-context.py",
+      "status": "OK",
+      "error": null,
+      "details": {
+        "has_register_tool": true,
+        "module_loaded": true
+      },
+      "syntax": "OK",
+      "import": "OK"
+    },
+    {
+      "tool": "NC-TOOL-FR-031-savepoint.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-031-savepoint.py",
+      "status": "OK",
+      "error": null,
+      "details": {
+        "has_register_tool": true,
+        "module_loaded": true
+      },
+      "syntax": "OK",
+      "import": "OK"
+    },
+    {
+      "tool": "NC-TOOL-FR-034-dry-run.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-034-dry-run.py",
+      "status": "OK",
+      "error": null,
+      "details": {
+        "has_register_tool": true,
+        "module_loaded": true
+      },
+      "syntax": "OK",
+      "import": "OK"
+    },
+    {
+      "tool": "NC-TOOL-FR-035-task.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-035-task.py",
+      "status": "OK",
+      "error": null,
+      "details": {
+        "has_register_tool": true,
+        "module_loaded": true
+      },
+      "syntax": "OK",
+      "import": "OK"
+    },
+    {
+      "tool": "NC-TOOL-FR-036-picoclaw.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-036-picoclaw.py",
+      "status": "OK",
+      "error": null,
+      "details": {
+        "has_register_tool": true,
+        "module_loaded": true
+      },
+      "syntax": "OK",
+      "import": "OK"
+    },
+    {
+      "tool": "NC-TOOL-FR-037-hooks.py",
+      "path": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-037-hooks.py",
+      "status": "OK",
+      "error": null,
+      "details": {
+        "has_register_tool": true,
+        "module_loaded": true
+      },
+      "syntax": "OK",
+      "import": "OK"
+    }
+  ]
+}

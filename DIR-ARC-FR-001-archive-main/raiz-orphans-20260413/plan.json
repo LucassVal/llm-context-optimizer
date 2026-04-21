@@ -1,0 +1,18 @@
+{
+  "ticket_id": "NC-DS-013",
+  "risk_level": "MEDIUM",
+  "file_list": {
+    "create": [
+      "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-AUD-FR-001-timestamp-audit.md"
+    ],
+    "modify": [
+      "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001a-tools-registry.md",
+      "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001b-lobes-registry.md",
+      "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001c-config-registry.md",
+      "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001d-prompts-registry.md",
+      "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md"
+    ]
+  },
+  "dependencies": [],
+  "validation_barriers": ["B1", "B2", "B3", "B4", "B5", "B6"]
+}

@@ -1,0 +1,45 @@
+{
+  "ticket_id": "NC-DS-005",
+  "roadmap_ticket": "FR-022",
+  "phase": "FASE_4_AUDITAR",
+  "timestamp": "2026-04-12T15:45:00",
+  "summary": {
+    "files_created": ["01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-022-session.py"],
+    "files_modified": [
+      "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md",
+      "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md"
+    ],
+    "lines_added": 261,
+    "lines_removed": 0,
+    "validation_rounds": 1,
+    "barriers_passed": ["B1", "B2", "B3", "B4", "B5", "B6"],
+    "locks_violated": [],
+    "cost_usd": 0.007,
+    "overall": "SUCCESS"
+  },
+  "diff_details": {
+    "NC-TOOL-FR-022-session.py": {
+      "action": "created",
+      "lines": 258
+    },
+    "NC-NAM-FR-001-naming-convention.md": {
+      "action": "modified",
+      "added_lines": 2,
+      "removed_lines": 0,
+      "changes": [
+        "Added table entry for NC-TOOL-FR-022-session.py",
+        "Added changelog entry [2026-04-12] for FR-022"
+      ]
+    },
+    "NC-TODO-FR-001-project-roadmap-consolidated.md": {
+      "action": "modified",
+      "added_lines": 1,
+      "removed_lines": 1,
+      "changes": [
+        "Updated FR-022 status from  to  PENDING T0 REVIEW [2026-04-12]"
+      ]
+    }
+  },
+  "entry_state_ref": "checkpoint_0_nc_ds_005.json",
+  "validation_report_ref": "validation_report_nc_ds_005.json"
+}

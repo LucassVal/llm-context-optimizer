@@ -1,12 +1,25 @@
 #!/usr/bin/env python3
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:57.086671'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: mcp-server
+level: 3
+parent_ssot: NC-MCP-FR-001-mcp-server
+tags:
+  - mcp-server
+  - level-3
+  - python
+---"""
+
 """
 Test if MCP server can start without errors.
 """
 
 import subprocess
-import time
 import sys
-import os
+import time
 
 print("Testing MCP server startup...")
 
@@ -14,7 +27,7 @@ print("Testing MCP server startup...")
 try:
     # Start process
     proc = subprocess.Popen(
-        [sys.executable, "NC-MCP-FR-001-mcp-server.py"],
+        [sys.executable, "neocortex_mcp.py"],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         text=True,

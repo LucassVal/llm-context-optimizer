@@ -1,0 +1,150 @@
+# NC-LBE-CC-002-memory-arch.mdc
+
+> Lobo SSOT auto-gerado pelo script populate_lobes_from_ssot. No edite manualmente.
+
+<!-- source: NC-LBE-CC-002-memory-arch.mdc -->
+<!-- tags: claude-code, memory, architecture, leak, analysis -->
+<!-- auto-generated: true -->
+
+---
+alwaysApply: false
+description: "Claude Code Leak  Memory Architecture Analysis (freecode/src/memdir/)."
+---
+
+# NC-LBE-CC-002  Claude Code Memory Architecture
+
+**Source:** `freecode/src/memdir/` (8 arquivos TypeScript)  
+**Analysis date:** 2026-04-12  
+**Analyst:** T1 (DeepSeek)  
+**Ticket:** NC-DS-008 / CC-001-A  
+
+---
+
+## 1. Viso Geral do Sistema de Memria
+
+### 1.1 Componentes
+| Arquivo | Responsabilidade |
+|---------|------------------|
+| `memdir.ts` (507 linhas) | Truncamento de `MEMORY.md`, limites de linha/bytes, caminhos de automemory. |
+| `memoryTypes.ts` (271 linhas) | Taxonomia de tipos de memria (user, feedback, project, reference). |
+| `findRelevantMemories.ts` (141 linhas) | Busca de memrias relevantes via LLM (Sonnet). |
+| `memoryScan.ts` | Scan de arquivos de memria, extrao de headers. |
+| `memoryAge.ts` | Clculo de idade das memrias. |
+| `paths.ts` | Caminhos de diretrios de memria (private, team, auto). |
+| `teamMemPaths.ts` | Caminhos de memria de equipe. |
+| `teamMemPrompts.ts` | Prompts para memria de equipe. |
+
+### 1.2 Princpios de Design
+- **Memria  texto**  arquivos Markdown com frontmatter.
+- **Indexao por tpicos**  `MEMORY.md`  o entrypoint truncado (200 linhas, 25KB).
+- **Tipos restritos**  apenas 4 tipos: `user`, `feedback`, `project`, `reference`.
+- **Escopos**  `private` (usurio) vs `team` (projeto).
+- **No salvar derivveis**  cdigo, arquitetura, git history so obtidos via grep/git/CLAUDE.md.
+
+---
+
+## 2. Taxonomia de Memria (`memoryTypes.ts`)
+
+### 2.1 Tipos
+1. **user** (sempre private)
+   - **Descrio:** Informaes sobre papel, objetivos, responsabilidades, conhecimento do usurio.
+   - **Quando salvar:** Ao aprender detalhes sobre o usurio.
+   - **Como usar:** Tailor do comportamento conforme o perfil do usurio.
+
+2. **feedback** (default private, team apenas para convenes de projeto)
+   - **Descrio:** Orientao do usurio sobre como abordar o trabalho (correes e confirmaes).
+   - **Quando salvar:** Correes ("no faa X") ou confirmaes ("sim, continue").
+   - **Como usar:** Guiar comportamento futuro para evitar repetio da orientao.
+
+3. **project** (private ou team, bias para team)
+   - **Descrio:** Informao sobre trabalho em andamento, objetivos, bugs, incidentes.
+   - **Quando salvar:** Ao aprender quem est fazendo o qu, por que, at quando.
+   - **Como usar:** Entender contexto mais amplo por trs da solicitao.
+
+4. **reference** (private ou team)
+   - **Descrio:** Material de referncia externa (documentao, artigos, exemplos).
+   - **Quando salvar:** Ao encontrar referncia til para o projeto.
+   - **Como usar:** Consultar durante trabalho futuro.
+
+### 2.2 Sees de Exemplo
+- `TYPES_SECTION_COMBINED`  para modo combinado (private + team).
+- `TYPES_SECTION_INDIVIDUAL`  para modo individual.
+- `MEMORY_FRONTMATTER_EXAMPLE`  exemplo de frontmatter.
+- `TRUSTING_RECALL_SECTION`  como confiar na recall.
+- `WHAT_NOT_TO_SAVE_SECTION`  o que no salvar.
+- `WHEN_TO_ACCESS_SECTION`  quando acessar memrias.
+
+---
+
+## 3. Entrypoint `MEMORY.md` (`memdir.ts`)
+
+### 3.1 Limites
+- **Linhas:** `MAX_ENTRYPOINT_LINES = 200`
+- **Bytes:** `MAX_ENTRYPOINT_BYTES = 25_000` (~125 chars/linha)
+- **Motivo:** Previne ndices com linhas longas que ultrapassam o cap de linhas (p100 observado: 197KB em <200 linhas).
+
+### 3.2 Truncamento
+- Funo `truncateEntrypointContent(raw: string): EntrypointTruncation`
+- **Ordem:** Primeiro truncamento por linhas, depois por bytes (no ltimo `\n` antes do limite).
+- **Sada:** `content`, `lineCount`, `byteCount`, `wasLineTruncated`, `wasByteTruncated`.
+
+### 3.3 Caminhos de AutoMemory
+- `getAutoMemPath()`  retorna caminho para diretrio de automemory.
+- `isAutoMemoryEnabled()`  verifica se automemory est habilitada.
+
+---
+
+## 4. Busca de Memrias Relevantes (`findRelevantMemories.ts`)
+
+### 4.1 Fluxo
+1. **Scan**  `scanMemoryFiles()` retorna headers de todos os arquivos de memria.
+2. **Filtro**  remove memrias j surfadas (`alreadySurfaced`).
+3. **Seleo por LLM**  `selectRelevantMemories()` chama Sonnet com prompt estruturado.
+4. **Prompt:** `SELECT_MEMORIES_SYSTEM_PROMPT` (escolher at 5 memrias certamente teis).
+5. **Telemetria**  `feature('MEMORY_SHAPE_TELEMETRY')` loga formato da recall.
+
+### 4.2 Heursticas
+- **No selecionar** memrias que so documentao de tools recentemente usadas.
+- **Selecionar** memrias com avisos, gotchas, known issues sobre tools ativas.
+- **Se incerto**  no incluir.
+
+---
+
+## 5. Comparao com NeoCortex
+
+### 5.1 Mapeamento Conceitual
+| Conceito Claude Code | Equivalente NeoCortex | Diferenas |
+|----------------------|-----------------------|------------|
+| `MEMORY.md` (entrypoint truncado) | `NCLBE**.mdc` (lobes) | NeoCortex usa lobes isolados por agente, no um arquivo nico. |
+| `user` / `feedback` / `project` / `reference` types | `NCTOOLFR021memory.py` (lobe.*) | NeoCortex no tipifica memrias; usa lobes com contedo livre. |
+| `findRelevantMemories` (Sonnet) | `NCTOOLFR014search.py` (search.advanced) | NeoCortex busca por termos, no usa LLM para seleo. |
+| `private` vs `team` scope | `NCTOOLFR021memory.py` (lobe.list_active) | NeoCortex gerencia lobes por agente (T1, T2, etc.), no por escopo. |
+| `auto memory` | `NCTOOLFR021memory.py` (lobe.activate) | NeoCortex ativa/deativa lobes manualmente. |
+
+### 5.2 Lies para NeoCortex
+- **Tipificao** pode ajudar a organizar contedo de lobes (ex: `type: user`, `type: feedback`).
+- **Limites de tamanho** por lobe (ex: 200 linhas, 25KB) podem prevenir lobes inflados.
+- **Seleo por LLM** de lobes relevantes poderia melhorar a recall no contexto.
+- **Automemory** (gerao automtica de lobes)  um padro ausente no NeoCortex.
+
+---
+
+## 6. Perguntas Abertas
+
+1. **Onde est `agentMemory.ts`?**  no encontrado em `freecode/src/tools/`. Possvel caminho alternativo.
+2. **Qual o trigger exato do `autoDream` (3 portas)?**  precisa buscar em `freecode/src/services/`.
+3. **Como `memoryScan.ts` extrai headers?**  no analisado em detalhe.
+4. **Integrao com `coordinator`**  como a memria  usada na orquestrao multiagente?
+
+---
+
+## 7. Prximos Passos (Fase 2)
+
+1. Localizar `agentMemory.ts` e `agentMemorySnapshot.ts`.
+2. Analisar `freecode/src/services/` para `autoDream`.
+3. Investigar `freecode/src/coordinator/` para orquestrao.
+4. Extrair schemas de interfaces TypeScript para documentao completa.
+
+---
+
+**Status:** Anlise preliminar da arquitetura de memria concluda. Foco agora em orquestrao (`coordinator/`, `services/`).

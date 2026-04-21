@@ -1,0 +1,45 @@
+ticket_id: NC-DS-117
+status: OPEN
+priority: "🟡 NEXT"
+created_at: "2026-04-20T18:16:52-03:00"
+assigned_to: opencode-agent-1
+tier: T1
+
+title: "Audit core/ raiz — classificar 31 arquivos sem prefixo NC"
+
+description: |
+  A pasta neocortex/core/ tem 31 arquivos Python sem prefixo NC-*
+  misturados com 6 arquivos que têm prefixo NC-CORE-FR-*.
+  Tarefa: auditar cada arquivo, classificar e gerar relatório JSON.
+
+scope:
+  read_only:
+    - "01_neocortex_framework/neocortex/core/*.py"
+    - "01_neocortex_framework/neocortex/**/*.py"  # grep de imports
+  write_zone: "05_examples/"
+  output_file: "05_examples/NC-RPT-117-core-audit-report.json"
+  forbidden_writes:
+    - "01_neocortex_framework/neocortex/core/"  # READ ONLY
+    - "DIR-DOC-FR-001-docs-main/"               # T0 apenas
+
+lobe_isolation:
+  agent: "opencode-agent-1"
+  allowed_lobes: []      # sem acesso a lobos (tarefa só de leitura/análise)
+  write_to_ssot: false   # T0 aprova e atualiza @SSOT
+
+steps:
+  - "Para cada arquivo em neocortex/core/*.py (sem subdiretórios):"
+  - "  a) Contar quantos arquivos importam este módulo em todo o projeto (grep)"
+  - "  b) Verificar se existe um NC-SVC-FR-* equivalente em core/services/"
+  - "  c) Classificar: KEEP_NC (registrar), ARCHIVE (sem import), DUPLICATE (tem equivalente em services/)"
+  - "Gerar JSON: { files: [{name, importers_count, classification, equivalent_svc, action_suggested}] }"
+  - "Salvar em 05_examples/NC-RPT-117-core-audit-report.json"
+
+constraints:
+  - "NÃO modificar nenhum arquivo em neocortex/"
+  - "NÃO criar novos arquivos em core/"
+  - "NÃO tocar @SSOT, @ROADMAP, @LOCKS"
+  - "Seguir R21: rodar python -m py_compile em qualquer script criado"
+
+deliverable: "NC-RPT-117-core-audit-report.json com classificação de todos os 31 arquivos"
+handoff_target: "DIR-DS-002-audit-logs/"

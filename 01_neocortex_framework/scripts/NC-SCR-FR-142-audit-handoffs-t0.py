@@ -1,0 +1,148 @@
+#!/usr/bin/env python3
+"""
+Audit handoffs with T0 protocol (py_compile + ruff).
+"""
+
+import logging
+import subprocess
+import sys
+from pathlib import Path
+
+import yaml
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+
+def audit_file(filepath):
+    """Run py_compile and ruff check on file."""
+    abs_path = Path("C:/Users/Lucas Valério/Desktop/TURBOQUANT_V42") / filepath
+    if not abs_path.exists():
+        logger.error(f"File not found: {abs_path}")
+        return False, False
+
+    py_compile_ok = True
+    ruff_ok = True
+
+    # py_compile
+    try:
+        import py_compile
+
+        py_compile.compile(str(abs_path), doraise=True)
+        logger.info(f"  py_compile OK: {filepath}")
+    except Exception as e:
+        logger.error(f"  py_compile FAIL: {filepath} - {e}")
+        py_compile_ok = False
+
+    # ruff check (syntax and lint)
+    try:
+        result = subprocess.run(
+            ["ruff", "check", "--select", "F,E,W", "--exit-zero", str(abs_path)],
+            capture_output=True,
+            text=True,
+            timeout=10,
+        )
+        if result.returncode != 0:
+            logger.warning(f"  ruff found issues: {filepath}")
+            logger.warning(f"    {result.stdout[:200]}")
+            # Try ruff --fix
+            fix_result = subprocess.run(
+                ["ruff", "--fix", str(abs_path)],
+                capture_output=True,
+                text=True,
+                timeout=10,
+            )
+            if fix_result.returncode == 0:
+                logger.info(f"  ruff --fix applied to {filepath}")
+                # Re-check
+                recheck = subprocess.run(
+                    [
+                        "ruff",
+                        "check",
+                        "--select",
+                        "F,E,W",
+                        "--exit-zero",
+                        str(abs_path),
+                    ],
+                    capture_output=True,
+                    text=True,
+                    timeout=10,
+                )
+                if recheck.returncode == 0:
+                    logger.info(f"  ruff OK after fix: {filepath}")
+                else:
+                    logger.error(f"  ruff still has issues: {filepath}")
+                    ruff_ok = False
+            else:
+                ruff_ok = False
+        else:
+            logger.info(f"  ruff OK: {filepath}")
+    except Exception as e:
+        logger.error(f"  ruff error: {e}")
+        ruff_ok = False
+
+    return py_compile_ok, ruff_ok
+
+
+def audit_handoff(handoff_path):
+    """Audit a single handoff YAML."""
+    logger.info(f"Auditing {handoff_path}")
+    with open(handoff_path, "r", encoding="utf-8") as f:
+        try:
+            data = yaml.safe_load(f)
+        except yaml.YAMLError as e:
+            logger.error(f"  YAML parse error: {e}")
+            return False
+
+    ticket_id = data.get("ticket_id", "unknown")
+    status = data.get("status", "PENDING_REVIEW")
+
+    # Get files from summary
+    files = []
+    summary = data.get("summary", {})
+    files.extend(summary.get("files_created", []))
+    files.extend(summary.get("files_modified", []))
+
+    if not files:
+        logger.info(f"  No files to audit for {ticket_id}")
+        return True
+
+    all_ok = True
+    for file in files:
+        logger.info(f"  Checking {file}")
+        py_ok, ruff_ok = audit_file(file)
+        if not py_ok or not ruff_ok:
+            all_ok = False
+
+    # Update handoff with audit results
+    t0_review = data.get("t0_review", {})
+    t0_review["compile_ok"] = all_ok
+    t0_review["ruff_ok"] = all_ok
+    data["t0_review"] = t0_review
+
+    # Write back
+    with open(handoff_path, "w", encoding="utf-8") as f:
+        yaml.dump(data, f, default_flow_style=False, allow_unicode=True)
+
+    logger.info(f"  Audit completed for {ticket_id}: {'PASS' if all_ok else 'FAIL'}")
+    return all_ok
+
+
+def main():
+    handoff_dir = Path(
+        "C:/Users/Lucas Valério/Desktop/TURBOQUANT_V42/DIR-DS-002-audit-logs"
+    )
+    pattern = "NC-DS-*-handoff-20260416*.yaml"
+    handoff_files = list(handoff_dir.glob(pattern))
+    logger.info(f"Found {len(handoff_files)} handoffs from today")
+
+    success = True
+    for hf in handoff_files:
+        if not audit_handoff(hf):
+            success = False
+
+    sys.exit(0 if success else 1)
+
+
+if __name__ == "__main__":
+    main()

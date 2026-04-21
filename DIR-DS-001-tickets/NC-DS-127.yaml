@@ -1,0 +1,114 @@
+# NC-DS-127.yaml
+# Ticket para implementação de lineage de dados (proveniência de contexto)
+
+ticket_id: NC-DS-127
+title: "Lineage de dados (proveniência de contexto)"
+status: OPEN
+priority: MEDIUM
+roadmap_ref: "NC-TODO-FR-001-project-roadmap-consolidated.md linha 59"
+created_at: "2026-04-20T23:20:00"
+created_by: T0-Antigravity
+assigned_to: OpenCode-Agent
+
+working_directory: "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
+framework_subdir: "01_neocortex_framework"
+note_paths: |
+  TODOS os arquivos Python vivem em:
+    C:\Users\Lucas Valério\Desktop\TURBOQUANT_V42\01_neocortex_framework\
+  O diretório raiz do projeto É esse. Não é o diretório do OpenCode.
+
+step_0:
+  - "cd C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
+  - "python -c \"from pathlib import Path; assert Path('01_neocortex_framework').exists(), 'WRONG DIR'\" → DEVE PASSAR"
+  - "Ler 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml"
+  - "python --version → confirmar Python"
+  - "Verificar se neocortex/core/services/ existe"
+
+atomic_locks_inviolaveis:
+  - "01_neocortex_framework/neocortex/mcp/server.py → NUNCA MODIFICAR"
+  - "01_neocortex_framework/neocortex/mcp/sub_server.py → NUNCA MODIFICAR"
+
+task: |
+  Implementar sistema de lineage de dados (proveniência de contexto) para rastrear origem e transformações de dados no NeoCortex.
+  
+  Objetivos:
+  1. Criar NC-SVC-FR-023-lineage-service.py que registra:
+     - Origem de dados (arquivo, API, tool call)
+     - Transformações aplicadas (compressão, extração, conversão)
+     - Agente responsável e timestamp
+     - Hash de integridade do dado
+  
+  2. Integrar com HookRegistry para capturar automaticamente:
+     - PreToolUse: registrar origem
+     - PostToolUse: registrar transformação
+     - ToolError: registrar falha
+  
+  3. Criar ferramenta MCP NC-TOOL-FR-045-lineage.py com ações:
+     - lineage.trace: rastrear proveniência de um dado
+     - lineage.export: exportar lineage como grafo
+     - lineage.validate: validar integridade da cadeia
+  
+  4. Integrar com MetricsStore para análise de qualidade de dados
+
+implementation_notes: |
+  Regras INVIOLÁVEIS:
+  - R09: NUNCA 'import NC-TOOL-FR-XXX'. Usar importlib.util.spec_from_file_location()
+  - R10: NUNCA hardcode paths. Usar get_config() ou Path(__file__).resolve().parent
+  - R11: NUNCA print() em produção. Usar logger = logging.getLogger(__name__)
+  - R21: VERIFICAR ambiente real antes de afirmar. Se dúvida → ESCALATED
+  
+  Padrões a seguir:
+  - Usar estrutura similar a NC-SVC-FR-020-lexico-service.py
+  - Persistir em JSON com schema versionado
+  - Integrar com EventBus para notificações
+  - Suportar rollback via SavePoint
+
+pre_handoff_checklist:
+  - "python -m py_compile 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-023-lineage-service.py → PASS"
+  - "python -m ruff check 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-023-lineage-service.py --select F,E9 → 0 erros"
+  - "grep print( 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-023-lineage-service.py (excluindo comentários e __main__) → VAZIO"
+  - "git -C C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework diff --name-only HEAD | Select-String 'server\\.py|sub_server\\.py' → VAZIO"
+  - "Testar integração básica com HookRegistry"
+
+deliverables:
+  - "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-023-lineage-service.py"
+  - "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-045-lineage.py"
+  - "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\DIR-DS-002-audit-logs\\NC-DS-127-handoff-<YYYYMMDDTHHMMSS>.yaml"
+
+handoff_template_inline:
+  ticket_id: "NC-DS-127"
+  status: "PENDING_REVIEW"
+  submitted_at: "<YYYYMMDDTHHMMSS>"
+  submitted_by: "opencode-agent"
+  review_by: "T0-Antigravity"
+
+  summary:
+    files_created: []
+    files_modified: []
+    lines_added: 0
+    validation_rounds: 1
+    locks_violated: []
+    overall: "SUCCESS"
+
+  t0_review_checklist:
+    compile_ok: true
+    ruff_ok: true
+    no_print: true
+    ssot_updated: false
+    locks_clean: true
+
+  test_results:
+    total: 0
+    passed: 0
+    failed: 0
+    notes: ""
+
+  escalation:
+    escalated: false
+    reason: ""
+
+write_zone: "PROD → neocortex/core/services/"
+escalation_triggers:
+  - "Erro ao integrar com HookRegistry"
+  - "Problema de performance com grafo de lineage grande"
+  - "Conflito com atomic locks"

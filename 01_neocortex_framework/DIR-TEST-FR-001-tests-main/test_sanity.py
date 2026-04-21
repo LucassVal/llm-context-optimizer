@@ -1,16 +1,29 @@
 #!/usr/bin/env python3
+
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:57.126663'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: tests
+level: 5
+tags:
+  - tests
+  - level-5
+  - python
+---"""
+
+
 """
 Sanity test suite for NeoCortex framework stability.
 Implements 11 essential tests as per roadmap STAB-103 and METR-109.
 """
 
-import sys
-import os
-import json
-import tempfile
 import shutil
-from pathlib import Path
+import sys
+import tempfile
 from datetime import datetime
+from pathlib import Path
 
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent))
@@ -31,12 +44,9 @@ def test_1_config_loads():
 def test_2_file_utils_paths():
     """Test file_utils paths are accessible."""
     from neocortex.core.file_utils import (
-        read_cortex,
-        write_cortex,
-        read_ledger,
-        write_ledger,
         get_project_root,
-        path_exists,
+        read_cortex,
+        read_ledger,
     )
 
     root = get_project_root()
@@ -53,9 +63,10 @@ def test_2_file_utils_paths():
 
 def test_3_ledger_store_read_write():
     """Test LedgerStore basic read/write operations."""
-    from neocortex.infra.ledger_store import LedgerStore
-    import tempfile
     import shutil
+    import tempfile
+
+    from neocortex.infra.ledger_store import LedgerStore
 
     # Create temporary directory for test
     temp_dir = Path(tempfile.mkdtemp())
@@ -159,8 +170,8 @@ def test_6_sub_server_spawn():
 
 def test_7_llm_backend_factory():
     """Test LLMBackendFactory creates backends."""
-    from neocortex.infra.llm.factory import LLMBackendFactory
     from neocortex.config import get_config
+    from neocortex.infra.llm.factory import LLMBackendFactory
 
     config = get_config()
     # Create backend from config
@@ -191,12 +202,12 @@ def test_8_agent_executor():
 
 def test_9_pulse_scheduler():
     """Test PulseScheduler can be instantiated."""
-    from neocortex.core.pulse_scheduler import PulseScheduler
-    from neocortex.core.ledger_service import get_ledger_service
-    from neocortex.core.consolidation_service import get_consolidation_service
     from neocortex.core.akl_service import get_akl_service
-    from neocortex.core.export_service import get_export_service
     from neocortex.core.checkpoint_service import get_checkpoint_service
+    from neocortex.core.consolidation_service import get_consolidation_service
+    from neocortex.core.export_service import get_export_service
+    from neocortex.core.ledger_service import get_ledger_service
+    from neocortex.core.pulse_scheduler import PulseScheduler
 
     # Get services
     ledger = get_ledger_service()
@@ -226,8 +237,9 @@ def test_10_config_validation():
 
 def test_11_metrics_store():
     """Test MetricsStore functionality and report generation."""
-    from neocortex.infra.metrics_store import create_metrics_store, MetricsBackend
     from pathlib import Path
+
+    from neocortex.infra.metrics_store import MetricsBackend, create_metrics_store
 
     # Use in-memory SQLite database to avoid schema conflicts
     store = create_metrics_store(

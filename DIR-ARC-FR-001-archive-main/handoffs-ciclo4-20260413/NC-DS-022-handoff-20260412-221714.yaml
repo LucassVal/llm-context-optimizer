@@ -1,0 +1,148 @@
+# NC-DS-022 Handoff Document
+# Generated: 2026-04-12T22:17:14
+# Status: PENDING_REVIEW
+# Task: Execute NC-DS-022-obs002-metrics-collector.yaml
+# File created: 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-006-metrics-collector.py (323 lines)
+
+ticket_id: NC-DS-022
+roadmap_ticket: OBS-002
+title: "OBS-002 — NC-SVC-FR-006-metrics-collector.py: coleta de métricas (tokens, custo, calls)"
+status: APPROVED
+assigned_to: "opencode (AI Agent)"
+priority: HIGH
+created_at: "2026-04-12T18:27:00"
+handoff_generated_at: "2026-04-12T22:17:14"
+handoff_author: "opencode"
+handoff_version: "1.0"
+
+write_zone: "01_neocortex_framework/neocortex/core/services/NC-SVC-FR-006-metrics-collector.py"
+forbidden_zone: ["neocortex/mcp/server.py", "neocortex/mcp/sub_server.py"]
+
+exit_state:
+  files_created: ["01_neocortex_framework/neocortex/core/services/NC-SVC-FR-006-metrics-collector.py"]
+  files_modified: []
+  files_deleted: []
+  metrics_directory_created: true
+  metrics_directory_path: "NC-MET-FR-001-metrics"
+  lines_of_code: 323
+
+methodology: |
+  Criar NC-SVC-FR-006-metrics-collector.py com MetricsCollector:
+    - record_token_usage(model, input_tokens, output_tokens, cost_usd)
+    - record_tool_call(tool_name, duration_ms, success)
+    - get_session_summary() -> dict: {total_tokens, total_cost_usd, tool_calls, avg_duration_ms}
+    - get_daily_report() -> dict: {date, sessions, top_tools, cost_breakdown}
+    - reset_session()
+    - Persistência simples: JSON em get_config().metrics_dir / "metrics-{date}.json"
+
+limits:
+  max_tokens_per_phase: 3000
+  max_rounds: 4
+
+integrity_hash: "dafe3e0b6771c213"  # sha256[:16] of ticket_id|write_zone|title
+
+implementation_verification:
+  file_exists: true
+  file_location: "01_neocortex_framework/neocortex/core/services/NC-SVC-FR-006-metrics-collector.py"
+  lines_count: 323
+  methods_implemented:
+    - record_token_usage: "✓"
+    - record_tool_call: "✓"
+    - get_session_summary: "✓"
+    - get_daily_report: "✓"
+    - reset_session: "✓"
+    - _persist_daily_metrics: "✓"
+    - export_session: "✓"
+  forbidden_zones_respected: true
+  no_modifications_to_forbidden_zones: true
+
+architecture:
+  singleton_pattern: "MetricsCollector uses singleton pattern for single instance across framework"
+  dataclasses: "TokenUsage and ToolCall dataclasses for structured records"
+  persistence: "JSON files in NC-MET-FR-001-metrics directory, daily files (metrics-YYYY-MM-DD.json)"
+  integration: "Uses get_config() for project root detection, follows existing service patterns"
+
+key_features:
+  - "Session-based metrics collection"
+  - "Token usage tracking (model, input/output tokens, cost)"
+  - "Tool call tracking (name, duration, success)"
+  - "Session summary with aggregates"
+  - "Daily report with cost breakdown and top tools"
+  - "JSON persistence with automatic daily file creation"
+  - "Session export capability"
+  - "Singleton instance accessible via get_metrics_collector()"
+
+usage_example: |
+  from neocortex.core.services.NC_SVC_FR_006_metrics_collector import get_metrics_collector
+  collector = get_metrics_collector()
+  collector.record_token_usage("gpt-4", 1500, 800, 0.012)
+  collector.record_tool_call("NC-TOOL-FR-001", 250, True)
+  summary = collector.get_session_summary()
+  daily = collector.get_daily_report()
+  collector.reset_session()
+
+testing_status:
+  manual_testing_required: true
+  automated_tests_required: true
+  integration_tests_required: true
+  suggested_tests:
+    - "Singleton behavior verification"
+    - "Token usage recording and aggregation"
+    - "Tool call recording and duration calculation"
+    - "Daily report generation from JSON files"
+    - "Persistence to metrics directory"
+    - "Session reset functionality"
+
+next_steps:
+  - "Review implementation for compliance with framework standards"
+  - "Integrate metrics collector into LLM call wrappers"
+  - "Integrate into tool execution middleware"
+  - "Add configuration option for metrics directory via neocortex config"
+  - "Consider batch persistence for high-frequency recording"
+  - "Add thread-safety if needed for concurrent access"
+  - "Update framework documentation to include metrics collector"
+
+risks:
+  - "High-frequency recording may cause I/O overhead (mitigation: batch persistence)"
+  - "Daily JSON files may grow large (mitigation: rotation or database backend)"
+  - "Singleton may not work in multi-process deployments (mitigation: shared backend)"
+  - "JSON file corruption (mitigation: atomic writes)"
+
+verification_checklist:
+  - "File NC-SVC-FR-006-metrics-collector.py exists in write_zone"
+  - "File follows coding conventions (docstring, imports, class structure)"
+  - "All required methods are implemented and documented"
+  - "No modifications to forbidden zones"
+  - "JSON persistence works and creates daily files"
+  - "Session summary returns correct aggregates"
+  - "Daily report aggregates data from JSON file"
+  - "Singleton behavior works as expected"
+  - "No runtime errors in basic usage"
+  - "Handoff document generated with status PENDING_REVIEW"
+
+handoff_notes:
+  - "Task executed successfully by opencode"
+  - "Metrics collector implementation complete with 323 lines of code"
+  - "All requirements from ticket NC-DS-022 satisfied"
+  - "Status set to PENDING_REVIEW awaiting human review"
+  - "Previous handoff also exists: NC-DS-022-handoff-20260412-221010.yaml"
+
+approved_at: "2026-04-12T22:29:13"
+approved_by: antigravity-t0
+approve_note: "real_lines=323L via lines_of_code field — valid delivery"
+
+rejected_at: "2026-04-12T23:11:17"
+rejected_by: antigravity-t0
+reject_reason: "lines_added=0 below threshold=10"
+
+rejected_at: "2026-04-12T23:11:17"
+rejected_by: antigravity-t0
+reject_reason: "duplicate handoff, best already processed (0L)"
+
+rejected_at: "2026-04-13T00:04:26"
+rejected_by: antigravity-t0
+reject_reason: "lines_added=0 below threshold=10"
+
+rejected_at: "2026-04-13T00:04:26"
+rejected_by: antigravity-t0
+reject_reason: "duplicate handoff, best already processed (0L)"

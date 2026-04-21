@@ -1,0 +1,21 @@
+{
+  "ticket_id": "NC-DS-008",
+  "roadmap_ticket": "CC-001-A",
+  "phase": "0",
+  "timestamp": "2026-04-12T17:00:00",
+  "entry_state": {
+    "write_zone": "DIR-RES-CC-001-claude-leak-workzone/analysis-session-a/",
+    "existing_files": [],
+    "existing_file_hashes": {},
+    "locks_verified": [
+      "server.py",
+      "sub_server.py",
+      "NC-NAM-FR-001-naming-convention.md",
+      "neocortex_config.yaml"
+    ],
+    "locks_violated": [],
+    "roadmap_entry_found": false,
+    "risk_assessment": "pending"
+  },
+  "notes": "Ticket de pesquisa CC-001-A (Claude Code Leak). Write_zone criada. Nenhum arquivo pr-existente."
+}

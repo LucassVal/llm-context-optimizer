@@ -1,0 +1,45 @@
+ticket_id: "NC-DS-091"
+status: "APPROVED"
+timestamp: "2026-04-16T00:19:48-03:00"
+agent: "T0-Claude-Code"
+
+summary: |
+  Criado NC-SVC-FR-017-crypto-hub.py em
+  01_neocortex_framework/neocortex/core/services/.
+  Serviço implementa:
+    - CryptoHub com carregamento de NEOCORTEX_MASTER_KEY do ambiente
+    - Derivação de chave Fernet via PBKDF2HMAC(SHA256, 100_000 iters, salt=project_id)
+    - encrypt(plaintext) → EncryptResult, WAL-logged (sha256 do ciphertext, nunca plaintext)
+    - decrypt(token) → DecryptResult, WAL-logged (outcome success/fail)
+    - rotate_key(new_master_key) → RotateResult, WAL-logged como sessão única
+    - scan_config(config_path) → ScanConfigResult (campos !secret)
+    - stats() e CLI completo (encrypt / decrypt / scan-config / rotate-key)
+    - Modo hash-only automático quando MASTER_KEY ausente ou cryptography não instalada
+  py_compile: OK — zero erros de sintaxe.
+  cryptography>=42.0.0 adicionada ao requirements.txt.
+
+files_created:
+  - "01_neocortex_framework/neocortex/core/services/NC-SVC-FR-017-crypto-hub.py"
+
+files_modified:
+  - "01_neocortex_framework/requirements.txt"   # cryptography>=42.0.0
+
+verification_run: |
+  python -m py_compile NC-SVC-FR-017-crypto-hub.py && echo "017 OK"
+  # → 017 OK
+
+security_notes: |
+  - NEOCORTEX_MASTER_KEY: jamais logada ou impressa
+  - WAL: só recebe sha256(ciphertext), nunca plaintext/ciphertext real
+  - Token registry: crypto_token_registry.json em DIR-DS-003-wal/
+  - security_service.py NÃO modificado — escopo do NC-DS-093
+
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  ssot_updated: false          # NC-DS-093 completa o wiring e atualiza GOV-FR-004
+  no_locked_files_modified: true   # security_service.py não tocado
+  handoff_yaml_complete: true
+
+blocks_ticket: "NC-DS-093"   # wiring disponível
+depends_on_completed: "NC-DS-089"  # WAL já existia

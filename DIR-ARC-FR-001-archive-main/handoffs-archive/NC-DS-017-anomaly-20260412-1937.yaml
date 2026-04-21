@@ -1,0 +1,24 @@
+# Anomaly report for T0 analysis
+# Ticket NC-DS-017 already completed but was AVAILABLE in queue
+anomaly_id: NC-DS-017-anomaly-20260412-1937
+timestamp: "2026-04-12T19:37:00"
+reported_by: worker-1776022151-2196eb
+ticket_id: NC-DS-017
+issue: "Ticket already DONE (completed_at: 2026-04-12T18:42:52) but status was AVAILABLE in queue"
+action_taken: "Changed status from ACTIVE back to DONE (already completed)"
+handoffs_exist:
+  - "DIR-DS-002-audit-logs/NC-DS-017-handoff-20260412-1755.yaml"
+  - "DIR-DS-002-audit-logs/NC-DS-017-handoff-20260412-1842.yaml"
+exit_state_files_exist:
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-001-nworker-protocol.md"
+recommendation: "Verify queue consistency. Ticket should remain DONE."
+entry_lock_violation: EL-1 (ticket already DONE should be blocked from activation)
+queue_state_at_time:
+  status_before: AVAILABLE
+  claimed_by_before: "deepseek-chat-2026-04-12T18:37:16"
+  claimed_at_before: "2026-04-12T18:37:16"
+  completed_at_before: "2026-04-12T18:42:52"
+  status_after: DONE
+  claimed_by_after: "worker-1776022151-2196eb"
+  claimed_at_after: "2026-04-12T19:33:22"
+  completed_at_after: "2026-04-12T18:42:52"

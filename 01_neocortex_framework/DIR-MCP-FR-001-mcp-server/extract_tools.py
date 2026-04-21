@@ -1,6 +1,20 @@
 #!/usr/bin/env python3
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:57.065541'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: mcp-server
+level: 3
+parent_ssot: NC-MCP-FR-001-mcp-server
+tags:
+  - mcp-server
+  - level-3
+  - python
+---"""
+
 """
-Script para extrair ferramentas MCP do arquivo monolítico e gerar módulos.
+Script para extrair ferramentas MCP do arquivo monoltico e gerar mdulos.
 """
 
 import re
@@ -10,29 +24,29 @@ from pathlib import Path
 SOURCE_FILE = Path(__file__).parent / "NC-MCP-FR-001-mcp-server.py"
 TARGET_DIR = Path(__file__).parent.parent / "neocortex" / "mcp" / "tools"
 
-# Garantir diretório de destino
+# Garantir diretrio de destino
 TARGET_DIR.mkdir(parents=True, exist_ok=True)
 
-# Ler conteúdo do arquivo fonte
+# Ler contedo do arquivo fonte
 with open(SOURCE_FILE, "r", encoding="utf-8") as f:
     content = f.read()
 
-# Padrão para encontrar ferramentas MCP
+# Padro para encontrar ferramentas MCP
 # Procura por @mcp.tool(name="neocortex_...") seguido por def tool_...
 pattern = r'(@mcp\.tool\(name="(neocortex_[a-z_]+)"\)\s*def\s+([a-z_]+)\([^)]*\)[^{]*\{[^}]+(?:\{[^}]*\}[^}]*)*\})'
-# Pattern simplificado: captura desde @mcp.tool até a próxima ferramenta ou fim do arquivo
+# Pattern simplificado: captura desde @mcp.tool at a prxima ferramenta ou fim do arquivo
 # Vamos usar uma abordagem mais simples: dividir por @mcp.tool
 
-# Encontrar todas as ocorrências de @mcp.tool
+# Encontrar todas as ocorrncias de @mcp.tool
 tool_blocks = []
 lines = content.split("\n")
 i = 0
 while i < len(lines):
     line = lines[i]
     if line.strip().startswith('@mcp.tool(name="neocortex_'):
-        # Início de uma ferramenta
+        # Incio de uma ferramenta
         start = i
-        # Encontrar fim da função (linha que termina com '}' ou próxima ferramenta)
+        # Encontrar fim da funo (linha que termina com '}' ou prxima ferramenta)
         brace_count = 0
         j = i
         while j < len(lines):
@@ -65,7 +79,7 @@ for block in tool_blocks:
     tool_name = match.group(1)
     print(f"Processando {tool_name}")
 
-    # Extrair nome da função
+    # Extrair nome da funo
     func_match = re.search(r"def\s+([a-z_]+)\(", block)
     func_name = (
         func_match.group(1)
@@ -73,7 +87,7 @@ for block in tool_blocks:
         else f"tool_{tool_name.replace('neocortex_', '')}"
     )
 
-    # Gerar conteúdo do módulo
+    # Gerar contedo do mdulo
     module_content = f'''#!/usr/bin/env python3
 """
 NeoCortex {tool_name.replace("neocortex_", "").title()} Tool
@@ -100,4 +114,4 @@ def register_tool(mcp):
         f.write(module_content)
     print(f"  -> {filename}")
 
-print("Extração concluída!")
+print("Extrao concluda!")

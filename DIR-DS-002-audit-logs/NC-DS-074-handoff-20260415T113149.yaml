@@ -1,0 +1,28 @@
+ticket_id: "NC-DS-074"
+status: "APPROVED"
+timestamp: "2026-04-15T11:31:49-03:00"
+agent_port: 25549
+lines_added: 0
+files_modified: []
+summary: |
+  Executado NC-SCR-FR-080-governance-auditor.py (ambiente original).
+  Compliance score: 75% (15/20 regras). Regras falhando: R06, R12, R18 (False); R03, R16, R17 (pending_implementation).
+  Conformidade NC-: 44.9%. Relatórios gerados em reports/governance/2026-04-15.
+ajustes_aplicados: []
+lessons_learned:
+  - "Necessário criar handoffs formais para agentes (R06, R12)"
+  - "Ticket files ausentes no DIR-DS-001-tickets (R18)"
+  - "Regras R03, R16, R17 não implementadas no script de auditoria"
+  - "Dependências pip-audit e pipdeptree não instaladas"
+deps_missing:
+  - "pip-audit"
+  - "pipdeptree"
+compliance_score: "75%"
+metrics:
+  ruff_check: PASS
+  py_compile: PASS
+  import_smoke_test: PASS
+  write_zone_respected: true
+  locks_respected: true
+reviewed_by: "T0-Antigravity"
+reviewed_at: "2026-04-15T11:43:00-03:00"

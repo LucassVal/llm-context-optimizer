@@ -1,0 +1,2703 @@
+{
+  "total_ssot": 376,
+  "total_disk": 550,
+  "missing_count": 428,
+  "unlisted_count": 550,
+  "compliance_pct": -13.83,
+  "missing": [
+    {
+      "name": "pyproject.toml",
+      "ssot_path": "\\01_neocortex_framework\\pyproject.toml",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\pyproject.toml"
+    },
+    {
+      "name": "requirements.txt",
+      "ssot_path": "\\01_neocortex_framework\\requirements.txt",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\requirements.txt"
+    },
+    {
+      "name": "deepseek.exe",
+      "ssot_path": "C:\\Program Files\\Python312\\Scripts\\deepseek.exe",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\C:\\Program Files\\Python312\\Scripts\\deepseek.exe"
+    },
+    {
+      "name": "lobe_index.db",
+      "ssot_path": "\\01_neocortex_framework\\.neocortex\\cache\\lobe_index.db",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\.neocortex\\cache\\lobe_index.db"
+    },
+    {
+      "name": "index.redb",
+      "ssot_path": "\\01_neocortex_framework\\.neocortex\\cache\\hot_cache\\index.redb",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\.neocortex\\cache\\hot_cache\\index.redb"
+    },
+    {
+      "name": "cache.db",
+      "ssot_path": "\\01_neocortex_framework\\.neocortex\\cache\\ledger\\cache.db",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\.neocortex\\cache\\ledger\\cache.db"
+    },
+    {
+      "name": "7fd282bb51e2535a2323bf377a90.val",
+      "ssot_path": "\\01_neocortex_framework\\.neocortex\\cache\\ledger\\de\\50\\7fd282bb51e2535a2323bf377a90.val",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\.neocortex\\cache\\ledger\\de\\50\\7fd282bb51e2535a2323bf377a90.val"
+    },
+    {
+      "name": "cache.db",
+      "ssot_path": "\\01_neocortex_framework\\.neocortex\\cache\\manifests\\cache.db",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\.neocortex\\cache\\manifests\\cache.db"
+    },
+    {
+      "name": "metrics.db",
+      "ssot_path": "\\01_neocortex_framework\\.neocortex\\metrics\\metrics.db",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\.neocortex\\metrics\\metrics.db"
+    },
+    {
+      "name": "metrics.db.wal",
+      "ssot_path": "\\01_neocortex_framework\\.neocortex\\metrics\\metrics.db.wal",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\.neocortex\\metrics\\metrics.db.wal"
+    },
+    {
+      "name": "00-cortex-20260409.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-ARC-FR-001-archive-main\\.agents\\rules\\00-cortex-20260409.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-ARC-FR-001-archive-main\\.agents\\rules\\00-cortex-20260409.mdc"
+    },
+    {
+      "name": "clean_security.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-ARC-FR-001-archive-main\\development_utilities\\clean_security.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-ARC-FR-001-archive-main\\development_utilities\\clean_security.py"
+    },
+    {
+      "name": "extract_all_tools.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-ARC-FR-001-archive-main\\development_utilities\\extract_all_tools.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-ARC-FR-001-archive-main\\development_utilities\\extract_all_tools.py"
+    },
+    {
+      "name": "extract_tools_final.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-ARC-FR-001-archive-main\\development_utilities\\extract_tools_final.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-ARC-FR-001-archive-main\\development_utilities\\extract_tools_final.py"
+    },
+    {
+      "name": "extract_tools_robust.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-ARC-FR-001-archive-main\\development_utilities\\extract_tools_robust.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-ARC-FR-001-archive-main\\development_utilities\\extract_tools_robust.py"
+    },
+    {
+      "name": "fix_indentation.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-ARC-FR-001-archive-main\\development_utilities\\fix_indentation.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-ARC-FR-001-archive-main\\development_utilities\\fix_indentation.py"
+    },
+    {
+      "name": "NC-MCP-FR-001-mcp-server.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-ARC-FR-001-archive-main\\mcp_server_legacy\\NC-MCP-FR-001-mcp-server.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-ARC-FR-001-archive-main\\mcp_server_legacy\\NC-MCP-FR-001-mcp-server.py"
+    },
+    {
+      "name": "add_root_sanitize_event.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-ARC-FR-001-archive-main\\scripts\\add_root_sanitize_event.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-ARC-FR-001-archive-main\\scripts\\add_root_sanitize_event.py"
+    },
+    {
+      "name": "update_antigravity_confirmation.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-ARC-FR-001-archive-main\\scripts\\update_antigravity_confirmation.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-ARC-FR-001-archive-main\\scripts\\update_antigravity_confirmation.py"
+    },
+    {
+      "name": "update_ledger_status.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-ARC-FR-001-archive-main\\scripts\\update_ledger_status.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-ARC-FR-001-archive-main\\scripts\\update_ledger_status.py"
+    },
+    {
+      "name": "update_phase3_progress.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-ARC-FR-001-archive-main\\scripts\\update_phase3_progress.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-ARC-FR-001-archive-main\\scripts\\update_phase3_progress.py"
+    },
+    {
+      "name": "verify_mcp.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-ARC-FR-001-archive-main\\scripts\\verify_mcp.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-ARC-FR-001-archive-main\\scripts\\verify_mcp.py"
+    },
+    {
+      "name": "memory_neocortex_framework-20260409.json",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\memory_neocortex_framework-20260409.json",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\memory_neocortex_framework-20260409.json"
+    },
+    {
+      "name": "migration.log",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration.log",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration.log"
+    },
+    {
+      "name": "migration_debug.log",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_debug.log",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_debug.log"
+    },
+    {
+      "name": "NC-CTX-FR-001-cortex-central-20260410-0140.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\NC-CTX-FR-001-cortex-central-20260410-0140.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\NC-CTX-FR-001-cortex-central-20260410-0140.mdc"
+    },
+    {
+      "name": "NC-LED-FR-001-framework-ledger-20260410-0140.json",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\NC-LED-FR-001-framework-ledger-20260410-0140.json",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\NC-LED-FR-001-framework-ledger-20260410-0140.json"
+    },
+    {
+      "name": "add_root_sanitize_event.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\backup_root\\add_root_sanitize_event.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\backup_root\\add_root_sanitize_event.py"
+    },
+    {
+      "name": "CHEATSHEET.md",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\backup_root\\CHEATSHEET.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\backup_root\\CHEATSHEET.md"
+    },
+    {
+      "name": "install.ps1",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\backup_root\\install.ps1",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\backup_root\\install.ps1"
+    },
+    {
+      "name": "install.sh",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\backup_root\\install.sh",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\backup_root\\install.sh"
+    },
+    {
+      "name": "Sem título.txt",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\backup_root\\Sem título.txt",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\backup_root\\Sem título.txt"
+    },
+    {
+      "name": "update_antigravity_confirmation.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\backup_root\\update_antigravity_confirmation.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\backup_root\\update_antigravity_confirmation.py"
+    },
+    {
+      "name": "update_ledger_status.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\backup_root\\update_ledger_status.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\backup_root\\update_ledger_status.py"
+    },
+    {
+      "name": "verify_mcp.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\backup_root\\verify_mcp.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\backup_root\\verify_mcp.py"
+    },
+    {
+      "name": "benchmark_fractal_gauntlet.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\backup_root\\benchmarks_archive\\benchmark_fractal_gauntlet.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\backup_root\\benchmarks_archive\\benchmark_fractal_gauntlet.py"
+    },
+    {
+      "name": "benchmark_master_suite.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\backup_root\\benchmarks_archive\\benchmark_master_suite.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\backup_root\\benchmarks_archive\\benchmark_master_suite.py"
+    },
+    {
+      "name": "README.md",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\backup_root\\benchmarks_archive\\README.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\backup_root\\benchmarks_archive\\README.md"
+    },
+    {
+      "name": "ledger_backup_20260410_001233.json",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\backup_root\\old_backup\\backup\\ledger_backup_20260410_001233.json",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\backup_root\\old_backup\\backup\\ledger_backup_20260410_001233.json"
+    },
+    {
+      "name": "00-cortex-FULL.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\backup_root\\templates\\00-cortex-FULL.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\backup_root\\templates\\00-cortex-FULL.mdc"
+    },
+    {
+      "name": "00-cortex-STARTER.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\backup_root\\templates\\00-cortex-STARTER.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\backup_root\\templates\\00-cortex-STARTER.mdc"
+    },
+    {
+      "name": "memory-ledger-TEMPLATE.json",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\backup_root\\templates\\memory-ledger-TEMPLATE.json",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\backup_root\\templates\\memory-ledger-TEMPLATE.json"
+    },
+    {
+      "name": "phase-lobe-TEMPLATE.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\backup_root\\templates\\phase-lobe-TEMPLATE.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\backup_root\\templates\\phase-lobe-TEMPLATE.mdc"
+    },
+    {
+      "name": "backup_manifest.json",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\backup_manifest.json",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\backup_manifest.json"
+    },
+    {
+      "name": "ledger_20260410_173509.json",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\ledger_20260410_173509.json",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\ledger_20260410_173509.json"
+    },
+    {
+      "name": "ledger_20260410_173805.json",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\ledger_20260410_173805.json",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\ledger_20260410_173805.json"
+    },
+    {
+      "name": "ledger_20260410_173853.json",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\ledger_20260410_173853.json",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\ledger_20260410_173853.json"
+    },
+    {
+      "name": "ledger_20260410_174028.json",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\ledger_20260410_174028.json",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\ledger_20260410_174028.json"
+    },
+    {
+      "name": "ledger_20260410_174150.json",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\ledger_20260410_174150.json",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\ledger_20260410_174150.json"
+    },
+    {
+      "name": "ledger_20260410_203605.json",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\ledger_20260410_203605.json",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\ledger_20260410_203605.json"
+    },
+    {
+      "name": "ledger_20260410_212708.json",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\ledger_20260410_212708.json",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\ledger_20260410_212708.json"
+    },
+    {
+      "name": "migration_report.json",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\migration_report.json",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\migration_report.json"
+    },
+    {
+      "name": "NC-CTX-FR-001-cortex-central.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-CTX-FR-001-cortex-central.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-CTX-FR-001-cortex-central.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-002-claude-assistant.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-002-claude-assistant.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-002-claude-assistant.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-ARCHITECTURE-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-ARCHITECTURE-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-ARCHITECTURE-001.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-BENCHMARKS-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-BENCHMARKS-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-BENCHMARKS-001.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-CLI-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-CLI-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-CLI-001.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-CORE-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-CORE-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-CORE-001.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-DEPLOYMENT-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-DEPLOYMENT-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-DEPLOYMENT-001.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-DEVELOPMENT-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-DEVELOPMENT-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-DEVELOPMENT-001.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-DOCUMENTATION-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-DOCUMENTATION-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-DOCUMENTATION-001.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-INTEGRATION-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-INTEGRATION-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-INTEGRATION-001.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-KNOWLEDGE-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-KNOWLEDGE-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-KNOWLEDGE-001.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-LEGACY-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-LEGACY-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-LEGACY-001.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-MCP-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-MCP-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-MCP-001.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-MONITORING-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-MONITORING-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-MONITORING-001.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-PERFORMANCE-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-PERFORMANCE-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-PERFORMANCE-001.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-PROFILES-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-PROFILES-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-PROFILES-001.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-PULSE-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-PULSE-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-PULSE-001.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-SECURITY-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-SECURITY-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-SECURITY-001.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-TESTING-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-TESTING-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-TESTING-001.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-WHITELABEL-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-WHITELABEL-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\NC-LBE-FR-WHITELABEL-001.mdc"
+    },
+    {
+      "name": "TEST_INDEX_13aa6e78.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\TEST_INDEX_13aa6e78.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\TEST_INDEX_13aa6e78.mdc"
+    },
+    {
+      "name": "TEST_INDEX_19948498.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\TEST_INDEX_19948498.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\TEST_INDEX_19948498.mdc"
+    },
+    {
+      "name": "TEST_INDEX_8f76b831.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\TEST_INDEX_8f76b831.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files\\.agents\\rules\\TEST_INDEX_8f76b831.mdc"
+    },
+    {
+      "name": "neocortex_config.yaml",
+      "ssot_path": "\\01_neocortex_framework\\DIR-CFG-FR-001-config-main\\neocortex_config.yaml",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-CFG-FR-001-config-main\\neocortex_config.yaml"
+    },
+    {
+      "name": "checkpoint_tree_phase1.json",
+      "ssot_path": "\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\checkpoint_tree_phase1.json",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\checkpoint_tree_phase1.json"
+    },
+    {
+      "name": "NC-LED-FR-001-framework-ledger.json",
+      "ssot_path": "\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\NC-LED-FR-001-framework-ledger.json",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\NC-LED-FR-001-framework-ledger.json"
+    },
+    {
+      "name": "NC-LED-FR-001-framework-ledger.json.backup",
+      "ssot_path": "\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\NC-LED-FR-001-framework-ledger.json.backup",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\NC-LED-FR-001-framework-ledger.json.backup"
+    },
+    {
+      "name": "NC-TLM-FR-001-tool-manifest-schema.json",
+      "ssot_path": "\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\NC-TLM-FR-001-tool-manifest-schema.json",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\NC-TLM-FR-001-tool-manifest-schema.json"
+    },
+    {
+      "name": "NC-TLM-FR-001-tool-manifest.json",
+      "ssot_path": "\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\NC-TLM-FR-001-tool-manifest.json",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\NC-TLM-FR-001-tool-manifest.json"
+    },
+    {
+      "name": "NC_SEC_FR_001_security_utils.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\NC_SEC_FR_001_security_utils.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\NC_SEC_FR_001_security_utils.py"
+    },
+    {
+      "name": "test_security_integration.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\test_security_integration.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\test_security_integration.py"
+    },
+    {
+      "name": "update_ledger.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\update_ledger.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\update_ledger.py"
+    },
+    {
+      "name": "AGENTS.md",
+      "ssot_path": "\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\AGENTS.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\AGENTS.md"
+    },
+    {
+      "name": "NC-CTX-FR-001-cortex-central.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-CTX-FR-001-cortex-central.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-CTX-FR-001-cortex-central.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-002-claude-assistant.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-002-claude-assistant.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-002-claude-assistant.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-ARCHITECTURE-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-ARCHITECTURE-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-ARCHITECTURE-001.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-BENCHMARKS-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-BENCHMARKS-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-BENCHMARKS-001.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-CLI-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-CLI-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-CLI-001.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-CORE-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-CORE-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-CORE-001.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-DEPLOYMENT-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-DEPLOYMENT-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-DEPLOYMENT-001.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-DEVELOPMENT-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-DEVELOPMENT-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-DEVELOPMENT-001.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-DOCUMENTATION-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-DOCUMENTATION-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-DOCUMENTATION-001.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-INTEGRATION-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-INTEGRATION-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-INTEGRATION-001.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-KNOWLEDGE-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-KNOWLEDGE-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-KNOWLEDGE-001.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-LEGACY-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-LEGACY-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-LEGACY-001.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-MCP-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-MCP-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-MCP-001.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-MONITORING-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-MONITORING-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-MONITORING-001.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-PERFORMANCE-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-PERFORMANCE-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-PERFORMANCE-001.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-PROFILES-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-PROFILES-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-PROFILES-001.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-PULSE-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-PULSE-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-PULSE-001.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-SECURITY-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-SECURITY-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-SECURITY-001.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-TESTING-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-TESTING-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-TESTING-001.mdc"
+    },
+    {
+      "name": "NC-LBE-FR-WHITELABEL-001.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-WHITELABEL-001.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\NC-LBE-FR-WHITELABEL-001.mdc"
+    },
+    {
+      "name": "TEST_INDEX_13aa6e78.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\TEST_INDEX_13aa6e78.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\TEST_INDEX_13aa6e78.mdc"
+    },
+    {
+      "name": "TEST_INDEX_19948498.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\TEST_INDEX_19948498.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\TEST_INDEX_19948498.mdc"
+    },
+    {
+      "name": "TEST_INDEX_8f76b831.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\TEST_INDEX_8f76b831.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\rules\\TEST_INDEX_8f76b831.mdc"
+    },
+    {
+      "name": "restart-session.md",
+      "ssot_path": "\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\workflows\\restart-session.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-CORE-FR-001-core-central\\.agents\\workflows\\restart-session.md"
+    },
+    {
+      "name": "BENCHMARKS.md",
+      "ssot_path": "\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\BENCHMARKS.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\BENCHMARKS.md"
+    },
+    {
+      "name": "BENCHMARKS_HYBRID.md",
+      "ssot_path": "\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\BENCHMARKS_HYBRID.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\BENCHMARKS_HYBRID.md"
+    },
+    {
+      "name": "CHECKPOINT_AUDIT_2026-04-10.md",
+      "ssot_path": "\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\CHECKPOINT_AUDIT_2026-04-10.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\CHECKPOINT_AUDIT_2026-04-10.md"
+    },
+    {
+      "name": "DEEPSEEK_API_SUMMARY.md",
+      "ssot_path": "\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\DEEPSEEK_API_SUMMARY.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\DEEPSEEK_API_SUMMARY.md"
+    },
+    {
+      "name": "mcp_tools_inventory.json",
+      "ssot_path": "\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\mcp_tools_inventory.json",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\mcp_tools_inventory.json"
+    },
+    {
+      "name": "NC-ALN-FR-001-arquitetural-alignment.md",
+      "ssot_path": "\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-ALN-FR-001-arquitetural-alignment.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-ALN-FR-001-arquitetural-alignment.md"
+    },
+    {
+      "name": "NC-AUD-FR-001-audit-findings-2026-04-10.md",
+      "ssot_path": "\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-AUD-FR-001-audit-findings-2026-04-10.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-AUD-FR-001-audit-findings-2026-04-10.md"
+    },
+    {
+      "name": "NC-AUD-FR-002-checklist-validation.md",
+      "ssot_path": "\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-AUD-FR-002-checklist-validation.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-AUD-FR-002-checklist-validation.md"
+    },
+    {
+      "name": "NC-DOC-FR-002-directory-convention.md",
+      "ssot_path": "\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-DOC-FR-002-directory-convention.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-DOC-FR-002-directory-convention.md"
+    },
+    {
+      "name": "NC-DOC-FR-003-turboquant-prompt.md",
+      "ssot_path": "\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-DOC-FR-003-turboquant-prompt.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-DOC-FR-003-turboquant-prompt.md"
+    },
+    {
+      "name": "NC-NAM-FR-001-naming-convention.md",
+      "ssot_path": "\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001-naming-convention.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001-naming-convention.md"
+    },
+    {
+      "name": "NC-PLN-FR-001-optimization-plan.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-PLN-FR-001-optimization-plan.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-PLN-FR-001-optimization-plan.mdc"
+    },
+    {
+      "name": "NC-SES-FR-001-session-status-2026-04-10.md",
+      "ssot_path": "\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-SES-FR-001-session-status-2026-04-10.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-SES-FR-001-session-status-2026-04-10.md"
+    },
+    {
+      "name": "NC-TKT-FR-001-tickets.md",
+      "ssot_path": "\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-TKT-FR-001-tickets.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-TKT-FR-001-tickets.md"
+    },
+    {
+      "name": "NC-TODO-FR-001-project-roadmap-consolidated.md",
+      "ssot_path": "\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-TODO-FR-001-project-roadmap-consolidated.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-TODO-FR-001-project-roadmap-consolidated.md"
+    },
+    {
+      "name": "NC-TODO-FR-001-project-roadmap-v6-stability.md",
+      "ssot_path": "\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-TODO-FR-001-project-roadmap-v6-stability.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-TODO-FR-001-project-roadmap-v6-stability.md"
+    },
+    {
+      "name": "NC-TODO-FR-001-project-roadmap-v7-combined.md",
+      "ssot_path": "\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-TODO-FR-001-project-roadmap-v7-combined.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-TODO-FR-001-project-roadmap-v7-combined.md"
+    },
+    {
+      "name": "NC-TODO-FR-001-project-roadmap.md",
+      "ssot_path": "\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-TODO-FR-001-project-roadmap.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-TODO-FR-001-project-roadmap.md"
+    },
+    {
+      "name": "NC-TODO-FR-001-project-roadmap.md.backup",
+      "ssot_path": "\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-TODO-FR-001-project-roadmap.md.backup",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-TODO-FR-001-project-roadmap.md.backup"
+    },
+    {
+      "name": "NC-TODO-FR-001-project-roadmap.md.bak",
+      "ssot_path": "\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-TODO-FR-001-project-roadmap.md.bak",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-TODO-FR-001-project-roadmap.md.bak"
+    },
+    {
+      "name": "README_MCP_NEOCORTEX.md",
+      "ssot_path": "\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\README_MCP_NEOCORTEX.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\README_MCP_NEOCORTEX.md"
+    },
+    {
+      "name": "SANITIZATION_CHECKLIST.md",
+      "ssot_path": "\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\SANITIZATION_CHECKLIST.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\SANITIZATION_CHECKLIST.md"
+    },
+    {
+      "name": "STATUS.md",
+      "ssot_path": "\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\STATUS.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\STATUS.md"
+    },
+    {
+      "name": "CHEATSHEET.md",
+      "ssot_path": "\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\legacy\\CHEATSHEET.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\legacy\\CHEATSHEET.md"
+    },
+    {
+      "name": "clean_utf0.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-MCP-FR-001-mcp-server\\clean_utf0.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-MCP-FR-001-mcp-server\\clean_utf0.py"
+    },
+    {
+      "name": "extract_tools.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-MCP-FR-001-mcp-server\\extract_tools.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-MCP-FR-001-mcp-server\\extract_tools.py"
+    },
+    {
+      "name": "list_tools.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-MCP-FR-001-mcp-server\\list_tools.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-MCP-FR-001-mcp-server\\list_tools.py"
+    },
+    {
+      "name": "list_tools_simple.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-MCP-FR-001-mcp-server\\list_tools_simple.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-MCP-FR-001-mcp-server\\list_tools_simple.py"
+    },
+    {
+      "name": "NC-HUB-FR-001-mcp-hub.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-MCP-FR-001-mcp-server\\NC-HUB-FR-001-mcp-hub.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-MCP-FR-001-mcp-server\\NC-HUB-FR-001-mcp-hub.py"
+    },
+    {
+      "name": "neocortex_mcp.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-MCP-FR-001-mcp-server\\neocortex_mcp.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-MCP-FR-001-mcp-server\\neocortex_mcp.py"
+    },
+    {
+      "name": "test_mcp_simple.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-MCP-FR-001-mcp-server\\test_mcp_simple.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-MCP-FR-001-mcp-server\\test_mcp_simple.py"
+    },
+    {
+      "name": "test_server_start.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-MCP-FR-001-mcp-server\\test_server_start.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-MCP-FR-001-mcp-server\\test_server_start.py"
+    },
+    {
+      "name": "test_tools.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-MCP-FR-001-mcp-server\\test_tools.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-MCP-FR-001-mcp-server\\test_tools.py"
+    },
+    {
+      "name": "test_tools_simple.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-MCP-FR-001-mcp-server\\test_tools_simple.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-MCP-FR-001-mcp-server\\test_tools_simple.py"
+    },
+    {
+      "name": "NC-PRF-FR-001-developer-schema.md",
+      "ssot_path": "\\01_neocortex_framework\\DIR-PRF-FR-001-profiles-main\\NC-PRF-FR-001-developer-schema.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-PRF-FR-001-profiles-main\\NC-PRF-FR-001-developer-schema.md"
+    },
+    {
+      "name": "NC-PRF-FR-002-team-schema.md",
+      "ssot_path": "\\01_neocortex_framework\\DIR-PRF-FR-001-profiles-main\\NC-PRF-FR-002-team-schema.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-PRF-FR-001-profiles-main\\NC-PRF-FR-002-team-schema.md"
+    },
+    {
+      "name": "NC-PRF-FR-003-profile-loader.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-PRF-FR-001-profiles-main\\NC-PRF-FR-003-profile-loader.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-PRF-FR-001-profiles-main\\NC-PRF-FR-003-profile-loader.py"
+    },
+    {
+      "name": "profile_manager.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-PRF-FR-001-profiles-main\\profile_manager.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-PRF-FR-001-profiles-main\\profile_manager.py"
+    },
+    {
+      "name": "NC-PRF-TMP-001-dev-profile-template.json",
+      "ssot_path": "\\01_neocortex_framework\\DIR-PRF-FR-001-profiles-main\\templates\\NC-PRF-TMP-001-dev-profile-template.json",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-PRF-FR-001-profiles-main\\templates\\NC-PRF-TMP-001-dev-profile-template.json"
+    },
+    {
+      "name": "NC-PRF-USR-001-profile.json",
+      "ssot_path": "\\01_neocortex_framework\\DIR-PRF-FR-001-profiles-main\\users\\lucas_valerio\\NC-PRF-USR-001-profile.json",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-PRF-FR-001-profiles-main\\users\\lucas_valerio\\NC-PRF-USR-001-profile.json"
+    },
+    {
+      "name": "detalhamento_completo.md",
+      "ssot_path": "\\01_neocortex_framework\\DIR-REF-FR-001-reference-main\\Arquivos de referência\\detalhamento_completo.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-REF-FR-001-reference-main\\Arquivos de referência\\detalhamento_completo.md"
+    },
+    {
+      "name": "structured_elements.md",
+      "ssot_path": "\\01_neocortex_framework\\DIR-REF-FR-001-reference-main\\Arquivos de referência\\structured_elements.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-REF-FR-001-reference-main\\Arquivos de referência\\structured_elements.md"
+    },
+    {
+      "name": "sumario.md",
+      "ssot_path": "\\01_neocortex_framework\\DIR-REF-FR-001-reference-main\\Arquivos de referência\\sumario.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-REF-FR-001-reference-main\\Arquivos de referência\\sumario.md"
+    },
+    {
+      "name": "fire_test.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-TEST-FR-001-tests-main\\fire_test.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-TEST-FR-001-tests-main\\fire_test.py"
+    },
+    {
+      "name": "test_config_reload.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-TEST-FR-001-tests-main\\test_config_reload.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-TEST-FR-001-tests-main\\test_config_reload.py"
+    },
+    {
+      "name": "test_mcp_responsive.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-TEST-FR-001-tests-main\\test_mcp_responsive.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-TEST-FR-001-tests-main\\test_mcp_responsive.py"
+    },
+    {
+      "name": "test_modular_server.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-TEST-FR-001-tests-main\\test_modular_server.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-TEST-FR-001-tests-main\\test_modular_server.py"
+    },
+    {
+      "name": "test_sanity.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-TEST-FR-001-tests-main\\test_sanity.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-TEST-FR-001-tests-main\\test_sanity.py"
+    },
+    {
+      "name": "test_task.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-TEST-FR-001-tests-main\\test_task.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-TEST-FR-001-tests-main\\test_task.py"
+    },
+    {
+      "name": "test_tools.py",
+      "ssot_path": "\\01_neocortex_framework\\DIR-TEST-FR-001-tests-main\\test_tools.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-TEST-FR-001-tests-main\\test_tools.py"
+    },
+    {
+      "name": "00-cortex-FULL.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-TMP-FR-001-templates-main\\00-cortex-FULL.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-TMP-FR-001-templates-main\\00-cortex-FULL.mdc"
+    },
+    {
+      "name": "00-cortex-STARTER.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-TMP-FR-001-templates-main\\00-cortex-STARTER.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-TMP-FR-001-templates-main\\00-cortex-STARTER.mdc"
+    },
+    {
+      "name": "memory-ledger-TEMPLATE.json",
+      "ssot_path": "\\01_neocortex_framework\\DIR-TMP-FR-001-templates-main\\memory-ledger-TEMPLATE.json",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-TMP-FR-001-templates-main\\memory-ledger-TEMPLATE.json"
+    },
+    {
+      "name": "NC-TMP-WL-001-cortex-template.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-TMP-FR-001-templates-main\\NC-TMP-WL-001-cortex-template.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-TMP-FR-001-templates-main\\NC-TMP-WL-001-cortex-template.mdc"
+    },
+    {
+      "name": "phase-lobe-TEMPLATE.mdc",
+      "ssot_path": "\\01_neocortex_framework\\DIR-TMP-FR-001-templates-main\\phase-lobe-TEMPLATE.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\DIR-TMP-FR-001-templates-main\\phase-lobe-TEMPLATE.mdc"
+    },
+    {
+      "name": "rules.txt",
+      "ssot_path": "\\01_neocortex_framework\\lobes\\backend_dev\\rules.txt",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\lobes\\backend_dev\\rules.txt"
+    },
+    {
+      "name": "neocortex_config.yaml",
+      "ssot_path": "\\01_neocortex_framework\\lobes\\courier\\neocortex_config.yaml",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\lobes\\courier\\neocortex_config.yaml"
+    },
+    {
+      "name": "memory_ledger_courier.json",
+      "ssot_path": "\\01_neocortex_framework\\lobes\\courier\\DIR-CORE-FR-001-core-central\\memory_ledger_courier.json",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\lobes\\courier\\DIR-CORE-FR-001-core-central\\memory_ledger_courier.json"
+    },
+    {
+      "name": "00-cortex-STARTER.mdc",
+      "ssot_path": "\\01_neocortex_framework\\lobes\\courier\\DIR-CORE-FR-001-core-central\\.agents\\rules\\00-cortex-STARTER.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\lobes\\courier\\DIR-CORE-FR-001-core-central\\.agents\\rules\\00-cortex-STARTER.mdc"
+    },
+    {
+      "name": "neocortex_config.yaml",
+      "ssot_path": "\\01_neocortex_framework\\lobes\\engineer\\neocortex_config.yaml",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\lobes\\engineer\\neocortex_config.yaml"
+    },
+    {
+      "name": "memory_ledger_engineer.json",
+      "ssot_path": "\\01_neocortex_framework\\lobes\\engineer\\DIR-CORE-FR-001-core-central\\memory_ledger_engineer.json",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\lobes\\engineer\\DIR-CORE-FR-001-core-central\\memory_ledger_engineer.json"
+    },
+    {
+      "name": "00-cortex-STARTER.mdc",
+      "ssot_path": "\\01_neocortex_framework\\lobes\\engineer\\DIR-CORE-FR-001-core-central\\.agents\\rules\\00-cortex-STARTER.mdc",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\lobes\\engineer\\DIR-CORE-FR-001-core-central\\.agents\\rules\\00-cortex-STARTER.mdc"
+    },
+    {
+      "name": "rules.txt",
+      "ssot_path": "\\01_neocortex_framework\\lobes\\guardian\\rules.txt",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\lobes\\guardian\\rules.txt"
+    },
+    {
+      "name": "config.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\config.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\config.py"
+    },
+    {
+      "name": "__init__.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\__init__.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\__init__.py"
+    },
+    {
+      "name": "executor.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\agent\\executor.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\agent\\executor.py"
+    },
+    {
+      "name": "main.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\cli\\main.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\cli\\main.py"
+    },
+    {
+      "name": "__init__.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\cli\\__init__.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\cli\\__init__.py"
+    },
+    {
+      "name": "agent_service.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\agent_service.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\agent_service.py"
+    },
+    {
+      "name": "akl_service.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\akl_service.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\akl_service.py"
+    },
+    {
+      "name": "benchmark_service.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\benchmark_service.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\benchmark_service.py"
+    },
+    {
+      "name": "checkpoint_service.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\checkpoint_service.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\checkpoint_service.py"
+    },
+    {
+      "name": "config_service.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\config_service.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\config_service.py"
+    },
+    {
+      "name": "consolidation_service.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\consolidation_service.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\consolidation_service.py"
+    },
+    {
+      "name": "cortex_service.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\cortex_service.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\cortex_service.py"
+    },
+    {
+      "name": "export_service.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\export_service.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\export_service.py"
+    },
+    {
+      "name": "file_utils.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\file_utils.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\file_utils.py"
+    },
+    {
+      "name": "init_service.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\init_service.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\init_service.py"
+    },
+    {
+      "name": "kg_service.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\kg_service.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\kg_service.py"
+    },
+    {
+      "name": "ledger_service.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\ledger_service.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\ledger_service.py"
+    },
+    {
+      "name": "lobe_service.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\lobe_service.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\lobe_service.py"
+    },
+    {
+      "name": "manifest_service.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\manifest_service.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\manifest_service.py"
+    },
+    {
+      "name": "peers_service.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\peers_service.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\peers_service.py"
+    },
+    {
+      "name": "profile_manager.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\profile_manager.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\profile_manager.py"
+    },
+    {
+      "name": "profile_service.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\profile_service.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\profile_service.py"
+    },
+    {
+      "name": "pulse_scheduler.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\pulse_scheduler.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\pulse_scheduler.py"
+    },
+    {
+      "name": "regression_service.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\regression_service.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\regression_service.py"
+    },
+    {
+      "name": "security_service.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\security_service.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\security_service.py"
+    },
+    {
+      "name": "__init__.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\__init__.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\__init__.py"
+    },
+    {
+      "name": "backup_restore.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\infra\\backup_restore.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\infra\\backup_restore.py"
+    },
+    {
+      "name": "cache_backend.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\infra\\cache_backend.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\infra\\cache_backend.py"
+    },
+    {
+      "name": "config_validation.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\infra\\config_validation.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\infra\\config_validation.py"
+    },
+    {
+      "name": "health_metrics.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\infra\\health_metrics.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\infra\\health_metrics.py"
+    },
+    {
+      "name": "hot_cache.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\infra\\hot_cache.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\infra\\hot_cache.py"
+    },
+    {
+      "name": "ledger_store.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\infra\\ledger_store.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\infra\\ledger_store.py"
+    },
+    {
+      "name": "lobe_index.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\infra\\lobe_index.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\infra\\lobe_index.py"
+    },
+    {
+      "name": "manifest_store.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\infra\\manifest_store.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\infra\\manifest_store.py"
+    },
+    {
+      "name": "metrics_store.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\infra\\metrics_store.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\infra\\metrics_store.py"
+    },
+    {
+      "name": "profiler.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\infra\\profiler.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\infra\\profiler.py"
+    },
+    {
+      "name": "search_engine.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\infra\\search_engine.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\infra\\search_engine.py"
+    },
+    {
+      "name": "task_queue.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\infra\\task_queue.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\infra\\task_queue.py"
+    },
+    {
+      "name": "vector_store.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\infra\\vector_store.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\infra\\vector_store.py"
+    },
+    {
+      "name": "backend.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\infra\\llm\\backend.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\infra\\llm\\backend.py"
+    },
+    {
+      "name": "deepseek_backend.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\infra\\llm\\deepseek_backend.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\infra\\llm\\deepseek_backend.py"
+    },
+    {
+      "name": "factory.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\infra\\llm\\factory.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\infra\\llm\\factory.py"
+    },
+    {
+      "name": "ollama_backend.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\infra\\llm\\ollama_backend.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\infra\\llm\\ollama_backend.py"
+    },
+    {
+      "name": "openai_backend.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\infra\\llm\\openai_backend.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\infra\\llm\\openai_backend.py"
+    },
+    {
+      "name": "server.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\server.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\server.py"
+    },
+    {
+      "name": "server.py.backup",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\server.py.backup",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\server.py.backup"
+    },
+    {
+      "name": "sub_server.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\sub_server.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\sub_server.py"
+    },
+    {
+      "name": "tools_manifest.json",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools_manifest.json",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools_manifest.json"
+    },
+    {
+      "name": "__init__.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\__init__.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\__init__.py"
+    },
+    {
+      "name": "NC-TOOL-FR-000-brain.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-000-brain.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-000-brain.py"
+    },
+    {
+      "name": "NC-TOOL-FR-001-cortex.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-001-cortex.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-001-cortex.py"
+    },
+    {
+      "name": "NC-TOOL-FR-002-agent.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-002-agent.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-002-agent.py"
+    },
+    {
+      "name": "NC-TOOL-FR-003-benchmark.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-003-benchmark.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-003-benchmark.py"
+    },
+    {
+      "name": "NC-TOOL-FR-004-checkpoint.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-004-checkpoint.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-004-checkpoint.py"
+    },
+    {
+      "name": "NC-TOOL-FR-005-config.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-005-config.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-005-config.py"
+    },
+    {
+      "name": "NC-TOOL-FR-006-export.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-006-export.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-006-export.py"
+    },
+    {
+      "name": "NC-TOOL-FR-007-init.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-007-init.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-007-init.py"
+    },
+    {
+      "name": "NC-TOOL-FR-008-ledger.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-008-ledger.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-008-ledger.py"
+    },
+    {
+      "name": "NC-TOOL-FR-009-lobes.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-009-lobes.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-009-lobes.py"
+    },
+    {
+      "name": "NC-TOOL-FR-010-peers.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-010-peers.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-010-peers.py"
+    },
+    {
+      "name": "NC-TOOL-FR-011-pulse.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-011-pulse.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-011-pulse.py"
+    },
+    {
+      "name": "NC-TOOL-FR-012-regression.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-012-regression.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-012-regression.py"
+    },
+    {
+      "name": "NC-TOOL-FR-013-report.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-013-report.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-013-report.py"
+    },
+    {
+      "name": "NC-TOOL-FR-014-search.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-014-search.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-014-search.py"
+    },
+    {
+      "name": "NC-TOOL-FR-015-security.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-015-security.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-015-security.py"
+    },
+    {
+      "name": "NC-TOOL-FR-016-subserver.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-016-subserver.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-016-subserver.py"
+    },
+    {
+      "name": "NC-TOOL-FR-017-task.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-017-task.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-017-task.py"
+    },
+    {
+      "name": "NC-TOOL-FR-020-knowledge.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-020-knowledge.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-020-knowledge.py"
+    },
+    {
+      "name": "__init__.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\__init__.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\__init__.py"
+    },
+    {
+      "name": "base.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\repositories\\base.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\repositories\\base.py"
+    },
+    {
+      "name": "file_system_repository.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\repositories\\file_system_repository.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\repositories\\file_system_repository.py"
+    },
+    {
+      "name": "__init__.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\repositories\\__init__.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\repositories\\__init__.py"
+    },
+    {
+      "name": "a2a_message_schema.json",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\schemas\\a2a_message_schema.json",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\schemas\\a2a_message_schema.json"
+    },
+    {
+      "name": "ledger_schema.json",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\schemas\\ledger_schema.json",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\schemas\\ledger_schema.json"
+    },
+    {
+      "name": "__init__.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\schemas\\__init__.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\schemas\\__init__.py"
+    },
+    {
+      "name": "dependency_links.txt",
+      "ssot_path": "\\01_neocortex_framework\\neocortex_framework.egg-info\\dependency_links.txt",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex_framework.egg-info\\dependency_links.txt"
+    },
+    {
+      "name": "entry_points.txt",
+      "ssot_path": "\\01_neocortex_framework\\neocortex_framework.egg-info\\entry_points.txt",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex_framework.egg-info\\entry_points.txt"
+    },
+    {
+      "name": "PKG-INFO",
+      "ssot_path": "\\01_neocortex_framework\\neocortex_framework.egg-info\\PKG-INFO",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex_framework.egg-info\\PKG-INFO"
+    },
+    {
+      "name": "requires.txt",
+      "ssot_path": "\\01_neocortex_framework\\neocortex_framework.egg-info\\requires.txt",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex_framework.egg-info\\requires.txt"
+    },
+    {
+      "name": "SOURCES.txt",
+      "ssot_path": "\\01_neocortex_framework\\neocortex_framework.egg-info\\SOURCES.txt",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex_framework.egg-info\\SOURCES.txt"
+    },
+    {
+      "name": "top_level.txt",
+      "ssot_path": "\\01_neocortex_framework\\neocortex_framework.egg-info\\top_level.txt",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex_framework.egg-info\\top_level.txt"
+    },
+    {
+      "name": "analyze_mcp_tools.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\analyze_mcp_tools.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\analyze_mcp_tools.py"
+    },
+    {
+      "name": "create_lobes.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\create_lobes.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\create_lobes.py"
+    },
+    {
+      "name": "exhaustive_population.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\exhaustive_population.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\exhaustive_population.py"
+    },
+    {
+      "name": "extract_tools_final.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\extract_tools_final.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\extract_tools_final.py"
+    },
+    {
+      "name": "extract_tools_robust.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\extract_tools_robust.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\extract_tools_robust.py"
+    },
+    {
+      "name": "fix_indentation.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\fix_indentation.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\fix_indentation.py"
+    },
+    {
+      "name": "generate_all_manifests.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\generate_all_manifests.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\generate_all_manifests.py"
+    },
+    {
+      "name": "generate_official_tool_manifest.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\generate_official_tool_manifest.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\generate_official_tool_manifest.py"
+    },
+    {
+      "name": "generate_tools_manifest.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\generate_tools_manifest.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\generate_tools_manifest.py"
+    },
+    {
+      "name": "inspect_config.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\inspect_config.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\inspect_config.py"
+    },
+    {
+      "name": "migrate_to_stores.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\migrate_to_stores.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\migrate_to_stores.py"
+    },
+    {
+      "name": "neocortex_hud.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\neocortex_hud.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\neocortex_hud.py"
+    },
+    {
+      "name": "populate_memory.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\populate_memory.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\populate_memory.py"
+    },
+    {
+      "name": "saneamento_raiz.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\saneamento_raiz.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\saneamento_raiz.py"
+    },
+    {
+      "name": "test_llm_backends.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\test_llm_backends.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\test_llm_backends.py"
+    },
+    {
+      "name": "update_ledger_with_tools.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\update_ledger_with_tools.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\update_ledger_with_tools.py"
+    },
+    {
+      "name": "update_mcp_config.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\update_mcp_config.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\update_mcp_config.py"
+    },
+    {
+      "name": "update_mcp_config2.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\update_mcp_config2.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\update_mcp_config2.py"
+    },
+    {
+      "name": "update_phase3_progress.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\update_phase3_progress.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\update_phase3_progress.py"
+    },
+    {
+      "name": "NC-DOC-WL-001-hybrid-mode.md",
+      "ssot_path": "\\03_white_label_templates\\NC-DOC-WL-001-hybrid-mode.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\03_white_label_templates\\NC-DOC-WL-001-hybrid-mode.md"
+    },
+    {
+      "name": "NC-DOC-WL-001-readme.md",
+      "ssot_path": "\\03_white_label_templates\\NC-DOC-WL-001-readme.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\03_white_label_templates\\NC-DOC-WL-001-readme.md"
+    },
+    {
+      "name": "Aqui está o prompt ajustado exatamente c.txt",
+      "ssot_path": "\\04_user_docs\\Aqui está o prompt ajustado exatamente c.txt",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\04_user_docs\\Aqui está o prompt ajustado exatamente c.txt"
+    },
+    {
+      "name": "cruzar com o roadmap.txt",
+      "ssot_path": "\\04_user_docs\\cruzar com o roadmap.txt",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\04_user_docs\\cruzar com o roadmap.txt"
+    },
+    {
+      "name": "LLM e API .md",
+      "ssot_path": "\\04_user_docs\\LLM e API .md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\04_user_docs\\LLM e API .md"
+    },
+    {
+      "name": "📁 SANITIZAÇÃO DA PASTA TURBOQUANT_V42 –.txt",
+      "ssot_path": "\\04_user_docs\\📁 SANITIZAÇÃO DA PASTA TURBOQUANT_V42 –.txt",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\04_user_docs\\📁 SANITIZAÇÃO DA PASTA TURBOQUANT_V42 –.txt"
+    },
+    {
+      "name": "example_architecture.py",
+      "ssot_path": "\\05_examples\\example_architecture.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\05_examples\\example_architecture.py"
+    },
+    {
+      "name": "package.json",
+      "ssot_path": "\\05_examples\\demo-api\\package.json",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\05_examples\\demo-api\\package.json"
+    },
+    {
+      "name": "README.md",
+      "ssot_path": "\\05_examples\\demo-api\\README.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\05_examples\\demo-api\\README.md"
+    },
+    {
+      "name": "server.js",
+      "ssot_path": "\\05_examples\\demo-api\\src\\server.js",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\05_examples\\demo-api\\src\\server.js"
+    },
+    {
+      "name": "benchmark_fractal_gauntlet.py",
+      "ssot_path": "\\05_examples\\ollama-benchmark\\benchmark_fractal_gauntlet.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\05_examples\\ollama-benchmark\\benchmark_fractal_gauntlet.py"
+    },
+    {
+      "name": "benchmark_master_suite.py",
+      "ssot_path": "\\05_examples\\ollama-benchmark\\benchmark_master_suite.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\05_examples\\ollama-benchmark\\benchmark_master_suite.py"
+    },
+    {
+      "name": "README.md",
+      "ssot_path": "\\05_examples\\ollama-benchmark\\README.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\05_examples\\ollama-benchmark\\README.md"
+    },
+    {
+      "name": "CONTINUE.md",
+      "ssot_path": "\\05_examples\\ollama-benchmark\\protocol\\CONTINUE.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\05_examples\\ollama-benchmark\\protocol\\CONTINUE.md"
+    },
+    {
+      "name": "QUICK_TEST.py",
+      "ssot_path": "\\05_examples\\ollama-benchmark\\protocol\\QUICK_TEST.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\05_examples\\ollama-benchmark\\protocol\\QUICK_TEST.py"
+    },
+    {
+      "name": "STATUS.md",
+      "ssot_path": "\\05_examples\\ollama-benchmark\\protocol\\STATUS.md",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\05_examples\\ollama-benchmark\\protocol\\STATUS.md"
+    },
+    {
+      "name": "NC-SVC-FR-011-ttl-manager.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-011-ttl-manager.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-011-ttl-manager.py"
+    },
+    {
+      "name": "NC-SVC-FR-009-session-buddy.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-009-session-buddy.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-009-session-buddy.py"
+    },
+    {
+      "name": "NC-SVC-FR-018-tag-normalizer.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-018-tag-normalizer.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-018-tag-normalizer.py"
+    },
+    {
+      "name": "NC-SVC-FR-016-wal-service.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-016-wal-service.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-016-wal-service.py"
+    },
+    {
+      "name": "NC-SVC-FR-010-kairos-service.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-010-kairos-service.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-010-kairos-service.py"
+    },
+    {
+      "name": "NC-SVC-FR-007-state-machine.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-007-state-machine.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-007-state-machine.py"
+    },
+    {
+      "name": "NC-SVC-FR-017-crypto-hub.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-017-crypto-hub.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-017-crypto-hub.py"
+    },
+    {
+      "name": "NC-SVC-FR-012-channel-notifier.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-012-channel-notifier.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-012-channel-notifier.py"
+    },
+    {
+      "name": "NC-SVC-FR-015-task-broker.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-015-task-broker.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-015-task-broker.py"
+    },
+    {
+      "name": "NC-SVC-FR-005-event-bus.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-005-event-bus.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-005-event-bus.py"
+    },
+    {
+      "name": "NC-SVC-FR-004-cache-service.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-004-cache-service.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-004-cache-service.py"
+    },
+    {
+      "name": "NC-SVC-FR-006-metrics-collector.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-006-metrics-collector.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-006-metrics-collector.py"
+    },
+    {
+      "name": "NC-SVC-FR-014-dry-run-preview.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-014-dry-run-preview.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-014-dry-run-preview.py"
+    },
+    {
+      "name": "NC-SVC-FR-003-savepoint-stub.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-003-savepoint-stub.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-003-savepoint-stub.py"
+    },
+    {
+      "name": "NC-SVC-FR-008-config-validator.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-008-config-validator.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-008-config-validator.py"
+    },
+    {
+      "name": "NC-SVC-FR-002-health-service.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-002-health-service.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-002-health-service.py"
+    },
+    {
+      "name": "NC-SVC-FR-001-logging-service.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-001-logging-service.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-001-logging-service.py"
+    },
+    {
+      "name": "NC-SCR-FR-061-engineer-documentacao.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-061-engineer-documentacao.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-061-engineer-documentacao.py"
+    },
+    {
+      "name": "NC-SCR-FR-066-bootup-sync.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-066-bootup-sync.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-066-bootup-sync.py"
+    },
+    {
+      "name": "NC-SCR-FR-003-manifest-factory.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-003-manifest-factory.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-003-manifest-factory.py"
+    },
+    {
+      "name": "NC-SCR-FR-001-populate-lobes-ssot.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-001-populate-lobes-ssot.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-001-populate-lobes-ssot.py"
+    },
+    {
+      "name": "NC-SCR-FR-017-visual-server.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-017-visual-server.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-017-visual-server.py"
+    },
+    {
+      "name": "NC-SCR-FR-023-ssot-auditor.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-023-ssot-auditor.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-023-ssot-auditor.py"
+    },
+    {
+      "name": "NC-SCR-FR-005-auto-approve.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-005-auto-approve.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-005-auto-approve.py"
+    },
+    {
+      "name": "NC-SCR-FR-060-courier-saneamento.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-060-courier-saneamento.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-060-courier-saneamento.py"
+    },
+    {
+      "name": "NC-SCR-FR-008-queue-repair.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-008-queue-repair.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-008-queue-repair.py"
+    },
+    {
+      "name": "NC-SCR-FR-061-courier-discrepancy-fix.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-061-courier-discrepancy-fix.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-061-courier-discrepancy-fix.py"
+    },
+    {
+      "name": "NC-SCR-FR-007-queue-monitor.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-007-queue-monitor.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-007-queue-monitor.py"
+    },
+    {
+      "name": "NC-SCR-FR-080-governance-auditor.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-080-governance-auditor.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-080-governance-auditor.py"
+    },
+    {
+      "name": "NC-SCR-FR-062-engineer-encoding-fix.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-062-engineer-encoding-fix.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-062-engineer-encoding-fix.py"
+    },
+    {
+      "name": "NC-SCR-FR-024-structural-auditor.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-024-structural-auditor.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-024-structural-auditor.py"
+    },
+    {
+      "name": "NC-SCR-FR-011-sanitize-handoffs.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-011-sanitize-handoffs.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-011-sanitize-handoffs.py"
+    },
+    {
+      "name": "NC-SCR-FR-062-tester-vector.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-062-tester-vector.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-062-tester-vector.py"
+    },
+    {
+      "name": "NC-SCR-FR-081-config-migrator.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-081-config-migrator.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-081-config-migrator.py"
+    },
+    {
+      "name": "NC-SCR-FR-006-ticket-validator.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-006-ticket-validator.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-006-ticket-validator.py"
+    },
+    {
+      "name": "NC-SCR-FR-002-tool-manifest-generator.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-002-tool-manifest-generator.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-002-tool-manifest-generator.py"
+    },
+    {
+      "name": "NC-SCR-FR-064-artifact-catalog.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-064-artifact-catalog.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-064-artifact-catalog.py"
+    },
+    {
+      "name": "NC-SCR-FR-098-health-wrapper.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-098-health-wrapper.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-098-health-wrapper.py"
+    },
+    {
+      "name": "NC-SCR-FR-022-coverage-auditor.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-022-coverage-auditor.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-022-coverage-auditor.py"
+    },
+    {
+      "name": "NC-SCR-FR-021-lexicon-extractor.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-021-lexicon-extractor.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-021-lexicon-extractor.py"
+    },
+    {
+      "name": "NC-SCR-FR-013-validate-file.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-013-validate-file.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-013-validate-file.py"
+    },
+    {
+      "name": "NC-SCR-FR-009-sanitize-all-yamls.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-009-sanitize-all-yamls.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-009-sanitize-all-yamls.py"
+    },
+    {
+      "name": "NC-SCR-FR-004-governance-validator.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-004-governance-validator.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-004-governance-validator.py"
+    },
+    {
+      "name": "NC-SCR-FR-012-new-tool.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-012-new-tool.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-012-new-tool.py"
+    },
+    {
+      "name": "NC-SCR-FR-063-tester-vector-fix.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-063-tester-vector-fix.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-063-tester-vector-fix.py"
+    },
+    {
+      "name": "NC-SCR-FR-010-sync-ticket-status.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-010-sync-ticket-status.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-010-sync-ticket-status.py"
+    },
+    {
+      "name": "NC-SCR-FR-075-genealogy-injector.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-075-genealogy-injector.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-075-genealogy-injector.py"
+    },
+    {
+      "name": "NC-SCR-FR-020-yaml-injector.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-020-yaml-injector.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-020-yaml-injector.py"
+    },
+    {
+      "name": "NC-SCR-FR-051-knowledge-graph-builder.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-051-knowledge-graph-builder.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-051-knowledge-graph-builder.py"
+    },
+    {
+      "name": "NC-SCR-FR-103-mc-startup-hook.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-103-mc-startup-hook.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-103-mc-startup-hook.py"
+    },
+    {
+      "name": "NC-SCR-FR-103b-start-with-mc.ps1",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-103b-start-with-mc.ps1",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-103b-start-with-mc.ps1"
+    },
+    {
+      "name": "NC-SCR-FR-065-rename-impact-analyzer.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-065-rename-impact-analyzer.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-065-rename-impact-analyzer.py"
+    },
+    {
+      "name": "NC-SVC-FR-011-ttl-manager.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-011-ttl-manager.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-011-ttl-manager.py"
+    },
+    {
+      "name": "NC-SVC-FR-009-session-buddy.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-009-session-buddy.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-009-session-buddy.py"
+    },
+    {
+      "name": "NC-SVC-FR-018-tag-normalizer.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-018-tag-normalizer.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-018-tag-normalizer.py"
+    },
+    {
+      "name": "NC-SVC-FR-016-wal-service.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-016-wal-service.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-016-wal-service.py"
+    },
+    {
+      "name": "NC-SVC-FR-010-kairos-service.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-010-kairos-service.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-010-kairos-service.py"
+    },
+    {
+      "name": "NC-SVC-FR-007-state-machine.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-007-state-machine.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-007-state-machine.py"
+    },
+    {
+      "name": "NC-SVC-FR-017-crypto-hub.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-017-crypto-hub.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-017-crypto-hub.py"
+    },
+    {
+      "name": "NC-SVC-FR-012-channel-notifier.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-012-channel-notifier.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-012-channel-notifier.py"
+    },
+    {
+      "name": "NC-SVC-FR-015-task-broker.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-015-task-broker.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-015-task-broker.py"
+    },
+    {
+      "name": "NC-SVC-FR-005-event-bus.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-005-event-bus.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-005-event-bus.py"
+    },
+    {
+      "name": "NC-SVC-FR-004-cache-service.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-004-cache-service.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-004-cache-service.py"
+    },
+    {
+      "name": "NC-SVC-FR-006-metrics-collector.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-006-metrics-collector.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-006-metrics-collector.py"
+    },
+    {
+      "name": "NC-SVC-FR-014-dry-run-preview.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-014-dry-run-preview.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-014-dry-run-preview.py"
+    },
+    {
+      "name": "NC-SVC-FR-003-savepoint-stub.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-003-savepoint-stub.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-003-savepoint-stub.py"
+    },
+    {
+      "name": "NC-SVC-FR-008-config-validator.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-008-config-validator.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-008-config-validator.py"
+    },
+    {
+      "name": "NC-SVC-FR-002-health-service.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-002-health-service.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-002-health-service.py"
+    },
+    {
+      "name": "NC-SVC-FR-001-logging-service.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-001-logging-service.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-001-logging-service.py"
+    },
+    {
+      "name": "NC-TOOL-FR-034-dry-run.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-034-dry-run.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-034-dry-run.py"
+    },
+    {
+      "name": "NC-TOOL-FR-027-knowledge.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-027-knowledge.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-027-knowledge.py"
+    },
+    {
+      "name": "NC-TOOL-FR-030-context.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-030-context.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-030-context.py"
+    },
+    {
+      "name": "NC-TOOL-FR-021-memory.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-021-memory.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-021-memory.py"
+    },
+    {
+      "name": "NC-TOOL-FR-036-picoclaw.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-036-picoclaw.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-036-picoclaw.py"
+    },
+    {
+      "name": "NC-TOOL-FR-031-savepoint.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-031-savepoint.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-031-savepoint.py"
+    },
+    {
+      "name": "NC-TOOL-FR-018-push-notification.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-018-push-notification.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-018-push-notification.py"
+    },
+    {
+      "name": "NC-TOOL-FR-026-intelligence.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-026-intelligence.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-026-intelligence.py"
+    },
+    {
+      "name": "NC-TOOL-FR-023-orchestration.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-023-orchestration.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-023-orchestration.py"
+    },
+    {
+      "name": "NC-TOOL-FR-024-governance.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-024-governance.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-024-governance.py"
+    },
+    {
+      "name": "NC-TOOL-FR-022-session.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-022-session.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-022-session.py"
+    },
+    {
+      "name": "NC-TOOL-FR-025-system.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-025-system.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-025-system.py"
+    },
+    {
+      "name": "NC-TOOL-FR-037-hooks.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-037-hooks.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-037-hooks.py"
+    },
+    {
+      "name": "NC-TOOL-FR-019-project-manifest.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-019-project-manifest.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-019-project-manifest.py"
+    },
+    {
+      "name": "NC-TOOL-FR-029-health.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-029-health.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-029-health.py"
+    },
+    {
+      "name": "NC-TOOL-FR-035-task.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-035-task.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-035-task.py"
+    },
+    {
+      "name": "NC-SCR-FR-061-engineer-documentacao.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-061-engineer-documentacao.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-061-engineer-documentacao.py"
+    },
+    {
+      "name": "NC-SCR-FR-066-bootup-sync.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-066-bootup-sync.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-066-bootup-sync.py"
+    },
+    {
+      "name": "NC-SCR-FR-003-manifest-factory.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-003-manifest-factory.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-003-manifest-factory.py"
+    },
+    {
+      "name": "NC-SCR-FR-001-populate-lobes-ssot.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-001-populate-lobes-ssot.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-001-populate-lobes-ssot.py"
+    },
+    {
+      "name": "NC-SCR-FR-017-visual-server.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-017-visual-server.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-017-visual-server.py"
+    },
+    {
+      "name": "NC-SCR-FR-023-ssot-auditor.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-023-ssot-auditor.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-023-ssot-auditor.py"
+    },
+    {
+      "name": "NC-SCR-FR-005-auto-approve.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-005-auto-approve.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-005-auto-approve.py"
+    },
+    {
+      "name": "NC-SCR-FR-060-courier-saneamento.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-060-courier-saneamento.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-060-courier-saneamento.py"
+    },
+    {
+      "name": "NC-SCR-FR-008-queue-repair.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-008-queue-repair.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-008-queue-repair.py"
+    },
+    {
+      "name": "NC-SCR-FR-061-courier-discrepancy-fix.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-061-courier-discrepancy-fix.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-061-courier-discrepancy-fix.py"
+    },
+    {
+      "name": "NC-SCR-FR-007-queue-monitor.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-007-queue-monitor.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-007-queue-monitor.py"
+    },
+    {
+      "name": "NC-SCR-FR-080-governance-auditor.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-080-governance-auditor.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-080-governance-auditor.py"
+    },
+    {
+      "name": "NC-SCR-FR-062-engineer-encoding-fix.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-062-engineer-encoding-fix.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-062-engineer-encoding-fix.py"
+    },
+    {
+      "name": "NC-SCR-FR-024-structural-auditor.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-024-structural-auditor.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-024-structural-auditor.py"
+    },
+    {
+      "name": "NC-SCR-FR-011-sanitize-handoffs.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-011-sanitize-handoffs.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-011-sanitize-handoffs.py"
+    },
+    {
+      "name": "NC-SCR-FR-062-tester-vector.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-062-tester-vector.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-062-tester-vector.py"
+    },
+    {
+      "name": "NC-SCR-FR-081-config-migrator.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-081-config-migrator.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-081-config-migrator.py"
+    },
+    {
+      "name": "NC-SCR-FR-006-ticket-validator.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-006-ticket-validator.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-006-ticket-validator.py"
+    },
+    {
+      "name": "NC-SCR-FR-002-tool-manifest-generator.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-002-tool-manifest-generator.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-002-tool-manifest-generator.py"
+    },
+    {
+      "name": "NC-SCR-FR-064-artifact-catalog.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-064-artifact-catalog.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-064-artifact-catalog.py"
+    },
+    {
+      "name": "NC-SCR-FR-098-health-wrapper.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-098-health-wrapper.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-098-health-wrapper.py"
+    },
+    {
+      "name": "NC-SCR-FR-022-coverage-auditor.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-022-coverage-auditor.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-022-coverage-auditor.py"
+    },
+    {
+      "name": "NC-SCR-FR-021-lexicon-extractor.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-021-lexicon-extractor.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-021-lexicon-extractor.py"
+    },
+    {
+      "name": "NC-SCR-FR-013-validate-file.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-013-validate-file.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-013-validate-file.py"
+    },
+    {
+      "name": "NC-SCR-FR-009-sanitize-all-yamls.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-009-sanitize-all-yamls.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-009-sanitize-all-yamls.py"
+    },
+    {
+      "name": "NC-SCR-FR-004-governance-validator.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-004-governance-validator.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-004-governance-validator.py"
+    },
+    {
+      "name": "NC-SCR-FR-012-new-tool.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-012-new-tool.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-012-new-tool.py"
+    },
+    {
+      "name": "NC-SCR-FR-063-tester-vector-fix.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-063-tester-vector-fix.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-063-tester-vector-fix.py"
+    },
+    {
+      "name": "NC-SCR-FR-010-sync-ticket-status.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-010-sync-ticket-status.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-010-sync-ticket-status.py"
+    },
+    {
+      "name": "NC-SCR-FR-075-genealogy-injector.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-075-genealogy-injector.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-075-genealogy-injector.py"
+    },
+    {
+      "name": "NC-SCR-FR-020-yaml-injector.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-020-yaml-injector.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-020-yaml-injector.py"
+    },
+    {
+      "name": "NC-SCR-FR-051-knowledge-graph-builder.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-051-knowledge-graph-builder.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-051-knowledge-graph-builder.py"
+    },
+    {
+      "name": "NC-SCR-FR-103-mc-startup-hook.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-103-mc-startup-hook.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-103-mc-startup-hook.py"
+    },
+    {
+      "name": "NC-SCR-FR-103b-start-with-mc.ps1",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-103b-start-with-mc.ps1",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-103b-start-with-mc.ps1"
+    },
+    {
+      "name": "NC-SCR-FR-065-rename-impact-analyzer.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-065-rename-impact-analyzer.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-065-rename-impact-analyzer.py"
+    },
+    {
+      "name": "NC-SCR-FR-113-kg-populate-lobes.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-113-kg-populate-lobes.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-113-kg-populate-lobes.py"
+    },
+    {
+      "name": "NC-SCR-FR-114-auto-categorize-lobes.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-114-auto-categorize-lobes.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-114-auto-categorize-lobes.py"
+    },
+    {
+      "name": "NC-SCR-FR-115-guardian-daemon.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-115-guardian-daemon.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-115-guardian-daemon.py"
+    },
+    {
+      "name": "NC-SCR-FR-116-guardian-service-installer.bat",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-116-guardian-service-installer.bat",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-116-guardian-service-installer.bat"
+    },
+    {
+      "name": "NC-SCR-FR-134-smoke-test-tools.py",
+      "ssot_path": "\\01_neocortex_framework\\scripts\\NC-SCR-FR-134-smoke-test-tools.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\scripts\\NC-SCR-FR-134-smoke-test-tools.py"
+    },
+    {
+      "name": "NC-SUPER-001-governance.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-001-governance.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-001-governance.py"
+    },
+    {
+      "name": "NC-SUPER-002-orchestration.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-002-orchestration.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-002-orchestration.py"
+    },
+    {
+      "name": "NC-SUPER-003-memory.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-003-memory.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-003-memory.py"
+    },
+    {
+      "name": "NC-SUPER-004-state.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-004-state.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-004-state.py"
+    },
+    {
+      "name": "NC-SUPER-005-llm-router.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-005-llm-router.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-005-llm-router.py"
+    },
+    {
+      "name": "NC-SUPER-006-system.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-006-system.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-006-system.py"
+    },
+    {
+      "name": "NC-SUPER-007-brain.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-007-brain.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-007-brain.py"
+    },
+    {
+      "name": "NC-SUPER-008-context.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-008-context.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-008-context.py"
+    },
+    {
+      "name": "NC-SUPER-009-security.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-009-security.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-009-security.py"
+    },
+    {
+      "name": "NC-SUPER-010-benchmark.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-010-benchmark.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-010-benchmark.py"
+    },
+    {
+      "name": "NC-SUPER-011-notification.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-011-notification.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-011-notification.py"
+    },
+    {
+      "name": "NC-SUPER-012-akl.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-012-akl.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-012-akl.py"
+    },
+    {
+      "name": "NC-SUPER-013-health.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-013-health.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-013-health.py"
+    },
+    {
+      "name": "NC-SUPER-014-ledger.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-014-ledger.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-014-ledger.py"
+    },
+    {
+      "name": "NC-SUPER-015-memory-auto.py",
+      "ssot_path": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-015-memory-auto.py",
+      "normalized_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-015-memory-auto.py"
+    }
+  ],
+  "unlisted": [
+    ".nc/config.yaml",
+    ".nc_backup/migration_report.json",
+    ".neocortex/cache/ledger/cache.db",
+    ".neocortex/cache/lobe_index.db",
+    ".neocortex/cache/manifests/cache.db",
+    ".neocortex/cache/task_queue.db",
+    ".neocortex/cascade/NC-CASC-REPORT-20260419-061932.md",
+    ".neocortex/guardian_state.json",
+    ".neocortex/lexico/NC-LEXICO-20260419-063114.json",
+    ".neocortex/lexico/NC-LEXICO-LATEST.json",
+    ".neocortex/lexico/nc_lexico_scope_report.json",
+    ".neocortex/metrics/metrics.db",
+    ".neocortex/metrics/metrics.db.wal",
+    ".neocortex/nc_diag_report.json",
+    ".neocortex/nc_sim_report.json",
+    ".neocortex/nc_sim_v2_report.json",
+    ".neocortex_stdio/.neocortex/cache/ledger/cache.db",
+    ".neocortex_stdio/.neocortex/metrics/metrics.db",
+    ".neocortex_stdio/.neocortex/metrics/metrics.db.wal",
+    ".neocortex_stdio/DIR-CORE-FR-001-core-central/NC-LED-FR-001-framework-ledger.json",
+    "05_examples/NC-RPT-117-core-audit-report.json",
+    "05_examples/NC-RPT-117-core-audit.py",
+    "05_examples/NC-RPT-150-coverage-gaps.md",
+    "05_examples/NC-RPT-150-smoke-test-report.json",
+    "05_examples/NC-RPT-154-ssot-cross-audit.json",
+    "05_examples/NC-TEST-119-picoclaw-integration-fixed.py",
+    "05_examples/NC-TEST-119-picoclaw-integration.py",
+    "05_examples/NC-TEST-152-savepoint-wal-integration.py",
+    "05_examples/NC-TEST-153-ttl-wal-prune.py",
+    "05_examples/NC-TEST-154-ssot-cross-audit.py",
+    "DIR-ARC-FR-001-archive-main/.agents/rules/00-cortex-20260409.mdc",
+    "DIR-ARC-FR-001-archive-main/BENCHMARKS.md",
+    "DIR-ARC-FR-001-archive-main/BENCHMARKS_HYBRID.md",
+    "DIR-ARC-FR-001-archive-main/CHECKPOINT_AUDIT_2026-04-10.md",
+    "DIR-ARC-FR-001-archive-main/DEEPSEEK_API_SUMMARY.md",
+    "DIR-ARC-FR-001-archive-main/NC-AUD-FR-001-audit-findings-2026-04-10.md",
+    "DIR-ARC-FR-001-archive-main/NC-DOC-FR-003-turboquant-prompt.md",
+    "DIR-ARC-FR-001-archive-main/NC-PLN-FR-001-optimization-plan.mdc",
+    "DIR-ARC-FR-001-archive-main/NC-SES-FR-001-session-status-2026-04-10.md",
+    "DIR-ARC-FR-001-archive-main/NC-TKT-FR-001-tickets.md",
+    "DIR-ARC-FR-001-archive-main/NC-TODO-DS-001-roadmap-pre-mcp-archived-20260416.md",
+    "DIR-ARC-FR-001-archive-main/README_MCP_NEOCORTEX.md",
+    "DIR-ARC-FR-001-archive-main/SANITIZATION_CHECKLIST.md",
+    "DIR-ARC-FR-001-archive-main/STATUS.md",
+    "DIR-ARC-FR-001-archive-main/development_utilities/clean_security.py",
+    "DIR-ARC-FR-001-archive-main/development_utilities/extract_all_tools.py",
+    "DIR-ARC-FR-001-archive-main/development_utilities/extract_tools_final.py",
+    "DIR-ARC-FR-001-archive-main/development_utilities/extract_tools_robust.py",
+    "DIR-ARC-FR-001-archive-main/development_utilities/fix_indentation.py",
+    "DIR-ARC-FR-001-archive-main/mcp_server_legacy/NC-MCP-FR-001-mcp-server.py",
+    "DIR-ARC-FR-001-archive-main/scripts/add_root_sanitize_event.py",
+    "DIR-ARC-FR-001-archive-main/scripts/update_antigravity_confirmation.py",
+    "DIR-ARC-FR-001-archive-main/scripts/update_ledger_status.py",
+    "DIR-ARC-FR-001-archive-main/scripts/update_phase3_progress.py",
+    "DIR-ARC-FR-001-archive-main/scripts/verify_mcp.py",
+    "DIR-BAK-FR-001-backup-main/NC-CTX-FR-001-cortex-central-20260410-0140.mdc",
+    "DIR-BAK-FR-001-backup-main/NC-LED-FR-001-framework-ledger-20260410-0140.json",
+    "DIR-BAK-FR-001-backup-main/backup_root/CHEATSHEET.md",
+    "DIR-BAK-FR-001-backup-main/backup_root/Sem título.txt",
+    "DIR-BAK-FR-001-backup-main/backup_root/add_root_sanitize_event.py",
+    "DIR-BAK-FR-001-backup-main/backup_root/benchmarks_archive/README.md",
+    "DIR-BAK-FR-001-backup-main/backup_root/benchmarks_archive/benchmark_fractal_gauntlet.py",
+    "DIR-BAK-FR-001-backup-main/backup_root/benchmarks_archive/benchmark_master_suite.py",
+    "DIR-BAK-FR-001-backup-main/backup_root/install.ps1",
+    "DIR-BAK-FR-001-backup-main/backup_root/old_backup/backup/ledger_backup_20260410_001233.json",
+    "DIR-BAK-FR-001-backup-main/backup_root/templates/00-cortex-FULL.mdc",
+    "DIR-BAK-FR-001-backup-main/backup_root/templates/00-cortex-STARTER.mdc",
+    "DIR-BAK-FR-001-backup-main/backup_root/templates/memory-ledger-TEMPLATE.json",
+    "DIR-BAK-FR-001-backup-main/backup_root/templates/phase-lobe-TEMPLATE.mdc",
+    "DIR-BAK-FR-001-backup-main/backup_root/update_antigravity_confirmation.py",
+    "DIR-BAK-FR-001-backup-main/backup_root/update_ledger_status.py",
+    "DIR-BAK-FR-001-backup-main/backup_root/verify_mcp.py",
+    "DIR-BAK-FR-001-backup-main/memory_neocortex_framework-20260409.json",
+    "DIR-BAK-FR-001-backup-main/migration_backup/backup_manifest.json",
+    "DIR-BAK-FR-001-backup-main/migration_backup/ledger_20260410_173509.json",
+    "DIR-BAK-FR-001-backup-main/migration_backup/ledger_20260410_173805.json",
+    "DIR-BAK-FR-001-backup-main/migration_backup/ledger_20260410_173853.json",
+    "DIR-BAK-FR-001-backup-main/migration_backup/ledger_20260410_174028.json",
+    "DIR-BAK-FR-001-backup-main/migration_backup/ledger_20260410_174150.json",
+    "DIR-BAK-FR-001-backup-main/migration_backup/ledger_20260410_203605.json",
+    "DIR-BAK-FR-001-backup-main/migration_backup/ledger_20260410_212708.json",
+    "DIR-BAK-FR-001-backup-main/migration_backup/mdc_files/.agents/rules/NC-CTX-FR-001-cortex-central.mdc",
+    "DIR-BAK-FR-001-backup-main/migration_backup/mdc_files/.agents/rules/NC-LBE-FR-002-claude-assistant.mdc",
+    "DIR-BAK-FR-001-backup-main/migration_backup/mdc_files/.agents/rules/NC-LBE-FR-ARCHITECTURE-001.mdc",
+    "DIR-BAK-FR-001-backup-main/migration_backup/mdc_files/.agents/rules/NC-LBE-FR-BENCHMARKS-001.mdc",
+    "DIR-BAK-FR-001-backup-main/migration_backup/mdc_files/.agents/rules/NC-LBE-FR-CLI-001.mdc",
+    "DIR-BAK-FR-001-backup-main/migration_backup/mdc_files/.agents/rules/NC-LBE-FR-CORE-001.mdc",
+    "DIR-BAK-FR-001-backup-main/migration_backup/mdc_files/.agents/rules/NC-LBE-FR-DEPLOYMENT-001.mdc",
+    "DIR-BAK-FR-001-backup-main/migration_backup/mdc_files/.agents/rules/NC-LBE-FR-DEVELOPMENT-001.mdc",
+    "DIR-BAK-FR-001-backup-main/migration_backup/mdc_files/.agents/rules/NC-LBE-FR-DOCUMENTATION-001.mdc",
+    "DIR-BAK-FR-001-backup-main/migration_backup/mdc_files/.agents/rules/NC-LBE-FR-INTEGRATION-001.mdc",
+    "DIR-BAK-FR-001-backup-main/migration_backup/mdc_files/.agents/rules/NC-LBE-FR-KNOWLEDGE-001.mdc",
+    "DIR-BAK-FR-001-backup-main/migration_backup/mdc_files/.agents/rules/NC-LBE-FR-LEGACY-001.mdc",
+    "DIR-BAK-FR-001-backup-main/migration_backup/mdc_files/.agents/rules/NC-LBE-FR-MCP-001.mdc",
+    "DIR-BAK-FR-001-backup-main/migration_backup/mdc_files/.agents/rules/NC-LBE-FR-MONITORING-001.mdc",
+    "DIR-BAK-FR-001-backup-main/migration_backup/mdc_files/.agents/rules/NC-LBE-FR-PERFORMANCE-001.mdc",
+    "DIR-BAK-FR-001-backup-main/migration_backup/mdc_files/.agents/rules/NC-LBE-FR-PROFILES-001.mdc",
+    "DIR-BAK-FR-001-backup-main/migration_backup/mdc_files/.agents/rules/NC-LBE-FR-PULSE-001.mdc",
+    "DIR-BAK-FR-001-backup-main/migration_backup/mdc_files/.agents/rules/NC-LBE-FR-SECURITY-001.mdc",
+    "DIR-BAK-FR-001-backup-main/migration_backup/mdc_files/.agents/rules/NC-LBE-FR-TESTING-001.mdc",
+    "DIR-BAK-FR-001-backup-main/migration_backup/mdc_files/.agents/rules/NC-LBE-FR-WHITELABEL-001.mdc",
+    "DIR-BAK-FR-001-backup-main/migration_backup/mdc_files/.agents/rules/TEST_INDEX_13aa6e78.mdc",
+    "DIR-BAK-FR-001-backup-main/migration_backup/mdc_files/.agents/rules/TEST_INDEX_19948498.mdc",
+    "DIR-BAK-FR-001-backup-main/migration_backup/mdc_files/.agents/rules/TEST_INDEX_8f76b831.mdc",
+    "DIR-BAK-FR-001-backup-main/migration_backup/migration_report.json",
+    "DIR-CFG-FR-001-config-main/_INDEX.mdc",
+    "DIR-CFG-FR-001-config-main/neocortex_config.yaml",
+    "DIR-CFG-FR-001-config-main/neocortex_config_dev.yaml",
+    "DIR-CORE-FR-001-core-central/.agents/AGENTS.md",
+    "DIR-CORE-FR-001-core-central/.agents/rules/NC-CTX-FR-001-cortex-central.mdc",
+    "DIR-CORE-FR-001-core-central/.agents/rules/NC-LBE-CC-002-memory-arch.mdc",
+    "DIR-CORE-FR-001-core-central/.agents/rules/NC-LBE-CC-003-orchestration.mdc",
+    "DIR-CORE-FR-001-core-central/.agents/rules/NC-LBE-CEREBRAL-FRONTAL-001.mdc",
+    "DIR-CORE-FR-001-core-central/.agents/rules/NC-LBE-CEREBRAL-HIPOCAMPO-001.mdc",
+    "DIR-CORE-FR-001-core-central/.agents/rules/NC-LBE-CEREBRAL-OCCIPITAL-001.mdc",
+    "DIR-CORE-FR-001-core-central/.agents/rules/NC-LBE-CEREBRAL-PARIETAL-001.mdc",
+    "DIR-CORE-FR-001-core-central/.agents/rules/NC-LBE-CEREBRAL-TEMPORAL-001.mdc",
+    "DIR-CORE-FR-001-core-central/.agents/rules/NC-LBE-DS-001-deepseek-agent.mdc",
+    "DIR-CORE-FR-001-core-central/.agents/rules/NC-LBE-DS-002-deepseek-agent-b.mdc",
+    "DIR-CORE-FR-001-core-central/.agents/rules/NC-LBE-DS-003-deepseek-agent-c.mdc",
+    "DIR-CORE-FR-001-core-central/.agents/rules/NC-LBE-DS-004-deepseek-agent-d.mdc",
+    "DIR-CORE-FR-001-core-central/.agents/rules/NC-LBE-FR-002-claude-assistant.mdc",
+    "DIR-CORE-FR-001-core-central/.agents/rules/NC-LBE-FR-ARCHITECTURE-001.mdc",
+    "DIR-CORE-FR-001-core-central/.agents/rules/NC-LBE-FR-BENCHMARKS-001.mdc",
+    "DIR-CORE-FR-001-core-central/.agents/rules/NC-LBE-FR-CLI-001.mdc",
+    "DIR-CORE-FR-001-core-central/.agents/rules/NC-LBE-FR-CORE-001.mdc",
+    "DIR-CORE-FR-001-core-central/.agents/rules/NC-LBE-FR-DEPLOYMENT-001.mdc",
+    "DIR-CORE-FR-001-core-central/.agents/rules/NC-LBE-FR-DEVELOPMENT-001.mdc",
+    "DIR-CORE-FR-001-core-central/.agents/rules/NC-LBE-FR-DOCUMENTATION-001.mdc",
+    "DIR-CORE-FR-001-core-central/.agents/rules/NC-LBE-FR-INTEGRATION-001.mdc",
+    "DIR-CORE-FR-001-core-central/.agents/rules/NC-LBE-FR-KNOWLEDGE-001.mdc",
+    "DIR-CORE-FR-001-core-central/.agents/rules/NC-LBE-FR-LEGACY-001.mdc",
+    "DIR-CORE-FR-001-core-central/.agents/rules/NC-LBE-FR-MCP-001.mdc",
+    "DIR-CORE-FR-001-core-central/.agents/rules/NC-LBE-FR-MONITORING-001.mdc",
+    "DIR-CORE-FR-001-core-central/.agents/rules/NC-LBE-FR-PERFORMANCE-001.mdc",
+    "DIR-CORE-FR-001-core-central/.agents/rules/NC-LBE-FR-PROFILES-001.mdc",
+    "DIR-CORE-FR-001-core-central/.agents/rules/NC-LBE-FR-PULSE-001.mdc",
+    "DIR-CORE-FR-001-core-central/.agents/rules/NC-LBE-FR-SECURITY-001.mdc",
+    "DIR-CORE-FR-001-core-central/.agents/rules/NC-LBE-FR-TESTING-001.mdc",
+    "DIR-CORE-FR-001-core-central/.agents/rules/NC-LBE-FR-WHITELABEL-001.mdc",
+    "DIR-CORE-FR-001-core-central/.agents/rules/TEST_INDEX_13aa6e78.mdc",
+    "DIR-CORE-FR-001-core-central/.agents/rules/TEST_INDEX_19948498.mdc",
+    "DIR-CORE-FR-001-core-central/.agents/rules/TEST_INDEX_8f76b831.mdc",
+    "DIR-CORE-FR-001-core-central/.agents/workflows/restart-session.md",
+    "DIR-CORE-FR-001-core-central/NC-LED-FR-001-framework-ledger.json",
+    "DIR-CORE-FR-001-core-central/NC-LED-FR-002-lexico-dictionary.json",
+    "DIR-CORE-FR-001-core-central/NC-TLM-FR-001-tool-manifest-schema.json",
+    "DIR-CORE-FR-001-core-central/NC-TLM-FR-001-tool-manifest.json",
+    "DIR-CORE-FR-001-core-central/NC_SEC_FR_001_security_utils.py",
+    "DIR-CORE-FR-001-core-central/checkpoint_tree_phase1.json",
+    "DIR-CORE-FR-001-core-central/test_security_integration.py",
+    "DIR-CORE-FR-001-core-central/update_ledger.py",
+    "DIR-DOC-FR-001-docs-main/NC-ALN-FR-001-arquitetural-alignment.md",
+    "DIR-DOC-FR-001-docs-main/NC-ANALYSIS-FR-001-renaming-plan-review.yaml",
+    "DIR-DOC-FR-001-docs-main/NC-APP-FR-001-technical-appendix.md",
+    "DIR-DOC-FR-001-docs-main/NC-ARC-FR-001-decision-log.md",
+    "DIR-DOC-FR-001-docs-main/NC-AUD-FR-001-timestamp-audit.md",
+    "DIR-DOC-FR-001-docs-main/NC-AUD-FR-002-checklist-validation.md",
+    "DIR-DOC-FR-001-docs-main/NC-CFG-FR-001-agent-policy-template.yaml",
+    "DIR-DOC-FR-001-docs-main/NC-CFG-FR-002-rules-policy.md",
+    "DIR-DOC-FR-001-docs-main/NC-CFG-FR-002-rules-policy.yaml",
+    "DIR-DOC-FR-001-docs-main/NC-CYC-FR-001-4-cycle-validation.md",
+    "DIR-DOC-FR-001-docs-main/NC-DOC-DS-005-topological-taxonomy.md",
+    "DIR-DOC-FR-001-docs-main/NC-DOC-FR-001-ubiquitous-language-dictionary.md",
+    "DIR-DOC-FR-001-docs-main/NC-DOC-FR-002-dev-environment-standard.md",
+    "DIR-DOC-FR-001-docs-main/NC-DOC-FR-002-directory-convention.md",
+    "DIR-DOC-FR-001-docs-main/NC-DOC-FR-010-mcp-tools-inventory.md",
+    "DIR-DOC-FR-001-docs-main/NC-GOV-FR-001-nworker-protocol.md",
+    "DIR-DOC-FR-001-docs-main/NC-GOV-FR-002-ticket-lifecycle.md",
+    "DIR-DOC-FR-001-docs-main/NC-GOV-FR-002-ticket-lifecycle.yaml",
+    "DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.md",
+    "DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.yaml",
+    "DIR-DOC-FR-001-docs-main/NC-GOV-FR-004-fr-artifacts-registry.yaml",
+    "DIR-DOC-FR-001-docs-main/NC-GOV-FR-005-governance-ecosystem.yaml",
+    "DIR-DOC-FR-001-docs-main/NC-GOV-FR-006-agent-rights.yaml",
+    "DIR-DOC-FR-001-docs-main/NC-GOV-FR-008-lobe-taxonomy.yaml",
+    "DIR-DOC-FR-001-docs-main/NC-LED-FR-002-lexico-dictionary.json",
+    "DIR-DOC-FR-001-docs-main/NC-MAN-FR-001-project-manifest.json",
+    "DIR-DOC-FR-001-docs-main/NC-MAN-FR-001-project-manifest.md",
+    "DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md",
+    "DIR-DOC-FR-001-docs-main/NC-NAM-FR-001a-tools-registry.md",
+    "DIR-DOC-FR-001-docs-main/NC-NAM-FR-001b-lobes-registry.md",
+    "DIR-DOC-FR-001-docs-main/NC-NAM-FR-001c-config-registry.md",
+    "DIR-DOC-FR-001-docs-main/NC-NAM-FR-001d-prompts-registry.md",
+    "DIR-DOC-FR-001-docs-main/NC-REPORT-FR-001-consolidated-results.md",
+    "DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.md",
+    "DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml",
+    "DIR-DOC-FR-001-docs-main/NC-SEC-FR-002-entry-lock-protocol.md",
+    "DIR-DOC-FR-001-docs-main/NC-SOP-FR-001-session-startup.md",
+    "DIR-DOC-FR-001-docs-main/NC-TODO-DS-001-roadmap-pre-mcp.md",
+    "DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md",
+    "DIR-DOC-FR-001-docs-main/PROJECT_MAP.md",
+    "DIR-DOC-FR-001-docs-main/compression_report.json",
+    "DIR-DOC-FR-001-docs-main/courier_progress.json",
+    "DIR-DOC-FR-001-docs-main/coverage_report.json",
+    "DIR-DOC-FR-001-docs-main/coverage_report.md",
+    "DIR-DOC-FR-001-docs-main/discrepancy_report.json",
+    "DIR-DOC-FR-001-docs-main/extraction_audit.json",
+    "DIR-DOC-FR-001-docs-main/legacy/CHEATSHEET.md",
+    "DIR-DOC-FR-001-docs-main/legacy_files.txt",
+    "DIR-DOC-FR-001-docs-main/legacy_files_complete.txt",
+    "DIR-DOC-FR-001-docs-main/orchestration_report_20260414-132918.md",
+    "DIR-DOC-FR-001-docs-main/renaming_analysis_summary.yaml",
+    "DIR-DOC-FR-001-docs-main/renaming_plan.yaml",
+    "DIR-DOC-FR-001-docs-main/renaming_plan_v2.yaml",
+    "DIR-DOC-FR-001-docs-main/renaming_plan_v2_dedup.yaml",
+    "DIR-DOC-FR-001-docs-main/ssot_audit_report.json",
+    "DIR-DOC-FR-001-docs-main/ssot_audit_report.md",
+    "DIR-DOC-FR-001-docs-main/structural_audit_report.md",
+    "DIR-DOC-FR-001-docs-main/symbolic_map.json",
+    "DIR-DOC-FR-001-docs-main/test_coverage_checklist.md",
+    "DIR-DS-001-tickets/NC-DS-118-fix-f841-metrics-store.yaml",
+    "DIR-DS-001-tickets/NC-DS-119-picoclaw-integration-test.yaml",
+    "DIR-DS-001-tickets/NC-DS-120-picoclaw-tool-autoloader.yaml",
+    "DIR-DS-001-tickets/NC-DS-121-lexico-hook-boot-loader.yaml",
+    "DIR-DS-002-audit-logs/NC-DS-120-completion.yaml",
+    "DIR-DS-002-audit-logs/NC-DS-121-completion.yaml",
+    "DIR-DS-002-audit-logs/NC-DS-150-completion.yaml",
+    "DIR-DS-002-audit-logs/NC-RPT-153-wal-prune-20260420T234801.json",
+    "DIR-DS-002-audit-logs/NC-RPT-153-wal-prune-20260420T234944.json",
+    "DIR-DS-003-wal/crypto_token_registry.json",
+    "DIR-MCP-FR-001-mcp-server/NC-HUB-FR-001-mcp-hub.py",
+    "DIR-MCP-FR-001-mcp-server/clean_utf0.py",
+    "DIR-MCP-FR-001-mcp-server/extract_tools.py",
+    "DIR-MCP-FR-001-mcp-server/list_tools.py",
+    "DIR-MCP-FR-001-mcp-server/list_tools_simple.py",
+    "DIR-MCP-FR-001-mcp-server/neocortex_mcp.py",
+    "DIR-MCP-FR-001-mcp-server/test_mcp_simple.py",
+    "DIR-MCP-FR-001-mcp-server/test_server_start.py",
+    "DIR-MCP-FR-001-mcp-server/test_tools.py",
+    "DIR-MCP-FR-001-mcp-server/test_tools_simple.py",
+    "DIR-PRF-FR-001-profiles-main/NC-PRF-FR-001-developer-schema.md",
+    "DIR-PRF-FR-001-profiles-main/NC-PRF-FR-002-team-schema.md",
+    "DIR-PRF-FR-001-profiles-main/NC-PRF-FR-003-profile-loader.py",
+    "DIR-PRF-FR-001-profiles-main/profile_manager.py",
+    "DIR-PRF-FR-001-profiles-main/templates/NC-PRF-TMP-001-dev-profile-template.json",
+    "DIR-PRF-FR-001-profiles-main/users/lucas_valerio/NC-PRF-USR-001-profile.json",
+    "DIR-REF-FR-001-reference-main/Arquivos de referência/detalhamento_completo.md",
+    "DIR-REF-FR-001-reference-main/Arquivos de referência/structured_elements.md",
+    "DIR-REF-FR-001-reference-main/Arquivos de referência/sumario.md",
+    "DIR-REF-FR-001-reference-main/_INDEX.mdc",
+    "DIR-TEST-FR-001-tests-main/_INDEX.mdc",
+    "DIR-TEST-FR-001-tests-main/fire_test.py",
+    "DIR-TEST-FR-001-tests-main/test_config_reload.py",
+    "DIR-TEST-FR-001-tests-main/test_mcp_responsive.py",
+    "DIR-TEST-FR-001-tests-main/test_modular_server.py",
+    "DIR-TEST-FR-001-tests-main/test_sanity.py",
+    "DIR-TEST-FR-001-tests-main/test_task.py",
+    "DIR-TEST-FR-001-tests-main/test_tools.py",
+    "DIR-TMP-FR-001-templates-main/00-cortex-FULL.mdc",
+    "DIR-TMP-FR-001-templates-main/00-cortex-STARTER.mdc",
+    "DIR-TMP-FR-001-templates-main/NC-GOV-TPL-000-root-template.yaml",
+    "DIR-TMP-FR-001-templates-main/NC-GOV-TPL-001-agent-courier.yaml",
+    "DIR-TMP-FR-001-templates-main/NC-LBE-CC-001-claude-leak-master.mdc",
+    "DIR-TMP-FR-001-templates-main/NC-LBE-DS-000-parent.mdc",
+    "DIR-TMP-FR-001-templates-main/NC-TMP-WL-001-cortex-template.mdc",
+    "DIR-TMP-FR-001-templates-main/NC-TOOL-FR-TEMPLATE/NC-CFG-FR-001-plugin.json",
+    "DIR-TMP-FR-001-templates-main/NC-TOOL-FR-TEMPLATE/README.md",
+    "DIR-TMP-FR-001-templates-main/NC-TOOL-FR-TEMPLATE/commands/NC-CMD-EXAMPLE.md",
+    "DIR-TMP-FR-001-templates-main/NC-TOOL-FR-TEMPLATE/hooks/NC-HK-EXAMPLE.py",
+    "DIR-TMP-FR-001-templates-main/NC-TOOL-FR-TEMPLATE/tests/test_example.py",
+    "DIR-TMP-FR-001-templates-main/NC-TPL-FR-001-template-central-index.yaml",
+    "DIR-TMP-FR-001-templates-main/NC-TPL-FR-002-agent-dispatch.yaml",
+    "DIR-TMP-FR-001-templates-main/memory-ledger-TEMPLATE.json",
+    "DIR-TMP-FR-001-templates-main/phase-lobe-TEMPLATE.mdc",
+    "NC-MET-FR-001-metrics/_INDEX.mdc",
+    "fix_trailing_whitespace.py",
+    "lobes/_INDEX.mdc",
+    "neocortex/__init__.py",
+    "neocortex/agent/executor.py",
+    "neocortex/cli/__init__.py",
+    "neocortex/cli/main.py",
+    "neocortex/config.py",
+    "neocortex/core/NC-CFG-FR-001-logging-config.py",
+    "neocortex/core/NC-CORE-FR-014-lock-guard.py",
+    "neocortex/core/NC-CORE-FR-016-kg-service.py",
+    "neocortex/core/NC-CORE-FR-017-policy-loader.py",
+    "neocortex/core/NC-CORE-FR-022-save-point-service.py",
+    "neocortex/core/NC-CORE-FR-101-agent-policy-enforcer.py",
+    "neocortex/core/NC-CORE-FR-102-agent-service.py",
+    "neocortex/core/NC-CORE-FR-103-akl-service.py",
+    "neocortex/core/NC-CORE-FR-104-benchmark-service.py",
+    "neocortex/core/NC-CORE-FR-105-cascade-consolidator.py",
+    "neocortex/core/NC-CORE-FR-106-checkpoint-service.py",
+    "neocortex/core/NC-CORE-FR-107-circuit-breaker.py",
+    "neocortex/core/NC-CORE-FR-108-config-service.py",
+    "neocortex/core/NC-CORE-FR-109-consolidation-service.py",
+    "neocortex/core/NC-CORE-FR-110-cortex-service.py",
+    "neocortex/core/NC-CORE-FR-111-export-service.py",
+    "neocortex/core/NC-CORE-FR-112-file-utils.py",
+    "neocortex/core/NC-CORE-FR-113-init-service.py",
+    "neocortex/core/NC-CORE-FR-114-kg-service.py",
+    "neocortex/core/NC-CORE-FR-115-ledger-service.py",
+    "neocortex/core/NC-CORE-FR-116-lexico-service.py",
+    "neocortex/core/NC-CORE-FR-117-lobe-service.py",
+    "neocortex/core/NC-CORE-FR-118-manifest-service.py",
+    "neocortex/core/NC-CORE-FR-119-peers-service.py",
+    "neocortex/core/NC-CORE-FR-120-profile-manager.py",
+    "neocortex/core/NC-CORE-FR-121-profile-service.py",
+    "neocortex/core/NC-CORE-FR-122-pulse-scheduler.py",
+    "neocortex/core/NC-CORE-FR-123-regression-service.py",
+    "neocortex/core/NC-CORE-FR-124-security-service.py",
+    "neocortex/core/__init__.py",
+    "neocortex/core/adapters/NC-ADP-FR-001-mission-control.py",
+    "neocortex/core/adapters/__init__.py",
+    "neocortex/core/agent_policy_enforcer.py",
+    "neocortex/core/agent_service.py",
+    "neocortex/core/akl_service.py",
+    "neocortex/core/benchmark_service.py",
+    "neocortex/core/cascade_consolidator.py",
+    "neocortex/core/checkpoint_service.py",
+    "neocortex/core/circuit_breaker.py",
+    "neocortex/core/config/NC-CFG-FR-002-feature-flags.py",
+    "neocortex/core/config/NC-CFG-FR-004-project-config-schema.yaml",
+    "neocortex/core/config/NC-CFG-FR-004-project-config.py",
+    "neocortex/core/config/NC-CFG-FR-004-project-loader.py",
+    "neocortex/core/config_service.py",
+    "neocortex/core/consolidation_service.py",
+    "neocortex/core/cortex_service.py",
+    "neocortex/core/export_service.py",
+    "neocortex/core/file_utils.py",
+    "neocortex/core/hooks/NC-CFG-HK-001-hooks.yaml",
+    "neocortex/core/hooks/NC-CFG-HK-002-lexico-hooks.yaml",
+    "neocortex/core/hooks/NC-HK-FR-001-hook-registry.py",
+    "neocortex/core/hooks/NC-HK-FR-002-simple-hook.py",
+    "neocortex/core/hooks/NC-HK-FR-003-mission-control-hook.py",
+    "neocortex/core/hooks/NC-HK-FR-004-lexico-step0-hook.py",
+    "neocortex/core/hooks/NC-HK-FR-005-lexico-boot-loader.py",
+    "neocortex/core/hooks/NC-HK-FR-006-lexico-hook-chain.py",
+    "neocortex/core/hooks/NC-HK-FR-007-lexico-integration.py",
+    "neocortex/core/hooks/__init__.py",
+    "neocortex/core/init_service.py",
+    "neocortex/core/kg_service.py",
+    "neocortex/core/ledger_service.py",
+    "neocortex/core/lexico_service.py",
+    "neocortex/core/lobe_service.py",
+    "neocortex/core/logging_config.py",
+    "neocortex/core/manifest_service.py",
+    "neocortex/core/peers_service.py",
+    "neocortex/core/profile_manager.py",
+    "neocortex/core/profile_service.py",
+    "neocortex/core/pulse_scheduler.py",
+    "neocortex/core/regression_service.py",
+    "neocortex/core/review/NC-REV-FR-001-confidence-review.py",
+    "neocortex/core/review/NC-VAL-FR-005-async-thread-validator.py",
+    "neocortex/core/review/__init__.py",
+    "neocortex/core/review/validators/NC-VAL-FR-001-naming-validator.py",
+    "neocortex/core/review/validators/NC-VAL-FR-002-compile-validator.py",
+    "neocortex/core/review/validators/NC-VAL-FR-003-locks-validator.py",
+    "neocortex/core/review/validators/__init__.py",
+    "neocortex/core/security_service.py",
+    "neocortex/core/services/NC-SVC-FR-001-logging-service.py",
+    "neocortex/core/services/NC-SVC-FR-002-health-service.py",
+    "neocortex/core/services/NC-SVC-FR-003-savepoint-stub.py",
+    "neocortex/core/services/NC-SVC-FR-004-cache-service.py",
+    "neocortex/core/services/NC-SVC-FR-005-event-bus.py",
+    "neocortex/core/services/NC-SVC-FR-006-metrics-collector.py",
+    "neocortex/core/services/NC-SVC-FR-007-state-machine.py",
+    "neocortex/core/services/NC-SVC-FR-008-config-validator.py",
+    "neocortex/core/services/NC-SVC-FR-009-session-buddy.py",
+    "neocortex/core/services/NC-SVC-FR-010-kairos-service.py",
+    "neocortex/core/services/NC-SVC-FR-011-ttl-manager.py",
+    "neocortex/core/services/NC-SVC-FR-012-channel-notifier.py",
+    "neocortex/core/services/NC-SVC-FR-014-dry-run-preview.py",
+    "neocortex/core/services/NC-SVC-FR-015-task-broker.py",
+    "neocortex/core/services/NC-SVC-FR-016-wal-service.py",
+    "neocortex/core/services/NC-SVC-FR-017-crypto-hub.py",
+    "neocortex/core/services/NC-SVC-FR-018-tag-normalizer.py",
+    "neocortex/core/services/NC-SVC-FR-019-picoclaw-server.py",
+    "neocortex/core/services/NC-SVC-FR-020-lexico-service.py",
+    "neocortex/core/services/NC-SVC-FR-021-session-memory-writer.py",
+    "neocortex/core/services/NC-SVC-FR-025-savepoint-wal-bridge.py",
+    "neocortex/core/utils/NC-UTL-FR-001-yaml-safe-parser.py",
+    "neocortex/core/utils/NC-UTL-FR-002-hash-utils.py",
+    "neocortex/core/utils/NC-UTL-FR-003-path-resolver.py",
+    "neocortex/core/utils/NC-UTL-FR-004-id-validator.py",
+    "neocortex/core/utils/__init__.py",
+    "neocortex/core/utils/yaml_inheritance.py",
+    "neocortex/core/workers/NC-WKR-FR-001-persistent-worker.py",
+    "neocortex/infra/__init__.py",
+    "neocortex/infra/backup_restore.py",
+    "neocortex/infra/cache_backend.py",
+    "neocortex/infra/config_validation.py",
+    "neocortex/infra/health_metrics.py",
+    "neocortex/infra/hot_cache.py",
+    "neocortex/infra/ledger_store.py",
+    "neocortex/infra/llm/backend.py",
+    "neocortex/infra/llm/deepseek_backend.py",
+    "neocortex/infra/llm/factory.py",
+    "neocortex/infra/llm/ollama_backend.py",
+    "neocortex/infra/llm/openai_backend.py",
+    "neocortex/infra/lobe_index.py",
+    "neocortex/infra/manifest_store.py",
+    "neocortex/infra/metrics_store.py",
+    "neocortex/infra/profiler.py",
+    "neocortex/infra/search_engine.py",
+    "neocortex/infra/symbolic_compressor.py",
+    "neocortex/infra/task_queue.py",
+    "neocortex/infra/vector_engine.py",
+    "neocortex/infra/vector_engine_example.py",
+    "neocortex/infra/vector_store.py",
+    "neocortex/mcp/NC-CFG-FR-005-tool-autoload.yaml",
+    "neocortex/mcp/__init__.py",
+    "neocortex/mcp/server.py",
+    "neocortex/mcp/sub_server.py",
+    "neocortex/mcp/tools/NC-SUPER-001-governance.py",
+    "neocortex/mcp/tools/NC-SUPER-002-orchestration.py",
+    "neocortex/mcp/tools/NC-SUPER-003-memory.py",
+    "neocortex/mcp/tools/NC-SUPER-004-state.py",
+    "neocortex/mcp/tools/NC-SUPER-005-llm-router.py",
+    "neocortex/mcp/tools/NC-SUPER-006-system.py",
+    "neocortex/mcp/tools/NC-SUPER-007-brain.py",
+    "neocortex/mcp/tools/NC-SUPER-008-context.py",
+    "neocortex/mcp/tools/NC-SUPER-009-security.py",
+    "neocortex/mcp/tools/NC-SUPER-010-benchmark.py",
+    "neocortex/mcp/tools/NC-SUPER-011-notification.py",
+    "neocortex/mcp/tools/NC-SUPER-012-akl.py",
+    "neocortex/mcp/tools/NC-SUPER-013-health.py",
+    "neocortex/mcp/tools/NC-SUPER-014-ledger.py",
+    "neocortex/mcp/tools/NC-SUPER-015-memory-auto.py",
+    "neocortex/mcp/tools/NC-SUPER-016-picoclaw.py",
+    "neocortex/mcp/tools/__init__.py",
+    "neocortex/mcp/tools/pulse.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-000-brain.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-001-cortex.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-002-agent.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-003-benchmark.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-004-checkpoint.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-005-config.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-006-export.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-007-init.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-008-ledger.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-009-lobes.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-010-peers.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-011-pulse.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-012-regression.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-013-report.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-014-search.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-015-security.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-016-subserver.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-017-task.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-018-push-notification.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-019-project-manifest.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-020-knowledge.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-021-memory.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-022-session.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-023-orchestration.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-024-governance.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-025-system.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-026-intelligence.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-027-knowledge.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-029-health.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-030-context.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-031-savepoint.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-034-dry-run.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-035-task.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-036-picoclaw.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-037-hooks.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-038-handoff.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-039-tickets.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-040-governance-ops.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-041-constitution.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-042-local-llm.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-043-litellm.py",
+    "neocortex/mcp/tools/v1/NC-TOOL-FR-044-memory-auto.py",
+    "neocortex/repositories/__init__.py",
+    "neocortex/repositories/base.py",
+    "neocortex/repositories/file_system_repository.py",
+    "neocortex/schemas/__init__.py",
+    "neocortex/schemas/a2a_message_schema.json",
+    "neocortex/schemas/ledger_schema.json",
+    "neocortex_framework.egg-info/SOURCES.txt",
+    "neocortex_framework.egg-info/dependency_links.txt",
+    "neocortex_framework.egg-info/entry_points.txt",
+    "neocortex_framework.egg-info/requires.txt",
+    "neocortex_framework.egg-info/top_level.txt",
+    "pyproject.toml",
+    "requirements.txt",
+    "ruff_audit_sprint.txt",
+    "scripts/NC-SCR-FR-001-populate-lobes-ssot.py",
+    "scripts/NC-SCR-FR-002-tool-manifest-generator.py",
+    "scripts/NC-SCR-FR-003-manifest-factory.py",
+    "scripts/NC-SCR-FR-004-governance-validator.py",
+    "scripts/NC-SCR-FR-005-auto-approve.py",
+    "scripts/NC-SCR-FR-006-ticket-validator.py",
+    "scripts/NC-SCR-FR-007-queue-monitor.py",
+    "scripts/NC-SCR-FR-008-queue-repair.py",
+    "scripts/NC-SCR-FR-009-sanitize-all-yamls.py",
+    "scripts/NC-SCR-FR-010-sync-ticket-status.py",
+    "scripts/NC-SCR-FR-011-sanitize-handoffs.py",
+    "scripts/NC-SCR-FR-012-new-tool.py",
+    "scripts/NC-SCR-FR-013-validate-file.py",
+    "scripts/NC-SCR-FR-014-end-of-cycle.ps1",
+    "scripts/NC-SCR-FR-017-visual-server.py",
+    "scripts/NC-SCR-FR-020-yaml-injector.py",
+    "scripts/NC-SCR-FR-021-lexicon-extractor.py",
+    "scripts/NC-SCR-FR-022-coverage-auditor.py",
+    "scripts/NC-SCR-FR-023-ssot-auditor.py",
+    "scripts/NC-SCR-FR-024-structural-auditor.py",
+    "scripts/NC-SCR-FR-051-knowledge-graph-builder.py",
+    "scripts/NC-SCR-FR-060-courier-saneamento.py",
+    "scripts/NC-SCR-FR-061-courier-discrepancy-fix.py",
+    "scripts/NC-SCR-FR-061-engineer-documentacao.py",
+    "scripts/NC-SCR-FR-062-engineer-encoding-fix.py",
+    "scripts/NC-SCR-FR-062-tester-vector.py",
+    "scripts/NC-SCR-FR-063-tester-vector-fix.py",
+    "scripts/NC-SCR-FR-064-artifact-catalog.py",
+    "scripts/NC-SCR-FR-064-orchestration-agent-fixes.ps1",
+    "scripts/NC-SCR-FR-065-rename-impact-analyzer.py",
+    "scripts/NC-SCR-FR-066-bootup-sync.py",
+    "scripts/NC-SCR-FR-075-genealogy-injector.py",
+    "scripts/NC-SCR-FR-080-governance-auditor.py",
+    "scripts/NC-SCR-FR-081-config-migrator.py",
+    "scripts/NC-SCR-FR-098-health-wrapper.py",
+    "scripts/NC-SCR-FR-101-tools-smoke-test.py",
+    "scripts/NC-SCR-FR-103-mc-startup-hook.py",
+    "scripts/NC-SCR-FR-103b-start-with-mc.ps1",
+    "scripts/NC-SCR-FR-105-global-watchdog.bat",
+    "scripts/NC-SCR-FR-106-launcher.py",
+    "scripts/NC-SCR-FR-110-litellm-startup.ps1",
+    "scripts/NC-SCR-FR-111-ollama-igpu-launcher.bat",
+    "scripts/NC-SCR-FR-112-generate-lobe-manifests.py",
+    "scripts/NC-SCR-FR-113-kg-populate-lobes.py",
+    "scripts/NC-SCR-FR-114-auto-categorize-lobes.py",
+    "scripts/NC-SCR-FR-115-guardian-daemon.py",
+    "scripts/NC-SCR-FR-116-guardian-service-installer.bat",
+    "scripts/NC-SCR-FR-134-smoke-test-tools.py",
+    "scripts/NC-SCR-FR-135-lexico-semantic-scope.py",
+    "scripts/NC-SCR-FR-136-approve-handoffs.py",
+    "scripts/NC-SCR-FR-137-audit-reader.py",
+    "scripts/NC-SCR-FR-138-batch-approve-handoffs.py",
+    "scripts/NC-SCR-FR-139-create-session-checkpoint.py",
+    "scripts/NC-SCR-FR-140-inspect-config.py",
+    "scripts/NC-SCR-FR-141-neocortex-hud.py",
+    "scripts/NC-SCR-FR-142-audit-handoffs-t0.py",
+    "scripts/NC-SCR-FR-143-extract-tools-robust.py",
+    "scripts/NC-SCR-FR-144-update-ledger-tools.py",
+    "scripts/NC-SCR-FR-145-tool-autoloader.py",
+    "scripts/NC-SCR-FR-146-hook-boot-loader.py",
+    "scripts/NC-SCR-FR-147-nc-ds-122-executor.py",
+    "scripts/NC-SCR-FR-148-wal-ttl-pruner.py",
+    "scripts/NC-SCR-FR-150-smoke-test.py",
+    "scripts/NC-SCR-PIC-001-picoclaw-watchdog.bat",
+    "scripts/NC-TST-FR-001-test-rag-search.py",
+    "test_import.py",
+    "test_vector_scan.py",
+    "tests/.pytest_cache/README.md",
+    "tests/_INDEX.mdc",
+    "tests/__init__.py",
+    "tests/test_vector_engine.py"
+  ],
+  "timestamp": "2026-04-20T20:52:27.957317",
+  "audit_type": "SSOT cross-audit"
+}

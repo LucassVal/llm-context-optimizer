@@ -1,3 +1,15 @@
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:59.314481'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+tags:
+  - neocortex-other
+  - level-0
+  - python
+---"""
 #!/usr/bin/env python3
 """
 Cache Backend - Abstract interface for cache implementations.
@@ -9,7 +21,7 @@ with fallback support and configuration-based selection.
 import logging
 from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import Any, Optional, Dict, Union
+from typing import Any, Dict, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -166,7 +178,7 @@ class RedisCacheBackend(CacheBackend):
         self.port = port
         self.db = db
         self._connected = False
-        logger.info(f"Redis backend stub initialized (not connected)")
+        logger.info("Redis backend stub initialized (not connected)")
 
     def get(self, key: str, default: Any = None) -> Any:
         """Get value from Redis stub."""
@@ -226,8 +238,8 @@ def create_cache_backend(backend_type: str = "diskcache", **kwargs) -> CacheBack
 # Test function
 def test_cache_backend():
     """Test cache backend functionality."""
-    import tempfile
     import shutil
+    import tempfile
 
     temp_dir = Path(tempfile.mkdtemp())
     try:
@@ -238,13 +250,13 @@ def test_cache_backend():
         assert backend.exists("test")
         assert backend.delete("test")
         assert not backend.exists("test")
-        print("✓ DiskCacheBackend tests passed")
+        print(" DiskCacheBackend tests passed")
 
         # Test Redis stub
         redis_backend = RedisCacheBackend()
         stats = redis_backend.get_stats()
         assert stats["type"] == "redis_stub"
-        print("✓ RedisCacheBackend stub tests passed")
+        print(" RedisCacheBackend stub tests passed")
 
     finally:
         shutil.rmtree(temp_dir, ignore_errors=True)

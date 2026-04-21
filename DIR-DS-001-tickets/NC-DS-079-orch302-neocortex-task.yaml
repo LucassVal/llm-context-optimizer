@@ -1,0 +1,54 @@
+# NC-DS-079-orch302-neocortex-task.yaml
+# Ticket retrospectivo para ORCH-302 neocortex_task tool implementation
+
+ticket_id: "NC-DS-079"
+status: "DONE"
+priority: "MEDIUM"
+title: "ORCH-302 — Tool MCP neocortex_task com execute/poll/cancel/list_queued"
+handoff_ref: "NC-DS-079-handoff-20260415T143100.yaml"
+completed_at: "2026-04-15T14:31:00-03:00"
+created_at: "2026-04-15T14:31:00-03:00"
+created_by: "T0-Antigravity"
+
+context:
+  origin: "Retrospective ticket for ORCH-302 implementation"
+  problem: |
+    ORCH-302 foi implementado sem ticket formal. Implementação inclui tool MCP `neocortex_task`
+    com ações execute, poll, cancel, list_queued, integração com HTTP endpoints.
+  scope: "Verificar conformidade da implementação existente e criar ticket retrospectivo."
+
+task:
+  description: |
+    Implementação já concluída. Este ticket serve para rastreabilidade.
+    Trabalho realizado:
+    1. Implementada tool MCP `neocortex_task` (NC-TOOL-FR-035-task.py)
+    2. Ações: execute, poll, cancel, list_queued
+    3. Integração com HTTP POST /task e GET /health de sub-servidores
+    4. Fallback para registry em memória; compatível com TaskBroker se disponível
+    5. Polling real com timeout configurável
+  action_description:
+    utterances:
+      - "neocortex_task tool"
+      - "Orchestration task execution"
+    input_instructions: "N/A — implementação já concluída"
+    output_instructions: "Ticket retrospectivo criado para rastreabilidade"
+    usage_rules: "Prioridade MEDIUM — trabalho já concluído"
+
+write_zone:
+  - "01_neocortex_framework/neocortex/mcp/tools/"
+
+exit_state:
+  files_created:
+    - "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-035-task.py"
+  files_modified: []
+  ssot_updated: true
+  compiles_ok: true
+
+references:
+  - "DIR-DS-002-audit-logs/ORCH-302-handoff-20260413-150455-approved.yaml"
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
+
+tags: ["retrospective", "orchestration", "mcp-tool", "governance"]
+domain: "orchestration"
+layer: "core"
+type: "IMPLEMENTATION"

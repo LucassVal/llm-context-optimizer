@@ -1,0 +1,42 @@
+ticket_id: "NC-DS-072"
+status: "DONE"
+priority: "HIGH"
+title: "SCR-FR-066 — Rastreabilidade: NC-SCR-FR-066-bootup-sync.py"
+created_at: "2026-04-15T01:08:00-03:00"
+created_by: "T0-Antigravity"
+
+context:
+  origin: "Auditoria de scripts orfaos (Ciclo 1, sessao 2026-04-15)"
+  problem: |
+    NC-SCR-FR-066-bootup-sync.py sincroniza o NC-BOOT-FR-001 com os handoffs
+    recentes e tickets ativos. E usado no NC-WF-001 linha 131 (Ciclo 3) e
+    referenciado em comandos rapidos (linha 235), sem ticket formal.
+  scope: "Rastreabilidade + verificacao de sincronizacao do bootup"
+
+task:
+  description: |
+    1. Verificar integridade do script (sintaxe, paths internos).
+    2. Executar e validar que NC-BOOT-FR-001 e atualizado com handoffs recentes.
+    3. Documentar o que o script sincroniza (tickets, handoffs, versao do bootup).
+    4. Atualizar NC-NAM-FR-001 com entrada do script.
+    5. Gerar handoff APPROVED.
+  action_description:
+    utterances:
+      - "Sincronizar bootup com estado atual dos tickets"
+      - "Atualizar NC-BOOT-FR-001 com handoffs recentes"
+    input_instructions: "Executar da raiz. Le DIR-DS-001-tickets/ e DIR-DS-002-audit-logs/."
+    output_instructions: "NC-BOOT-FR-001 atualizado com frentes ativas e tickets pendentes."
+    usage_rules: "Ciclo 3: sempre apos atualizar catalogo e antes de encerrar sessao."
+
+write_zone:
+  - "01_neocortex_framework/scripts/"
+  - "DIR-BOOT-FR-001-bootup-main/NC-BOOT-FR-001-system-manifest.md"
+references:
+  - "01_neocortex_framework/scripts/NC-SCR-FR-066-bootup-sync.py"
+  - ".agents/workflows/NC-WF-001-workspace-routine.md#L131"
+  - "DIR-BOOT-FR-001-bootup-main/NC-BOOT-FR-001-system-manifest.md"
+
+tags: ["ciclo3", "orchestration", "bootup", "sync", "infra", "SCR"]
+domain: "orchestration"
+layer: "infra"
+type: "SCR"

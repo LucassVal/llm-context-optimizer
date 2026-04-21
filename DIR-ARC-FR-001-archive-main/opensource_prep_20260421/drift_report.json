@@ -1,0 +1,244 @@
+{
+  "svc": {
+    "missing_in_physical": [],
+    "missing_in_table": [
+      "NC-SVC-FR-011-ttl-manager.py",
+      "NC-SVC-FR-009-session-buddy.py",
+      "NC-SVC-FR-018-tag-normalizer.py",
+      "NC-SVC-FR-016-wal-service.py",
+      "NC-SVC-FR-010-kairos-service.py",
+      "NC-SVC-FR-007-state-machine.py",
+      "NC-SVC-FR-017-crypto-hub.py",
+      "NC-SVC-FR-012-channel-notifier.py",
+      "NC-SVC-FR-015-task-broker.py",
+      "NC-SVC-FR-005-event-bus.py",
+      "NC-SVC-FR-004-cache-service.py",
+      "NC-SVC-FR-006-metrics-collector.py",
+      "NC-SVC-FR-014-dry-run-preview.py",
+      "NC-SVC-FR-003-savepoint-stub.py",
+      "NC-SVC-FR-008-config-validator.py",
+      "NC-SVC-FR-002-health-service.py",
+      "NC-SVC-FR-001-logging-service.py"
+    ],
+    "matched": []
+  },
+  "tool": {
+    "missing_in_physical": [],
+    "missing_in_table": [
+      "NC-TOOL-FR-034-dry-run.py",
+      "NC-TOOL-FR-027-knowledge.py",
+      "NC-TOOL-FR-033-nc-tool-fr-035-task.py",
+      "NC-TOOL-FR-030-context.py",
+      "NC-TOOL-FR-012-nc-tool-fr-011-pulse.py",
+      "NC-TOOL-FR-021-memory.py",
+      "NC-TOOL-FR-010-nc-tool-fr-009-lobes.py",
+      "NC-TOOL-FR-015-nc-tool-fr-014-search.py",
+      "NC-TOOL-FR-023-nc-tool-fr-022-session.py",
+      "NC-TOOL-FR-005-nc-tool-fr-004-checkpoint.py",
+      "NC-TOOL-FR-036-picoclaw.py",
+      "NC-TOOL-FR-018-nc-tool-fr-017-task.py",
+      "NC-TOOL-FR-032-nc-tool-fr-034-dry-run.py",
+      "NC-TOOL-FR-031-savepoint.py",
+      "NC-TOOL-FR-018-push-notification.py",
+      "NC-TOOL-FR-014-nc-tool-fr-013-report.py",
+      "NC-TOOL-FR-030-nc-tool-fr-030-context.py",
+      "NC-TOOL-FR-032-push-notification.py",
+      "NC-TOOL-FR-026-intelligence.py",
+      "NC-TOOL-FR-011-nc-tool-fr-010-peers.py",
+      "NC-TOOL-FR-026-nc-tool-fr-025-system.py",
+      "NC-TOOL-FR-028-export.py",
+      "NC-TOOL-FR-019-nc-tool-fr-018-push-notification.py",
+      "NC-TOOL-FR-023-orchestration.py",
+      "NC-TOOL-FR-016-nc-tool-fr-015-security.py",
+      "NC-TOOL-FR-024-governance.py",
+      "NC-TOOL-FR-022-session.py",
+      "NC-TOOL-FR-025-system.py",
+      "NC-TOOL-FR-037-hooks.py",
+      "NC-TOOL-FR-031-nc-tool-fr-031-savepoint.py",
+      "NC-TOOL-FR-017-nc-tool-fr-016-subserver.py",
+      "NC-TOOL-FR-002-nc-tool-fr-001-cortex.py",
+      "NC-TOOL-FR-020-nc-tool-fr-019-project-manifest.py",
+      "NC-TOOL-FR-003-nc-tool-fr-002-agent.py",
+      "NC-TOOL-FR-006-nc-tool-fr-005-config.py",
+      "NC-TOOL-FR-013-nc-tool-fr-012-regression.py",
+      "NC-TOOL-FR-028-nc-tool-fr-027-knowledge.py",
+      "NC-TOOL-FR-033-push-notification.py",
+      "NC-TOOL-FR-020-categories.py",
+      "NC-TOOL-FR-019-project-manifest.py",
+      "NC-TOOL-FR-008-nc-tool-fr-007-init.py",
+      "NC-TOOL-FR-004-nc-tool-fr-003-benchmark.py",
+      "NC-TOOL-FR-021-nc-tool-fr-020-knowledge.py",
+      "NC-TOOL-FR-007-nc-tool-fr-006-export.py",
+      "NC-TOOL-FR-001-nc-tool-fr-000-brain.py",
+      "NC-TOOL-FR-022-nc-tool-fr-021-memory.py",
+      "NC-TOOL-FR-029-health.py",
+      "NC-TOOL-FR-035-task.py",
+      "NC-TOOL-FR-027-nc-tool-fr-026-intelligence.py",
+      "NC-TOOL-FR-009-nc-tool-fr-008-ledger.py",
+      "NC-TOOL-FR-029-nc-tool-fr-029-health.py",
+      "NC-TOOL-FR-034-nc-tool-fr-036-picoclaw.py",
+      "NC-TOOL-FR-035-nc-tool-fr-037-hooks.py",
+      "NC-TOOL-FR-025-nc-tool-fr-024-governance.py",
+      "NC-TOOL-FR-024-nc-tool-fr-023-orchestration.py"
+    ],
+    "matched": [
+      {
+        "name": "NC-TOOL-FR-000-brain.py",
+        "description": "-",
+        "location": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-000-brain.py",
+        "keywords": "-"
+      },
+      {
+        "name": "NC-TOOL-FR-001-cortex.py",
+        "description": "-",
+        "location": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-001-cortex.py",
+        "keywords": "-"
+      },
+      {
+        "name": "NC-TOOL-FR-002-agent.py",
+        "description": "-",
+        "location": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-002-agent.py",
+        "keywords": "-"
+      },
+      {
+        "name": "NC-TOOL-FR-003-benchmark.py",
+        "description": "-",
+        "location": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-003-benchmark.py",
+        "keywords": "-"
+      },
+      {
+        "name": "NC-TOOL-FR-004-checkpoint.py",
+        "description": "-",
+        "location": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-004-checkpoint.py",
+        "keywords": "-"
+      },
+      {
+        "name": "NC-TOOL-FR-005-config.py",
+        "description": "-",
+        "location": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-005-config.py",
+        "keywords": "-"
+      },
+      {
+        "name": "NC-TOOL-FR-006-export.py",
+        "description": "-",
+        "location": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-006-export.py",
+        "keywords": "-"
+      },
+      {
+        "name": "NC-TOOL-FR-007-init.py",
+        "description": "-",
+        "location": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-007-init.py",
+        "keywords": "-"
+      },
+      {
+        "name": "NC-TOOL-FR-008-ledger.py",
+        "description": "-",
+        "location": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-008-ledger.py",
+        "keywords": "-"
+      },
+      {
+        "name": "NC-TOOL-FR-009-lobes.py",
+        "description": "-",
+        "location": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-009-lobes.py",
+        "keywords": "-"
+      },
+      {
+        "name": "NC-TOOL-FR-010-peers.py",
+        "description": "-",
+        "location": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-010-peers.py",
+        "keywords": "-"
+      },
+      {
+        "name": "NC-TOOL-FR-011-pulse.py",
+        "description": "-",
+        "location": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-011-pulse.py",
+        "keywords": "-"
+      },
+      {
+        "name": "NC-TOOL-FR-012-regression.py",
+        "description": "-",
+        "location": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-012-regression.py",
+        "keywords": "-"
+      },
+      {
+        "name": "NC-TOOL-FR-013-report.py",
+        "description": "-",
+        "location": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-013-report.py",
+        "keywords": "-"
+      },
+      {
+        "name": "NC-TOOL-FR-014-search.py",
+        "description": "-",
+        "location": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-014-search.py",
+        "keywords": "-"
+      },
+      {
+        "name": "NC-TOOL-FR-015-security.py",
+        "description": "-",
+        "location": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-015-security.py",
+        "keywords": "-"
+      },
+      {
+        "name": "NC-TOOL-FR-016-subserver.py",
+        "description": "-",
+        "location": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-016-subserver.py",
+        "keywords": "-"
+      },
+      {
+        "name": "NC-TOOL-FR-017-task.py",
+        "description": "-",
+        "location": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-017-task.py",
+        "keywords": "-"
+      },
+      {
+        "name": "NC-TOOL-FR-020-knowledge.py",
+        "description": "-",
+        "location": "\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-020-knowledge.py",
+        "keywords": "-"
+      }
+    ]
+  },
+  "scr": {
+    "missing_in_physical": [],
+    "missing_in_table": [
+      "NC-SCR-FR-061-engineer-documentacao.py",
+      "NC-SCR-FR-066-bootup-sync.py",
+      "NC-SCR-FR-003-manifest-factory.py",
+      "NC-SCR-FR-001-populate-lobes-ssot.py",
+      "NC-SCR-FR-017-visual-server.py",
+      "NC-SCR-FR-023-ssot-auditor.py",
+      "NC-SCR-FR-005-auto-approve.py",
+      "NC-SCR-FR-060-courier-saneamento.py",
+      "NC-SCR-FR-008-queue-repair.py",
+      "NC-SCR-FR-061-courier-discrepancy-fix.py",
+      "NC-SCR-FR-007-queue-monitor.py",
+      "NC-SCR-FR-080-governance-auditor.py",
+      "NC-SCR-FR-062-engineer-encoding-fix.py",
+      "NC-SCR-FR-024-structural-auditor.py",
+      "NC-SCR-FR-011-sanitize-handoffs.py",
+      "NC-SCR-FR-062-tester-vector.py",
+      "NC-SCR-FR-081-config-migrator.py",
+      "NC-SCR-CC-001-grep-analysis.py",
+      "NC-SCR-FR-006-ticket-validator.py",
+      "NC-SCR-FR-015-hud-display.py",
+      "NC-SCR-FR-002-tool-manifest-generator.py",
+      "NC-SCR-FR-064-artifact-catalog.py",
+      "NC-SCR-FR-098-health-wrapper.py",
+      "NC-SCR-FR-022-coverage-auditor.py",
+      "NC-SCR-FR-021-lexicon-extractor.py",
+      "NC-SCR-FR-070-genealogy-builder.py",
+      "NC-SCR-FR-013-validate-file.py",
+      "NC-SCR-FR-009-sanitize-all-yamls.py",
+      "NC-SCR-FR-004-governance-validator.py",
+      "NC-SCR-FR-012-new-tool.py",
+      "NC-SCR-FR-063-tester-vector-fix.py",
+      "NC-SCR-FR-010-sync-ticket-status.py",
+      "NC-SCR-FR-075-genealogy-injector.py",
+      "NC-SCR-FR-020-yaml-injector.py",
+      "NC-SCR-FR-051-knowledge-graph-builder.py",
+      "NC-SCR-FR-103-mc-startup-hook.py",
+      "NC-SCR-FR-065-rename-impact-analyzer.py"
+    ],
+    "matched": []
+  }
+}

@@ -1,0 +1,121 @@
+# NC-DS-129.yaml
+# Ticket para implementação de intenção prospectiva com defer_until em tickets
+
+ticket_id: NC-DS-129
+title: "Intenção prospectiva — defer_until em tickets"
+status: OPEN
+priority: MEDIUM
+roadmap_ref: "NC-TODO-FR-001-project-roadmap-consolidated.md linha 61"
+created_at: "2026-04-20T23:22:00"
+created_by: T0-Antigravity
+assigned_to: OpenCode-Agent
+
+working_directory: "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
+framework_subdir: "01_neocortex_framework"
+note_paths: |
+  TODOS os arquivos Python vivem em:
+    C:\Users\Lucas Valério\Desktop\TURBOQUANT_V42\01_neocortex_framework\
+  O diretório raiz do projeto É esse. Não é o diretório do OpenCode.
+
+step_0:
+  - "cd C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
+  - "python -c \"from pathlib import Path; assert Path('01_neocortex_framework').exists(), 'WRONG DIR'\" → DEVE PASSAR"
+  - "Ler 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml"
+  - "python --version → confirmar Python"
+  - "Verificar se DIR-DS-001-tickets/NC-DS-TICKET-TEMPLATE-v2.yaml existe"
+
+atomic_locks_inviolaveis:
+  - "01_neocortex_framework/neocortex/mcp/server.py → NUNCA MODIFICAR"
+  - "01_neocortex_framework/neocortex/mcp/sub_server.py → NUNCA MODIFICAR"
+
+task: |
+  Implementar sistema de intenção prospectiva com campo defer_until em tickets para agendamento inteligente.
+  
+  Objetivos:
+  1. Estender schema de tickets YAML com campos:
+     - defer_until: timestamp ISO para execução futura
+     - trigger_conditions: condições para execução automática
+     - priority_boost: aumento de prioridade após deferimento
+     - recurrence: padrão de recorrência (daily, weekly, etc.)
+  
+  2. Criar NC-SVC-FR-025-prospective-scheduler.py que:
+     - Monitora tickets com defer_until
+     - Reclassifica automaticamente quando condições são atendidas
+     - Notifica via ChannelNotifier
+     - Integra com KairosService para agendamento
+  
+  3. Criar ferramenta MCP NC-TOOL-FR-047-prospective.py com ações:
+     - prospective.defer: adiar ticket com condições
+     - prospective.list: listar tickets adiados
+     - prospective.trigger: disparar execução manual
+     - prospective.cancel: cancelar adiamento
+  
+  4. Implementar validações:
+     - Não permitir defer_until no passado
+     - Validar condições sintaticamente
+     - Limitar recorrência a padrões suportados
+     - Integrar com Regression Buffer para aprendizado
+
+implementation_notes: |
+  Regras INVIOLÁVEIS:
+  - R09: NUNCA 'import NC-TOOL-FR-XXX'. Usar importlib.util.spec_from_file_location()
+  - R10: NUNCA hardcode paths. Usar get_config() ou Path(__file__).resolve().parent
+  - R11: NUNCA print() em produção. Usar logger = logging.getLogger(__name__)
+  - R21: VERIFICAR ambiente real antes de afirmar. Se dúvida → ESCALATED
+  
+  Padrões a seguir:
+  - Usar cron expressions para recorrência
+  - Suportar condições como: "files_exist: [path1, path2]", "time_after: 14:00"
+  - Integrar com EventBus para notificações
+  - Persistir estado em JSON com recovery
+
+pre_handoff_checklist:
+  - "python -m py_compile 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-025-prospective-scheduler.py → PASS"
+  - "python -m ruff check 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-025-prospective-scheduler.py --select F,E9 → 0 erros"
+  - "grep print( 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-025-prospective-scheduler.py (excluindo comentários e __main__) → VAZIO"
+  - "git -C C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework diff --name-only HEAD | Select-String 'server\\.py|sub_server\\.py' → VAZIO"
+  - "Testar com ticket de exemplo com defer_until"
+
+deliverables:
+  - "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-025-prospective-scheduler.py"
+  - "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-047-prospective.py"
+  - "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\DIR-DS-001-tickets\\NC-DS-TICKET-TEMPLATE-v3.yaml (atualizado)"
+  - "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\DIR-DS-002-audit-logs\\NC-DS-129-handoff-<YYYYMMDDTHHMMSS>.yaml"
+
+handoff_template_inline:
+  ticket_id: "NC-DS-129"
+  status: "PENDING_REVIEW"
+  submitted_at: "<YYYYMMDDTHHMMSS>"
+  submitted_by: "opencode-agent"
+  review_by: "T0-Antigravity"
+
+  summary:
+    files_created: []
+    files_modified: []
+    lines_added: 0
+    validation_rounds: 1
+    locks_violated: []
+    overall: "SUCCESS"
+
+  t0_review_checklist:
+    compile_ok: true
+    ruff_ok: true
+    no_print: true
+    ssot_updated: false
+    locks_clean: true
+
+  test_results:
+    total: 0
+    passed: 0
+    failed: 0
+    notes: ""
+
+  escalation:
+    escalated: false
+    reason: ""
+
+write_zone: "PROD → neocortex/core/services/"
+escalation_triggers:
+  - "Erro ao parsear condições complexas"
+  - "Problema com timezone em defer_until"
+  - "Conflito com agendamento do KairosService"

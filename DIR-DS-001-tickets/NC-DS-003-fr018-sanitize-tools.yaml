@@ -1,0 +1,80 @@
+ticket_id: NC-DS-003
+ticket_type: REFACTOR + FEATURE
+priority: HIGH
+status: DONE
+assigned_to: deepseek-chat
+handoff_ref: "NC-DS-003-handoff-20260415T134000-retrospective.yaml"
+completed_at: "2026-04-15T13:40:00-03:00"
+created_at: "2026-04-13T20:06:00-03:00"
+created_by: antigravity-t0
+
+context:
+  roadmap_ticket: FR-018 + SANITIZE-TOOLS
+  active_locks:
+    - server.py
+    - sub_server.py
+    - NC-NAM-FR-001
+    - neocortex_config.yaml
+  write_zone: "01_neocortex_framework/neocortex/mcp/tools/"
+  naming_rule: "NC-<TIPO>-<SIGLA>-<NUM>-<desc>.ext"
+  reference_file: "neocortex/mcp/tools/NC-TOOL-FR-029-health.py"
+
+task:
+  description: |
+    PARTE 1 — Criar NC-TOOL-FR-018-push-notification.py (CANÔNICO)
+    O arquivo FR-032-push-notification.py e FR-033-push-notification.py têm COLISÃO de nome.
+    A funcionalidade correta é push notification via notifypy.
+    
+    Ações a implementar:
+      push.send   → envia notificação desktop via notifypy (com feature flag KAIROS_PUSH_NOTIFICATION)
+      push.status → verifica disponibilidade (notifypy instalado + flag ativo)
+    
+    Padrão: seguir EXATAMENTE NC-TOOL-FR-029-health.py
+    Absorve: NC-TOOL-FR-032-push-notification.py e NC-TOOL-FR-033-push-notification.py
+    
+    PARTE 2 — Mover os arquivos colidentes para DIR-ARC-FR-001-archive-main/
+    Arquivar (NÃO DELETAR):
+      - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-032-push-notification.py
+      - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-033-push-notification.py
+      - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-020-categories.py
+        (NC-TOOL-FR-020-knowledge.py é o canônico — manter; categories era alias)
+      - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-028-export.py
+        (NC-TOOL-FR-006-export.py é o canônico — manter; FR-028 é duplicata)
+    
+    PARTE 3 — Criar NC-TOOL-FR-018-picoclaw.py (se push-notification já colidiu com FR-018)
+    IMPORTANTE: verificar se NC-TOOL-FR-018-*.py já existe antes de criar. Se sim, pular.
+    
+    Destino dos arquivados: DIR-ARC-FR-001-archive-main/tools-duplicates-20260413/
+
+  entry_state:
+    files_exist:
+      - "neocortex/mcp/tools/NC-TOOL-FR-032-push-notification.py"
+      - "neocortex/mcp/tools/NC-TOOL-FR-033-push-notification.py"
+      - "neocortex/mcp/tools/NC-TOOL-FR-020-knowledge.py"
+    files_must_not_exist:
+      - "neocortex/mcp/tools/NC-TOOL-FR-018-push-notification.py"
+
+  exit_state:
+    files_created:
+      - "neocortex/mcp/tools/NC-TOOL-FR-018-push-notification.py"
+    files_archived:
+      - "DIR-ARC-FR-001-archive-main/tools-duplicates-20260413/NC-TOOL-FR-032-push-notification.py"
+      - "DIR-ARC-FR-001-archive-main/tools-duplicates-20260413/NC-TOOL-FR-033-push-notification.py"
+      - "DIR-ARC-FR-001-archive-main/tools-duplicates-20260413/NC-TOOL-FR-020-categories.py"
+      - "DIR-ARC-FR-001-archive-main/tools-duplicates-20260413/NC-TOOL-FR-028-export.py"
+    ssot_updated: true
+    compiles_ok: true
+
+barriers:
+  - {id: B1, check: naming_convention, rule: "NC-TOOL-FR-018-push-notification.py", block_if_fail: true}
+  - {id: B2, check: lock_guard, rule: "NUNCA modificar server.py|sub_server.py|NC-NAM-FR-001|neocortex_config.yaml", block_if_fail: true}
+  - {id: B3, check: compile, rule: "python -m py_compile NC-TOOL-FR-018-push-notification.py == 0", block_if_fail: true}
+  - {id: B4, check: no_delete, rule: "NUNCA deletar — usar Move-Item para DIR-ARC-FR-001-archive-main/tools-duplicates-20260413/", block_if_fail: true}
+  - {id: B5, check: no_hardcode, rule: "Usar get_config() para paths", block_if_fail: false}
+  - {id: B6, check: no_print, rule: "Usar logger = logging.getLogger(__name__)", block_if_fail: false}
+
+limits:
+  max_validation_rounds: 5
+  escalate_to_t0_after: 3
+  max_tokens_per_phase: 4000
+integrity_hash: "a91cf3b2d847e1f0"

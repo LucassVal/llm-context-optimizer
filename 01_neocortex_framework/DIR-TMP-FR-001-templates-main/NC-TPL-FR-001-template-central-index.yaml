@@ -1,0 +1,166 @@
+# NC-TPL-FR-001 — Template Central Index
+# Single Source of Truth para todos os templates do NeoCortex Framework.
+# Consumido por agentes antes de criar qualquer artefato novo.
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  id: "NC-TPL-FR-001"
+  version: "1.0"
+  hash: "NC-TPL-FR-001-v1.0-20260416"
+  description: "Catálogo central de templates por tipo — SSOT de templates NeoCortex"
+  path: "01_neocortex_framework/DIR-TMP-FR-001-templates-main/"
+  updated_at: "2026-04-16"
+  updated_by: "T0-Claude-Code"
+  rule: "R21 — Todo agente DEVE consultar este índice antes de criar qualquer artefato"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# COMO USAR ESTE ÍNDICE
+# ─────────────────────────────────────────────────────────────────────────────
+# 1. Identifique o tipo de artefato que precisa criar (coluna type abaixo)
+# 2. Use o path do template como base — NÃO crie do zero
+# 3. Se o tipo não existir aqui → PARAR e retornar ao T0 antes de improvisar
+# ─────────────────────────────────────────────────────────────────────────────
+
+templates:
+  # ─────────────────────────────────────────────────────────────────────────
+  # CATEGORIA: GOVERNANÇA & PROCESSO
+  # ─────────────────────────────────────────────────────────────────────────
+  governance:
+    - id: "NC-GOV-TPL-000"
+      name: "Root Template (artefato FR base)"
+      type: "yaml_fr_artifact"
+      use_when: "Criar qualquer novo artefato FR com meta, hash, versão"
+      path: "01_neocortex_framework/DIR-TMP-FR-001-templates-main/NC-GOV-TPL-000-root-template.yaml"
+      required_fields: ["meta.id", "meta.version", "meta.hash", "meta.description"]
+
+    - id: "NC-GOV-TPL-001"
+      name: "Agent Courier Template"
+      type: "yaml_agent_dispatch"
+      use_when: "Criar documento de despacho de agente (courier/task assignment)"
+      path: "01_neocortex_framework/DIR-TMP-FR-001-templates-main/NC-GOV-TPL-001-agent-courier.yaml"
+      required_fields: ["ticket_id", "agent", "task", "write_zone", "atomic_locks_proibidos"]
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # CATEGORIA: TICKETS & HANDOFFS
+  # ─────────────────────────────────────────────────────────────────────────
+  agent_dispatch:
+    - id: "NC-TPL-FR-002"
+      name: "Agent Dispatch Template (OBRIGATÓRIO antes de despachar T1 — R24)"
+      type: "yaml_agent_dispatch_full"
+      use_when: "Despachar QUALQUER agente T1 — horizontal, vertical, sprint, hotfix"
+      path: "01_neocortex_framework/DIR-TMP-FR-001-templates-main/NC-TPL-FR-002-agent-dispatch.yaml"
+      destination_pattern: "DIR-DS-001-tickets/NC-DS-AGT-{ID}-dispatch-{tickets}.yaml"
+      required_fields:
+        - "meta.id"
+        - "meta.hash"
+        - "identidade.role"
+        - "passo_0_leitura_obrigatoria"
+        - "regra_zero_suposicoes"
+        - "atomic_locks_absolutos.files"
+        - "write_zones_autorizadas.files"
+        - "tarefas (um bloco por ticket)"
+        - "checklist_r20_por_handoff"
+        - "protocolo_falha"
+        - "entry_state"
+        - "exit_state"
+      governance_rule: "R24 / NC-GOV-FR-002 STAGE-02 / NC-GOV-FR-003"
+      note: "SEM este YAML = despacho inválido. T0 viola R24."
+
+  tickets_and_handoffs:
+    - id: "NC-DS-HANDOFF-TEMPLATE"
+      name: "Handoff YAML Template (OBRIGATÓRIO ao concluir ticket)"
+      type: "yaml_handoff"
+      use_when: "Gerar handoff ao concluir QUALQUER ticket — sem exceção"
+      path: "DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml"
+      destination_pattern: "DIR-DS-002-audit-logs/NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml"
+      required_fields:
+        - "ticket_id"
+        - "status"           # APPROVED | PARTIALLY_COMPLETED | FAILED | ESCALATED
+        - "summary"
+        - "files_created"
+        - "files_modified"
+        - "locks_violated"   # DEVE ser [] para APPROVED
+        - "checklist_r20"
+      note: "CRÍTICO — handoff sem ticket = ERRO DE GOVERNANÇA (R12)"
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # CATEGORIA: TOOLS MCP
+  # ─────────────────────────────────────────────────────────────────────────
+  mcp_tools:
+    - id: "NC-TOOL-FR-TEMPLATE"
+      name: "MCP Tool Template"
+      type: "python_mcp_tool"
+      use_when: "Criar novo tool MCP (NC-TOOL-FR-XXX)"
+      path: "01_neocortex_framework/DIR-TMP-FR-001-templates-main/NC-TOOL-FR-TEMPLATE/"
+      required_fields: ["_genealogy", "logger = logging.getLogger(__name__)", "async def execute"]
+      naming_pattern: "NC-TOOL-FR-{NUM}-{desc}.py"
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # CATEGORIA: LOBES (MDC)
+  # ─────────────────────────────────────────────────────────────────────────
+  lobes:
+    - id: "NC-LBE-CC-001"
+      name: "Claude Leak Master Lobe"
+      type: "mdc_lobe_master"
+      use_when: "Criar lobe de integração Claude (cc = claude-code)"
+      path: "01_neocortex_framework/DIR-TMP-FR-001-templates-main/NC-LBE-CC-001-claude-leak-master.mdc"
+
+    - id: "NC-LBE-DS-000"
+      name: "DeepSeek Parent Lobe"
+      type: "mdc_lobe_parent"
+      use_when: "Criar lobe pai para agentes DeepSeek"
+      path: "01_neocortex_framework/DIR-TMP-FR-001-templates-main/NC-LBE-DS-000-parent.mdc"
+
+    - id: "NC-TMP-WL-001"
+      name: "Cortex Template (workload lobe)"
+      type: "mdc_lobe_cortex"
+      use_when: "Criar lobe de carga de trabalho / contexto de sessão"
+      path: "01_neocortex_framework/DIR-TMP-FR-001-templates-main/NC-TMP-WL-001-cortex-template.mdc"
+
+    - id: "phase-lobe-TEMPLATE"
+      name: "Phase Lobe Template"
+      type: "mdc_lobe_phase"
+      use_when: "Criar lobe de fase / sprint"
+      path: "01_neocortex_framework/DIR-TMP-FR-001-templates-main/phase-lobe-TEMPLATE.mdc"
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # CATEGORIA: MEMÓRIA & LEDGER
+  # ─────────────────────────────────────────────────────────────────────────
+  memory_and_ledger:
+    - id: "memory-ledger-TEMPLATE"
+      name: "Memory Ledger Template"
+      type: "json_memory_ledger"
+      use_when: "Criar entrada de ledger de memória para agente/sessão"
+      path: "01_neocortex_framework/DIR-TMP-FR-001-templates-main/memory-ledger-TEMPLATE.json"
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # CATEGORIA: CORTEX FULL / STARTER
+  # ─────────────────────────────────────────────────────────────────────────
+  cortex_contexts:
+    - id: "00-cortex-FULL"
+      name: "Cortex Full Context"
+      type: "mdc_cortex_full"
+      use_when: "Contexto completo de sessão com todos os componentes"
+      path: "01_neocortex_framework/DIR-TMP-FR-001-templates-main/00-cortex-FULL.mdc"
+
+    - id: "00-cortex-STARTER"
+      name: "Cortex Starter Context"
+      type: "mdc_cortex_starter"
+      use_when: "Contexto mínimo de início de sessão"
+      path: "01_neocortex_framework/DIR-TMP-FR-001-templates-main/00-cortex-STARTER.mdc"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PROTOCOLO R21 — ZERO SUPOSIÇÕES (lembrete para agentes)
+# ─────────────────────────────────────────────────────────────────────────────
+protocolo_r21:
+  regra: "R21 — Zero suposições. Se o template não existe aqui, PARAR e retornar ao T0."
+  quando_parar:
+    - "O tipo de artefato que preciso criar não está catalogado aqui"
+    - "O template existe mas a API/estrutura é diferente do esperado"
+    - "Não tenho certeza se devo usar o template X ou Y"
+    - "O template referenciado no ticket não existe no path indicado"
+  acao: |
+    1. PARAR imediatamente
+    2. Registrar: (a) o que foi feito, (b) qual é a dúvida exata, (c) quais opções você vê
+    3. Retornar ao T0 com essas 3 informações
+    4. NÃO improvisar, NÃO assumir, NÃO continuar sem confirmação

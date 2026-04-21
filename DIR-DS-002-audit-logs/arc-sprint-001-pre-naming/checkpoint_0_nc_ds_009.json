@@ -1,0 +1,49 @@
+{
+  "ticket_id": "NC-DS-009",
+  "roadmap_ticket": "CC-001-B",
+  "title": "Claude Code Leak  Super Varredura B: KAIROS + Governance + Features + 13 Plugins Oficiais",
+  "status": "OPEN",
+  "assigned_to": "DS-B",
+  "write_zone": "DIR-RES-CC-001-claude-leak-workzone/analysis-session-b/",
+  "forbidden_zone": [
+    "neocortex/mcp/",
+    "C:/Users/Lucas Valrio/Desktop/CLAUDE_CODE_DISSECTION/"
+  ],
+  "source_map": {
+    "B1_free-code_kairos_features": {
+      "path": "C:/Users/Lucas Valrio/Desktop/CLAUDE_CODE_DISSECTION/free-code/",
+      "total_files": 1950,
+      "linguagem": "TypeScript (1358 .ts + 558 .tsx)"
+    },
+    "B2_official-claude-code_plugins": {
+      "path": "C:/Users/Lucas Valrio/Desktop/CLAUDE_CODE_DISSECTION/official-claude-code/",
+      "total_files": 184
+    },
+    "B3_leaked-claude-code_verificacao_cruzada": {
+      "path": "C:/Users/Lucas Valrio/Desktop/CLAUDE_CODE_DISSECTION/leaked-claude-code/",
+      "total_files": 61
+    }
+  },
+  "exit_state_files": [
+    "DIR-RES-CC-001-claude-leak-workzone/analysis-session-b/NC-LBE-CC-004-governance.mdc",
+    "DIR-RES-CC-001-claude-leak-workzone/analysis-session-b/NC-LBE-CC-005-features-kairos.mdc",
+    "DIR-RES-CC-001-claude-leak-workzone/analysis-session-b/NC-ANA-CC-003-plugin-patterns.md",
+    "DIR-RES-CC-001-claude-leak-workzone/analysis-session-b/NC-ANA-CC-004-competitive-intel.md"
+  ],
+  "methodology_phases": 6,
+  "key_questions": [
+    "KAIROS: qual o critrio de deciso agir vs. ficar quieto?  ML ou rule-based?",
+    "hookify: como os hooks se integram ao Claude Code?  similar a git hooks?",
+    "DRM original: como funcionava antes de morrer em 24h?",
+    "BRIDGE_MODE: conecta a qual sistema externo (IDE? Browser? API)?",
+    "Plugin system: como um plugin  carregado? YAML manifest? auto-discovery?"
+  ],
+  "limits": {
+    "max_tokens_per_phase": 8000,
+    "max_rounds": 10,
+    "escalate_after_rounds": 8
+  },
+  "entry_timestamp": "2026-04-12T17:30:00",
+  "active_locks_verified": true,
+  "roadmap_entry_found": false
+}

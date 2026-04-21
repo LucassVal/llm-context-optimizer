@@ -1,0 +1,171 @@
+=== INVENTARIO WORKSPACE 2026-04-13 ===
+
+=== RAIZ: ARQUIVOS FORA DO PADRAO ===
+  antigravity_neocortex_config.json  [.json]
+  audit_entry.json  [.json]
+  audit_zone_b.ps1  [.ps1]
+  checkpoint_0.json  [.json]
+  filelist.txt  [.txt]
+  filelist2.txt  [.txt]
+  NeoCortex_HUD.bat  [.bat]
+  plan.json  [.json]
+  start_neocortex_dev.bat  [.bat]
+  start_neocortex_mcp.bat  [.bat]
+  start_neocortex_mcp.ps1  [.ps1]
+  temp_claim.py  [.py]
+  test_idvalidator.py  [.py]
+  test_import.py  [.py]
+  test_import2.py  [.py]
+  test_review.py  [.py]
+  validation_report.json  [.json]
+
+=== AUDIT-LOGS: ARQUIVOS FORA DO PADRAO ===
+  audit_entry_nc_ds_005.json
+  audit_entry_nc_ds_007_revised.json
+  audit_entry_nc_ds_009.json
+  audit_entry_NC-DS-004.json
+  audit_entry_NC-DS-006.json
+  audit_entry_NC-DS-008.json
+  audit_entry_NC-DS-011.json
+  audit_entry_NC-DS-012.json
+  checkpoint_0_nc_ds_005.json
+  checkpoint_0_nc_ds_007_revised.json
+  checkpoint_0_nc_ds_007.json
+  checkpoint_0_nc_ds_009.json
+  checkpoint_0_NC-DS-004.json
+  checkpoint_0_NC-DS-006.json
+  checkpoint_0_NC-DS-008.json
+  checkpoint_0_NC-DS-011.json
+  checkpoint_0_NC-DS-012.json
+  conclusao-sprint-kairos-channel-20260413-083633.yaml
+  critical-queue-deadlock-20260412-2040.log
+  dep_scan_final.txt
+  dep_scan_result.txt
+  pip_list_full.txt
+  plan_nc_ds_005.json
+  plan_nc_ds_007_revised.json
+  plan_nc_ds_007.json
+  plan_nc_ds_009.json
+  plan_NC-DS-004.json
+  plan_NC-DS-006.json
+  plan_NC-DS-008.json
+  plan_NC-DS-011.json
+  plan_NC-DS-012.json
+  queue-coordination-issue-20260412-1935.log
+  validation_report_nc_ds_005.json
+  validation_report_nc_ds_007_revised.json
+  validation_report_nc_ds_009.json
+  validation_report_NC-DS-004.json
+  validation_report_NC-DS-006.json
+  validation_report_NC-DS-008.json
+  validation_report_NC-DS-011.json
+  validation_report_NC-DS-012.json
+
+=== PASTAS 1o NIVEL ===
+  __pycache__
+  .agents
+  .kilocode
+  .ruff_cache
+  01_neocortex_framework
+  03_white_label_templates
+  04_user_docs
+  05_examples
+  DIR-ARC-FR-001-archive-main
+  DIR-BOOT-FR-001-bootup-main
+  DIR-DS-000-agent-config
+  DIR-DS-001-tickets
+  DIR-DS-002-audit-logs
+  DIR-DS-003-entry-locks
+  DIR-DS-004-patches
+  DIR-RES-CC-001-claude-leak-workzone
+
+=== 01_neocortex_framework: SUBPASTAS ===
+  __pycache__
+  .neocortex
+  .ruff_cache
+  DIR-ARC-FR-001-archive-main
+  DIR-BAK-FR-001-backup-main
+  DIR-CFG-FR-001-config-main
+  DIR-CORE-FR-001-core-central
+  DIR-DOC-FR-001-docs-main
+  DIR-MCP-FR-001-mcp-server
+  DIR-PRF-FR-001-profiles-main
+  DIR-REF-FR-001-reference-main
+  DIR-SRC-FR-001-source-main
+  DIR-TEST-FR-001-tests-main
+  DIR-TMP-FR-001-templates-main
+  lobes
+  NC-MET-FR-001-metrics
+  neocortex
+  neocortex_framework.egg-info
+  scripts
+
+=== 01_neocortex_framework: PASTAS INESPERADAS ===
+  \01_neocortex_framework\.neocortex
+  \01_neocortex_framework\.neocortex\cache
+  \01_neocortex_framework\.neocortex\logs
+  \01_neocortex_framework\.neocortex\metrics
+  \01_neocortex_framework\.neocortex\cache\hot_cache
+  \01_neocortex_framework\.neocortex\cache\ledger
+  \01_neocortex_framework\.neocortex\cache\manifests
+  \01_neocortex_framework\.neocortex\cache\hot_cache\data
+  \01_neocortex_framework\.neocortex\cache\ledger\88
+  \01_neocortex_framework\.neocortex\cache\ledger\88\fb
+  \01_neocortex_framework\.ruff_cache\0.15.10
+  \01_neocortex_framework\DIR-ARC-FR-001-archive-main\.agents
+  \01_neocortex_framework\DIR-ARC-FR-001-archive-main\development_utilities
+  \01_neocortex_framework\DIR-ARC-FR-001-archive-main\mcp_server_legacy
+  \01_neocortex_framework\DIR-ARC-FR-001-archive-main\.agents\rules
+  \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup
+  \01_neocortex_framework\DIR-BAK-FR-001-backup-main\backup_root\.kilocode
+  \01_neocortex_framework\DIR-BAK-FR-001-backup-main\backup_root\archive
+  \01_neocortex_framework\DIR-BAK-FR-001-backup-main\backup_root\benchmarks_archive
+  \01_neocortex_framework\DIR-BAK-FR-001-backup-main\backup_root\memory_lobes
+  \01_neocortex_framework\DIR-BAK-FR-001-backup-main\backup_root\old_backup
+  \01_neocortex_framework\DIR-BAK-FR-001-backup-main\backup_root\templates
+  \01_neocortex_framework\DIR-BAK-FR-001-backup-main\backup_root\.ruff_cache\0.15.10
+  \01_neocortex_framework\DIR-BAK-FR-001-backup-main\backup_root\old_backup\backup
+  \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\mdc_files
+  \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\mdc_files\.agents
+  \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\mdc_files\.agents\rules
+  \01_neocortex_framework\DIR-CORE-FR-001-core-central\.agents
+  \01_neocortex_framework\DIR-CORE-FR-001-core-central\memory_lobes
+  \01_neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules
+  \01_neocortex_framework\DIR-CORE-FR-001-core-central\.agents\workflows
+  \01_neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules\archive
+  \01_neocortex_framework\DIR-DOC-FR-001-docs-main\legacy
+  \01_neocortex_framework\DIR-MCP-FR-001-mcp-server\tools
+  \01_neocortex_framework\DIR-PRF-FR-001-profiles-main\templates
+  \01_neocortex_framework\DIR-PRF-FR-001-profiles-main\users
+  \01_neocortex_framework\DIR-PRF-FR-001-profiles-main\users\lucas_valerio
+  \01_neocortex_framework\DIR-REF-FR-001-reference-main\Arquivos de referência
+  \01_neocortex_framework\DIR-TMP-FR-001-templates-main\NC-TOOL-FR-TEMPLATE\commands
+  \01_neocortex_framework\DIR-TMP-FR-001-templates-main\NC-TOOL-FR-TEMPLATE\hooks
+  \01_neocortex_framework\DIR-TMP-FR-001-templates-main\NC-TOOL-FR-TEMPLATE\tests
+  \01_neocortex_framework\lobes\backend_dev
+  \01_neocortex_framework\lobes\cc-leak
+  \01_neocortex_framework\lobes\courier
+  \01_neocortex_framework\lobes\engineer
+  \01_neocortex_framework\lobes\guardian
+  \01_neocortex_framework\lobes\indexer
+  \01_neocortex_framework\lobes\courier\DIR-CORE-FR-001-core-central\.agents
+  \01_neocortex_framework\lobes\courier\DIR-CORE-FR-001-core-central\.agents\rules
+  \01_neocortex_framework\lobes\engineer\DIR-CORE-FR-001-core-central\.agents
+  \01_neocortex_framework\lobes\engineer\DIR-CORE-FR-001-core-central\.agents\rules
+  \01_neocortex_framework\lobes\guardian\DIR-CORE-FR-001-core-central\.agents
+  \01_neocortex_framework\lobes\guardian\DIR-CORE-FR-001-core-central\.agents\rules
+  \01_neocortex_framework\neocortex\agent
+  \01_neocortex_framework\neocortex\cli
+  \01_neocortex_framework\neocortex\core
+  \01_neocortex_framework\neocortex\infra
+  \01_neocortex_framework\neocortex\mcp
+  \01_neocortex_framework\neocortex\repositories
+  \01_neocortex_framework\neocortex\schemas
+  \01_neocortex_framework\neocortex\core\config
+  \01_neocortex_framework\neocortex\core\hooks
+  \01_neocortex_framework\neocortex\core\review
+  \01_neocortex_framework\neocortex\core\services
+  \01_neocortex_framework\neocortex\core\utils
+  \01_neocortex_framework\neocortex\core\review\validators
+  \01_neocortex_framework\neocortex\infra\llm
+  \01_neocortex_framework\neocortex\mcp\tools

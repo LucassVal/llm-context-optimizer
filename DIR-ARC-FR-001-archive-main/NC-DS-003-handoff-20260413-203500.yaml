@@ -1,0 +1,50 @@
+ticket_id: NC-DS-003
+status: APPROVED
+approved_by: antigravity-t0
+approved_at: "2026-04-13T20:35:00-03:00"
+timestamp: "2026-04-13T20:32:00-03:00"
+agent_port: 45132
+
+lines_added: 267
+files_modified:
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-018-push-notification.py
+
+files_archived:
+  - DIR-ARC-FR-001-archive-main/tools-duplicates-20260413/NC-TOOL-FR-032-push-notification.py
+  - DIR-ARC-FR-001-archive-main/tools-duplicates-20260413/NC-TOOL-FR-033-push-notification.py
+  - DIR-ARC-FR-001-archive-main/tools-duplicates-20260413/NC-TOOL-FR-020-categories.py
+  - DIR-ARC-FR-001-archive-main/tools-duplicates-20260413/NC-TOOL-FR-028-export.py
+
+summary: |
+  Criado NC-TOOL-FR-018-push-notification.py (267L, canônico).
+  Unifica funcionalidades de push notification com notifypy, feature flag KAIROS_PUSH_NOTIFICATION e fallback gracioso.
+  4 duplicatas movidas para DIR-ARC-FR-001-archive-main/tools-duplicates-20260413/.
+
+ajustes_aplicados:
+  - "FR-032 e FR-033 (ambos push-notification duplicado) arquivados"
+  - "FR-020-categories arquivado (FR-020-knowledge é o canônico)"
+  - "FR-028-export arquivado (FR-006-export é o canônico)"
+  - "FR-018 agora é o número canônico para push-notification"
+
+lessons_learned:
+  - "Colisão de números de tool causa carregamento imprevisível pelo glob do server.py"
+
+deps_missing: []
+ruff_violations_found: 0
+
+metrics:
+  ruff_check: PASS
+  py_compile: PASS
+  import_smoke_test: PASS
+  write_zone_respected: true
+  locks_respected: true
+  min_80_lines: true
+
+errors: []
+warnings: []
+
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  ajustes_synthesis_applied: true
+  handoff_yaml_complete: true

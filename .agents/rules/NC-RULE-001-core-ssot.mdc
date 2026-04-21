@@ -38,4 +38,4 @@ Ao iniciar qualquer sessão → carregar `@BOOT` ou lobo `$BOOT_LOBE`. Sem boot 
 
 ## R20 — Checklist de Fim de Sessão
 ☑ SSOT atualizado (`@SSOT`) ☑ Changelog com [YYYY-MM-DD] ☑ Ticket `%DONE` no `@ROADMAP`
-☑ Lobos re-populados (`@POPULATE`) ☑ Nenhum *.db/*.wal/__pycache__ no git
+☑ Lobos re-populados (`@POPULATE`) ☑ **`@BOOT` atualizado** (tickets + lobes + agentes) ☑ Nenhum *.db/*.wal/__pycache__ no git

@@ -1,3 +1,15 @@
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:59.276685'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+tags:
+  - neocortex-other
+  - level-0
+  - python
+---"""
 #!/usr/bin/env python3
 """
 Backup and restore utilities for NeoCortex infrastructure.
@@ -6,20 +18,17 @@ Provides comprehensive backup and restore capabilities for all data stores
 with versioning, compression, and integrity verification.
 """
 
+import hashlib
 import json
 import logging
-import shutil
-import sqlite3
 import tarfile
 import tempfile
 import zipfile
-import hashlib
-import time
-from pathlib import Path
-from typing import Dict, Any, List, Optional, Tuple, BinaryIO
+from dataclasses import asdict, dataclass
 from datetime import datetime, timedelta
 from enum import Enum
-from dataclasses import dataclass, asdict
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Tuple
 
 logger = logging.getLogger(__name__)
 

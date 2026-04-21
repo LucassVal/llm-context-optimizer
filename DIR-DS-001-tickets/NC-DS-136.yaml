@@ -1,0 +1,121 @@
+# NC-DS-136.yaml
+# Ticket para implementação de NC-SVC-FR-021 SessionMemoryWriter (turn.record + hot_summary)
+
+ticket_id: NC-DS-136
+title: "NC-SVC-FR-021 SessionMemoryWriter (turn.record + hot_summary)"
+status: OPEN
+priority: MEDIUM
+roadmap_ref: "NC-TODO-FR-001-project-roadmap-consolidated.md linha 68"
+created_at: "2026-04-20T23:27:00"
+created_by: T0-Antigravity
+assigned_to: OpenCode-Agent
+
+working_directory: "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
+framework_subdir: "01_neocortex_framework"
+note_paths: |
+  TODOS os arquivos Python vivem em:
+    C:\Users\Lucas Valério\Desktop\TURBOQUANT_V42\01_neocortex_framework\
+  O diretório raiz do projeto É esse. Não é o diretório do OpenCode.
+
+step_0:
+  - "cd C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
+  - "python -c \"from pathlib import Path; assert Path('01_neocortex_framework').exists(), 'WRONG DIR'\" → DEVE PASSAR"
+  - "Ler 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml"
+  - "python --version → confirmar Python"
+  - "Verificar se neocortex/core/services/ existe"
+
+atomic_locks_inviolaveis:
+  - "01_neocortex_framework/neocortex/mcp/server.py → NUNCA MODIFICAR"
+  - "01_neocortex_framework/neocortex/mcp/sub_server.py → NUNCA MODIFICAR"
+
+task: |
+  Implementar NC-SVC-FR-021 SessionMemoryWriter para registro automático de turns de conversação e geração de hot summaries.
+  
+  Objetivos:
+  1. Criar NC-SVC-FR-021-session-memory-writer.py que:
+     - Registra cada turn user→ai automaticamente (turn.record)
+     - Gera hot summaries periódicos (session.hot)
+     - Compressão via LexicoService para economia de tokens
+     - Persistência em lobes com metadata estruturada
+  
+  2. Integrar com:
+     - HookRegistry para captura automática (on_response)
+     - LexicoService para compressão semântica
+     - MetricsStore para estatísticas de uso
+     - EventBus para notificações
+  
+  3. Criar ferramenta MCP NC-TOOL-FR-044-memory-auto.py com ações:
+     - memory_auto.record: registrar turn manualmente
+     - memory_auto.summarize: gerar hot summary
+     - memory_auto.stats: mostrar estatísticas de memória
+     - memory_auto.export: exportar memória da sessão
+  
+  4. Implementar features:
+     - Limite de tamanho por sessão (TTL automático)
+     - Categorização automática por tópico
+     - Busca full-text em memórias
+     - Integração com Knowledge Graph
+
+implementation_notes: |
+  Regras INVIOLÁVEIS:
+  - R09: NUNCA 'import NC-TOOL-FR-XXX'. Usar importlib.util.spec_from_file_location()
+  - R10: NUNCA hardcode paths. Usar get_config() ou Path(__file__).resolve().parent
+  - R11: NUNCA print() em produção. Usar logger = logging.getLogger(__name__)
+  - R21: VERIFICAR ambiente real antes de afirmar. Se dúvida → ESCALATED
+  
+  Padrões a seguir:
+  - Usar estrutura similar a outros serviços core
+  - Persistir em JSON com schema versionado
+  - Suportar rollback via SavePoint
+  - Configuração via neocortex_config.yaml
+
+pre_handoff_checklist:
+  - "python -m py_compile 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-021-session-memory-writer.py → PASS"
+  - "python -m ruff check 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-021-session-memory-writer.py --select F,E9 → 0 erros"
+  - "grep print( 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-021-session-memory-writer.py (excluindo comentários e __main__) → VAZIO"
+  - "git -C C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework diff --name-only HEAD | Select-String 'server\\.py|sub_server\\.py' → VAZIO"
+  - "Testar registro de turn de exemplo"
+
+deliverables:
+  - "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-021-session-memory-writer.py"
+  - "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-044-memory-auto.py"
+  - "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\core\\hooks\\NC-HK-FR-004-conversation-hook.py"
+  - "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\DIR-DS-002-audit-logs\\NC-DS-136-handoff-<YYYYMMDDTHHMMSS>.yaml"
+
+handoff_template_inline:
+  ticket_id: "NC-DS-136"
+  status: "PENDING_REVIEW"
+  submitted_at: "<YYYYMMDDTHHMMSS>"
+  submitted_by: "opencode-agent"
+  review_by: "T0-Antigravity"
+
+  summary:
+    files_created: []
+    files_modified: []
+    lines_added: 0
+    validation_rounds: 1
+    locks_violated: []
+    overall: "SUCCESS"
+
+  t0_review_checklist:
+    compile_ok: true
+    ruff_ok: true
+    no_print: true
+    ssot_updated: false
+    locks_clean: true
+
+  test_results:
+    total: 0
+    passed: 0
+    failed: 0
+    notes: ""
+
+  escalation:
+    escalated: false
+    reason: ""
+
+write_zone: "PROD → neocortex/core/services/"
+escalation_triggers:
+  - "Erro ao integrar com HookRegistry"
+  - "Problema de performance com muitos turns"
+  - "Conflito com encoding de caracteres especiais"

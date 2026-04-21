@@ -1,0 +1,13 @@
+status: BLOCKED
+ticket_id: NC-DS-022
+submitted_at: "2026-04-12T18:46:48"
+submitted_by: deepseek-chat
+review_by: auto-approve-script
+summary:
+  files_created: []
+  files_modified: []
+  lines_added: 0
+  barriers_passed: []
+  locks_violated: []
+  overall: BLOCKED
+blocked_reason: "Ticket requires modification of locked file DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md (atomic lock ssot_docs). Worker universal prohibits touching locked files. Cannot complete exit_state."

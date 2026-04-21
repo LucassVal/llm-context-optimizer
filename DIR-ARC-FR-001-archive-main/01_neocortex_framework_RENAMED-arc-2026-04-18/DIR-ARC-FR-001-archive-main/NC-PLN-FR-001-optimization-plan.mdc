@@ -1,0 +1,312 @@
+# NC-PLN-FR-001-optimization-plan
+
+Plano de otimizao definitiva do NeoCortex para arquitetura hbrida de alto desempenho.
+
+## Contexto Crtico
+
+### Momento nico de Oportunidade
+- **Volume atual mnimo**: ~26 arquivos .mdc + ledger JSON pequeno
+- **Risco mnimo**: Dados fceis de migrar, backup simples
+- **Custo baixo**: Implementao agora evita migrao complexa futura
+- **Nunca haver momento to favorvel**
+
+### Problema Atual
+- Armazenamento baseado em arquivos planos (.json, .mdc)
+- Busca textual limitada/inexistente
+- Sem cache otimizado para hot_context
+- Sem preparao para escala ou IA vetorial
+- Performance degradar com crescimento
+
+## Viso Arquitetural
+
+### Arquitetura Hbrida Final
+```
+
+                    NeoCortex Framework                      
+
+  MCP Tools (lobes, search, etc.)  Interface para IA       
+
+  Services (LobeService, SearchService, etc.)               
+
+  Infra Layer - Componentes Especializados                  
+   SpeedbLedgerStore    Estado persistente de alto perf. 
+   SQLiteLobeIndex      ndices relacionais + FTS5       
+   XapianSearchEngine   Busca textual robusta            
+   DiskCacheHotCache    Cache voltil otimizado          
+   Stubs preparatrios (ativao futura)                  
+      DuckDBMetricsStore     Analytics                   
+      RedisCacheBackend      Escala horizontal           
+      InfinityVectorStore    Busca semntica             
+      LanceDBVectorStore     Alternativa open-source     
+
+```
+
+### Princpios de Design
+1. **Repository Pattern mantido** - Novos componentes implementam interfaces existentes
+2. **ConfigProvider centralizado** - Paths, conexes, configuraes
+3. **Factory Pattern** - Injeo de dependncias, facilita testes
+4. **Degradao graciosa** - Componentes opcionais, sistema funciona sem stubs
+5. **Migrao transparente** - Script valida e migra todos os dados
+
+## Plano de Execuo (12 Tarefas)
+
+### Fase 1: Fundao Crtica (Dias 1-3)
+
+#### Tarefa 1: LedgerStore com Speedb + msgspec
+- **Arquivo**: `neocortex/infra/ledger_store.py`
+- **Dependncias**: `pip install pyspeedb msgspec`
+- **Implementa**: `LedgerRepository` interface
+- **Caractersticas**:
+  - Speedb (fork otimizado do RocksDB)
+  - msgspec para serializao/validao rpida
+  - Compresso LZ4 para economia de espao
+  - Snapshot automtico para backup
+  - Mtodos: `read_ledger()`, `write_ledger()`, `update_section()`
+
+#### Tarefa 2: ManifestStore com Speedb + msgspec
+- **Arquivo**: `neocortex/infra/manifest_store.py`
+- **Reusa**: Speedb/msgspec da Tarefa 1
+- **Implementa**: Novo repositrio para manifestos
+- **Caractersticas**:
+  - Armazenamento eficiente de manifestos JSON
+  - ndices por target, timestamp, status
+  - Query por mltiplos critrios
+  - Validao de schema com msgspec
+
+#### Tarefa 3: LobeIndex com SQLite + FTS5
+- **Arquivo**: `neocortex/infra/lobe_index.py`
+- **Dependncias**: `sqlite3` (built-in)
+- **Implementa**: `LobeRepository` interface extendida
+- **Caractersticas**:
+  - Tabela `lobes`: nome, caminho, tags, domnio, datas
+  - ndices FULLTEXT com FTS5 para busca textual
+  - Query combinada: texto + filtros por tags/metadata
+  - Manuteno automtica do ndice
+
+#### Tarefa 4: SearchEngine com Xapian
+- **Arquivo**: `neocortex/infra/search_engine.py`
+- **Dependncias**: `pip install xapian-bindings`
+- **Complementa**: Busca mais avanada que SQLite FTS5
+- **Caractersticas**:
+  - ndice invertido completo do contedo textual
+  - Rankeamento por relevncia (BM25)
+  - Suporte a operadores booleanos
+  - Stemming em portugus/ingls
+  - Indexao incremental
+
+#### Tarefa 5: HotCache com diskcache_rs
+- **Arquivo**: `neocortex/infra/hot_cache.py`
+- **Dependncias**: `pip install diskcache-rs`
+- **Propsito**: Gerenciar hot_context do PulseScheduler
+- **Caractersticas**:
+  - Cache em disco com performance de memria
+  - TTL automtico para expurgo
+  - Estatsticas de hit/miss
+  - Sharding automtico por domnio/sesso
+  - Mtodos: `get()`, `set()`, `delete()`, `clear_old()`
+
+### Fase 2: Integrao e Interface (Dias 4-5)
+
+#### Tarefa 6: Unificar busca no LobeService
+- **Arquivo**: `neocortex/core/lobe_service.py` (extenso)
+- **Integra**: SQLiteLobeIndex + XapianSearchEngine
+- **Novos mtodos**:
+  - `search_lobes(query_text, tags=None, domain=None, limit=10)`
+  - `suggest_tags(query_prefix)`
+  - `get_lobe_statistics()`
+- **Orquestrao**: Decide quando usar qual motor (FTS5 vs Xapian)
+
+#### Tarefa 7: MCP Tools para busca
+- **Arquivos**:
+  - `neocortex/mcp/tools/lobes.py` (extenso)
+  - `neocortex/mcp/tools/search.py` (novo)
+- **Novas aes**:
+  - `search`: Busca unificada nos Lobos
+  - `suggest`: Sugestes de tags/busca
+  - `stats`: Estatsticas de contedo
+- **Interface IA**: "O que voc sabe sobre X?"  resultados agregados
+
+#### Tarefa 8: Script de migrao de dados
+- **Arquivo**: `scripts/migrate_to_stores.py`
+- **Entrada**: Dados atuais (JSON ledger + arquivos .mdc)
+- **Sada**: Todos os novos stores populados
+- **Funcionalidades**:
+  - Validao de integridade pr-migrao
+  - Backup automtico dos dados originais
+  - Migrao incremental com checkpoint
+  - Verificao ps-migrao
+  - Rollback em caso de falha
+  - Relatrio detalhado de migrao
+
+### Fase 3: Configurao e Stubs (Dias 6-7)
+
+#### Tarefa 9: Integrar e configurar
+- **Arquivos**:
+  - `neocortex/core/pulse_scheduler.py`  Usa HotCache
+  - `neocortex/config.py`  Adiciona configuraes stores
+- **Configuraes novas**:
+  - Paths dos databases (Speedb, SQLite, Xapian)
+  - TTLs do cache
+  - Limites de memria/armazenamento
+  - Chaves de API para servios futuros
+- **Factory Pattern**: Injeo de dependncias nos servios
+
+#### Tarefa 10: Stub Analytics DuckDB
+- **Arquivo**: `neocortex/infra/metrics_store.py`
+- **Dependncias**: `pip install duckdb`
+- **Implementao**: Esqueleto para analytics futuro
+- **Mtodos stubs**: `insert_metric()`, `query_metrics()`, `aggregate_stats()`
+- **Schema preparado**: sesses, interaes, performance, erros
+
+#### Tarefa 11: Stub Cache Backend abstrato
+- **Arquivo**: `neocortex/infra/cache_backend.py`
+- **Dependncias**: `pip install redis` (opcional)
+- **Implementaes**:
+  - `DiskCacheBackend`: usando diskcache_rs (padro)
+  - `RedisBackend`: stub para escala horizontal
+  - `MemoryBackend`: para testes/desenvolvimento
+- **Abstract class**: `CacheBackend` com interface uniforme
+
+#### Tarefa 12: Stubs VectorStore Infinity/LanceDB
+- **Arquivo**: `neocortex/infra/vector_store.py`
+- **Dependncias**: `pip install infinity-sdk lancedb`
+- **Implementaes**:
+  - `InfinityVectorStore`: stub para busca semntica premium
+  - `LanceDBVectorStore`: stub para alternativa open-source
+  - `NullVectorStore`: fallback sem funcionalidade
+- **Mtodos stubs**: `add_embedding()`, `search_similar()`, `create_index()`
+
+## Dependncias e Ordem
+
+### Ordem de Implementao
+```
+1.  Configurao do ambiente (dependncias)
+2.  Tarefa 1: LedgerStore (fundao estado)
+3.  Tarefa 3: LobeIndex (ndices bsicos)
+4.  Tarefa 8: Script migrao (testa 1+3)
+5.  Tarefa 5: HotCache (cache)
+6.  Tarefa 2: ManifestStore (extenso)
+7.  Tarefa 4: SearchEngine (busca avanada)
+8.  Tarefa 6: LobeService (integrao)
+9.  Tarefa 7: MCP Tools (interface)
+10. Tarefa 9: Configurao final
+11. Tarefas 10-12: Stubs preparatrios
+12. Validao completa
+```
+
+### Dependncias Tcnicas
+```yaml
+dependencies:
+  critical:
+    - pyspeedb: "Store de alto desempenho"
+    - msgspec: "Serializao/validao"
+    - xapian-bindings: "Busca textual"
+    - diskcache-rs: "Cache otimizado"
+  
+  optional_future:
+    - duckdb: "Analytics columnar"
+    - infinity-sdk: "Busca vetorial premium"
+    - lancedb: "Busca vetorial open-source"
+    - redis: "Cache distribudo"
+  
+  built_in:
+    - sqlite3: "ndices relacionais + FTS5"
+```
+
+## Riscos e Mitigaes
+
+### Riscos Tcnicos
+1. **Compatibilidade Speedb/Xapian**
+   - Mitigao: Testar em ambiente isolado primeiro
+   - Fallback: RocksDB padro se Speedb falhar
+
+2. **Complexidade operacional**
+   - Mitigao: Scripts de setup automatizados
+   - Documentao detalhada de troubleshooting
+
+3. **Performance inicial**
+   - Mitigao: Benchmarks comparativos
+   - Otimizao iterativa
+
+4. **Migrao de dados**
+   - Mitigao: Backup automtico + rollback
+   - Validao em mltiplos nveis
+
+### Riscos Operacionais
+1. **Curva de aprendizado**
+   - Mitigao: Documentao + exemplos
+   - Workshop interno para equipe
+
+2. **Manuteno aumentada**
+   - Mitigao: Monitoramento automatizado
+   - Alertas para problemas comuns
+
+3. **Custo infraestrutura**
+   - Mitigao: Otimizao de recursos
+   - Escalonamento sob demanda
+
+## Mtricas de Sucesso
+
+### Tcnicas
+-  Reduo de latncia de leitura: 50%+
+-  Aumento de throughput de escrita: 3x+
+-  Tempo de busca textual: <100ms para 10k documentos
+-  Cache hit ratio: >90%
+-  Uso de memria: <50MB base + escalonvel
+
+### Funcionais
+-  Busca textual funcionando via MCP
+-  Migrao completa sem perda de dados
+-  Todos os servios existentes funcionando
+-  Stubs preparados para expanso futura
+-  Documentao atualizada
+
+### Operacionais
+-  Setup automatizado em <10 minutos
+-  Backup/restore funcionando
+-  Monitoramento bsico implementado
+-  Rollback possvel em <5 minutos
+
+## Cronograma Estimado
+
+### Semana 1: Implementao
+- **Dia 1-2**: Tarefas 1-3 (fundao)
+- **Dia 3**: Tarefa 8 (migrao) + testes
+- **Dia 4**: Tarefas 4-5 (busca + cache)
+- **Dia 5**: Tarefas 6-7 (integrao + interface)
+- **Dia 6**: Tarefa 9 (configurao)
+- **Dia 7**: Tarefas 10-12 (stubs) + validao
+
+### Semana 2: Estabilizao
+- Testes de carga e stress
+- Otimizaes baseadas em mtricas
+- Documentao final
+- Treinamento da equipe
+
+## Consideraes Finais
+
+### Por que fazer tudo agora?
+1. **Custo incremental baixo**: Poucos dados = migrao simples
+2. **Evita retrabalho**: Fundao correta desde o incio
+3. **Prepara para crescimento**: Escala sem refatorao dolorosa
+4. **Competitividade tcnica**: Diferencial estratgico
+
+### Janela de oportunidade
+- **Atual**: 26 arquivos, JSON pequeno  Migrao em horas
+- **Futuro (6 meses)**: 10k arquivos, GBs de dados  Migrao em semanas
+- **Deciso**: Agora ou nunca com custo aceitvel
+
+### Prximos passos imediatos
+1. Aprovar este plano
+2. Instalar dependncias crticas
+3. Implementar Tarefa 1 (LedgerStore)
+4. Validar com dados atuais
+5. Continuar sequencialmente
+
+---
+
+**Status do Plano**: Aprovado para execuo  
+**Data de Criao**: 2026-04-10 16:15:00  
+**Responsvel**: OpenCode (assistente)  
+**Framework**: NeoCortex v4.2-cortex  
+**Meta**: Arquitetura hbrida de alto desempenho em 7-10 dias

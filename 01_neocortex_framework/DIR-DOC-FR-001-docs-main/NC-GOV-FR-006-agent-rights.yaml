@@ -1,0 +1,69 @@
+# NC-GOV-FR-006 — Agent Rights and Duties
+meta:
+  id: "NC-GOV-FR-006"
+  title: "Direitos e Deveres dos Agentes NeoCortex"
+  tier: "LEI_COMPLEMENTAR"
+  version: "0.1"
+  created: "2026-04-18"
+  status: "DRAFT"
+  ratified_by: ""
+  ratification_date: ""
+
+roles:
+  T0:
+    name: "Antigravity (Orquestrador Pleno)"
+    authority: "PLENA"
+    can:
+      - "modificar NC-WF-001 (emenda com ticket + handoff)"
+      - "aprovar/rejeitar handoffs"
+      - "criar/fechar tickets"
+      - "ativar/desativar lobes"
+      - "emitir %DONE no roadmap"
+      - "vetar qualquer ato T1/T2/T3"
+    cannot:
+      - "modificar atomic_locks sem quórum (Art. 6 CF)"
+    law_source: "Art. 2, 3 CF — NC-CONST-FR-001"
+
+  T1:
+    name: "OpenCode / PicoClaw Dispatcher"
+    authority: "DELEGADA"
+    can:
+      - "executar tickets com dispatch YAML aprovado"
+      - "criar handoffs (obrigatório)"
+      - "chamar agentes T2 via PicoClaw"
+      - "ler qualquer arquivo do projeto"
+      - "escrever em zonas write_zones do seu role"
+    cannot:
+      - "modificar CF (NC-WF-001)"
+      - "tocar atomic_locks"
+      - "emitir %DONE sem revisal T0"
+      - "criar tickets sem delegação T0"
+    requires: "dispatch YAML pré-aprovado T0 (R24)"
+    law_source: "Art. 5, 8 CF — NC-CONST-FR-001"
+
+  T2:
+    name: "Qwen Local / Sub-agentes"
+    authority: "RESTRITA"
+    can:
+      - "editar arquivos no escopo do ticket"
+      - "rodar scripts listados no dispatch"
+      - "criar arquivos dentro de write_zones restritas"
+    cannot:
+      - "criar/fechar tickets"
+      - "modificar qualquer YAML de governança"
+      - "tocar atomic_locks"
+      - "sair do escopo do dispatch"
+    requires: "dispatch YAML com task_budget_tokens definido"
+    law_source: "Art. 5 CF — NC-CONST-FR-001"
+
+  T3:
+    name: "Pixel Agents / Observers"
+    authority: "SOMENTE_LEITURA"
+    can:
+      - "observar eventos"
+      - "notificar via hooks"
+      - "logar via AuditHook"
+    cannot:
+      - "qualquer escrita no filesystem"
+      - "dispatchar agentes"
+    law_source: "Art. 2 CF — NC-CONST-FR-001"

@@ -1,0 +1,108 @@
+ticket_id: "NC-DS-100"
+status: "OPEN"
+priority: "MEDIUM"
+title: "SavePoint → WAL: conectar NC-SVC-FR-003 ao NC-SVC-FR-016 para persistência real"
+created_at: "2026-04-16T11:00:00-03:00"
+created_by: "T0-Claude-Code"
+agent: "AGENTE-A"
+sprint: "FASE-1-MCP-MC"
+
+context:
+  gap: "G03"
+  origin: "NC-SVC-FR-003-savepoint-stub.py usa memória volátil. NC-SVC-FR-016 (WAL) já existe."
+  problem: |
+    SavePoints perdem-se ao reiniciar o servidor. A classe SavePointService.create()
+    salva em lista in-memory. NC-SVC-FR-016-wal-service.py tem API de append/query
+    mas NC-SVC-FR-003 não a usa.
+
+task:
+  description: |
+    1. Ler NC-SVC-FR-003-savepoint-stub.py — entender SavePoint + SavePointService
+    2. Ler NC-SVC-FR-016-wal-service.py — entender API: log_event(), query_events()
+    3. Modificar NC-SVC-FR-003:
+       a. SavePointService.create() → além de in-memory, chamar wal.log_event(
+            event_type='savepoint_create', data=savepoint.to_dict())
+       b. SavePointService.list_active() → merge memória + wal.query_events(
+            event_type='savepoint_create', since=now-ttl)
+       c. SavePointService.rollback(id) → wal.log_event(event_type='savepoint_rollback')
+       d. SavePointService.discard(id) → wal.log_event(event_type='savepoint_discard')
+    4. NC-SVC-FR-016 carregado via importlib.util (R09)
+    5. Fallback gracioso: se WAL indisponível, continuar com in-memory + logger.warning
+    6. py_compile NC-SVC-FR-003-savepoint-stub.py sem erros após alteração
+
+  acceptance_criteria:
+    - "SavePoint criado → entrada no WAL DB"
+    - "Após restart: list_active() recupera savepoints do WAL"
+    - "Fallback sem crash se WAL offline"
+    - "Zero print() no arquivo modificado"
+
+write_zone:
+  - "01_neocortex_framework/neocortex/core/services/NC-SVC-FR-003-savepoint-stub.py"
+  - "DIR-DS-003-wal/"
+  - "DIR-DS-002-audit-logs/"
+
+atomic_locks_proibidos:
+  - "01_neocortex_framework/neocortex/mcp/server.py"
+  - "01_neocortex_framework/neocortex/mcp/sub_server.py"
+
+entry_state: "SavePoints em memória volátil apenas"
+exit_state: "SavePoints persistem no WAL e sobrevivem restart"
+integrity_hash: "NC-DS-100-v1.0-20260416"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PROTOCOLO OBRIGATÓRIO PARA O AGENTE (ler ANTES de qualquer ação)
+# ─────────────────────────────────────────────────────────────────────────────
+protocolo_agente:
+
+  step_0_obrigatorio:
+    descricao: 'Ler estes recursos ANTES de começar qualquer implementação'
+    recursos:
+      - path: 'DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml'
+        motivo: 'Template oficial do handoff que você DEVE gerar ao concluir'
+      - path: '01_neocortex_framework/DIR-TMP-FR-001-templates-main/'
+        motivo: 'Central de templates — exemplos de YAML, JSON, manifests, processos'
+      - path: '01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.yaml'
+        motivo: '20 regras de governança — obrigatório seguir'
+      - path: '01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml'
+        motivo: 'Arquivos que NUNCA podem ser tocados'
+
+  regra_duvida:
+    instrucao: |
+      EM CASO DE QUALQUER DÚVIDA — parar imediatamente e retornar ao T0.
+      NÃO assumir, NÃO adivinhar, NÃO improvisar.
+      Retornar com: (1) o que foi feito até agora, (2) qual é a dúvida exata,
+      (3) quais são as opções que você vê. T0 decide e você continua.
+    exemplos_de_quando_parar:
+      - 'Não encontrei o arquivo mencionado no ticket'
+      - 'A API do serviço é diferente do que o ticket descreve'
+      - 'A mudança que preciso fazer toca um arquivo @LOCKS'
+      - 'Dois caminhos são possíveis e não sei qual escolher'
+      - 'O script que devia existir não existe'
+
+  handoff_obrigatorio:
+    descricao: 'Gerar handoff YAML ao concluir — sem exceção'
+    destino: 'DIR-DS-002-audit-logs/NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml'
+    template: 'DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml'
+    campos_obrigatorios:
+      - 'ticket_id'
+      - 'status'        # APPROVED | PARTIALLY_COMPLETED | FAILED | ESCALATED
+      - 'summary'
+      - 'files_created'
+      - 'files_modified'
+      - 'locks_violated'  # DEVE ser lista vazia para APPROVED
+      - 'checklist_r20'
+    checklist_r20:
+      naming_convention: 'Todos os arquivos criados seguem NC-<TIPO>-<SIGLA>-<NUM>'
+      no_print_statements: 'Zero print() — usar logger'
+      ssot_updated: 'Se criou artefato novo — NC-NAM-FR-001 foi atualizado'
+      no_locked_files_modified: 'Nenhum arquivo @LOCKS foi tocado'
+      handoff_yaml_complete: 'Este handoff está completo'
+      roadmap_marked: '%DONE marcado no @ROADMAP para este ticket'
+
+  falha_ou_bloqueio:
+    instrucao: |
+      Se falhar ou ficar bloqueado:
+      1. Gerar handoff com status: FAILED ou ESCALATED
+      2. Incluir no campo summary o que foi tentado e por que falhou
+      3. NÃO silenciar o erro — registrar tudo
+      4. Retornar ao T0 com o handoff

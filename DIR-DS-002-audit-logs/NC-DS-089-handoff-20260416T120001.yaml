@@ -1,0 +1,22 @@
+ticket_id: "NC-DS-089"
+status: APPROVED
+closed_at: "2026-04-16T12:00:01-03:00"
+closed_by: "T0-Claude-Code"
+
+summary: |
+  WAL integrado no Ciclo 3 — NC-SCR-FR-066, NC-SCR-FR-064 e NC-SCR-FR-009
+  com wal.transaction() como context manager. Integração confirmada nesta sessão.
+
+evidence:
+  - "NC-SCR-FR-066-bootup-sync.py: WAL transaction() + TagNormalizer validate_lobe() integrados"
+  - "NC-SCR-FR-009-sanitize-all-yamls.py: WAL transaction() com before/after_write para queue + zones"
+  - "NC-SCR-FR-064-artifact-catalog.py: WAL import presente (integrado em sessão anterior)"
+  - "NC-SVC-FR-016-wal-service.py: serviço ativo, SQLite backend em DIR-DS-003-wal/"
+
+files_integrated:
+  - "01_neocortex_framework/scripts/NC-SCR-FR-066-bootup-sync.py"
+  - "01_neocortex_framework/scripts/NC-SCR-FR-009-sanitize-all-yamls.py"
+  - "01_neocortex_framework/neocortex/core/services/NC-SVC-FR-016-wal-service.py"
+
+confidence_score: 92
+lines_added: 0

@@ -1,0 +1,195 @@
+# Status do Worker T1 e Comunicação com T0
+# Gerado por: worker-44949-f87cfd (PORT: 44949)
+# Data: 2026-04-12T19:58:27
+# Motivo: Usuário solicitou log YAML e esclarecimento sobre comunicação com T0
+
+analysis_id: NC-WORKER-STATUS-001
+created_at: "2026-04-12T19:58:27"
+created_by: "worker-44949-f87cfd"
+worker_port: 44949
+prompt_hash: "f87cfd"
+protocol_version: "2026-04-12b (FILE_LOCK=ON)"
+
+# ============================================================================
+# RESUMO DO ESTADO ATUAL DO WORKER
+# ============================================================================
+
+worker_status:
+  current_phase: "PASSO 1 — FILA OCUPADA"
+  last_action: "Aguardando 30s após detecção de 5 workers ativos"
+  retry_count: 2
+  max_retries: 3
+  next_action: "Se 3º retry falhar → WORKER IDLE (hibernar)"
+  file_lock_acquired: false
+  active_claim: null
+
+queue_snapshot:
+  total_tasks: 15  # NC-DS-015 a NC-DS-029
+  by_status_corrected:
+    TRUE_AVAILABLE: 0          # status: AVAILABLE + completed_at: null
+    INCONSISTENT_AVAILABLE: 6  # AVAILABLE com completed_at preenchido (021-025)
+    CLAIMED: 2                 # 021 (worker-20260412195125877-f87cfd), 026
+    ACTIVE: 3                  # 016, 018, 027
+    DONE: 3                    # 015, 017, 020, 028
+    BLOCKED: 1                 # 029
+  active_workers_visible: 5    # baseado em CLAIMED+ACTIVE
+
+active_zones_current:
+  NC-DS-028: "01_neocortex_framework/scripts/NC-SCR-FR-007-queue-monitor.py | worker-1702-2196eb | 2026-04-12T22:24:10.534177+00:00"
+  note: "Entrada órfã (task DONE, zone não liberada)"
+
+# ============================================================================
+# PROBLEMAS IDENTIFICADOS (análise worker)
+# ============================================================================
+
+issues_identified:
+  - issue: "inconsistent_queue_state"
+    description: "Tasks marcadas AVAILABLE mas com completed_at preenchido (handoff já gerado)"
+    examples: "NC-DS-021 a 025, NC-DS-019"
+    root_cause: "Workers antigos (pré-lock) não atualizaram status após handoff"
+    impact: "Worker atual desperdiça ciclos tentando claim de ticket já concluído"
+
+  - issue: "orphaned_active_zones"
+    description: "Entradas em active-zones.yaml sem correspondência com status DONE"
+    example: "NC-DS-028 DONE mas ainda registrada"
+    root_cause: "Worker não removeu entrada ao finalizar (violação do PASSO 2C)"
+    impact: "Monitoramento incorreto de zonas ativas"
+
+  - issue: "mixed_claim_formats"
+    description: "Campo claimed_by em formatos inconsistentes (timestamp, deepseek-chat-*, worker-*-2196eb, worker-*-f87cfd)"
+    root_cause: "Migração de protocolos sem normalização"
+    impact: "Dificulta rastreamento de workers"
+
+  - issue: "missing_completed_at_check"
+    description: "Protocolo PASSO 1 busca status: AVAILABLE mas não verifica completed_at: null"
+    impact: "Worker tenta claim de tasks já finalizadas"
+
+  - issue: "lock_soft_working_but_legacy_corruption"
+    description: "File lock (queue.lock) funciona para concorrência futura, mas estados anteriores estão corrompidos"
+    evidence: "Lock adquirido com sucesso após backoff, mas fila já continha inconsistências"
+
+# ============================================================================
+# COMO ESTOU CONVERSANDO COM T0
+# ============================================================================
+
+conversation_method: |
+  O worker T1 conversa com T0 através de artefatos padronizados no sistema:
+
+  1. **Handoffs YAML** (DIR-DS-002-audit-logs/NC-DS-{id}-handoff-*.yaml)
+     - Estado final do ticket (SUCCESS, BLOCKED, ESCALATED)
+     - Arquivos criados/modificados com SHA‑256
+     - Barreiras passadas (B1‑B6)
+     - Status: PENDING_REVIEW (aguarda aprovação do T0 ou script auto‑approve)
+
+  2. **Logs de Análise** (como este arquivo)
+     - NC‑ANL‑QUEUE‑001‑*.yaml (análise de dificuldades)
+     - NC‑WORKER‑{PORT}‑status‑*.yaml (status do worker)
+     - Comunicação assíncrona sobre problemas estruturais
+
+  3. **Modificação Controlada da Fila**
+     - Worker atualiza NC‑CFG‑DS‑004‑task‑queue.yaml apenas durante claim (com lock)
+     - Atualiza status para DONE/BLOCKED ao finalizar (F6)
+     - T0 monitora a fila via active‑zones.yaml e logs
+
+  4. **Espera por Aprovação**
+     - Handoffs com status PENDING_REVIEW aguardam:
+       a) Aprovação manual do T0, OU
+       b) Aprovação automática via NC‑SCR‑FR‑005‑auto‑approve.py
+     - Aprovação → ticket considerado concluído, pode desbloquear gates progressivos
+
+  5. **Escalation via ESCALATED**
+     - Se risco HIGH ou falha após 5 self‑refines → handoff com overall: ESCALATED
+     - T0 deve intervir manualmente
+
+current_conversation_state:
+  pending_handoffs_for_t0_review:
+    - NC-DS-009-handoff-20260412-1747.yaml (PENDING_REVIEW, lines_added=94)
+    - NC-DS-014-handoff-20260412-1934.yaml (PENDING_REVIEW, lines_added=205)
+  auto_approve_script: "NC-SCR-FR-005-auto-approve.py (configurado, enabled: true)"
+  waiting_for: "Aprovação dos handoffs acima para liberar gates progressivos"
+
+# ============================================================================
+# SUGESTÕES PARA SANAR PROBLEMAS (10 workers simultâneos)
+# ============================================================================
+
+recommendations_priority:
+  - priority: CRITICAL
+    title: "Executar Queue Repair Script"
+    action: "T0 criar/executar NC‑SCR‑FR‑008‑queue‑repair.py"
+    tasks:
+      - "Tasks AVAILABLE com completed_at → definir status DONE/BLOCKED conforme handoff"
+      - "Remover entradas órfãs de active‑zones.yaml"
+      - "Normalizar claimed_by para formato worker‑{PORT}‑{HASH}"
+    benefit: "Corrige inconsistências antes de lançar mais workers"
+
+  - priority: HIGH
+    title: "Atualizar Protocolo PASSO 1"
+    action: "Modificar NC‑PROMPT‑DS‑002‑worker‑universal.md"
+    change: "Buscar task com status: AVAILABLE E completed_at: null"
+    benefit: "Evita claims em tasks já concluídas"
+
+  - priority: HIGH
+    title: "Implementar Cleanup Automático no Auto‑Approve"
+    action: "Modificar NC‑SCR‑FR‑005‑auto‑approve.py"
+    change: "Ao aprovar handoff, atualizar fila (status: DONE/BLOCKED, completed_at: now)"
+    benefit: "Estado da fila sincronizado com handoffs aprovados"
+
+  - priority: MEDIUM
+    title: "Health Check de Claims Expirados"
+    action: "Script periódico ou worker dedicado"
+    logic: "Tasks CLAIMED/ACTIVE com claimed_at > 300s → reset para AVAILABLE"
+    benefit: "Prevenção de deadlocks por workers travados"
+
+  - priority: LOW
+    title: "Padronizar Formato de Logs de Worker"
+    action: "Template NC‑WORKER‑STATUS‑*.yaml"
+    benefit: "Comunicação estruturada entre workers e T0"
+
+# ============================================================================
+# PRÓXIMAS AÇÕES IMEDIATAS
+# ============================================================================
+
+next_actions:
+  - actor: "worker-44949-f87cfd"
+    action: "Aguardar 3º retry (30s) → se sem AVAILABLE, hibernar (WORKER IDLE)"
+    reason: "Conforme REG‑002: máximo 3 tentativas"
+    expected_outcome: "Worker idle, aguardando correções de T0"
+
+  - actor: "T0 (antigravity)"
+    action: "1. Revisar handoffs pendentes (NC‑DS‑009, NC‑DS‑014)"
+    subactions:
+      - "Aprovar manualmente ou executar auto‑approve"
+      - "Atualizar fila conforme aprovação"
+      - "Executar queue repair script"
+    expected_outcome: "Fila limpa, gates progressivos desbloqueados"
+
+  - actor: "Sistema"
+    action: "Manter lock soft para 10 workers"
+    note: "Lock file funciona; corrigir apenas estados legados"
+
+# ============================================================================
+# CONCLUSÃO
+# ============================================================================
+
+conclusion: |
+  O worker T1 (44949) identificou corrupção de estado legado na fila,
+  mas o protocolo atual com file lock é adequado para 10 workers simultâneos.
+  Comunicação com T0 ocorre via handoffs e logs estruturados.
+  Necessária intervenção manual do T0 para reparar inconsistências antes
+  de liberar capacidade total dos workers.
+
+  Lock soft implementado — race conditions futuras prevenidas.
+
+final_status: "WORKER ACTIVE (aguardando retry final)"
+estimated_time_to_idle: "30 segundos"
+
+# ============================================================================
+# METADADOS
+# ============================================================================
+
+metadata:
+  queue_file: "DIR-DS-000-agent-config/NC-CFG-DS-004-task-queue.yaml"
+  lock_file: "DIR-DS-000-agent-config/queue.lock"
+  active_zones_file: "DIR-DS-003-entry-locks/active-zones.yaml"
+  analysis_based_on: "leitura da fila, handoffs existentes, protocolo v2026-04-12b"
+  worker_experience: "Consegui lock após backoff, mas detectei inconsistências que impedem claim válido"

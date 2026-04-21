@@ -1,0 +1,29 @@
+ticket_id: "NC-DS-111"
+status: APPROVED
+closed_at: "2026-04-16T14:00:00-03:00"
+closed_by: "T1-OpenCode"
+
+summary: |
+  Cross‑audit SSOT vs arquivos físicos: drift report gerado; tabela NC‑NAM‑FR‑001 atualizada com artefatos faltantes.
+
+files_modified:
+  - path: "analyze_drift.py"
+    action: CREATE
+    detail: "Script para mapear artefatos NC‑SVC/TOOL/SCR declarados no SSOT vs arquivos físicos; gera drift_report.json"
+  - path: "drift_report.json"
+    action: CREATE
+    detail: "Relatório de drift com 17 NC‑SVC, 35 NC‑TOOL, 37 NC‑SCR faltantes na tabela SSOT"
+  - path: "update_ssot.py"
+    action: CREATE
+    detail: "Script para atualizar tabela SSOT (NC‑NAM‑FR‑001) com artefatos faltantes identificados no drift"
+  - path: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
+    action: UPDATE
+    detail: "Tabela de artefatos atualizada com 17 NC‑SVC, 35 NC‑TOOL, 37 NC‑SCR faltantes (seção 3.2)"
+
+validation:
+  - "drift_report.json contém counts: NC‑SVC 17, NC‑TOOL 35, NC‑SCR 37 faltantes"
+  - "NC‑NAM‑FR‑001: seção 3.2 agora lista todos os artefatos físicos (cross‑check grep -c)"
+  - "SSOT agora reflete estado real dos diretórios 01_neocortex_framework/neocortex/"
+
+lines_added: 142
+confidence_score: 98

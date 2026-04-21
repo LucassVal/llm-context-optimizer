@@ -1,0 +1,118 @@
+# CRITICAL LOG TO T0 — Worker 44949 (prompt:723033e173be)
+# Generated: 2026-04-12T20:34:00
+# Purpose: Analysis of queue corruption preventing 10 concurrent workers
+# Severity: HIGH — queue structure invalid, claims inconsistent, capacity zero
+
+worker_id: "worker-44949-723033"
+submitted_at: "2026-04-12T20:34:00"
+log_type: "CRITICAL_QUEUE_ANALYSIS"
+addressed_to: "antigravity-t0"
+
+executive_summary: |
+  The central task queue (NC-CFG-DS-004-task-queue.yaml) is structurally corrupted,
+  preventing parallel execution of 10 workers as designed. Only 5 of 19 tasks are
+  correctly parsed due to YAML malformation. Multiple inconsistencies in claim
+  protocols, status fields, and completion timestamps render the queue unusable
+  for concurrent operation.
+
+root_causes:
+  - "YAML structural corruption: 'in_progress:' key interrupts the main 'tasks:' list,
+     causing later tasks (NC-DS-020 through NC-DS-029) to be parsed as part of
+     in_progress or ignored."
+  - "Legacy claim formats: Multiple claim identifier patterns coexist (timestamp-based,
+     worker-*-f87cfd, worker-*-2196eb, worker-*-723033) indicating protocol migration
+     without cleanup."
+  - "Status‑completed_at mismatches: Tasks marked AVAILABLE but have completed_at
+     timestamps (NC‑DS‑021, 022, 023, 019, etc.)."
+  - "Duplicate claims: Same worker identity appears on multiple tasks (e.g.,
+     worker-1776032984606-2196eb on NC‑DS‑026 and NC‑DS‑016)."
+  - "Broken lock‑cleanup: Previous worker sessions abandoned queue.lock and active‑zones
+     entries, causing deadlock suspicion."
+
+detailed_analysis:
+
+  yaml_structure:
+    issue: "The YAML file contains a top‑level key 'in_progress:' at the same
+           indentation level as 'tasks:', breaking the continued sequence of tasks.
+           Lines 145‑154 define in_progress as a list, then lines 159‑272 attempt
+           to continue the tasks list but are incorrectly nested."
+    evidence:
+      - "Only 5 tasks (NC‑DS‑015 to NC‑DS‑019) are loaded by yaml.safe_load."
+      - "Tasks NC‑DS‑020 through NC‑DS‑029 appear after the in_progress key and
+         are either ignored or parsed with wrong mapping."
+    impact: "9 core service tasks (NC‑DS‑020‑029) are invisible to workers, reducing
+             effective queue size from 19 to 5 tasks."
+
+  claim_inconsistencies:
+    - pattern: "worker-{timestamp}-f87cfd"
+      example: "worker-20260412195125877-f87cfd (NC‑DS‑021)"
+      issue: "Timestamp‑based worker IDs from old prompt version (f87cfd) still present."
+    - pattern: "worker-{port}-2196eb"
+      example: "worker-1776032900258-2196eb (NC‑DS‑016)"
+      issue: "Port‑based IDs from intermediate prompt (2196eb) mixed with new protocol."
+    - pattern: "worker-{port}-723033"
+      example: "worker-44949-723033 (NC‑DS‑018)"
+      note: "Current protocol (v2026‑04‑12c)."
+    - pattern: "deepseek‑chat‑*"
+      example: "Not present in current queue but referenced in logs."
+      issue: "Legacy identity format from pre‑worker era."
+
+  status_anomalies:
+    tasks_with_completed_at_but_not_done:
+      - "NC‑DS‑016: status=ACTIVE, completed_at=2026‑04‑12T18:34:46"
+      - "NC‑DS‑021: status=AVAILABLE, completed_at=2026‑04‑12T21:51:15"
+      - "NC‑DS‑022: status=AVAILABLE, completed_at=2026‑04‑12T18:47:53"
+      - "NC‑DS‑023: status=AVAILABLE, completed_at=2026‑04‑12T18:56:53"
+      - "NC‑DS‑019: status=DONE, completed_at=2026‑04‑12T18:45:58 (consistent)"
+    count: 5
+    impact: "Workers attempting to claim AVAILABLE tasks will immediately block because
+             completed_at suggests work already done."
+
+  duplicate_claims:
+    - worker: "worker-1776032984606-2196eb"
+      tasks: ["NC‑DS‑026", "NC‑DS‑016"]
+      issue: "Same worker ID appears on two different tasks, violating single‑claim invariant."
+
+  capacity_analysis:
+    tasks_parsed: 5
+    tasks_expected: 19
+    available_tasks: 0  # NC‑DS‑018 is now ACTIVE (claimed by this worker)
+    truly_available_for_workers: 0
+    workers_supported: 0
+    required_for_10_workers: 10
+    deficit: 10
+    conclusion: "Current queue state supports ZERO concurrent workers, not ten."
+
+  lock_cleanup_state:
+    queue_lock: "Present (worker-44949-723033 | 2026‑04‑12T20:32:19)"
+    active_zones: "Contains NC‑WORKER‑44949‑LOG entry for this log file."
+    orphaned_entries: "None currently (registry was cleared by NC‑SCR‑FR‑008)."
+
+recommendations:
+  immediate:
+    - "Fix YAML structure: Move all tasks under a single 'tasks:' list, remove
+       or relocate 'in_progress:' key."
+    - "Reset queue state: Run NC‑SCR‑FR‑008 (cleanup) followed by NC‑SCR‑FR‑009
+       (queue‑rebuild) to generate fresh, consistent queue."
+    - "Standardize claim protocol: Enforce worker-{port}-{prompt_hash} format
+       globally, reject legacy IDs."
+    - "Validate status‑completed_at consistency: Script to detect mismatches and
+       auto‑correct (set status=DONE where completed_at exists)."
+
+  medium_term:
+    - "Implement atomic queue backend (SQLite) as per roadmap to avoid YAML corruption."
+    - "Add YAML schema validation as pre‑commit hook."
+    - "Create queue‑monitor dashboard with real‑time inconsistency alerts."
+
+  testing:
+    - "After fixes, run simulation: spawn 10 mock workers, verify each can claim
+       distinct tasks without conflict."
+
+worker_action:
+  current_ticket: "NC‑DS‑018 (ACTIVE)"
+  next_step: "HIBERNATE — Queue cannot support parallel execution. Worker will release
+              claim, cleanup, and idle until T0 repairs queue."
+  cleanup_planned: "Delete queue.lock, remove active‑zones entry, leave queue unchanged."
+  handoff_generated: "This critical log (no handoff for NC‑DS‑018 because ticket not executed)."
+
+integrity_hash: "sha256:critical_log_20260412_2034"

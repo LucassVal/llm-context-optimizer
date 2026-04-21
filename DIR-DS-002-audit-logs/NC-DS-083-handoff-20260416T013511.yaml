@@ -1,0 +1,52 @@
+ticket_id: "NC-DS-083"
+status: "APPROVED"
+timestamp: "2026-04-16T01:35:11-03:00"
+agent: "T0-Claude-Code"
+summary: |
+  NC-WF-001 atualizado para v3.0 — governança centralizada.
+  Mudanças principais:
+  (1) Frontmatter machine-readable com governance_links, lobes_ativos e componentes_pendentes.
+  (2) Nova seção MAPA DE GOVERNANÇA — hierarquia explícita de todos os arquivos de governança
+      com referências cruzadas aos componentes desenvolvidos (SAVE-002, AGENT-203, SEC-401, etc.).
+  (3) Nova seção LOBES DE REFERÊNCIA — NC-LBE-INT-001/004/005 vinculados com portas e paths.
+  (4) Novo CICLO 0 — verificação do stack MCP (MCP Core, Mission Control, PicoClaw, Pixel Agents)
+      com ordem de inicialização e checklist.
+  (5) Bugs corrigidos: path do catálogo (01_neocortex_framework/... → DIR-DOC-FR-001-docs-main/)
+      e chave do catálogo (artifacts → python_files/yaml_files).
+  (6) Componentes ⚠️ implícitos tornados explícitos: Fallback Chain (LLM-006), PulseScheduler
+      (OPT-010), Compact Encoding/Dedup, MetricsStore (METR-106), HUD (HUD-001).
+  (7) Componentes 🟡 pendentes documentados com IDs rastreáveis (WAL, OBS-001, AGENT-206,
+      TTL-002, SQLite-Q).
+  (8) Tabela de troubleshooting expandida com casos reais desta sessão.
+  Ações de baseline desta sessão:
+  - 5 tickets OPEN (071-076) fechados → DONE
+  - artifact_catalog.json regenerado: 506 py + 321 yaml
+  - NC-SCR-FR-066 bug corrigido (regex seção 9)
+  - NC-GOV-FR-004 atualizado com entrada FR-066
+files_modified:
+  - ".agents/workflows/NC-WF-001-workspace-routine.md"
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-004-fr-artifacts-registry.yaml"
+  - "01_neocortex_framework/scripts/NC-SCR-FR-066-bootup-sync.py"
+  - "DIR-DS-001-tickets/NC-DS-071-scr-fr064-artifact-catalog.yaml"
+  - "DIR-DS-001-tickets/NC-DS-072-scr-fr066-bootup-sync.yaml"
+  - "DIR-DS-001-tickets/NC-DS-073-scr-fr014-end-of-cycle.yaml"
+  - "DIR-DS-001-tickets/NC-DS-074-scr-fr080-governance-auditor.yaml"
+  - "DIR-DS-001-tickets/NC-DS-075-scr-fr001-populate-lobes.yaml"
+  - "DIR-DS-001-tickets/NC-DS-076-scr-fr064-orchestration-agent-fixes.yaml"
+files_created:
+  - "DIR-DS-001-tickets/NC-DS-083-wf001-v3-governance-hub.yaml"
+  - "DIR-DS-002-audit-logs/NC-DS-072-handoff-20260416T011542.yaml"
+  - "DIR-DS-002-audit-logs/NC-DS-083-handoff-20260416T013511.yaml"
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  ssot_updated: false
+  no_locked_files_modified: true
+  handoff_yaml_complete: true
+notes: |
+  ssot_updated=false: NC-NAM-FR-001 não atualizado com entrada do NC-WF-001 v3.0.
+  Próxima ação recomendada: verificar se NC-WF-001 já tem entrada no SSOT ou criar.
+  Pendências da sessão para próximo ciclo:
+  - Subir stack MCP (Ciclo 0)
+  - Criar NC-DS-080/081/082 (Marco 2 scripts orphans)
+  - SSOT update para NC-WF-001

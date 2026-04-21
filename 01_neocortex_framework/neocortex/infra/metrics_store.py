@@ -1,3 +1,15 @@
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:59.584315'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+tags:
+  - neocortex-other
+  - level-0
+  - python
+---"""
 #!/usr/bin/env python3
 """
 MetricsStore - Analytics storage using DuckDB.
@@ -8,12 +20,13 @@ and aggregations. Falls back to SQLite if DuckDB is not available.
 
 import json
 import logging
+import os
 import sqlite3
-from pathlib import Path
-from typing import Dict, Any, List, Optional, Union
+from dataclasses import asdict, dataclass
 from datetime import datetime, timedelta
 from enum import Enum
-from dataclasses import dataclass, asdict
+from pathlib import Path
+from typing import Any, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -128,23 +141,64 @@ class MetricsStore:
         self._create_tables()
 
     def _init_duckdb(self):
-        """Initialize DuckDB connection."""
+        """Initialize DuckDB connection with graceful fallback for locked files."""
         try:
             import duckdb
-
+            # Try exclusive connection first
             self.conn = duckdb.connect(str(self.db_path))
             logger.info("DuckDB connection established")
-        except Exception as e:
-            logger.error(f"Failed to initialize DuckDB: {e}")
-            # Fall back to SQLite
-            self.backend = MetricsBackend.SQLITE
-            self._init_sqlite()
+            return
+        except Exception as e_excl:
+            logger.warning(f"DuckDB exclusive open failed (likely locked): {e_excl}")
+
+        # Try read_only if file is locked by another process
+        try:
+            import duckdb
+            self.conn = duckdb.connect(str(self.db_path), read_only=True)
+            logger.info("DuckDB connection established (read_only fallback)")
+            return
+        except Exception as e_ro:
+            logger.warning(f"DuckDB read_only also failed: {e_ro}")
+
+        # Final fallback: in-memory (no persistence, but server starts)
+        try:
+            import duckdb
+            self.conn = duckdb.connect(":memory:")
+            logger.warning("DuckDB using :memory: fallback — metrics will not persist this session")
+            return
+        except Exception:
+            pass
+
+        # Give up on DuckDB entirely -> SQLite
+        logger.error("DuckDB unavailable, falling back to SQLite")
+        self.backend = MetricsBackend.SQLITE
+        self._init_sqlite()
 
     def _init_sqlite(self):
-        """Initialize SQLite connection."""
-        self.conn = sqlite3.connect(str(self.db_path))
+        """Initialize SQLite connection with fallback for locked files."""
+        # Try the normal path first
+        try:
+            self.conn = sqlite3.connect(str(self.db_path))
+            self.conn.row_factory = sqlite3.Row
+            logger.info("SQLite connection established")
+            return
+        except Exception as e:
+            logger.warning(f"SQLite normal path locked: {e}")
+
+        # Try a PID-suffixed path to avoid lock collision
+        pid_path = self.db_path.with_suffix(f".{os.getpid()}.db")
+        try:
+            self.conn = sqlite3.connect(str(pid_path))
+            self.conn.row_factory = sqlite3.Row
+            logger.warning(f"SQLite using PID-path fallback: {pid_path}")
+            return
+        except Exception as e2:
+            logger.warning(f"SQLite PID-path also failed: {e2}")
+
+        # Absolute final fallback: in-memory SQLite
+        self.conn = sqlite3.connect(":memory:")
         self.conn.row_factory = sqlite3.Row
-        logger.info("SQLite connection established")
+        logger.warning("SQLite using :memory: fallback — metrics will not persist this session")
 
     def _create_tables(self):
         """Create metrics tables."""
@@ -180,17 +234,17 @@ class MetricsStore:
 
         # Create indexes
         self.conn.execute("""
-        CREATE INDEX IF NOT EXISTS idx_metrics_metric_id 
+        CREATE INDEX IF NOT EXISTS idx_metrics_metric_id
         ON metrics(metric_id)
         """)
 
         self.conn.execute("""
-        CREATE INDEX IF NOT EXISTS idx_metrics_timestamp 
+        CREATE INDEX IF NOT EXISTS idx_metrics_timestamp
         ON metrics(timestamp DESC)
         """)
 
         self.conn.execute("""
-        CREATE INDEX IF NOT EXISTS idx_metrics_type 
+        CREATE INDEX IF NOT EXISTS idx_metrics_type
         ON metrics(metric_type)
         """)
 
@@ -304,7 +358,7 @@ class MetricsStore:
 
             cursor = self.conn.execute(
                 """
-                SELECT name FROM sqlite_master 
+                SELECT name FROM sqlite_master
                 WHERE type='table' AND name IN (?, ?, ?, ?, ?, ?)
             """,
                 tuple(required_tables),
@@ -356,7 +410,7 @@ class MetricsStore:
 
             self.conn.execute(
                 """
-            INSERT INTO metrics 
+            INSERT INTO metrics
             (metric_id, metric_type, value, timestamp, tags_json, metadata_json)
             VALUES (?, ?, ?, ?, ?, ?)
             """,
@@ -403,7 +457,7 @@ class MetricsStore:
 
             self.conn.execute(
                 """
-            INSERT INTO daily_token_usage 
+            INSERT INTO daily_token_usage
             (date, model, agent, cache_hit, cache_miss, output_tokens, total_tokens)
             VALUES (?, ?, ?, ?, ?, ?, ?)
             ON CONFLICT (date, model, agent) DO UPDATE SET
@@ -444,7 +498,7 @@ class MetricsStore:
             date_str = date.date().isoformat() if isinstance(date, datetime) else date
             self.conn.execute(
                 """
-            INSERT INTO cost_summary 
+            INSERT INTO cost_summary
             (date, provider, model, cost_real, cost_saved, cost_without_cache)
             VALUES (?, ?, ?, ?, ?, ?)
             ON CONFLICT (date, provider, model) DO UPDATE SET
@@ -480,7 +534,7 @@ class MetricsStore:
 
             self.conn.execute(
                 """
-            INSERT INTO agent_activity 
+            INSERT INTO agent_activity
             (timestamp, agent_id, action, details_json, metadata_json)
             VALUES (?, ?, ?, ?, ?)
             """,
@@ -511,7 +565,7 @@ class MetricsStore:
 
             self.conn.execute(
                 """
-            INSERT INTO pulse_health 
+            INSERT INTO pulse_health
             (timestamp, event_type, status, duration_ms, details_json)
             VALUES (?, ?, ?, ?, ?)
             ON CONFLICT (timestamp, event_type) DO UPDATE SET
@@ -540,7 +594,7 @@ class MetricsStore:
         """Get daily token usage aggregated by date."""
         try:
             query = """
-            SELECT 
+            SELECT
                 date,
                 model,
                 agent,
@@ -599,7 +653,7 @@ class MetricsStore:
         """Get cost summary aggregated by date."""
         try:
             query = """
-            SELECT 
+            SELECT
                 date,
                 provider,
                 model,
@@ -840,22 +894,18 @@ class MetricsStore:
 
             # Determine time grouping
             if aggregation_type == "hourly":
-                time_format = "%Y-%m-%d %H:00:00"
                 group_sql = "strftime('%Y-%m-%d %H:00:00', timestamp)"
             elif aggregation_type == "daily":
-                time_format = "%Y-%m-%d 00:00:00"
                 group_sql = "strftime('%Y-%m-%d 00:00:00', timestamp)"
             elif aggregation_type == "weekly":
-                time_format = "%Y-%W"
                 group_sql = "strftime('%Y-%W', timestamp)"
             elif aggregation_type == "monthly":
-                time_format = "%Y-%m-01"
                 group_sql = "strftime('%Y-%m-01', timestamp)"
             else:
                 raise ValueError(f"Unknown aggregation type: {aggregation_type}")
 
             query = f"""
-            SELECT 
+            SELECT
                 {group_sql} as period,
                 COUNT(*) as count,
                 SUM(value) as sum_value,
@@ -960,7 +1010,7 @@ class MetricsStore:
                     # Compute aggregate
                     query = f"""
                     INSERT INTO metric_aggregates
-                    SELECT 
+                    SELECT
                         metric_id,
                         '{agg_type}' as aggregation_type,
                         {period_start} as period_start,
@@ -975,7 +1025,7 @@ class MetricsStore:
                     FROM metrics
                     WHERE metric_id = ?
                     GROUP BY metric_id, {period_start}, tags_json
-                    ON CONFLICT (metric_id, aggregation_type, period_start) 
+                    ON CONFLICT (metric_id, aggregation_type, period_start)
                     DO UPDATE SET
                         count = excluded.count,
                         sum_value = excluded.sum_value,
@@ -1009,7 +1059,7 @@ class MetricsStore:
 
             cursor = self.conn.execute(
                 """
-            DELETE FROM metrics 
+            DELETE FROM metrics
             WHERE timestamp < ?
             """,
                 (cutoff_date.isoformat(),),
@@ -1031,7 +1081,7 @@ class MetricsStore:
         """Get metrics store statistics."""
         try:
             cursor = self.conn.execute("""
-            SELECT 
+            SELECT
                 COUNT(*) as total_metrics,
                 COUNT(DISTINCT metric_id) as unique_metrics,
                 MIN(timestamp) as oldest_metric,

@@ -1,0 +1,53 @@
+ticket_id: "NC-DS-070"
+status: "DONE"
+priority: "HIGH"
+title: "SCR-FR-009 — Rastreabilidade: NC-SCR-FR-009-sanitize-all-yamls.py"
+created_at: "2026-04-15T01:08:00-03:00"
+created_by: "T0-Antigravity"
+closed_at: "2026-04-15T12:06:28-03:00"
+handoff_ref: "DIR-DS-002-audit-logs/NC-DS-070-handoff-20260415T120628-t0-review.yaml"
+
+context:
+  origin: "Auditoria de scripts orfaos (Ciclo 1, sessao 2026-04-15)"
+  problem: |
+    NC-SCR-FR-009-sanitize-all-yamls.py e referenciado diretamente no NC-WF-001 (linhas 60 e 134)
+    e usado em Ciclo 1 (--check-only) e Ciclo 3 (execucao completa), porem nao tem
+    ticket formal de rastreabilidade no sistema de governanca.
+  scope: "Rastreabilidade + verificacao de integridade do script"
+
+task:
+  description: |
+    1. Verificar integridade do script (sintaxe, paths internos, encoding UTF-8).
+    2. Executar em modo --check-only para validar funcionamento.
+    3. Documentar parametros de entrada/saida e codigos de retorno.
+    4. Atualizar NC-NAM-FR-001 (SSOT) com entrada do script.
+    5. Gerar handoff APPROVED.
+  action_description:
+    utterances:
+      - "Validar e documentar NC-SCR-FR-009-sanitize-all-yamls.py"
+      - "Verificar se sanitize-all-yamls esta funcionando corretamente"
+    input_instructions: "Executar com --check-only primeiro, depois sem flags para corrigir."
+    output_instructions: "Relatorio de issues encontrados/corrigidos nos YAMLs de governanca."
+    usage_rules: "Ciclo 1: sempre --check-only. Ciclo 3: execucao completa."
+
+exit_state: |
+  Script validado e documentado. Correções aplicadas:
+  1. Suporte a --check-only implementado
+  2. Write_zone expandida para diretórios necessários
+  3. Adicionado ao SSOT (NC-NAM-FR-001)
+  Handoff aprovado com revisão T0.
+
+write_zone: 
+  - "01_neocortex_framework/scripts/"
+  - "DIR-DS-000-agent-config/"
+  - "DIR-DS-003-entry-locks/"
+write_zone_note: "Modo --check-only: apenas leitura. Modo completo: escrita nos diretórios acima."
+references:
+  - "01_neocortex_framework/scripts/NC-SCR-FR-009-sanitize-all-yamls.py"
+  - ".agents/workflows/NC-WF-001-workspace-routine.md#L60,L134"
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.yaml"
+
+tags: ["ciclo1", "ciclo3", "governance", "yaml", "sanitize", "infra", "SCR"]
+domain: "governance"
+layer: "infra"
+type: "SCR"

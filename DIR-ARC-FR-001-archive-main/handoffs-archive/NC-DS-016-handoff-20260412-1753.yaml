@@ -1,0 +1,26 @@
+status: BLOCKED
+ticket_id: NC-DS-016
+roadmap_ticket: null
+submitted_at: "2026-04-12T17:53:00"
+submitted_by: deepseek-chat
+review_by: auto-approve-script
+reviewed_at: null
+summary:
+  files_created: []
+  files_modified: []
+  lines_added: 0
+  lines_removed: 0
+  validation_rounds: 0
+  barriers_passed: []
+  locks_violated: []
+  cost_usd: 0.0
+  overall: BLOCKED
+t0_review:
+  compile_ok: null
+  naming_ok: null
+  ssot_updated: null
+  locks_clean: null
+  roadmap_done: null
+rejection:
+  reason: "Ticket file not found: DIR-DS-001-tickets/NC-DS-016-cc-consolidate-master.yaml"
+  next_ticket: null

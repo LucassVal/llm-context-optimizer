@@ -1,0 +1,15 @@
+id: NC-DS-048
+code: GLOBAL-SANE-002
+title: Saneamento Global - Fase 2 (Infraestrutura, Testes, e Docs periféricos)
+assignee: Agente OpenCode na porta 51148
+context:
+  - .agents/rules/NC-RULE-007-tagging-system.mdc
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-DOC-FR-001-ubiquitous-language-dictionary.md
+task: |
+  **OBJETIVO**: Aplicar massivamente metadados de frente (Frontmatter) em todos os arquivos complementares (Testes, Templates, Scripts base, configurações raiz como .json e yaml).
+  
+  **INSTRUÇÕES DO PROMPT**:
+  Utilize um script e o ripgrep/grep para abrir arquivos em `DIR-TEST-FR-001`, `scripts/`, `DIR-CFG-FR-001` que estão avulsos sem Tags de domínio.
+  Defina `layer`, `domain`, `type` extritamente associado ao "Dicionário Ubíquo".
+  Injete no TOP do cabeçalho.
+  Valide a sintaxe (especialmente quando injetar comments em arquivos `.yaml` e `.json` para NÃO quebrar o parse estrutural - meta obj em json).

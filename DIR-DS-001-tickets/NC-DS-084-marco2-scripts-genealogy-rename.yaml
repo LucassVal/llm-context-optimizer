@@ -1,0 +1,68 @@
+ticket_id: "NC-DS-084"
+status: "APPROVED"
+priority: "MEDIUM"
+title: "Marco 2 — Rastreabilidade: NC-SCR-FR-075 (genealogy-injector) + NC-SCR-FR-065 (rename-impact-analyzer)"
+created_at: "2026-04-16T01:50:00-03:00"
+closed_at: "2026-04-15T23:41:37-03:00"
+created_by: "T0-Claude-Code"
+
+context:
+  origin: "Plano Marco 2 (implementation_plan.md, sessao 2026-04-15/16)"
+  problem: |
+    NC-SCR-FR-075-genealogy-injector.py e NC-SCR-FR-065-rename-impact-analyzer.py
+    existem em 01_neocortex_framework/scripts/ sem ticket formal de rastreabilidade.
+    Compliance alvo: >80%. Scripts precisam ser documentados no registro de artefatos.
+  scope: "Verificacao, documentacao e registro dos 2 scripts no NC-GOV-FR-004"
+
+task:
+  description: |
+    Para CADA script (NC-SCR-FR-075 e NC-SCR-FR-065):
+    1. Verificar sintaxe:
+       python -m py_compile 01_neocortex_framework/scripts/<nome>.py && echo OK
+    2. Executar --help ou --dry-run:
+       python 01_neocortex_framework/scripts/<nome>.py --help 2>&1
+       python 01_neocortex_framework/scripts/<nome>.py --dry-run 2>&1
+    3. Ler as primeiras 60 linhas para entender proposito e dependencias
+    4. Registrar no NC-GOV-FR-004-fr-artifacts-registry.yaml (secao SCR),
+       seguindo o padrao exato dos outros entries (path, purpose, governance_rules)
+    5. Verificar se NC-NAM-FR-001 ja tem entrada — se nao, adicionar
+    6. Gerar handoff APPROVED para este ticket
+
+  instrucoes_handoff: |
+    Salvar em: DIR-DS-002-audit-logs/NC-DS-084-handoff-YYYYMMDDTHHMMSS.yaml
+    Campos obrigatorios: ticket_id, status, timestamp, agent, summary,
+    files_modified, files_created, checklist_r20
+
+  checklist_r20:
+    naming_convention: true
+    no_print_statements: true
+    ssot_updated: true
+    no_locked_files_modified: true
+    handoff_yaml_complete: true
+
+environment:
+  python: "C:\\Program Files\\Python312\\python.exe"
+  project_root: "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
+  pythonpath: "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework"
+
+targets:
+  - script: "01_neocortex_framework/scripts/NC-SCR-FR-075-genealogy-injector.py"
+    registry_section: "SCR"
+    governance_rules_hint: ["R01", "R04", "R05", "R11"]
+  - script: "01_neocortex_framework/scripts/NC-SCR-FR-065-rename-impact-analyzer.py"
+    registry_section: "SCR"
+    governance_rules_hint: ["R01", "R04", "R11"]
+
+write_zone:
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-004-fr-artifacts-registry.yaml"
+  - "DIR-DS-002-audit-logs/"
+
+atomic_locks_proibidos:
+  - "01_neocortex_framework/neocortex/server.py"
+  - "01_neocortex_framework/neocortex/sub_server.py"
+  - "01_neocortex_framework/neocortex_config.yaml"
+
+tags: ["marco2", "orphan-scripts", "rastreabilidade", "SCR", "governance"]
+domain: "orchestration"
+layer: "infra"
+type: "SCR"

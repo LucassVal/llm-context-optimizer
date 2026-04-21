@@ -1,0 +1,8 @@
+ticket_id: "NC-DS-155"
+title: "CICLO 1 - Início de Operações"
+status: "OPEN"
+priority: "HIGH"
+created: "2026-04-20T21:24:07"
+agent: "T0"
+description: |
+  Transição do CICLO 0 (Boot) para CICLO 1 (Início). Inicialização completa dos serviços e preparação para execução de tarefas.

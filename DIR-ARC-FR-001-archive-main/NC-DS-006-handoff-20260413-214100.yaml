@@ -1,0 +1,48 @@
+ticket_id: NC-DS-006
+status: APPROVED
+approved_by: antigravity-t0
+approved_at: "2026-04-13T21:41:00-03:00"
+timestamp: "2026-04-13T21:40:00-03:00"
+agent_port: 32879
+
+lines_added: 335
+files_modified:
+  - 01_neocortex_framework/neocortex/core/config/NC-CFG-FR-004-project-config.py
+  - 01_neocortex_framework/neocortex/core/config/NC-CFG-FR-004-project-config-schema.yaml
+
+summary: |
+  Criado NC-CFG-FR-004-project-config.py (335L). Classe ProjectConfig com interface completa:
+  load/save/get/set/merge_with_global/reset, dot-notation para chaves aninhadas,
+  fallback ruamel.yaml→PyYAML→JSON, singleton via get_project_config().
+  Schema YAML criado com metadados, LLM config, feature flags, paths, segurança.
+
+ajustes_aplicados:
+  - "Fallback triplo YAML: ruamel → PyYAML → JSON"
+  - "Singleton get_project_config() conveniente"
+  - "Dot-notation para chaves aninhadas"
+  - "merge_with_global(): project config sobrescreve global"
+
+lessons_learned:
+  - "ruamel pode não estar disponível — fallback para yaml padrão essencial"
+  - "Agente não gerou handoff YAML — tickets futuros devem ter barrier obrigatória"
+
+deps_missing: []
+ruff_violations_found: 0
+
+metrics:
+  ruff_check: PASS
+  py_compile: PASS
+  import_smoke_test: PASS
+  write_zone_respected: true
+  locks_respected: true
+  min_80_lines: true
+
+errors: []
+warnings:
+  - "Handoff não gerado pelo agente — criado pelo T0"
+
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  ajustes_synthesis_applied: true
+  handoff_yaml_complete: true

@@ -4,6 +4,9 @@
 # Protocol dependencies
 mcp>=0.1.0  # Model Context Protocol server implementation
 
+# Security / cryptography (NC-SVC-FR-017-crypto-hub)
+cryptography>=42.0.0  # Fernet (AES-128-CBC + HMAC-SHA256) via NC-DS-091
+
 # Optional dependencies for enhanced functionality
 # jsonschema>=4.0.0  # For JSON schema validation (optional)
 # pydantic>=2.0.0   # For data validation (optional)

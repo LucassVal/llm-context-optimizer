@@ -1,0 +1,50 @@
+id: NC-DS-065
+code: ENCODING-001
+title: "Preparação de Ambiente com Encoding UTF-8 (Engineer)"
+assignee: "Agente OpenCode (DeepSeek-Reasoner)"
+context:
+  - "01_neocortex_framework/scripts/NC-SCR-FR-062-engineer-encoding-fix.py"
+  - "DIR-DS-002-audit-logs/NC-DS-065-handoff-engineer-encoding-fix.yaml"
+task: |
+  **OBJETIVO**: Preparar ambiente com encoding UTF‑8 para Windows. Verificar scripts Python e dependências para garantir compatibilidade com caracteres Unicode (emojis, acentos).
+  
+  **ANÁLISE REALIZADA**:
+  1. Verificação de encoding UTF‑8 em todos os scripts Python
+  2. Validação de dependências para testes VectorEngine
+  3. Simulação de renomeação (dry run) para detecção de conflitos
+  4. Validação STEP‑0 completa (Python 3.12.10, ruff, pytest)
+  
+  **RESULTADO**: Nenhuma modificação necessária — scripts já possuem encoding configurado corretamente.
+  
+  **IMPACTO**: Ambiente validado para execução de scripts com caracteres Unicode, prevenindo erros de encoding em pipelines de auditoria.
+  
+  **EVIDÊNCIAS**: Handoff correspondente em `DIR‑DS‑002‑audit‑logs/NC‑DS‑065‑handoff‑engineer‑encoding‑fix.yaml`.
+
+entry_state:
+  files_exist:
+    - "01_neocortex_framework/scripts/NC-SCR-FR-062-engineer-encoding-fix.py"
+  files_must_not_exist: []
+
+exit_state:
+  files_created: []
+  files_modified: []
+  files_deleted: []
+  ssot_updated: false
+  compiles_ok: true
+  roadmap_done: null
+
+barriers:
+  - id: B1
+    check: naming_convention
+    rule: "Arquivo deve seguir padrão NC-"
+    block_if_fail: true
+  - id: B2
+    check: lock_guard
+    rule: "NUNCA modificar: server.py, sub_server.py, NC-NAM-FR-001"
+    block_if_fail: true
+
+limits:
+  max_validation_rounds: 3
+  escalate_to_t0_after: 2
+  max_tokens_per_phase: 2000
+integrity_hash: "5a4b3c2d1e0f9a8b"  # sha256[:16] de "NC-DS-065|encoding|UTF-8 environment preparation"

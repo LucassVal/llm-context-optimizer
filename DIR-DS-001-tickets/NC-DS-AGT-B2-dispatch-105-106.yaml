@@ -1,0 +1,157 @@
+# NC-DS-AGT-B2-dispatch-105-106.yaml
+# Documento de Despacho Oficial — AGENTE B2
+# Dupla Mordaça: este YAML + NC-DS-AGT-B2-dispatch-105-106.md (pendente Ciclo 4)
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  id: "NC-DS-AGT-B2"
+  version: "1.0"
+  hash: "NC-DS-AGT-B2-v1.0-20260416"
+  created_at: "2026-04-16T17:30:00-03:00"
+  created_by: "T0-Claude-Code"
+  agent: "AGENTE-B2"
+  sprint: "FASE-1-MCP-MC"
+  tickets: ["NC-DS-105", "NC-DS-106"]
+  priority: "HIGH"
+
+identidade:
+  role: "Engenheiro T1 — MC Hooks + Launcher"
+  modelo: "DeepSeek (via PicoClaw :18790)"
+  supervisor: "T0-Claude-Code (Antigravity)"
+  escopo: "Audit hook feed + launcher unificado + webhook endpoint"
+
+passo_0_leitura_obrigatoria:
+  instrucao: "Ler TODOS estes recursos antes de escrever uma linha de código."
+  recursos:
+    - path: "DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml"
+      motivo: "Template do handoff que você VAI gerar ao concluir cada ticket"
+    - path: "01_neocortex_framework/DIR-TMP-FR-001-templates-main/NC-TPL-FR-001-template-central-index.yaml"
+      motivo: "Catálogo de templates — consultar antes de criar qualquer artefato"
+    - path: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.yaml"
+      motivo: "23 regras de governança — obrigatório"
+    - path: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml"
+      motivo: "Arquivos que NUNCA podem ser tocados"
+    - path: "DIR-DS-001-tickets/NC-DS-105-audit-hook-mc-feed.yaml"
+      motivo: "Ticket 1 — leia task, write_zone e atomic_locks_proibidos"
+    - path: "DIR-DS-001-tickets/NC-DS-106-hud-launchers-webhooks.yaml"
+      motivo: "Ticket 2 — leia task, write_zone e atomic_locks_proibidos"
+
+regra_zero_suposicoes:
+  lei: "R21 — Em caso de QUALQUER dúvida: PARAR e retornar ao T0."
+  nao_fazer:
+    - "NÃO assumir que um arquivo existe sem verificar"
+    - "NÃO improvisar API ou estrutura não documentada"
+    - "NÃO continuar se a mudança necessária toca um @LOCK"
+    - "NÃO escolher entre dois caminhos sem confirmação do T0"
+  como_retornar: |
+    Parar. Escrever:
+      (1) O que foi feito até agora
+      (2) Qual é a dúvida exata
+      (3) Quais são as opções que você vê
+    Aguardar decisão do T0.
+
+atomic_locks_absolutos:
+  files:
+    - "01_neocortex_framework/neocortex/mcp/server.py"
+    - "01_neocortex_framework/neocortex/mcp/sub_server.py"
+    - "01_neocortex_framework/DIR-CFG-FR-001-config-main/neocortex_config.yaml"
+    - "antigravity_neocortex_config.json"
+    - "start_neocortex_mcp.ps1"
+    - "01_neocortex_framework/DIR-CORE-FR-001-core-central/NC-LED-FR-001-framework-ledger.json"
+    - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
+    - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml"
+  consequencia: "Violação = BLOQUEIO IMEDIATO. Gerar handoff ESCALATED."
+
+write_zones_autorizadas:
+  - "01_neocortex_framework/scripts/NC-SCR-FR-106-launcher.py"
+  - "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-037-hooks.py"
+  - "DIR-DS-002-audit-logs/"
+
+tarefas:
+
+  ticket_1:
+    id: "NC-DS-105"
+    titulo: "Audit Hook → Feed em tempo real no Mission Control"
+    arquivo_ticket: "DIR-DS-001-tickets/NC-DS-105-audit-hook-mc-feed.yaml"
+
+    inicio:
+      - "Ler ticket NC-DS-105 completo"
+      - "Ler NC-TOOL-FR-037-hooks.py para entender HookRegistry.emit()"
+      - "Ler NC-ADP-FR-001-mission-control.py para entender send_event()"
+
+    meio:
+      - "Criar hook NC-HK-FR-003 que captura eventos de audit e envia ao MC"
+      - "Registrar via HookRegistry — não hardcode, não import direto"
+      - "Zero print() — logger apenas"
+      - "Activity feed: cada evento gera POST ao MC com action + payload"
+
+    validacao_obrigatoria:
+      - cmd: "python -m py_compile <arquivo_criado>"
+        esperado: "Sem erros de sintaxe"
+      - cmd: "python -m ruff check <arquivo_criado>"
+        esperado: "0 erros"
+      - "Testar com --dry-run se suportado"
+
+    fim:
+      - "Gerar handoff: NC-DS-105-handoff-{YYYYMMDDTHHMMSS}.yaml"
+      - "Incluir: nome do hook registrado, evento de teste executado"
+
+  ticket_2:
+    id: "NC-DS-106"
+    titulo: "Launcher Unificado + Webhook endpoint"
+    arquivo_ticket: "DIR-DS-001-tickets/NC-DS-106-hud-launchers-webhooks.yaml"
+
+    inicio:
+      - "Ler ticket NC-DS-106 completo (PARTE A e PARTE B)"
+      - "Verificar se NC-SCR-FR-106-launcher.py já existe em scripts/"
+      - "Verificar se NC-TOOL-FR-037-hooks.py tem action webhook.receive"
+
+    meio_parte_a_launcher:
+      - "Criar NC-SCR-FR-106-launcher.py"
+      - "Verificar MC :3000 online via socket (não Test-NetConnection — é Python)"
+      - "Se offline: subprocess.Popen(['pnpm','dev'], cwd=MC_DIR) em thread separada"
+      - "Aguardar MC online max 30s, poll 2s"
+      - "Chamar NC-SCR-FR-103-mc-startup-hook.py como subprocess após MC UP"
+      - "Flags: --dry-run obrigatório"
+
+    meio_parte_b_webhook:
+      - "Adicionar action 'webhook.receive' em NC-TOOL-FR-037-hooks.py"
+      - "Recebe payload {action, data} via tool call MCP"
+      - "Roteia para HookRegistry.emit(action, data)"
+      - "Retorna {status: 'ok', event_id: uuid}"
+
+    validacao_obrigatoria:
+      - cmd: "python -m py_compile 01_neocortex_framework/scripts/NC-SCR-FR-106-launcher.py"
+        esperado: "Sem erros"
+      - cmd: "python -m ruff check 01_neocortex_framework/scripts/NC-SCR-FR-106-launcher.py"
+        esperado: "0 erros"
+      - cmd: "python -m py_compile 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-037-hooks.py"
+        esperado: "Sem erros"
+      - cmd: "python -m ruff check 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-037-hooks.py"
+        esperado: "0 erros"
+      - cmd: "python 01_neocortex_framework/scripts/NC-SCR-FR-106-launcher.py --dry-run"
+        esperado: "Executa sem exceção, reporta o que faria"
+
+    fim:
+      - "Gerar handoff: NC-DS-106-handoff-{YYYYMMDDTHHMMSS}.yaml"
+      - "Descrever: launcher testado com --dry-run, webhook action registrada"
+
+checklist_r20_por_handoff:
+  naming_convention: "Todos os arquivos criados seguem NC-<TIPO>-<SIGLA>-<NUM>"
+  no_print_statements: "Zero print() nos arquivos criados/modificados"
+  ssot_updated: "Se criou artefato novo — informar T0 para NC-NAM-FR-001"
+  no_locked_files_modified: "locks_violated: [] obrigatório para APPROVED"
+  handoff_yaml_complete: "Todos os campos do template preenchidos"
+  ruff_ok: "ruff check 0 erros nos arquivos do diff"
+  py_compile_ok: "py_compile sem erros em todos os .py criados/modificados"
+
+protocolo_falha:
+  instrucao: |
+    Se falhar ou ficar bloqueado:
+    1. NÃO silenciar o erro
+    2. Gerar handoff com status: FAILED ou ESCALATED
+    3. summary: (a) o que foi feito, (b) onde falhou, (c) erro exato
+    4. Retornar ao T0
+
+entry_state: "Audit hook ausente — sem feed real no MC. Launcher manual."
+exit_state: "NC-HK-FR-003 registrado. NC-SCR-FR-106 passa --dry-run. Webhook funcional."

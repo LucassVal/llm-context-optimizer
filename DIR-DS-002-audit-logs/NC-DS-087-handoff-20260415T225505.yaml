@@ -1,0 +1,54 @@
+ticket_id: "NC-DS-087"
+status: "COMPLETED"
+timestamp: "2026-04-15T22:55:05-03:00"
+executed_by: "T0-Claude-Code"
+
+summary:
+  compliance_score: "70%"
+  regras_total: 20
+  regras_aprovadas: 14
+  regras_falhando:
+    false:
+      - R06: "Identidade para Agentes: cada agente deve ter identidade única e verificável"
+      - R12: "Handoffs Formais: toda tarefa delegada a um agente documentada em handoff YAML"
+      - R18: "Ciclo de Vida de Tickets: toda tarefa registrada como ticket e seguir fluxo formal"
+    pending_implementation:
+      - R03: "Estrutura de Diretórios Canônica: definir e impor estrutura padronizada"
+      - R16: "Circuit Breaker: se um agente falhar repetidamente, deve ser suspenso para evitar loops de falha"
+      - R17: "Rate Limiting por Ferramenta: limitar frequência de chamadas a ferramentas críticas ou caras"
+  status_SVC_004: "PRESENTE"
+  localizacao_SVC_004: "01_neocortex_framework/neocortex/core/services/NC-SVC-FR-004-cache-service.py"
+  hash_SVC_004: "sha256:B11320E0928D6990DBF53A69EE4451FCAFB1ECC46335EB7E1CECCE2AD4E34775"
+
+details:
+  investigacao_SVC_004:
+    arquivo_encontrado: true
+    local_correto: true
+    handoff_NC_DS_020_verificado: true
+    inconsistencia_anterior: "Arquivo existia mas não foi detectado em verificação anterior"
+  auditoria_compliance:
+    ambiente: "original"
+    total_arquivos: 345
+    conformidade_nc: "44.9%"
+    regras_verificadas: 20
+    regras_true: 14
+    regras_false: 3
+    regras_pending: 3
+    score_calculado: "70%"
+    relatorio_gerado: "reports/governance/2026-04-15/compliance_report.md"
+    snapshot: "reports/governance/2026-04-15/environment_snapshot.json"
+
+conclusao:
+  - "NC-SVC-FR-004-cache-service.py está presente no local esperado. A inconsistência anterior pode ser devido a busca incorreta ou cache."
+  - "Score de compliance atual: 70% (14/20 regras). Meta >80% não atingida."
+  - "Regras falhando: R06, R12, R18 (false) e R03, R16, R17 (pending)."
+  - "Recomendação: Implementar handoffs formais (R06,R12) e tickets (R18) para melhorar score."
+
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  ssot_updated: true
+  no_locked_files_modified: true
+  handoff_yaml_complete: true
+
+tags: ["compliance", "audit", "svc-004-presente", "governance", "NC-DS-087"]

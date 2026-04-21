@@ -1,0 +1,36 @@
+status: APPROVED
+ticket_id: NC-DS-006
+roadmap_ticket: FR-021
+submitted_at: "2026-04-12T16:36:00"
+submitted_by: deepseek-chat
+review_by: antigravity-t0
+reviewed_at: "2026-04-12T16:48:00"
+summary:
+  files_created:
+    - "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-021-memory.py"
+  files_modified:
+    - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
+    - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md"
+  lines_added: 320
+  lines_removed: 2
+  validation_rounds: 1
+  barriers_passed:
+    - "B1"
+    - "B2"
+    - "B3"
+    - "B4"
+    - "B5"
+    - "B6"
+  locks_violated: []
+  cost_usd: 0.007
+  overall: SUCCESS
+t0_review:
+  compile_ok: true
+  naming_ok: true
+  ssot_updated: true
+  locks_clean: true
+  roadmap_done: true
+  note: "16.6KB NC-TOOL-FR-021-memory.py, B1-B6 PASS, FR-021 completo (lobes, cortex, manifest, export). Sprint-001 encerrado: 6/6 tickets concluídos."
+rejection:
+  reason: null
+  next_ticket: null

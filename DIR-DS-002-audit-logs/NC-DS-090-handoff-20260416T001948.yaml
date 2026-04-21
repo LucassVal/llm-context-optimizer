@@ -1,0 +1,34 @@
+ticket_id: "NC-DS-090"
+status: "APPROVED"
+timestamp: "2026-04-16T00:19:48-03:00"
+agent: "T0-Claude-Code"
+
+summary: |
+  Criado NC-SVC-FR-018-tag-normalizer.py em
+  01_neocortex_framework/neocortex/core/services/.
+  Serviço implementa:
+    - TagNormalizerService com carregamento de NC-DOC-FR-001 como SSOT
+    - scan(path, recursive) → ScanResult (found/invalid/unknown)
+    - normalize(path, dry_run) → NormalizeResult, WAL-logged via NC-SVC-FR-016
+    - validate_lobe(path) → ValidationResult (campos obrigatórios + símbolos)
+    - stats() e CLI completo (scan / fix / validate / stats)
+  py_compile: OK — zero erros de sintaxe.
+
+files_created:
+  - "01_neocortex_framework/neocortex/core/services/NC-SVC-FR-018-tag-normalizer.py"
+
+files_modified: []
+
+verification_run: |
+  python -m py_compile NC-SVC-FR-018-tag-normalizer.py && echo "018 OK"
+  # → 018 OK
+
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  ssot_updated: false          # NC-DS-092 completa o wiring e atualiza GOV-FR-004
+  no_locked_files_modified: true
+  handoff_yaml_complete: true
+
+blocks_ticket: "NC-DS-092"   # wiring disponível
+depends_on_completed: "NC-DS-089"  # WAL já existia

@@ -1,0 +1,269 @@
+---
+name: NC-LBE-INT-003-antigravity-integration
+description: Documentao do papel de T0 (Antigravity) como orquestrador e sua integrao com PicoClaw/OpenCode/NeoCortex
+tags: [antigravity, t0, orchestration, mcp, picoclaw, opencode, neocortex, deepseek]
+status: active
+module: integration
+---
+
+# Lobe de Integrao Antigravity  NC-LBE-INT-003
+
+> **Propsito:** Documentar o papel de T0 (Antigravity) como orquestrador central do NeoCortex, sua hierarquia de agentes, as 34 ferramentas MCP disponveis, protocolos de delegao e integrao com PicoClaw e OpenCode.
+
+---
+
+## 1. Quem  Antigravity (T0)
+
+Antigravity  o T0 (nvel mximo de inteligncia) do NeoCortex  o modelo Claude/DeepSeek que orquestra todos os agentes. Atua como orquestrador central, nunca executa trabalho braal.
+
+- **Modelo Base:** Claude (Anthropic) e DeepSeek Reasoner via API
+- **Papel:** Orquestrador central  decide, valida, coordena, nunca executa tarefas manuais
+- **Acesso:** Via MCP server.py (stdio) com 34 ferramentas e 12 servios
+- **Capacidades:** Leitura de arquivos, busca web, terminal, browser, anlise de cdigo, validao
+- **Contexto:** Carrega lobos de memria persistente para manter contexto entre sesses
+
+---
+
+## 2. Hierarquia de Agentes no NeoCortex
+
+```
+T0: Antigravity (Claude/DeepSeek)  orquestra, valida, decide
+T1: OpenCode agents (A/B/C)  DeepSeek via OpenCode IDE tools
+T2: PicoClaw  DeepSeek via gateway, sub-agentes, automao
+T3: Scripts autnomos  Python puro, sem LLM
+```
+
+**Regra de Ouro:** T0 pensa e decide. T1/T2/T3 executam. Nunca inverter.
+
+- **T1 (OpenCode agents):** Agentes DeepSeek especializados (A: desenvolvimento, B: pesquisa, C: auditoria) com acesso a ferramentas OpenCode
+- **T2 (PicoClaw):** Gateway para sub-agentes DeepSeek, automao de fluxos, processamento paralelo
+- **T3 (Scripts):** Cdigo Python autnomo, sem modelo LLM, para tarefas repetitivas e de baixo risco
+
+---
+
+## 3. Ferramentas MCP disponveis para T0
+
+O NeoCortex MCP expe 34 ferramentas organizadas por domnio. Mapeamento em `TOOL_MODULE_MAP` (sub_server.py:431):
+
+| Ferramenta | Mdulo | Domnio |
+|---|---|---|
+| `cortex` | NC-TOOL-FR-001-cortex | Ncleo do sistema |
+| `agent` | NC-TOOL-FR-002-agent | Gesto de agentes |
+| `benchmark` | NC-TOOL-FR-003-benchmark | Benchmarking |
+| `checkpoint` | NC-TOOL-FR-004-checkpoint | Checkpoints de sesso |
+| `config` | NC-TOOL-FR-005-config | Configurao |
+| `export` | NC-TOOL-FR-006-export | Exportao de dados |
+| `init` | NC-TOOL-FR-007-init | Inicializao |
+| `ledger` | NC-TOOL-FR-008-ledger | Ledger financeiro |
+| `lobes` | NC-TOOL-FR-009-lobes | Gesto de lobos |
+| `peers` | NC-TOOL-FR-010-peers | Comunicao entre peers |
+| `pulse` | NC-TOOL-FR-011-pulse | Pulso cognitivo |
+| `regression` | NC-TOOL-FR-012-regression | Regresses |
+| `report` | NC-TOOL-FR-013-report | Relatrios |
+| `search` | NC-TOOL-FR-014-search | Busca |
+| `security` | NC-TOOL-FR-015-security | Segurana |
+| `subserver` | NC-TOOL-FR-016-subserver | Sub-servidores |
+| `task` | NC-TOOL-FR-017-task | Execuo de tarefas |
+| `manifest` | NC-TOOL-FR-020-knowledge | Manifesto de conhecimento |
+| `kg` | NC-TOOL-FR-020-knowledge | Knowledge Graph |
+| `consolidation` | NC-TOOL-FR-020-knowledge | Consolidao |
+| `akl` | NC-TOOL-FR-020-knowledge | AKL (Active Knowledge Layer) |
+| `brain` | NC-TOOL-FR-000-brain | Crebro (orquestrao avanada) |
+| `validate` | validate | Validao (mdulo no modificado) |
+| `audit` | audit | Auditoria (mdulo no modificado) |
+
+**Domnios consolidados:**
+- `neocortex_memory` (gesto de lobos)
+- `neocortex_session` (checkpoint, savepoint, ledger)
+- `neocortex_orchestration` (spawn, task.execute)
+- `neocortex_governance` (policy, audit, compliance)
+- `neocortex_intelligence` (brain.think, brain.plan)
+- `neocortex_health` (server status, logs)
+- `neocortex_task` (execute, poll, cancel)
+
+---
+
+## 4. Como T0 Delega Tasks
+
+T0 utiliza trs canais principais para delegao:
+
+1. **Via prompt manual  OpenCode TUI (atual)**
+   - T0 escreve prompt estruturado (NC-PROMPT-DS-XXX) com contexto, STEP-0, write_zone, handoff template
+   - Envia para agente OpenCode via interface TUI
+   - Aguarda handoff.yaml com resultado
+
+2. **Via `neocortex_orchestration action=task.execute`  HTTP sub_server**
+   - T0 chama ferramenta `neocortex_task` com payload JSON
+   - Sub-server HTTP (porta especfica) executa tarefa isolada
+   - Retorna resultado via SSE stream
+
+3. **Via PicoClaw gateway POST :18790 (futuro)**
+   - T0 chama endpoint `neocortex_picoclaw` (NC-TOOL-FR-036)
+   - Payload: JSON com task, contexto, tools permitidas
+   - PicoClaw responde com resultado + logs
+
+**Ciclo de delegao:**
+```
+dispatch  poll  receber handoff.yaml  validar  %DONE
+```
+
+---
+
+## 5. Protocolo de Comunicao T0  Agentes
+
+- **Formato de handoff:** YAML em `DIR-DS-002-audit-logs/`
+- **STEP-0 que T0 exige:** py_compile, ruff, import_smoke para arquivos .py
+- **STEP-0 que T0 executa:** Parser::ParseFile para arquivos .ps1 (validao sinttica PowerShell)
+- **Checklist R20 que T0 valida ao receber handoff:**
+  - Naming convention (prefixo NC-) respeitada
+  - Handoff YAML completo com todos os campos obrigatrios
+  - Write zone respeitada
+  - Locks (@LOCKS) no violados
+  - Mnimo 80 linhas de contedo (para lobes)
+  - Arquivos .py compilados sem erro
+  - Arquivos .ps1 sem erros de sintaxe
+
+---
+
+## 6. Como T0 Usa o NeoCortex MCP
+
+- **server.py:** Ponto de entrada stdio para Claude/OpenCode, expe 34 ferramentas MCP
+- **sub_server.py:** Instncias isoladas por role + HTTP, com Mentor Mode (AGENT-203)
+- **neocortex_config.yaml:** Configuraes globais (API keys, paths, polticas)
+- **Lobes:** Memria persistente entre sesses, carregada via `mentor_step_0()`
+- **Cortex:** ndice central do sistema, gerido por `NC-TOOL-FR-001-cortex`
+
+**Fluxo tpico:**
+1. T0 inicia sesso carregando `NC-PROMPT-FR-001-master-context.md`
+2. Executa STEP-0 para verificar ambiente
+3. Seleciona agentes/tools baseado na tarefa
+4. Delegua via prompt ou MCP tool
+5. Monitora execuo via handoffs YAML
+6. Valida resultados com py_compile/ruff
+7. Atualiza lobos e roadmap com %DONE
+
+---
+
+## 7. Integrao T0  PicoClaw
+
+- **Ferramenta:** `neocortex_picoclaw` (NC-TOOL-FR-036)  em desenvolvimento
+- **Endpoint:** POST http://localhost:18790/api/task
+- **Payload JSON:**
+  ```json
+  {
+    "task": "descrio da tarefa",
+    "context": "contexto extrado dos lobos",
+    "allowed_tools": ["tool1", "tool2"],
+    "timeout_sec": 300
+  }
+  ```
+- **Resposta:** JSON com resultado, logs, mtricas
+- **Validao:** T0 valida resultado com STEP-0 antes de marcar %DONE
+
+---
+
+## 8. Integrao T0  OpenCode
+
+- **Canal atual:** Prompt manual via OpenCode TUI
+- **Canal futuro:** POST `/session/:id/message` via `neocortex_task`
+- **Fluxo:**
+  1. T0 chama `neocortex_task` com session_id e prompt estruturado
+  2. Aguarda SSE stream com resultado do agente OpenCode
+  3. Extrai handoff.yaml gerado pelo agente
+  4. Valida py_compile + ruff antes de aprovar
+- **Estrutura do prompt:** Segue template NC-PROMPT-DS-XXX com SSOT, @LOCKS, STEP-0, write_zone
+
+---
+
+## 9. Prompt Engineering para Agentes
+
+**Estrutura dos prompts NC-PROMPT-DS-XXX:**
+- **SSOT (Single Source of Truth):** Referncia a NC-NAM-FR-001, NC-TODO-FR-001, etc.
+- **@LOCKS:** Lista de arquivos protegidos (server.py, sub_server.py, neocortex_config.yaml, NC-NAM-FR-001)
+- **STEP-0:** Comando de verificao de ambiente obrigatrio
+- **write_zone:** Diretrio onde o agente pode escrever (ex: `01_neocortex_framework/lobes/`)
+- **handoff template:** Estrutura YAML esperada no audit-log
+
+**O que DEVE conter:**
+- Ticket ID (ex: LOBE-INT-003)
+- Agent port (ex: 32763)
+- Contexto suficiente para executar sem suposies (R21)
+- Lista de arquivos obrigatrios para ler antes
+
+**O que NO deve conter:**
+- Instrues vagas ou ambguas
+- Sem referncia a ticket
+- Sem handoff template
+- Suposies sobre estado do sistema
+
+**Templates disponveis em:** `DIR-DS-000-agent-config/`
+
+---
+
+## 10. Limitaes de T0
+
+- **Context window:** Gerenciamento via compact + lobes (carrega apenas lobos relevantes)
+- **Amnsia entre sesses:** Mitigada pelo `NC-PROMPT-FR-001` (master context) e lobes persistentes
+- **No executa cdigo diretamente:** Sempre delega para T1/T2/T3
+- **R21 (Zero Suposies):** Nunca assume, sempre verifica com STEP-0
+- **Dependncia de MCP ativo:** Se server.py no estiver rodando, delegao automtica no funciona
+- **Latncia de delegao:** Comunicao com agentes adiciona overhead vs. execuo direta
+
+---
+
+## 11. Decises Arquiteturais Finais (2026-04-13)
+
+### Ferramentas e Status
+
+| Ferramenta | Deciso | Motivo |
+|---|---|---|
+| OpenCode (3 portas) |  MANTM | Funcional, sem urgncia |
+| PicoClaw |  USAR como gateway adapter | Open source, descartvel |
+| Crush (charmbracelet) |  REJEITADO | Lock-in com Charmbracelet  governana no pode depender |
+| Qwen local / LLM local |  REJEITADO | J decidido anteriormente |
+
+### Princpio de Adaptabilidade
+```
+NeoCortex (SSOT, lobes, R21, handoffs)  PERMANENTE
+OpenCode / PicoClaw / qualquer_ferramenta   ADAPTER descartvel
+```
+
+### Roadmap de Execuo
+
+**SPRINT ATUAL:**
+1. Atualizar lobes INT-001/002/003 com decises finais  (em progresso)
+2. Instalar PicoClaw Windows: `winget install sipeed.picoclaw` ou binary
+3. Criar `config.json` PicoClaw com DeepSeek + NeoCortex MCP (stdio) + exec
+4. Instalar skill `opencode-controller` via ClawHub
+5. Implementar `NC-TOOL-FR-036-picoclaw.py` (T0  POST :18790)
+
+**SPRINT 3 (Arq 4):**
+6. NeoCortex vira orquestrador puro
+7. `neocortex_task` aponta para PicoClaw gateway (no mais sub_server)
+8. TaskBroker (NC-SVC-FR-015) rastreia tasks de qualquer origem
+9. HUD adiciona seo status de agentes
+
+**Tickets mantidos:**
+- SAVE-005 (segurana  independente de orquestrador)
+- NC-TOOL-FR-036 (bridge T0  PicoClaw)
+
+**Tickets cancelados:**
+- ORCH-301 substitudo por PicoClaw gateway (mas NC-SVC-FR-015 mantm como tracker interno)
+- ORCH-302 integrado no NC-TOOL-FR-036
+
+---
+
+## 12. Referncias Cruzadas
+
+- **NC-LBE-INT-001-picoclaw-architecture.mdc:** Arquitetura PicoClaw
+- **NC-LBE-INT-002-opencode-architecture.mdc:** Arquitetura OpenCode
+- **NC-PROMPT-FR-001-master-context.md:** Contexto mestre do NeoCortex
+- **NC-CFG-DS-005-step0-environment.md:** STEP-0 oficial
+- **NC-TODO-FR-001-project-roadmap-consolidated.md:** Roadmap SSOT
+- **server.py (linhas 1-80):** Estrutura do servidor MCP principal
+- **sub_server.py (linhas 1-80):** Estrutura do sub-servidor + TOOL_MODULE_MAP
+
+---
+
+## Changelog
+- [2026-04-13] Lobe criado por T0 Antigravity (agente C porta 32763) conforme ticket LOBE-INT-003. Documentao completa do papel de T0, hierarquia de agentes, 34 ferramentas MCP, protocolos de delegao e integrao.

@@ -1,0 +1,18 @@
+id: NC-DS-044
+code: INT-002 e INT-003
+title: Bridge JSONL do Pixel Agents
+assignee: Agente OpenCode na porta 47730
+context:
+  - 02_memory_lobes/NC-LBE-INT-005-pixel-agents.mdc
+  - 01_neocortex_framework/NC-HK-FR-001-hook-registry.py
+task: |
+  **OBJETIVO**: Desenvolver a ponte JSONL interceptando os hooks do NeoCortex para animar os robôs do Pixel Agents dentro do VS Code.
+  
+  **O QUE FAZER**:
+  1. Leia os guias internos presentes em `NC-LBE-INT-005-pixel-agents.mdc` detalhadamente.
+  2. A documentação contém a especificação completa de como a bridge do HookRegistry emite dados num formato compatível com o "Claude Code JSONL".
+  3. Construa o script em `01_neocortex_framework/scripts/NC-SCR-FR-016-opencode-jsonl-bridge.py`. A estrutura base está completamente exposta na documentação do lobe!
+  4. Garanta que ele gere diretórios em `~/.claude/projects/neocortex-agents/{agent_id}` se assegurando de criar os parents com expanduser.
+  5. Mantenha os formats de Data em formato ISO com a letra "Z" no final para assegurar que a UI do WebView do Pixel Agents leia e não congele.
+  
+  **ATENÇÃO MASTER RULE R21**: Verifique imports e se a estrutura da classe base HookRegistry não vai quebrar `get_hook_registry()`.

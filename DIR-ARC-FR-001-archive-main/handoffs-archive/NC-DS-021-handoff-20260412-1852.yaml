@@ -1,0 +1,36 @@
+status: REJECTED
+ticket_id: NC-DS-021
+roadmap_ticket: ARCH-001
+submitted_at: "2026-04-12T18:52:25"
+submitted_by: deepseek-chat
+review_by: auto-approve-script
+summary:
+  files_created:
+    - "01_neocortex_framework/neocortex/core/services/NC-SVC-FR-005-event-bus.py"
+  files_modified:
+    - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
+  lines_added: 1
+  lines_removed: 0
+  validation_rounds: 1
+  barriers_passed:
+    - "B1"
+    - "B2"
+    - "B3"
+    - "B4"
+    - "B5"
+    - "B6"
+  locks_violated: []
+  cost_usd: 0.001
+  overall: SUCCESS
+t0_review:
+  compile_ok: null
+  naming_ok: null
+  ssot_updated: null
+  locks_clean: null
+  roadmap_done: null
+rejection:
+  reason: null
+  next_ticket: null
+rejected_at: "2026-04-12T20:19:48"
+rejected_by: antigravity-t0
+reject_reason: "duplicate handoff, best already processed (1L)"

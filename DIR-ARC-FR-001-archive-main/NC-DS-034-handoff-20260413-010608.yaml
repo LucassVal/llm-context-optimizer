@@ -1,0 +1,16 @@
+ticket_id: NC-DS-034
+status: PENDING_REVIEW
+lines_added: 429
+files_modified:
+  - 01_neocortex_framework/neocortex/core/review/NC-REV-FR-001-confidence-review.py
+  - 01_neocortex_framework/neocortex/core/review/__init__.py
+  - 01_neocortex_framework/neocortex/core/review/validators/__init__.py
+  - 01_neocortex_framework/neocortex/core/review/validators/NC-VAL-FR-001-naming-validator.py
+  - 01_neocortex_framework/neocortex/core/review/validators/NC-VAL-FR-002-compile-validator.py
+  - 01_neocortex_framework/neocortex/core/review/validators/NC-VAL-FR-003-locks-validator.py
+summary: |
+  Sistema de validação de handoffs com score de confiança 0-100 implementado, incluindo 3 validadores (naming, compile, locks) e 2 validadores embutidos (lines, handoff_format). Escala ponderada conforme padrão Claude Code.
+ajustes_aplicados:
+  - Escala 0-100 com pesos configuráveis implementada
+  - 3 validadores: naming, compile, locks
+  - EXIT_CODE_PERMANENT=42 exportado como constante (no IDValidator, tarefa B)

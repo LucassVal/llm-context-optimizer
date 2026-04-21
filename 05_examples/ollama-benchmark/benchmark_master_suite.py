@@ -3,9 +3,9 @@ import os
 import requests
 import json
 import time
-import random, hashlib, re
-from dataclasses import dataclass
-from typing import List, Tuple, Dict, Any
+import random
+import hashlib
+import re
 
 sys.stdout.reconfigure(encoding="utf-8")
 
@@ -42,7 +42,6 @@ def record_benchmark_result(test_name, metrics):
 
 def save_benchmark_report(filename="benchmark_report.json"):
     """Salva todos os resultados acumulados em JSON."""
-    import json
 
     report = {
         "turboquant_version": "v4.2",
@@ -162,7 +161,6 @@ def extract_with_regex(text: str, pattern_name: str) -> bool:
 
 def log_checkpoint(data, filename="benchmark_log.json"):
     """Append checkpoint data to JSON log file."""
-    import json
     from datetime import datetime
 
     entry = {"timestamp": datetime.now().isoformat(), **data}
@@ -343,12 +341,12 @@ def print_economic_impact(tk_stateless, tk_tq, duration_total=0):
     saved = max(0, tk_stateless - tk_tq)
     pct = (1 - (tk_tq / tk_stateless)) * 100 if tk_stateless > 0 else 0
 
-    print(f" TOKEN DYNAMICS:")
+    print(" TOKEN DYNAMICS:")
     print(f"   [-] Stateless Context : {tk_stateless:,} Tokens")
     print(f"   [-] TurboQuant Context: {tk_tq:,} Tokens")
     print(f"   [!] Net Savings       : {saved:,} ({pct:.2f}% Reduction)")
 
-    print(f"\n CLOUD API COMPARISON (1M Tokens Baseline):")
+    print("\n CLOUD API COMPARISON (1M Tokens Baseline):")
     print(f"   Provider {'':<15} | Stateless  | TurboQuant | Savings")
     print("-" * 65)
     for provider, price in API_PRICES.items():
@@ -361,7 +359,7 @@ def print_economic_impact(tk_stateless, tk_tq, duration_total=0):
 
     if duration_total > 0:
         kwh, cost_e, co2 = calculate_energy(duration_total)
-        print(f"\n HARDWARE & ECOLOGICAL IMPACT (Local Inference):")
+        print("\n HARDWARE & ECOLOGICAL IMPACT (Local Inference):")
         print(f"   [-] Energy Consumed   : {kwh:.6f} kWh")
         print(f"   [-] Electricity Cost  : ${cost_e:.6f} USD")
         print(f"   [-] CO2 Footprint     : {co2:.4f} g")
@@ -390,7 +388,7 @@ def run_enhanced_stress(turns, is_omni=False):
             status = "PASSED" if extract_with_regex(ans_b, "OK") else "FAILED"
             checklist.append(f"Persistence Check (Turn {turns}): {status}")
 
-    print(f"\n PHASE INTEGRITY CHECKLIST:")
+    print("\n PHASE INTEGRITY CHECKLIST:")
     for item in checklist:
         print(f"   [i] {item}")
 
@@ -504,7 +502,6 @@ def run_drift_gauntlet(is_omni=False, checkpoints=None):
     )
 
     # Salva log estruturado
-    import json
 
     log_data = {
         "test": "drift_gauntlet",
@@ -517,7 +514,7 @@ def run_drift_gauntlet(is_omni=False, checkpoints=None):
     }
     with open("drift_gauntlet_log.json", "w", encoding="utf-8") as f:
         json.dump(log_data, f, indent=2)
-    print(f"   Log saved to drift_gauntlet_log.json")
+    print("   Log saved to drift_gauntlet_log.json")
 
     print_economic_impact(tk_std, tk_tq, total_dur)
 
@@ -572,7 +569,7 @@ def run_titanomachy_live(is_omni=False):
                 f"    [Task {i}/100] Dur: {total_dur:.1f}s | TQ Acc: {correct / i:.1%}"
             )
 
-    print(f"\n PHASE INTEGRITY CHECKLIST:")
+    print("\n PHASE INTEGRITY CHECKLIST:")
     print(f"   [i] Rule Adherence Rate: {correct}%")
     print(
         f"   [i] O(1) Token Integrity: {'PASSED' if tk_tq < (tk_std * 0.2) else 'FAILED'}"
@@ -656,7 +653,7 @@ def main():
                 f"     Todos os testes usarao o modelo forcado: {FORCE_MODEL_OVERRIDE}"
             )
         else:
-            print(f"    Modelos hibridos: TinyLlama (leve) / Qwen2.5-Coder (pesado)")
+            print("    Modelos hibridos: TinyLlama (leve) / Qwen2.5-Coder (pesado)")
         print("-" * 80)
 
         print(

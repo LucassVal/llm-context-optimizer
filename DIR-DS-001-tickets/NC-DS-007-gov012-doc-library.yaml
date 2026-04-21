@@ -1,0 +1,73 @@
+acceptance_criteria:
+- NC-NAM-FR-001 mantém seção de índice com links para sub-registros
+- Cada sub-registro cobre UMA categoria (tools, lobes, config, prompts)
+- NC-SCR-FR-004 calcula SHA-256 e reporta artefatos desatualizados
+- py_compile OK em NC-SCR-FR-004
+- SSOT atualizado com todos os novos arquivos [2026-04-12]
+active_locks:
+- server.py
+- sub_server.py
+- neocortex_config.yaml
+assigned_to: DS-B
+completed_at: '2026-04-15T13:39:18.247701'
+created_at: '2026-04-12T16:20:00'
+created_by: antigravity-t0
+description: 'Implementar o sistema de governança documental hierárquico:
+
+  1. Subdividir NC-NAM-FR-001-naming-convention.md em sub-registros por categoria
+
+  2. Criar manifesto-mestre JSON com SHA-256 de todos os artefatos críticos
+
+  3. Criar script de validação NC-SCR-FR-004-governance-validator.py
+
+  '
+entry_state:
+  context: NC-NAM-FR-001 é monolítico (~500 linhas). Agentes carregam tudo mesmo precisando
+    de apenas uma categoria.
+  files_exist:
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md
+  tools_done:
+  - FR-022
+  - FR-023
+  - FR-025
+  - FR-026
+  - FR-027
+exit_state:
+  files_created:
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001a-tools-registry.md
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001b-lobes-registry.md
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001c-config-registry.md
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001d-prompts-registry.md
+  - 01_neocortex_framework/scripts/NC-SCR-FR-004-governance-validator.py
+  files_modified: null
+  roadmap_done:
+  - GOV-012
+  ssot_updated: true
+forbidden_zone:
+- neocortex/mcp/server.py
+- neocortex/mcp/sub_server.py
+- 01_neocortex_framework/DIR-CFG-FR-001-config-main/neocortex_config.yaml
+- neocortex/mcp/tools/
+handoff_ref: NC-DS-007-handoff-20260415T133918-retrospective.yaml
+integrity_hash: 61ff444a8bcf336e
+limits:
+  escalate_after_rounds: 3
+  max_rounds: 5
+  max_tokens_per_phase: 4000
+notes: '- NÃO renomear NC-NAM-FR-001 original — apenas adicionar referências aos sub-registros
+
+  - Sub-registros são EXTRAÇÃO do conteúdo existente, não conteúdo novo
+
+  - NC-SCR-FR-004 deve usar hashlib.sha256 e get_config() — sem hardcode de paths
+
+  - Timestamp em todos os changelogs: ISO 8601 YYYY-MM-DDTHH:MM:SS
+
+  '
+priority: HIGH
+roadmap_ticket: GOV-012
+status: DONE
+ticket_id: NC-DS-007
+title: Biblioteca Documental Hierárquica — sub-registros + manifesto-mestre SHA-256
+write_zone:
+- 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001*.md
+- 01_neocortex_framework/scripts/NC-SCR-FR-004-governance-validator.py

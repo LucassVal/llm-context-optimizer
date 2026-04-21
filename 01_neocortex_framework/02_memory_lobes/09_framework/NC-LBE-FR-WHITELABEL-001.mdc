@@ -1,0 +1,394 @@
+# NC-LBE-FR-WHITELABEL-001
+
+> Lobo SSOT auto-gerado pelo script populate_lobes_from_ssot. Não edite manualmente.
+
+<!-- source: NC-DOC-WL-001-readme.md -->
+<!-- tags: ssot, whitelabel, readme, templates -->
+<!-- auto-generated: true -->
+
+#  NeoCortex White Label Template
+
+This directory contains a white-label template structure for NeoCortex v4.2-Cortex framework projects.
+
+##  Purpose
+
+Provide a ready-to-use template structure for client projects using the NeoCortex framework. This ensures consistency across projects while allowing customization for specific client needs.
+
+##  Directory Structure
+
+```
+white_label/
+ .agents/
+    rules/
+        00-cortex.mdc              # Main cortex rules (copy from templates)
+        phase-1-discovery.mdc      # Example phase lobe
+        local.mdc                  # Personal notes (gitignore)
+        archive/                   # Completed lobes
+ templates/                         # Project-specific templates
+ examples/                          # Example implementations
+ archive/                           # Auto-summaries of completed phases
+ backup/                            # Timestamped backups
+```
+
+##  Getting Started
+
+1. **Copy this structure** to your new project directory:
+   ```bash
+   cp -r white_label/ my_new_project/
+   ```
+
+2. **Initialize NeoCortex**:
+   ```bash
+   cd my_new_project
+   # Copy the white label cortex template
+   cp ../neocortex_framework/templates/00-cortex-WHITELABEL.mdc .agents/rules/00-cortex.mdc
+   
+   # Create initial ledger
+   cp ../neocortex_framework/templates/memory-ledger-TEMPLATE.json memory_neocortex_myproject.json
+   ```
+
+3. **Customize**:
+   - Edit `.agents/rules/00-cortex.mdc` with project-specific aliases and rules
+   - Update `memory_neocortex_*.json` with project identity
+   - Add phase lobes as needed
+
+##  Core Components
+
+### Cortex (`00-cortex.mdc`)
+The central rule set containing:
+- Workspace map with aliases
+- Ubiquitous language definitions
+- Workflows (Explore-Plan-Act, Debug, Wrap Up)
+- Negative constraints and atomic locks
+
+### Ledger (`memory_neocortex_*.json`)
+JSON state file containing:
+- Project identity and configuration
+- Session timeline and action queue
+- Regression buffer and audit trail
+- Memory temperature (hot/cold context)
+
+### Lobes (`phase-*.mdc`)
+Phase-specific context files:
+- Activated by glob patterns or semantic mention
+- Contain checkpoint trees and local regression buffers
+- Isolated namespace to prevent context pollution
+
+##  Workflows
+
+### Explore-Plan-Act
+For complex feature implementation:
+1. **STEP 0** - Regression check
+2. **Explore** - Read-only mapping
+3. **Plan** - Propose plan with `<thinking>` scratchpad
+4. **Act** - Execute minimal diffs
+5. **Observe** - Validate with tests
+6. **Persist** - Update state and backup
+
+### Wrap Up Session
+**Always** run when finishing:
+1. Update current state
+2. Check off checkpoints
+3. Add to session timeline
+4. Compact hot context if >5 entries
+5. Run `!backup`
+6. Update changelog
+
+##  Templates Provided
+
+- `neocortex_framework/templates/00-cortex-WHITELABEL.mdc` - Main cortex template
+- `neocortex_framework/templates/phase-lobe-TEMPLATE.mdc` - Phase lobe template
+- `neocortex_framework/templates/memory-ledger-TEMPLATE.json` - JSON ledger template
+
+##  Integration with NeoCortex Framework
+
+This white label template is designed to work seamlessly with the NeoCortex framework. The framework provides:
+
+- **MCP Server**: 16 multi-action tools for IDE integration (including hierarchical access control)
+- **Benchmark Suite**: Drift Exhaustion, Omni-Reasoning, Titanomachy tests
+- **Agent Orchestration**: Support for ephemeral agents and T0 cortex executor
+- **Autonomous Evolution**: Adaptive knowledge lifecycle and semantic consolidation
+- **Hierarchical User Profiles**: Unlimited levels of user hierarchy for enterprises, schools, governments
+- **MCP Hub**: WebSocket multi-user server for collaborative environments
+
+##  Hierarchical User Profiles
+
+NeoCortex v4.2 includes a powerful hierarchical user profile system that supports unlimited nesting levels. This enables:
+
+- **Unlimited hierarchical levels**: Users can be hosts for other users without limits
+- **Granular access control**: Users can read equal, lateral, and inferior levels, but NOT superior levels
+- **Multi-tenancy**: Support for enterprises, LAN houses, schools, government agencies
+- **Profile conversion**: Convert existing user data (like Lucas.json) to NeoCortex schema
+
+### Example: Creating a User Profile
+
+```bash
+# Use the profile loader to convert existing user data
+python neocortex_framework/DIR-PRF-FR-001-profiles-main/NC-PRF-FR-003-profile-loader.py
+
+# Or create a new profile from template
+cp neocortex_framework/DIR-PRF-FR-001-profiles-main/templates/NC-PRF-TMP-001-dev-profile-template.json users/your_user_id/NC-PRF-USR-001-profile.json
+```
+
+### Access Control Example
+
+```python
+from NC_SEC_FR_001_security_utils import can_access
+
+# Check if user "manager" can read user "employee"
+allowed, reason = can_access("manager", "employee", "read")
+print(f"Access allowed: {allowed}, Reason: {reason}")
+```
+
+##  MCP Hub (Multi-User Support)
+
+For collaborative environments, NeoCortex includes an MCP Hub that provides:
+
+- **WebSocket server**: Multiple users can connect simultaneously
+- **Session management**: Authentication and session tracking
+- **Hierarchical visibility**: Users see only those they have access to
+- **Tool forwarding**: All NeoCortex MCP tools available through the hub
+
+### Starting the Hub
+
+```bash
+# Start the hub on default port 8765
+python neocortex_framework/DIR-MCP-FR-001-mcp-server/NC-HUB-FR-001-mcp-hub.py --host localhost --port 8765
+
+# Connect with an MCP client (e.g., Antigravity with WebSocket transport)
+```
+
+### Hub Tools
+
+The hub provides additional tools for user management:
+
+- `hub_authenticate`: Authenticate user and create session
+- `hub_list_users`: List users visible to current session
+- `hub_validate_access`: Validate access between users
+- `hub_get_profile`: Get user profile (with access control)
+
+##  License
+
+MIT - Use freely in any project, commercial or personal.
+
+##  Next Steps
+
+1. Review and customize `00-cortex.mdc` for your project
+2. Add project-specific phase lobes
+3. Integrate with your build system and commands
+4. Run benchmarks to establish baseline metrics
+
+---
+
+<!-- source: NC-DOC-WL-001-hybrid-mode.md -->
+<!-- tags: ssot, whitelabel, hybrid-mode -->
+<!-- auto-generated: true -->
+
+# NC-DOC-WL-001 - NeoCortex Hybrid LLM Mode Guide
+
+## Overview
+
+NeoCortex supports a hybrid LLM mode that allows simultaneous use of multiple LLM providers (local and cloud) with automatic fallback and role-based routing. This enables cost optimization, resilience, and specialized task execution.
+
+## Key Features
+
+- **Multiple Backends**: Support for Ollama (local), DeepSeek (cloud), OpenAI (cloud), and more
+- **Fallback Chains**: Automatic failover between backends when one is unavailable
+- **Role-Based Routing**: Different agents can use different backends based on their role
+- **Runtime Configuration**: Backend configuration can be changed at runtime via MCP tools
+- **Health Monitoring**: Backend availability and performance tracking
+
+## Configuration
+
+### Global LLM Configuration
+
+Configure LLM settings in `neocortex_config.yaml`:
+
+```yaml
+llm:
+  provider: "ollama"  # Default provider
+  model: "llama2"     # Default model
+  base_url: "http://localhost:11434"
+  api_key: ""         # For cloud providers
+  temperature: 0.7
+  max_tokens: 4096
+  fallback_chain:
+    - provider: "ollama"
+      model: "llama2"
+      base_url: "http://localhost:11434"
+    - provider: "deepseek"
+      model: "deepseek-chat"
+      api_key: "${DEEPSEEK_API_KEY}"
+```
+
+### Agent-Specific Backend Configuration
+
+Set backends for specific agent roles:
+
+```yaml
+llm:
+  agent_backends:
+    guardian:
+      provider: "ollama"
+      model: "llama2:7b"
+    backend_dev:
+      provider: "deepseek"
+      model: "deepseek-coder"
+    indexer:
+      provider: "ollama"
+      model: "nomic-embed-text"
+```
+
+## MCP Tools
+
+### `neocortex_config`
+
+Use the `set_agent_backend` action to configure backends at runtime:
+
+```bash
+# Set Ollama backend for 'guardian' role
+neocortex_config set_agent_backend guardian '{"provider": "ollama", "model": "llama2"}'
+
+# Set DeepSeek backend for 'backend_dev' role
+neocortex_config set_agent_backend backend_dev deepseek
+```
+
+### `neocortex_agent`
+
+Specify backend override when spawning agents:
+
+```bash
+# Spawn guardian agent with Ollama backend
+neocortex_agent spawn guardian --backend ollama
+
+# Spawn backend developer with DeepSeek backend
+neocortex_agent spawn backend_dev --backend deepseek
+```
+
+## AgentExecutor Integration
+
+The `AgentExecutor` class provides programmatic access to hybrid LLM capabilities:
+
+```python
+from neocortex.agent.executor import get_agent_executor, AgentTask
+
+# Get executor
+executor = get_agent_executor()
+
+# Create task
+task = AgentTask(
+    task_id="task-001",
+    role="guardian",
+    prompt="Analyze this code for security vulnerabilities...",
+    system_prompt="You are a security expert..."
+)
+
+# Execute with optional backend override
+response = executor.execute(task, backend_override="ollama")
+print(response.content)
+```
+
+## Fallback Chains
+
+Fallback chains provide resilience when primary backends fail:
+
+```python
+# Configuration for fallback chain
+fallback_config = [
+    {"provider": "ollama", "model": "llama2"},
+    {"provider": "deepseek", "model": "deepseek-chat"},
+    {"provider": "openai", "model": "gpt-4"}
+]
+
+# Use in agent configuration
+llm:
+  agent_backends:
+    critical:
+      - provider: "ollama"
+        model: "llama2"
+      - provider: "deepseek"
+        model: "deepseek-chat"
+```
+
+## Testing Hybrid Scenarios
+
+### Local + Cloud Testing
+
+1. **Start Ollama locally**:
+   ```bash
+   ollama run llama2
+   ```
+
+2. **Configure DeepSeek API key**:
+   ```bash
+   export DEEPSEEK_API_KEY="your-api-key"
+   ```
+
+3. **Test hybrid execution**:
+   ```python
+   # Test will use Ollama first, fallback to DeepSeek if unavailable
+   executor.execute(task, role="guardian")
+   ```
+
+### Performance Benchmarking
+
+Generate benchmark reports with `BENCHMARKS_HYBRID.md`:
+
+- Compare token usage across providers
+- Measure latency differences
+- Calculate cost savings
+
+## Troubleshooting
+
+### Backend Unavailable
+
+If a backend is unavailable:
+1. Check service status (Ollama running, API keys valid)
+2. Review logs for connection errors
+3. Verify network connectivity
+
+### Configuration Issues
+
+Common configuration problems:
+- Missing API keys (set via environment variables)
+- Incorrect base URLs for local backends
+- Model names not available on provider
+
+### Performance Optimization
+
+- Use local backends for high-frequency tasks
+- Reserve cloud backends for complex reasoning
+- Monitor token usage with `AgentExecutor.get_stats()`
+
+## Best Practices
+
+1. **Default to Local**: Use Ollama for most tasks to minimize costs
+2. **Cloud for Complexity**: Use cloud providers for complex reasoning tasks
+3. **Role Specialization**: Match backend capabilities to agent roles
+4. **Monitor Usage**: Regularly review backend usage statistics
+5. **Plan Fallbacks**: Always configure fallback chains for critical agents
+
+## Example Use Cases
+
+### Development Workflow
+- **Guardian Agent**: Ollama for code review
+- **Backend Developer**: DeepSeek for complex coding tasks
+- **Indexer Agent**: Ollama for embedding generation
+
+### Production Deployment
+- **Primary**: Ollama cluster for 80% of requests
+- **Fallback**: DeepSeek for remaining 20%
+- **Emergency**: OpenAI as last-resort fallback
+
+## Next Steps
+
+1. **Benchmarking**: Run hybrid benchmarks to measure performance
+2. **Optimization**: Fine-tune backend selection based on task type
+3. **Monitoring**: Implement detailed metrics collection
+4. **Expansion**: Add support for additional providers (Anthropic, Groq, etc.)
+
+---
+
+**Version**: 1.0  
+**Last Updated**: 2026-04-10  
+**Author**: NeoCortex Framework Team

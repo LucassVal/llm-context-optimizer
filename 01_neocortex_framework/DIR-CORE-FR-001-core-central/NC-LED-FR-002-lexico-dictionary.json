@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "description": "Test dictionary",
+  "atoms": {
+    "#TEST": {
+      "definition": "test",
+      "scope": "global",
+      "tags": []
+    }
+  }
+}

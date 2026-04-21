@@ -1,0 +1,42 @@
+# ORCH-302-handoff-20260413-150455-approved.yaml
+# Handoff aprovado retrospectivamente durante auditoria NC-DS-077
+
+ticket_id: ORCH-302
+status: APPROVED
+timestamp: "2026-04-15T14:31:00-03:00"
+reviewed_by: T0-Antigravity
+reviewed_at: "2026-04-15T14:31:00-03:00"
+agent_port: 32763
+lines_added: 315
+files_modified:
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-035-task.py
+summary: |
+  Implementada tool MCP `neocortex_task` com ações execute, poll, cancel, list_queued.
+  Integração com HTTP POST /task e GET /health de sub-servidores.
+  Fallback para registry em memória; compatível com TaskBroker se disponível.
+  Polling real com timeout configurável.
+ajustes_aplicados: []
+lessons_learned: []
+deps_missing: []
+ruff_violations_found: 0
+metrics:
+  ruff_check: PASS
+  py_compile: PASS
+  import_smoke_test: PASS
+  write_zone_respected: true
+  locks_respected: true
+  min_80_lines: true
+errors: []
+warnings: []
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  ajustes_synthesis_applied: true
+  handoff_yaml_complete: true
+  ssot_updated: true
+  no_locked_files_modified: true
+
+notes: |
+  Handoff aprovado retrospectivamente durante auditoria NC-DS-077.
+  Trabalho verificado como concluído e em conformidade com regras de governança.
+  Ticket retrospectivo criado: NC-DS-079-orch302-neocortex-task.yaml

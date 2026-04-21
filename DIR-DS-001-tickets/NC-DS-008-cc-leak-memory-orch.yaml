@@ -1,0 +1,111 @@
+assigned_to: DS-A
+completed_at: '2026-04-15T13:39:18.329050'
+created_at: '2026-04-12T16:26:00'
+created_by: antigravity-t0
+depends_on: NC-DS-006
+description: 'Super varredura 100% com decodificação de padrões.
+
+  Foco: memória, orquestração, engine Python/Rust do claw-code.
+
+
+  INSIGHT CRÍTICO: claw-code é uma REIMPLEMENTAÇÃO Python/Rust do Claude Code
+
+  — não TypeScript. Cada módulo TypeScript foi portado para um arquivo Python.
+
+  reference_data/ contém os JSONs SSOT internos da Anthropic (prompts, commands, tools).
+
+  '
+exit_state:
+  files_created:
+  - DIR-RES-CC-001-claude-leak-workzone/analysis-session-a/NC-LBE-CC-002-memory-arch.mdc
+  - DIR-RES-CC-001-claude-leak-workzone/analysis-session-a/NC-LBE-CC-003-orchestration.mdc
+  - DIR-RES-CC-001-claude-leak-workzone/analysis-session-a/NC-ANA-CC-001-claw-python-engine.md
+  - DIR-RES-CC-001-claude-leak-workzone/analysis-session-a/NC-ANA-CC-002-tools-commands-schema.md
+forbidden_zone:
+- neocortex/mcp/
+- C:/Users/Lucas Valério/Desktop/CLAUDE_CODE_DISSECTION/free-code/src/
+- C:/Users/Lucas Valério/Desktop/CLAUDE_CODE_DISSECTION/claw-code/src/
+handoff_ref: NC-DS-008-handoff-20260415T133918-retrospective.yaml
+integrity_hash: 3ac618a0f9fae917
+key_questions:
+- Qual o schema JSON em tools_snapshot.json? Como define tool = {name, description,
+  params}?
+- O parity_audit.py mostra gaps entre TypeScript e Python — quais são?
+- Como agentMemory.ts gerencia o índice de 150 chars/linha?
+- Qual o trigger exato do autoDream (3 portas)?
+- Como forkSubagent.ts isola contexto de workers?
+limits:
+  escalate_after_rounds: 8
+  max_rounds: 10
+  max_tokens_per_phase: 8000
+methodology: "=== FASE 0 — GOLDEN FILES (máxima prioridade) ===\n1. Ler commands_snapshot.json\
+  \ COMPLETO (41KB)\n   → Mapear: estrutura de comandos, parâmetros, tipos, permissões\n\
+  \   → Extrair: esquema JSON que define o contrato de tool da Anthropic\n2. Ler tools_snapshot.json\
+  \ COMPLETO (37KB)\n   → Mapear: todas as tools internas, assinaturas, comportamentos\n\
+  3. Ler archive_surface_snapshot.json\n4. Varrer src/reference_data/subsystems/ —\
+  \ ler todos os arquivos\n\n=== FASE 1 — PYTHON ENGINE (claw-code) ===\n5. Ler src/main.py\
+  \ COMPLETO → entender entrypoint e fluxo principal\n6. Ler src/runtime.py → modelo\
+  \ de execução do agente\n7. Ler src/query_engine.py → como queries são processadas\n\
+  8. Ler src/parity_audit.py → CRÍTICO: mostra o que foi portado e como\n9. Ler tests/test_porting_workspace.py\
+  \ → casos de teste = comportamento esperado\n10. Ler src/execution_registry.py,\
+  \ src/session_store.py, src/command_graph.py\n\n=== FASE 2 — FREE-CODE MEMÓRIA (TypeScript)\
+  \ ===\n11. Ler TODOS os 8 arquivos de free-code/src/memdir/ um a um\n12. Ler free-code/src/tools/agentMemory.ts\
+  \ COMPLETO\n13. Ler free-code/src/tools/agentMemorySnapshot.ts COMPLETO\n14. Ler\
+  \ free-code/src/tools/forkSubagent.ts e runAgent.ts\n15. Varrer free-code/src/services/\
+  \ buscando: autoDream, consolidat, memory, dream\n\n=== FASE 3 — FREE-CODE ORQUESTRAÇÃO\
+  \ ===\n16. Ler TODOS os arquivos de free-code/src/coordinator/\n17. Ler free-code/src/assistant/\
+  \ (ambos os arquivos)\n18. Ler free-code/src/tasks/ (12 arquivos completos)\n\n\
+  === FASE 4 — DECODIFICAÇÃO DE PADRÕES ===\nPara cada módulo lido, extrair:\n- Interfaces/tipos\
+  \ definidos\n- Padrão de fluxo de dados\n- Lock e sincronização (se aplicável)\n\
+  - Como se comunica com outros módulos\n\n=== FASE 5 — SÍNTESE ===\nProduzir NC-LBE-CC-002\
+  \ (memória): MEMORY.md, Dream, topic files, índice ponteiro\nProduzir NC-LBE-CC-003\
+  \ (orquestração): coordinator, workers, anti-lazy\nProduzir NC-ANA-CC-001: análise\
+  \ do engine Python vs NeoCortex\nProduzir NC-ANA-CC-002: esquema de tools/commands\
+  \ da Anthropic vs nosso\n"
+priority: RESEARCH
+roadmap_ticket: CC-001-A
+source_map:
+  A1_claw-code_python_engine:
+    arquivos_chave:
+    - src/main.py (10.7KB) — entrypoint principal
+    - src/runtime.py (8.4KB) — runtime do agente
+    - src/query_engine.py (7.9KB) — motor de queries
+    - src/parity_audit.py (5.4KB) — auditoria de paridade TypeScript↔Python
+    - tests/test_porting_workspace.py (10.9KB) — testes de porting
+    golden_files:
+    - src/reference_data/commands_snapshot.json (41KB) — TODOS OS COMANDOS INTERNOS
+    - src/reference_data/tools_snapshot.json (37KB) — TODAS AS TOOLS INTERNAS
+    - src/reference_data/archive_surface_snapshot.json (1.1KB)
+    linguagem: Python + Rust
+    nota: 'PRIORIDADE MÁXIMA: commands_snapshot.json e tools_snapshot.json.
+
+      São os JSONs SSOT que definem a API interna completa da Anthropic.
+
+      Decifrar = entender o esquema de tool definitions que a Anthropic usa internamente.
+
+      '
+    path: C:/Users/Lucas Valério/Desktop/CLAUDE_CODE_DISSECTION/claw-code/
+    subsystems_dir: src/reference_data/subsystems/
+    total_files: 183
+  A2_free-code_typescript_memoria_orquestracao:
+    linguagem: TypeScript (1358 .ts + 558 .tsx)
+    pastas_prioritarias:
+      assistant: 2 arquivos — KAIROS base
+      coordinator: 2 arquivos — multi-agent coordinator
+      memdir: 8 arquivos — arquitetura MEMORY.md e topic files
+      services: 140 arquivos — autoDream, consolidação, background services
+      tools: 190 arquivos — agentMemory.ts, agentMemorySnapshot.ts, forkSubagent.ts,
+        runAgent.ts
+    pastas_secundarias:
+      hooks: 104 arquivos — React hooks, verificar memory hooks
+      state: 6 arquivos — state management
+      tasks: 12 arquivos — gestão de tasks
+      utils: 569 arquivos — utilities (varrer por padrões de memória)
+    path: C:/Users/Lucas Valério/Desktop/CLAUDE_CODE_DISSECTION/free-code/
+    total_files: 1950
+status: DONE
+ticket_id: NC-DS-008
+title: 'Claude Code Leak — Super Varredura A: Python/Rust Engine (claw-code) + TypeScript
+  Core (free-code memória/orquestração)'
+updated_at: '2026-04-12T16:34:00'
+write_zone: DIR-RES-CC-001-claude-leak-workzone/analysis-session-a/

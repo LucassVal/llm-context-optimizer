@@ -1,0 +1,235 @@
+E401 [*] Multiple imports on one line
+  --> neocortex\core\config\NC-CFG-FR-002-feature-flags.py:9:1
+   |
+ 7 | """
+ 8 |
+ 9 | import logging, os
+   | ^^^^^^^^^^^^^^^^^^
+10 | from pathlib import Path
+11 | from typing import Any, Dict, Optional
+   |
+help: Split imports
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> neocortex\core\config\NC-CFG-FR-002-feature-flags.py:9:1
+   |
+ 7 |   """
+ 8 |
+ 9 | / import logging, os
+10 | | from pathlib import Path
+11 | | from typing import Any, Dict, Optional
+12 | |
+13 | | from cachetools import TTLCache
+14 | | from ruamel.yaml import YAML
+15 | | import platformdirs
+   | |___________________^
+   |
+help: Organize imports
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> neocortex\core\config\NC-CFG-FR-004-project-loader.py:9:1
+   |
+ 7 |   """
+ 8 |
+ 9 | / import logging
+10 | | import os
+11 | | from pathlib import Path
+12 | | from typing import Dict, Any, Optional, Union
+13 | |
+14 | | from platformdirs import user_config_dir
+15 | | from ruamel.yaml import YAML
+   | |____________________________^
+   |
+help: Organize imports
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> neocortex\core\hooks\NC-HK-FR-001-hook-registry.py:13:1
+   |
+11 |   """
+12 |
+13 | / import asyncio
+14 | | import logging
+15 | | import time
+16 | | from dataclasses import dataclass
+17 | | from datetime import datetime
+18 | | from pathlib import Path
+19 | | from typing import Any, Callable, Dict, List, Optional, Union, Awaitable
+20 | | import importlib.metadata
+21 | | import yaml  # PyYAML ou ruamel.yaml (ser substitudo pelo ProjectConfigLoader)
+   | |___________^
+22 |
+23 |   logger = logging.getLogger(__name__)
+   |
+help: Organize imports
+
+F401 [*] `datetime.datetime` imported but unused
+  --> neocortex\core\hooks\NC-HK-FR-001-hook-registry.py:17:22
+   |
+15 | import time
+16 | from dataclasses import dataclass
+17 | from datetime import datetime
+   |                      ^^^^^^^^
+18 | from pathlib import Path
+19 | from typing import Any, Callable, Dict, List, Optional, Union, Awaitable
+   |
+help: Remove unused import: `datetime.datetime`
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> neocortex\core\review\NC-REV-FR-001-confidence-review.py:9:1
+   |
+ 7 |   """
+ 8 |
+ 9 | / import ast
+10 | | import logging
+11 | | import re
+12 | | import yaml
+13 | | from dataclasses import dataclass, field
+14 | | from pathlib import Path
+15 | | from typing import Dict, List, Optional, Any, Union
+   | |___________________________________________________^
+16 |
+17 |   logger = logging.getLogger(__name__)
+   |
+help: Organize imports
+
+F401 [*] `ast` imported but unused
+  --> neocortex\core\review\NC-REV-FR-001-confidence-review.py:9:8
+   |
+ 7 | """
+ 8 |
+ 9 | import ast
+   |        ^^^
+10 | import logging
+11 | import re
+   |
+help: Remove unused import: `ast`
+
+F401 [*] `re` imported but unused
+  --> neocortex\core\review\NC-REV-FR-001-confidence-review.py:11:8
+   |
+ 9 | import ast
+10 | import logging
+11 | import re
+   |        ^^
+12 | import yaml
+13 | from dataclasses import dataclass, field
+   |
+help: Remove unused import: `re`
+
+F401 [*] `typing.Union` imported but unused
+  --> neocortex\core\review\NC-REV-FR-001-confidence-review.py:15:47
+   |
+13 | from dataclasses import dataclass, field
+14 | from pathlib import Path
+15 | from typing import Dict, List, Optional, Any, Union
+   |                                               ^^^^^
+16 |
+17 | logger = logging.getLogger(__name__)
+   |
+help: Remove unused import: `typing.Union`
+
+I001 [*] Import block is un-sorted or un-formatted
+   --> neocortex\core\review\NC-REV-FR-001-confidence-review.py:141:13
+    |
+139 |         # Importar e adicionar os trs validadores principais (naming, compile, locks)
+140 |         try:
+141 |             from .validators import NamingValidator, CompileValidator, LocksValidator
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+142 |
+143 |             naming = NamingValidator()
+    |
+help: Organize imports
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> neocortex\core\services\NC-SVC-FR-009-session-buddy.py:9:1
+   |
+ 7 |   """
+ 8 |
+ 9 | / import importlib
+10 | | import json
+11 | | import logging
+12 | | import time
+13 | | import uuid
+14 | | from dataclasses import dataclass, asdict, field
+15 | | from datetime import datetime
+16 | | from pathlib import Path
+17 | | from typing import Dict, Any, List, Optional, Callable
+18 | |
+19 | | from rich.console import Console
+20 | | from rich.table import Table
+21 | | from rich.progress import Progress, BarColumn, TextColumn
+22 | | from rich.panel import Panel
+23 | | from rich.text import Text
+   | |__________________________^
+24 |
+25 |   # Dynamic import for hyphenated module name
+   |
+help: Organize imports
+
+F401 [*] `uuid` imported but unused
+  --> neocortex\core\services\NC-SVC-FR-009-session-buddy.py:13:8
+   |
+11 | import logging
+12 | import time
+13 | import uuid
+   |        ^^^^
+14 | from dataclasses import dataclass, asdict, field
+15 | from datetime import datetime
+   |
+help: Remove unused import: `uuid`
+
+F401 [*] `rich.panel.Panel` imported but unused
+  --> neocortex\core\services\NC-SVC-FR-009-session-buddy.py:22:24
+   |
+20 | from rich.table import Table
+21 | from rich.progress import Progress, BarColumn, TextColumn
+22 | from rich.panel import Panel
+   |                        ^^^^^
+23 | from rich.text import Text
+   |
+help: Remove unused import: `rich.panel.Panel`
+
+F401 [*] `rich.text.Text` imported but unused
+  --> neocortex\core\services\NC-SVC-FR-009-session-buddy.py:23:23
+   |
+21 | from rich.progress import Progress, BarColumn, TextColumn
+22 | from rich.panel import Panel
+23 | from rich.text import Text
+   |                       ^^^^
+24 |
+25 | # Dynamic import for hyphenated module name
+   |
+help: Remove unused import: `rich.text.Text`
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> neocortex\core\services\NC-SVC-FR-011-ttl-manager.py:13:1
+   |
+11 |   """
+12 |
+13 | / import heapq
+14 | | import threading
+15 | | import logging
+16 | | import time
+17 | | from dataclasses import dataclass, field
+18 | | from typing import Callable, Optional, Dict, List, Any
+19 | | from datetime import datetime
+   | |_____________________________^
+20 |
+21 |   logger = logging.getLogger(__name__)
+   |
+help: Organize imports
+
+F401 [*] `typing.Optional` imported but unused
+  --> neocortex\core\utils\NC-UTL-FR-004-id-validator.py:13:26
+   |
+11 | import re
+12 | from datetime import datetime
+13 | from typing import Dict, Optional
+   |                          ^^^^^^^^
+14 |
+15 | logger = logging.getLogger(__name__)
+   |
+help: Remove unused import: `typing.Optional`
+
+Found 16 errors.
+[*] 16 fixable with the `--fix` option.

@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-Content \"DIR-BOOT-FR-001-bootup-main/NC-BOOT-FR-001-system-manifest.md\" -Head 80)",
+      "Bash(python -c ' *)",
+      "Bash(python3 -c ' *)",
+      "Read(//usr/**)",
+      "Read(//usr/local/**)",
+      "Bash(\"/c/Program Files/Python312/python.exe\" --version)",
+      "Bash('/c/Program Files/Python312/python.exe' -c ' *)",
+      "Bash(\"/c/Program Files/Python312/python.exe\" \"01_neocortex_framework/scripts/NC-SCR-FR-009-sanitize-all-yamls.py\" --check-only)",
+      "Bash(\"/c/Program Files/Python312/python.exe\" -m py_compile \"01_neocortex_framework/scripts/NC-SCR-FR-066-bootup-sync.py\")",
+      "Bash(head -5 \"DIR-DS-001-tickets/NC-DS-001\"*.yaml)",
+      "Bash(\"/c/Program Files/Python312/python.exe\" \"01_neocortex_framework/scripts/NC-SCR-FR-066-bootup-sync.py\" --dry-run)",
+      "Bash(xargs echo *)",
+      "Bash(ls requirements*.txt)",
+      "Bash(\"/c/Program Files/Python312/python.exe\" -m pip list)",
+      "Bash(\"/c/Program Files/nodejs/node.exe\" --version)",
+      "Bash(\"/c/Program Files/nodejs/npm.cmd\" --version)",
+      "Read(//c/Program Files/nodejs//**)",
+      "Bash(\"/c/Users/Lucas Valério/AppData/Roaming/npm/pnpm.cmd\" --version)",
+      "Read(//c/Users/Lucas Valério/**)",
+      "Bash(\"/c/Program Files/Python312/python.exe\" -c \"import neocortex; print\\('OK:', neocortex.__file__\\)\")",
+      "Bash(\"/c/Program Files/Python312/python.exe\" \"01_neocortex_framework/scripts/NC-SCR-FR-066-bootup-sync.py\")",
+      "Bash(\"/c/Program Files/Python312/python.exe\" \"01_neocortex_framework/scripts/NC-SCR-FR-009-sanitize-all-yamls.py\")",
+      "Bash(xargs grep *)",
+      "Bash(find \"c:\\\\Users\\\\Lucas Valério\\\\Desktop\\\\TURBOQUANT_V42\" -type f -name \"*.py\" -exec grep -l \"shared_knowledge\\\\|collective\\\\|hive\" {} \\\\;)",
+      "Bash(\"/c/Program Files/Python312/python.exe\" \"01_neocortex_framework/scripts/NC-SCR-FR-064-artifact-catalog.py\")",
+      "Bash(mkdir -p DIR-DS-003-wal)",
+      "Bash(\"/c/Program Files/Python312/python.exe\" \"01_neocortex_framework/neocortex/core/services/NC-SVC-FR-016-wal-service.py\" stats)",
+      "Bash(\"/c/Program Files/Python312/python.exe\" -m py_compile \"01_neocortex_framework/neocortex/core/services/NC-SVC-FR-016-wal-service.py\")"
+    ]
+  }
+}

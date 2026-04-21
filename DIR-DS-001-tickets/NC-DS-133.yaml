@@ -1,0 +1,121 @@
+# NC-DS-133.yaml
+# Ticket para implementação de KG-002 knowledge-graph-builder popular KG
+
+ticket_id: NC-DS-133
+title: "KG-002 knowledge-graph-builder popular KG"
+status: OPEN
+priority: HIGH
+roadmap_ref: "NC-TODO-FR-001-project-roadmap-consolidated.md linha 65"
+created_at: "2026-04-20T23:25:00"
+created_by: T0-Antigravity
+assigned_to: OpenCode-Agent
+
+working_directory: "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
+framework_subdir: "01_neocortex_framework"
+note_paths: |
+  TODOS os arquivos Python vivem em:
+    C:\Users\Lucas Valério\Desktop\TURBOQUANT_V42\01_neocortex_framework\
+  O diretório raiz do projeto É esse. Não é o diretório do OpenCode.
+
+step_0:
+  - "cd C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
+  - "python -c \"from pathlib import Path; assert Path('01_neocortex_framework').exists(), 'WRONG DIR'\" → DEVE PASSAR"
+  - "Ler 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml"
+  - "python --version → confirmar Python"
+  - "Verificar se neocortex/core/knowledge_graph/ existe"
+
+atomic_locks_inviolaveis:
+  - "01_neocortex_framework/neocortex/mcp/server.py → NUNCA MODIFICAR"
+  - "01_neocortex_framework/neocortex/mcp/sub_server.py → NUNCA MODIFICAR"
+
+task: |
+  Implementar KG-002: sistema para popular Knowledge Graph a partir de múltiplas fontes de dados.
+  
+  Objetivos:
+  1. Criar NC-SVC-FR-026-knowledge-graph-builder.py que:
+     - Extrai entidades e relações de lobes de memória (.mdc)
+     - Processa artefatos do catálogo semântico
+     - Integra com LexicoService para normalização semântica
+     - Constrói grafo de conhecimento com propriedades
+  
+  2. Fontes de dados a processar:
+     - Todos os lobes em 02_memory_lobes/
+     - Artefatos do catálogo (NC-NAM-FR-001)
+     - Tickets e handoffs (DIR-DS-001-tickets/, DIR-DS-002-audit-logs/)
+     - Logs do sistema e métricas
+  
+  3. Criar ferramenta MCP NC-TOOL-FR-050-knowledge-graph.py com ações:
+     - kg.populate: disparar população do KG
+     - kg.query: consultar grafo com Cypher-like syntax
+     - kg.visualize: gerar visualização do grafo
+     - kg.stats: mostrar estatísticas do KG
+  
+  4. Implementar features:
+     - Incremental updates (apenas novos/alterados)
+     - Deduplicação de entidades
+     - Inferência de relações implícitas
+     - Export para formatos padrão (RDF, Neo4j)
+
+implementation_notes: |
+  Regras INVIOLÁVEIS:
+  - R09: NUNCA 'import NC-TOOL-FR-XXX'. Usar importlib.util.spec_from_file_location()
+  - R10: NUNCA hardcode paths. Usar get_config() ou Path(__file__).resolve().parent
+  - R11: NUNCA print() em produção. Usar logger = logging.getLogger(__name__)
+  - R21: VERIFICAR ambiente real antes de afirmar. Se dúvida → ESCALATED
+  
+  Padrões a seguir:
+  - Usar networkx ou similar para representação do grafo
+  - Persistir em JSON com schema versionado
+  - Suportar queries com filtros complexos
+  - Integrar com EventBus para notificações de atualização
+
+pre_handoff_checklist:
+  - "python -m py_compile 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-026-knowledge-graph-builder.py → PASS"
+  - "python -m ruff check 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-026-knowledge-graph-builder.py --select F,E9 → 0 erros"
+  - "grep print( 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-026-knowledge-graph-builder.py (excluindo comentários e __main__) → VAZIO"
+  - "git -C C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework diff --name-only HEAD | Select-String 'server\\.py|sub_server\\.py' → VAZIO"
+  - "Testar extração de lobe de exemplo"
+
+deliverables:
+  - "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-026-knowledge-graph-builder.py"
+  - "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-050-knowledge-graph.py"
+  - "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\scripts\\NC-SCR-FR-113-kg-populate-lobes.py"
+  - "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\DIR-DS-002-audit-logs\\NC-DS-133-handoff-<YYYYMMDDTHHMMSS>.yaml"
+
+handoff_template_inline:
+  ticket_id: "NC-DS-133"
+  status: "PENDING_REVIEW"
+  submitted_at: "<YYYYMMDDTHHMMSS>"
+  submitted_by: "opencode-agent"
+  review_by: "T0-Antigravity"
+
+  summary:
+    files_created: []
+    files_modified: []
+    lines_added: 0
+    validation_rounds: 1
+    locks_violated: []
+    overall: "SUCCESS"
+
+  t0_review_checklist:
+    compile_ok: true
+    ruff_ok: true
+    no_print: true
+    ssot_updated: false
+    locks_clean: true
+
+  test_results:
+    total: 0
+    passed: 0
+    failed: 0
+    notes: ""
+
+  escalation:
+    escalated: false
+    reason: ""
+
+write_zone: "PROD → neocortex/core/services/"
+escalation_triggers:
+  - "Erro ao parsear formato .mdc complexo"
+  - "Problema de performance com muitos lobes"
+  - "Conflito com estrutura de Knowledge Graph existente"

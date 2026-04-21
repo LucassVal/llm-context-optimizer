@@ -1,0 +1,115 @@
+<!-- module: white_label -->
+<!-- category: core -->
+<!-- status: active -->
+<!-- created_by: opencode -->
+
+# White Label e Customização
+
+Personalização e white labeling do framework.
+
+## Propósito
+Gerenciar conhecimento específico do módulo white_label.
+
+## Status
+Sugerido
+
+## Tags
+#white_label, #framework, #neocortex
+
+## Checkpoints
+- CP-WHITE_LABEL-001: Criação inicial
+
+## Conteúdo Inicial
+*Este lobe está em construção. Adicione aqui:*
+
+### 1. Visão Geral
+- Objetivos principais
+- Escopo do módulo
+- Integrações com outros módulos
+
+### 2. Componentes Principais
+- Lista de componentes/classes
+- Responsabilidades
+- Dependências
+
+### 3. Padrões e Convenções
+- Padrões de código
+- Convenções de nomenclatura
+- Boas práticas
+
+### 4. Exemplos de Uso
+- Exemplos básicos
+- Casos de uso comuns
+- Configurações típicas
+
+### 5. Referências
+- Links para documentação
+- Arquivos relevantes no projeto
+- Exemplos externos
+
+## Notas
+- Criado automaticamente por OpenCode
+- Data: 2026-04-10 15:36:46
+- Revisão necessária para conteúdo específico do projeto
+
+## White Label e Customização
+
+### Personalização Disponível
+1. **Branding**: Nome, logo, cores
+2. **Configurações**: Valores padrão, comportamentos
+3. **Extensões**: Módulos customizados
+4. **Templates**: Templates de documentos, relatórios
+
+### Diretórios de Customização
+- `white_label/branding/`: Logos, cores, temas
+- `white_label/config/`: Configurações customizadas
+- `white_label/templates/`: Templates personalizados
+- `white_label/extensions/`: Extensões customizadas
+
+### Processo de White Label
+1. Copiar diretório `white_label/` do template
+2. Modificar arquivos de branding
+3. Ajustar configurações
+4. Adicionar extensões customizadas
+5. Rebuild do framework
+
+### Configuração via Environment
+```bash
+# Definir branding customizado
+export NEOCORTEX_BRAND_NAME="MeuFramework"
+export NEOCORTEX_PRIMARY_COLOR="#3b82f6"
+export NEOCORTEX_LOGO_PATH="white_label/branding/logo.png"
+```
+
+### Templates Customizáveis
+- Cortex template
+- Lobe templates
+- Documentação templates
+- Relatórios templates
+
+
+# NC-LBE-FR-WHITELABEL-001
+
+Template de white label
+
+## Status
+Ativo (povoado automaticamente)
+
+## Tags
+#white_label, #framework, #neocortex, #auto_populated
+
+## Checkpoints
+- CP-WHITE_LABEL-001: Criação inicial
+- CP-WHITE_LABEL-002: Povoamento automático
+
+## Análise do Diretório
+- **Total de arquivos**: 0
+
+## Contexto do Projeto
+- **Nome do projeto**: N/A
+- **Total de arquivos no projeto**: 0
+
+## Notas de Povoamento
+- Povoado automaticamente por OpenCode
+- Data: 2026-04-10 15:57:54
+- Foco da análise: templates, configuration, customization

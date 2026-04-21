@@ -7,7 +7,6 @@ This shows how business logic is separated from storage implementation.
 """
 
 import json
-from pathlib import Path
 
 # Import the new architecture components
 from neocortex.core import (
@@ -19,8 +18,6 @@ from neocortex.core import (
 
 from neocortex.repositories import (
     FileSystemRepositoryFactory,
-    FileSystemCortexRepository,
-    FileSystemLedgerRepository,
 )
 
 from neocortex.schemas import LEDGER_SCHEMA, A2A_MESSAGE_SCHEMA

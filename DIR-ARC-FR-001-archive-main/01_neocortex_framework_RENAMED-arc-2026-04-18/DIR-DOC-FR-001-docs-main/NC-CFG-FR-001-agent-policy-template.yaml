@@ -1,0 +1,101 @@
+# NC-CFG-FR-001 — Template de Política de Agente NeoCortex
+# Single Source of Truth para configuração de segurança e limites de cada agente.
+# Copie este template e renomeie para: NC-CFG-<ROLE>-001-agent-policy.yaml
+# ─────────────────────────────────────────────────────────────────────────────
+
+agent:
+  # Identificador único do papel (role) do agente
+  role: "courier"             # courier | engineer | guardian | backend_dev
+
+  # Modelo LLM que este agente usa
+  backend:
+    provider: "ollama"        # ollama | deepseek | openai
+    model: "qwen2.5-coder:1.5b-instruct"
+    base_url: "http://localhost:11434"
+    api_key: ""
+
+  # ── SEGURANÇA: Ferramentas Permitidas ─────────────────────────────────────
+  # Lista de ferramentas MCP que este agente pode chamar (whitelist).
+  # Qualquer tool NÃO listada aqui será bloqueada pelo SecurityService.
+  allowed_tools:
+    - "neocortex_lobes"       # Leitura de lobos/contexto
+    - "neocortex_search"      # Busca FTS5 nos lobos
+    - "neocortex_ledger"      # Leitura e escrita do ledger
+    - "neocortex_task"        # Execução de tarefas recebidas via sub-server
+    - "neocortex_regression"  # Verificação de regressões (STEP 0)
+
+  # ── SEGURANÇA: Ações Proibidas ─────────────────────────────────────────────
+  # Ações que este agente NUNCA pode executar, independente da tool.
+  forbidden_actions:
+    - "spawn"                 # Apenas T0 pode spawnar novos agentes
+    - "stop"                  # Apenas T0 pode encerrar agentes
+    - "delete_lobe"           # Deleção de lobos é proibida (usar archive)
+    - "write_ledger"          # Apenas serviços internos escrevem no ledger diretamente
+    - "set_config"            # Configuração é imutável durante execução
+    - "export"                # Exportação de dados requer autorização explícita
+
+  # ── LIMITES DE RECURSOS ────────────────────────────────────────────────────
+  limits:
+    # Máximo de tokens por tarefa individual
+    max_tokens_per_task: 2048
+    # Máximo de tokens por dia (custo API)
+    daily_budget_tokens: 50000
+    # Custo máximo diário em USD para APIs pagas
+    daily_budget_usd: 0.50
+    # Timeout máximo de execução por tarefa (segundos)
+    task_timeout_seconds: 120
+    # Número máximo de re-tentativas em caso de falha
+    max_retries: 3
+    # Intervalo mínimo entre chamadas ao LLM (throttling, segundos)
+    min_call_interval_seconds: 1
+
+  # ── MENTOR MODE (STEP 0) ───────────────────────────────────────────────────
+  mentor:
+    enabled: true
+    # O agente DEVE chamar neocortex_regression.check antes de cada ação
+    require_regression_check: true
+    # O agente DEVE ler o lobo de contexto antes de iniciar tarefa
+    require_lobe_load: true
+    # Lobes que este agente deve carregar ao iniciar
+    preload_lobes:
+      - "NC-LBE-FR-ARCHITECTURE-001"   # Roadmap e nomenclatura
+      - "NC-LBE-FR-DEVELOPMENT-001"    # Contexto de desenvolvimento
+    # Instrução prefixada ao prompt do LLM (modo de contenção)
+    mentor_prefix: |
+      REGRAS OBRIGATÓRIAS:
+      1. Você é um agente COURIER com acesso restrito.
+      2. Execute APENAS a tarefa delegada pelo T0. Não tome iniciativas.
+      3. Não modifique arquivos fora do seu lobo isolado.
+      4. Reporte SEMPRE o resultado via neocortex_task.
+
+  # ── ARQUIVOS ISOLADOS (LOBO DO AGENTE) ────────────────────────────────────
+  lobe_isolation:
+    # Diretório raiz do ambiente isolado deste agente
+    lobe_dir: "lobes/courier"
+    # O agente só pode ler/escrever dentro do seu lobe_dir
+    strict_isolation: true
+
+---
+# ─────────────────────────────────────────────────────────────────────────────
+# POLÍTICAS POR ROLE (Exemplos de Customização)
+# ─────────────────────────────────────────────────────────────────────────────
+
+# COURIER (Qwen 1.5B — tarefas braçais 24/7)
+# allowed_tools: lobes, search, ledger (read), task, regression
+# limits.max_tokens_per_task: 2048
+# limits.daily_budget_usd: $0.50
+
+# ENGINEER (Qwen 3B — desenvolvimento)
+# allowed_tools: lobes, search, ledger, task, regression, cortex, checkpoint
+# limits.max_tokens_per_task: 4096
+# limits.daily_budget_usd: $2.00
+
+# GUARDIAN (Qwen 1.5B — validação e auditoria)
+# allowed_tools: lobes, search, ledger (read only), regression, security
+# forbidden_actions: TODOS (guardian só lê e reporta, nunca escreve)
+# limits.max_tokens_per_task: 1024
+
+# T0 / BACKEND_DEV (DeepSeek API — orquestração e decisão)
+# allowed_tools: TODAS (sem whitelist — acesso total)
+# limits.max_tokens_per_task: 8192
+# limits.daily_budget_usd: $5.00

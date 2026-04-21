@@ -1,0 +1,36 @@
+status: APPROVED
+ticket_id: NC-DS-005
+roadmap_ticket: FR-022
+submitted_at: "2026-04-12T16:00:00"
+submitted_by: deepseek-chat
+review_by: antigravity-t0
+reviewed_at: "2026-04-12T16:14:00"
+summary:
+  files_created:
+    - "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-022-session.py"
+  files_modified:
+    - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
+    - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md"
+  lines_added: 261
+  lines_removed: 0
+  validation_rounds: 1
+  barriers_passed:
+    - "B1"
+    - "B2"
+    - "B3"
+    - "B4"
+    - "B5"
+    - "B6"
+  locks_violated: []
+  cost_usd: 0.007
+  overall: SUCCESS
+t0_review:
+  compile_ok: true
+  naming_ok: true
+  ssot_updated: true
+  locks_clean: true
+  roadmap_done: true
+  note: "288 linhas, B1/B3/B5/B6 PASS, FR-022 completo (checkpoint, regression, savepoint em tool unificada)"
+rejection:
+  reason: null
+  next_ticket: null

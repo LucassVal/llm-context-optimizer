@@ -1,0 +1,96 @@
+agent_dispatch:
+  port: 38291
+  dispatch_id: "DISPATCH-D-20260415"
+  created_at: "2026-04-15T11:31:30-03:00"
+  created_by: "T0-Antigravity"
+
+  tickets:
+    - SSOT-UPDATE   # NC-NAM-FR-001: registrar tickets NC-DS-070 a 076
+    - GOV-UPDATE    # NC-GOV-FR-005: atualizar com extensões MCP
+
+  prompt: |
+    # AGENTE OPENCODE — PORTA 38291 (DISPATCH-D)
+    Você é um agente T1 do framework NeoCortex. Sua missão é atualizar
+    o SSOT (NC-NAM-FR-001) e o arquivo de governança (NC-GOV-FR-005)
+    com os novos tickets e extensões MCP criadas nesta sessão.
+
+    ## STEP-0 ANTES de qualquer coisa:
+    ```powershell
+    python --version
+    python -m ruff --version
+    ```
+
+    ---
+
+    ## TAREFA 1 — Atualizar NC-NAM-FR-001 (SSOT)
+    Arquivo: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md
+
+    Contexto: 7 tickets novos foram criados (NC-DS-070 a 076) e precisam
+    ser registrados no SSOT com entrada e changelog.
+
+    Tarefas:
+    1. Ler NC-NAM-FR-001-naming-convention.md (LEITURA APENAS primeiro).
+    2. Localizar a tabela de tickets DS (ou criar seção se não existir).
+    3. Adicionar 7 entradas com o formato padrão da tabela existente:
+       - NC-DS-070 | NC-SCR-FR-009-sanitize-all-yamls.py | Rastreabilidade | 2026-04-15
+       - NC-DS-071 | NC-SCR-FR-064-artifact-catalog.py   | Rastreabilidade | 2026-04-15
+       - NC-DS-072 | NC-SCR-FR-066-bootup-sync.py        | Rastreabilidade | 2026-04-15
+       - NC-DS-073 | NC-SCR-FR-014-end-of-cycle.ps1      | Rastreabilidade | 2026-04-15
+       - NC-DS-074 | NC-SCR-FR-080-governance-auditor.py | Rastreabilidade | 2026-04-15
+       - NC-DS-075 | NC-SCR-FR-001-populate-lobes-ssot.py| Rastreabilidade | 2026-04-15
+       - NC-DS-076 | NC-SCR-FR-064-orchestration-fixes.ps1| Rastreabilidade| 2026-04-15
+    4. Adicionar entrada no changelog:
+       [2026-04-15] Adicionados tickets NC-DS-070 a 076 (rastreabilidade scripts WF-001)
+    5. Gerar handoff em DIR-DS-002-audit-logs/NC-SSOT-UPDATE-070-076-handoff-{TIMESTAMP}.yaml
+
+    ⚠️ ATENÇÃO: NC-NAM-FR-001 é @LOCK parcial — NÃO apagar conteúdo existente.
+    Apenas adicionar ao final das tabelas. Se não souber onde adicionar, gere
+    o handoff com status "PENDING_REVIEW" e descreva o que encontrou.
+
+    ---
+
+    ## TAREFA 2 — Verificar NC-GOV-FR-005
+    Arquivo: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-005-governance-ecosystem.yaml
+
+    Tarefas:
+    1. Verificar se o arquivo existe.
+    2. Se existir: ler e verificar se menciona as extensões MCP (SAVE-005, ORCH-301, ORCH-302).
+    3. Se NÃO existir: apenas documentar que está faltando no handoff.
+    4. Gerar handoff com o estado encontrado.
+
+    ---
+
+    ## TEMPLATE DE HANDOFF:
+    ```yaml
+    ticket_id: "NC-SSOT-UPDATE-070-076"
+    status: "PENDING_REVIEW"
+    timestamp: "2026-04-15THH:MM:SS-03:00"
+    agent_port: 38291
+    lines_added: N
+    files_modified:
+      - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
+    summary: |
+      SSOT atualizado com 7 tickets de rastreabilidade NC-DS-070 a 076.
+    ajustes_aplicados: [...]
+    lessons_learned: [...]
+    deps_missing: []
+    metrics:
+      write_zone_respected: true
+      locks_respected: true
+      no_content_deleted: true
+    ```
+
+  write_zones:
+    - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/"
+    - "DIR-DS-002-audit-logs/"
+
+  forbidden:
+    - "01_neocortex_framework/neocortex/mcp/server.py"
+    - "01_neocortex_framework/neocortex/mcp/sub_server.py"
+    - "01_neocortex_framework/DIR-CFG-FR-001-config-main/neocortex_config.yaml"
+    - "DIR-DS-000-agent-config/NC-CFG-DS-004-task-queue.yaml"
+
+  notes: |
+    NC-NAM-FR-001 é SSOT crítico — nunca deletar linhas existentes.
+    Se tiver dúvida sobre onde inserir, gere handoff PENDING_REVIEW descrevendo
+    a estrutura encontrada para T0 (Antigravity) decidir.

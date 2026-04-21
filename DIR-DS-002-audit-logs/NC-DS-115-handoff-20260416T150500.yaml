@@ -1,0 +1,27 @@
+# NC-DS-115-handoff-20260416T150500.yaml
+# Handoff T0 — execução direta (NC-NAM-FR-001 é @LOCK)
+
+status: APPROVED
+ticket_id: NC-DS-115
+submitted_at: "2026-04-16T15:05:00-03:00"
+submitted_by: "T0-Claude-Code (Antigravity)"
+reviewed_at: "2026-04-16T15:05:00-03:00"
+reviewed_by: "T0-Claude-Code (Antigravity)"
+
+summary:
+  files_created: []
+  files_modified:
+    - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
+  locks_violated: []
+  overall: SUCCESS
+  nota: "T0 execução direta autorizada — NC-NAM-FR-001 é @LOCK, não delegável a T1"
+
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true      # não é arquivo .py
+  ssot_updated: true             # este ticket É a atualização do SSOT
+  no_locked_files_modified: "NC-NAM-FR-001 é @LOCK mas T0 tem autorização explícita"
+  handoff_yaml_complete: true
+  ruff_ok: true                  # não é arquivo .py
+  py_compile_ok: true            # não é arquivo .py
+  roadmap_marked: "NC-DS-115 não estava no roadmap sprint — ticket de manutenção inline"

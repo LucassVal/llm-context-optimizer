@@ -1,0 +1,71 @@
+agent_dispatch:
+  port: 51725
+  dispatch_id: "DISPATCH-A-20260415"
+  created_at: "2026-04-15T11:27:00-03:00"
+  created_by: "T0-Antigravity"
+
+  tickets:
+    - NC-DS-070  # SCR-FR-009 sanitize-all-yamls
+    - NC-DS-071  # SCR-FR-064 artifact-catalog
+
+  prompt: |
+    # AGENTE OPENCODE — PORTA 51725 (DISPATCH-A)
+    Você é um agente T1 do framework NeoCortex. Processe os tickets abaixo
+    em sequência. Leia cada ticket YAML, execute as tarefas e gere handoff.
+
+    ## STEP-0 obrigatório ANTES de qualquer coisa:
+    ```powershell
+    python --version         # deve ser 3.12.x
+    python -m ruff --version # deve existir
+    ```
+
+    ## TICKET 1: NC-DS-070
+    Arquivo: DIR-DS-001-tickets/NC-DS-070-scr-fr009-sanitize-yamls.yaml
+    Script alvo: 01_neocortex_framework/scripts/NC-SCR-FR-009-sanitize-all-yamls.py
+
+    Tarefas:
+    1. Verificar sintaxe: `python -m py_compile NC-SCR-FR-009-sanitize-all-yamls.py`
+    2. Rodar check: `python NC-SCR-FR-009-sanitize-all-yamls.py --check-only`
+    3. Documentar parâmetros de entrada/saída e códigos de retorno.
+    4. Gerar handoff em DIR-DS-002-audit-logs/NC-DS-070-handoff-{TIMESTAMP}.yaml
+
+    ## TICKET 2: NC-DS-071
+    Arquivo: DIR-DS-001-tickets/NC-DS-071-scr-fr064-artifact-catalog.yaml
+    Script alvo: 01_neocortex_framework/scripts/NC-SCR-FR-064-artifact-catalog.py
+
+    Tarefas:
+    1. Verificar sintaxe: `python -m py_compile NC-SCR-FR-064-artifact-catalog.py`
+    2. Executar e confirmar que artifact_catalog.json é atualizado.
+    3. Documentar parâmetros e tempo médio de execução.
+    4. Gerar handoff em DIR-DS-002-audit-logs/NC-DS-071-handoff-{TIMESTAMP}.yaml
+
+    ## TEMPLATE DE HANDOFF (usar para CADA ticket):
+    ```yaml
+    ticket_id: "NC-DS-0XX"
+    status: "PENDING_REVIEW"
+    timestamp: "2026-04-15THH:MM:SS-03:00"
+    agent_port: 51725
+    lines_added: N
+    files_modified: [...]
+    summary: |
+      1-3 linhas do que foi feito.
+    ajustes_aplicados: [...]
+    lessons_learned: [...]
+    deps_missing: []
+    metrics:
+      ruff_check: PASS
+      py_compile: PASS
+      import_smoke_test: PASS
+      write_zone_respected: true
+      locks_respected: true
+    ```
+
+  write_zones:
+    - "01_neocortex_framework/scripts/"
+    - "DIR-DS-002-audit-logs/"
+
+  forbidden:
+    - "01_neocortex_framework/neocortex/mcp/server.py"
+    - "01_neocortex_framework/neocortex/mcp/sub_server.py"
+    - "01_neocortex_framework/DIR-CFG-FR-001-config-main/neocortex_config.yaml"
+    - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"

@@ -1,0 +1,49 @@
+ticket_id: "NC-DS-096"
+status: "DONE"
+priority: "HIGH"
+title: "ORCH-301 + ORCH-302: send_task() HTTP real + neocortex_task via PicoClaw"
+created_at: "2026-04-16T01:26:41-03:00"
+created_by: "T0-Claude-Code"
+
+context:
+  origin: "Bloqueante PRÉ-MCP identificado no boot manifest"
+  problem: |
+    Loop A2A está bloqueado:
+      Antigravity → Core → PicoClaw → OpenCode não funciona porque:
+      ORCH-301: send_task() ainda não faz HTTP POST real para PicoClaw :18790
+      ORCH-302: neocortex_task tool não tem integração HTTP/SSE real
+    PicoClaw :18790 está DOWN nesta sessão — implementar código, não testar end-to-end.
+
+task:
+  description: |
+    1. NC-TOOL-FR-023-orchestration.py
+       Implementar send_task() real:
+         - HTTP POST para http://localhost:18790/dispatch
+         - Payload: {ticket_id, task_type, payload, agent_id, timeout}
+         - Resposta: {task_id, status, agent_assigned}
+         - Fallback gracioso quando PicoClaw DOWN (retorna status: "queued_offline")
+         - Timeout: 5s (não bloquear o Core)
+
+    2. NC-TOOL-FR-036-picoclaw.py
+       Adicionar endpoint SSE polling:
+         - GET http://localhost:18790/tasks/{task_id}/status
+         - Retorna stream de eventos ou snapshot de status
+         - Fallback: retorna last_known_status quando DOWN
+
+    3. NC-BOOT-FR-001: atualizar seção 8 (caminho crítico):
+       ORCH-301 → DONE, ORCH-302 → DONE
+
+atomic_locks_proibidos:
+  - "01_neocortex_framework/neocortex/server.py"
+  - "01_neocortex_framework/neocortex/sub_server.py"
+  - "01_neocortex_framework/neocortex_config.yaml"
+
+write_zone:
+  - "01_neocortex_framework/neocortex/mcp/tools/"
+  - "DIR-BOOT-FR-001-bootup-main/"
+  - "DIR-DS-002-audit-logs/"
+
+tags: ["orch", "picoclaw", "mcp", "send_task", "http", "pre-mcp"]
+domain: "orchestration"
+layer: "mcp"
+type: "FEATURE"

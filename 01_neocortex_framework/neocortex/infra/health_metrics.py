@@ -1,3 +1,15 @@
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:59.395959'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+tags:
+  - neocortex-other
+  - level-0
+  - python
+---"""
 #!/usr/bin/env python3
 """
 Health check and metrics collection for NeoCortex infrastructure.
@@ -5,16 +17,16 @@ Health check and metrics collection for NeoCortex infrastructure.
 Provides system health monitoring and performance metrics collection.
 """
 
-import json
 import logging
-import time
-import psutil
 import platform
-from pathlib import Path
-from typing import Dict, Any, List, Optional, Callable
-from datetime import datetime, timedelta
+import time
 from dataclasses import dataclass, field
+from datetime import datetime, timedelta
 from enum import Enum
+from pathlib import Path
+from typing import Any, Callable, Dict, List, Optional
+
+import psutil
 
 logger = logging.getLogger(__name__)
 
@@ -211,8 +223,8 @@ class HealthChecker:
     def check_python_environment(self) -> HealthCheck:
         """Check Python environment and dependencies."""
         try:
-            import sys
             import importlib.metadata as metadata
+            import sys
 
             checks = []
             required_packages = [

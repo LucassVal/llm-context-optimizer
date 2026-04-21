@@ -1,0 +1,169 @@
+ticket_id: "NC-DS-120"
+title: "Frente B - Completar parciais MCP (P-001 a P-016)"
+status: "OPEN"
+priority: "HIGH"
+created_at: "2026-04-18T09:35:00-03:00"
+assigned_to: "OpenCode-1-agent"
+mode: "single_agent"
+tags: ["governance", "mcp", "partial-coverage", "frente-b"]
+description: |
+  Completar 16 implementações parciais em tools MCP existentes do NeoCortex,
+  conforme mapeamento NC-WF-001 x MCP (implementation_plan.md Frente B).
+  Cada parcial deve ser completado, validado (py_compile + ruff) e handoff gerado.
+  SEM criar novas tools - apenas expandir as já existentes.
+
+governance_rules:
+  - "STEP 0 obrigatório antes de qualquer edição"
+  - "py_compile + ruff após cada arquivo modificado"
+  - "handoff YAML ao concluir cada parcial"
+  - "NUNCA tocar NC-SEC-FR-001-atomic-locks.yaml"
+  - "R21: Zero suposições - verificar arquivo real antes de afirmar"
+
+atomic_locks_proibidos:
+  - "neocortex_config.yaml"
+  - "server.py"
+  - "sub_server.py"
+  - "NC-NAM-FR-001-naming-convention.md"
+
+parciais:
+  - id: "P-001"
+    tool: "neocortex_health"
+    file: "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-019-health.py"
+    gap: "metrics.live verifica apenas MCP — adicionar check das portas 3000 (Mission Control), 18790 (PicoClaw), 8767 (Pixel Agents)"
+    action_nova: "metrics.live agora inclui status de portas externas"
+    ciclo: "C0"
+
+  - id: "P-002"
+    tool: "neocortex_governance"
+    file: "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-022-governance.py"
+    gap: "compliance.report não compara tickets vs handoffs"
+    action_nova: "compliance.report inclui seção orphan_check (tickets sem handoff)"
+    ciclo: "C1"
+
+  - id: "P-003"
+    tool: "neocortex_governance"
+    file: "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-022-governance.py"
+    gap: "ssot.diff sem hash LockGuard real"
+    action_nova: "ssot.diff valida hash dos 4 YAMLs de governança (dupla mordaça)"
+    ciclo: "C1/C4"
+
+  - id: "P-004"
+    tool: "neocortex_knowledge"
+    file: "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-021-knowledge.py"
+    gap: "update_index reindexa lobes mas não artifact_catalog.json"
+    action_nova: "update_index chama NC-SCR-FR-064 após reindexar lobes"
+    ciclo: "C3"
+
+  - id: "P-005"
+    tool: "neocortex_context"
+    file: "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-030-context.py"
+    gap: "context.smart_prune prune ledger, não WAL SQLite"
+    action_nova: "context.smart_prune inclui WAL prune via NC-SVC-FR-016"
+    ciclo: "C3"
+
+  - id: "P-006"
+    tool: "neocortex_regression"
+    file: "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-016-regression.py"
+    gap: "regression.check só verifica, não emite flag block ativo"
+    action_nova: "regression.check retorna block:true quando severity>=CRITICAL (R21)"
+    ciclo: "C2"
+
+  - id: "P-007"
+    tool: "neocortex_governance"
+    file: "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-022-governance.py"
+    gap: "audit.replay não cria handoff draft"
+    action_nova: "audit.replay modo draft=true gera rascunho de handoff YAML"
+    ciclo: "C2"
+    depends_on: "P-002, P-003 (mesmo arquivo)"
+
+  - id: "P-008"
+    tool: "neocortex_checkpoint"
+    file: "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-005-checkpoint.py"
+    gap: "complete_task não atualiza roadmap externo"
+    action_nova: "complete_task chama neocortex_tickets.roadmap.mark_done após checkpoint"
+    ciclo: "C2"
+    depends_on: "NC-TOOL-FR-039 (neocortex_tickets) já implementado"
+
+  - id: "P-009"
+    tool: "neocortex_knowledge"
+    file: "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-021-knowledge.py"
+    gap: "get_boot_context retorna compacto sem seção 9 (tickets críticos)"
+    action_nova: "get_boot_context inclui campo critical_tickets extraído da seção 9 do bootup"
+    ciclo: "C1"
+    depends_on: "P-004 (mesmo arquivo)"
+
+  - id: "P-010"
+    tool: "neocortex_governance"
+    file: "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-022-governance.py"
+    gap: "rule.list lista regras mas não varre filesystem para conformidade"
+    action_nova: "naming.audit action adicionada (delegar para neocortex_governance_ops)"
+    ciclo: "C4"
+    depends_on: "P-002, P-003, P-007 (mesmo arquivo)"
+
+  - id: "P-011"
+    tool: "neocortex_governance"
+    file: "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-022-governance.py"
+    gap: "compliance.report sem checks py_compile+ruff"
+    action_nova: "compliance.report inclui code_quality section com validate via NC-TOOL-FR-038.handoff.validate"
+    ciclo: "C2"
+    depends_on: "P-002, P-003, P-007, P-010 (mesmo arquivo)"
+
+  - id: "P-012"
+    tool: "neocortex_orchestration"
+    file: "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-023-orchestration.py"
+    gap: "sem dispatch.create formal (R24)"
+    action_nova: "dispatch.create gera YAML NC-DS-AGT-{ID}-dispatch em DIR-DS-001-tickets/"
+    ciclo: "C2"
+
+  - id: "P-013"
+    tool: "neocortex_lobes"
+    file: "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-010-lobes.py"
+    gap: "get_content adequado mas sem auto-load dos lobes ativos no boot"
+    action_nova: "nova action boot.load_active carrega todos os lobes ativos do NC-WF-001 lobes_ativos"
+    ciclo: "C0"
+
+  - id: "P-014"
+    tool: "neocortex_report"
+    file: "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-034-report.py"
+    gap: "generate_daily_summary não salva em DIR-DS-002-audit-logs"
+    action_nova: "generate_daily_summary adiciona parâmetro save_to_audit=True que persiste o relatório"
+    ciclo: "C4"
+
+  - id: "P-015"
+    tool: "neocortex_session"
+    file: "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-033-session.py"
+    gap: "checkpoint interno não sincroniza com NC-TODO-FR-001 YAML externo"
+    action_nova: "checkpoint.set_current inclui sync_roadmap=True que chama roadmap.mark_done"
+    ciclo: "C2/C3"
+    depends_on: "NC-TOOL-FR-039 (neocortex_tickets) já implementado"
+
+  - id: "P-016"
+    tool: "neocortex_governance"
+    file: "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-022-governance.py"
+    gap: "policy.check sem verificação de write_zones por role (NC-CFG-FR-002)"
+    action_nova: "policy.check lê NC-CFG-FR-002-rules-policy.yaml e valida zone por role"
+    ciclo: "C2"
+    depends_on: "P-002, P-003, P-007, P-010, P-011 (mesmo arquivo)"
+
+sequencia_recomendada:
+  - step: 1
+    parciais: ["P-001", "P-004", "P-006", "P-009", "P-012", "P-013", "P-014"]
+    descricao: "Arquivos independentes — trabalhar em paralelo se possível, ou sequencial"
+  - step: 2
+    parciais: ["P-002", "P-003"]
+    descricao: "NC-TOOL-FR-022 — iniciar modificações em governance.py"
+  - step: 3
+    parciais: ["P-007", "P-010"]
+    descricao: "NC-TOOL-FR-022 — expandir após P-002/P-003"
+  - step: 4
+    parciais: ["P-011", "P-016"]
+    descricao: "NC-TOOL-FR-022 — finalizar governance.py"
+  - step: 5
+    parciais: ["P-005", "P-008", "P-015"]
+    descricao: "context, checkpoint, session — integrar com FR-039 já implementado"
+
+resultado_esperado:
+  cobertura_mcp_wf001: "100%"
+  tools_expandidas: 8
+  novas_actions: 16
+  arquivos_modificados: 8

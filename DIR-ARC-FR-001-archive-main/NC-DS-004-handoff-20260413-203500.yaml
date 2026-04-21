@@ -1,0 +1,50 @@
+ticket_id: NC-DS-004
+status: APPROVED
+approved_by: antigravity-t0
+approved_at: "2026-04-13T20:35:00-03:00"
+timestamp: "2026-04-13T20:32:25-03:00"
+agent_port: 32879
+
+lines_added: 436
+files_modified:
+  - 01_neocortex_framework/neocortex/core/hooks/NC-HK-FR-001-hook-registry.py
+  - 01_neocortex_framework/neocortex/core/hooks/NC-HK-FR-002-simple-hook.py
+  - 01_neocortex_framework/neocortex/core/hooks/__init__.py
+
+summary: |
+  Criado NC-HK-FR-001-hook-registry.py (285L): HookRegistry com 6 eventos pré-definidos
+  (before_tool_call, after_tool_call, on_error, session_start, session_end, on_checkpoint).
+  Criado NC-HK-FR-002-simple-hook.py (151L): LoggingHook, TimingHook (p50/p95),
+  RateLimitHook (sliding window), AuditHook (YAML append por dia).
+  T0 corrigiu nome de example-hook para simple-hook e expandiu para 151L (era 75L).
+
+ajustes_aplicados:
+  - "T0 reescreveu NC-HK-FR-002: nome corrigido (example→simple), 4 hooks completos, 151L"
+  - "example-hook arquivado em DIR-ARC-FR-001-archive-main/"
+  - "AuditHook usa get_config() para path de log (R10 respeitado)"
+  - "RateLimitHook com sliding window thread-safe"
+
+lessons_learned:
+  - "Agente nomeou FR-002 como 'example-hook' em vez de 'simple-hook' — ticket deve ser mais explícito no nome do arquivo"
+  - "75L abaixo do mínimo de 80L — barrier B4 deve bloquear, não apenas avisar"
+
+deps_missing: []
+ruff_violations_found: 0
+
+metrics:
+  ruff_check: PASS
+  py_compile: PASS
+  import_smoke_test: PASS
+  write_zone_respected: true
+  locks_respected: true
+  min_80_lines: true
+
+errors: []
+warnings:
+  - "Agente original entregou 75L e nome errado — correção aplicada por T0"
+
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  ajustes_synthesis_applied: true
+  handoff_yaml_complete: true

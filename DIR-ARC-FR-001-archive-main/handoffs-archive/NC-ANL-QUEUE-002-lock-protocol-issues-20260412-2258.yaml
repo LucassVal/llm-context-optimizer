@@ -1,0 +1,166 @@
+# Análise de problemas no protocolo de lock e claim com 10 workers simultâneos
+# Gerado por: worker-8512-f87cfd
+# Data: 2026-04-12T22:58:00+00:00
+# Destino: T0 (antigravity-t0) para revisão e ação
+
+analysis_id: NC-ANL-QUEUE-002
+created_at: "2026-04-12T22:58:00+00:00"
+created_by: "worker-8512-f87cfd"
+trigger: "User report: 'Voce esta tendo erros e problemas ao pegar a task'"
+current_ticket: NC-DS-023 (CLAIMED, awaiting continuation)
+
+# ============================================================================
+# RESUMO EXECUTIVO PARA T0
+# ============================================================================
+
+executive_summary: |
+  O protocolo atual de lock file (PASSO 2A/B/C) não está prevenindo race conditions
+  com 10 workers simultâneos. Observamos múltiplos workers sobrescrevendo o
+  queue.lock, stale claims poluindo a fila, e falta de atomicidade real na
+  operação de claim. A escalabilidade está comprometida.
+
+# ============================================================================
+# PROBLEMAS DETECTADOS (com evidências)
+# ============================================================================
+
+issues_detected:
+  - issue: "lock_file_race_condition"
+    description: "Múltiplos workers criam queue.lock simultaneamente sem verificar timestamp de 60s"
+    evidence:
+      - "queue.lock criado por worker-44949-f87cfd (19:54:34.750) sobrescrito por worker-8512-f87cfd (22:54:01.495) sem intervalo de 60s"
+      - "Observei pelo menos 3 workers diferentes competindo pelo lock em <5s"
+    impact: "Lock não garante exclusividade; workers operam com visão inconsistente da fila."
+
+  - issue: "stale_claims_in_available_tasks"
+    description: "Tasks com status: AVAILABLE mas claimed_by não null"
+    examples:
+      - "NC-DS-017: AVAILABLE, claimed_by: worker-1776022151-2196eb"
+      - "NC-DS-019: AVAILABLE, claimed_by: 2026-04-12T18:40:02.624"
+      - "NC-DS-021 a NC-DS-025: similares (5 tasks)"
+    count: 7
+    root_cause: "Limpeza inadequada após task DONE; ou workers crashando sem cleanup."
+    impact: "Confusão no algoritmo de busca por AVAILABLE; workers podem pular tasks realmente disponíveis."
+
+  - issue: "insufficient_wait_time_for_10_workers"
+    description: "Espera de 5s após claim é insuficiente para 10 workers concorrentes"
+    calculation: "10 workers × leitura/escrita ~2s cada = janela de colisão alta"
+    impact: "Múltiplos workers podem ler a mesma versão da fila e tentar claim idêntico."
+
+  - issue: "non_atomic_yaml_operation"
+    description: "Sequência ler→modificar→escrever YAML não é atômica, mesmo com lock file"
+    scenario: "Worker A adquire lock, lê YAML, worker B adquire lock antes de A escrever (lock liberado muito cedo)"
+    impact: "Dois workers podem acreditar que têm o mesmo claim."
+
+  - issue: "inconsistent_timestamps_and_health_check"
+    description: "claimed_at muito antigo em tasks ativas, sem monitoramento"
+    example: "NC-DS-016: claimed_at 19:28:23.777, completed_at 18:34:46 (inconsistente), status ACTIVE"
+    impact: "Impossível detectar workers travados ou zombies."
+
+# ============================================================================
+# SUGESTÕES TÉCNICAS PARA 10 WORKERS SIMULTÂNEOS
+# ============================================================================
+
+technical_recommendations:
+  - priority: "CRITICAL"
+    title: "Implementar lock atômico com backoff exponencial"
+    implementation: |
+      PASSO 2A revisado:
+        1. Tentar criar queue.lock com conteúdo exclusivo (PID/timestamp)
+        2. Se já existe: ler timestamp, calcular idade
+        3. Se idade > 60s: sobrescrever (lock abandonado)
+        4. Se idade ≤ 60s: esperar backoff exponencial (3s, 6s, 12s, 24s, 48s)
+        5. Após 5 tentativas: BLOQUEADO, reportar ao T0
+    benefit: "Reduz contenção, dá chance a outros workers."
+
+  - priority: "HIGH"
+    title: "Cleanup automático diário/por script"
+    implementation: "Script NC-SCR-FR-008-cleanup-queue.py que:
+      - Remove claimed_by de tasks AVAILABLE
+      - Reverte CLAIMED >300s para AVAILABLE
+      - Corrige timestamps inconsistentes
+      - Gera report para T0"
+    benefit: "Mantém fila limpa e consistente."
+
+  - priority: "HIGH"
+    title: "Atomicidade via rename ou SQLite"
+    implementation: |
+      Opção A: Escrever YAML em arquivo temporário, depois rename atômico
+      Opção B: Migrar para SQLite (roadmap MCP-WQUEUE) com transações ACID
+    benefit: "Elimina race conditions completamente."
+
+  - priority: "MEDIUM"
+    title: "Health check de workers"
+    implementation: "Monitor que verifica claimed_at vs tempo atual:
+      - Se claimed_at > 300s e status CLAIMED/ACTIVE: alerta T0
+      - Se worker não atualizar heartbeat (active-zones): expira claim"
+    benefit: "Detecção precoce de workers travados."
+
+  - priority: "LOW"
+    title: "Melhor logging e auditoria"
+    implementation: "Registrar todas as transições de status em log estruturado (JSONL)"
+    benefit: "Debugging de concorrência e análise de performance."
+
+# ============================================================================
+# STATUS DO WORKER ATUAL
+# ============================================================================
+
+worker_status:
+  worker_id: "worker-8512-f87cfd"
+  current_action: "PAUSED por solicitação do usuário após análise"
+  ticket_claimed: "NC-DS-023 (ARCH-002 — StateMachine FSM)"
+  claim_timestamp: "2026-04-12T22:55:42.637712+00:00"
+  next_step: "Aguardar instruções: continuar execução ou hibernar"
+  observations: "Consegui claim após 3 tentativas de lock (race conditions visíveis)"
+
+# ============================================================================
+# COMO ESTOU CONVERSANDO COM O T0 (antigravity-t0)
+# ============================================================================
+
+communication_with_t0:
+  channels:
+    - name: "Handoffs YAML"
+      description: "Arquivos NC-DS-{NUM}-handoff-*.yaml em DIR-DS-002-audit-logs/"
+      purpose: "Entrega formal de trabalho concluído, status PENDING_REVIEW"
+      workflow: "T0 ou auto-approve-script revisa, aprova (APPROVED) ou rejeita (REJECTED)"
+    
+    - name: "Active zones registry"
+      description: "DIR-DS-003-entry-locks/active-zones.yaml"
+      purpose: "Monitoramento em tempo real de quais workers estão em quais write_zones"
+      workflow: "T0 monitora para detectar conflitos de escrita"
+    
+    - name: "Analysis logs"
+      description: "Arquivos NC-ANL-*.yaml com observações, problemas, sugestões"
+      purpose: "Comunicação assíncrona de issues sistêmicas"
+      workflow: "T0 lê, decide ações corretivas, pode escalar para desenvolvimento"
+    
+    - name: "Queue modifications"
+      description: "Mudanças em NC-CFG-DS-004-task-queue.yaml (status DONE, completed_at)"
+      purpose: "Atualização do estado da fila"
+      workflow: "T0 pode auditar histórico via git"
+  
+  notes: |
+    A comunicação é assíncrona e baseada em arquivos. Não há canal direto
+    (chat, API). O T0 revisa periodicamente os diretórios de audit-logs e
+    active-zones, tomando ações conforme necessário.
+
+# ============================================================================
+# PRÓXIMAS AÇÕES RECOMENDADAS
+# ============================================================================
+
+next_actions:
+  - immediate: "Executar cleanup manual da fila (remover claimed_by de tasks AVAILABLE)"
+  - short_term: "Reforçar implementação do lock com backoff exponencial em NC-PROMPT-DS-002"
+  - medium_term: "Desenvolver script de cleanup automático (NC-SCR-FR-008)"
+  - long_term: "Migrar para SQLite com transações (MCP-WQUEUE)"
+
+# ============================================================================
+# METADADOS
+# ============================================================================
+
+metadata:
+  queue_version: "2.0"
+  prompt_hash: "f87cfd178a00"
+  file_lock_protocol: "ON (PASSO 2A/B/C)"
+  concurrent_workers_design: 10
+  analysis_confidence: "HIGH (evidências observadas diretamente)"
+  related_analysis: "NC-ANL-QUEUE-001-difficulty-analysis-20260412-2236.yaml"

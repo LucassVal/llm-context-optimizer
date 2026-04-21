@@ -1,0 +1,17 @@
+status: APPROVED
+ticket_id: NC-DS-021
+submitted_at: "2026-04-12T22:39:00"
+submitted_by: opencode
+review_by: ""
+summary:
+  files_created:
+    - "01_neocortex_framework/neocortex/core/services/NC-SVC-FR-005-event-bus.py"
+  files_modified: []
+  lines_added: 130
+  barriers_passed: ["B1", "B2", "B3", "B4", "B5", "B6"]
+  locks_violated: []
+  overall: SUCCESS
+output_fingerprint:
+  NC-SVC-FR-005-event-bus.py: sha256:536334e533eb2c10618327037b1623c9108ad19acbc94eef881b52cad0724ab7
+approved_at: "2026-04-12T22:50:18"
+approved_by: antigravity-t0

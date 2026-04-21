@@ -1,0 +1,93 @@
+# NC-SEC-FR-001 — Atomic Locks: Arquivos Protegidos do NeoCortex
+# Single Source of Truth para o SecurityService.
+# Nenhum agente pode modificar os recursos listados aqui sem autorização explícita do T0.
+# ─────────────────────────────────────────────────────────────────────────────
+#
+# Uso pelo SecurityService:
+#   from neocortex.core.security_service import SecurityService
+#   svc = SecurityService()
+#   svc.validate_access(path="/path/to/file")  → True (permitido) | False (bloqueado)
+
+atomic_locks:
+
+  # ── ARQUIVOS DE CONFIGURAÇÃO (NUNCA ALTERAR EM RUNTIME) ──────────────────
+  config_files:
+    description: "Arquivos de configuração central — imutáveis durante execução."
+    action: "block_write"
+    paths:
+      - "DIR-CFG-FR-001-config-main/neocortex_config.yaml"
+      - "DIR-CFG-FR-001-config-main/**/*.yaml"
+      - ".agents/rules/**"
+
+  # ── CORTEX CENTRAL (ESTADO DO T0) ─────────────────────────────────────────
+  cortex_files:
+    description: "Córtex central — modificado apenas pelo T0 via neocortex_cortex."
+    action: "block_write"
+    paths:
+      - "DIR-CORE-FR-001-core-central/.agents/rules/NC-CTX-FR-001-cortex-central.mdc"
+      - "DIR-CORE-FR-001-core-central/NC-LED-FR-001-framework-ledger.json"
+      - "DIR-CORE-FR-001-core-central/*.json"
+
+  # ── DOCUMENTAÇÃO SSOT (SOMENTE T0 EDITA) ─────────────────────────────────
+  ssot_docs:
+    description: "Documentação SSOT — alterada apenas mediante instrução explícita do usuário."
+    action: "block_write"
+    paths:
+      - "DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
+      - "DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md"
+      - "DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml"
+      - "DIR-DOC-FR-001-docs-main/NC-CFG-FR-001-agent-policy-template.yaml"
+      - "DIR-DOC-FR-001-docs-main/NC-APP-FR-001-technical-appendix.md"
+
+  # ── SERVIDOR MCP (CÓDIGO DE PRODUÇÃO) ─────────────────────────────────────
+  mcp_server:
+    description: "Código do servidor MCP — modificação requer revisão e reinicialização."
+    action: "block_write"
+    paths:
+      - "neocortex/mcp/server.py"
+      - "neocortex/mcp/sub_server.py"
+      - "neocortex/mcp/__init__.py"
+      - "neocortex/config.py"
+
+  # ── LOBOS ISOLADOS DE OUTROS AGENTES ──────────────────────────────────────
+  cross_lobe_isolation:
+    description: "Agentes não podem modificar lobos de outros agentes."
+    action: "block_cross_write"
+    policy: |
+      Um agente com lobe_dir='lobes/courier' NÃO pode escrever em:
+      - lobes/engineer/
+      - lobes/guardian/
+      - lobes/backend_dev/
+      Apenas o T0 tem permissão de escrita cross-lobe.
+
+  # ── BACKUPS E ARQUIVOS HISTÓRICOS ─────────────────────────────────────────
+  backups:
+    description: "Arquivos de backup — somente leitura após criação."
+    action: "block_write"
+    paths:
+      - "DIR-BAK-FR-001-backup-main/**"
+      - "DIR-ARC-FR-001-archive-main/**"
+
+  # ── GITIGNORE e RAIZ DO PROJETO ───────────────────────────────────────────
+  root_files:
+    description: "Arquivos na raiz do projeto — modificação requer autorização."
+    action: "block_write"
+    paths:
+      - "../.gitignore"
+      - "../start_neocortex_mcp.bat"
+      - "../start_neocortex_mcp.ps1"
+      - "../antigravity_neocortex_config.json"
+      - "../NC-PROMPT-FR-001-master-context.md"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# EXCEÇÕES AUTORIZADAS
+# (Agentes específicos com permissão explícita para certos recursos)
+# ─────────────────────────────────────────────────────────────────────────────
+exceptions:
+  - agent_role: "guardian"
+    allowed_read: ["DIR-CORE-FR-001-core-central/NC-LED-FR-001-framework-ledger.json"]
+    reason: "Guardian lê o ledger para auditoria, mas não escreve."
+
+  - agent_role: "engineer"
+    allowed_write: ["DIR-TEST-FR-001-tests-main/**"]
+    reason: "Engineer pode criar e modificar arquivos de teste."

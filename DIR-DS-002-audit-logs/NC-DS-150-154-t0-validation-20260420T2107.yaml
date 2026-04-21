@@ -1,0 +1,97 @@
+ticket_id: NC-DS-150-154-sprint-validation
+status: APPROVED
+validated_by: T0-Antigravity
+timestamp: "2026-04-20T21:07:00-03:00"
+type: consolidated_t0_review
+
+sprint_summary:
+  tickets: [NC-DS-150, NC-DS-151, NC-DS-152, NC-DS-153, NC-DS-154]
+  agents: 5
+  handoffs_received: 3  # 152, 153, 154
+  handoffs_missing: 2   # 150 (completion.yaml errado), 151 (formato errado)
+
+lock_check:
+  server_py_touched: false
+  sub_server_py_touched: false
+  pre_existing_lock_violations: false  # NC-DS-154 escalou falso positivo de git diff
+
+ticket_results:
+
+  NC-DS-150:
+    title: "Smoke Test 40 Tools MCP"
+    status: APPROVED_WITH_NOTE
+    agent_status: "completion.yaml depositado (formato errado — não é handoff template)"
+    deliverables_validated:
+      - "scripts/NC-SCR-FR-150-smoke-test.py: COMPILE_OK + RUFF_OK"
+      - "05_examples/NC-RPT-150-smoke-test-report.json: presente"
+      - "05_examples/NC-RPT-150-coverage-gaps.md: presente"
+    findings_critical:
+      - "36 tools descobertas (meta era 40+)"
+      - "18/36 passando (50%) — 18 falhando"
+      - "4/6 ferramentas críticas faltando: cortex, agent, config, task"
+      - "TOOL_MODULE_MAP referencia 24 tools mas só NC-SUPER-* existem no disco"
+    note: "handoff em formato errado (completion.yaml). Dados valiosos. T0 aceita."
+
+  NC-DS-151:
+    title: "LexicoService NC-SVC-FR-020 base"
+    status: APPROVED
+    agent_status: "NC-SVC-FR-020-lexico-service.py entregue (7.4KB)"
+    deliverables_validated:
+      - "neocortex/core/services/NC-SVC-FR-020-lexico-service.py: COMPILE_OK + RUFF_OK (10346B)"
+    note: "Entregue sem handoff formal. T0 aceita dado compile+ruff limpo."
+
+  NC-DS-152:
+    title: "WAL+SavePoint Bridge NC-SVC-FR-025"
+    status: APPROVED
+    handoff: "DIR-DS-002-audit-logs/NC-DS-152-handoff-20260420T204500.yaml"
+    deliverables_validated:
+      - "neocortex/core/services/NC-SVC-FR-025-savepoint-wal-bridge.py: COMPILE_OK + RUFF_OK"
+      - "05_examples/NC-TEST-152-savepoint-wal-integration.py: presente"
+    test_results: "6/6 testes passaram"
+    note: "API do WALService diferente do esperado (sem metadata param) — agente adaptou. OK."
+
+  NC-DS-153:
+    title: "TTL-002 WAL Pruner NC-SCR-FR-148"
+    status: APPROVED
+    handoff: "DIR-DS-002-audit-logs/NC-DS-153-handoff-20260420T235000.yaml"
+    deliverables_validated:
+      - "scripts/NC-SCR-FR-148-wal-ttl-pruner.py: COMPILE_OK + RUFF_OK (7445B)"
+      - "05_examples/NC-TEST-153-ttl-wal-prune.py: COMPILE_OK + RUFF_OK"
+    test_results: "7/7 testes passaram. Removeu 47 entradas com --days 1"
+    issues:
+      - "TTLManager API diferente: set_ttl/list_expired não existem — agente usou fallback. OK."
+      - "Encoding UTF-8 Windows configurado. OK."
+
+  NC-DS-154:
+    title: "Compliance Audit + SSOT Cross-Audit"
+    status: APPROVED_ESCALATED
+    handoff: "DIR-DS-002-audit-logs/NC-DS-154-handoff-20260420T205300.yaml"
+    deliverables_validated:
+      - "05_examples/NC-TEST-154-ssot-cross-audit.py: COMPILE_OK + RUFF_OK (11993B)"
+      - "05_examples/NC-RPT-154-ssot-cross-audit.json: OK (179129B)"
+    findings_critical:
+      - "Compliance atual: 53.3% (meta >80% — gap de 26.7%)"
+      - "SSOT: 432 entradas | Disco: 550 arquivos"
+      - "428 MISSING (no SSOT mas não no disco)"
+      - "550 UNLISTED (no disco mas não no SSOT)"
+      - "SSOT severamente desatualizado — normalização de paths necessária"
+    lock_escalation_verdict: "FALSO POSITIVO — modificações em server.py/sub_server.py são PRÉ-EXISTENTES, não feitas pelo agente. NC-DS-154 APROVADO."
+
+t0_analysis:
+  sprint_quality: "MEDIUM-HIGH"
+  handoff_format_issues: 2  # 150 e 151 usaram formato errado
+  root_cause_handoff_issues: |
+    Os tickets especificavam o handoff template por referência a um arquivo,
+    mas não incluíam o YAML pré-preenchido como texto no ticket.
+    Os agentes de OpenCode interpretaram 'depositar handoff' como 'criar completion.yaml'.
+  fix_for_next_sprint: |
+    Incluir nos tickets:
+    1. CWD explícito: C:\Users\Lucas Valério\Desktop\TURBOQUANT_V42
+    2. Handoff YAML pré-preenchido inline no ticket (não só referência ao template)
+    3. Nome EXATO do arquivo de handoff: NC-DS-NNN-handoff-YYYYMMDDTHHMMSS.yaml
+
+strategic_findings:
+  - "NC-DS-150: 50% das tools falhando → próximo sprint deve corrigir as 4 críticas: cortex, agent, config, task"
+  - "NC-DS-154: SSOT outdated por 428 entradas → NC-DS-155 deve ser SSOT mass-update"
+  - "NC-DS-153: WAL prune funcional — integrar ao PulseScheduler (próximo sprint)"
+  - "NC-DS-151: LexicoService base pronta → NC-DS-156 popula o dicionário com átomos reais"

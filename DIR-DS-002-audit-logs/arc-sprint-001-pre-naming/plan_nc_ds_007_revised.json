@@ -1,0 +1,50 @@
+{
+  "ticket_id": "NC-DS-007-REVISED",
+  "phase": 1,
+  "timestamp": "2026-04-12T16:51:00",
+  "file_list": [
+    {
+      "action": "create",
+      "path": "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001a-tools-registry.md",
+      "description": "Extract NC-TOOL-FR-* entries from NC-NAM-FR-001"
+    },
+    {
+      "action": "create",
+      "path": "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001b-lobes-registry.md",
+      "description": "Extract NC-LBE-* entries from NC-NAM-FR-001"
+    },
+    {
+      "action": "create",
+      "path": "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001c-config-registry.md",
+      "description": "Extract NC-CFG-*, NC-SEC-* entries from NC-NAM-FR-001"
+    },
+    {
+      "action": "create",
+      "path": "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001d-prompts-registry.md",
+      "description": "Extract NC-PROMPT-*, NC-BOOT-*, NC-DS-* entries from NC-NAM-FR-001"
+    },
+    {
+      "action": "create",
+      "path": "01_neocortex_framework/scripts/NC-SCR-FR-004-governance-validator.py",
+      "description": "Script to compute SHA-256 hashes and verify parity with original"
+    }
+  ],
+  "dependencies": [
+    "NC-NAM-FR-001-naming-convention.md (read-only)",
+    "hashlib library",
+    "get_config() function",
+    "logging module"
+  ],
+  "methodology": [
+    "Read NC-NAM-FR-001 completely",
+    "Identify sections by category patterns",
+    "Extract lines matching patterns for each sub-registry",
+    "Create tables with identical format to master",
+    "Add changelog entries with timestamp",
+    "Write Python script using hashlib.sha256 and get_config()",
+    "Ensure py_compile passes"
+  ],
+  "risk_level": "LOW",
+  "risk_reason": "Ticket revised by T0 to avoid locked files. Only new files created in permitted write_zone. No modifications to protected files.",
+  "action": "Proceed to FASE 2"
+}

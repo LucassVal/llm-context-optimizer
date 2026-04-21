@@ -1,4 +1,21 @@
 #!/usr/bin/env python3
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:57.100946'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: profiles
+level: 3
+parent_ssot: NC-PRF-FR-003-profile-loader
+related_ssot:
+  - NC-PRF-FR-003
+tags:
+  - profiles
+  - level-3
+  - nc-prefix
+  - python
+---"""
+
 """
 NC-PRF-FR-003 - Profile Loader & Converter
 
@@ -6,11 +23,11 @@ Converte Lucas.json para schema NeoCortex Profile e gerencia perfis hierarquicos
 """
 
 import json
-import sys
 import os
+import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, Any, List, Optional
+from typing import Any, Dict, List, Optional
 
 # ==================== CONFIGURACOES ====================
 
@@ -229,7 +246,7 @@ def _extract_tech_stack(knowledge_graph: Dict[str, Any], category: str) -> List[
             if isinstance(tools, list):
                 return tools
         elif isinstance(data, list):
-            # Categoria é lista direta (ex: Trading_Systems)
+            # Categoria  lista direta (ex: Trading_Systems)
             return data
     return []
 
@@ -525,7 +542,7 @@ Exemplos:
             user_profile, resource_profile, action=args.action
         )
 
-        print(f"[ACCESS] Verificacao de acesso:")
+        print("[ACCESS] Verificacao de acesso:")
         print(
             f"  Usuario: {user_profile['identity']['user_id']} (nivel {user_profile['hierarchy']['level']})"
         )

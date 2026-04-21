@@ -1,0 +1,15 @@
+ticket_id: NC-DS-040
+status: PENDING_REVIEW
+lines_added: 261
+files_modified:
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-030-push-notification.py
+summary: |
+  PushNotificationTool (MCP Tool) implementado com fallback gracioso para notify‑py e integração ao EventBus (NC‑SVC‑FR‑005). Feature flag KAIROS_PUSH_NOTIFICATION, urgency levels (low, normal, high, critical), publicação automática de evento 'notification_sent'.
+ajustes_aplicados:
+  - Tool MCP neocortex_push_notification registrado com ações push.send e push.status
+  - Fallback gracioso para notify‑py (try/except ImportError)
+  - Feature flag via env var KAIROS_PUSH_NOTIFICATION
+  - Urgency levels com timeout diferenciado (3‑10 segundos)
+  - Integração com EventBus via spec_from_file_location (módulos com hífen)
+  - Evento 'notification_sent' publicado automaticamente após cada envio
+  - Arquivo renomeado de NC-TOOL-FR-032 para NC-TOOL-FR-030 (correção de numeração)

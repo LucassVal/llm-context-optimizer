@@ -1,0 +1,31 @@
+# DIR-DS-002-audit-logs/NC-DS-023-handoff-20260413-114159.yaml
+ticket_id: NC-DS-023
+status: PENDING_REVIEW
+timestamp: "2026-04-13T11:41:59"
+agent_port: 0
+lines_added: 0
+files_modified:
+  - 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-007-state-machine.py
+summary: |
+  Ajustes na matriz de transições do AgentStateMachine existente: corrigida ALLOWED_TRANSITIONS,
+  adicionado tratamento seguro para spec_from_file_location, fix lint issues, mantendo
+  thread safety e publicação de eventos via EventBus.
+ajustes_aplicados:
+  - ALLOWED_TRANSITIONS matrix implementada conforme especificação
+  - deque(maxlen=100) para history
+  - evento agent.state_changed via EventBus (R09)
+  - is_terminal() para HANDOFF e ESCALATED
+metrics:
+  lines_real: 167
+  files_created: 0
+  dependencies_used: ["importlib", "threading", "collections", "datetime", "pathlib", "typing", "logging"]
+  write_zone_respected: true
+  locks_respected: true
+errors: []
+warnings: []
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  min_80_lines: true
+  no_locked_files_modified: true
+  handoff_yaml_complete: true

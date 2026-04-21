@@ -1,0 +1,418 @@
+{
+  "metadata": {
+    "environment": "original",
+    "audit_timestamp": "2026-04-15T22:53:58.068851",
+    "dry_run": false,
+    "base_path": "01_neocortex_framework"
+  },
+  "file_system": {
+    "total_files": 345,
+    "files_by_extension": {
+      ".py": 235,
+      ".yaml": 20,
+      ".md": 57,
+      ".json": 33
+    },
+    "naming_convention": {
+      "total_files": 345,
+      "nc_files": 155,
+      "non_nc_files": [
+        "test_import.py",
+        "test_vector_scan.py",
+        "DIR-CORE-FR-001-core-central\\NC_SEC_FR_001_security_utils.py",
+        "DIR-CORE-FR-001-core-central\\test_security_integration.py",
+        "DIR-CORE-FR-001-core-central\\update_ledger.py",
+        "DIR-MCP-FR-001-mcp-server\\clean_utf0.py",
+        "DIR-MCP-FR-001-mcp-server\\extract_tools.py",
+        "DIR-MCP-FR-001-mcp-server\\list_tools.py",
+        "DIR-MCP-FR-001-mcp-server\\list_tools_simple.py",
+        "DIR-MCP-FR-001-mcp-server\\neocortex_mcp.py",
+        "DIR-MCP-FR-001-mcp-server\\test_mcp_simple.py",
+        "DIR-MCP-FR-001-mcp-server\\test_server_start.py",
+        "DIR-MCP-FR-001-mcp-server\\test_tools.py",
+        "DIR-MCP-FR-001-mcp-server\\test_tools_simple.py",
+        "DIR-PRF-FR-001-profiles-main\\profile_manager.py",
+        "DIR-TEST-FR-001-tests-main\\fire_test.py",
+        "DIR-TEST-FR-001-tests-main\\test_config_reload.py",
+        "DIR-TEST-FR-001-tests-main\\test_mcp_responsive.py",
+        "DIR-TEST-FR-001-tests-main\\test_modular_server.py",
+        "DIR-TEST-FR-001-tests-main\\test_sanity.py",
+        "DIR-TEST-FR-001-tests-main\\test_task.py",
+        "DIR-TEST-FR-001-tests-main\\test_tools.py",
+        "neocortex\\config.py",
+        "neocortex\\__init__.py",
+        "scripts\\approve_handoffs.py",
+        "scripts\\audit_reader.py",
+        "scripts\\batch_approve.py",
+        "scripts\\create_lobes.py",
+        "scripts\\dep_scanner.py",
+        "scripts\\exhaustive_population.py",
+        "scripts\\extract_tools_robust.py",
+        "scripts\\fix_approve_022_023.py",
+        "scripts\\fix_indentation.py",
+        "scripts\\fix_queue.py",
+        "scripts\\generate_all_manifests.py",
+        "scripts\\inspect_config.py",
+        "scripts\\migrate_to_stores.py",
+        "scripts\\neocortex_hud.py",
+        "scripts\\populate_memory.py",
+        "scripts\\reset_ds018.py",
+        "scripts\\saneamento_raiz.py",
+        "scripts\\sign_tickets.py",
+        "scripts\\stamp_prompt.py",
+        "scripts\\test_llm_backends.py",
+        "scripts\\test_yaml_inheritance.py",
+        "scripts\\update_ledger_with_tools.py",
+        "scripts\\update_mcp_config.py",
+        "scripts\\update_mcp_config2.py",
+        "scripts\\update_phase3_progress.py",
+        "tests\\test_vector_engine.py",
+        "tests\\__init__.py",
+        "DIR-ARC-FR-001-archive-main\\development_utilities\\clean_security.py",
+        "DIR-ARC-FR-001-archive-main\\development_utilities\\extract_all_tools.py",
+        "DIR-ARC-FR-001-archive-main\\development_utilities\\extract_tools_final.py",
+        "DIR-ARC-FR-001-archive-main\\development_utilities\\extract_tools_robust.py",
+        "DIR-ARC-FR-001-archive-main\\development_utilities\\fix_indentation.py",
+        "DIR-ARC-FR-001-archive-main\\scripts\\add_root_sanitize_event.py",
+        "DIR-ARC-FR-001-archive-main\\scripts\\update_antigravity_confirmation.py",
+        "DIR-ARC-FR-001-archive-main\\scripts\\update_ledger_status.py",
+        "DIR-ARC-FR-001-archive-main\\scripts\\update_phase3_progress.py",
+        "DIR-ARC-FR-001-archive-main\\scripts\\verify_mcp.py",
+        "DIR-BAK-FR-001-backup-main\\backup_root\\add_root_sanitize_event.py",
+        "DIR-BAK-FR-001-backup-main\\backup_root\\update_antigravity_confirmation.py",
+        "DIR-BAK-FR-001-backup-main\\backup_root\\update_ledger_status.py",
+        "DIR-BAK-FR-001-backup-main\\backup_root\\verify_mcp.py",
+        "DIR-BAK-FR-001-backup-main\\backup_root\\benchmarks_archive\\benchmark_fractal_gauntlet.py",
+        "DIR-BAK-FR-001-backup-main\\backup_root\\benchmarks_archive\\benchmark_master_suite.py",
+        "DIR-TMP-FR-001-templates-main\\NC-TOOL-FR-TEMPLATE\\hooks\\NC-HK-EXAMPLE.py",
+        "DIR-TMP-FR-001-templates-main\\NC-TOOL-FR-TEMPLATE\\tests\\test_example.py",
+        "neocortex\\agent\\executor.py",
+        "neocortex\\cli\\main.py",
+        "neocortex\\cli\\__init__.py",
+        "neocortex\\core\\agent_service.py",
+        "neocortex\\core\\akl_service.py",
+        "neocortex\\core\\benchmark_service.py",
+        "neocortex\\core\\checkpoint_service.py",
+        "neocortex\\core\\config_service.py",
+        "neocortex\\core\\consolidation_service.py",
+        "neocortex\\core\\cortex_service.py",
+        "neocortex\\core\\export_service.py",
+        "neocortex\\core\\file_utils.py",
+        "neocortex\\core\\init_service.py",
+        "neocortex\\core\\kg_service.py",
+        "neocortex\\core\\ledger_service.py",
+        "neocortex\\core\\lobe_service.py",
+        "neocortex\\core\\logging_config.py",
+        "neocortex\\core\\manifest_service.py",
+        "neocortex\\core\\peers_service.py",
+        "neocortex\\core\\profile_manager.py",
+        "neocortex\\core\\profile_service.py",
+        "neocortex\\core\\pulse_scheduler.py",
+        "neocortex\\core\\regression_service.py",
+        "neocortex\\core\\security_service.py",
+        "neocortex\\core\\__init__.py",
+        "neocortex\\infra\\backup_restore.py",
+        "neocortex\\infra\\cache_backend.py",
+        "neocortex\\infra\\config_validation.py",
+        "neocortex\\infra\\health_metrics.py",
+        "neocortex\\infra\\hot_cache.py",
+        "neocortex\\infra\\ledger_store.py",
+        "neocortex\\infra\\lobe_index.py",
+        "neocortex\\infra\\manifest_store.py",
+        "neocortex\\infra\\metrics_store.py",
+        "neocortex\\infra\\profiler.py",
+        "neocortex\\infra\\search_engine.py",
+        "neocortex\\infra\\symbolic_compressor.py",
+        "neocortex\\infra\\task_queue.py",
+        "neocortex\\infra\\vector_engine.py",
+        "neocortex\\infra\\vector_engine_example.py",
+        "neocortex\\infra\\vector_store.py",
+        "neocortex\\infra\\__init__.py",
+        "neocortex\\mcp\\server.py",
+        "neocortex\\mcp\\sub_server.py",
+        "neocortex\\mcp\\__init__.py",
+        "neocortex\\repositories\\base.py",
+        "neocortex\\repositories\\file_system_repository.py",
+        "neocortex\\repositories\\__init__.py",
+        "neocortex\\schemas\\__init__.py",
+        "neocortex\\core\\adapters\\__init__.py",
+        "neocortex\\core\\hooks\\__init__.py",
+        "neocortex\\core\\review\\__init__.py",
+        "neocortex\\core\\utils\\yaml_inheritance.py",
+        "neocortex\\core\\utils\\__init__.py",
+        "neocortex\\core\\review\\validators\\__init__.py",
+        "neocortex\\infra\\llm\\backend.py",
+        "neocortex\\infra\\llm\\deepseek_backend.py",
+        "neocortex\\infra\\llm\\factory.py",
+        "neocortex\\infra\\llm\\ollama_backend.py",
+        "neocortex\\infra\\llm\\openai_backend.py",
+        "neocortex\\mcp\\tools\\__init__.py",
+        "DIR-CFG-FR-001-config-main\\neocortex_config.yaml",
+        "DIR-CFG-FR-001-config-main\\neocortex_config_dev.yaml",
+        "DIR-DOC-FR-001-docs-main\\renaming_analysis_summary.yaml",
+        "DIR-DOC-FR-001-docs-main\\renaming_plan.yaml",
+        "DIR-DOC-FR-001-docs-main\\renaming_plan_v2.yaml",
+        "DIR-DOC-FR-001-docs-main\\renaming_plan_v2_dedup.yaml",
+        "lobes\\courier\\neocortex_config.yaml",
+        "lobes\\courier-01\\config.yaml",
+        "lobes\\engineer\\neocortex_config.yaml",
+        "DIR-ARC-FR-001-archive-main\\BENCHMARKS.md",
+        "DIR-ARC-FR-001-archive-main\\BENCHMARKS_HYBRID.md",
+        "DIR-ARC-FR-001-archive-main\\CHECKPOINT_AUDIT_2026-04-10.md",
+        "DIR-ARC-FR-001-archive-main\\DEEPSEEK_API_SUMMARY.md",
+        "DIR-ARC-FR-001-archive-main\\README_MCP_NEOCORTEX.md",
+        "DIR-ARC-FR-001-archive-main\\SANITIZATION_CHECKLIST.md",
+        "DIR-ARC-FR-001-archive-main\\STATUS.md",
+        "DIR-DOC-FR-001-docs-main\\coverage_report.md",
+        "DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001a-tools-registry.md",
+        "DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001b-lobes-registry.md",
+        "DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001c-config-registry.md",
+        "DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001d-prompts-registry.md",
+        "DIR-DOC-FR-001-docs-main\\orchestration_report_20260414-132918.md",
+        "DIR-DOC-FR-001-docs-main\\PROJECT_MAP.md",
+        "DIR-DOC-FR-001-docs-main\\ssot_audit_report.md",
+        "DIR-DOC-FR-001-docs-main\\structural_audit_report.md",
+        "DIR-DOC-FR-001-docs-main\\test_coverage_checklist.md",
+        "DIR-BAK-FR-001-backup-main\\backup_root\\CHEATSHEET.md",
+        "DIR-DOC-FR-001-docs-main\\legacy\\CHEATSHEET.md",
+        "DIR-REF-FR-001-reference-main\\Arquivos de referência\\detalhamento_completo.md",
+        "DIR-REF-FR-001-reference-main\\Arquivos de referência\\structured_elements.md",
+        "DIR-REF-FR-001-reference-main\\Arquivos de referência\\sumario.md",
+        "DIR-TMP-FR-001-templates-main\\NC-TOOL-FR-TEMPLATE\\commands\\NC-CMD-EXAMPLE.md",
+        "lobes\\backend_dev\\NC-LBE-FR-DEEPSEEK-001.md",
+        "DIR-BAK-FR-001-backup-main\\memory_neocortex_framework-20260409.json",
+        "DIR-CORE-FR-001-core-central\\checkpoint_tree_phase1.json",
+        "DIR-DOC-FR-001-docs-main\\compression_report.json",
+        "DIR-DOC-FR-001-docs-main\\courier_progress.json",
+        "DIR-DOC-FR-001-docs-main\\coverage_report.json",
+        "DIR-DOC-FR-001-docs-main\\discrepancy_report.json",
+        "DIR-DOC-FR-001-docs-main\\extraction_audit.json",
+        "DIR-DOC-FR-001-docs-main\\ssot_audit_report.json",
+        "DIR-DOC-FR-001-docs-main\\symbolic_map.json",
+        "DIR-TMP-FR-001-templates-main\\memory-ledger-TEMPLATE.json",
+        "DIR-BAK-FR-001-backup-main\\migration_backup\\backup_manifest.json",
+        "DIR-BAK-FR-001-backup-main\\migration_backup\\ledger_20260410_173509.json",
+        "DIR-BAK-FR-001-backup-main\\migration_backup\\ledger_20260410_173805.json",
+        "DIR-BAK-FR-001-backup-main\\migration_backup\\ledger_20260410_173853.json",
+        "DIR-BAK-FR-001-backup-main\\migration_backup\\ledger_20260410_174028.json",
+        "DIR-BAK-FR-001-backup-main\\migration_backup\\ledger_20260410_174150.json",
+        "DIR-BAK-FR-001-backup-main\\migration_backup\\ledger_20260410_203605.json",
+        "DIR-BAK-FR-001-backup-main\\migration_backup\\ledger_20260410_212708.json",
+        "DIR-BAK-FR-001-backup-main\\migration_backup\\migration_report.json",
+        "DIR-BAK-FR-001-backup-main\\backup_root\\templates\\memory-ledger-TEMPLATE.json",
+        "DIR-BAK-FR-001-backup-main\\backup_root\\old_backup\\backup\\ledger_backup_20260410_001233.json",
+        "lobes\\courier\\DIR-CORE-FR-001-core-central\\memory_ledger_courier.json",
+        "lobes\\engineer\\DIR-CORE-FR-001-core-central\\memory_ledger_engineer.json",
+        "neocortex\\schemas\\a2a_message_schema.json",
+        "neocortex\\schemas\\ledger_schema.json"
+      ],
+      "compliance_rate": 44.927536231884055
+    }
+  },
+  "dependencies": {
+    "pip_packages_count": 299,
+    "pip_packages": [
+      {
+        "name": "accelerate",
+        "version": "1.13.0"
+      },
+      {
+        "name": "aiofile",
+        "version": "3.9.0"
+      },
+      {
+        "name": "aiohappyeyeballs",
+        "version": "2.6.1"
+      },
+      {
+        "name": "aiohttp",
+        "version": "3.13.3"
+      },
+      {
+        "name": "aiosignal",
+        "version": "1.4.0"
+      },
+      {
+        "name": "altgraph",
+        "version": "0.17.5"
+      },
+      {
+        "name": "annotated-doc",
+        "version": "0.0.4"
+      },
+      {
+        "name": "annotated-types",
+        "version": "0.7.0"
+      },
+      {
+        "name": "anyio",
+        "version": "4.12.0"
+      },
+      {
+        "name": "attrs",
+        "version": "25.4.0"
+      },
+      {
+        "name": "Authlib",
+        "version": "1.6.9"
+      },
+      {
+        "name": "bandit",
+        "version": "1.9.4"
+      },
+      {
+        "name": "bcrypt",
+        "version": "5.0.0"
+      },
+      {
+        "name": "beartype",
+        "version": "0.22.9"
+      },
+      {
+        "name": "beautifulsoup4",
+        "version": "4.14.3"
+      },
+      {
+        "name": "bitsandbytes-windows",
+        "version": "0.37.5"
+      },
+      {
+        "name": "blinker",
+        "version": "1.9.0"
+      },
+      {
+        "name": "bottle",
+        "version": "0.13.4"
+      },
+      {
+        "name": "build",
+        "version": "1.3.0"
+      },
+      {
+        "name": "cachetools",
+        "version": "6.2.4"
+      }
+    ],
+    "vulnerabilities": {
+      "error": "C:\\Program Files\\Python312\\python.exe: No module named pip_audit\n"
+    },
+    "dependency_tree_available": false
+  },
+  "catalogs": {
+    "artifact_catalog_loaded": false,
+    "renaming_plan_loaded": true,
+    "genealogy_graph_loaded": true
+  },
+  "governance_compliance": {
+    "R04": {
+      "description": "Nomenclatura Padronizada: todos os arquivos seguem NC-<TIPO>-<SIGLA>-<NUM>-<desc>.ext",
+      "status": true,
+      "details": "155 arquivos seguem padro NC-"
+    },
+    "R05": {
+      "description": "Segregao de Ambientes: manter ambientes separados para desenvolvimento, teste e produo",
+      "status": true,
+      "details": "Ambiente detectado: original"
+    },
+    "R11": {
+      "description": "Versionamento de Artefatos: todos os artefatos de governana versionados (Git) com hashes de integridade",
+      "status": true,
+      "details": "4 de 9 YAMLs de governana possuem hash"
+    },
+    "R01": {
+      "description": "Inventrio de Ativos de IA: manter catlogo completo de modelos, ferramentas, agentes e fontes de dados",
+      "status": true,
+      "details": "artifact_catalog.json: True, mcp_tools_inventory.json: True, genealogy_graph.json: True"
+    },
+    "R02": {
+      "description": "Poltica Formalizada: polticas de governana escritas, versionadas e acessveis como cdigo ou documentos SSOT",
+      "status": true,
+      "details": "NC-NAM-FR-001: True, NC-SEC-FR-001: True, NC-CFG-FR-002: True, NC-GOV-FR-003: True"
+    },
+    "R06": {
+      "description": "Identidade para Agentes: cada agente deve ter identidade nica e verificvel",
+      "status": false,
+      "details": "Handoff directory exists: True, handoff files: 0"
+    },
+    "R07": {
+      "description": "Privilgio Mnimo (PoLP): agentes tm apenas permisses estritamente necessrias",
+      "status": true,
+      "details": "Agent policy template exists: True"
+    },
+    "R08": {
+      "description": "Atomic Locks (Path-Based): arquivos crticos protegidos contra modificao",
+      "status": true,
+      "details": "Atomic locks file exists: True"
+    },
+    "R09": {
+      "description": "Segregao de Zonas de Escrita: agentes de diferentes domnios no podem escrever nos mesmos diretrios",
+      "status": true,
+      "details": "Write zones defined in policy: True"
+    },
+    "R10": {
+      "description": "Trilha de Auditoria Imutvel: todas as aes registradas em log  prova de adulterao",
+      "status": true,
+      "details": "Audit log directory exists: True"
+    },
+    "R12": {
+      "description": "Handoffs Formais: toda tarefa delegada a um agente documentada em handoff YAML",
+      "status": false,
+      "details": "Handoff files: 0"
+    },
+    "R13": {
+      "description": "Checkpoints e Save Points: estado do sistema salvo periodicamente e antes de operaes crticas",
+      "status": true,
+      "details": "Checkpoint tool exists: True"
+    },
+    "R14": {
+      "description": "STEP 0 (Validao Pr-Ao): validar tarefa contra Regression Buffer e polticas antes de executar",
+      "status": true,
+      "details": "mentor_step_0 function exists: True"
+    },
+    "R15": {
+      "description": "STEP -1 (Save Point): snapshot do estado antes de aes de escrita para possvel rollback",
+      "status": true,
+      "details": "Save point tool exists: True"
+    },
+    "R18": {
+      "description": "Ciclo de Vida de Tickets: toda tarefa registrada como ticket e seguir fluxo formal",
+      "status": false,
+      "details": "Tickets directory exists: True, ticket files: 0"
+    },
+    "R19": {
+      "description": "Rotina de 4 Ciclos: trabalho deve seguir rotina diria/semanal para garantir continuidade e limpeza",
+      "status": true,
+      "details": "Cycle validation document exists: True"
+    },
+    "R20": {
+      "description": "Reviso e Arquivo de Artefatos: artefatos antigos arquivados periodicamente para evitar acmulo",
+      "status": true,
+      "details": "Archive directory exists: True"
+    },
+    "MCP_EXTRA": {
+      "description": "MCP & Mission Control Integration Health",
+      "status": true,
+      "details": "MCP server exists: True, Mission Control adapter exists: True"
+    },
+    "R03": {
+      "description": "Estrutura de Diretrios Cannica: definir e impor estrutura padronizada",
+      "status": "pending_implementation",
+      "details": "Verificao no implementada nesta verso"
+    },
+    "R16": {
+      "description": "Circuit Breaker: se um agente falhar repetidamente, deve ser suspenso para evitar loops de falha",
+      "status": "pending_implementation",
+      "details": "Verificao no implementada nesta verso"
+    },
+    "R17": {
+      "description": "Rate Limiting por Ferramenta: limitar frequncia de chamadas a ferramentas crticas ou caras",
+      "status": "pending_implementation",
+      "details": "Verificao no implementada nesta verso"
+    }
+  },
+  "discrepancies": {
+    "files_not_in_catalog": [],
+    "catalog_entries_not_found": [],
+    "renaming_plan_mismatches": []
+  }
+}

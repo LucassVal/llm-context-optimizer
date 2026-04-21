@@ -1,0 +1,20 @@
+ticket_id: "NC-SSOT-UPDATE-070-076"
+status: "PENDING_REVIEW"
+timestamp: "2026-04-15T11:45:36-03:00"
+agent_port: 38291
+lines_added: 0
+files_modified:
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
+summary: |
+  SSOT não foi atualizado devido a múltiplas correspondências da tabela DS, requer revisão T0.
+  Estrutura encontrada: tabela SSOT extensa (linhas 72-417), sem seção dedicada a tickets DS.
+  Foram detectadas múltiplas ocorrências de linhas idênticas, impedindo edição segura.
+ajustes_aplicados: []
+lessons_learned:
+  - "Necessário identificar local único para inserção da tabela de tickets DS."
+  - "Considerar criar subseção '### Tickets DS' após a tabela SSOT, antes do changelog."
+deps_missing: []
+metrics:
+  write_zone_respected: true
+  locks_respected: true
+  no_content_deleted: true

@@ -1,0 +1,36 @@
+status: APPROVED
+ticket_id: NC-DS-010
+roadmap_ticket: FR-024
+submitted_at: "2026-04-12T17:35:00"
+submitted_by: deepseek-chat
+review_by: antigravity-t0
+reviewed_at: "2026-04-12T17:24:56"
+summary:
+  files_created:
+    - "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-024-governance.py"
+  files_modified:
+    - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
+    - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md"
+  lines_added: 1
+  lines_removed: 0
+  validation_rounds: 1
+  barriers_passed:
+    - "B1"
+    - "B2"
+    - "B3"
+    - "B4"
+    - "B5"
+    - "B6"
+  locks_violated: []
+  cost_usd: 0.001
+  overall: SUCCESS
+t0_review:
+  compile_ok: true
+  naming_ok: true
+  ssot_updated: true
+  locks_clean: true
+  roadmap_done: true
+  note: "378 linhas, 14KB, 8 ações. GOV-013 nativo via _iso_timestamp(). 10/10 TOOLS MCP COMPLETAS!"
+rejection:
+  reason: null
+  next_ticket: null

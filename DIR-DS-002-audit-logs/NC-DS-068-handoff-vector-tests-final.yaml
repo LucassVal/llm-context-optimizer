@@ -1,0 +1,114 @@
+# NC-DS-068-handoff-vector-tests-final.yaml
+# Conclusão da correção de testes VectorEngine (Tester)
+# Agente: opencode (DeepSeek-Reasoner)
+# Ticket relacionado: NC-SCR-FR-063-tester-vector-fix.py
+# Regras aplicadas: R21 (Zero Suposições) + STEP-0, R01-R20 conforme checklist
+
+ticket_id: NC-DS-068
+status: PARTIALLY_COMPLETED
+timestamp: "2026-04-14T13:45:00-03:00"
+agent_port: null
+
+lines_added: 35
+files_modified:
+  - "01_neocortex_framework/tests/test_vector_engine.py"
+  - "01_neocortex_framework/tests/pytest.ini"
+files_created:
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/test_coverage_checklist.md"
+
+summary: |
+  Correção de incompatibilidade assíncrona e divergência de API nos testes VectorEngine.
+  Aplicação de correções cirúrgicas baseadas na análise da API real.
+  Execução de STEP-0 (R21) para verificação do ambiente antes das ações.
+  Resultado: 4 testes passam, 11 falham devido a problemas remanescentes.
+
+ajustes_aplicados:
+  - "Execução de STEP-0 (R21): verificação Python 3.12.10, ruff, pytest, dependências"
+  - "Análise da API real: identificados 11 métodos públicos async"
+  - "Correção de incompatibilidade assíncrona: adicionados decorators @pytest.mark.asyncio"
+  - "Correção de nomes de atributos: vector_dimension → embedding_dim, overlap → chunk_overlap"
+  - "Correção de nomes de métodos: add_document → add_documents"
+  - "Conversão de arrays numpy para listas: .tolist() para compatibilidade com API"
+  - "Remoção de mocks problemáticos para 'lancedb' (importado dentro dos métodos)"
+  - "Atualização de pytest.ini para configurar asyncio_mode=auto"
+
+metrics:
+  lines_real: 35
+  lines_total: 35
+  files_created: 1
+  files_modified: 2
+  dependencies_used: ["pytest", "pytest-asyncio", "numpy", "lancedb"]
+  write_zone_respected: true
+  locks_respected: true
+
+test_results:
+  total_tests: 15
+  passed: 4
+  failed: 11
+  passed_tests:
+    - "TestLanceDBVectorEngineUnit.test_add_vectors_validation"
+    - "TestRAGVectorEngine.test_rag_search_with_context"
+    - "test_create_vector_engine_default"
+    - "test_create_vector_engine_rag"
+  failed_tests:
+    - "TestLanceDBVectorEngineUnit.test_init_with_valid_params: WindowsPath vs string"
+    - "TestLanceDBVectorEngineUnit.test_search_without_table: dimensão de vetor incorreta (384 vs 1536)"
+    - "TestLanceDBVectorEngineUnit.test_get_by_id_not_found: mock lancedb não encontrado"
+    - "TestLanceDBVectorEngineUnit.test_update_metadata_success: mock lancedb não encontrado"
+    - "TestLanceDBVectorEngineUnit.test_delete_vector_success: mock lancedb não encontrado"
+    - "TestLanceDBVectorEngineIntegration.test_full_workflow: FileExistsError (Windows)"
+    - "TestLanceDBVectorEngineIntegration.test_batch_operations: FileExistsError (Windows)"
+    - "TestLanceDBVectorEngineIntegration.test_error_handling: FileExistsError (Windows)"
+    - "TestRAGVectorEngine.test_rag_engine_initialization: chunk_overlap (200 vs 64)"
+    - "TestRAGVectorEngine.test_add_document: mock lancedb não encontrado"
+    - "test_vector_engine_context: VectorEngineContext não é context manager"
+
+errors: []
+warnings:
+  - "Testes de integração falham no Windows devido a FileExistsError (mkdir em arquivo já existente)"
+  - "Mocks com @patch('neocortex.infra.vector_engine.lancedb') falham porque lancedb é importado dentro dos métodos"
+  - "VectorEngineContext não implementa protocolo context manager (não tem __enter__/__exit__)"
+  - "Dimensão de vetor inconsistente: API usa embedding_dim=1536, testes usam 384"
+  - "RAGVectorEngine.chunk_overlap padrão é 200, teste espera 64"
+
+remaining_issues:
+  - "Problema de mock: lancedb importado dentro de métodos, não no top-level"
+  - "Incompatibilidade de dimensões: embedding_dim padrão é 1536 (API) vs 384 (testes)"
+  - "VectorEngineContext não suporta contexto (não implementa __enter__/__exit__)"
+  - "Testes de integração no Windows: mkdir falha quando arquivo já existe"
+  - "RAGVectorEngine.add_documents espera documentos como List[Dict[str, Any]] com campo 'text'"
+  - "Métodos async não testados: clear, close, initialize, get_stats, retrieve_relevant_chunks"
+
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  min_80_lines: false
+  no_locked_files_modified: true
+  ajustes_synthesis_applied: true
+  handoff_yaml_complete: true
+
+step0_verification:
+  python_version: "3.12.10"
+  ruff_available: true
+  pytest_available: true
+  dependencies_verified: true
+  file_existence_verified: true
+  syntax_check_passed: true
+
+rules_applied:
+  - "R21 (Zero Suposições): STEP-0 executado antes de todas as ações"
+  - "R01 (Naming): Arquivos seguem convenção NC-"
+  - "R02 (SSOT Update): Checklist de cobertura gerado"
+  - "R06 (Zonas de Escrita): Modificações apenas em diretório de testes"
+  - "R17 (Economia de Tokens): Correções cirúrgicas, não reescritas completas"
+  - "R19 (Uma Tarefa por Sessão): Foco em correção de testes VectorEngine"
+
+next_steps:
+  - "Corrigir mocks: usar @patch('neocortex.infra.vector_engine.LanceDBVectorEngine._ensure_table')"
+  - "Ajustar dimensões: usar embedding_dim=1536 nos testes ou modificar engine para aceitar 384"
+  - "Implementar VectorEngineContext como context manager ou remover teste"
+  - "Corrigir testes de integração no Windows: usar tempfile.mkdtemp()"
+  - "Atualizar RAGVectorEngine.add_documents para aceitar formato correto"
+  - "Executar testes novamente após correções"
+
+---

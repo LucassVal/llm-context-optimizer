@@ -1,0 +1,25 @@
+{
+  "ticket_id": "NC-DS-007",
+  "roadmap_ticket": "GOV-012",
+  "phase": 0,
+  "timestamp": "2026-04-12T16:25:00",
+  "entry_state": {
+    "files_exist": [
+      "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
+    ],
+    "tools_done": ["FR-022", "FR-023", "FR-025", "FR-026", "FR-027"],
+    "context": "NC-NAM-FR-001  monoltico (~500 linhas). Agentes carregam tudo mesmo precisando de apenas uma categoria."
+  },
+  "active_locks": ["server.py", "sub_server.py", "neocortex_config.yaml"],
+  "write_zone": [
+    "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001*.md",
+    "01_neocortex_framework/scripts/NC-SCR-FR-004-governance-validator.py"
+  ],
+  "forbidden_zone": [
+    "neocortex/mcp/server.py",
+    "neocortex/mcp/sub_server.py",
+    "01_neocortex_framework/DIR-CFG-FR-001-config-main/neocortex_config.yaml",
+    "neocortex/mcp/tools/"
+  ],
+  "notes": "Ticket requires modification of NC-NAM-FR-001-naming-convention.md which is listed as atomic lock (block_write) and appears in prohibited list of inviolable rules. Potential conflict."
+}

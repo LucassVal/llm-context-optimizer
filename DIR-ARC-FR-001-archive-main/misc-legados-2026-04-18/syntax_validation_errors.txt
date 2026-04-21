@@ -1,0 +1,125 @@
+Syntax Validation Report
+Total files: 226
+Success: 211
+Errors: 15
+
+File: 01_neocortex_framework_RENAMED\neocortex\cli\NC-CLI-FR-001-main.py
+Stderr:
+  File "01_neocortex_framework_RENAMED\neocortex\cli\NC-CLI-FR-001-main.py", line 59
+    from neocortex.mcp.NC-CORE-FR-026-server import FAST_MCP_AVAILABLE, create_mcp_server
+                                  ^
+SyntaxError: leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers
+
+--------------------------------------------------------------------------------
+File: 01_neocortex_framework_RENAMED\neocortex\core\NC-CORE-FR-002-nc-cfg-fr-001-logging-config.py
+Stderr:
+  File "01_neocortex_framework_RENAMED\neocortex\core\NC-CORE-FR-002-nc-cfg-fr-001-logging-config.py", line 33
+    from neocortex.NC-CORE-FR-001-config import get_config
+                              ^^
+SyntaxError: leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers
+
+--------------------------------------------------------------------------------
+File: 01_neocortex_framework_RENAMED\neocortex\infra\NC-INFRA-FR-006-ledger-store.py
+Stderr:
+  File "01_neocortex_framework_RENAMED\neocortex\infra\NC-INFRA-FR-006-ledger-store.py", line 25
+    from neocortex.repositories.NC-REPO-FR-001-base import LedgerRepository
+                                           ^^
+SyntaxError: leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers
+
+--------------------------------------------------------------------------------
+File: 01_neocortex_framework_RENAMED\neocortex\infra\NC-INFRA-FR-018-vector-engine-example.py
+Stderr:
+  File "01_neocortex_framework_RENAMED\neocortex\infra\NC-INFRA-FR-018-vector-engine-example.py", line 28
+    from neocortex.NC-CORE-FR-001-config import get_config
+                              ^^
+SyntaxError: leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers
+
+--------------------------------------------------------------------------------
+File: 01_neocortex_framework_RENAMED\neocortex\mcp\NC-CORE-FR-027-sub-server.py
+Stderr:
+  File "01_neocortex_framework_RENAMED\neocortex\mcp\NC-CORE-FR-027-sub-server.py", line 172
+    from neocortex.core.NC-CORE-FR-018-lobe-service import get_lobe_service
+                                   ^
+SyntaxError: leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers
+
+--------------------------------------------------------------------------------
+File: 01_neocortex_framework_RENAMED\neocortex\mcp\tools\NC-TOOL-FR-024-nc-tool-fr-023-orchestration.py
+Stderr:
+  File "01_neocortex_framework_RENAMED\neocortex\mcp\tools\NC-TOOL-FR-024-nc-tool-fr-023-orchestration.py", line 70
+    from neocortex.NC-CORE-FR-001-config import get_config
+                              ^^
+SyntaxError: leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers
+
+--------------------------------------------------------------------------------
+File: 01_neocortex_framework_RENAMED\neocortex\mcp\tools\NC-TOOL-FR-025-nc-tool-fr-024-governance.py
+Stderr:
+  File "01_neocortex_framework_RENAMED\neocortex\mcp\tools\NC-TOOL-FR-025-nc-tool-fr-024-governance.py", line 38
+    from neocortex.NC-CORE-FR-001-config import get_config
+                              ^^
+SyntaxError: leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers
+
+--------------------------------------------------------------------------------
+File: 01_neocortex_framework_RENAMED\neocortex\mcp\tools\NC-TOOL-FR-026-nc-tool-fr-025-system.py
+Stderr:
+  File "01_neocortex_framework_RENAMED\neocortex\mcp\tools\NC-TOOL-FR-026-nc-tool-fr-025-system.py", line 51
+    from neocortex.NC-CORE-FR-001-config import get_config
+                              ^^
+SyntaxError: leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers
+
+--------------------------------------------------------------------------------
+File: 01_neocortex_framework_RENAMED\neocortex\mcp\tools\NC-TOOL-FR-027-nc-tool-fr-026-intelligence.py
+Stderr:
+  File "01_neocortex_framework_RENAMED\neocortex\mcp\tools\NC-TOOL-FR-027-nc-tool-fr-026-intelligence.py", line 33
+    from neocortex.NC-CORE-FR-001-config import get_config
+                              ^^
+SyntaxError: leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers
+
+--------------------------------------------------------------------------------
+File: 01_neocortex_framework_RENAMED\neocortex\mcp\tools\NC-TOOL-FR-028-nc-tool-fr-027-knowledge.py
+Stderr:
+  File "01_neocortex_framework_RENAMED\neocortex\mcp\tools\NC-TOOL-FR-028-nc-tool-fr-027-knowledge.py", line 33
+    from neocortex.NC-CORE-FR-001-config import get_config
+                              ^^
+SyntaxError: leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers
+
+--------------------------------------------------------------------------------
+File: 01_neocortex_framework_RENAMED\neocortex\mcp\tools\NC-TOOL-FR-029-nc-tool-fr-029-health.py
+Stderr:
+  File "01_neocortex_framework_RENAMED\neocortex\mcp\tools\NC-TOOL-FR-029-nc-tool-fr-029-health.py", line 44
+    from neocortex.NC-CORE-FR-001-config import get_config
+                              ^^
+SyntaxError: leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers
+
+--------------------------------------------------------------------------------
+File: 01_neocortex_framework_RENAMED\neocortex\mcp\tools\NC-TOOL-FR-030-nc-tool-fr-030-context.py
+Stderr:
+  File "01_neocortex_framework_RENAMED\neocortex\mcp\tools\NC-TOOL-FR-030-nc-tool-fr-030-context.py", line 47
+    from neocortex.NC-CORE-FR-001-config import get_config
+                              ^^
+SyntaxError: leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers
+
+--------------------------------------------------------------------------------
+File: 01_neocortex_framework_RENAMED\scripts\NC-SCR-FR-005-auto-approve.py
+Stderr:
+  File "01_neocortex_framework_RENAMED\scripts\NC-SCR-FR-005-auto-approve.py", line 29
+    from __future__ import annotations
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: from __future__ imports must occur at the beginning of the file
+
+--------------------------------------------------------------------------------
+File: 01_neocortex_framework_RENAMED\scripts\NC-SCR-FR-006-ticket-validator.py
+Stderr:
+  File "01_neocortex_framework_RENAMED\scripts\NC-SCR-FR-006-ticket-validator.py", line 32
+    from __future__ import annotations
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: from __future__ imports must occur at the beginning of the file
+
+--------------------------------------------------------------------------------
+File: 01_neocortex_framework_RENAMED\scripts\NC-SCR-FR-007-queue-monitor.py
+Stderr:
+  File "01_neocortex_framework_RENAMED\scripts\NC-SCR-FR-007-queue-monitor.py", line 33
+    from __future__ import annotations
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: from __future__ imports must occur at the beginning of the file
+
+--------------------------------------------------------------------------------

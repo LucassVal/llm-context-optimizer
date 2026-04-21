@@ -1,0 +1,39 @@
+﻿status: APPROVED
+ticket_id: NC-DS-013
+roadmap_ticket: GOV-013
+submitted_at: "2026-04-12T17:37:00"
+submitted_by: deepseek-chat
+review_by: antigravity-t0
+reviewed_at: "2026-04-12T17:44:36"
+summary:
+  files_created:
+    - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-AUD-FR-001-timestamp-audit.md"
+  files_modified:
+    - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001a-tools-registry.md"
+    - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001b-lobes-registry.md"
+    - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001c-config-registry.md"
+    - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001d-prompts-registry.md"
+    - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md"
+  lines_added: 11
+  lines_removed: 0
+  validation_rounds: 1
+  barriers_passed:
+    - "B1"
+    - "B2"
+    - "B3"
+    - "B4"
+    - "B5"
+    - "B6"
+  locks_violated: []
+  cost_usd: 0.001
+  overall: SUCCESS
+t0_review:
+  compile_ok: true
+  naming_ok: true
+  ssot_updated: true
+  locks_clean: true
+  roadmap_done: true
+  note: "NC-AUD-FR-001 criado, sub-registros a/b/c/d atualizados. GOV-013 DONE. B1-B6 PASS."
+rejection:
+  reason: null
+  next_ticket: null

@@ -46,7 +46,7 @@ neocortex_framework/
  DIR-CORE-FR-001-core-central/          # Core framework components
     .agents/
        rules/
-    memory_lobes/
+    02_memory_lobes/                    # Lóbulos de Memória Centrais (SSOT)
     NC-LED-FR-001-framework-ledger.json
  DIR-MCP-FR-001-mcp-server/             # MCP server and tools
     NC-MCP-FR-001-mcp-server.py

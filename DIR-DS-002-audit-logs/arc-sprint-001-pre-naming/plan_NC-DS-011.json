@@ -1,0 +1,41 @@
+{
+  "ticket_id": "NC-DS-011",
+  "phase": "FASE_1_PLANEJAR",
+  "timestamp": "2026-04-12T00:00:00",
+  "risk_level": "LOW",
+  "files_to_create": [
+    {
+      "path": "01_neocortex_framework/neocortex/core/services/NC-SVC-FR-001-logging-service.py",
+      "description": "Classe NeoCortexLogger com setup_json_logger, get_logger, rotate_logs, log_event, JSONFormatter"
+    },
+    {
+      "path": "01_neocortex_framework/neocortex/core/logging_config.py",
+      "description": "Funo setup_default_logging e get_neocortex_logger convenience wrapper"
+    }
+  ],
+  "files_to_modify": [
+    {
+      "path": "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md",
+      "description": "Adicionar linha com timestamp ISO 8601 para registrar novo arquivo NC-SVC-FR-001"
+    },
+    {
+      "path": "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md",
+      "description": "Atualizar status de OBS-001 para %DONE parcial"
+    }
+  ],
+  "dependencies": [
+    "neocortex.config.get_config",
+    "logging",
+    "json",
+    "time",
+    "pathlib"
+  ],
+  "constraints": [
+    "NUNCA editar server.py, sub_server.py, pulse_scheduler.py",
+    "Usar logger = logging.getLogger(__name__) nunca print()",
+    "Usar get_config() para paths, nunca hardcode C:\\ ou /home/",
+    "Naming NC- obrigatrio",
+    "Mximo 3 arquivos criados (cumprido)"
+  ],
+  "validation_barriers": ["B1", "B2", "B3", "B4", "B5", "B6"]
+}

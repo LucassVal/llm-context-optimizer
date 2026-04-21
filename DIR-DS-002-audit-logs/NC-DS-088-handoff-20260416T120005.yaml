@@ -1,0 +1,19 @@
+ticket_id: "NC-DS-088"
+status: APPROVED
+closed_at: "2026-04-16T12:00:05-03:00"
+closed_by: "T0-Claude-Code"
+
+summary: |
+  Roadmaps obsoletos v5/v6/v7 verificados — não existem em DIR-DOC-FR-001-docs-main/.
+  Boot manifest seção 6 já indica NC-DS-088 como COMPLETED (sessão anterior).
+
+validation:
+  - "DIR-DOC-FR-001-docs-main/: apenas NC-TODO-DS-001 e NC-TODO-FR-001 presentes"
+  - "Roadmaps v5/v6/v7 não encontrados — presumivelmente arquivados em sessão anterior"
+  - "Pasta roadmaps-obsoletos-20260416/ criada em DIR-ARC-FR-001-archive-main/ (placeholder)"
+  - "Nenhum arquivo a mover — estrutura já limpa"
+
+note: "Boot manifest seção 6 já confirmava NC-DS-088 como COMPLETED."
+
+confidence_score: 85
+lines_added: 0

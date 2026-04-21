@@ -1,0 +1,43 @@
+# NC-DS-HANDOFF-TEMPLATE.yaml
+# Template de correspondência T1→T0
+# Gerado pelo DeepSeek ao final da FASE 5 (LOG)
+# Depositado em: DIR-DS-002-audit-logs/NC-DS-{NUM}-handoff-{timestamp}.yaml
+# STATUS POSSÍVEIS: PENDING_REVIEW | APPROVED | REJECTED | ESCALATED
+
+status: PENDING_REVIEW       # T0 altera para APPROVED ou REJECTED após validação
+ticket_id: NC-DS-106
+roadmap_ticket: FR-106
+submitted_at: "2026-04-16T15:01:58"
+submitted_by: deepseek-chat
+review_by: antigravity-t0
+reviewed_at: null             # T0 preenche ao revisar
+
+summary:
+  files_created: []
+  files_modified:
+    - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-037-hooks.py
+  lines_added: 48
+  lines_removed: 17
+  validation_rounds: 2
+  barriers_passed:
+    - py_compile validation (0 errors)
+    - ruff check validation (0 errors)
+    - --dry-run execution of NC-SCR-FR-106-launcher.py (no errors)
+  locks_violated: []          # DEVE estar vazio para APROVAÇÃO
+  cost_usd: 0.0
+  overall: SUCCESS             # SUCCESS | FAILED | ESCALATED
+
+diff_path: "DIR-DS-002-audit-logs/NC-DS-106-diff-20260416T150158.txt"  # diff completo separado
+
+# Checklist para T0 (preencher na revisão)
+t0_review:
+  compile_ok: null             # python -m py_compile em todos os .py do diff
+  naming_ok: null              # grep NC- nos arquivos criados
+  ssot_updated: null           # NC-NAM-FR-001 tem entrada nova
+  locks_clean: null            # nenhum @LOCKS tocado
+  roadmap_done: null           # %DONE atualizado no @ROADMAP
+
+# Se REJECTED, preencher motivo e criar novo ticket
+rejection:
+  reason: null
+  next_ticket: null            # NC-DS-{NUM+1} para correção

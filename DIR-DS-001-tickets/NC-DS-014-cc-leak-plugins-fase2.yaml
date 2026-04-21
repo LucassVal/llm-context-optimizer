@@ -1,0 +1,56 @@
+assigned_to: DS-B
+closed_at: '2026-04-12T22:36:30'
+closed_by: NC-SCR-FR-010 sync
+completed_at: '2026-04-15T13:39:18.504303'
+created_at: '2026-04-12T17:33:00'
+created_by: antigravity-t0
+description: "Fase 2 da dissecção do Claude Code leak.\nFase 1 leu: hookify + agent-sdk-dev\
+  \ (NC-DS-009)\n\nFase 2 lê os 11 plugins restantes em official-claude-code/:\nCada\
+  \ plugin tem README.md + src/ — extrair:\n  - Nome + propósito do plugin\n  - Padrão\
+  \ de extensão (como se registra no host)\n  - Hooks usados (before/after tool call,\
+  \ message intercept)\n  - Dados que coleta/modifica\n  - Analogia com NeoCortex:\
+  \ o que podemos replicar?\n"
+entry_lock_check:
+  EL-1: NC-DS-014 NÃO está em tickets_done de nenhuma frente
+  EL-2: NC-DS-014 NÃO está em tickets_ativos de nenhuma frente
+  EL-3: Este arquivo existe em DIR-DS-001-tickets/
+  EL-4: NC-DS-014 NÃO está em tickets_reservados
+  result: CLEARED
+entry_state:
+  already_done:
+  - hookify
+  - agent-sdk-dev
+  base_dir: CLAUDE_CODE_DISSECTION/official-claude-code/
+  reference_file: DIR-RES-CC-001-claude-leak-workzone/analysis-session-b/NC-ANA-CC-003-plugin-patterns.md
+  remaining_11_plugins: os outros 11 — usar list para identificar nomes
+exit_state:
+  files_created:
+  - DIR-RES-CC-001-claude-leak-workzone/analysis-session-b/NC-ANA-CC-005-plugins-deep.md
+  files_modified:
+  - DIR-RES-CC-001-claude-leak-workzone/analysis-session-b/NC-ANA-CC-003-plugin-patterns.md
+forbidden_zone:
+- neocortex/mcp/server.py
+- neocortex/mcp/sub_server.py
+- DIR-CFG-FR-001-config-main/neocortex_config.yaml
+- DIR-RES-CC-001-claude-leak-workzone/analysis-session-a/
+handoff_ref: NC-DS-014-handoff-20260415T133918-retrospective.yaml
+integrity_hash: b3de6e7a482c613b
+limits:
+  escalate_after_rounds: 4
+  max_rounds: 6
+  max_tokens_per_phase: 5000
+methodology: "1. Listar todos os plugins em official-claude-code/ para identificar\
+  \ os 11 restantes\n2. Para cada plugin:\n   a. Ler README.md\n   b. Listar src/\
+  \ (estrutura de arquivos)\n   c. Ler 1-2 arquivos chave (registrador principal,\
+  \ hook principal)\n   d. Extrair padrão + analogia NeoCortex\n3. Consolidar em NC-ANA-CC-005-plugins-deep.md\
+  \ com:\n   - Tabela: Plugin | Propósito | Hooks | Replicável no NeoCortex?\n   -\
+  \ Padrões de extensão unificados\n   - Top 3 insights para NeoCortex\n4. Atualizar\
+  \ NC-ANA-CC-003-plugin-patterns.md com refinamentos\n5. Timestamp ISO 8601 em tudo\
+  \ (GOV-013)\n6. Handoff PENDING_REVIEW\n"
+priority: MEDIUM
+roadmap_ticket: CC-002-A
+status: DONE
+ticket_id: NC-DS-014
+title: 'CC Leak Fase 2 — Frente A: Leitura profunda dos 11 plugins restantes (official-claude-code)'
+write_zone:
+- DIR-RES-CC-001-claude-leak-workzone/analysis-session-b/

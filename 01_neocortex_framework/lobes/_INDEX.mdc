@@ -1,0 +1,10 @@
+---
+dir: lobes
+status: DEPRECATED
+replacement: 02_memory_lobes/ (regiões cerebrais)
+date: 2026-04-20
+---
+# lobes/ — DEPRECATED
+
+Esta pasta foi substituída por `02_memory_lobes/` com estrutura cerebral.
+Manter por compatibilidade até migração completa (R05: sem deleção).

@@ -1,0 +1,53 @@
+# NC-DS-077-audit-tickets-sem-handoff.yaml
+# Auditoria de tickets sem handoff correspondente
+# Identificado no Ciclo 1 de 2026-04-15 como BLOQUEANTE
+
+ticket_id: "NC-DS-077"
+status: "DONE"
+priority: "HIGH"
+title: "Auditoria de tickets sem handoff correspondente (36 tickets)"
+handoff_ref: "NC-DS-077-handoff-20260415T134500-retrospective.yaml"
+completed_at: "2026-04-15T13:45:00-03:00"
+created_at: "2026-04-15T12:10:00-03:00"
+created_by: "T0-Antigravity"
+
+context:
+  origin: "Ciclo 1 — Auditoria de conformidade (2026-04-15)"
+  problem: |
+    Identificados 36 tickets sem handoff correspondente no sistema:
+    NC-DS-001 a NC-DS-020, NC-DS-021 a NC-DS-029, NC-DS-043 a NC-DS-047, NC-DS-049, NC-DS-050.
+    Conforme NC-CYC-FR-001, handoff sem ticket = BLOQUEANTE no Ciclo 1.
+  scope: "Auditoria completa dos 36 tickets: verificar se trabalho foi realizado, criar handoffs retrospectivos ou arquivar tickets obsoletos."
+
+task:
+  description: |
+    1. Para cada ticket sem handoff (lista acima):
+       a. Verificar se o trabalho descrito foi realizado (inspecionar código, arquivos)
+       b. Se trabalho foi realizado: criar handoff retrospectivo com status APPROVED ou ISSUE
+       c. Se ticket é obsoleto/nunca executado: marcar como ARCHIVED com justificativa
+       d. Atualizar ticket YAML com handoff_ref e status correspondente
+    2. Atualizar NC-NAM-FR-001 (SSOT) com qualquer novo handoff criado
+    3. Executar NC-SCR-FR-009-sanitize-all-yamls.py para sincronizar fila de tasks
+    4. Gerar relatório completo de conformidade
+  action_description:
+    utterances:
+      - "Auditoria de tickets sem handoff"
+      - "Resolver bloqueante do Ciclo 1: tickets sem handoff"
+    input_instructions: "Lista de tickets fornecida no contexto"
+    output_instructions: "Relatório com decisão por ticket + handoffs criados/atualizados"
+    usage_rules: "Prioridade HIGH — bloqueante para continuidade do workflow"
+
+write_zone:
+  - "DIR-DS-001-tickets/"
+  - "DIR-DS-002-audit-logs/"
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/"
+
+references:
+  - "DIR-DOC-FR-001-docs-main/NC-CYC-FR-001-4-cycle-validation.md"
+  - "DIR-DS-002-audit-logs/NC-DS-069-handoff-ciclo1-governance-audit-20260415.yaml"
+  - "01_neocortex_framework/scripts/NC-SCR-FR-009-sanitize-all-yamls.py"
+
+tags: ["ciclo1", "governance", "audit", "compliance", "blocker", "tickets"]
+domain: "governance"
+layer: "infra"
+type: "AUDIT"

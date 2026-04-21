@@ -1,0 +1,13 @@
+# DIR-DS-002-audit-logs/NC-DS-{030|032|037}-handoff-{YYYYMMDD-HHMMSS}.yaml
+ticket_id: NC-DS-037
+status: PENDING_REVIEW
+lines_added: 149
+files_modified:
+  - 01_neocortex_framework/neocortex/core/config/NC-CFG-FR-002-feature-flags.py
+summary: |
+  Implemented FeatureFlagService with TTL cache (cachetools.TTLCache), defaults from neocortex_config.yaml, logging of activations, and simple is_enabled() interface.
+ajustes_aplicados:
+  - cachetools.TTLCache(maxsize=100, ttl=3600) — biblioteca madura, não implementar manualmente
+  - Interface simples is_enabled(flag) primeiro
+  - Logging de ativações para debug conforme especificado
+  - Integração com neocortex_config.yaml (seção feature_flags), sem modificar arquivo

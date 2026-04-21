@@ -1,0 +1,15 @@
+id: NC-DS-047
+code: GLOBAL-SANE-001
+title: Saneamento Global - Fase 1 (Core e Lobos)
+assignee: Agente OpenCode na porta 34363
+context:
+  - .agents/rules/NC-RULE-007-tagging-system.mdc
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-DOC-FR-001-ubiquitous-language-dictionary.md
+task: |
+  **OBJETIVO**: Aplicar massivamente metadados de frente (Frontmatter) em todos os arquivos Markdown, Python e Json da zona Core (`01_neocortex_framework\neocortex`) e Lobos (`02_memory_lobes`).
+  
+  **INSTRUÇÕES DO PROMPT**:
+  Você DEVE vasculhar de forma massiva com grep ou scripts os arquivos que NÃO possuem cabeçalho.
+  Para cada arquivo, encontre o sentido dele através da "Linguagem Ubíqua" (ex: auth, database/ledger) no Dicionário Oficial.
+  Injete no TOP do arquivo a estrutura de tags/dominio/layer e deixe `hash: auto-generated`.
+  Valide os pythons depois de injetar os comments block ("""--- ... ---""") com `python -m py_compile`.

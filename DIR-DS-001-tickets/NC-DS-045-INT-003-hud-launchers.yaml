@@ -1,0 +1,19 @@
+id: NC-DS-045
+code: HUD-LAUNCHERS
+title: HUD Launchers (Mission Control & Pixel Agents) e Webhooks
+assignee: Agente OpenCode na porta 51148
+context:
+  - 02_memory_lobes/NC-LBE-INT-004-mission-control.mdc
+  - 02_memory_lobes/NC-LBE-INT-005-pixel-agents.mdc
+  - 01_neocortex_framework/neocortex_hud.py
+task: |
+  **OBJETIVO**: Alterar a interface principal em `neocortex_hud.py` para disponibilizar atalhos de acompanhamento visual tanto para Kanban (Mission Control) quanto Observabilidade gráfica (Pixel Agents).
+  
+  **O QUE FAZER**:
+  1. Leia `neocortex_hud.py` inteiro sem pressa para entender onde injetar as novas features.
+  2. Crie uma nova aba/painel "Cockpit Integrado" ou insira botões de Launch bem nítidos.
+  3. Crie a função "Abrir Dashboard Mission Control" que desponta via biblioteca `webbrowser` ou subproc um acesso para http://localhost:3000.
+  4. Crie a função "Pixel Agents VS Code" que executa comando similar a `subprocess.Popen(["code", "<caminho_para_pasta_turbov42>"])` conforme documentado no Lobe 5.
+  5. Além disso, leia os specs do Mission Control sobre o 'Webhook Bridge' (integração do HookRegistry que manda pro webhooks/inactive do MissionCtrl) e estruture uma chamada ou rascunho de como seria esse Hook em `01_neocortex_framework/neocortex/core/hooks/NC-HK-FR-002-missionctrl.py`.
+  
+  **ATENÇÃO R21**: A prioridade aqui é não "quebrar o Tkinter/CustomTkinter" existente. Teste que o código sintaticamente processa e faz launch.

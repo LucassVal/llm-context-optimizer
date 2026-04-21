@@ -1,0 +1,18 @@
+ticket_id: NC-DS-031
+status: PENDING_REVIEW
+lines_added: 361
+files_modified:
+  - 01_neocortex_framework/neocortex/core/hooks/NC-HK-FR-001-hook-registry.py
+  - 01_neocortex_framework/neocortex/core/hooks/NC-HK-FR-002-example-hook.py
+  - 05_examples/.nc/hooks/ssot-guard.yaml
+summary: |
+  Sistema de hooks reativos (HookRegistry) com suporte a eventos PreToolUse, PostToolUse, ToolError.
+  Implementado conforme padrão MCP, com timeout de 2s por hook, suporte a hooks assíncronos,
+  logging de execução e auto‑discovery via importlib.metadata. Inclui exemplo de hook e configuração YAML.
+ajustes_aplicados:
+  - Nomenclatura padrão MCP: PreToolUse, PostToolUse, ToolError
+  - Timeout de 2 segundos por hook
+  - Suporte a hooks assíncronos via asyncio.wait_for
+  - Log de execução: hook_name, event, duration_ms, result, error
+  - Auto‑discovery via importlib.metadata para plugins
+  - Exemplo de hook síncrono/assíncrono e configuração YAML

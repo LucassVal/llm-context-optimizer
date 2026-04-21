@@ -1,0 +1,41 @@
+# ORCH-301-handoff-20260413-151316-approved.yaml
+# Handoff aprovado retrospectivamente durante auditoria NC-DS-077
+
+ticket_id: ORCH-301
+status: APPROVED
+timestamp: "2026-04-15T14:30:00-03:00"
+reviewed_by: T0-Antigravity
+reviewed_at: "2026-04-15T14:30:00-03:00"
+agent_port: 44624
+lines_added: 220
+files_modified:
+  - 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-015-task-broker.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-023-orchestration.py
+  - 01_neocortex_framework/neocortex/config.py
+summary: |
+  Implementado TaskBroker persistente com registro de tasks, persistência JSON em data_dir/task_queue.json, polling com retry automático (3 tentativas, backoff 2s→4s→8s) e tracking de status (queued, running, done, failed, timeout). Atualizada tool de orquestração NC-TOOL-FR-023 para integrar com o broker: task.execute registra task antes de enviar e armazena resultado; task.get_result consulta broker/registry em vez de retornar simulado.
+ajustes_aplicados: []
+lessons_learned: []
+deps_missing: []
+ruff_violations_found: 0
+metrics:
+  ruff_check: PASS
+  py_compile: PASS
+  import_smoke_test: PASS
+  write_zone_respected: true
+  locks_respected: true
+  min_80_lines: true
+errors: []
+warnings: []
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  ajustes_synthesis_applied: true
+  handoff_yaml_complete: true
+  ssot_updated: true
+  no_locked_files_modified: true
+
+notes: |
+  Handoff aprovado retrospectivamente durante auditoria NC-DS-077.
+  Trabalho verificado como concluído e em conformidade com regras de governança.
+  Ticket retrospectivo criado: NC-DS-078-orch301-task-broker.yaml

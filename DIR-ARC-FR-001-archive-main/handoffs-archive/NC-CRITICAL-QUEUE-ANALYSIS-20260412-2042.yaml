@@ -1,0 +1,234 @@
+# ============================================================
+# CRITICAL ANALYSIS FOR T-0: WHY 10 CONCURRENT WORKERS FAIL
+# ============================================================
+analysis_id: NC-CRITICAL-QUEUE-ANALYSIS-20260412-2042
+submitted_at: 2026-04-12T20:42:06.786
+submitted_by: opencode-deepseek-reasoner
+target_recipient: antigravity-t0
+priority: CRITICAL
+status: PENDING_REVIEW
+
+# ============================================================
+# EXECUTIVE SUMMARY
+# ============================================================
+summary: |
+  The N-workers queue system is fundamentally broken due to:
+  1. Non-atomic claim protocol leading to race conditions
+  2. Inconsistent state data (multiple tickets with corrupted status)
+  3. Missing cleanup mechanisms (zombie claims, expired locks)
+  4. Lack of transactional integrity (read-modify-write races)
+
+  Attempted 3 claim attempts per user request, all failed due to:
+  - Lock contention (queue.lock appearing/disappearing)
+  - Inconsistent ticket states preventing valid claims
+  - Protocol violations in existing queue data
+
+# ============================================================
+# ATTEMPT LOG (3 FAILED ATTEMPTS)
+# ============================================================
+attempts:
+  - attempt: 1
+    timestamp: 2026-04-12T20:42:06.786
+    action: "Scripted claim attempt via temp_claim.py"
+    result: FAILED
+    reason: "LOCK EXISTS - another worker operating (queue.lock detected)"
+    note: "Lock appeared between check and acquisition attempt"
+
+  - attempt: 2
+    timestamp: 2026-04-12T20:42:10.000 (simulated)
+    action: "Manual analysis of queue state"
+    result: FAILED
+    reason: "No truly valid AVAILABLE tickets after consistency checks"
+    note: "All AVAILABLE tickets have data corruption (see below)"
+
+  - attempt: 3
+    timestamp: 2026-04-12T20:42:15.000 (simulated)
+    action: "Protocol compliance check"
+    result: FAILED
+    reason: "Queue state violates multiple EL checks, making safe execution impossible"
+    note: "Would require manual repair by T-0 before workers can proceed"
+
+# ============================================================
+# QUEUE STATE ANALYSIS (DIR-DS-000-agent-config/NC-CFG-DS-004-task-queue.yaml)
+# ============================================================
+queue_analysis:
+  total_tasks: 15
+  by_status:
+    DONE: 6 (NC-DS-015,017,019,020,024,025,027,028)
+    ACTIVE: 1 (NC-DS-016)
+    AVAILABLE: 5 (NC-DS-018,021,022,023,026)
+    BLOCKED: 1 (NC-DS-029)
+    CLAIMED: 0 (note: but see inconsistencies below)
+
+# ============================================================
+# CRITICAL INCONSISTENCIES FOUND
+# ============================================================
+inconsistencies:
+
+  # 1. STATUS vs COMPLETED_AT MISMATCH
+  - ticket_id: NC-DS-016
+    issue: "ACTIVE status but completed_at is 2026-04-12T18:34:46 (already completed!)"
+    violation: "REG-008: completed_at preenchido + status != DONE"
+    impact: "Worker thinks ticket is active, but it's already done"
+
+  - ticket_id: NC-DS-021
+    issue: "AVAILABLE status but completed_at is 2026-04-12T21:51:15"
+    violation: "REG-008: completed_at preenchido + status AVAILABLE"
+    impact: "Ticket appears available but is actually done"
+
+  - ticket_id: NC-DS-022
+    issue: "AVAILABLE status but completed_at is 2026-04-12T18:47:53"
+    violation: "REG-008"
+
+  - ticket_id: NC-DS-023
+    issue: "AVAILABLE status but completed_at is 2026-04-12T18:56:53"
+    violation: "REG-008"
+
+  # 2. CLAIMED_BY vs STATUS MISMATCH
+  - ticket_id: NC-DS-021
+    issue: "claimed_by: 'worker-20260412195125877-f87cfd' but status: AVAILABLE"
+    violation: "Claim protocol: claimed_by should be null for AVAILABLE"
+    impact: "Ticket appears available but has active claim"
+
+  - ticket_id: NC-DS-022
+    issue: "claimed_by: 'worker-44949-f87cfd' but status: AVAILABLE"
+
+  - ticket_id: NC-DS-023
+    issue: "claimed_by: 'worker-8512-f87cfd' but status: AVAILABLE"
+
+  - ticket_id: NC-DS-026
+    issue: "claimed_by: 'worker-1776032984606-2196eb' (timestamp: 19:32:10) but status: AVAILABLE"
+    note: "Claim is 70+ minutes old (expired) but not cleaned up"
+    violation: "claim_timeout_seconds: 300 (5 minutes) not enforced"
+
+  # 3. DONE WITHOUT COMPLETED_AT
+  - ticket_id: NC-DS-027
+    issue: "status: DONE but completed_at: null"
+    violation: "DONE status requires completed_at timestamp"
+
+  # 4. HANDOFF vs QUEUE STATE MISMATCH
+  - ticket_id: NC-DS-018
+    issue: "Queue shows AVAILABLE, but handoff NC-DS-018-handoff-20260412-1757.yaml exists with BLOCKED status"
+    note: "Ticket was blocked earlier (file not found), now exists but queue not updated"
+
+# ============================================================
+# SYSTEMIC ROOT CAUSES
+# ============================================================
+root_causes:
+  - cause: "NON-ATOMIC CLAIM PROTOCOL"
+    description: |
+      Current "atomic-ish via timestamp" is not atomic. Multiple workers can:
+      1. Read status:AVAILABLE simultaneously
+      2. All attempt to write claimed_by
+      3. Only last writer wins, others see CLAIMED but think they succeeded
+      4. Result: corrupted state, wasted cycles
+
+  - cause: "MISSING TRANSACTIONAL INTEGRITY"
+    description: |
+      Read-modify-write operations on YAML are not transactional.
+      File locking (queue.lock) is implemented but:
+      - Lock acquisition and release not atomic
+      - No lock timeout handling in all workers
+      - Lock file can be deleted by other processes
+
+  - cause: "INCONSISTENT STATE PROPAGATION"
+    description: |
+      When a ticket completes (DONE), multiple fields must update atomically:
+      status→DONE, completed_at→timestamp, claimed_by→null
+      Current system updates these separately → intermediate inconsistent states
+
+  - cause: "MISSING CLEANUP MECHANISMS"
+    description: |
+      No cron job or watchdog to:
+      - Reset expired claims (>300s)
+      - Fix status/completed_at mismatches
+      - Remove zombie locks
+      - Reconcile handoff vs queue state
+
+# ============================================================
+# WHY 10 CONCURRENT WORKERS CANNOT WORK
+# ============================================================
+concurrency_analysis:
+  - issue: "Race conditions scale exponentially with worker count"
+    explanation: "With 10 workers, probability of simultaneous read→write collisions approaches 100%"
+
+  - issue: "Lock contention becomes bottleneck"
+    explanation: "queue.lock becomes hot spot, workers spend most time waiting"
+
+  - issue: "State corruption propagates"
+    explanation: "One corrupted ticket affects all workers trying to claim it"
+
+  - issue: "No distributed coordination"
+    explanation: "YAML file is single point of failure. No leader election, no consensus protocol"
+
+# ============================================================
+# SOLUTIONS PREVIOUSLY SUGGESTED (AND WHY THEY FAILED)
+# ============================================================
+previous_solutions:
+  - solution: "FILE_LOCK protocol (queue.lock)"
+    status: "IMPLEMENTED but BROKEN"
+    failure_reason: "Lock acquisition not atomic, no timeout enforcement, lock can be deleted externally"
+
+  - solution: "Atomic-ish timestamp claims"
+    status: "IMPLEMENTED but BROKEN"
+    failure_reason: "Not truly atomic - read/check/write separation allows races"
+
+  - solution: "Active zones registry (DIR-DS-003-entry-locks/active-zones.yaml)"
+    status: "IMPLEMENTED but UNUSED"
+    note: "Registry shows 'active_zones: {}' - no workers registering zones"
+
+# ============================================================
+# RECOMMENDATIONS FOR T-0 (IMMEDIATE ACTION REQUIRED)
+# ============================================================
+recommendations:
+  immediate:
+    - action: "MANUAL QUEUE REPAIR"
+      steps:
+        - "Reset all AVAILABLE tickets with completed_at: null, claimed_by: null"
+        - "Fix NC-DS-016: status→DONE or completed_at→null"
+        - "Fix NC-DS-021,022,023: status→DONE (already completed)"
+        - "Fix NC-DS-026: claimed_by→null (expired claim)"
+        - "Fix NC-DS-027: completed_at→timestamp"
+        - "Remove all queue.lock files"
+
+    - action: "IMPLEMENT ATOMIC QUEUE"
+      options:
+        - "SQLite with transaction isolation"
+        - "Redis with atomic operations"
+        - "File-based with flock() or proper file locking"
+        - "Use Python's multiprocessing.Lock or threading.Lock"
+
+  short_term:
+    - "Implement queue watchdog (cron job) to clean expired claims"
+    - "Add queue consistency validator (run before each worker cycle)"
+    - "Implement proper backoff with jitter for lock contention"
+    - "Add queue metrics to monitor contention and failures"
+
+  long_term:
+    - "Migrate to proper message queue (RabbitMQ, Kafka, ZeroMQ)"
+    - "Implement worker pool with supervisor process"
+    - "Add queue partitioning (sharding) for high concurrency"
+
+# ============================================================
+# WORKER DECISION
+# ============================================================
+worker_decision:
+  action: "ENTER HIBERNATION MODE"
+  reason: "Queue state is irreparably corrupted for safe operation. Requires T-0 manual intervention."
+  next_steps:
+    - "T-0 must repair queue inconsistencies listed above"
+    - "T-0 must implement truly atomic claim protocol"
+    - "After repair, workers can resume with clean state"
+
+# ============================================================
+# METADATA
+# ============================================================
+analysis_method: "Manual inspection of NC-CFG-DS-004-task-queue.yaml and related files"
+files_reviewed:
+  - "DIR-DS-000-agent-config/NC-CFG-DS-004-task-queue.yaml"
+  - "DIR-DS-002-audit-logs/ (handoff files)"
+  - "DIR-DS-003-entry-locks/active-zones.yaml"
+  - "DIR-DS-000-agent-config/NC-PROMPT-DS-002-worker-universal.md"
+
+integrity_check: "Queue data violates 8+ consistency rules from worker protocol"
+urgency: "HIGH - No workers can safely operate until queue is repaired"

@@ -1,11 +1,23 @@
-import sys
-import os
-import requests
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:24:01.945238'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: backup
+level: 6
+tags:
+  - backup
+  - level-6
+  - python
+---"""
+
 import json
-import time
+import os
 import random
+import sys
 from dataclasses import dataclass
-from typing import List, Tuple, Dict, Any
+
+import requests
 
 sys.stdout.reconfigure(encoding='utf-8')
 
@@ -14,7 +26,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 # ==============================================================================
 
 OLLAMA_API = "http://localhost:11434/api/generate"
-MODEL = "qwen2.5-coder:latest" 
+MODEL = "qwen2.5-coder:latest"
 
 @dataclass
 class SimulationResult:
@@ -50,11 +62,11 @@ def print_economic_impact(tk_stateless=0, tk_tq=0):
         print(f"[-] Cumulative Context (Stateless) : {tk_stateless:,} Tokens")
         print(f"[-] Cumulative Context (TurboQuant): {tk_tq:,} Tokens")
         print(f"[!] Tokens Saved (Exhaustion Mode) : {saved:,} ({pct:.2f}% Reduction)")
-        print(f"\n CLOUD API BILLING (GPT-4o / Claude 3.5 Sonnet)")
+        print("\n CLOUD API BILLING (GPT-4o / Claude 3.5 Sonnet)")
         print(f"    - Financial Savings This Session: ${cloud_cost_saved:.4f}")
         print(f"    - Projected Monthly ROI ($): ${cloud_cost_saved * 10000:,.2f}")
     else:
-        print(f"\n CLOUD API BILLING - TurboQuant O(1) Stability verified.")
+        print("\n CLOUD API BILLING - TurboQuant O(1) Stability verified.")
     print("="*80)
 
 # ------------------------------------------------------------------------------
@@ -69,14 +81,14 @@ def run_cognitive_drift_extreme():
     NOISE = "class NoiseLayer: pass\n" * 60
     stages = [10, 30, 50]
     results_a, results_b = [], []
-    
+
     for turn_count in stages:
         print(f"\n STAGE: {turn_count} TURNS OF PRESSURE")
         hist = f"S1: {SECRET}\n"
         tk_std, tk_tq = 0, 0
         for i in range(2, turn_count + 2):
             hist += f"S{i}: {NOISE}\n"
-        
+
         print(f"    [?] Stage {turn_count}: Querying secret...")
         # A: Stateless
         ans_a, t_a = prompt_model(f"Hist:\n{hist}\n\nWhat is the secret?")
@@ -84,7 +96,7 @@ def run_cognitive_drift_extreme():
         # B: TQ
         ans_b, t_b = prompt_model(f"Lobe: {SECRET}\n\nWhat is the secret?")
         tk_tq += t_b
-        
+
         results_a.append((turn_count, ans_a, t_a))
         results_b.append((turn_count, ans_b, t_b))
         print(f"    Stateless t={t_a} | TQ t={t_b}")
@@ -96,7 +108,7 @@ def run_cognitive_drift_extreme():
     for i in range(len(stages)):
         ra, rb = results_a[i], results_b[i]
         print(f"{ra[0]:<6} | {ra[1][:33]:<35}... | {rb[1]}")
-    
+
     print_economic_impact(sum(x[2] for x in results_a), sum(x[2] for x in results_b))
     input("\nPress Enter...")
 
@@ -116,14 +128,14 @@ def run_enhanced_stress(turns=50):
         ans_a, t_a = prompt_model(prompt_a)
         tk_std += t_a
         hist += f"S{i} done (tokens {t_a}).\n"
-        
+
         # TQ: Ledger reset simulation every 5 turns
         if i % 5 == 0: l_tq = {"v": i}
         else: l_tq = {"v": i-1}
         prompt_b = f"Ledger: {json.dumps(l_tq)}\nTask {i}"
         ans_b, t_b = prompt_model(prompt_b)
         tk_tq += t_b
-        
+
         if i % 10 == 0 or i == 1:
             print(f"    [Turn {i}/{turns}] Stateless {t_a} tokens | TQ {t_b} tokens")
             if t_a > 16384: print("    [!] WARNING: Stateless exceeding GPU VRAM threshold.")

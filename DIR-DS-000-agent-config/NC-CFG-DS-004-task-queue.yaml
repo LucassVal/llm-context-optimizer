@@ -1,0 +1,413 @@
+queue_version: "2.0"
+created_at: "2026-04-12T17:40:00"
+doc: "Sistema de fila central para N workers paralelos. Ver NC-SEC-FR-002 para entry locks."
+
+# ============================================================
+# DISPATCH PROTOCOL (individual — 1 agent = 1 task, sem fila compartilhada)
+# ============================================================
+# 1. Worker lê fila → acha 1º task com status: AVAILABLE
+# 2. Worker escreve claimed_by: {port} + claimed_at: {iso_timestamp}
+# 3. Worker aguarda 5 segundos → re-lê → se claimed_by ainda é seu → executa
+# 4. Se outro worker tomou → pula para próximo AVAILABLE
+# 5. claimed_at + 300s sem ACTIVE → claim expirado → volta para AVAILABLE
+# ============================================================
+claim_timeout_seconds: 300
+
+# ============================================================
+# AUTO-APPROVE (via NC-SCR-FR-005)
+# ============================================================
+auto_approve:
+  enabled: true
+  script: "01_neocortex_framework/scripts/NC-SCR-FR-005-auto-approve.py"
+  approve_if_all_pass:
+    - barriers_passed_includes: ["B1", "B2", "B3", "B4"]
+    - locks_violated_is_empty: true
+    - overall_equals: "SUCCESS"
+    - lines_added_gt: 5
+  escalate_to_t0_if:
+    - overall_equals: "ESCALATED"
+    - locks_violated_not_empty: true
+    - lines_added_lt: 5  # suspeito — muito pouco entregue
+
+# ============================================================
+# PROGRESSIVE LOCK GATES (Surgical Patches)
+# ============================================================
+# @LOCKS nunca são removidos diretamente por workers.
+# Quando um ticket é aprovado e seu deliverable é prerequisito
+# para modificar um @LOCK, ele cria um NC-PATCH-{id}-{target}.diff
+# em DIR-DS-004-patches/ para T0 aplicar manualmente.
+#
+# Cadeia de dependências:
+#   NC-DS-011 (logging service) APPROVED
+#     ↓ unlocks_patch: server.py:import-logging
+#   NC-DS-014 (11 plugins) APPROVED
+#     ↓ unlocks_patch: NC-LBE-CC-001:competitive-section
+#   NC-DS-020 (cache) APPROVED
+#     ↓ unlocks_patch: server.py:import-cache
+#   NC-DS-022 (metrics) APPROVED
+#     ↓ unlocks_patch: server.py:import-metrics
+# ============================================================
+progressive_lock_gates:
+  patch_dir: "DIR-DS-004-patches/"
+  patch_naming: "NC-PATCH-{ticket_id}-{target_basename}.diff"
+  apply_by: "antigravity-t0"  # NUNCA por worker
+  gates:
+    - gate_id: GATE-001
+      prerequisite_ticket: NC-DS-011
+      unlocks_target: "neocortex/mcp/server.py"
+      scope: "import NC-SVC-FR-001-logging-service (1 linha)"
+      status: PATCH_READY   # logging service aprovado → patch gerado
+      patch_file: "DIR-DS-004-patches/NC-PATCH-NC-DS-011-server.diff"
+
+    - gate_id: GATE-002
+      prerequisite_ticket: NC-DS-020
+      unlocks_target: "neocortex/mcp/server.py"
+      scope: "import NC-SVC-FR-004-cache-service (1 linha)"
+      status: PENDING        # aguardando NC-DS-020 approval
+
+    - gate_id: GATE-003
+      prerequisite_ticket: NC-DS-022
+      unlocks_target: "neocortex/mcp/server.py"
+      scope: "import NC-SVC-FR-006-metrics-collector (1 linha)"
+      status: PENDING
+
+    - gate_id: GATE-004
+      prerequisite_ticket: NC-DS-018
+      unlocks_target: "neocortex/mcp/sub_server.py"
+      scope: "register /health route (NC-SVC-FR-002)"
+      status: PENDING
+
+    - gate_id: GATE-005
+      prerequisite_ticket: NC-DS-019
+      unlocks_target: "neocortex/mcp/server.py"
+      scope: "register SavePointService no startup"
+      status: PENDING
+
+# ============================================================
+# FILA DE TAREFAS
+# Status: AVAILABLE | CLAIMED | ACTIVE | DONE | BLOCKED
+# ============================================================
+tasks:
+
+  - ticket_id: NC-DS-015
+    priority: HIGH
+    title: "KAIROS Deep Dive — estrutura interna, timers, event loop"
+    write_zone: "DIR-RES-CC-001-claude-leak-workzone/analysis-session-a/"
+    file: "DIR-DS-001-tickets/NC-DS-015-cc-kairos-deep.yaml"
+    status: DONE
+    claimed_by: null
+    claimed_at: "2026-04-12T22:21:50.225"
+    completed_at: "2026-04-12T22:27:51"
+
+  - ticket_id: NC-DS-016
+    priority: HIGH
+    title: "Consolidar NC-LBE-CC-001 mestre com achados de Frentes A e B"
+    write_zone: "01_neocortex_framework/DIR-TMP-FR-001-templates-main/"
+    file: "DIR-DS-001-tickets/NC-DS-016-cc-consolidate-master.yaml"
+    status: DONE
+    claimed_by: null
+    claimed_at: "2026-04-12T19:28:23.777"
+    completed_at: "2026-04-12T18:34:46"
+
+  - ticket_id: NC-DS-017
+    priority: MEDIUM
+    title: "GOV-014 — Protocolo T0/T1 v2: documentar nova arquitetura N-workers"
+    write_zone: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/"
+    file: "DIR-DS-001-tickets/NC-DS-017-gov014-protocol-nworkers.yaml"
+    status: DONE
+    claimed_by: null
+    claimed_at: "2026-04-12T19:33:22"
+    completed_at: "2026-04-12T18:42:52"
+
+  - ticket_id: NC-DS-018
+    priority: MEDIUM
+    title: "AGENT-206 — /health endpoint wrapper (sem @LOCKS)"
+    write_zone: "01_neocortex_framework/neocortex/core/services/"
+    file: "DIR-DS-001-tickets/NC-DS-018-agent206-health.yaml"
+    status: DONE
+    claimed_by: null
+    claimed_at: null
+    completed_at: null
+
+  - ticket_id: NC-DS-019
+    priority: LOW
+    title: "SAVE-005 — WAL/SavePoint stub (design + schema sem implementar locks)"
+    write_zone: "01_neocortex_framework/neocortex/core/services/"
+    file: "DIR-DS-001-tickets/NC-DS-019-save005-wal-stub.yaml"
+    status: DONE
+    claimed_by: null
+    claimed_at: "2026-04-12T22:51:41.188"
+    completed_at: "2026-04-12T18:45:58"
+
+# ============================================================
+# TASKS EM ANDAMENTO → migração per-frente (já aprovadas)
+# ============================================================
+in_progress:
+  - ticket_id: NC-DS-011
+    status: DONE
+  - ticket_id: NC-DS-012
+    status: DONE
+  - ticket_id: NC-DS-013
+    status: DONE
+  - ticket_id: NC-DS-014
+    status: DONE
+
+# ============================================================
+# BATCH PRE-CORE — NC-DS-020 a 029 (10 workers, zero colisão)
+# ============================================================
+
+  # ── SERVIÇOS CORE ─────────────────────────────────────────
+  - ticket_id: NC-DS-020
+    priority: HIGH
+    title: "PERF-001 — HotCache (set/get/TTL/stats)"
+    write_zone: "01_neocortex_framework/neocortex/core/services/NC-SVC-FR-004-cache-service.py"
+    file: "DIR-DS-001-tickets/NC-DS-020-perf001-cache-service.yaml"
+    progressive_gate: GATE-002
+    status: DONE
+    claimed_by: null
+    claimed_at: "2026-04-12T18:40:53.980"
+    completed_at: "2026-04-12T18:55:16"
+
+  - ticket_id: NC-DS-021
+    priority: HIGH
+    title: "ARCH-001 — EventBus (subscribe/publish/unsubscribe)"
+    write_zone: "01_neocortex_framework/neocortex/core/services/NC-SVC-FR-005-event-bus.py"
+    file: "DIR-DS-001-tickets/NC-DS-021-arch001-event-bus.yaml"
+    progressive_gate: null
+    status: DONE
+    claimed_by: null
+    claimed_at: "2026-04-12T19:53:24.746"
+    completed_at: "2026-04-12T21:51:15"
+
+  - ticket_id: NC-DS-022
+    priority: HIGH
+    title: "OBS-002 — MetricsCollector (tokens, custo, calls)"
+    write_zone: "01_neocortex_framework/neocortex/core/services/NC-SVC-FR-006-metrics-collector.py"
+    file: "DIR-DS-001-tickets/NC-DS-022-obs002-metrics-collector.yaml"
+    progressive_gate: GATE-003
+    status: DONE
+    claimed_by: null
+    claimed_at: "2026-04-12T19:55:33.570"
+    completed_at: "2026-04-12T18:47:53"
+
+  - ticket_id: NC-DS-023
+    priority: MEDIUM
+    title: "ARCH-002 — StateMachine FSM agente T1 (8 estados)"
+    write_zone: "01_neocortex_framework/neocortex/core/services/NC-SVC-FR-007-state-machine.py"
+    file: "DIR-DS-001-tickets/NC-DS-023-arch002-state-machine.yaml"
+    progressive_gate: null
+    status: DONE
+    claimed_by: null
+    claimed_at: "2026-04-12T22:55:42.637712+00:00"
+    completed_at: "2026-04-12T18:56:53"
+
+  # ── UTILS CORE ────────────────────────────────────────────
+  - ticket_id: NC-DS-024
+    priority: MEDIUM
+    title: "UTIL-001 — YAML safe parser com fallback regex"
+    write_zone: "01_neocortex_framework/neocortex/core/utils/NC-UTL-FR-001-yaml-safe-parser.py"
+    file: "DIR-DS-001-tickets/NC-DS-024-util001-yaml-safe-parser.yaml"
+    progressive_gate: null
+    status: DONE
+    claimed_by: null
+    claimed_at: "2026-04-12T18:49:26.170"
+    completed_at: "2026-04-12T18:57:31"
+
+  - ticket_id: NC-DS-025
+    priority: MEDIUM
+    title: "UTIL-002 — HashUtils (MD5/SHA256, verify, fingerprint)"
+    write_zone: "01_neocortex_framework/neocortex/core/utils/NC-UTL-FR-002-hash-utils.py"
+    file: "DIR-DS-001-tickets/NC-DS-025-util002-hash-utils.yaml"
+    progressive_gate: null
+    status: DONE
+    claimed_by: null
+    claimed_at: "2026-04-12T18:50:59.101"
+    completed_at: "2026-04-12T18:53:59"
+
+  - ticket_id: NC-DS-026
+    priority: MEDIUM
+    title: "UTIL-003 — PathResolver (tickets, handoffs, tools, zones)"
+    write_zone: "01_neocortex_framework/neocortex/core/utils/NC-UTL-FR-003-path-resolver.py"
+    file: "DIR-DS-001-tickets/NC-DS-026-util003-path-resolver.yaml"
+    progressive_gate: null
+    status: DONE
+    claimed_by: null
+    claimed_at: null
+    completed_at: null
+
+  # ── SCRIPTS GOVERNANÇA ────────────────────────────────────
+  - ticket_id: NC-DS-027
+    priority: HIGH
+    title: "TOOL-001 — TicketValidator CLI (EL-3 pre-check)"
+    write_zone: "01_neocortex_framework/scripts/NC-SCR-FR-006-ticket-validator.py"
+    file: "DIR-DS-001-tickets/NC-DS-027-tool001-ticket-validator.yaml"
+    progressive_gate: null
+    status: DONE
+    claimed_by: null
+    claimed_at: "2026-04-12T19:21:56"
+    completed_at: null
+
+  - ticket_id: NC-DS-028
+    priority: MEDIUM
+    title: "TOOL-002 — QueueMonitor CLI ASCII (--watch, status grid)"
+    write_zone: "01_neocortex_framework/scripts/NC-SCR-FR-007-queue-monitor.py"
+    file: "DIR-DS-001-tickets/NC-DS-028-tool002-queue-monitor.yaml"
+    progressive_gate: null
+    status: DONE
+    claimed_by: null
+    claimed_at: "2026-04-12T22:24:10.534177+00:00"
+    completed_at: "2026-04-12T22:32:09.264934+00:00"
+
+  # ── DOCUMENTAÇÃO ──────────────────────────────────────────
+  - ticket_id: NC-DS-029
+    priority: MEDIUM
+    title: "GOV-014 — NC-GOV-FR-001 protocolo N-workers (diagrama ASCII + FAQ)"
+    write_zone: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-001-nworker-protocol.md"
+    file: "DIR-DS-001-tickets/NC-DS-029-gov014-nworker-protocol.yaml"
+    progressive_gate: null
+    status: DONE
+    claimed_by: null
+    claimed_at: "2026-04-12T19:29:26.831515"
+    completed_at: "2026-04-15T13:39:18-03:00"
+
+  # ── RASTREABILIDADE DE SCRIPTS ÓRFÃOS (Marco 1 Pré-MCP) ──
+  # Adicionado por T0 em 2026-04-15 — tickets de operação dos 4 ciclos sem ticket formal
+  - ticket_id: NC-DS-070
+    priority: HIGH
+    title: "SCR-FR-009 — Validar e documentar NC-SCR-FR-009-sanitize-all-yamls.py"
+    write_zone: "01_neocortex_framework/scripts/"
+    file: "DIR-DS-001-tickets/NC-DS-070-scr-fr009-sanitize-yamls.yaml"
+    progressive_gate: null
+    status: DONE
+    claimed_by: null
+    claimed_at: null
+    completed_at: null
+
+  - ticket_id: NC-DS-071
+    priority: HIGH
+    title: "SCR-FR-064 — Validar e documentar NC-SCR-FR-064-artifact-catalog.py"
+    write_zone: "01_neocortex_framework/scripts/"
+    file: "DIR-DS-001-tickets/NC-DS-071-scr-fr064-artifact-catalog.yaml"
+    progressive_gate: null
+    status: DONE
+    claimed_by: null
+    claimed_at: null
+    completed_at: null
+
+  - ticket_id: NC-DS-072
+    priority: HIGH
+    title: "SCR-FR-066 — Validar e documentar NC-SCR-FR-066-bootup-sync.py"
+    write_zone: "01_neocortex_framework/scripts/"
+    file: "DIR-DS-001-tickets/NC-DS-072-scr-fr066-bootup-sync.yaml"
+    progressive_gate: null
+    status: DONE
+    claimed_by: null
+    claimed_at: null
+    completed_at: null
+
+  - ticket_id: NC-DS-073
+    priority: HIGH
+    title: "SCR-FR-014 — Validar e documentar NC-SCR-FR-014-end-of-cycle.ps1"
+    write_zone: "01_neocortex_framework/scripts/"
+    file: "DIR-DS-001-tickets/NC-DS-073-scr-fr014-end-of-cycle.yaml"
+    progressive_gate: null
+    status: DONE
+    claimed_by: null
+    claimed_at: null
+    completed_at: null
+
+  - ticket_id: NC-DS-074
+    priority: HIGH
+    title: "SCR-FR-080 — Validar e elevar compliance NC-SCR-FR-080-governance-auditor.py"
+    write_zone: "01_neocortex_framework/scripts/"
+    file: "DIR-DS-001-tickets/NC-DS-074-scr-fr080-governance-auditor.yaml"
+    progressive_gate: null
+    status: DONE
+    claimed_by: null
+    claimed_at: null
+    completed_at: null
+
+  - ticket_id: NC-DS-075
+    priority: MEDIUM
+    title: "SCR-FR-001 — Validar e documentar NC-SCR-FR-001-populate-lobes-ssot.py"
+    write_zone: "01_neocortex_framework/scripts/"
+    file: "DIR-DS-001-tickets/NC-DS-075-scr-fr001-populate-lobes.yaml"
+    progressive_gate: null
+    status: DONE
+    claimed_by: null
+    claimed_at: null
+    completed_at: null
+
+  - ticket_id: NC-DS-076
+    priority: HIGH
+    title: "SCR-FR-064-orch — Validar refs e documentar NC-SCR-FR-064-orchestration-agent-fixes.ps1"
+    write_zone: "01_neocortex_framework/scripts/"
+    file: "DIR-DS-001-tickets/NC-DS-076-scr-fr064-orchestration-agent-fixes.yaml"
+    progressive_gate: null
+    status: DONE
+    claimed_by: null
+    claimed_at: null
+    completed_at: null
+
+  - ticket_id: NC-DS-001
+    priority: HIGH
+    title: "FR-025 — Criar NC-TOOL-FR-025-system.py com 8 ações"
+    write_zone: "01_neocortex_framework/neocortex/mcp/tools/"
+    file: "DIR-DS-001-tickets/NC-DS-001-fr025-system.yaml"
+    progressive_gate: null
+    status: DONE
+    claimed_by: null
+    claimed_at: null
+    completed_at: "2026-04-15T13:10:35-03:00"
+
+  - ticket_id: NC-DS-002
+    priority: HIGH
+    title: "FR-026 — Criar NC-TOOL-FR-026-intelligence.py com ações brain.*"
+    write_zone: "01_neocortex_framework/neocortex/mcp/tools/"
+    file: "DIR-DS-001-tickets/NC-DS-002-fr026-intelligence.yaml"
+    progressive_gate: null
+    status: DONE
+    claimed_by: null
+    claimed_at: null
+    completed_at: "2026-04-15T13:15:47-03:00"
+
+  - ticket_id: NC-DS-077
+    priority: HIGH
+    title: "Auditoria de tickets sem handoff correspondente (36 tickets)"
+    write_zone: 
+      - "DIR-DS-001-tickets/"
+      - "DIR-DS-002-audit-logs/"
+      - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/"
+    file: "DIR-DS-001-tickets/NC-DS-077-audit-tickets-sem-handoff.yaml"
+    progressive_gate: null
+    status: DONE
+    claimed_by: null
+    claimed_at: "2026-04-15T13:30:00-03:00"
+    completed_at: "2026-04-15T13:45:00-03:00"
+
+  - ticket_id: NC-DS-078
+    priority: MEDIUM
+    title: "ORCH-301 — Task Broker persistente para orquestração"
+    write_zone: 
+      - "01_neocortex_framework/neocortex/core/services/"
+      - "01_neocortex_framework/neocortex/mcp/tools/"
+    file: "DIR-DS-001-tickets/NC-DS-078-orch301-task-broker.yaml"
+    progressive_gate: null
+    status: DONE
+    claimed_by: null
+    claimed_at: null
+    completed_at: "2026-04-15T14:30:00-03:00"
+
+  - ticket_id: NC-DS-079
+    priority: MEDIUM
+    title: "ORCH-302 — Tool MCP neocortex_task com execute/poll/cancel/list_queued"
+    write_zone: 
+      - "01_neocortex_framework/neocortex/mcp/tools/"
+    file: "DIR-DS-001-tickets/NC-DS-079-orch302-neocortex-task.yaml"
+    progressive_gate: null
+    status: DONE
+    claimed_by: null
+    claimed_at: null
+    completed_at: "2026-04-15T14:31:00-03:00"
+
+

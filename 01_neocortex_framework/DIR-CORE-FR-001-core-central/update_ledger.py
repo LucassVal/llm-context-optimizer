@@ -1,11 +1,26 @@
 #!/usr/bin/env python3
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:57.057249'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: core-central
+level: 1
+parent_ssot: NC-LED-FR-001-framework-ledger
+tags:
+  - core-central
+  - level-1
+  - python
+domain: framework
+layer: core
+---"""
+
 """
 Add MCP verification event to ledger.
 """
 
-import json
 import datetime
-import sys
+import json
 
 ledger_path = "NC-LED-FR-001-framework-ledger.json"
 

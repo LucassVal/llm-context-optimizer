@@ -1,0 +1,29 @@
+ticket_id: "NC-DS-076"
+status: "APPROVED"
+timestamp: "2026-04-15T11:42:47-03:00"
+agent_port: 25549
+lines_added: 2
+files_modified:
+  - ".agents/workflows/NC-WF-001-workspace-routine.md"
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
+summary: |
+  Verificado script NC-SCR-FR-064-orchestration-agent-fixes.ps1: pré-requisitos OK (arquivos de entrada e scripts Python existem).
+  Executado dry-run com sucesso. Adicionada referência ao script na seção de comandos rápidos do NC-WF-001 e entrada no catálogo SSOT (NC-NAM-FR-001).
+  Sequência: Engineer → Courier → Tester. Parâmetros: -Sequential, -LogDir, -DryRun.
+ajustes_aplicados:
+  - "Adicionado comando 'Orquestrar correções de agentes' na tabela de comandos rápidos do NC-WF-001"
+  - "Adicionada entrada para NC-SCR-FR-064-orchestration-agent-fixes.ps1 no SSOT geral (tabela de snapshot)"
+lessons_learned:
+  - "Script PowerShell depende de structural_audit_report.md e renaming_plan.yaml (ambos presentes)"
+  - "Dry-run valida pré-requisitos sem executar os agentes"
+  - "Orquestração segue ordem fixa e interrompe em caso de falha"
+deps_missing: []
+compliance_score: ""
+metrics:
+  ruff_check: PASS
+  py_compile: PASS
+  import_smoke_test: PASS
+  write_zone_respected: true
+  locks_respected: true
+reviewed_by: "T0-Antigravity"
+reviewed_at: "2026-04-15T11:44:00-03:00"

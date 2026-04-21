@@ -1,0 +1,14 @@
+ticket_id: NC-DS-119
+title: "Fix mcp_config.json — NEOCORTEX_PROJECT_ROOT incorreto"
+status: DONE
+type: BUG
+priority: HIGH
+created_at: "2026-04-17T15:42:00-03:00"
+closed_at: "2026-04-17T15:50:00-03:00"
+reporter: "T0-Antigravity"
+description: |
+  A entrada 'neocortex' no mcp_config.json apontava NEOCORTEX_PROJECT_ROOT
+  para uma subpasta inexistente (.neocortex_stdio) impedindo o LedgerStore
+  de inicializar corretamente e consequentemente bloqueando a conexão MCP.
+files_modified:
+  - "C:/Users/Lucas Valério/.gemini/antigravity/mcp_config.json"

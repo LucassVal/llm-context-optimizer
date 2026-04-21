@@ -1,0 +1,95 @@
+ticket_id: "NC-SESSION-WAL-20260415"
+status: "APPROVED"
+timestamp: "2026-04-15T23:59:59-03:00"
+agent: "T0-Claude-Code (Sonnet 4.6)"
+
+summary: |
+  Implementação do NC-SVC-FR-016-wal-service.py (Write-Ahead Log via SQLite).
+  Resolve WAL (PENDING→DONE) e TTL-002 (PENDING→DONE) de uma vez.
+  Zero dependências externas (stdlib sqlite3). Testado e funcionando.
+  DB em DIR-DS-003-wal/neocortex_wal.db. Ticket NC-DS-089 criado para integração
+  nos scripts do Ciclo 3.
+
+files_created:
+  - path: "01_neocortex_framework/neocortex/core/services/NC-SVC-FR-016-wal-service.py"
+    size_lines: ~340
+    features:
+      - "Singleton thread-safe por db_path"
+      - "SQLite WAL journal mode (concurrent reads during write)"
+      - "Tabelas: wal_sessions + wal_log com FK e índices"
+      - "Context manager WALTransaction (commit auto, rollback em exceção)"
+      - "before_write() / after_write() com sha256"
+      - "rollback_session() → retorna mapa de operações para reversão manual"
+      - "get_file_history(path) — timeline de mudanças por arquivo"
+      - "get_open_sessions() — detecta sessões OPEN (crash recovery)"
+      - "prune_old_entries(days) — TTL de entradas antigas (resolve TTL-002)"
+      - "stats() — total entries, sessions por status, db_size_kb"
+      - "CLI: stats | sessions | history | prune | rollback"
+
+  - path: "DIR-DS-003-wal/neocortex_wal.db"
+    note: "Criado automaticamente na primeira execução via .git path resolver"
+
+  - path: "DIR-DS-001-tickets/NC-DS-089-wal-integration-ciclo3.yaml"
+    note: "Integrar WAL nos 3 scripts Ciclo 3 — pode ser Agent 4 ou DeepSeek"
+
+files_modified:
+  - path: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-004-fr-artifacts-registry.yaml"
+    change: "Adicionado entry NC-SVC-FR-016 na seção SVC"
+
+  - path: ".agents/workflows/NC-WF-001-workspace-routine.md"
+    change: "componentes_pendentes: WAL→DONE, TTL-002→DONE, WAL-INT→PENDING(NC-DS-089)"
+
+design_decisions:
+  - "SQLite WAL mode: permite leituras concorrentes durante writes — essencial para multi-agente"
+  - "Singleton por db_path: mesma instância reutilizada em toda a sessão Python"
+  - "Path resolver via .git marker: garante DB sempre na raiz do projeto independente de onde o script é importado"
+  - "Rollback é MANUAL por design: WAL fornece o mapa, não desfaz automaticamente — evita side effects inesperados"
+  - "prune_old_entries() integrado no serviço (não script separado) — resolve TTL-002 sem nova dependência"
+
+smoke_test_results:
+  syntax_check: PASS
+  session_open_commit: PASS
+  log_operation_create_modify: PASS
+  get_session_summary: PASS
+  stats: PASS
+  prune_old_entries: PASS
+  db_path_resolution: "TURBOQUANT_V42/DIR-DS-003-wal/neocortex_wal.db (via .git marker)"
+
+baseline_pós_sessão:
+  tickets: 62
+  handoffs: 60
+  orphans_sem_handoff: ["NC-DS-084 (Agent 1 ainda rodando)", "NC-DS-089 (OPEN correto)"]
+
+resolved_pending:
+  - id: "WAL"
+    before: "PENDING"
+    after: "DONE"
+    impl: "NC-SVC-FR-016-wal-service.py"
+  - id: "TTL-002"
+    before: "PENDING"
+    after: "DONE"
+    impl: "WALService.prune_old_entries(days=N)"
+
+still_pending:
+  - id: "WAL-INT"
+    ticket: "NC-DS-089"
+    desc: "Integrar WAL nos scripts Ciclo 3 (NC-SCR-FR-066, 064, 009)"
+  - id: "OBS-001"
+    desc: "Logs estruturados JSON — IN_PROGRESS"
+  - id: "AGENT-206"
+    desc: "Health Check /health endpoint — PENDING"
+  - id: "SQLite-Q"
+    desc: "Fila SQLite migração — IN_PROGRESS"
+
+scheduling_viability_update: |
+  Com WAL implementado:
+  - Ciclo 0, Ciclo 1: SAFE para agendar agora
+  - Ciclo 3: SAFE após NC-DS-089 integrar WAL nos scripts
+  - Bloqueador restante para scheduling completo: WAL-INT (NC-DS-089)
+
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  ssot_updated: true
+  no_locked_files_modified: true
+  handoff_yaml_complete: true

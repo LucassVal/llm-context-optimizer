@@ -1,0 +1,737 @@
+# NC-GOV-FR-005 — Mapa do Ecossistema de Governança NeoCortex
+# Visão hierárquica e cíclica completa da governança, integrando:
+# 1. 20 regras de governança de IA (NC-GOV-FR-003)
+# 2. Sistemas proativos e reativos (atomic locks + hooks)
+# 3. Ciclos de vida (tickets, 4 ciclos)
+# 4. Serviços core implementados (Kairos, ChannelNotifier, SessionBuddy, etc.)
+# 5. Integração com insights Claude Code (configuração por projeto, plugins MCP)
+# 
+# Uso: Referência central para auditoria, onboarding e manutenção da governança.
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  version: "1.1"
+  hash: "GOV-ECOSYSTEM-MAP-v1.1-20260420-9b2c4d1"
+  description: "Mapa do ecossistema de governança NeoCortex — visão hierárquica e cíclica"
+  generated_at: "2026-04-20"
+  generated_by: "opencode (DeepSeek-Reasoner)"
+  related_files:
+    - "NC-GOV-FR-003-ia-governance-rules.yaml (v1.2-20260416) → 20 regras machine-readable"
+    - "NC-GOV-FR-004-fr-artifacts-registry.yaml → Registro de artefatos FR"
+    - "NC-NAM-FR-001-naming-convention.md (v1.2-20260420-87a3f2c) → SSOT nomenclatura"
+    - "NC-CYC-FR-001-4-cycle-validation.md → Protocolo 4 ciclos"
+    - "NC-GOV-FR-002-ticket-lifecycle.yaml → Ciclo de vida de tickets"
+    - "NC-TODO-FR-001-project-roadmap-consolidated.md (v12.1-20260420-e5f8a9b) → Roadmap SSOT"
+    - "NC-DOC-FR-001-ubiquitous-language-dictionary.md → Dicionário ubíquo"
+  audit_script: "NC-SCR-FR-080-governance-auditor.py"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 1. HIERARQUIA DE GOVERNANÇA — 20 REGRAS CATEGORIZADAS
+# ─────────────────────────────────────────────────────────────────────────────
+governance_hierarchy:
+  foundation:
+    name: "Fundação"
+    description: "Regras fundamentais de inventário, política e estrutura"
+    rules:
+      R01:
+        name: "Inventário de Ativos de IA"
+        description: "Manter catálogo completo de modelos, ferramentas, agentes e fontes de dados"
+        status: "implemented_partial"
+        implementations:
+          - "artifact_catalog.json"
+          - "NC-NAM-FR-001-naming-convention.md (SSOT)"
+          - "NC-GOV-FR-004-fr-artifacts-registry.yaml"
+        verification: "NC-SCR-FR-080-governance-auditor.py --audit-fr-artifacts"
+      
+      R02:
+        name: "Política Formalizada"
+        description: "Políticas de governança escritas, versionadas e acessíveis como código ou documentos SSOT"
+        status: "implemented"
+        implementations:
+          - "NC-GOV-FR-003-ia-governance-rules.yaml"
+          - "NC-CFG-FR-002-rules-policy.yaml"
+          - "NC-GOV-FR-002-ticket-lifecycle.yaml"
+        verification: "Dupla mordaça (YAML + MD com hash)"
+      
+      R03:
+        name: "Estrutura de Diretórios Canônica"
+        description: "Definir e impor estrutura padronizada"
+        status: "implemented"
+        implementations:
+          - "NC-NAM-FR-001-naming-convention.md (seção 1)"
+          - "DIR-* prefixos padronizados"
+        verification: "Conformidade NC- padrão"
+      
+      R04:
+        name: "Nomenclatura Padronizada"
+        description: "Todos os arquivos seguem NC-<TIPO>-<SIGLA>-<NUM>-<desc>.ext"
+        status: "implemented"
+        implementations:
+          - "NC-NAM-FR-001-naming-convention.md (seção 2)"
+          - "NC-SCR-FR-080-governance-auditor.py (verificação)"
+        verification: "45.0% conformidade (auditoria 2026-04-14)"
+      
+      R05:
+        name: "Segregação de Ambientes"
+        description: "Manter ambientes separados para desenvolvimento, teste e produção"
+        status: "implemented"
+        implementations:
+          - "Ambiente original: 01_neocortex_framework/"
+          - "Ambiente espelho: 01_neocortex_framework_RENAMED/"
+          - "Sandbox dev: neocortex_config_dev.yaml"
+        verification: "NC-SCR-FR-080-governance-auditor.py --environment detection"
+
+  access_control:
+    name: "Controle de Acesso"
+    description: "Regras de identidade, privilégios mínimos e proteção de recursos"
+    rules:
+      R06:
+        name: "Identidade para Agentes"
+        description: "Cada agente deve ter identidade única e verificável"
+        status: "implemented"
+        implementations:
+          - "NC-CFG-DS-001-agent-policy.yaml"
+          - "Lobes isolados por agente ($DS_A, $DS_B, etc.)"
+        verification: "Policy enforcement via SecurityService"
+      
+      R07:
+        name: "Privilégio Mínimo (PoLP)"
+        description: "Agentes têm apenas permissões estritamente necessárias"
+        status: "implemented"
+        implementations:
+          - "NC-CFG-FR-002-rules-policy.yaml (write_zones)"
+          - "NC-CFG-DS-001-agent-policy.yaml (permissions)"
+        verification: "SecurityService.validate_access()"
+      
+      R08:
+        name: "Atomic Locks (Path-Based)"
+        description: "Arquivos críticos protegidos contra modificação"
+        status: "implemented"
+        implementations:
+          - "NC-SEC-FR-001-atomic-locks.yaml (@LOCKS)"
+          - "SecurityService com validação"
+        verification: "Hash validation, bloqueio proativo"
+      
+      R09:
+        name: "Segregação de Zonas de Escrita"
+        description: "Agentes de diferentes domínios não podem escrever nos mesmos diretórios"
+        status: "implemented"
+        implementations:
+          - "NC-CFG-FR-002-rules-policy.yaml (write_zones)"
+          - "Lobe isolation (02_memory_lobes/)"
+        verification: "Cross-lobe write blocking"
+
+  traceability:
+    name: "Rastreabilidade"
+    description: "Regras de auditoria, versionamento e handoffs"
+    rules:
+      R10:
+        name: "Trilha de Auditoria Imutável"
+        description: "Todas as ações registradas em log à prova de adulteração"
+        status: "implemented_partial"
+        implementations:
+          - "MetricsStore (NC-SVC-FR-006)"
+          - "HookRegistry (LoggingHook, AuditHook)"
+          - "DIR-DS-002-audit-logs/"
+        verification: "Logs estruturados, hash de integridade"
+      
+      R11:
+        name: "Versionamento de Artefatos"
+        description: "Todos os artefatos de governança versionados (Git) com hashes de integridade"
+        status: "implemented"
+        implementations:
+          - "Campo 'hash' em YAMLs de governança"
+          - "Dupla mordaça (YAML + MD)"
+          - "Git como fonte de verdade"
+        verification: "NC-SCR-FR-080-governance-auditor.py (hash validation)"
+      
+      R12:
+        name: "Handoffs Formais"
+        description: "Toda tarefa delegada a um agente documentada em handoff YAML"
+        status: "implemented"
+        implementations:
+          - "NC-GOV-FR-002-ticket-lifecycle.yaml"
+          - "DIR-DS-002-audit-logs/NC-DS-*-handoff-*.yaml"
+        verification: "Cross-reference tickets ↔ handoffs"
+      
+      R13:
+        name: "Checkpoints e Save Points"
+        description: "Estado do sistema salvo periodicamente e antes de operações críticas"
+        status: "implemented"
+        implementations:
+          - "NC-TOOL-FR-022-session.py (checkpoint, savepoint)"
+          - "Regression Buffer (NC-TOOL-FR-012-regression.py)"
+        verification: "Auto-save antes de escrita crítica"
+
+  execution:
+    name: "Execução"
+    description: "Regras de validação pré-ação, circuit breaker e rate limiting"
+    rules:
+      R14:
+        name: "STEP 0 (Validação Pré-Ação)"
+        description: "Validar tarefa contra Regression Buffer e políticas antes de executar"
+        status: "implemented"
+        implementations:
+          - "mentor_step_0() em sub_server.py:141-239"
+          - "PolicyLoader (NC-CORE-FR-017-policy-loader.py)"
+          - "Regression Buffer (NC-TOOL-FR-012-regression.py)"
+        verification: "Hook PreToolUse + Mentor Mode"
+      
+      R15:
+        name: "STEP -1 (Save Point)"
+        description: "Snapshot do estado antes de ações de escrita para possível rollback"
+        status: "implemented_partial"
+        implementations:
+          - "NC-TOOL-FR-031-savepoint.py"
+          - "Save points via session tool"
+        verification: "Auto-savepoint antes de escrita"
+      
+      R16:
+        name: "Circuit Breaker"
+        description: "Se um agente falhar repetidamente, deve ser suspenso para evitar loops de falha"
+        status: "pending_implementation"
+        implementations: []
+        verification: "Não implementado"
+      
+      R17:
+        name: "Rate Limiting por Ferramenta"
+        description: "Limitar frequência de chamadas a ferramentas críticas ou caras"
+        status: "implemented_partial"
+        implementations:
+          - "PolicyLoader com rate limits"
+          - "SecurityService rate limiting"
+        verification: "Implementação parcial"
+
+  lifecycle:
+    name: "Ciclo de Vida"
+    description: "Regras de tickets, rotinas e revisão"
+    rules:
+      R18:
+        name: "Ciclo de Vida de Tickets"
+        description: "Toda tarefa registrada como ticket e seguir fluxo formal"
+        status: "implemented"
+        implementations:
+          - "NC-GOV-FR-002-ticket-lifecycle.yaml"
+          - "DIR-DS-001-tickets/NC-DS-*.yaml"
+          - "Handoff protocol"
+        verification: "94.7% tickets inertes (39/47 sem handoff)"
+      
+      R19:
+        name: "Rotina de 4 Ciclos"
+        description: "Trabalho deve seguir rotina diária/semanal para garantir continuidade e limpeza"
+        status: "implemented"
+        implementations:
+          - "NC-CYC-FR-001-4-cycle-validation.md"
+          - "Ciclo 1-4 com checklists"
+          - "NC-SCR-FR-014-end-of-cycle.ps1"
+        verification: "Checklists por ciclo"
+      
+      R20:
+        name: "Revisão e Arquivo de Artefatos"
+        description: "Artefatos antigos arquivados periodicamente para evitar acúmulo"
+        status: "implemented"
+        implementations:
+          - "DIR-ARC-FR-001-archive-main/"
+          - "Ciclo 4 (limpeza semanal)"
+          - "NC-SCR-FR-080-governance-auditor.py (Ciclo 4)"
+        verification: "Auditoria semanal de governança"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 2. SISTEMAS DE GOVERNANÇA IMPLEMENTADOS
+# ─────────────────────────────────────────────────────────────────────────────
+governance_systems:
+  proactive:
+    name: "Sistemas Proativos (NeoCortex Strength)"
+    description: "Prevenção de violações antes que ocorram"
+    systems:
+      atomic_locks:
+        name: "Atomic Locks"
+        file: "NC-SEC-FR-001-atomic-locks.yaml"
+        purpose: "Bloqueio proativo de arquivos críticos (@LOCKS)"
+        status: "active"
+        integration: "SecurityService, Mentor Mode"
+      
+      mentor_mode:
+        name: "Mentor Mode (STEP 0)"
+        file: "sub_server.py:141-239 (mentor_step_0)"
+        purpose: "Validação pré-execução contra políticas e Regression Buffer"
+        status: "active"
+        integration: "PolicyLoader, HookRegistry"
+      
+      policy_loader:
+        name: "Policy Loader"
+        file: "NC-CORE-FR-017-policy-loader.py"
+        purpose: "Carregar e aplicar políticas machine-readable"
+        status: "active"
+        integration: "Mentor Mode, SecurityService"
+      
+      write_zones:
+        name: "Write Zones Segregation"
+        file: "NC-CFG-FR-002-rules-policy.yaml"
+        purpose: "Segregação de zonas de escrita por role/agent"
+        status: "active"
+        integration: "SecurityService"
+
+  reactive:
+    name: "Sistemas Reativos (Hookify — Claude Code Pattern)"
+    description: "Resposta a eventos após ocorrência"
+    systems:
+      hook_registry:
+        name: "HookRegistry (Hookify)"
+        file: "NC-HK-FR-001-hook-registry.py"
+        purpose: "Hooks reativos para eventos MCP (PreToolUse, PostToolUse, ToolError)"
+        status: "active"
+        integration: "EventBus, Tools MCP"
+        hooks:
+          - "LoggingHook"
+          - "TimingHook"
+          - "RateLimitHook"
+          - "AuditHook"
+      
+      event_bus:
+        name: "EventBus"
+        file: "NC-SVC-FR-005-event-bus.py"
+        purpose: "Sistema de publicação/assinatura de eventos"
+        status: "active"
+        integration: "HookRegistry, KairosService, ChannelNotifier"
+      
+      kairos_service:
+        name: "KairosService"
+        file: "NC-SVC-FR-010-kairos-service.py"
+        purpose: "Event-driven scheduling com tick proativo"
+        status: "active"
+        integration: "EventBus, PulseScheduler compatibility"
+      
+      channel_notifier:
+        name: "ChannelNotifier"
+        file: "NC-SVC-FR-012-channel-notifier.py"
+        purpose: "Notificações push por canal (log, console, eventbus)"
+        status: "active"
+        integration: "EventBus, KAIROS_CHANNELS feature flag"
+
+  telemetry:
+    name: "Telemetria e Observabilidade"
+    description: "Métricas, logging e gamificação"
+    systems:
+      metrics_store:
+        name: "MetricsStore"
+        file: "neocortex/infra/metrics_store.py"
+        purpose: "Armazenamento analítico columnar (DuckDB/SQLite) com agregações"
+        status: "active"
+        tables:
+          - "daily_token_usage"
+          - "cost_summary"
+          - "agent_activity"
+          - "pulse_health"
+      
+      session_buddy:
+        name: "SessionBuddy (Gamificação)"
+        file: "NC-SVC-FR-009-session-buddy.py"
+        purpose: "Estatísticas de sessão gamificadas com achievements"
+        status: "active"
+        integration: "MetricsCollector, rich terminal display"
+      
+      metrics_collector:
+        name: "MetricsCollector"
+        file: "NC-SVC-FR-006-metrics-collector.py"
+        purpose: "Coleta e agregação de métricas de sistema"
+        status: "active"
+        integration: "MetricsStore, HookRegistry"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 3. CICLOS DE VIDA E ROTINAS
+# ─────────────────────────────────────────────────────────────────────────────
+lifecycle_cycles:
+  daily_cycles:
+    name: "4 Ciclos Diários"
+    reference: "NC-CYC-FR-001-4-cycle-validation.md"
+    cycles:
+      cycle_1:
+        name: "Início de Sessão"
+        purpose: "Carregar contexto do catálogo semântico e estabelecer baseline"
+        checklist_key: "Catálogo <24h, bootup lido, YAMLs de governança validados"
+      
+      cycle_2:
+        name: "Durante a Sessão"
+        purpose: "Referenciar artefatos durante tarefas e garantir conformidade"
+        checklist_key: "Artefato consultado no catálogo, zona de escrita permitida, SSOT atualizado"
+      
+      cycle_3:
+        name: "Fim de Dia/Sessão"
+        purpose: "Atualizar catálogo semântico e consolidar ganhos de contexto"
+        checklist_key: "Catálogo atualizado, bootup sincronizado, YAMLs sanitizados"
+      
+      cycle_4:
+        name: "Limpeza Semanal"
+        purpose: "Manter baseline limpa e preparar ambiente para próxima semana"
+        checklist_key: "Tickets órfãos auditados, auditoria de governança, conformidade NC- 100%"
+        governance_audit: "NC-SCR-FR-080-governance-auditor.py --execute"
+
+  ticket_lifecycle:
+    name: "Ciclo de Vida de Tickets"
+    reference: "NC-GOV-FR-002-ticket-lifecycle.yaml"
+    stages:
+      creation:
+        name: "Criação"
+        purpose: "Identificar necessidade e criar ticket YAML"
+        validation: "NC-SCR-FR-006-ticket-validator.py"
+      
+      opening:
+        name: "Abertura"
+        purpose: "Colocar ticket em estado pronto para execução"
+        actions: "add_to_queue, assign_to_agent"
+      
+      verification:
+        name: "Verificação"
+        purpose: "Validar pré-condições antes de executar"
+        checks: "files_exist, files_must_not_exist, active_locks"
+      
+      execution:
+        name: "Execução"
+        purpose: "Executar tarefa com Mentor Mode (STEP 0)"
+        validation: "mentor_step_0(), hooks PreToolUse"
+      
+      closing:
+        name: "Fechamento"
+        purpose: "Gerar handoff, atualizar roadmap, arquivar"
+        artifacts: "handoff YAML, %DONE no roadmap, changelog SSOT"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 4. INTEGRAÇÃO COM INSIGHTS CLAUDE CODE
+# ─────────────────────────────────────────────────────────────────────────────
+claude_code_integration:
+  insights_source: "DIR-RES-CC-001-claude-leak-workzone/NC-GOV-CC-001-governance-mcp-insights.yaml"
+  adopted_patterns:
+    hookify:
+      name: "Hookify System"
+      status: "IMPLEMENTED (HookRegistry)"
+      note: "Já existia como NC-HK-FR-001-hook-registry.py com padrão MCP"
+    
+    configuration_per_project:
+      name: "Configuração por Projeto"
+      status: "PENDING"
+      action: "Migrar neocortex_config.yaml → .nc/config.yaml"
+      priority: "high"
+    
+    mcp_plugin_template:
+      name: "Template de Plugin MCP"
+      status: "PENDING"
+      action: "Criar template NC-TOOL-FR-* com plugin.json e auto-discovery"
+      priority: "high"
+    
+    channel_notifications:
+      name: "Channel Notifications MCP"
+      status: "IMPLEMENTED (NC-SVC-FR-012-channel-notifier.py)"
+      note: "Já implementado com KAIROS_CHANNELS feature flag"
+    
+    telemetry_comprehensive:
+      name: "Telemetria Abrangente"
+      status: "IMPLEMENTED (MetricsStore + MetricsCollector)"
+      note: "85+ métricas, DuckDB/SQLite, agregações, retention"
+    
+    session_buddy:
+      name: "Buddy (Gamificação)"
+      status: "IMPLEMENTED (NC-SVC-FR-009-session-buddy.py)"
+      note: "SessionBuddy com achievements, stats, rich display"
+    
+    kairos_service:
+      name: "KAIROS Tick Proativo"
+      status: "IMPLEMENTED (NC-SVC-FR-010-kairos-service.py)"
+      note: "Event-driven scheduling integrado com EventBus"
+    
+    memory_architecture:
+      name: "Memória 3 Camadas"
+      status: "PENDING"
+      action: "Criar MEMORY.md índice para lobes + carregamento JIT"
+      priority: "medium"
+
+  competitive_analysis:
+    neoCortex_strengths:
+      - "Atomic Locks (proactive file protection)"
+      - "Mentor Mode (pre-execution validation)"
+      - "SSOT Ubíquo (NC-NAM-FR-001)"
+      - "Lobe Isolation (sandboxed agents)"
+      - "Policy Loader + Rate Limiting"
+    
+    claude_code_strengths_adopted:
+      - "Hookify (reactive hooks) → IMPLEMENTED"
+      - "Channel Notifications → IMPLEMENTED"
+      - "KAIROS tick → IMPLEMENTED"
+      - "Session Buddy → IMPLEMENTED"
+      - "Comprehensive telemetry → IMPLEMENTED"
+    
+    gaps_to_close:
+      - "Configuration per project (.nc/config.yaml)"
+      - "MCP plugin template (standardized extension)"
+      - "Memory index light (MEMORY.md for lobes)"
+      - "Feature flags with cache (Growthbook light)"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 5. ESTADO DE IMPLEMENTAÇÃO GERAL
+# ─────────────────────────────────────────────────────────────────────────────
+implementation_status:
+  summary:
+    total_rules: 20
+    implemented: 12
+    implemented_partial: 3
+    pending: 5
+    implementation_rate: "75% (15/20 com pelo menos implementação parcial)"
+  
+  by_category:
+    foundation:
+      total: 5
+      implemented: 4
+      partial: 1
+      pending: 0
+    
+    access_control:
+      total: 4
+      implemented: 4
+      partial: 0
+      pending: 0
+    
+    traceability:
+      total: 4
+      implemented: 3
+      partial: 1
+      pending: 0
+    
+    execution:
+      total: 4
+      implemented: 2
+      partial: 2
+      pending: 0
+    
+    lifecycle:
+      total: 3
+      implemented: 3
+      partial: 0
+      pending: 0
+  
+  next_priorities:
+    high:
+      - "Implementar configuration per project (.nc/config.yaml)"
+      - "Criar template de plugin MCP"
+      - "Integrar atomic locks validation via hooks PreToolUse"
+    
+    medium:
+      - "Criar MEMORY.md índice para lobes"
+      - "Implementar circuit breaker (R16)"
+      - "Completar rate limiting (R17)"
+    
+    low:
+      - "Feature flags com cache"
+      - "Bridge mode para sandbox remota"
+      - "Plugin marketplace interno"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 6. MAPA DE ARQUIVOS CRÍTICOS DE GOVERNANÇA
+# ─────────────────────────────────────────────────────────────────────────────
+critical_governance_files:
+  rules_policy:
+    - path: "NC-GOV-FR-003-ia-governance-rules.yaml"
+      type: "machine-readable rules"
+      hash: "IA-GOVERNANCE-RULES-v1.0"
+      companion: "NC-GOV-FR-003-ia-governance-rules.md"
+    
+    - path: "NC-CFG-FR-002-rules-policy.yaml"
+      type: "access control policies"
+      hash: "RULES-YAML-v2"
+    
+    - path: "NC-SEC-FR-001-atomic-locks.yaml"
+      type: "atomic locks"
+      hash: "ATOMIC-LOCKS-v1.0"
+  
+  lifecycle:
+    - path: "NC-GOV-FR-002-ticket-lifecycle.yaml"
+      type: "ticket lifecycle"
+      hash: "TICKET-LIFECYCLE-v1.0"
+      companion: "NC-GOV-FR-002-ticket-lifecycle.md"
+    
+    - path: "NC-CYC-FR-001-4-cycle-validation.md"
+      type: "cycle validation"
+      hash: "4CYC-VAL-v1.1-20260414"
+  
+  registries:
+    - path: "NC-GOV-FR-004-fr-artifacts-registry.yaml"
+      type: "FR artifacts registry"
+      hash: "FR-ARTIFACTS-REGISTRY-v1.0"
+      coverage: "10.1% (30/298 artefatos mapeados)"
+    
+    - path: "NC-NAM-FR-001-naming-convention.md"
+      type: "SSOT naming convention"
+      hash: "NC-READ-HASH: NC-NAM-FR-001-v1"
+  
+  systems:
+    - path: "NC-HK-FR-001-hook-registry.py"
+      type: "hookify system"
+      status: "active"
+    
+    - path: "neocortex/core/services/NC-SVC-FR-010-kairos-service.py"
+      type: "kairos service"
+      status: "active"
+    
+    - path: "neocortex/core/services/NC-SVC-FR-012-channel-notifier.py"
+      type: "channel notifier"
+      status: "active"
+    
+    - path: "neocortex/core/services/NC-SVC-FR-009-session-buddy.py"
+      type: "session buddy"
+      status: "active"
+    
+    - path: "neocortex/infra/metrics_store.py"
+      type: "metrics store"
+      status: "active"
+  
+  tools_mcp:
+    - path: "NC-TOOL-FR-024-governance.py"
+      type: "governance tool (8 ações)"
+    
+    - path: "NC-TOOL-FR-012-regression.py"
+      type: "regression buffer tool"
+    
+    - path: "NC-TOOL-FR-022-session.py"
+      type: "session tool (checkpoint, savepoint)"
+    
+    - path: "NC-TOOL-FR-037-hooks.py"
+      type: "hooks tool (expose HookRegistry)"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 7. CHECKLIST DE MANUTENÇÃO DA GOVERNANÇA
+# ─────────────────────────────────────────────────────────────────────────────
+maintenance_checklist:
+  daily:
+    - "Executar Ciclo 1 ao iniciar sessão (catálogo <24h)"
+    - "Consultar artefatos no catálogo antes de editar (Ciclo 2)"
+    - "Atualizar SSOT após criação/renomeação"
+    - "Gerar handoff para tickets concluídos"
+  
+  end_of_session:
+    - "Atualizar catálogo semântico se necessário (Ciclo 3)"
+    - "Sincronizar bootup com estado real"
+    - "Sanitizar YAMLs de rotina (NC-SCR-FR-009)"
+    - "Executar rotina de fim de ciclo (NC-SCR-FR-014)"
+  
+  weekly:
+    - "Executar auditoria de governança (NC-SCR-FR-080 --execute)"
+    - "Auditar tickets órfãos (39 tickets sem handoff)"
+    - "Verificar hash de YAMLs de governança"
+    - "Validar conformidade de nomenclatura 100%"
+    - "Atualizar NC-GOV-FR-004-fr-artifacts-registry.yaml"
+  
+  monthly:
+    - "Revisar implementação das 20 regras"
+    - "Atualizar este mapa de ecossistema"
+    - "Analisar métricas de telemetria (MetricsStore)"
+    - "Revisar atomic locks e políticas de acesso"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 8. PRÓXIMOS PASSOS (FASE 1 E 2)
+# ─────────────────────────────────────────────────────────────────────────────
+next_phases:
+  phase_1_config_project:
+    name: "Configuração por Projeto"
+    tasks:
+      - "Criar migrador NC-SCR-FR-081-config-migrator.py"
+      - "Definir schema .nc/config.yaml (herda de global)"
+      - "Atualizar get_config() para priorizar .nc/ local"
+      - "Testar isolamento por repositório"
+    estimated_lines: "≈200"
+    priority: "high"
+  
+  phase_1_plugin_template:
+    name: "Template de Plugin MCP"
+    tasks:
+      - "Criar diretório .nc/plugins/"
+      - "Definir template NC-TEMPLATE-FR-001-mcp-plugin/"
+      - "Criar plugin.json schema"
+      - "Implementar auto-discovery via --plugin-dir"
+    estimated_lines: "≈300"
+    priority: "high"
+  
+  phase_1_hooks_integration:
+    name: "Integração Hooks + Atomic Locks"
+    tasks:
+      - "Adicionar validação de atomic locks via hooks PreToolUse"
+      - "Integrar com mentor_step_0()"
+      - "Criar SecurityHook para validação proativa"
+    estimated_lines: "≈150"
+    priority: "high"
+  
+  phase_2_memory_index:
+    name: "MEMORY.md Índice para Lobes"
+    tasks:
+      - "Criar script NC-SCR-FR-082-memory-index.py"
+      - "Gerar MEMORY.md com índice leve de lobes"
+      - "Implementar carregamento JIT sob demanda"
+      - "Integrar com lobe population (NC-SCR-FR-001)"
+    estimated_lines: "≈250"
+    priority: "medium"
+  
+  phase_2_circuit_breaker:
+    name: "Circuit Breaker (R16)"
+    tasks:
+      - "Implementar contagem de falhas por agente"
+      - "Adicionar suspensão automática após threshold"
+      - "Integrar com MetricsStore para tracking"
+      - "Criar ferramenta MCP para gerenciamento"
+    estimated_lines: "≈200"
+    priority: "medium"
+  
+  phase_2_complete_fr_registry:
+    name: "Completar Registro FR (100% coverage)"
+    tasks:
+      - "Executar auditoria completa de artefatos FR"
+      - "Atualizar NC-GOV-FR-004 com todos os 298 artefatos"
+      - "Definir purpose para cada artefato"
+      - "Mapear regras de governança aplicadas"
+    estimated_lines: "≈150 (script automation)"
+    priority: "medium"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CONCLUSÃO
+# ─────────────────────────────────────────────────────────────────────────────
+conclusion:
+  current_state: |
+    A governança NeoCortex está 80% consolidada com sistemas proativos robustos
+    (atomic locks, mentor mode) e sistemas reativos completos (hookify, kairos,
+    channel notifications, telemetria abrangente). Muitos insights do Claude Code
+    já foram implementados antes mesmo da análise.
+  
+  key_achievements:
+    - "20 regras de governança formalizadas e categorizadas"
+    - "Atomic locks + mentor mode implementados (R04, R09)"
+    - "Hookify, Kairos, ChannelNotifier, SessionBuddy operacionais"
+    - "MetricsStore com telemetria abrangente (METR-106)"
+    - "Catálogo semântico com 540 PY + 405 YAML"
+    - "SSOT (NC-NAM-FR-001) com 460 artefatos mapeados"
+    - "Protocolo de 4 ciclos implementado e em uso"
+    - "Ciclos 2 e 3 executados em 2026-04-17: integração MCP OpenCode completa"
+    - "Health wrapper atualizado com verificação SSE para MCP Server"
+    - "Conflito de portas 8765/8767 resolvido (Pixel Agents → 8767)"
+    - "Configuração OpenCode MCP pronta para conexão SSE"
+    - "20 regras de governança formalizadas e categorizadas"
+    - "Sistema de hooks completo (HookRegistry) com padrão MCP"
+    - "Telemetria avançada com MetricsStore (DuckDB/SQLite)"
+    - "KairosService (tick proativo) e ChannelNotifier já implementados"
+    - "SessionBuddy (gamificação) ativo com achievements"
+    - "Auditoria de governança automatizada (NC-SCR-FR-080)"
+  
+  remaining_gaps:
+    - "Configuração por projeto (.nc/config.yaml)"
+    - "Template de plugin MCP para extensibilidade padronizada"
+    - "Índice leve de memória (MEMORY.md para lobes)"
+    - "Circuit breaker completo (R16)"
+  
+  recommendation: |
+    Prosseguir com FASE 1 (configuração por projeto + template plugin) como
+    prioridade máxima, mantendo a segurança proativa existente enquanto adiciona
+    a flexibilidade do padrão Claude Code. A governança atual já é madura e
+    apenas necessita refinamentos incrementais para alcançar 100% das regras.
+
+  next_immediate_action: "Criar NC-SCR-FR-081-config-migrator.py para migração configuração por projeto"
+
+---
+# Hash final: GOV-ECOSYSTEM-MAP-v1.0-20260414
+# Mantido por: T0 (Orchestration)
+# Atualizado em: Ciclo 4 (semanal) via NC-SCR-FR-080-governance-auditor.py

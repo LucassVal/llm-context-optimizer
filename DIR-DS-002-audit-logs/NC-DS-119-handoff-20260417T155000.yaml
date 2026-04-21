@@ -1,0 +1,41 @@
+status: APPROVED
+ticket_id: NC-DS-119
+roadmap_ticket: NC-DS-119
+submitted_at: "2026-04-17T15:50:00-03:00"
+submitted_by: antigravity-t0
+review_by: antigravity-t0
+reviewed_at: "2026-04-17T15:50:05-03:00"
+
+summary:
+  files_created: []
+  files_modified:
+    - "C:/Users/Lucas Valério/.gemini/antigravity/mcp_config.json"
+  lines_added: 1
+  lines_removed: 1
+  validation_rounds: 1
+  barriers_passed: ["R21", "SMOKE_TEST_PASS"]
+  locks_violated: []
+  cost_usd: 0.0
+  overall: SUCCESS
+
+diff_path: null
+
+# Root cause: NEOCORTEX_PROJECT_ROOT apontava para .neocortex_stdio
+# Fix: Corrigido para a raiz do framework. LedgerStore agora inicializa
+# em .neocortex/cache/ledger (caminho correto).
+#
+# Smoke test output (15:48):
+#   LedgerStore initialized at ...01_neocortex_framework\.neocortex\cache\ledger  ✅
+#   Checkpoint final criado com sucesso  ✅
+#   Sessão consolidada com sucesso  ✅
+
+t0_review:
+  compile_ok: true
+  naming_ok: true
+  ssot_updated: false
+  locks_clean: true
+  roadmap_done: true
+
+rejection:
+  reason: null
+  next_ticket: null

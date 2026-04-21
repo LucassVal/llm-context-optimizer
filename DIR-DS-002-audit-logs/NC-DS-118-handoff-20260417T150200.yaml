@@ -1,0 +1,35 @@
+status: APPROVED
+ticket_id: NC-DS-118
+roadmap_ticket: FR-118
+submitted_at: "2026-04-17T15:02:00"
+submitted_by: antigravity-t0
+review_by: antigravity-t0
+reviewed_at: "2026-04-17T15:02:10"
+
+summary:
+  files_created:
+    - "01_neocortex_framework/lobes/NC-LBE-USR-003-opencode-editor-mcp.mdc"
+  files_modified:
+    - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001b-lobes-registry.md"
+    - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md"
+  lines_added: 151
+  lines_removed: 0
+  validation_rounds: 1
+  barriers_passed: ["R01", "R02", "R03", "R21"]
+  locks_violated: []
+  cost_usd: 0.0
+  overall: SUCCESS
+
+diff_path: null
+
+# Checklist para T0 (preencher na revisão)
+t0_review:
+  compile_ok: true
+  naming_ok: true
+  ssot_updated: true
+  locks_clean: true
+  roadmap_done: true
+
+rejection:
+  reason: null
+  next_ticket: null

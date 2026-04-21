@@ -1,0 +1,15 @@
+# DIR-DS-002-audit-logs/NC-DS-{030|032|037}-handoff-{YYYYMMDD-HHMMSS}.yaml
+ticket_id: NC-DS-032
+status: PENDING_REVIEW
+lines_added: 215
+files_modified:
+  - 01_neocortex_framework/neocortex/core/config/NC-CFG-FR-004-project-loader.py
+  - 05_examples/.nc/config.yaml
+summary: |
+  Implemented ProjectConfigLoader with hierarchical configuration (.nc/config.yaml > global > defaults), using ruamel.yaml, platformdirs for cross‑platform XDG/APPDATA paths, and protection of @LOCKED fields.
+ajustes_aplicados:
+  - ruamel.yaml para preservação de comentários e merge
+  - platformdirs para XDG cross‑platform Windows
+  - Env var NEOCORTEX_CONFIG_DIR para override
+  - Busca de .nc/ subindo hierarquia de diretórios
+  - Campos protegidos @LOCKED não sobrescrevem (server_port, sub_server_port, log_level, database_path)

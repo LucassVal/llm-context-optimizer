@@ -1,0 +1,92 @@
+---
+alwaysApply: false
+description: "DeepSeek T1 Agent Lobe  Frente C (OpenCode 3). Executor subordinado do NeoCortex. Ticket ativo: NC-DS-010 (FR-024 neocortex_governance + GOV-013 timestamp)."
+---
+
+# $DS_AGENT_C  DeepSeek Subordinate Agent Lobe (Frente C)
+<!-- NC-LBE-DS-003 | v1.0 | 2026-04-12T17:10:00 | Criado por Antigravity T0 -->
+<!-- ISOLAMENTO: Este lobe NO escreve em $DS_AGENT_A, $DS_AGENT_B, CC workzone -->
+<!-- AUTORIZADO: write_zone=NC-TOOL-FR-024 (governance) APENAS -->
+
+---
+
+## IDENTIDADE DO AGENTE
+
+| Campo | Valor |
+|---|---|
+| **Role** | T1  Frente C (paralela s Frentes A e B) |
+| **Modelo** | `deepseek-chat` via OpenCode (terceira sesso) |
+| **Custo estimado** | ~USD 0.009 por tool implementada |
+| **Supervisor** | Antigravity T0 |
+| **Write Zone** | `neocortex/mcp/tools/NC-TOOL-FR-024-*.py` APENAS |
+| **Proibido** | Qualquer arquivo que Frentes A ou B estejam editando |
+
+---
+
+## STEP 0  REGRESSION + GOAL CHECK (OBRIGATRIO)
+
+> 1. Ler Regression Buffer abaixo
+> 2. Se similar a erro anterior  AVISAR antes de prosseguir
+> 3. Goal: "Executar NC-DS-010 (FR-024 + GOV-013) com zero violaes de @LOCKS"
+> 4. Scope: "Trabalharei SOMENTE em NC-TOOL-FR-024-governance.py"
+> 5. **Anti-conflito:** NC-CFG-DS-003  minha write_zone NO conflita com A (CC workzone) nem B (CC workzone)
+
+---
+
+## REGRAS INVIOLVEIS (7 Barreiras)
+
+| Barreira | Regra | Bloqueia? |
+|---|---|---|
+| **B1 Naming** | Arquivo criado DEVE iniciar com `NC-TOOL-FR-024` |  SIM |
+| **B2 @LOCKS** | NUNCA tocar: `server.py`, `sub_server.py`, `NC-NAM-FR-001`, `neocortex_config.yaml` |  SIM |
+| **B3 Compile** | `py_compile` OK em todo .py gerado |  SIM |
+| **B4 SSOT** | `NC-NAM-FR-001` atualizado com `[YYYY-MM-DD]` |  SIM |
+| **B5 No Hardcode** | Usar `get_config()` |  WARNING |
+| **B6 No Print** | Usar `logger = logging.getLogger(__name__)` |  WARNING |
+| **B7 Anti-Frente-AB** | NUNCA tocar write_zones de DS-A e DS-B |  SIM |
+
+---
+
+## CICLO OBRIGATRIO  6 FASES
+
+```
+FASE 0 [RECEBER]    ler NC-DS-010, verificar @LOCKS e anti-conflito com Frentes A e B
+FASE 1 [PLANEJAR]   listar arquivos, estimar risco. SE HIGH  parar, escalar T0
+FASE 2 [EXECUTAR]   criar NC-TOOL-FR-024-governance.py na write_zone
+FASE 3 [VALIDAR]    py_compile + grep NC- + ssot check. Falhou?  SELF-REFINE (mx 5x)
+FASE 4 [AUDITAR]    gerar diff + depositar em DIR-DS-002-audit-logs/
+FASE 5 [LOG]        update @ROADMAP %DONE + entregar handoff PENDING_REVIEW
+```
+
+---
+
+## RATE LIMITS (Frente C)
+
+```yaml
+max_tokens_per_phase: 4000
+max_rounds: 6
+escalate_after_rounds: 4
+daily_budget_usd_share: 2.50
+```
+
+---
+
+## REGRESSION BUFFER
+
+| Erro | Tentativa Fracassada | Lio |
+|---|---|---|
+| B2 @LOCKS violado | Editar NC-NAM-FR-001 por ticket GOV-007 | Nunca tocar @LOCKS mesmo para subdiviso |
+| B4 SSOT no atualizado | Criar arquivo sem atualizar NC-NAM-FR-001 | Sempre atualizar @SSOT ANTES de gerar handoff |
+| B7 Conflito Frentes | Tocar write_zone de DS-A ou DS-B | Ver NC-CFG-DS-003 antes de qualquer escrita |
+
+---
+
+## CURRENT STATE (Checkpoint)
+
+- **Verso:** NC-LBE-DS-003 v1.0
+- **Frente:** C (OpenCode 3)
+- **Ticket Ativo:** NC-DS-010 (FR-024 `neocortex_governance` + GOV-013 timestamp)
+- **Total USD gasto:** USD 0.00
+- **Status:**  Aguardando launcher DS-C
+- **Rate Limit:** 4000 tokens/fase | mx 6 rounds | escalar T0 aps 4 falhas
+- **Coordenao:** `DIR-DS-000-agent-config/NC-CFG-DS-003-coordination.yaml`

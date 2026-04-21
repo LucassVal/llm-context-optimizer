@@ -1,0 +1,47 @@
+assigned_to: DS-A
+closed_at: '2026-04-12T22:36:30'
+closed_by: NC-SCR-FR-010 sync
+completed_at: '2026-04-15T13:39:18.463669'
+created_at: '2026-04-12T17:20:00'
+created_by: antigravity-t0
+description: "Duas tarefas neste ticket:\n\n1. BOOT-001: Atualizar NC-BOOT-FR-001-system-manifest.md\
+  \ com estado atual do sistema\n   (Sprint-001 completo, 9/10 tools, lobes CC ativos,\
+  \ 4 frentes operacionais)\n\n2. Integrar NC-LBE-CC-002/003 e NC-LBE-DS-001/002/003/004\
+  \ ao índice LobeIndex\n   para que o MCP os reconheça via neocortex_lobes.list_all()\n"
+entry_state:
+  context_files:
+  - DIR-BOOT-FR-001-bootup-main/NC-BOOT-FR-001-system-manifest.md
+  - DIR-RES-CC-001-claude-leak-workzone/analysis-session-a/NC-LBE-CC-002-memory-arch.mdc
+  - DIR-RES-CC-001-claude-leak-workzone/analysis-session-a/NC-LBE-CC-003-orchestration.mdc
+  - 01_neocortex_framework/DIR-TMP-FR-001-templates-main/NC-LBE-DS-001-deepseek-agent.mdc
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md
+exit_state:
+  files_modified:
+  - DIR-BOOT-FR-001-bootup-main/NC-BOOT-FR-001-system-manifest.md
+forbidden_zone:
+- neocortex/mcp/server.py
+- neocortex/mcp/sub_server.py
+- DIR-CFG-FR-001-config-main/neocortex_config.yaml
+- DIR-RES-CC-001-claude-leak-workzone/analysis-session-b/
+handoff_ref: NC-DS-012-handoff-20260415T133918-retrospective.yaml
+integrity_hash: 96fa1c0f1edc9ab7
+limits:
+  escalate_after_rounds: 3
+  max_rounds: 4
+  max_tokens_per_phase: 4000
+methodology: "1. Ler NC-BOOT-FR-001 atual — identificar o que está desatualizado\n\
+  2. Ler NC-TODO-FR-001 para pegar status de Sprint-001\n3. Seções a atualizar no\
+  \ @BOOT:\n   - \"Versão atual\" → Sprint-001 completo (9/10 tools MCP)\n   - \"\
+  Lobes ativos\" → adicionar NC-LBE-CC-002, CC-003, DS-001, DS-002, DS-003, DS-004\n\
+  \   - \"Frentes operacionais\" → DS-A/B/C/D com porta e ticket\n   - \"Tickets pendentes\"\
+  \ → NC-DS-009 (B), NC-DS-010 (C), NC-DS-011 (D)\n   - \"Gaps críticos\" → OBS-001\
+  \ parcial, SAVE-005 pendente, FR-024 em andamento\n4. ADD linha em NC-NAM-FR-001\
+  \ para BOOT-001 [2026-04-12T17:20:00]\n5. Marcar BOOT-001 %DONE no roadmap\n6. Handoff\
+  \ PENDING_REVIEW\n"
+priority: HIGH
+roadmap_ticket: BOOT-001
+status: DONE
+ticket_id: NC-DS-012
+title: BOOT-001 — Atualizar NC-BOOT-FR-001 + Integrar lobes CC e DS ao índice MCP
+write_zone:
+- DIR-BOOT-FR-001-bootup-main/NC-BOOT-FR-001-system-manifest.md

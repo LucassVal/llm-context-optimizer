@@ -1,3 +1,18 @@
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:24:01.538730'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+parent_ssot: NC-LED-FR-001-framework-ledger
+related_ssot:
+  - NC-CTX-FR-001-cortex-central
+tags:
+  - neocortex-other
+  - level-0
+  - python
+---"""
 #!/usr/bin/env python3
 """
 File System Repository Implementation
@@ -5,25 +20,23 @@ File System Repository Implementation
 Concrete implementation of repository interfaces using local filesystem.
 """
 
-import json
 import logging
 import re
-from pathlib import Path
-from typing import Dict, Any, List, Optional
+from typing import Any, Dict, List, Optional
 
-from .base import CortexRepository, LedgerRepository, ProfileRepository, LobeRepository
 from ..core.file_utils import (
-    read_cortex,
-    write_cortex,
-    read_ledger,
-    write_ledger,
     find_lobes,
     get_lobe_content,
     get_project_root,
     path_exists,
+    read_cortex,
     read_json_file,
+    read_ledger,
+    write_cortex,
     write_json_file,
+    write_ledger,
 )
+from .base import CortexRepository, LedgerRepository, LobeRepository, ProfileRepository
 
 logger = logging.getLogger(__name__)
 
@@ -79,7 +92,7 @@ class FileSystemCortexRepository(CortexRepository):
         for i, line in enumerate(lines):
             line_stripped = line.strip()
 
-            # Look for "## 📍 Workspace Map" or "## Workspace Map"
+            # Look for "##  Workspace Map" or "## Workspace Map"
             if line_stripped.startswith("##") and "Workspace Map" in line_stripped:
                 in_section = True
                 continue
@@ -163,12 +176,12 @@ class FileSystemCortexRepository(CortexRepository):
                 # Extract workflow name (remove "### " and "Workflow:" prefix)
                 name = stripped.replace("### ", "", 1).strip()
                 # Remove emoji if present
-                if "🔍" in name:
-                    name = name.replace("🔍", "").strip()
-                if "🐛" in name:
-                    name = name.replace("🐛", "").strip()
-                if "🏁" in name:
-                    name = name.replace("🏁", "").strip()
+                if "" in name:
+                    name = name.replace("", "").strip()
+                if "" in name:
+                    name = name.replace("", "").strip()
+                if "" in name:
+                    name = name.replace("", "").strip()
                 current_workflow = {"name": name, "description": "", "steps": []}
                 continue
             # If we're in a workflow and line is a numbered step

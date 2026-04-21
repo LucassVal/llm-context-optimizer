@@ -1,3 +1,15 @@
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:57.237249'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+tags:
+  - neocortex-other
+  - level-0
+  - python
+---"""
 #!/usr/bin/env python3
 """
 AgentExecutor - Executes agent tasks using hybrid LLM backends.
@@ -7,13 +19,13 @@ based on role, configuration, and override settings.
 """
 
 import logging
-from typing import Dict, Any, Optional, List, Union
 from dataclasses import dataclass, field
 from datetime import datetime
+from typing import Any, Dict, List, Optional, Union
 
 from ..config import get_config
+from ..infra.llm.backend import FallbackChain, LLMRequest, LLMResponse
 from ..infra.llm.factory import LLMBackendFactory
-from ..infra.llm.backend import LLMRequest, LLMResponse, FallbackChain
 from ..infra.metrics_store import create_metrics_store
 
 logger = logging.getLogger(__name__)

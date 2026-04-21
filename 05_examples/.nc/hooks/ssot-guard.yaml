@@ -1,0 +1,7 @@
+# ssot-guard.yaml — Hook guardião do SSOT
+hooks:
+  - name: ssot-naming-guard
+    event: PostToolUse
+    enabled: true
+    script: hooks/NC-HK-FR-002-example-hook.py
+    description: "Valida que arquivos criados seguem NC- naming convention"

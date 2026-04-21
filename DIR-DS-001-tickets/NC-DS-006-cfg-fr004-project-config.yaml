@@ -1,0 +1,73 @@
+ticket_id: NC-DS-006
+ticket_type: FEATURE
+priority: HIGH
+assigned_to: deepseek-chat
+created_at: "2026-04-13T21:26:00-03:00"
+created_by: antigravity-t0
+
+context:
+  roadmap_ticket: NC-DS-032 (ProjectConfig)
+  active_locks:
+    - server.py
+    - sub_server.py
+    - NC-NAM-FR-001
+    - neocortex_config.yaml
+  write_zone: "01_neocortex_framework/neocortex/core/config/"
+  naming_rule: "NC-CFG-FR-004-project-config.py"
+  reference_file: "neocortex/core/config/NC_CFG_FR_002_config.py"
+
+task:
+  description: |
+    Criar NC-CFG-FR-004-project-config.py — configuração por projeto/workspace.
+
+    Objetivo: permitir que cada projeto/workspace tenha configurações próprias que sobrescrevem
+    o neocortex_config.yaml global (sem modificá-lo).
+
+    Interface obrigatória:
+      class ProjectConfig:
+          def __init__(self, project_root: Path | str) -> None
+          def load(self) -> dict                    # carrega .neocortex/project.yaml se existir
+          def save(self, data: dict) -> None        # persiste em .neocortex/project.yaml
+          def get(self, key: str, default=None)     # leitura com fallback para global config
+          def set(self, key: str, value) -> None    # escreve e persiste imediatamente
+          def merge_with_global(self) -> dict       # retorna dict merged: global + project (project wins)
+          def reset(self) -> None                   # apaga .neocortex/project.yaml
+
+    Arquivo de persistência: {project_root}/.neocortex/project.yaml
+    Format YAML — usar ruamel.yaml com fallback para PyYAML com fallback para json.
+
+    Também criar NC-CFG-FR-004-project-config-schema.yaml no mesmo diretório:
+      Esquema de campos válidos com tipos e defaults para validação.
+
+    STEP-0 antes de escrever:
+      python -c "import ruamel; print('ruamel OK')" || echo "usar PyYAML"
+      python -c "import yaml; print('yaml OK')"
+
+    Mínimo: 120 linhas para NC-CFG-FR-004-project-config.py
+
+  entry_state:
+    files_exist:
+      - "01_neocortex_framework/neocortex/core/config/"
+    files_must_not_exist:
+      - "01_neocortex_framework/neocortex/core/config/NC-CFG-FR-004-project-config.py"
+
+  exit_state:
+    files_created:
+      - "01_neocortex_framework/neocortex/core/config/NC-CFG-FR-004-project-config.py"
+      - "01_neocortex_framework/neocortex/core/config/NC-CFG-FR-004-project-config-schema.yaml"
+    ssot_updated: true
+    compiles_ok: true
+
+barriers:
+  - {id: B1, check: naming, rule: "NC-CFG-FR-004-project-config.py", block_if_fail: true}
+  - {id: B2, check: lock_guard, rule: "NUNCA modificar server.py|sub_server.py|NC-NAM-FR-001|neocortex_config.yaml", block_if_fail: true}
+  - {id: B3, check: compile, rule: "python -m py_compile == exit 0", block_if_fail: true}
+  - {id: B4, check: min_lines, rule: ">= 120 linhas", block_if_fail: true}
+  - {id: B5, check: no_hardcode, rule: "Usar Path() para todos os caminhos, nunca C:\\ hardcoded", block_if_fail: true}
+  - {id: B6, check: no_print, rule: "logger = logging.getLogger(__name__)", block_if_fail: false}
+
+limits:
+  max_validation_rounds: 5
+  escalate_to_t0_after: 3
+  max_tokens_per_phase: 4000
+integrity_hash: "f17bc394e082a56d"

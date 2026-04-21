@@ -1,0 +1,130 @@
+---
+description: "NC-RULE-006 | Anti-Assumption — Proíbe suposições; exige verificação antes de agir"
+globs: ["**/*.py", "**/*.yaml", "**/*.md", "**/*.mdc"]
+alwaysApply: true
+---
+
+<!-- NC-READ-HASH: RULE006-NOASSUME-v1 -->
+<!-- DEDUP: Se RULE006-NOASSUME-v1 já está no contexto desta sessão, SALTE. -->
+
+# NeoCortex — R21: Zero Suposições (Anti-Assumption Rule)
+
+> **Aplica a:** Todo agente (Antigravity/Claude/DeepSeek/OpenCode)
+> **Severidade:** 🔴 CRÍTICO — viola antes de qualquer outra regra
+
+---
+
+## R21 — NUNCA SUPONHA. SEMPRE VERIFIQUE. (CRÍTICO)
+
+### O que é proibido
+
+```
+# PROIBIDO — exemplos de suposições fatais:
+"ruamel provavelmente está instalado"
+"ruff deve funcionar aqui"
+"o arquivo deve existir"
+"o módulo deve ser importável"
+"a dependência deve estar no pip"
+"o ambiente é igual ao da última vez"
+```
+
+### O que é obrigatório
+
+**Antes de qualquer ação técnica**, execute o STEP-0 completo:
+
+```powershell
+# 1. Python disponível?
+python --version
+
+# 2. Ferramentas de qualidade disponíveis?
+python -m ruff --version 2>&11
+python -m pytest --version 2>&1
+python -m bandit --version 2>&1
+
+# 3. Dependências do projeto instaladas?
+python -c "
+deps = ['mcp','fastmcp','ruamel','rich','cachetools','platformdirs',
+        'notifypy','diskcache','duckdb','msgspec','psutil','yaml']
+import importlib
+for d in deps:
+    try: importlib.import_module(d); print(f'OK  {d}')
+    except ImportError as e: print(f'ERR {d}: {e}')
+"
+
+# 4. Arquivo existe antes de editá-lo?
+Test-Path CAMINHO_DO_ARQUIVO
+
+# 5. Módulo importa sem erro após criar/modificar?
+python -m py_compile ARQUIVO.py
+```
+
+**Se qualquer verificação falhar → PARE. Corrija. Reporte no handoff.**
+
+---
+
+## Checklist Anti-Suposição (deve ser TRUE antes de avançar)
+
+| # | Verificação | Como checar |
+|---|---|---|
+| A | Python disponível no PATH | `python --version` |
+| B | ruff disponível | `python -m ruff --version` |
+| C | Dependência existe | `python -c "import X"` |
+| D | Arquivo existe | `Test-Path caminho` |
+| E | Sintaxe correta | `python -m py_compile arquivo.py` |
+| F | Lint passa | `python -m ruff check arquivo.py` |
+| G | Import funciona | `python -c "import importlib.util; ..."` |
+
+---
+
+## O que fazer quando não sabe
+
+1. **Checar na internet / docs oficiais** antes de afirmar qualquer coisa técnica
+2. **Rodar o comando e ver o output** antes de dizer "funciona"
+3. **Reportar incerteza explicitamente** no handoff como `warnings:` — nunca omitir
+
+---
+
+## Exemplos corretos
+
+```python
+# CORRETO: verificar antes de usar
+try:
+    import notifypy
+    NOTIFYPY_AVAILABLE = True
+except ImportError:
+    NOTIFYPY_AVAILABLE = False
+    logger.warning("notifypy não disponível — notificações desabilitadas")
+
+# CORRETO: verificar path antes de abrir
+path = config.data_dir / "metrics.json"
+if not path.exists():
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text("{}", encoding="utf-8")
+```
+
+---
+
+## Ground Truth do Ambiente (verificado 2026-04-13)
+
+| Dependência | Versão | Import name |
+|---|---|---|
+| Python | 3.12.10 | — |
+| ruff | 0.15.10 | `python -m ruff` |
+| pytest | 9.0.3 | `pytest` |
+| bandit | 1.9.4 | `bandit` |
+| mcp | 1.27.0 | `mcp` |
+| fastmcp | 3.2.3 | `fastmcp` |
+| ruamel.yaml | 0.19.1 | `ruamel` |
+| rich | 14.2.0 | `rich` |
+| cachetools | 6.2.4 | `cachetools` |
+| platformdirs | 4.5.0 | `platformdirs` |
+| notifypy | 0.3.42 | `notifypy` |
+| diskcache | 5.6.3 | `diskcache` |
+| duckdb | 1.5.1 | `duckdb` |
+| msgspec | 0.21.0 | `msgspec` |
+| psutil | 7.2.0 | `psutil` |
+| PyYAML | 6.0.3 | `yaml` |
+| jsonschema | 4.26.0 | `jsonschema` |
+| aiohttp | 3.13.3 | `aiohttp` |
+
+> Este ground truth expira em 7 dias. Após isso, re-verificar com `pip list`.

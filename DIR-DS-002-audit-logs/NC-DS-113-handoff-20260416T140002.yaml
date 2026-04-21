@@ -1,0 +1,27 @@
+ticket_id: "NC-DS-113"
+status: APPROVED
+closed_at: "2026-04-16T14:00:02-03:00"
+closed_by: "T1-OpenCode"
+
+summary: |
+  Atualização do boot manifest (NC‑BOOT‑FR‑001) seções 6/7/8 com estado real pós‑Fase 1: novos tickets, serviços FR‑017/018, ORCH‑301/302 DONE, SAVE‑005 wired, compliance score.
+
+files_modified:
+  - path: "update_boot_manifest.py"
+    action: CREATE
+    detail: "Script para atualizar seções 6, 7 e 8 do boot manifest (primeira versão com regex)"
+  - path: "update_boot_manifest_v2.py"
+    action: CREATE
+    detail: "Script corrigido para atualização completa do boot manifest (split por seções)"
+  - path: "DIR-BOOT-FR-001-bootup-main/NC-BOOT-FR-001-system-manifest.md"
+    action: UPDATE
+    detail: "Seções 6, 7 e 8 atualizadas com estado real pós‑Fase 1; data de última atualização para 2026‑04‑16"
+
+validation:
+  - "Seção 6: Ciclo 4 (SSOT + Tool Manifest Sync) adicionado com tickets NC‑DS‑111/112/113"
+  - "Seção 7: Contagem de serviços core ajustada para 18 (FR‑017 + FR‑018); compliance score 52.1%"
+  - "Seção 8: Caminho crítico atualizado (ORCH‑301/302 DONE, SAVE‑005 WIRED); próximos passos listados"
+  - "Data de última atualização no cabeçalho: 2026‑04‑16"
+
+lines_added: 312
+confidence_score: 99

@@ -1,0 +1,85 @@
+# NC-DS-001 — Ticket de Exemplo: FR-025 neocortex_system
+# Copie e adapte este arquivo para criar novos tickets
+
+ticket_id: NC-DS-001
+ticket_type: FEATURE
+priority: HIGH
+assigned_to: deepseek-chat
+created_at: "2026-04-12T04:00:00"
+created_by: antigravity-t0
+
+context:
+  roadmap_ticket: FR-025
+  active_locks:
+    - server.py
+    - sub_server.py
+    - NC-NAM-FR-001
+    - neocortex_config.yaml
+    - NC-TODO-FR-001-project-roadmap-consolidated.md
+  write_zone: "01_neocortex_framework/neocortex/mcp/tools/"
+  naming_rule: "NC-<TIPO>-<SIGLA>-<NUM>-<desc>.ext"
+  reference_file: "neocortex/mcp/tools/NC-TOOL-FR-029-health.py"  # Use como template
+
+task:
+  description: |
+    Criar NC-TOOL-FR-025-system.py com register_tool(mcp) e as seguintes ações:
+
+    config.get          → retorna config atual (neocortex_config.yaml) via get_config()
+    config.reload       → recarrega config sem reiniciar servidor
+    config.diff         → compara config atual vs config_dev (diferenças entre ambientes)
+    system.diagnostics  → coleta: versão Python, PYTHONPATH, memory usage, uptime servidor
+    system.env_check    → verifica variáveis de ambiente obrigatórias (PYTHONUTF8, PYTHONPATH)
+    pulse.status        → retorna schedules ativos no pulse_scheduler
+    pulse.schedule_custom → adiciona schedule customizado ao pulse
+    pulse.force         → força execução imediata de uma task do pulse (pruning, consolidation)
+
+    Absorve: NC-TOOL-FR-005-config.py + NC-TOOL-FR-011-pulse.py
+    Padrão: seguir EXATAMENTE a estrutura de NC-TOOL-FR-029-health.py
+
+  entry_state:
+    files_exist:
+      - "neocortex/mcp/tools/NC-TOOL-FR-005-config.py"
+      - "neocortex/mcp/tools/NC-TOOL-FR-011-pulse.py"
+    files_must_not_exist:
+      - "neocortex/mcp/tools/NC-TOOL-FR-025-system.py"
+
+  exit_state:
+    files_created:
+      - "neocortex/mcp/tools/NC-TOOL-FR-025-system.py"
+    files_modified:
+    files_deleted: []
+    ssot_updated: true
+    compiles_ok: true
+    roadmap_done: FR-025
+
+barriers:
+  - id: B1
+    check: naming_convention
+    rule: "Arquivo deve chamar NC-TOOL-FR-025-system.py"
+    block_if_fail: true
+  - id: B2
+    check: lock_guard
+    rule: "NUNCA modificar: server.py | sub_server.py | NC-NAM-FR-001 | neocortex_config.yaml"
+    block_if_fail: true
+  - id: B3
+    check: compile
+    rule: "python -m py_compile NC-TOOL-FR-025-system.py deve retornar exit code 0"
+    block_if_fail: true
+  - id: B4
+    check: ssot_entry
+    rule: "NC-NAM-FR-001 deve ter nova linha com NC-TOOL-FR-025-system.py e [2026-04-12]"
+    block_if_fail: true
+  - id: B5
+    check: no_hardcode
+    rule: "Sem C:\\ ou /home/ hardcoded — usar get_config() para todos os paths"
+    block_if_fail: false
+  - id: B6
+    check: no_print
+    rule: "Sem print() — usar logger = logging.getLogger(__name__)"
+    block_if_fail: false
+
+limits:
+  max_validation_rounds: 5
+  escalate_to_t0_after: 3
+  max_tokens_per_phase: 4000
+integrity_hash: "6e00fc6219f720a9"  # sha256[:16] of ticket_id|write_zone|title

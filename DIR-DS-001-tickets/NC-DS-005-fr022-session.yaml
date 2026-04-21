@@ -1,0 +1,65 @@
+ticket_id: NC-DS-005
+ticket_type: FEATURE
+priority: MEDIUM
+assigned_to: deepseek-chat
+created_at: "2026-04-12T04:19:00"
+created_by: antigravity-t0
+
+context:
+  roadmap_ticket: FR-022
+  active_locks:
+    - server.py
+    - sub_server.py
+    - NC-NAM-FR-001
+    - neocortex_config.yaml
+  write_zone: "01_neocortex_framework/neocortex/mcp/tools/"
+  naming_rule: "NC-<TIPO>-<SIGLA>-<NUM>-<desc>.ext"
+  reference_file: "neocortex/mcp/tools/NC-TOOL-FR-029-health.py"
+
+task:
+  description: |
+    Criar NC-TOOL-FR-022-session.py com register_tool(mcp) e ações:
+
+    checkpoint.get_current   → retorna checkpoint ativo da sessão
+    checkpoint.set_current   → define novo checkpoint com ID e descrição
+    checkpoint.complete_task → marca tarefa como concluída no checkpoint
+    checkpoint.list_history  → histórico de checkpoints da sessão
+    regression.check         → verifica se erro atual é similar a regressão conhecida
+    regression.add_entry     → adiciona nova entrada no buffer de regressão
+    regression.list_all      → lista todas as regressões registradas
+    savepoint.list_active    → lista save points ativos (TTL 10min)
+    savepoint.rollback       → reverte ao save point indicado por save_id
+    savepoint.discard        → descarta save point sem rollback
+
+    Absorve: NC-TOOL-FR-008-checkpoint.py + NC-TOOL-FR-009-regression.py + NC-TOOL-FR-017-savepoint.py
+    Padrão: seguir estrutura de NC-TOOL-FR-029-health.py
+
+  entry_state:
+    files_exist:
+      - "neocortex/mcp/tools/NC-TOOL-FR-008-checkpoint.py"
+      - "neocortex/mcp/tools/NC-TOOL-FR-009-regression.py"
+      - "neocortex/mcp/tools/NC-TOOL-FR-017-savepoint.py"
+    files_must_not_exist:
+      - "neocortex/mcp/tools/NC-TOOL-FR-022-session.py"
+
+  exit_state:
+    files_created:
+      - "neocortex/mcp/tools/NC-TOOL-FR-022-session.py"
+    files_modified:
+    ssot_updated: true
+    compiles_ok: true
+    roadmap_done: FR-022
+
+barriers:
+  - {id: B1, check: naming_convention, rule: "NC-TOOL-FR-022-session.py", block_if_fail: true}
+  - {id: B2, check: lock_guard, rule: "Nenhum @LOCKS modificado", block_if_fail: true}
+  - {id: B3, check: compile, rule: "py_compile OK", block_if_fail: true}
+  - {id: B4, check: ssot_entry, rule: "NC-NAM-FR-001 atualizado [2026-04-12]", block_if_fail: true}
+  - {id: B5, check: no_hardcode, rule: "Usar get_config()", block_if_fail: false}
+  - {id: B6, check: no_print, rule: "Usar logger", block_if_fail: false}
+
+limits:
+  max_validation_rounds: 5
+  escalate_to_t0_after: 3
+  max_tokens_per_phase: 4000
+integrity_hash: "9756416716cea0f3"  # sha256[:16] of ticket_id|write_zone|title

@@ -1,0 +1,109 @@
+{
+  "$schema": "neocortex-profile-v1.0",
+  "profile_type": "developer",
+  "version": "1.0.0",
+  
+  "identity": {
+    "user_id": "{{user_id}}",
+    "display_name": "{{display_name}}",
+    "email": "{{email}}",
+    "avatar_url": "",
+    "created_at": "{{timestamp}}",
+    "updated_at": "{{timestamp}}"
+  },
+  
+  "hierarchy": {
+    "level": 0,
+    "parent_id": null,
+    "children_ids": [],
+    "ancestors": [],
+    "descendants_count": 0,
+    "sibling_ids": [],
+    "visibility_rules": {
+      "can_read_upwards": false,
+      "can_read_siblings": true,
+      "can_read_descendants": true,
+      "max_read_depth": -1,
+      "write_permission": ["self", "descendants"]
+    }
+  },
+  
+  "permissions": {
+    "roles": ["developer"],
+    "scopes": ["project:read", "project:write"],
+    "constraints": {
+      "max_projects": 10,
+      "max_storage_mb": 100,
+      "max_api_calls_per_day": 1000
+    }
+  },
+  
+  "personal_patterns": {
+    "productivity": {
+      "peak_hours": ["09:00-12:00", "14:00-18:00"],
+      "session_duration_avg": "2h",
+      "context_switch_tolerance": "medium",
+      "preferred_days": ["segunda", "terca", "quarta", "quinta", "sexta"]
+    },
+    
+    "tech_preferences": {
+      "frontend": [],
+      "backend": [],
+      "trading": [],
+      "automation": [],
+      "mastery_levels": {}
+    },
+    
+    "communication": {
+      "preferred_languages": ["pt-BR"],
+      "message_style": "standard",
+      "response_expectation": "standard",
+      "syntax_patterns": []
+    }
+  },
+  
+  "learning_engine": {
+    "common_mistakes": [],
+    
+    "historical_patterns": {
+      "project_completion_rate": "0%",
+      "bug_resolution_time_avg": "0h",
+      "feature_development_speed": "0 dias",
+      "preferred_project_size": "medium"
+    },
+    
+    "prediction_model": {
+      "next_best_action_accuracy": "0%",
+      "stack_suggestion_accuracy": "0%",
+      "time_estimation_accuracy": "0%",
+      "last_training_date": "{{timestamp}}"
+    }
+  },
+  
+  "current_context": {
+    "active_projects": [],
+    "current_focus": "",
+    "available_hours_weekly": 40,
+    "location": {
+      "city": "",
+      "state": "",
+      "country": "",
+      "timezone": "UTC"
+    },
+    "device_preferences": ["desktop"]
+  },
+  
+  "integrations": {
+    "mcp_servers": [],
+    "external_tools": [],
+    "api_keys": {}
+  },
+  
+  "metadata": {
+    "source": "template",
+    "conversion_date": "{{timestamp}}",
+    "privacy_level": "private",
+    "sync_status": "local",
+    "backup_frequency": "weekly"
+  }
+}

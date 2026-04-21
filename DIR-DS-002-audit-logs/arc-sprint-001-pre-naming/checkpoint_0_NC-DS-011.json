@@ -1,0 +1,37 @@
+{
+  "ticket_id": "NC-DS-011",
+  "roadmap_ticket": "OBS-001",
+  "phase": "FASE_0_RECEBER",
+  "timestamp": "2026-04-12T00:00:00",
+  "entry_state": {
+    "files_to_create": [
+      "01_neocortex_framework/neocortex/core/services/NC-SVC-FR-001-logging-service.py",
+      "01_neocortex_framework/neocortex/core/logging_config.py"
+    ],
+    "files_to_modify": [
+      "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md",
+      "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md"
+    ],
+    "files_exist": {
+      "NC-SVC-FR-001-logging-service.py": false,
+      "logging_config.py": false,
+      "NC-NAM-FR-001-naming-convention.md": true,
+      "NC-TODO-FR-001-project-roadmap-consolidated.md": true
+    },
+    "locks_verified": [
+      "server.py",
+      "sub_server.py",
+      "pulse_scheduler.py",
+      "neocortex_config.yaml"
+    ],
+    "write_zone": "01_neocortex_framework/neocortex/core/services/",
+    "forbidden_zone": [
+      "neocortex/mcp/server.py",
+      "neocortex/mcp/sub_server.py",
+      "neocortex/core/services/pulse_scheduler.py",
+      "DIR-CFG-FR-001-config-main/neocortex_config.yaml",
+      "DIR-RES-CC-001-claude-leak-workzone/",
+      "neocortex/mcp/tools/NC-TOOL-FR-024-*.py"
+    ]
+  }
+}

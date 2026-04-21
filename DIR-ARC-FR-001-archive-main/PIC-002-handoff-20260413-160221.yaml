@@ -1,0 +1,19 @@
+ticket_id: PIC-002
+status: PENDING_REVIEW
+timestamp: "2026-04-13T16:02:33-03:00"
+agent_port: 44624
+files_modified:
+  - DIR-DS-000-agent-config/NC-CFG-PIC-001-picoclaw-config.json
+summary: |
+  Config PicoClaw criada com gateway :18790, DeepSeek-v3, NeoCortex MCP stdio,
+  exec habilitado, DuckDuckGo search. API key substituída (não exposta no handoff).
+metrics:
+  json_valid: true
+  api_key_substituted: true
+  mcp_neocortex_configured: true
+  write_zone_respected: true
+errors: []
+warnings: []
+checklist_r20:
+  naming_convention: true
+  handoff_yaml_complete: true

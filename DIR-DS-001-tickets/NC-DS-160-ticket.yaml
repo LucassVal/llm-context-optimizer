@@ -1,0 +1,17 @@
+ticket_id: "NC-DS-160"
+title: "Agente de Revisão - Correção MCP Health Check"
+status: "OPEN"
+priority: "HIGH"
+created: "2026-04-21T19:51:15"
+agent: "T0"
+description: |
+  Revisar correções implementadas no MCP server:
+1. Adicionada ferramenta health_check() no FastMCP
+2. Modificado health check para usar socket connection em vez de HTTP endpoint
+3. Criado savepoint ciclo_1_correcao_completa
+4. Servidor MCP inicia mas health check ainda mostra como down
+
+Necessário: 
+- Verificar se ferramenta health_check está sendo registrada corretamente
+- Testar conexão real do MCP server
+- Implementar agentes de audição automática

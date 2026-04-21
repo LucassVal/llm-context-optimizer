@@ -1,0 +1,63 @@
+ticket_id: NC-DS-117
+status: COMPLETED
+validated_by: T0-Antigravity
+validated_at: "2026-04-20T19:22:31-03:00"
+
+agent_report:
+  total_files: 26
+  keep_nc: 20
+  archive: 5
+  duplicate: 1
+
+t0_corrections:
+  - file: "__init__.py"
+    original_classification: "ARCHIVE"
+    corrected_classification: "KEEP-AS-IS"
+    reason: |
+      __init__.py é obrigatório para neocortex.core ser um pacote Python.
+      Mesmo com 0 importadores EXTERNOS, ele é o que permite:
+      `from neocortex.core import ...` funcionar.
+      NÃO arquivar.
+
+validated_actions:
+  archive:
+    - "agent_policy_enforcer.py"    # 0 importadores, sem NC equivalente
+    - "cascade_consolidator.py"     # 0 importadores, sem NC equivalente
+    - "circuit_breaker.py"          # 0 importadores, sem NC equivalente
+    - "logging_config.py"           # 0 importadores, coberto por NC-CFG-FR-001
+  duplicate_remove:
+    - file: "lexico_service.py"
+      replacement: "core/services/NC-SVC-FR-020-lexico-service.py"
+      note: "Verificar se __init__.py tem import de lexico_service antes de remover"
+  keep_nc_rename:
+    - "agent_service.py"
+    - "akl_service.py"
+    - "benchmark_service.py"
+    - "checkpoint_service.py"
+    - "config_service.py"
+    - "consolidation_service.py"
+    - "cortex_service.py"
+    - "export_service.py"
+    - "file_utils.py"
+    - "init_service.py"
+    - "kg_service.py"
+    - "ledger_service.py"
+    - "lobe_service.py"
+    - "manifest_service.py"
+    - "peers_service.py"
+    - "profile_manager.py"
+    - "profile_service.py"
+    - "pulse_scheduler.py"
+    - "regression_service.py"
+    - "security_service.py"
+
+next_sprint: |
+  NC-DS-122: Renomear os 20 KEEP_NC com prefixo NC-CORE-FR-NNN-*
+  Pré-req: atualizar __init__.py com novos nomes (atomic, mesmo commit)
+  Nota: pulse_scheduler.py importado por NC-SUPER-006 e NC-SUPER-013 — renomear requer patch nesses tools também.
+
+checklist_r20:
+  naming_convention: true
+  ssot_updated: false  # NC-DS-122 fará este update
+  handoff_yaml_complete: true
+  no_destructive_action: true

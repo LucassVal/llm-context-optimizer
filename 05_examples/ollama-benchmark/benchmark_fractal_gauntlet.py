@@ -2,7 +2,6 @@ import sys
 sys.stdout.reconfigure(encoding='utf-8')
 import requests
 import json
-import time
 
 # ==============================================================================
 #  THE FRACTAL MEMORY INTEGRITY GAUNTLET (LEVEL 10X)
@@ -47,10 +46,10 @@ def run_gauntlet():
     history_standard = "Session 1: [RULE] Compliance log retention is 30 days.\n"
     for s in range(2, 51):
         if s == 12:
-            history_standard += f"Session 12: [EPISODE] Bug fixed: All transaction timestamps must be UTC-0 instead of UTC-3.\n"
+            history_standard += "Session 12: [EPISODE] Bug fixed: All transaction timestamps must be UTC-0 instead of UTC-3.\n"
             history_standard += NOISE_CHUNK
         elif s == 28:
-            history_standard += f"Session 28: [RULE UPDATE] Compliance retention is now 90 days. Rule 30-days is deprecated.\n"
+            history_standard += "Session 28: [RULE UPDATE] Compliance retention is now 90 days. Rule 30-days is deprecated.\n"
             history_standard += NOISE_CHUNK
         else:
             history_standard += f"Session {s}: [NOISE] Added random code.\n"

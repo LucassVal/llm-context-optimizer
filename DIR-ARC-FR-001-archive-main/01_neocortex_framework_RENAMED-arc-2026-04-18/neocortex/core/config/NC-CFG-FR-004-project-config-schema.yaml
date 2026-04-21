@@ -1,0 +1,221 @@
+# NC-CFG-FR-004-project-config-schema.yaml
+# Esquema de campos válidos para configuração de projeto NeoCortex.
+# Utilizado para validação de .neocortex/project.yaml.
+
+# NOTA: Este esquema é apenas informativo. A validação real é feita pelo
+# ConfigValidator (NC-SVC-FR-008-config-validator.py) quando disponível.
+
+version: "1.0"
+description: "Esquema de configuração de projeto NeoCortex"
+fields:
+  # Metadados do projeto
+  project_name:
+    type: string
+    required: false
+    default: ""
+    description: "Nome do projeto (para identificação)"
+  project_version:
+    type: string
+    required: false
+    default: "1.0.0"
+    description: "Versão do projeto (semântica)"
+  description:
+    type: string
+    required: false
+    default: ""
+    description: "Descrição do projeto"
+  author:
+    type: string
+    required: false
+    default: ""
+    description: "Autor do projeto"
+  created_at:
+    type: string
+    required: false
+    description: "Data de criação (ISO 8601)"
+  updated_at:
+    type: string
+    required: false
+    description: "Data da última atualização (ISO 8601)"
+
+  # Configurações de LLM
+  llm:
+    type: object
+    required: false
+    default: {}
+    description: "Configurações específicas de LLM para o projeto"
+    fields:
+      model:
+        type: string
+        required: false
+        default: "deepseek-reasoner"
+        description: "Modelo LLM padrão para este projeto"
+      temperature:
+        type: number
+        required: false
+        default: 0.7
+        min: 0.0
+        max: 2.0
+        description: "Temperatura de sampling"
+      max_tokens:
+        type: integer
+        required: false
+        default: 2048
+        min: 1
+        description: "Máximo de tokens por resposta"
+      system_prompt:
+        type: string
+        required: false
+        default: ""
+        description: "Prompt de sistema específico do projeto"
+
+  # Feature flags do projeto (sobrescrevem globais)
+  feature_flags:
+    type: object
+    required: false
+    default: {}
+    description: "Feature flags específicos do projeto"
+    fields:
+      enable_experimental:
+        type: boolean
+        required: false
+        default: false
+        description: "Habilita funcionalidades experimentais"
+      enable_debug_logging:
+        type: boolean
+        required: false
+        default: false
+        description: "Habilita logging detalhado"
+      allow_unsafe_operations:
+        type: boolean
+        required: false
+        default: false
+        description: "Permite operações potencialmente inseguras"
+
+  # Configurações de caminhos
+  paths:
+    type: object
+    required: false
+    default: {}
+    description: "Caminhos relativos ao projeto"
+    fields:
+      data_dir:
+        type: string
+        required: false
+        default: "data"
+        description: "Diretório de dados do projeto"
+      logs_dir:
+        type: string
+        required: false
+        default: "logs"
+        description: "Diretório de logs do projeto"
+      cache_dir:
+        type: string
+        required: false
+        default: ".cache"
+        description: "Diretório de cache do projeto"
+
+  # Configurações de execução
+  execution:
+    type: object
+    required: false
+    default: {}
+    description: "Configurações de execução do projeto"
+    fields:
+      timeout_seconds:
+        type: integer
+        required: false
+        default: 300
+        min: 1
+        description: "Timeout padrão em segundos"
+      max_retries:
+        type: integer
+        required: false
+        default: 3
+        min: 0
+        description: "Número máximo de tentativas"
+      concurrent_tasks:
+        type: integer
+        required: false
+        default: 5
+        min: 1
+        description: "Número máximo de tarefas concorrentes"
+
+  # Configurações de segurança
+  security:
+    type: object
+    required: false
+    default: {}
+    description: "Configurações de segurança do projeto"
+    fields:
+      require_authentication:
+        type: boolean
+        required: false
+        default: false
+        description: "Exige autenticação para operações sensíveis"
+      allowed_origins:
+        type: array
+        required: false
+        default: []
+        description: "Origens permitidas para CORS"
+        items:
+          type: string
+
+  # Metadados de integração
+  integrations:
+    type: object
+    required: false
+    default: {}
+    description: "Configurações de integração com serviços externos"
+    fields:
+      github:
+        type: object
+        required: false
+        default: {}
+        description: "Configurações de integração com GitHub"
+        fields:
+          repository:
+            type: string
+            required: false
+            default: ""
+            description: "URL do repositório GitHub"
+          branch:
+            type: string
+            required: false
+            default: "main"
+            description: "Branch padrão"
+      openai:
+        type: object
+        required: false
+        default: {}
+        description: "Configurações de integração com OpenAI"
+        fields:
+          api_key_env_var:
+            type: string
+            required: false
+            default: "OPENAI_API_KEY"
+            description: "Nome da variável de ambiente que contém a API key"
+
+  # Campos personalizados (extensíveis)
+  custom:
+    type: object
+    required: false
+    default: {}
+    description: "Campos personalizados para necessidades específicas do projeto"
+
+# Exemplo de configuração válida (comentado)
+# project_name: "Meu Projeto"
+# project_version: "1.0.0"
+# description: "Um projeto de exemplo usando NeoCortex"
+# llm:
+#   model: "gpt-4"
+#   temperature: 0.8
+# feature_flags:
+#   enable_experimental: true
+# paths:
+#   data_dir: "project_data"
+# execution:
+#   timeout_seconds: 600
+# integrations:
+#   github:
+#     repository: "https://github.com/usuario/projeto"

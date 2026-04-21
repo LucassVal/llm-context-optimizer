@@ -1,0 +1,35 @@
+# Salvar em: DIR-DS-002-audit-logs/NC-DS-SAVE005-handoff-{YYYYMMDD-HHMMSS}.yaml
+ticket_id: SAVE-005
+status: PENDING_REVIEW
+timestamp: "2026-04-13T15:10:28-03:00"
+agent_port: 59520
+lines_added: 249
+files_modified:
+  - 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-014-dry-run-preview.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-034-dry-run.py
+summary: |
+  Implementado middleware de Dry‑Run Preview conforme especificação SAVE‑005.
+  Criado serviço NC‑SVC‑FR‑014 com métodos preview() e should_block(), integrado ao LockGuard para verificação de paths protegidos (@LOCKS).
+  Criada tool wrapper NC‑TOOL‑FR‑034 expondo ações preview e check via MCP (neocortex_dry_run).
+  O serviço calcula diff usando difflib, avalia risco (low/medium/high) com base em locks e tamanho do diff, e recomenda bloqueio para risco HIGH.
+  Pendente: integração automática com sub_server.py (import stub) e definição de como invocar o middleware antes de tool calls que modificam estado.
+ajustes_aplicados: []
+lessons_learned: []
+deps_missing: []
+ruff_violations_found: 0
+metrics:
+  ruff_check: PASS
+  py_compile: PASS
+  import_smoke_test: PASS
+  write_zone_respected: true
+  locks_respected: true
+  min_80_lines: true
+errors: []
+warnings:
+  - "Integração com sub_server.py pendente — necessário adicionar import stub similar a SAVE‑002/003."
+  - "Falta definição de como invocar middleware antes de tool calls que modificam estado (decorator, wrapper ou chamada explícita)."
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  ajustes_synthesis_applied: true
+  handoff_yaml_complete: true

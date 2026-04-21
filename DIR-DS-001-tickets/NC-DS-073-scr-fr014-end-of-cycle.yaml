@@ -1,0 +1,40 @@
+ticket_id: "NC-DS-073"
+status: "DONE"
+priority: "HIGH"
+title: "SCR-FR-014 — Rastreabilidade: NC-SCR-FR-014-end-of-cycle.ps1"
+created_at: "2026-04-15T01:08:00-03:00"
+created_by: "T0-Antigravity"
+
+context:
+  origin: "Auditoria de scripts orfaos (Ciclo 1, sessao 2026-04-15)"
+  problem: |
+    NC-SCR-FR-014-end-of-cycle.ps1 e a rotina de fim de ciclo PowerShell 7.x.
+    E usado no NC-WF-001 linha 137 (Ciclo 3) sem ticket formal. Esta e a
+    ultima etapa do Ciclo 3 antes de encerrar a sessao.
+  scope: "Rastreabilidade + verificacao de funcionamento no Windows (pwsh 7.x)"
+
+task:
+  description: |
+    1. Verificar integridade do script PowerShell (sintaxe, compatibilidade pwsh 7.x).
+    2. Executar com -WhatIf ou -DryRun para validar sem efeitos colaterais.
+    3. Documentar parametros (-UpdateCatalog, etc.) e o que o script faz.
+    4. Verificar se o script ainda e relevante ou se foi substituido por outros.
+    5. Atualizar NC-NAM-FR-001 com entrada do script.
+    6. Gerar handoff APPROVED.
+  action_description:
+    utterances:
+      - "Executar rotina de fim de ciclo"
+      - "Limpar cache e verificar lint antes de encerrar sessao"
+    input_instructions: "Executar com pwsh 7.x da raiz do projeto. Flag -UpdateCatalog atualiza artifact_catalog.json."
+    output_instructions: "Relatorio de limpeza: arquivos removidos, lint issues, status final."
+    usage_rules: "Ciclo 3: ultima etapa. Requer que NC-SCR-FR-064 e NC-SCR-FR-066 ja tenham executado."
+
+write_zone: "01_neocortex_framework/scripts/"
+references:
+  - "01_neocortex_framework/scripts/NC-SCR-FR-014-end-of-cycle.ps1"
+  - ".agents/workflows/NC-WF-001-workspace-routine.md#L137"
+
+tags: ["ciclo3", "orchestration", "cleanup", "lint", "powershell", "infra", "SCR"]
+domain: "orchestration"
+layer: "infra"
+type: "SCR"

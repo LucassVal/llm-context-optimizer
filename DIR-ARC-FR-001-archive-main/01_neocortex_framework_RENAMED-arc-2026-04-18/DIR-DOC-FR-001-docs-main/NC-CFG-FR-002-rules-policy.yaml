@@ -1,0 +1,169 @@
+# NC-CFG-FR-002-rules-policy.yaml
+# Companion YAML para os arquivos MDC de regras.
+# Este arquivo é a versão machine-readable das regras de governança.
+# Consumido pelo SecurityService e mentor_step_0() para enforcement em runtime.
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  version: "2.0"
+  hash: "RULES-YAML-v2"
+  description: "NeoCortex Rules Policy — machine-readable companion to .mdc rule files"
+  mdc_files:
+    - ".agents/rules/NC-RULE-001-core-ssot.mdc"
+    - ".agents/rules/NC-RULE-002-python-mcp.mdc"
+    - ".agents/rules/NC-RULE-003-lobes-memory.mdc"
+    - ".agents/rules/NC-RULE-004-filesystem.mdc"
+  ubiquitous_language: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-DOC-FR-001-ubiquitous-language-dictionary.md"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# REGRAS CRÍTICAS (enforcement automático pelo SecurityService)
+# ─────────────────────────────────────────────────────────────────────────────
+critical_rules:
+
+  naming_convention:
+    id: "R01"
+    severity: "critical"
+    pattern: "^NC-[A-Z]+-[A-Z]+-[0-9]{3}-.+\\..+"
+    applies_to: "file_creation"
+    on_violation: "block_and_alert"
+    message: "Arquivo criado sem prefixo NC-. Consulte @SSOT antes de criar."
+
+  ssot_update:
+    id: "R02"
+    severity: "critical"
+    requires_after: ["file_creation", "file_move", "file_rename"]
+    target_file: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
+    on_violation: "block_session_close"
+    message: "SSOT não atualizado. Tarefa está INCOMPLETA."
+
+  roadmap_ticket:
+    id: "R03"
+    severity: "critical"
+    requires_before: "implementation_start"
+    target_file: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md"
+    on_violation: "warn_and_log"
+
+  no_deletion:
+    id: "R05"
+    severity: "critical"
+    block_operations: ["delete", "rm", "unlink", "os.remove", "shutil.rmtree"]
+    redirect_to: "01_neocortex_framework/DIR-ARC-FR-001-archive-main/"
+    on_violation: "block_and_alert"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ZONAS DE ESCRITA
+# ─────────────────────────────────────────────────────────────────────────────
+write_zones:
+  ZONE_PROD:
+    path: "01_neocortex_framework/neocortex/"
+    allowed_roles: ["T0", "engineer", "courier"]
+    description: "Código de produção"
+
+  ZONE_DOCS:
+    path: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/"
+    allowed_roles: ["T0"]
+    description: "Documentação SSOT — apenas T0"
+
+  ZONE_TEST:
+    paths:
+      - "05_examples/"
+      - "01_neocortex_framework/DIR-TEST-FR-001-tests-main/"
+    allowed_roles: ["T0", "engineer", "courier"]
+    description: "Testes e exemplos"
+
+  ZONE_LOBES:
+    path: "02_memory_lobes/"
+    allowed_scripts: ["NC-SCR-FR-001-populate-lobes-ssot.py"]
+    allowed_roles: []
+    description: "Lobos — somente via script de poblamento"
+
+  ZONE_BOOT:
+    path: "DIR-BOOT-FR-001-bootup-main/"
+    allowed_roles: ["T0"]
+    description: "Boot manifest — apenas T0"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# DEDUPLICAÇÃO DE LEITURA (Read Checkpoints)
+# ─────────────────────────────────────────────────────────────────────────────
+read_dedup:
+  enabled: true
+  description: |
+    Se um arquivo com NC-READ-HASH já foi processado nesta sessão,
+    o agente NÃO deve reler o bloco. Economiza tokens.
+  known_hashes:
+    - hash: "RULE001-CORE-v2"
+      file: "NC-RULE-001-core-ssot.mdc"
+      action_if_seen: "skip_reread"
+    - hash: "RULE002-PY-v2"
+      file: "NC-RULE-002-python-mcp.mdc"
+      action_if_seen: "skip_reread"
+    - hash: "RULE003-LOBES-v2"
+      file: "NC-RULE-003-lobes-memory.mdc"
+      action_if_seen: "skip_reread"
+    - hash: "RULE004-FS-v2"
+      file: "NC-RULE-004-filesystem.mdc"
+      action_if_seen: "skip_reread"
+    - hash: "ULQ-v1.0"
+      file: "NC-DOC-FR-001-ubiquitous-language-dictionary.md"
+      action_if_seen: "skip_reread"
+    - hash: "RULES-YAML-v2"
+      file: "NC-CFG-FR-002-rules-policy.yaml"
+      action_if_seen: "skip_reread"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# DICIONÁRIO DE LINGUAGEM UBÍQUA (abreviado para referência rápida)
+# ─────────────────────────────────────────────────────────────────────────────
+ubiquitous_language:
+  # @ = arquivos SSOT
+  "@SSOT": "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
+  "@ROADMAP": "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md"
+  "@LOCKS": "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml"
+  "@POLICY": "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-CFG-FR-001-agent-policy-template.yaml"
+  "@BOOT": "DIR-BOOT-FR-001-bootup-main/NC-BOOT-FR-001-system-manifest.md"
+  "@POPULATE": "01_neocortex_framework/scripts/NC-SCR-FR-001-populate-lobes-ssot.py"
+  "@APPENDIX": "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-APP-FR-001-technical-appendix.md"
+  "@SOP": "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SOP-FR-001-session-startup.md"
+  "@ULQ": "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-DOC-FR-001-ubiquitous-language-dictionary.md"
+
+  # $ = lobos (memória persistente)
+  "$ARCH": "NC-LBE-FR-ARCHITECTURE-001.mdc"
+  "$SEC": "NC-LBE-FR-SECURITY-001.mdc"
+  "$DEV": "NC-LBE-FR-DEVELOPMENT-001.mdc"
+  "$COURIER": "lobes/courier/"
+  "$ENGINEER": "lobes/engineer/"
+  "$GUARDIAN": "lobes/guardian/"
+
+  # % = tickets e ações
+  "%DONE": "Marcar ticket como ✅ DONE no @ROADMAP"
+  "%NOW": "Ação imediata obrigatória (🔴)"
+  "%NEXT": "Próximo na fila (🟡)"
+  "%AGENT203": "Ticket AGENT-203 — mentor_step_0() — ✅ DONE"
+  "%ORCH301": "Ticket ORCH-301 — spawn/send_task — 🔴 Pendente"
+  "%ORCH302": "Ticket ORCH-302 — execute/LLMBackend — 🔴 Pendente"
+  "%SEC401": "Ticket SEC-401 — neocortex_guardian — 🔴 Pendente"
+  "%SEC403": "Ticket SEC-403 — limits enforcement — 🟡 Parcial"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# TIERS DE LLM
+# ─────────────────────────────────────────────────────────────────────────────
+llm_tiers:
+  T0:
+    name: "Orquestrador"
+    models: ["deepseek-reasoner", "claude-3-5-sonnet"]
+    cost: "expensive"
+    role: "Orquestra e decide APENAS. Nunca faz trabalho braçal."
+  T2:
+    name: "Courier"
+    models: ["qwen2.5-coder:1.5b"]
+    cost: "free_local"
+    role: "Indexação, busca, formatação, boilerplate 24/7"
+  T3:
+    name: "Engineer"
+    models: ["qwen2.5-coder:3b"]
+    cost: "free_local"
+    role: "Geração de código, testes, refatoração"
+  TG:
+    name: "Guardian"
+    models: ["qwen2.5-coder:1.5b"]
+    cost: "free_local"
+    role: "Validação, auditoria, segurança"

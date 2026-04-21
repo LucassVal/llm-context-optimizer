@@ -1,0 +1,8 @@
+ticket_id: "NC-DS-121"
+status: "RETROSPECTIVO"
+timestamp: "2026-04-18T17:06:28"
+agent: "T0-Antigravity"
+summary: |
+  Handoff retroativo criado no CICLO 1 — ticket existia sem handoff formal.
+  Criado por: neocortex_governance.handoff.create (CICLO 1 audit)
+

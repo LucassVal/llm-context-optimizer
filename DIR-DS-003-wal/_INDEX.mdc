@@ -1,0 +1,15 @@
+---
+dir: DIR-DS-003-wal
+function: WAL (Write-Ahead Log) — audit trail de operações críticas
+status: ACTIVE
+registered: 2026-04-20
+ssot: NC-NAM-FR-001
+---
+
+# DIR-DS-003-wal
+
+## Função
+WAL (Write-Ahead Log) — audit trail de operações críticas
+
+## Notas
+> Registrado no SSOT por NC-GOV-002 em 2026-04-20.

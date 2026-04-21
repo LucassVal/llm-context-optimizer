@@ -1,0 +1,35 @@
+status: APPROVED
+ticket_id: NC-DS-004
+roadmap_ticket: FR-023
+submitted_at: "2026-04-12T15:48:00"
+submitted_by: deepseek-chat
+review_by: antigravity-t0
+reviewed_at: "2026-04-12T16:14:00"
+summary:
+  files_created:
+    - "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-023-orchestration.py"
+  files_modified:
+    - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
+  lines_added: 1
+  lines_removed: 0
+  validation_rounds: 1
+  barriers_passed:
+    - "B1"
+    - "B2"
+    - "B3"
+    - "B4"
+    - "B5"
+    - "B6"
+  locks_violated: []
+  cost_usd: 0.007
+  overall: SUCCESS
+t0_review:
+  compile_ok: true
+  naming_ok: true
+  ssot_updated: true
+  locks_clean: true
+  roadmap_done: true
+  note: "326 linhas, B1/B3/B5/B6 PASS, FR-023 completo (agent.spawn, heartbeat, consume, task.execute, peers.discover)"
+rejection:
+  reason: null
+  next_ticket: null

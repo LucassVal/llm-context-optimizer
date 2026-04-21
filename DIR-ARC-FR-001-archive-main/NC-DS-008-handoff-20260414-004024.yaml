@@ -1,0 +1,38 @@
+ticket_id: NC-DS-008
+status: PENDING_REVIEW
+timestamp: "2026-04-14T00:40:24-03:00"
+agent_port: 32879
+lines_added: 502
+files_modified:
+  - "02_memory_lobes/NC-LBE-INT-005-pixel-agents.mdc"
+summary: |
+  Documentação completa do Pixel Agents gerada com 502 linhas, incluindo:
+  - Identidade, stack, licença, repositório
+  - Funcionamento interno: modos hooks/heurístico, formato JSONL detalhado
+  - Ciclo de animação e mapeamento de estados (typing, reading, waiting, permission)
+  - Sub-agents, Office Layout Editor, speech bubbles, persistent layouts
+  - Especificação técnica da bridge OpenCode→JSONL com código Python
+  - Integração com NeoCortex HUD (launcher VS Code)
+  - Gaps, riscos e próximos passos
+format_jsonl_discovered: |
+  Pixel Agents consome JSONL no formato Claude Code com os seguintes tipos:
+  
+  - `type: "assistant"` → content array de blocos `tool_use` ou `text`
+    • tool_use: {type:"tool_use", id:string, name:string, input:object}
+    • text: {type:"text", text:string}
+  
+  - `type: "user"` → content array de blocos `tool_result` ou `text`
+    • tool_result: {type:"tool_result", tool_use_id:string, content:string}
+  
+  - `type: "system"` → subtype: "turn_duration" (sinal confiável de término de turno)
+  
+  - `type: "progress"` → data.type: "agent_progress" (sub-agents), "bash_progress", "mcp_progress"
+    • parentToolUseID referencia ferramenta pai (Task/Agent)
+    • agent_progress contém transcript aninhado em data.message
+  
+  - `type: "queue-operation"` → operation: "enqueue" (finalização de agentes background)
+    • content contém XML <tool-use-id>
+  
+  Campos `content` podem estar em `message.content` ou no root.
+  Timestamps: "timestamp" field ISO 8601.
+  Outros tipos ignorados: file-history-snapshot, queue-operation (outras operações).

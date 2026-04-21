@@ -1,0 +1,30 @@
+# DIR-DS-002-audit-logs/NC-DS-035-handoff-20260413-075739.yaml
+ticket_id: NC-DS-035
+status: PENDING_REVIEW
+timestamp: "2026-04-13T07:58:10-03:00"
+agent_port: opencode
+lines_added: 208
+files_modified:
+  - 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-010-kairos-service.py
+summary: |
+  Implementado KairosService, serviço event-driven de scheduling com integração ao EventBus.
+  Publica eventos de tick, tarefas agendadas e executadas.
+  Mantém compatibilidade com pulse_scheduler existente via duck-typing (carregamento modular).
+  Utiliza threading.Timer para agendamento periódico, singleton pattern e locks thread-safe.
+ajustes_aplicados:
+  - usar código Python do NC-RES-CC-003 como base (referência PulseDaemon)
+metrics:
+  lines_real: 208
+  files_created: 1
+  dependencies_used: [] # apenas stdlib
+  write_zone_respected: true
+  locks_respected: true
+errors: []
+warnings: []
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  min_80_lines: true
+  no_locked_files_modified: true
+  ajustes_synthesis_applied: true
+  handoff_yaml_complete: true

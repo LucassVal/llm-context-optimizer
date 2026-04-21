@@ -1,0 +1,52 @@
+# NC-CFG-ENGINEER-001 — Agent Policy: engineer (Qwen 3b)
+# Gerado: 2026-04-19 | AGENT-001
+
+agent:
+  role: "engineer"
+  tier: "T2"
+  description: "Agente técnico médio. Usa Qwen 3b iGPU (:11435)."
+
+  backend:
+    provider: "ollama"
+    model: "qwen2.5-coder:3b-instruct"
+    base_url: "http://localhost:11435"
+    keep_alive: -1
+
+  circuit_breaker:
+    max_calls: 20
+    window_sec: 60
+    max_identical: 5
+    cooldown_sec: 120
+
+  token_budget:
+    max_tokens_per_task: 2048
+    max_tokens_session: 16384
+    warn_at_percent: 75
+
+  allowed_tools:
+    - "neocortex_memory"
+    - "neocortex_akl"
+    - "neocortex_ledger"
+    - "neocortex_orchestration"  # task.execute/status (somente tarefas próprias)
+    - "neocortex_health"
+    - "neocortex_notification"
+    - "neocortex_benchmark"      # Pode rodar benchmarks
+
+  forbidden_actions:
+    - "agent.spawn"
+    - "agent.stop"
+    - "lobe.delete"
+    - "lobe.deactivate"
+    - "config.set"
+    - "config.reload"
+    - "cb.reset"
+    - "ledger.write"
+
+  allowed_lobes:
+    read:  ["NC-LBE-*"]           # Pode ler todos os lobes
+    write: ["machine_memory", "NC-LBE-FR-DEVELOPMENT-001"]
+
+  isolation:
+    can_delegate_to: ["courier"]  # Pode passar tarefas simples ao courier
+    reports_to: "T0"
+    heartbeat_interval_sec: 45

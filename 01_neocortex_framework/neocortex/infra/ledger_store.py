@@ -1,3 +1,15 @@
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:59.470854'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+tags:
+  - neocortex-other
+  - level-0
+  - python
+---"""
 #!/usr/bin/env python3
 """
 LedgerStore - High-performance ledger storage using diskcache + msgspec.
@@ -10,8 +22,7 @@ import json
 import logging
 import time
 from pathlib import Path
-from typing import Dict, Any, List, Optional, Union
-from abc import ABC, abstractmethod
+from typing import Any, Dict, List, Optional
 
 import msgspec
 from diskcache import Cache
@@ -406,8 +417,8 @@ def create_ledger_store(
 # Test function
 def test_ledger_store():
     """Test LedgerStore functionality."""
-    import tempfile
     import shutil
+    import tempfile
 
     # Create temporary directory
     temp_dir = Path(tempfile.mkdtemp())
@@ -436,7 +447,7 @@ def test_ledger_store():
         stats = store.get_stats()
         assert "memory_cache_size" in stats
 
-        print("✓ LedgerStore tests passed")
+        print(" LedgerStore tests passed")
 
     finally:
         # Cleanup

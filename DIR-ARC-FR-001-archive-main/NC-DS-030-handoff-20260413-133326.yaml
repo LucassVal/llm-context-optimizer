@@ -1,0 +1,30 @@
+ticket_id: NC-DS-030
+status: PENDING_REVIEW
+timestamp: "2026-04-13T13:33:11-03:00"
+agent_port: 32763
+lines_added: 80
+files_modified:
+  - 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-009-session-buddy.py
+summary: |
+  Expandido NC-SVC-FR-009: histórico JSON + badges + rich display.
+ajustes_aplicados:
+  - "rich para display com tabela formatada"
+  - ".nc/session_stats.json para histórico entre sessões"
+  - "3-5 badges iniciais implementados"
+lessons_learned: []
+deps_missing: []
+ruff_violations_found: 0
+metrics:
+  ruff_check: PASS
+  py_compile: PASS
+  import_smoke_test: PASS
+  write_zone_respected: true
+  locks_respected: true
+  min_80_lines: true
+errors: []
+warnings: []
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  ajustes_synthesis_applied: true
+  handoff_yaml_complete: true

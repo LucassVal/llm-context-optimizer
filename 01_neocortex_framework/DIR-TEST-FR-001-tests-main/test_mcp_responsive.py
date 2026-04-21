@@ -1,14 +1,29 @@
 #!/usr/bin/env python3
+
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:57.119047'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: tests
+level: 5
+tags:
+  - tests
+  - level-5
+  - python
+---"""
+
+
 """
 Test MCP server responsiveness.
 """
 
-import sys
 import os
+import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from neocortex.mcp.server import create_mcp_server, FAST_MCP_AVAILABLE
+from neocortex.mcp.server import FAST_MCP_AVAILABLE, create_mcp_server
 
 
 def test_server():

@@ -1,0 +1,26 @@
+ticket_id: "NC-DS-164"
+title: "Corrigir MCP Server Bug - Porta 8765 Não Abre"
+status: "OPEN"
+priority: "CRITICAL"
+created: "2026-04-21T20:28:35"
+agent: "T0"
+description: |
+  PROBLEMA: FastMCP inicia (logs mostram "Uvicorn running on http://127.0.0.1:8765") mas porta não fica aberta (socket connect falha).
+
+VERIFICAÇÃO:
+- Servidor cria instância FastMCP
+- mcp.run(transport='sse') é chamado
+- Logs mostram inicialização completa
+- Mas netstat não mostra porta 8765 aberta
+- Socket connection falha
+
+CAUSA POSSÍVEL:
+1. Bug no FastMCP com transporte SSE
+2. Configuração errada de host/port
+3. Servidor inicia e fecha rapidamente
+
+AÇÃO NECESSÁRIA:
+1. Debug FastMCP initialization
+2. Testar transporte diferente (stdio, websocket)
+3. Verificar se há exceção não capturada
+4. Corrigir ou workaround

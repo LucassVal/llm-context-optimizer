@@ -1,0 +1,38 @@
+ticket_id: "NC-DS-093"
+status: "APPROVED"
+timestamp: "2026-04-16T00:19:48-03:00"
+agent: "T0-Claude-Code"
+
+summary: |
+  NC-SVC-FR-017 integrado em 4 pontos:
+  1. neocortex/core/security_service.py — encrypt_sensitive() substituído:
+     stub "simulated_aes256" → CryptoHub real (Fernet).
+     Fallback para "hash_only" quando NEOCORTEX_MASTER_KEY ausente.
+     WAL registra apenas sha256(ciphertext), nunca plaintext.
+  2. NC-GOV-FR-004-fr-artifacts-registry.yaml — entrada NC-SVC-FR-017 adicionada
+     na seção SVC (status: ACTIVE, depends_on: [NC-SVC-FR-016, cryptography>=42.0.0]).
+  3. NC-WF-001-workspace-routine.md — "crypto_hub" adicionado a governance_links;
+     nota de conclusão NC-DS-093 no sprint_atual.
+  4. NC-DOC-FR-001-ubiquitous-language-dictionary.md — símbolos @CRYPTO e @TAGNORM
+     adicionados na tabela @ (SSOT).
+  py_compile: OK (security_service.py).
+
+files_modified:
+  - "01_neocortex_framework/neocortex/core/security_service.py"
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-004-fr-artifacts-registry.yaml"
+  - ".agents/workflows/NC-WF-001-workspace-routine.md"
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-DOC-FR-001-ubiquitous-language-dictionary.md"
+
+files_created: []
+
+security_notes: |
+  - NEOCORTEX_MASTER_KEY: jamais logada, nunca armazenada no ledger
+  - WAL: só recebe sha256(ciphertext), nunca plaintext/token
+  - CryptoHub importado via importlib (dashes no filename) — sem modificações ao server.py
+
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  ssot_updated: true
+  no_locked_files_modified: true
+  handoff_yaml_complete: true

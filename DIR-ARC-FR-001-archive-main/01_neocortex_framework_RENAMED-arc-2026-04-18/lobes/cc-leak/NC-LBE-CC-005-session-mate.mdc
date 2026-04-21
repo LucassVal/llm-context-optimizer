@@ -1,0 +1,230 @@
+---
+description: "SessionMate  Buddy pattern do Claude Code transformado em stats de sesso leve com gamificao. Mapeamento: CC Buddy  NeoCortex SessionMate."
+lobe_name: "$SESSION_MATE"
+lobe_id: "NC-LBE-CC-005"
+status: active
+module: industrialization
+domain: competitive_intel
+updated: "2026-04-12T23:45:00"
+---
+
+# $SESSION_MATE  Buddy Light  SessionMate Stats
+
+<!-- Sublobe da srie CCleak: anlise do padro Buddy e adaptao para NeoCortex. -->
+
+---
+
+##  O QUE  O BUDDY NO CLAUDE CODE?
+
+**Localizao:** 6 arquivos em `src/buddy/` (freecode).  
+**Conceito:** Tamagotchi com stats, gacha, sprites ASCII 5linhas animados.  
+**Objetivo:** Engajar usurios com gamificao leve, aumentar reteno.  
+**Mecnicas:**
+
+1. **Sprites ASCII**  18 espcies, shiny variants, animao framebyframe.
+2. **PRNG determinstico**  seedada por `userId` hash, reproduzvel.
+3. **Stats persistentes**  nvel, XP, conquistas (tasks concludas, tokens gastos).
+4. **Gacha system**  recompensas aleatrias por sesso (cosmticos).
+5. **Output terminal**  exibe sprite + stats aps cada comando.
+
+**Exemplo de output CC:**
+```
+()  Buddy v1.2
+Tasks: 12 | Tokens: 4.2k | Success: 94%
+ Nova conquista: 10 tasks em uma sesso!
+```
+
+---
+
+##  MTRICAS COLETADAS (CC  NeoCortex)
+
+| Mtrica CC | Descrio | Adaptao NeoCortex |
+|---|---|---|
+| **tokens_spent** | Soma input+output tokens | `total_tokens` do `MetricsCollector` |
+| **tasks_completed** | Nmero de tasks finalizadas | Contador de handoffs `status=DONE` |
+| **success_rate** | % de tasks sem erro/rejeio | `tool_calls` com `success=True` vs total |
+| **avg_time_per_task** | Tempo mdio por task | `session_duration_sec / tasks_completed` |
+| **cost_usd** | Custo total da sesso | `total_cost_usd` do `MetricsCollector` |
+| **streak_days** | Dias consecutivos com atividade | Persistncia diria (arquivo JSON) |
+
+**Fonte primria:** `NCSVCFR006metricscollector.py` j fornece `get_session_summary()` com:
+- `total_tokens`, `total_input_tokens`, `total_output_tokens`
+- `total_cost_usd`
+- `tool_calls` (count)
+- `avg_duration_ms`
+- `session_duration_sec`
+
+---
+
+##  DECISO DE NOMENCLATURA NEOCORTEX
+
+**Buddy (CC)**  **SessionMate (NeoCortex)**  
+**Justificativa:** Evitar conotao infantil (tamagotchi), focar em utilitrio para devs.  
+**Arquivo mapping:** `NCSVCFR009sessionbuddy.py` (a ser criado em **NCDS030**).  
+**Domnio:** `neocortex/core/services/`  extenso do `MetricsCollector`.
+
+**Renomeaes aplicadas:**
+- `BuddySprite`  `SessionAvatar` (opcional, ASCII leve)
+- `BuddyStats`  `SessionSummary`
+- `BuddyGacha`  `SessionReward` (opcional, baixa prioridade)
+
+**Princpio:** Gamificao leve, no intrusiva  stats como feedback, no como distrao.
+
+---
+
+##  INTEGRAO COM NCSVCFR006METRICSCOLLECTOR.PY
+
+`SessionMate` **no** substitui o `MetricsCollector`; **estende** sua funcionalidade para output formatado e gamificao.
+
+```python
+# Exemplo de uso
+from neocortex.core.services import get_metrics_collector
+from neocortex.core.services.session_buddy import SessionMate
+
+metrics = get_metrics_collector()
+mate = SessionMate(metrics)
+
+mate.start_session()
+mate.record_task(success=True, tokens=1500)
+mate.record_task(success=False, tokens=800)
+
+summary = mate.end_session()  # retorna string formatada
+print(summary)
+```
+
+**Output esperado:**
+```
+ 3 tasks |  $0.42 |  94% success |  2.5m avg
+```
+
+**Componentes do output:**
+- `` cone de tasks concludas
+- `` custo total em USD (formatado 2 decimais)
+- `` taxa de sucesso (tasks sem erro / total tasks)
+- `` tempo mdio por task (minutos:segundos)
+
+---
+
+##  API DO SESSIONMATE (NCSVCFR009SESSIONBUDDY.PY)
+
+### Mtodos principais
+
+```python
+class SessionMate:
+    def __init__(self, metrics_collector: MetricsCollector):
+        """Inicializa com referncia ao MetricsCollector."""
+        self.metrics = metrics_collector
+        self.task_count = 0
+        self.success_count = 0
+        self.total_tokens = 0
+        self.session_start = time.time()
+
+    def start_session(self) -> None:
+        """Inicia nova sesso (reset contadores)."""
+        self.task_count = 0
+        self.success_count = 0
+        self.total_tokens = 0
+        self.session_start = time.time()
+
+    def record_task(self, success: bool, tokens: int) -> None:
+        """Registra concluso de uma task."""
+        self.task_count += 1
+        if success:
+            self.success_count += 1
+        self.total_tokens += tokens
+
+    def end_session(self) -> str:
+        """Finaliza sesso e retorna resumo formatado."""
+        session_duration = time.time() - self.session_start
+        summary = self.metrics.get_session_summary()
+
+        # Clculos
+        success_rate = (
+            (self.success_count / self.task_count * 100) if self.task_count > 0 else 0.0
+        )
+        avg_time = (
+            session_duration / self.task_count if self.task_count > 0 else 0.0
+        )
+
+        # Formatao
+        cost_str = f"${summary['total_cost_usd']:.2f}"
+        success_str = f"{success_rate:.0f}%"
+        avg_time_str = self._format_duration(avg_time)
+
+        return f" {self.task_count} tasks |  {cost_str} |  {success_str} success |  {avg_time_str} avg"
+
+    def _format_duration(self, seconds: float) -> str:
+        """Formata durao em minutos:segundos."""
+        if seconds < 60:
+            return f"{seconds:.1f}s"
+        minutes = int(seconds // 60)
+        secs = int(seconds % 60)
+        return f"{minutes}m{secs:02d}s"
+```
+
+### Integrao com hooks existentes
+
+- **Mentor Mode:** pode chamar `record_task` aps cada handoff (`status=DONE`).
+- **PulseScheduler:** pode chamar `end_session` aps inatividade > 5min.
+- **Health endpoint:** incluir resumo da sesso em `/health` (opcional).
+
+---
+
+##  MAPEAMENTO PARA NCDS030 (TICKET)
+
+**Ticket:** NCDS030  Buddy Light (Session Stats)  
+**Write zone:** `01_neocortex_framework/neocortex/core/services/NCSVCFR009sessionbuddy.py`  
+**Estimativa:** 80 linhas (conforme plano mestre NCSTRCC001).  
+**Dependncias:** NCSVCFR006 (j existe).  
+
+**Contedo do arquivo:**
+1. Classe `SessionMate` com API acima.
+2. Funo de convenincia `get_session_mate()` (singleton).
+3. Integrao automtica com `MetricsCollector` (injeo de dependncia).
+4. Testes unitrios em `tests/test_session_buddy.py` (a criar separadamente).
+
+**Cronograma:** Implementao imediata aps este sublobe (prMCP).
+
+---
+
+##  GAMIFICAO LEVE (OPCIONAL)
+
+**Elementos preservados do Buddy original:**
+
+1. **Sprites ASCII**  conjunto mnimo (34) exibido no `end_session()` se `ENABLE_AVATAR=True`.
+2. **Conquistas**  triggers baseados em milestones:
+   - `FIRST_10_TASKS`: "Decolagem "
+   - `SUCCESS_RATE_90`: "Preciso cirrgica "
+   - `COST_UNDER_1USD`: "Econmico "
+3. **Progresso dirio**  arquivo `.nc/session_history.json` com streak.
+
+**Configurao (em `neocortex_config.yaml`):**
+```yaml
+session_mate:
+  enable_avatars: false   # ASCII sprites (default off)
+  enable_achievements: true
+  daily_streak: true
+```
+
+**Princpio:** Optin, no optout  dev pode desligar completamente.
+
+---
+
+##  LINKS PARA OUTROS LOBES
+
+- **NCLBECC001claudeleakmaster.mdc**  viso geral do leak.
+- **NCLBEDS003workerpatterns.mdc**  protocolos de worker (fila, handoff).
+- **NCSTRCC001masterstrategy.md**  plano mestre expandido (seo D.2).
+- **NCANACC004competitiveintel.md**  anlise competitiva (item 1.6).
+
+---
+
+##  PRXIMAS AES
+
+1. **Criar ticket NCDS030** (se ainda no existir) com base neste sublobe.
+2. **Implementar `NCSVCFR009sessionbuddy.py`** seguindo API acima.
+3. **Atualizar `NCNAMFR001namingregistry.yaml`** com entrada `SessionMate`.
+4. **Testar integrao** com `MetricsCollector` em sesso real.
+
+**Status:** Anlise concluda, mapeamento pronto para implementao.  
+**Confiana:** Alta (padro simples, dependncias claras).

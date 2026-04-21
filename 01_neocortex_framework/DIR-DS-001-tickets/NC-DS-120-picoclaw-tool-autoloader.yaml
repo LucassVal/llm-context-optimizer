@@ -1,0 +1,111 @@
+ticket_id: NC-DS-120
+status: OPEN
+priority: "🟡 NEXT"
+created_at: "2026-04-20T18:16:52-03:00"
+assigned_to: opencode-agent-4
+tier: T1
+
+title: "NC-SCR-FR-145: Auto-loader de NC-SUPER-016 no TOOL_MODULE_MAP (sem editar @LOCK)"
+
+description: |
+  NC-SUPER-016 (picoclaw MCP tool) existe mas não está registrado.
+  Criar NC-SCR-FR-145 + NC-CFG-FR-005-tool-autoload.yaml.
+  NÃO editar server.py ou sub_server.py (@LOCK).
+
+scope:
+  write_zone: "01_neocortex_framework/"
+  new_files:
+    - "01_neocortex_framework/scripts/NC-SCR-FR-145-tool-autoloader.py"
+    - "01_neocortex_framework/neocortex/mcp/NC-CFG-FR-005-tool-autoload.yaml"
+  read_only:
+    - "neocortex/mcp/sub_server.py"   # SOMENTE LEITURA para entender TOOL_MODULE_MAP
+    - "neocortex/mcp/tools/NC-SUPER-016-picoclaw.py"
+  forbidden_writes:
+    - "neocortex/mcp/server.py"      # @LOCK
+    - "neocortex/mcp/sub_server.py"  # @LOCK
+
+project_root: "C:/Users/Lucas Valério/Desktop/TURBOQUANT_V42/01_neocortex_framework"
+
+steps:
+  - "1. Ler sub_server.py (read only) — entender TOOL_MODULE_MAP e register_tool interface"
+  - "2. Criar NC-CFG-FR-005-tool-autoload.yaml:"
+  - "   extra_tools:"
+  - "     - name: neocortex_picoclaw"
+  - "       module_path: neocortex/mcp/tools/NC-SUPER-016-picoclaw.py"
+  - "       register_fn: register_tool"
+  - "3. Criar NC-SCR-FR-145-tool-autoloader.py:"
+  - "   - Usar get_config() para paths (R10 — NUNCA hardcode)"
+  - "   - Usar importlib.util.spec_from_file_location (R09 — NUNCA import direto)"
+  - "   - Usar logger = logging.getLogger(__name__) (R11 — NUNCA print)"
+  - "   - Ler NC-CFG-FR-005, para cada entry: carregar + chamar register_fn(server)"
+  - "   - Retornar lista de tools carregados"
+  - "4. Testar: importar NC-SCR-FR-145 e chamar autoload()"
+
+mandatory_tests:
+  - name: "ruff NC-SCR-FR-145"
+    command: "python -m ruff check scripts/NC-SCR-FR-145-tool-autoloader.py --select F,E9"
+    expected: "All checks passed!"
+  - name: "py_compile NC-SCR-FR-145"
+    command: |
+      python -c "import py_compile; py_compile.compile('scripts/NC-SCR-FR-145-tool-autoloader.py', doraise=True); print('OK')"
+    expected: "OK"
+  - name: "yaml valido NC-CFG-FR-005"
+    command: |
+      python -c "import yaml; data=yaml.safe_load(open('neocortex/mcp/NC-CFG-FR-005-tool-autoload.yaml')); print('YAML OK:', list(data.keys()))"
+    expected: "YAML OK: ['extra_tools']"
+  - name: "import NC-SCR-FR-145 via importlib (R09)"
+    command: |
+      # Script em C:/Temp/chk120.py para evitar path com acento:
+      # import importlib.util, sys
+      # sys.path.insert(0, r'C:/Users/Lucas Valério/Desktop/TURBOQUANT_V42/01_neocortex_framework')
+      # spec = importlib.util.spec_from_file_location('scr145', r'scripts/NC-SCR-FR-145-tool-autoloader.py')
+      # mod = importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
+      # print('IMPORT OK', hasattr(mod, 'autoload'))
+      python C:/Temp/chk120.py
+    expected: "IMPORT OK True"
+  - name: "no print() em nenhum dos arquivos criados (R11)"
+    command: "python -m ruff check scripts/NC-SCR-FR-145-tool-autoloader.py --select T201"
+    expected: "All checks passed!"
+
+handoff_yaml_template: |
+  # OBRIGATÓRIO: Criar e salvar este arquivo ao concluir
+  # Path: DIR-DS-002-audit-logs/NC-DS-120-completion.yaml
+
+  ticket_id: NC-DS-120
+  status: COMPLETED
+  completed_at: "<ISO timestamp>"
+  agent: opencode-agent-4
+
+  files_created:
+    - path: "01_neocortex_framework/scripts/NC-SCR-FR-145-tool-autoloader.py"
+      lines: <número>
+    - path: "01_neocortex_framework/neocortex/mcp/NC-CFG-FR-005-tool-autoload.yaml"
+      lines: <número>
+
+  test_results:
+    ruff_NC_SCR_145: "<PASS ou FAIL>"
+    py_compile_NC_SCR_145: "<PASS ou FAIL>"
+    yaml_valid_NC_CFG_005: "<PASS ou FAIL>"
+    import_via_importlib: "<PASS ou FAIL>"
+    no_print_T201: "<PASS ou FAIL>"
+    full_output: |
+      <colar output completo de todos os testes aqui>
+
+  constraints_verified:
+    server_py_untouched: true
+    sub_server_py_untouched: true
+    get_config_used: true
+    importlib_used: true
+    logger_used: true
+
+  errors: []
+  warnings: []
+
+  checklist_r20:
+    naming_convention: true
+    no_print_statements: true
+    handoff_yaml_complete: true
+    locks_respected: true
+    write_zone_respected: true
+
+handoff_save_path: "DIR-DS-002-audit-logs/NC-DS-120-completion.yaml"

@@ -1,0 +1,81 @@
+# NC-GOV-FR-008 — Lobe Taxonomy (Memória Institucional)
+meta:
+  id: "NC-GOV-FR-008"
+  title: "Taxonomia de Lobes — Memória por Poder, Tier e Usuário"
+  tier: "LEI_COMPLEMENTAR"
+  version: "0.1"
+  created: "2026-04-18"
+  status: "DRAFT"
+  law_source: "Art. 7 CF — NC-CONST-FR-001"
+
+taxonomy:
+  by_power:
+    legislative:
+      prefix: "NC-LBE-LEG"
+      examples: ["NC-LBE-LEG-001-roadmap", "NC-LBE-LEG-002-laws-active"]
+      access: {T0: "rw", T1: "r", T2: "r", T3: "r"}
+    executive:
+      prefix: "NC-LBE-EXE"
+      examples: ["NC-LBE-EXE-001-agent-state", "NC-LBE-EXE-002-port-registry"]
+      access: {T0: "rw", T1: "rw_scoped", T2: "r", T3: "r"}
+    judicial:
+      prefix: "NC-LBE-JUD"
+      examples: ["NC-LBE-JUD-001-regression", "NC-LBE-JUD-002-rejected-handoffs"]
+      access: {T0: "rw", T1: "r", T2: "r", T3: "r"}
+
+  by_agent_tier:
+    T0:
+      prefix: "NC-LBE-AGT-T0"
+      scope: "sessões, decisões, vetoes"
+      access: {T0: "rw", T1: "r", T2: "deny", T3: "deny"}
+    T1:
+      prefix: "NC-LBE-AGT-T1"
+      scope: "courier — operações OpenCode"
+      physical: "lobes/courier/"
+      access: {T0: "rw", T1: "rw", T2: "deny", T3: "deny"}
+    T2:
+      prefix: "NC-LBE-AGT-T2"
+      scope: "engineer — operações Qwen"
+      physical: "lobes/engineer/"
+      access: {T0: "rw", T1: "r", T2: "rw_scoped", T3: "deny"}
+    picoclaw:
+      prefix: "NC-LBE-AGT-PIC"
+      scope: "dispatch patterns, fallback chain"
+      access: {T0: "rw", T1: "rw", T2: "deny", T3: "deny"}
+
+  by_user:
+    rule: "Isolamento garantido — Art. 7 CF"
+    prefix: "NC-LBE-USR"
+    structure: "NC-LBE-USR-{id}-{aspect}.mdc"
+    aspects: ["consciousness", "profile", "projects", "firewall"]
+    cross_user_access: "requires ticket NC-DS-AUTH-* T0 signed"
+    examples:
+      - "NC-LBE-USR-001-lucas-consciousness.mdc  ← ATIVO"
+      - "NC-LBE-USR-002-[futuro].mdc             ← isolado"
+    shared_lobes: "NC-LBE-FR-* são públicos (framework) — todos os usuários leem"
+
+  by_integration:
+    prefix: "NC-LBE-INT"
+    note: "Documentação de serviços externos — todos os tiers leem"
+    existing:
+      - "NC-LBE-INT-001 PicoClaw :18790"
+      - "NC-LBE-INT-002 OpenCode :45132"
+      - "NC-LBE-INT-003 Antigravity stdio"
+      - "NC-LBE-INT-004 MissionControl :3000"
+      - "NC-LBE-INT-005 PixelAgents :8767"
+
+  by_domain_framework:
+    prefix: "NC-LBE-FR"
+    note: "Regulamentos internos por domínio — leis de segundo grau"
+    existing:
+      - "NC-LBE-FR-MCP-001-fastmcp-sdk"
+      - "NC-LBE-FR-QUALITY-001-env-quality"
+      - "NC-LBE-FR-QUALITY-002-context-compaction"
+
+boot_sequence:
+  order:
+    1: "NC-LBE-USR-{active_user}-consciousness (firewall, tom)"
+    2: "NC-LBE-LEG-001-laws-active (leis vigentes)"
+    3: "NC-LBE-AGT-T0-001 (estado T0)"
+    4: "NC-LBE-INT-* relevantes ao sprint"
+  tool: "neocortex_lobes → boot.load_active (P-013 NC-DS-120)"

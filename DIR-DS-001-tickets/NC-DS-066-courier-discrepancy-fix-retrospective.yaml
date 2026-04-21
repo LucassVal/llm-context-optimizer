@@ -1,0 +1,31 @@
+# NC-DS-066-courier-discrepancy-fix-retrospective.yaml
+# Ticket retrospectivo — criado no Ciclo 1 de 2026-04-15 conforme protocolo de governanca
+# Protocolo: %HANDOFF_MISSING_TICKET -> ticket retrospectivo obrigatorio (NC-GOV-FR-002, STAGE-05)
+
+ticket_id: "NC-DS-066"
+status: "RETROSPECTIVE"
+type: "retrospective"
+created_at: "2026-04-15T00:40:00-03:00"
+created_by: "T0-Antigravity-Ciclo1-Audit"
+title: "[RETRO] Correcao de discrepancia no lobe courier"
+write_zone: "01_neocortex_framework/"
+handoff_ref: "DIR-DS-002-audit-logs/NC-DS-066-handoff-*.yaml"
+assigned_to: "T0"
+priority: LOW
+
+task:
+  description: |
+    Ticket retrospectivo. O trabalho ja foi executado e o handoff foi gerado.
+    Este ticket formaliza o registro para conformidade com NC-GOV-FR-002 STAGE-05.
+    Descricao do trabalho: Correcao de discrepancia no lobe courier
+  entry_state: "Handoff existente sem ticket formal"
+  exit_state: "Ticket retrospectivo registrado e cross-referenced com handoff"
+
+integrity_hash: "RETRO-NC-DS-066-20260415"
+
+context:
+  note: |
+    Criado automaticamente no Ciclo 1 de 2026-04-15 como correcao de conformidade.
+    Regra: Todo ticket concluido DEVE ter ticket formal correspondente.
+    Handoff correspondente: DIR-DS-002-audit-logs/NC-DS-066-handoff-*.yaml
+  roadmap_ref: "N/A - trabalho retrospectivo"

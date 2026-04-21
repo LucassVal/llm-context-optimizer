@@ -1,0 +1,99 @@
+ticket_id: "NC-DS-087"
+status: "CLOSED"
+priority: "HIGH"
+title: "Compliance Audit: NC-SCR-FR-080 score + NC-SVC-FR-004-cache-service.py ausente"
+created_at: "2026-04-16T01:50:00-03:00"
+created_by: "T0-Claude-Code"
+
+context:
+  origin: "Marco 3 Bloqueantes MCP + Ciclo 4 (implementation_plan.md, sessao 2026-04-15/16)"
+  problem: |
+    1. NC-DS-020 marcado como DONE mas NC-SVC-FR-004-cache-service.py nao encontrado
+       no filesystem. Handoff diz DONE mas artefato ausente — inconsistencia critica.
+    2. NC-SCR-FR-080-governance-auditor.py gerou score 75% na sessao anterior
+       (handoff NC-DS-074). Meta e >80%. Precisa ser re-executado apos os tickets
+       NC-DS-084/085/086 para verificar se score subiu.
+  scope: "Investigar inconsistencia do SVC-004 + medir compliance atual"
+
+task:
+  description: |
+    PARTE 1 — Investigar NC-SVC-FR-004:
+    1. Buscar o arquivo em todo o projeto:
+       find C:\Users\Lucas Valério\Desktop\TURBOQUANT_V42 -name "*SVC-FR-004*" -o -name "*cache-service*" 2>/dev/null
+    2. Verificar handoff do NC-DS-020 para entender o que foi feito:
+       cat DIR-DS-002-audit-logs/NC-DS-020*.yaml
+    3. Verificar se foi arquivado:
+       find DIR-ARC-FR-001-archive-main -name "*SVC*" 2>/dev/null
+    4. Decisao:
+       a. Se arquivo existir em outro local: mover para 01_neocortex_framework/neocortex/
+          e registrar no NC-GOV-FR-004
+       b. Se arquivo nao existir: marcar NC-DS-020 como ISSUE (trabalho nao concluido)
+          e criar ticket NC-DS-088 para reimplementar
+
+    PARTE 2 — Compliance Audit:
+    1. Executar auditor completo:
+       python 01_neocortex_framework/scripts/NC-SCR-FR-080-governance-auditor.py
+    2. Capturar score atual (meta: >80%)
+    3. Listar regras falhando (R06, R12, R18, R03, R16, R17 foram as da ultima vez)
+    4. Relatorio em DIR-DS-002-audit-logs/compliance-audit-20260416.md
+
+  instrucoes_handoff: |
+    Salvar em: DIR-DS-002-audit-logs/NC-DS-087-handoff-YYYYMMDDTHHMMSS.yaml
+    Incluir: score_compliance, regras_falhando, status_SVC-004
+
+  checklist_r20:
+    naming_convention: true
+    no_print_statements: true
+    ssot_updated: true
+    no_locked_files_modified: true
+    handoff_yaml_complete: true
+
+resolution:
+  completed_at: "2026-04-15T22:55:05-03:00"
+  executed_by: "T0-Claude-Code"
+  findings:
+    svc_004:
+      status: "PRESENT"
+      location: "01_neocortex_framework/neocortex/core/services/NC-SVC-FR-004-cache-service.py"
+      hash: "sha256:B11320E0928D6990DBF53A69EE4451FCAFB1ECC46335EB7E1CECCE2AD4E34775"
+      handoff_verified: true
+      inconsistency: "Arquivo existia mas não foi detectado em verificação anterior"
+    compliance_audit:
+      score: "70%"
+      rules_passed: 14
+      rules_failed: 3
+      rules_pending: 3
+      failing_rules: ["R06", "R12", "R18"]
+      pending_rules: ["R03", "R16", "R17"]
+      target: ">80%"
+      target_met: false
+  handoff_generated: "DIR-DS-002-audit-logs/NC-DS-087-handoff-20260415T225505.yaml"
+  next_steps:
+    - "Implementar handoffs formais (R06,R12)"
+    - "Criar tickets para todas as tarefas (R18)"
+    - "Implementar verificações pendentes (R03,R16,R17)"
+
+environment:
+  python: "C:\\Program Files\\Python312\\python.exe"
+  project_root: "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
+  pythonpath: "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework"
+
+referencias:
+  - "DIR-DS-002-audit-logs/NC-DS-020*.yaml"
+  - "DIR-DS-002-audit-logs/NC-DS-074-handoff-20260415T113149.yaml"
+  - "01_neocortex_framework/scripts/NC-SCR-FR-080-governance-auditor.py"
+
+write_zone:
+  - "DIR-DS-001-tickets/"
+  - "DIR-DS-002-audit-logs/"
+  - "01_neocortex_framework/neocortex/"
+
+atomic_locks_proibidos:
+  - "01_neocortex_framework/neocortex/server.py"
+  - "01_neocortex_framework/neocortex/sub_server.py"
+  - "01_neocortex_framework/neocortex_config.yaml"
+
+tags: ["compliance", "audit", "svc-presente", "NC-DS-020", "governance", "bloqueante-mcp", "closed"]
+domain: "orchestration"
+layer: "governance"
+type: "AUDIT"

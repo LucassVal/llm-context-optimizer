@@ -1,0 +1,31 @@
+{
+  "ticket_id": "NC-DS-004",
+  "phase": "1",
+  "risk_level": "LOW",
+  "file_list": [
+    {
+      "action": "create",
+      "path": "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-023-orchestration.py",
+      "description": "MCP tool para orquestrao de agentes e tasks via HTTP"
+    },
+    {
+      "action": "modify",
+      "path": "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md",
+      "description": "Adicionar entrada para NC-TOOL-FR-023-orchestration.py no SSOT"
+    }
+  ],
+  "dependencies": [
+    "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-016-subserver.py",
+    "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-017-task.py",
+    "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-010-peers.py",
+    "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-029-health.py"
+  ],
+  "validation_steps": [
+    "B1: naming_convention",
+    "B2: lock_guard",
+    "B3: compile",
+    "B4: ssot_entry",
+    "B5: no_hardcode",
+    "B6: no_print"
+  ]
+}

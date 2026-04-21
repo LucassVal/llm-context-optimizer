@@ -1,7 +1,7 @@
 ---
-description: NeoCortex Workspace Routine Standards (Os 4 Ciclos) — v3.7 | 2026-04-17
-version: "3.7"
-hash: "NC-WF-001-v3.7-20260417"
+description: NeoCortex Workspace Routine Standards (Os 4 Ciclos) — v4.0 | 2026-04-18
+version: "4.0"
+hash: "NC-WF-001-v4.0-20260418"
 governance_law: true
 governance_links:
   lei_mestra:         ".agents/workflows/NC-WF-001-workspace-routine.md"
@@ -25,7 +25,10 @@ governance_links:
   crypto_hub:         "01_neocortex_framework/neocortex/core/services/NC-SVC-FR-017-crypto-hub.py"
   orchestration_tool: "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-023-orchestration.py"
   picoclaw_tool:      "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-036-picoclaw.py"
-  ubiquitous_dict:    "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-DOC-FR-001-ubiquitous-language-dictionary.md"
+  litellm_gateway:      "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-043-litellm.py"
+  litellm_startup:      "01_neocortex_framework/scripts/NC-SCR-FR-110-litellm-startup.ps1"
+  litellm_lobe:         "02_memory_lobes/NC-LBE-FR-LITELLM-001.mdc"
+  litellm_config:       "config.yaml"
 lobes_ativos:
   user_consciousness: "01_neocortex_framework/lobes/NC-LBE-USR-001-user-consciousness.mdc"
   picoclaw:           "01_neocortex_framework/lobes/NC-LBE-INT-001-picoclaw-architecture.mdc"
@@ -45,7 +48,7 @@ sprint_atual:
 ---
 
 # Fluxo de Trabalho NeoCortex — Os 4 Ciclos
-> **Fase atual:** PRÉ-MCP — Antigravity + OpenCode conectando via MCP stdio/SSE ao NeoCortex Core  
+> **Fase atual:** SPRINT-ACELERADO — LiteLLM+PicoClaw+Ollama driving | sem MC/Pixel por ora  
 > **Raiz:** `C:\Users\Lucas Valério\Desktop\TURBOQUANT_V42\`  
 > **Shell:** PowerShell 7.x (todos os comandos abaixo são pwsh)  
 > **T0 (orquestrador):** Antigravity — pensa e decide. OpenCode/DeepSeek executam. PicoClaw despacha.
@@ -106,7 +109,7 @@ NC-WF-001 (lei mestra — este arquivo)
 └── LOBES DE REFERÊNCIA (ver seção abaixo)
     ├── NC-LBE-INT-001  → PicoClaw (arquitetura, :18790)
     ├── NC-LBE-INT-004  → Mission Control (dashboard, :3000)
-    └── NC-LBE-INT-005  → Pixel Agents (observer, :8765)
+    └── NC-LBE-INT-005  → Pixel Agents (observer, :8767)
 ```
 
 ### Componentes com cobertura implícita (tornada explícita aqui)
@@ -133,12 +136,13 @@ NC-WF-001 (lei mestra — este arquivo)
 
 | Lobe | Componente | Porta | Path |
 |---|---|---|---|
+| NC-LBE-FR-LITELLM-001 | LiteLLM Gateway (proxy unificado :4000) | :4000 | `02_memory_lobes/NC-LBE-FR-LITELLM-001.mdc` |
 | NC-LBE-USR-001 | User Consciousness (perfil cognitivo T0) | — | `01_neocortex_framework/lobes/NC-LBE-USR-001-user-consciousness.mdc` |
 | NC-LBE-INT-001 | PicoClaw (gateway A2A, DeepSeek executor) | :18790 | `01_neocortex_framework/lobes/NC-LBE-INT-001-picoclaw-architecture.mdc` |
 | NC-LBE-INT-002 | OpenCode (runtime agentes T1, DeepSeek) | :45132/:32879 | `01_neocortex_framework/lobes/NC-LBE-INT-002-opencode-architecture.mdc` |
 | NC-LBE-INT-003 | Antigravity (T0 adapter, 38 tools MCP) | stdio/SSE | `01_neocortex_framework/lobes/NC-LBE-INT-003-antigravity-integration.mdc` |
 | NC-LBE-INT-004 | Mission Control (dashboard, kanban, SSE) | :3000 | `02_memory_lobes/NC-LBE-INT-004-mission-control.mdc` |
-| NC-LBE-INT-005 | Pixel Agents (observer pixel-art, JSONL) | :8765 | `02_memory_lobes/NC-LBE-INT-005-pixel-agents.mdc` |
+| NC-LBE-INT-005 | Pixel Agents (observer pixel-art, JSONL) | :8767 | `02_memory_lobes/NC-LBE-INT-005-pixel-agents.mdc` |
 | NC-LBE-DS-003 | Worker Patterns (B1–B6, claim protocol) | — | `01_neocortex_framework/lobes/NC-LBE-DS-003-worker-patterns.mdc` |
 | NC-LBE-FR-QUALITY-001 | Env Quality (ambiente isolado, checks) | — | `01_neocortex_framework/lobes/NC-LBE-FR-QUALITY-001-env-quality.mdc` |
 | NC-LBE-FR-QUALITY-002 | Context Compaction (dedup, compactação) | — | `01_neocortex_framework/lobes/NC-LBE-FR-QUALITY-002-context-compaction.mdc` |
@@ -164,13 +168,23 @@ head -80 "01_neocortex_framework/lobes/NC-LBE-USR-001-user-consciousness.mdc"
 - [ ] Firewall emocional carregado (Joaquin / Antônio / Helena = CRITICAL)
 
 ```powershell
-# 1. Verificar portas ativas (MCP health wrapper :8766, MC :3000, PicoClaw :18790)
-$portas = @(8766, 3000, 18790)
+# 0. Verificar LiteLLM gateway :4000 (DEVE estar UP antes do MCP)
+$portas = @(4000, 8766, 3000, 18790, 11434)
 foreach ($p in $portas) {
     $conn = Test-NetConnection -ComputerName localhost -Port $p -WarningAction SilentlyContinue
     $status = if ($conn.TcpTestSucceeded) { "UP" } else { "DOWN" }
-    Write-Host "$p`: $status"
+    Write-Host "$p`: $status $(switch($p){4000{'(LiteLLM)'}; 8766{'(MCP)'}; 3000{'(MC)'}; 18790{'(PicoClaw)'}; 11434{'(Ollama)'}})"
 }
+
+# Se LiteLLM DOWN — iniciar:
+# .\01_neocortex_framework\scripts\NC-SCR-FR-110-litellm-startup.ps1 -Start
+# OU registrar no Task Scheduler (run as Admin):
+# .\01_neocortex_framework\scripts\NC-SCR-FR-110-litellm-startup.ps1 -Register
+
+# LiteLLM health via MCP (após MCP iniciar):
+# neocortex_litellm.gateway.health
+
+# 1. Verificar portas ativas (MCP health wrapper :8766, MC :3000, PicoClaw :18790)
 
 # 2. Health check MCP via wrapper (NC-SCR-FR-098, porta 8766)
 #    Se 8766 UP → JSON com status/uptime
@@ -205,16 +219,17 @@ if ((Test-NetConnection -ComputerName localhost -Port 8766 -WA 0).TcpTestSucceed
 
 # PASSO 5: Pixel Agents — instalar extensão VS Code
 #   code --install-extension pablodelucca.pixel-agents
-#   # Observer passivo em :8765
+#   # Observer passivo em :8767
 ```
 
 **Checklist Ciclo 0:**
+- [ ] LiteLLM Gateway (:4000) UP — `NC-SCR-FR-110-litellm-startup.ps1 -Start`
 - [ ] MCP Core (NeoCortex server.py) — stdio conectado ao Antigravity
 - [ ] **Health Wrapper (:8766) UP** — `GET /health` retorna JSON válido ← NOVO (AGENT-206 ✅)
 - [ ] **`/ready` = 200** — MCP stdio respondendo confirmado
 - [ ] Mission Control (:3000) — dashboard acessível
 - [ ] PicoClaw (:18790) — gateway A2A ativo, DeepSeek API configurada
-- [ ] Pixel Agents (:8765) — extensão VS Code instalada (observer)
+- [ ] Pixel Agents (:8767) — extensão VS Code instalada (observer)
 - [ ] NC-ADP-FR-001 — NeoCortex registrado no Mission Control
 
 ---
@@ -270,6 +285,37 @@ Select-String -Path "DIR-BOOT-FR-001-bootup-main\NC-BOOT-FR-001-system-manifest.
 - [ ] ⛔ BLOQUEANTE: 0 tickets ativos sem handoff
 - [ ] ⛔ BLOQUEANTE: 0 handoffs sem ticket formal → criar retrospectivo se houver
 - [ ] Nenhum ticket crítico bloqueante (seção 9 do bootup)
+
+### 📡 ACESSO AOS COMPONENTES NEOcORTEX (Orquestrador Unitário)
+
+> **IMPORTANTE:** O NeoCortex opera como orquestrador unitário gerenciando 16 portas (8 serviços + 8 A2A). Acesse cada componente conforme abaixo:
+
+| Componente | Porta | URL / Comando | Descrição |
+|------------|-------|---------------|-----------|
+| **MCP Server (core)** | `8765` | `ws://localhost:8765` | Servidor WebSocket/SSE principal. Verificar: `netstat -an | findstr 8765` |
+| **Health wrapper** | `8766` | `http://localhost:8766/health` | Endpoint de saúde. Testar: `curl http://localhost:8766/health` |
+| **Pixel Agents HTTP** | `8767` | `http://localhost:8767` | Servidor de hooks para extensão VS Code (recebe eventos Claude Code) |
+| **A2A Gateway** | `8768` | `ws://localhost:8768` | Comunicação entre agentes (Agent-to-Agent) |
+| **Courier service** | `8769` | `http://localhost:8769` | Entrega de mensagens entre componentes |
+| **Engineer service** | `8770` | `http://localhost:8770` | Execução de tasks de engenharia |
+| **FastAPI Web** | `8771` | `http://localhost:8771` | Interface administrativa web |
+| **Webhook receiver** | `8772` | `http://localhost:8772` | Recebe webhooks externos |
+| **A2A Channel 1** | `8773` | `ws://localhost:8773` | Canal A2A reservado 1 |
+| **A2A Channel 2-8** | `8774-8780` | `ws://localhost:8774` etc. | Canais A2A adicionais |
+| **Mission Control** | `3000` | `http://localhost:3000` | Dashboard React com kanban e SSE |
+| **PicoClaw gateway** | `18790` | `http://localhost:18790` | Gateway A2A para despacho de tasks |
+| **OpenCode agentes** | `59520` `44624` `32763` | `http://localhost:59520` etc. | Runtime dos agentes T1 (DeepSeek executor) |
+
+**Procedimentos de verificação (Ciclo 0 obrigatório):**
+1. **MCP Server**: `curl http://localhost:8766/ready` deve retornar 200 (MCP stdio respondendo)
+2. **Health wrapper**: `curl http://localhost:8766/health` retorna JSON com status
+3. **Mission Control**: Acessar `http://localhost:3000` no navegador
+4. **Pixel Agents**: Verificar extensão VS Code instalada e configurada para porta 8767
+5. **PicoClaw**: `netstat -an | findstr 18790` para gateway ativo
+
+**Conflitos resolvidos:** Pixel Agents movido da porta 8765 para 8767 para liberar MCP Server.
+
+---
 
 ---
 
@@ -441,6 +487,8 @@ print(f'Tickets:{len(t)} Handoffs:{len(h)} Orfaos:{sorted(t-h)}')
 - [ ] WAL pruning executado (sem erros)
 - [ ] Baseline 0 órfãos (tickets sem handoff = apenas tickets OPEN ativos)
 - [ ] Nenhum `.db-wal`/`.db-shm`/`__pycache__` commitado
+- [ ] **[AUTO-MEMORY]** `neocortex_session(action="session.summarize")` executado
+- [ ] **[AUTO-MEMORY]** `neocortex_memory_auto(action="catalog.now")` → atualiza memory/hot-context.md
 
 ---
 
@@ -520,6 +568,11 @@ python "01_neocortex_framework\scripts\NC-SCR-FR-001-populate-lobes-ssot.py"
 
 | Ação | Comando |
 |------|---------|
+| LiteLLM health | `Invoke-RestMethod http://localhost:4000/health -Headers @{Authorization='Bearer sk-my-master-key-123'}` |
+| LiteLLM iniciar | `.\01_neocortex_framework\scripts\NC-SCR-FR-110-litellm-startup.ps1 -Start` |
+| LiteLLM registrar | `.\01_neocortex_framework\scripts\NC-SCR-FR-110-litellm-startup.ps1 -Register` (Admin) |
+| LiteLLM via MCP | `neocortex_litellm.gateway.health` / `neocortex_litellm.route.call` |
+| Workers Qwen | `neocortex_litellm.workers.spawn` (n_workers=3) |
 | Ver bootup | `Get-Content "DIR-BOOT-FR-001-bootup-main\NC-BOOT-FR-001-system-manifest.md" -Head 100` |
 | Ver SSOT | `Get-Content "01_neocortex_framework\DIR-DOC-FR-001-docs-main\NC-NAM-FR-001-naming-convention.md" -Head 50` |
 | Listar tickets | `Get-ChildItem "DIR-DS-001-tickets\" -Filter "*.yaml" \| Select Name, LastWriteTime` |
@@ -559,7 +612,7 @@ python "01_neocortex_framework\scripts\NC-SCR-FR-001-populate-lobes-ssot.py"
 | `NC-LBE-INT-002-opencode-architecture.mdc` | OpenCode — runtime agentes T1 :45132 | LOBE |
 | `NC-LBE-INT-003-antigravity-integration.mdc` | Antigravity — T0 adapter, 38 tools MCP | LOBE |
 | `NC-LBE-INT-004-mission-control.mdc` | Mission Control — dashboard :3000 | LOBE |
-| `NC-LBE-INT-005-pixel-agents.mdc` | Pixel Agents — observer :8765 | LOBE |
+| `NC-LBE-INT-005-pixel-agents.mdc` | Pixel Agents — observer :8767 | LOBE |
 | `NC-LBE-DS-003-worker-patterns.mdc` | Worker Patterns — B1–B6, claim protocol | LOBE |
 | `NC-DOC-FR-001-ubiquitous-language-dictionary.md` | Dicionário Ubíquo @/$/% — SSOT símbolos | SSOT |
 | `NC-ADP-FR-001-mission-control.py` | Adapter NeoCortex → Mission Control | ADAPTER |
@@ -605,8 +658,9 @@ python "01_neocortex_framework\scripts\NC-SCR-FR-001-populate-lobes-ssot.py"
 
 ---
 
-**Hash**: `NC-WF-001-v3.7-20260417`  
-**Atualizado**: 2026-04-17  
-**Versão**: 3.7  
-**Fase**: PRÉ-MCP  
+**Hash**: `NC-WF-001-v4.0-20260418`  
+**Atualizado**: 2026-04-18  
+**Versão**: 4.0  
+**Fase**: SPRINT-ACELERADO (sem MC/Pixel)  
 _"Rotinas inertes matam produtividade. Handoffs são evidência. Bootup é verdade. Governança é lei."_
+

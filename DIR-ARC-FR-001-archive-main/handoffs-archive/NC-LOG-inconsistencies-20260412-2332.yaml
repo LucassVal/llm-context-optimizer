@@ -1,0 +1,58 @@
+# NC-LOG-inconsistencies — Relatório de dados corrompidos na fila
+# Gerado por: worker-57120-723033 (v2026-04-12c)
+# Data: 2026-04-12T23:32:49.957
+# Motivo: REG-008 violado (completed_at preenchido + status AVAILABLE) ou claimed_by preenchido + status AVAILABLE
+
+inconsistencies:
+  - ticket_id: NC-DS-021
+    status: AVAILABLE
+    claimed_by: "worker-20260412195125877-f87cfd"
+    claimed_at: "2026-04-12T19:53:24.746"
+    completed_at: "2026-04-12T21:51:15"
+    problems:
+      - "completed_at preenchido (21:51:15) mas status AVAILABLE"
+      - "claimed_by preenchido mas status AVAILABLE (deveria ser CLAIMED ou DONE)"
+    action_taken: "Pulado conforme REG-008"
+
+  - ticket_id: NC-DS-022
+    status: AVAILABLE
+    claimed_by: "worker-44949-f87cfd"
+    claimed_at: "2026-04-12T19:55:33.570"
+    completed_at: "2026-04-12T18:47:53"
+    problems:
+      - "completed_at preenchido (18:47:53) mas status AVAILABLE"
+      - "claimed_by preenchido mas status AVAILABLE"
+      - "completed_at anterior a claimed_at (impossível)"
+    action_taken: "Pulado conforme REG-008"
+
+  - ticket_id: NC-DS-023
+    status: AVAILABLE
+    claimed_by: "worker-8512-f87cfd"
+    claimed_at: "2026-04-12T22:55:42.637712+00:00"
+    completed_at: "2026-04-12T18:56:53"
+    problems:
+      - "completed_at preenchido (18:56:53) mas status AVAILABLE"
+      - "claimed_by preenchido mas status AVAILABLE"
+      - "completed_at anterior a claimed_at (impossível)"
+    action_taken: "Pulado conforme REG-008"
+
+  - ticket_id: NC-DS-026
+    status: AVAILABLE
+    claimed_by: "worker-1776032984606-2196eb"
+    claimed_at: "2026-04-12T19:32:10.084"
+    completed_at: null
+    problems:
+      - "claimed_by preenchido (worker-1776032984606-2196eb) mas status AVAILABLE (deveria ser CLAIMED)"
+      - "claim expirado (age >300s)"
+    action_taken: "Pulado — inconsistência de estado"
+
+valid_task_found: NC-DS-018
+valid_task_status: AVAILABLE
+valid_task_completed_at: null
+valid_task_claimed_by: null
+
+recommendation: "T0 deve executar cleanup script para corrigir status: DONE onde completed_at preenchido, e resetar claims expirados."
+
+worker: worker-57120-723033
+prompt_hash: 723033e173be
+queue_version: "2.0"

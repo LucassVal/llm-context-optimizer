@@ -1,0 +1,77 @@
+# NC-DS-116-t0-handoff-audit-protocol.yaml
+# Institucionalizar protocolo de auditoria T0 ao receber handoff de agente T1
+# Executor: T0-Claude-Code (tarefa de governança — edita NC-WF-001)
+# ─────────────────────────────────────────────────────────────────────────────
+
+ticket_id: "NC-DS-116"
+status: "OPEN"
+priority: "HIGH"
+title: "Protocolo T0: auditoria obrigatória de handoff antes de marcar %DONE"
+created_at: "2026-04-16T15:10:00-03:00"
+created_by: "T0-Claude-Code"
+agent: "T0-Claude-Code"
+sprint: "FASE-1-MCP-MC"
+origin: "Falha identificada em 2026-04-16 — handoffs 103/104 marcados %DONE sem t0_review preenchido"
+
+context:
+  problema: |
+    T0 marcou NC-DS-103 e NC-DS-104 como %DONE no roadmap sem executar a
+    auditoria de handoff (t0_review ficou com null). O usuário detectou o gap.
+    O Ciclo 2 menciona validação mas sem passos concretos e obrigatórios.
+  impacto: |
+    - Artefatos com erros podem entrar no sistema sem detecção
+    - t0_review.ssot_updated null → SSOT desatualizado (caso real: NC-SCR-FR-103b)
+    - %DONE no roadmap sem evidência = governança falha
+
+task:
+  description: |
+    1. Adicionar bloco "PROTOCOLO DE AUDITORIA T0 — HANDOFF RECEBIDO" ao NC-WF-001
+       Ciclo 2, como passo obrigatório ANTES de marcar %DONE no roadmap.
+    2. O bloco deve conter checklist executável com comandos reais, não texto genérico.
+
+  passos:
+    - passo: "1. Ler NC-WF-001 e localizar seção Ciclo 2"
+    - passo: "2. Inserir bloco AUDITORIA T0 após 'Agente entrega handoff'"
+    - passo: "3. Checklist deve cobrir todos os campos de t0_review"
+    - passo: "4. Adicionar regra: '%DONE PROIBIDO sem t0_review preenchido'"
+
+  checklist_a_institucionalizar:
+    - item: "Ler handoff YAML — verificar status, locks_violated, files_created/modified"
+    - item: "Para cada .py em files_created/modified: py_compile + ruff check"
+    - item: "Verificar zero print() nos arquivos do diff"
+    - item: "Se files_created não vazio: verificar ssot_updated no t0_review"
+    - item: "Preencher t0_review completo (compile_ok, naming_ok, ssot_updated, locks_clean, roadmap_done)"
+    - item: "SÓ ENTÃO marcar %DONE no @ROADMAP"
+    - item: "Se qualquer check falhar: status REJECTED, criar ticket de correção"
+
+write_zone:
+  files:
+    - ".agents/workflows/NC-WF-001-workspace-routine.md"
+
+atomic_locks_proibidos:
+  - "01_neocortex_framework/neocortex/mcp/server.py"
+  - "01_neocortex_framework/neocortex/mcp/sub_server.py"
+  - "01_neocortex_framework/DIR-CFG-FR-001-config-main/neocortex_config.yaml"
+  - "antigravity_neocortex_config.json"
+  - "start_neocortex_mcp.ps1"
+  - "01_neocortex_framework/DIR-CORE-FR-001-core-central/NC-LED-FR-001-framework-ledger.json"
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml"
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.yaml"
+
+entry_state:
+  - "NC-WF-001 Ciclo 2 não tem protocolo obrigatório de auditoria de handoff"
+  - "t0_review pode ficar null → %DONE sem validação"
+
+exit_state:
+  - "NC-WF-001 Ciclo 2 contém bloco AUDITORIA T0 com checklist executável"
+  - "Regra explícita: '%DONE PROIBIDO sem t0_review preenchido'"
+  - "Handoff de NC-DS-116 gerado em DIR-DS-002-audit-logs/"
+
+integrity_hash: "NC-DS-116-v1.0-20260416"
+
+protocolo_agente:
+  nota: "T0 executa diretamente — edição de NC-WF-001"
+  step_0: "Ler NC-WF-001 seção Ciclo 2 antes de editar"
+  handoff_obrigatorio: "Gerar handoff em DIR-DS-002-audit-logs/ ao concluir"
+  falha_ou_bloqueio: "Se NC-WF-001 não encontrado ou estrutura diferente do esperado — parar e reportar"

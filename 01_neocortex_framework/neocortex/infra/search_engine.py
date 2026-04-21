@@ -1,3 +1,15 @@
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:59.657661'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+tags:
+  - neocortex-other
+  - level-0
+  - python
+---"""
 #!/usr/bin/env python3
 """
 SearchEngine - Unified search engine with SQLite FTS5 and Tantivy backends.
@@ -8,11 +20,9 @@ Provides fast full-text search across documents with metadata filtering.
 import json
 import logging
 import sqlite3
-import time
-from pathlib import Path
-from typing import Dict, Any, List, Optional, Tuple, Union
 from datetime import datetime
-import re
+from pathlib import Path
+from typing import Any, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -450,7 +460,6 @@ class SearchEngine:
     ) -> List[Dict[str, Any]]:
         """Search using Tantivy (if available)."""
         try:
-            import tantivy
 
             # Build Tantivy query
             query_parser = self.tantivy_index.searcher().parse_query(

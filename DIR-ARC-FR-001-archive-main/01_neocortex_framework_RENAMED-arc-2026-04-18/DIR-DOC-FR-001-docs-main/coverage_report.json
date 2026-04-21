@@ -1,0 +1,4030 @@
+{
+  "summary": {
+    "total_files": 229,
+    "recrutados": 229,
+    "desertores": 0,
+    "inimigos": 0,
+    "coverage_percent": 100.0
+  },
+  "desertores": [],
+  "inimigos": [],
+  "details": [
+    {
+      "path": "neocortex\\config.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "ARC",
+        "PRF",
+        "provider",
+        "DOC",
+        "mcp_server",
+        "update",
+        "check",
+        "agent",
+        "generate",
+        "base_url",
+        "neocortex_config",
+        "BAK",
+        "api_key",
+        "paths",
+        "model",
+        "get_config",
+        "API"
+      ]
+    },
+    {
+      "path": "neocortex\\__init__.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "generate"
+      ]
+    },
+    {
+      "path": "neocortex\\agent\\executor.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "provider",
+        "check",
+        "agent",
+        "generate",
+        "reason",
+        "spawn",
+        "action",
+        "backend",
+        "model",
+        "role",
+        "get_config"
+      ]
+    },
+    {
+      "path": "neocortex\\cli\\main.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "tools",
+        "description",
+        "get_full",
+        "generate",
+        "action",
+        "mcp_server"
+      ]
+    },
+    {
+      "path": "neocortex\\cli\\__init__.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "generate"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\agent_service.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "list_ephemeral",
+        "description",
+        "check",
+        "agent",
+        "heartbeat",
+        "generate",
+        "spawn",
+        "action",
+        "consume",
+        "backend",
+        "role"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\akl_service.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "decay_knowledge",
+        "get_metrics",
+        "generate",
+        "action",
+        "suggest_cleanup",
+        "assess_importance"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\benchmark_service.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "run_titanomachy",
+        "get_last_report",
+        "generate",
+        "action",
+        "run_drift"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\checkpoint_service.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "complete_task",
+        "LBE",
+        "update",
+        "description",
+        "check",
+        "set_current",
+        "get_current",
+        "_meta",
+        "generate",
+        "action"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\config_service.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "provider",
+        "update",
+        "description",
+        "agent",
+        "_meta",
+        "generate",
+        "reason",
+        "action",
+        "set_model",
+        "model",
+        "get_config"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\consolidation_service.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "update",
+        "description",
+        "generate",
+        "summarize_session",
+        "action",
+        "promote_to_rule",
+        "merge_learnings"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\cortex_service.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "validate_alias",
+        "update",
+        "get_aliases",
+        "get_full",
+        "generate",
+        "query",
+        "action",
+        "get_workflows"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\export_service.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "description",
+        "check",
+        "generate",
+        "to_markdown",
+        "action",
+        "to_graph",
+        "to_json"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\file_utils.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "ARC",
+        "DOC",
+        "agent",
+        "generate",
+        "get_config"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\init_service.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "ARC",
+        "DOC",
+        "config_files",
+        "description",
+        "check",
+        "resource",
+        "generate_lobe",
+        "generate",
+        "action",
+        "reason",
+        "scan_project",
+        "generate_cortex",
+        "API"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\kg_service.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "visualize",
+        "find_similar",
+        "generate",
+        "add_relation",
+        "query",
+        "action",
+        "add_entity",
+        "query_relations"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\ledger_service.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "prune_context",
+        "update",
+        "description",
+        "check",
+        "agent",
+        "get_full",
+        "generate",
+        "query",
+        "action"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\lobe_service.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "LBE",
+        "categories",
+        "update",
+        "deactivate",
+        "get_checkpoint_tree",
+        "agent",
+        "check",
+        "_meta",
+        "get_full",
+        "generate",
+        "query",
+        "action",
+        "activate"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\logging_config.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "generate"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\manifest_service.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "list_all",
+        "update",
+        "check",
+        "T0",
+        "_meta",
+        "generate",
+        "query",
+        "action"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\NC-CFG-FR-001-logging-config.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "CFG",
+        "generate",
+        "get_config"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\NC-CORE-FR-014-lock-guard.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "update",
+        "forbidden_actions",
+        "agent",
+        "exceptions",
+        "backend",
+        "allowed_write",
+        "paths",
+        "role",
+        "SEC",
+        "CFG",
+        "spawn",
+        "check",
+        "T0",
+        "generate",
+        "policy",
+        "DOC",
+        "reason",
+        "action",
+        "mcp_server",
+        "atomic_locks"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\NC-CORE-FR-017-policy-loader.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "update",
+        "forbidden_actions",
+        "agent",
+        "mentor_prefix",
+        "limits",
+        "mentor",
+        "allowed_tools",
+        "backend",
+        "role",
+        "neocortex_ledger",
+        "task_timeout_seconds",
+        "resource",
+        "CFG",
+        "spawn",
+        "TOOL",
+        "max_tokens_per_task",
+        "neocortex_security",
+        "neocortex_lobes",
+        "min_call_interval_seconds",
+        "check",
+        "T0",
+        "heartbeat",
+        "daily_budget_usd",
+        "generate",
+        "neocortex_cortex",
+        "policy",
+        "tools",
+        "DOC",
+        "action",
+        "neocortex_regression",
+        "neocortex_checkpoint",
+        "max_retries",
+        "daily_budget_tokens"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\NC-CORE-FR-022-save-point-service.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "policy",
+        "tools",
+        "update",
+        "check",
+        "agent",
+        "SEC",
+        "list_active",
+        "generate",
+        "reason",
+        "spawn",
+        "action",
+        "paths",
+        "role"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\peers_service.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "discover",
+        "sync_state",
+        "resolve_conflict",
+        "generate",
+        "action"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\profile_manager.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "PRF",
+        "update",
+        "check",
+        "resource",
+        "generate",
+        "reason",
+        "action",
+        "model"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\profile_service.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "LBE",
+        "update",
+        "description",
+        "validate_access",
+        "resource",
+        "_meta",
+        "generate",
+        "reason",
+        "action"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\pulse_scheduler.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "prune_context",
+        "check",
+        "agent",
+        "generate",
+        "summarize_session",
+        "TODO",
+        "get_config",
+        "assess_importance",
+        "backups"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\regression_service.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "check",
+        "list_all",
+        "generate",
+        "action"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\security_service.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "policy",
+        "validate_access",
+        "check",
+        "agent",
+        "resource",
+        "target_user_id",
+        "SEC",
+        "generate",
+        "CFG",
+        "action",
+        "reason",
+        "access_type",
+        "role",
+        "audit_changes",
+        "encrypt_sensitive",
+        "current_user_id"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\__init__.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "policy",
+        "check",
+        "agent",
+        "generate",
+        "get_config"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\adapters\\NC-ADP-FR-001-mission-control.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "tools",
+        "LBE",
+        "update",
+        "check",
+        "agent",
+        "heartbeat",
+        "exceptions",
+        "generate",
+        "query",
+        "base_url",
+        "action",
+        "role",
+        "API",
+        "max_retries"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\adapters\\__init__.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "generate"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\config\\NC-CFG-FR-002-feature-flags.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "tools",
+        "update",
+        "mentor",
+        "CFG",
+        "generate",
+        "neocortex_config",
+        "enabled"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\config\\NC-CFG-FR-004-project-config-schema.yaml",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "update",
+        "description",
+        "CFG",
+        "reason",
+        "api_key",
+        "paths",
+        "model",
+        "API",
+        "max_retries"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\config\\NC-CFG-FR-004-project-config.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "APP",
+        "CFG",
+        "generate",
+        "neocortex_config"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\config\\NC-CFG-FR-004-project-loader.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "CFG",
+        "generate",
+        "paths",
+        "get_config",
+        "APP"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\hooks\\NC-HK-FR-001-hook-registry.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "TOOL",
+        "tools",
+        "enabled",
+        "generate"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\hooks\\NC-HK-FR-002-simple-hook.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "agent",
+        "CFG",
+        "generate",
+        "TOOL",
+        "get_config",
+        "AUD"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\hooks\\__init__.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "TOOL",
+        "generate",
+        "check"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\review\\NC-REV-FR-001-confidence-review.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "APP",
+        "generate"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\review\\NC-VAL-FR-005-async-thread-validator.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "model",
+        "generate",
+        "query"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\review\\__init__.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "generate"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\review\\validators\\NC-VAL-FR-001-naming-validator.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "generate"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\review\\validators\\NC-VAL-FR-002-compile-validator.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "check",
+        "generate"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\review\\validators\\NC-VAL-FR-003-locks-validator.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "DOC",
+        "@LOCKS",
+        "SEC",
+        "generate",
+        "paths",
+        "atomic_locks"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\review\\validators\\__init__.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "generate"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\services\\NC-SVC-FR-001-logging-service.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "@LOCKS",
+        "description",
+        "generate",
+        "get_config"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\services\\NC-SVC-FR-002-health-service.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "tools",
+        "check",
+        "generate",
+        "TOOL"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\services\\NC-SVC-FR-003-savepoint-stub.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "@LOCKS",
+        "list_active",
+        "generate"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\services\\NC-SVC-FR-004-cache-service.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "@LOCKS",
+        "generate",
+        "get_config"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\services\\NC-SVC-FR-005-event-bus.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "@LOCKS",
+        "agent",
+        "generate",
+        "TOOL"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\services\\NC-SVC-FR-006-metrics-collector.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "tools",
+        "get_metrics",
+        "generate",
+        "action",
+        "TOOL",
+        "model"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\services\\NC-SVC-FR-007-state-machine.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "@LOCKS",
+        "agent",
+        "T0",
+        "generate",
+        "reason"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\services\\NC-SVC-FR-008-config-validator.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "ARC",
+        "provider",
+        "check",
+        "agent",
+        "SEC",
+        "generate",
+        "base_url",
+        "neocortex_config",
+        "backend",
+        "api_key",
+        "paths",
+        "model",
+        "mcp_server"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\services\\NC-SVC-FR-009-session-buddy.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "update",
+        "description",
+        "check",
+        "get_metrics",
+        "generate"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\services\\NC-SVC-FR-010-kairos-service.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "@LOCKS",
+        "generate"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\services\\NC-SVC-FR-011-ttl-manager.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "@LOCKS",
+        "heartbeat",
+        "generate",
+        "tools"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\services\\NC-SVC-FR-012-channel-notifier.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "@LOCKS",
+        "generate"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\services\\NC-SVC-FR-014-dry-run-preview.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "update",
+        "@LOCKS",
+        "agent",
+        "check",
+        "generate",
+        "reason",
+        "action",
+        "paths",
+        "role"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\services\\NC-SVC-FR-015-task-broker.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "update",
+        "generate",
+        "TOOL",
+        "role",
+        "get_config",
+        "API"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\utils\\NC-UTL-FR-001-yaml-safe-parser.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "generate",
+        "update"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\utils\\NC-UTL-FR-002-hash-utils.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "check",
+        "generate",
+        "update"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\utils\\NC-UTL-FR-003-path-resolver.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "tools",
+        "check",
+        "generate",
+        "TOOL",
+        "paths",
+        "get_config"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\utils\\NC-UTL-FR-004-id-validator.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "check",
+        "LBE",
+        "generate"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\utils\\__init__.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "generate"
+      ]
+    },
+    {
+      "path": "neocortex\\core\\workers\\NC-WKR-FR-001-persistent-worker.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "agent",
+        "heartbeat",
+        "max_retries",
+        "generate"
+      ]
+    },
+    {
+      "path": "neocortex\\infra\\backup_restore.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "policy",
+        "list_all",
+        "config_files",
+        "update",
+        "check",
+        "generate",
+        "neocortex_config",
+        "action",
+        "backend",
+        "get_config",
+        "backups"
+      ]
+    },
+    {
+      "path": "neocortex\\infra\\cache_backend.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "check",
+        "policy",
+        "backend",
+        "generate"
+      ]
+    },
+    {
+      "path": "neocortex\\infra\\config_validation.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "mcp_server",
+        "provider",
+        "description",
+        "check",
+        "SEC",
+        "generate",
+        "base_url",
+        "neocortex_config",
+        "reason",
+        "backend",
+        "api_key",
+        "paths",
+        "model",
+        "get_config",
+        "API"
+      ]
+    },
+    {
+      "path": "neocortex\\infra\\health_metrics.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "provider",
+        "categories",
+        "update",
+        "check",
+        "resource",
+        "limits",
+        "generate",
+        "paths",
+        "model",
+        "get_config",
+        "API"
+      ]
+    },
+    {
+      "path": "neocortex\\infra\\hot_cache.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "policy",
+        "update",
+        "check",
+        "generate",
+        "backend",
+        "enabled",
+        "get_config"
+      ]
+    },
+    {
+      "path": "neocortex\\infra\\ledger_store.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "policy",
+        "update",
+        "check",
+        "SEC",
+        "generate",
+        "action",
+        "get_section",
+        "to_json",
+        "get_config"
+      ]
+    },
+    {
+      "path": "neocortex\\infra\\lobe_index.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "update",
+        "description",
+        "check",
+        "agent",
+        "_meta",
+        "generate",
+        "query",
+        "get_config"
+      ]
+    },
+    {
+      "path": "neocortex\\infra\\manifest_store.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "policy",
+        "list_all",
+        "update",
+        "_meta",
+        "generate",
+        "query",
+        "get_config",
+        "API"
+      ]
+    },
+    {
+      "path": "neocortex\\infra\\metrics_store.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "provider",
+        "update",
+        "check",
+        "agent",
+        "generate",
+        "query",
+        "spawn",
+        "action",
+        "backend",
+        "model",
+        "get_config"
+      ]
+    },
+    {
+      "path": "neocortex\\infra\\profiler.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "tools",
+        "DOC",
+        "description",
+        "resource",
+        "limits",
+        "generate",
+        "query",
+        "get_config"
+      ]
+    },
+    {
+      "path": "neocortex\\infra\\search_engine.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "update",
+        "generate",
+        "query",
+        "backend",
+        "enabled",
+        "get_config"
+      ]
+    },
+    {
+      "path": "neocortex\\infra\\task_queue.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "description",
+        "generate",
+        "query",
+        "backend",
+        "get_config",
+        "max_retries"
+      ]
+    },
+    {
+      "path": "neocortex\\infra\\vector_engine.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "provider",
+        "update",
+        "resource",
+        "_meta",
+        "generate",
+        "query",
+        "backend",
+        "model"
+      ]
+    },
+    {
+      "path": "neocortex\\infra\\vector_engine_example.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "model",
+        "generate",
+        "query",
+        "get_config"
+      ]
+    },
+    {
+      "path": "neocortex\\infra\\vector_store.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "API",
+        "api_key",
+        "generate",
+        "query"
+      ]
+    },
+    {
+      "path": "neocortex\\infra\\llm\\backend.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "provider",
+        "check",
+        "generate",
+        "backend",
+        "model"
+      ]
+    },
+    {
+      "path": "neocortex\\infra\\llm\\deepseek_backend.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "provider",
+        "base_url",
+        "generate",
+        "reason",
+        "backend",
+        "api_key",
+        "model",
+        "role",
+        "API"
+      ]
+    },
+    {
+      "path": "neocortex\\infra\\llm\\factory.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "provider",
+        "agent",
+        "base_url",
+        "generate",
+        "backend",
+        "api_key",
+        "model"
+      ]
+    },
+    {
+      "path": "neocortex\\infra\\llm\\ollama_backend.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "provider",
+        "base_url",
+        "generate",
+        "backend",
+        "model",
+        "API"
+      ]
+    },
+    {
+      "path": "neocortex\\infra\\llm\\openai_backend.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "provider",
+        "base_url",
+        "generate",
+        "reason",
+        "backend",
+        "api_key",
+        "model",
+        "role",
+        "API"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\server.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "tools",
+        "update",
+        "description",
+        "check",
+        "agent",
+        "heartbeat",
+        "get_metrics",
+        "generate",
+        "summarize_session",
+        "action",
+        "TOOL",
+        "mcp_server"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\sub_server.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "LBE",
+        "agent",
+        "mentor_prefix",
+        "limits",
+        "mentor",
+        "allowed_tools",
+        "backend",
+        "role",
+        "ARC",
+        "SEC",
+        "CFG",
+        "TOOL",
+        "enabled",
+        "get_config",
+        "max_tokens_per_task",
+        "check",
+        "generate",
+        "lobe_dir",
+        "policy",
+        "tools",
+        "description",
+        "neocortex_config",
+        "action",
+        "mcp_server"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\__init__.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "generate"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-000-brain.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "description",
+        "agent",
+        "generate",
+        "reason",
+        "action",
+        "TOOL",
+        "api_key",
+        "get_config",
+        "API"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-001-cortex.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "validate_alias",
+        "get_aliases",
+        "get_full",
+        "generate",
+        "action",
+        "TOOL",
+        "get_section",
+        "neocortex_cortex",
+        "get_workflows"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-002-agent.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "list_ephemeral",
+        "neocortex_agent",
+        "agent",
+        "heartbeat",
+        "generate",
+        "spawn",
+        "TOOL",
+        "consume",
+        "action",
+        "backend",
+        "role"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-003-benchmark.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "run_titanomachy",
+        "get_last_report",
+        "generate",
+        "action",
+        "TOOL",
+        "neocortex_benchmark",
+        "run_drift"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-004-checkpoint.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "complete_task",
+        "set_current",
+        "description",
+        "check",
+        "get_current",
+        "generate",
+        "action",
+        "TOOL",
+        "list_history",
+        "neocortex_checkpoint"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-005-config.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "provider",
+        "update",
+        "agent",
+        "generate",
+        "neocortex_config",
+        "TOOL",
+        "action",
+        "set_model",
+        "backend",
+        "list_models",
+        "model",
+        "role",
+        "get_config"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-006-export.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "neocortex_export",
+        "to_markdown",
+        "generate",
+        "action",
+        "TOOL",
+        "to_graph",
+        "to_json"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-007-init.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "generate_lobe",
+        "generate",
+        "action",
+        "TOOL",
+        "scan_project",
+        "generate_cortex",
+        "neocortex_init"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-008-ledger.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "prune_context",
+        "get_dependency_graph",
+        "get_full",
+        "get_metrics",
+        "generate",
+        "action",
+        "TOOL",
+        "get_atomic_locks",
+        "neocortex_ledger",
+        "atomic_locks"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-009-lobes.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "neocortex_lobes",
+        "list_all",
+        "get_checkpoint_tree",
+        "deactivate",
+        "check",
+        "activate",
+        "list_active",
+        "generate",
+        "query",
+        "action",
+        "TOOL",
+        "get_content"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-010-peers.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "discover",
+        "neocortex_peers",
+        "sync_state",
+        "resolve_conflict",
+        "generate",
+        "action",
+        "TOOL"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-011-pulse.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "check",
+        "generate",
+        "action",
+        "TOOL",
+        "role"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-012-regression.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "list_all",
+        "add_entry",
+        "check",
+        "generate",
+        "action",
+        "TOOL",
+        "neocortex_regression"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-013-report.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "provider",
+        "agent",
+        "get_metrics",
+        "generate",
+        "spawn",
+        "TOOL",
+        "action",
+        "backend",
+        "model",
+        "get_config"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-014-search.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "TOOL",
+        "generate",
+        "query"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-015-security.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "neocortex_security",
+        "validate_access",
+        "resource",
+        "target_user_id",
+        "generate",
+        "action",
+        "TOOL",
+        "access_type",
+        "role",
+        "audit_changes",
+        "encrypt_sensitive",
+        "current_user_id"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-016-subserver.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "tools",
+        "check",
+        "agent",
+        "list_active",
+        "generate",
+        "reason",
+        "spawn",
+        "TOOL",
+        "action",
+        "role",
+        "API",
+        "lobe_dir"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-017-task.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "provider",
+        "agent",
+        "generate",
+        "query",
+        "action",
+        "TOOL",
+        "backend",
+        "model",
+        "role"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-018-push-notification.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "generate",
+        "reason",
+        "action",
+        "TOOL",
+        "enabled"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-019-project-manifest.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "DOC",
+        "BOOT",
+        "SCR",
+        "generate",
+        "action",
+        "TOOL",
+        "TODO",
+        "generated_at",
+        "API"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-020-knowledge.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "visualize",
+        "list_all",
+        "update",
+        "agent",
+        "neocortex_manifest",
+        "find_similar",
+        "query",
+        "suggest_cleanup",
+        "merge_learnings",
+        "neocortex_kg",
+        "decay_knowledge",
+        "TOOL",
+        "query_relations",
+        "assess_importance",
+        "generate",
+        "add_relation",
+        "summarize_session",
+        "add_entity",
+        "neocortex_consolidation",
+        "neocortex_akl",
+        "action",
+        "promote_to_rule"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-021-memory.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "validate_alias",
+        "list_all",
+        "get_checkpoint_tree",
+        "update",
+        "deactivate",
+        "check",
+        "get_aliases",
+        "get_full",
+        "list_active",
+        "generate",
+        "query",
+        "action",
+        "TOOL",
+        "get_content",
+        "get_section",
+        "activate",
+        "get_workflows"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-022-session.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "complete_task",
+        "list_all",
+        "add_entry",
+        "set_current",
+        "description",
+        "check",
+        "get_current",
+        "list_active",
+        "generate",
+        "action",
+        "TOOL",
+        "list_history"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-023-orchestration.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "list_ephemeral",
+        "tools",
+        "update",
+        "discover",
+        "agent",
+        "heartbeat",
+        "generate",
+        "reason",
+        "spawn",
+        "TOOL",
+        "consume",
+        "action",
+        "role",
+        "get_config",
+        "lobe_dir"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-024-governance.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "policy",
+        "check",
+        "generate",
+        "action",
+        "TOOL",
+        "get_config"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-025-system.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "provider",
+        "update",
+        "check",
+        "agent",
+        "CFG",
+        "generate",
+        "neocortex_config",
+        "TOOL",
+        "action",
+        "set_model",
+        "backend",
+        "list_models",
+        "model",
+        "role",
+        "get_config"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-026-intelligence.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "description",
+        "agent",
+        "generate",
+        "spawn",
+        "TOOL",
+        "action",
+        "backend",
+        "TODO",
+        "get_config",
+        "role",
+        "API"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-027-knowledge.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "ARC",
+        "LBE",
+        "update",
+        "SEC",
+        "generate",
+        "query",
+        "action",
+        "TOOL",
+        "paths",
+        "get_config"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-029-health.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "tools",
+        "check",
+        "agent",
+        "get_metrics",
+        "generate",
+        "reason",
+        "neocortex_config",
+        "TOOL",
+        "action",
+        "role",
+        "get_config"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-030-context.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "prune_context",
+        "tools",
+        "BOOT",
+        "description",
+        "@ROADMAP",
+        "T0",
+        "get_metrics",
+        "@SSOT",
+        "generate",
+        "action",
+        "TOOL",
+        "reason",
+        "model",
+        "TODO",
+        "get_config",
+        "generated_at",
+        "NAM",
+        "@BOOT"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-031-savepoint.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "TOOL",
+        "list_active",
+        "generate",
+        "action"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-034-dry-run.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "check",
+        "agent",
+        "generate",
+        "reason",
+        "action",
+        "TOOL",
+        "role"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-035-task.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "update",
+        "generate",
+        "reason",
+        "action",
+        "TOOL"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-036-picoclaw.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "agent",
+        "T0",
+        "generate",
+        "reason",
+        "action",
+        "TOOL"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\NC-TOOL-FR-037-hooks.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "TOOL",
+        "tools",
+        "generate",
+        "action"
+      ]
+    },
+    {
+      "path": "neocortex\\mcp\\tools\\__init__.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "generate"
+      ]
+    },
+    {
+      "path": "neocortex\\repositories\\base.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "generate",
+        "get_aliases",
+        "get_workflows",
+        "update"
+      ]
+    },
+    {
+      "path": "neocortex\\repositories\\file_system_repository.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "PRF",
+        "update",
+        "description",
+        "agent",
+        "get_aliases",
+        "generate",
+        "action",
+        "get_workflows"
+      ]
+    },
+    {
+      "path": "neocortex\\repositories\\__init__.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "generate",
+        "action"
+      ]
+    },
+    {
+      "path": "neocortex\\schemas\\a2a_message_schema.json",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "update",
+        "description",
+        "validate_access",
+        "agent",
+        "resource",
+        "heartbeat",
+        "_meta",
+        "generate",
+        "reason",
+        "action",
+        "$schema"
+      ]
+    },
+    {
+      "path": "neocortex\\schemas\\ledger_schema.json",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "tools",
+        "categories",
+        "update",
+        "description",
+        "check",
+        "agent",
+        "_meta",
+        "generate",
+        "reason",
+        "action",
+        "$schema",
+        "allowed_write",
+        "paths",
+        "enabled",
+        "model",
+        "atomic_locks"
+      ]
+    },
+    {
+      "path": "neocortex\\schemas\\__init__.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "generate"
+      ]
+    },
+    {
+      "path": "DIR-DOC-FR-001-docs-main\\NC-ALN-FR-001-arquitetural-alignment.md",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "tools",
+        "T0",
+        "ALN",
+        "T3",
+        "scan_project",
+        "paths",
+        "role",
+        "neocortex_init"
+      ]
+    },
+    {
+      "path": "DIR-DOC-FR-001-docs-main\\NC-APP-FR-001-technical-appendix.md",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "list_ephemeral",
+        "prune_context",
+        "validate_access",
+        "neocortex_export",
+        "agent",
+        "limits",
+        "mentor",
+        "allowed_tools",
+        "backend",
+        "role",
+        "neocortex_ledger",
+        "get_workflows",
+        "validate_alias",
+        "neocortex_agent",
+        "discover",
+        "SEC",
+        "spawn",
+        "TOOL",
+        "consume",
+        "APP",
+        "neocortex_security",
+        "neocortex_lobes",
+        "get_dependency_graph",
+        "check",
+        "T0",
+        "heartbeat",
+        "model",
+        "API",
+        "neocortex_cortex",
+        "encrypt_sensitive",
+        "policy",
+        "tools",
+        "sync_state",
+        "neocortex_peers",
+        "resolve_conflict",
+        "reason",
+        "to_graph",
+        "neocortex_regression"
+      ]
+    },
+    {
+      "path": "DIR-DOC-FR-001-docs-main\\NC-ARC-FR-001-decision-log.md",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "ARC",
+        "neocortex_lobes",
+        "tools",
+        "agent",
+        "T0",
+        "model",
+        "API"
+      ]
+    },
+    {
+      "path": "DIR-DOC-FR-001-docs-main\\NC-AUD-FR-001-timestamp-audit.md",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "tools",
+        "DOC",
+        "T0",
+        "SCR",
+        "%DONE",
+        "NAM",
+        "TODO",
+        "AUD"
+      ]
+    },
+    {
+      "path": "DIR-DOC-FR-001-docs-main\\NC-AUD-FR-002-checklist-validation.md",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "ARC",
+        "tools",
+        "DOC",
+        "check",
+        "agent",
+        "heartbeat",
+        "spawn",
+        "backend",
+        "TODO",
+        "get_config",
+        "AUD"
+      ]
+    },
+    {
+      "path": "DIR-DOC-FR-001-docs-main\\NC-CFG-FR-001-agent-policy-template.yaml",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "LBE",
+        "forbidden_actions",
+        "agent",
+        "mentor_prefix",
+        "strict_isolation",
+        "mentor",
+        "limits",
+        "allowed_tools",
+        "backend",
+        "api_key",
+        "role",
+        "neocortex_ledger",
+        "lobe_isolation",
+        "task_timeout_seconds",
+        "ARC",
+        "provider",
+        "CFG",
+        "spawn",
+        "require_regression_check",
+        "enabled",
+        "max_tokens_per_task",
+        "neocortex_lobes",
+        "min_call_interval_seconds",
+        "check",
+        "T0",
+        "daily_budget_usd",
+        "base_url",
+        "model",
+        "API",
+        "lobe_dir",
+        "preload_lobes",
+        "policy",
+        "tools",
+        "require_lobe_load",
+        "action",
+        "TODO",
+        "neocortex_regression",
+        "max_retries",
+        "daily_budget_tokens"
+      ]
+    },
+    {
+      "path": "DIR-DOC-FR-001-docs-main\\NC-CFG-FR-002-rules-policy.yaml",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "T2",
+        "LBE",
+        "BOOT",
+        "update",
+        "@ROADMAP",
+        "agent",
+        "limits",
+        "mentor",
+        "@SSOT",
+        "SCR",
+        "SOP",
+        "paths",
+        "role",
+        "NAM",
+        "%AGENT203",
+        "@BOOT",
+        "ARC",
+        "$DEV",
+        "$ENGINEER",
+        "@SOP",
+        "@LOCKS",
+        "SEC",
+        "CFG",
+        "%SEC403",
+        "spawn",
+        "enabled",
+        "$COURIER",
+        "%SEC401",
+        "APP",
+        "@POLICY",
+        "version",
+        "$GUARDIAN",
+        "T0",
+        "$SEC",
+        "@POPULATE",
+        "%ORCH301",
+        "@APPENDIX",
+        "%DONE",
+        "model",
+        "TG",
+        "%ORCH302",
+        "policy",
+        "$ARCH",
+        "DOC",
+        "description",
+        "reason",
+        "action",
+        "T3",
+        "%NEXT",
+        "%NOW",
+        "TODO"
+      ]
+    },
+    {
+      "path": "DIR-DOC-FR-001-docs-main\\NC-DOC-DS-005-topological-taxonomy.md",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "tools",
+        "DOC",
+        "agent",
+        "T0",
+        "_meta",
+        "SCR",
+        "generate",
+        "TOOL",
+        "TODO",
+        "NAM",
+        "role",
+        "API"
+      ]
+    },
+    {
+      "path": "DIR-DOC-FR-001-docs-main\\NC-DOC-FR-001-ubiquitous-language-dictionary.md",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "T2",
+        "ZONE:DOCS",
+        "LBE",
+        "BOOT",
+        "@ROADMAP",
+        "agent",
+        "limits",
+        "mentor",
+        "@SSOT",
+        "SCR",
+        "ZONE:ARCH",
+        "BAK",
+        "@ADR",
+        "SOP",
+        "NAM",
+        "%AGENT203",
+        "$BOOT_LOBE",
+        "@BOOT",
+        "AUD",
+        "ARC",
+        "$DEV",
+        "$ENGINEER",
+        "ZONE:LOBES",
+        "@SOP",
+        "@LOCKS",
+        "SEC",
+        "ZONE:BOOT",
+        "%SEC403",
+        "CFG",
+        "spawn",
+        "TOOL",
+        "$COURIER",
+        "%SEC401",
+        "LIB",
+        "APP",
+        "@POLICY",
+        "PRF",
+        "$GUARDIAN",
+        "T0",
+        "ALN",
+        "$SEC",
+        "$PROF",
+        "@POPULATE",
+        "%ORCH301",
+        "@APPENDIX",
+        "%DONE",
+        "$WL",
+        "@RULES",
+        "TG",
+        "%ORCH302",
+        "API",
+        "@CONFIG",
+        "$ARCH",
+        "policy",
+        "DOC",
+        "ZONE:TEST",
+        "TST",
+        "neocortex_config",
+        "ZONE:PROD",
+        "T3",
+        "%NEXT",
+        "%NOW",
+        "TODO",
+        "@PROMPT",
+        "DPL",
+        "$BENCH"
+      ]
+    },
+    {
+      "path": "DIR-DOC-FR-001-docs-main\\NC-DOC-FR-002-dev-environment-standard.md",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "ARC",
+        "tools",
+        "DOC",
+        "check",
+        "agent",
+        "SCR",
+        "TODO"
+      ]
+    },
+    {
+      "path": "DIR-DOC-FR-001-docs-main\\NC-DOC-FR-002-directory-convention.md",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "ARC",
+        "tools",
+        "DOC",
+        "agent",
+        "T0",
+        "CFG",
+        "BAK",
+        "NAM",
+        "TODO"
+      ]
+    },
+    {
+      "path": "DIR-DOC-FR-001-docs-main\\NC-GOV-FR-001-nworker-protocol.md",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "DOC",
+        "@LOCKS",
+        "T0",
+        "SEC",
+        "SCR",
+        "CFG",
+        "neocortex_config",
+        "NAM",
+        "APP",
+        "API"
+      ]
+    },
+    {
+      "path": "DIR-DOC-FR-001-docs-main\\NC-MAN-FR-001-project-manifest.json",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "LBE",
+        "BOOT",
+        "update",
+        "agent",
+        "mentor",
+        "SCR",
+        "SOP",
+        "backend",
+        "role",
+        "NAM",
+        "generated_at",
+        "AUD",
+        "ARC",
+        "neocortex_agent",
+        "SEC",
+        "CFG",
+        "TOOL",
+        "APP",
+        "version",
+        "neocortex_lobes",
+        "PRF",
+        "check",
+        "T0",
+        "ALN",
+        "generate",
+        "neocortex_init",
+        "policy",
+        "tools",
+        "DOC",
+        "neocortex_akl",
+        "neocortex_peers",
+        "neocortex_config",
+        "TODO"
+      ]
+    },
+    {
+      "path": "DIR-DOC-FR-001-docs-main\\NC-MAN-FR-001-project-manifest.md",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "LBE",
+        "BOOT",
+        "update",
+        "agent",
+        "SCR",
+        "SOP",
+        "backend",
+        "NAM",
+        "AUD",
+        "ARC",
+        "SEC",
+        "CFG",
+        "TOOL",
+        "APP",
+        "PRF",
+        "check",
+        "T0",
+        "ALN",
+        "generate",
+        "policy",
+        "tools",
+        "DOC",
+        "neocortex_config",
+        "TODO"
+      ]
+    },
+    {
+      "path": "DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001-naming-convention.md",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "list_ephemeral",
+        "complete_task",
+        "LBE",
+        "add_entry",
+        "list_all",
+        "update",
+        "neocortex_export",
+        "agent",
+        "BOOT",
+        "deactivate",
+        "mentor",
+        "set_current",
+        "allowed_tools",
+        "query",
+        "limits",
+        "_meta",
+        "SCR",
+        "BAK",
+        "SOP",
+        "paths",
+        "role",
+        "NAM",
+        "backend",
+        "get_aliases",
+        "get_workflows",
+        "AUD",
+        "ARC",
+        "validate_alias",
+        "categories",
+        "discover",
+        "@LOCKS",
+        "get_current",
+        "SEC",
+        "CFG",
+        "to_markdown",
+        "activate",
+        "spawn",
+        "TOOL",
+        "consume",
+        "forbidden_actions",
+        "backups",
+        "APP",
+        "neocortex_lobes",
+        "PRF",
+        "get_checkpoint_tree",
+        "check",
+        "T0",
+        "ALN",
+        "heartbeat",
+        "generate",
+        "%DONE",
+        "model",
+        "list_history",
+        "API",
+        "policy",
+        "tools",
+        "DOC",
+        "get_full",
+        "list_active",
+        "neocortex_config",
+        "action",
+        "get_section",
+        "TODO",
+        "mcp_server",
+        "get_content"
+      ]
+    },
+    {
+      "path": "DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001a-tools-registry.md",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "list_ephemeral",
+        "complete_task",
+        "add_entry",
+        "list_all",
+        "set_current",
+        "neocortex_export",
+        "agent",
+        "SCR",
+        "NAM",
+        "categories",
+        "discover",
+        "get_current",
+        "to_markdown",
+        "spawn",
+        "TOOL",
+        "consume",
+        "check",
+        "heartbeat",
+        "generate",
+        "list_history",
+        "tools",
+        "list_active"
+      ]
+    },
+    {
+      "path": "DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001b-lobes-registry.md",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "ARC",
+        "tools",
+        "LBE",
+        "DOC",
+        "provider",
+        "check",
+        "agent",
+        "T0",
+        "SEC",
+        "SCR",
+        "T3",
+        "BAK",
+        "NAM",
+        "API"
+      ]
+    },
+    {
+      "path": "DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001c-config-registry.md",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "policy",
+        "DOC",
+        "discover",
+        "agent",
+        "T0",
+        "SEC",
+        "SCR",
+        "CFG",
+        "NAM"
+      ]
+    },
+    {
+      "path": "DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001d-prompts-registry.md",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "tools",
+        "DOC",
+        "BOOT",
+        "check",
+        "agent",
+        "T0",
+        "SCR",
+        "TOOL",
+        "T3",
+        "NAM",
+        "APP",
+        "API"
+      ]
+    },
+    {
+      "path": "DIR-DOC-FR-001-docs-main\\NC-SEC-FR-001-atomic-locks.yaml",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "validate_access",
+        "agent",
+        "exceptions",
+        "root_files",
+        "BAK",
+        "allowed_write",
+        "paths",
+        "role",
+        "NAM",
+        "backend",
+        "lobe_isolation",
+        "ARC",
+        "allowed_read",
+        "SEC",
+        "CFG",
+        "cortex_files",
+        "backups",
+        "APP",
+        "cross_lobe_isolation",
+        "config_files",
+        "T0",
+        "neocortex_cortex",
+        "ssot_docs",
+        "lobe_dir",
+        "policy",
+        "DOC",
+        "description",
+        "reason",
+        "neocortex_config",
+        "action",
+        "TODO",
+        "mcp_server",
+        "atomic_locks"
+      ]
+    },
+    {
+      "path": "DIR-DOC-FR-001-docs-main\\NC-SEC-FR-002-entry-lock-protocol.md",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "description",
+        "check",
+        "agent",
+        "T0",
+        "SEC",
+        "CFG",
+        "enabled",
+        "TODO"
+      ]
+    },
+    {
+      "path": "DIR-DOC-FR-001-docs-main\\NC-SOP-FR-001-session-startup.md",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "ARC",
+        "policy",
+        "neocortex_lobes",
+        "LBE",
+        "DOC",
+        "check",
+        "agent",
+        "SEC",
+        "mentor",
+        "SCR",
+        "query",
+        "spawn",
+        "CFG",
+        "SOP",
+        "TODO",
+        "NAM",
+        "APP",
+        "neocortex_checkpoint"
+      ]
+    },
+    {
+      "path": "DIR-DOC-FR-001-docs-main\\NC-TODO-DS-001-roadmap-pre-mcp.md",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "LBE",
+        "BOOT",
+        "@ROADMAP",
+        "agent",
+        "SCR",
+        "@SSOT",
+        "NAM",
+        "@BOOT",
+        "AUD",
+        "@LOCKS",
+        "SEC",
+        "CFG",
+        "TOOL",
+        "APP",
+        "version",
+        "check",
+        "model",
+        "API",
+        "tools",
+        "DOC",
+        "neocortex_config",
+        "TODO"
+      ]
+    },
+    {
+      "path": "DIR-DOC-FR-001-docs-main\\NC-TODO-FR-001-project-roadmap-consolidated.md",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "T2",
+        "LBE",
+        "list_all",
+        "update",
+        "BOOT",
+        "neocortex_export",
+        "agent",
+        "mentor_prefix",
+        "deactivate",
+        "mentor",
+        "@SSOT",
+        "query",
+        "limits",
+        "SCR",
+        "@ROADMAP",
+        "get_aliases",
+        "backend",
+        "paths",
+        "role",
+        "NAM",
+        "get_workflows",
+        "@BOOT",
+        "AUD",
+        "ARC",
+        "validate_alias",
+        "discover",
+        "@LOCKS",
+        "SEC",
+        "CFG",
+        "validate_access",
+        "activate",
+        "spawn",
+        "TOOL",
+        "max_tokens_per_task",
+        "get_checkpoint_tree",
+        "check",
+        "T0",
+        "heartbeat",
+        "generate",
+        "@POPULATE",
+        "%DONE",
+        "model",
+        "API",
+        "lobe_dir",
+        "policy",
+        "tools",
+        "DOC",
+        "description",
+        "get_full",
+        "list_active",
+        "neocortex_config",
+        "action",
+        "T3",
+        "get_section",
+        "TODO",
+        "get_content"
+      ]
+    },
+    {
+      "path": "DIR-DOC-FR-001-docs-main\\symbolic_map.json",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "T2",
+        "ZONE:DOCS",
+        "run_titanomachy",
+        "neocortex_export",
+        "mentor_prefix",
+        "get_metrics",
+        "allowed_tools",
+        "set_model",
+        "api_key",
+        "paths",
+        "role",
+        "suggest_cleanup",
+        "generated_at",
+        "$BOOT_LOBE",
+        "merge_learnings",
+        "task_timeout_seconds",
+        "ARC",
+        "@SOP",
+        "%SEC403",
+        "spawn",
+        "require_regression_check",
+        "neocortex_benchmark",
+        "query_relations",
+        "cortex_files",
+        "get_config",
+        "max_tokens_per_task",
+        "to_json",
+        "current_user_id",
+        "min_call_interval_seconds",
+        "cross_lobe_isolation",
+        "heartbeat",
+        "add_relation",
+        "scan_project",
+        "@APPENDIX",
+        "%DONE",
+        "encrypt_sensitive",
+        "preload_lobes",
+        "$ARCH",
+        "policy",
+        "neocortex_consolidation",
+        "target_user_id",
+        "neocortex_config",
+        "T3",
+        "to_graph",
+        "TODO",
+        "neocortex_checkpoint",
+        "DPL",
+        "list_ephemeral",
+        "visualize",
+        "LBE",
+        "add_entry",
+        "list_all",
+        "update",
+        "agent",
+        "strict_isolation",
+        "find_similar",
+        "@SSOT",
+        "mentor",
+        "query",
+        "allowed_write",
+        "NAM",
+        "neocortex_ledger",
+        "lobe_isolation",
+        "get_workflows",
+        "neocortex_kg",
+        "AUD",
+        "$DEV",
+        "$ENGINEER",
+        "ZONE:LOBES",
+        "discover",
+        "get_current",
+        "SEC",
+        "ZONE:BOOT",
+        "generate_lobe",
+        "resource",
+        "to_markdown",
+        "$COURIER",
+        "@POLICY",
+        "version",
+        "T0",
+        "ALN",
+        "custom_tools",
+        "generate",
+        "$PROF",
+        "list_history",
+        "lobe_dir",
+        "DOC",
+        "description",
+        "neocortex_akl",
+        "neocortex_peers",
+        "list_active",
+        "TST",
+        "ZONE:PROD",
+        "$schema",
+        "audit_changes",
+        "max_retries",
+        "complete_task",
+        "prune_context",
+        "BOOT",
+        "deactivate",
+        "set_current",
+        "neocortex_manifest",
+        "limits",
+        "_meta",
+        "SCR",
+        "exceptions",
+        "BAK",
+        "@ADR",
+        "SOP",
+        "backend",
+        "%AGENT203",
+        "@BOOT",
+        "validate_alias",
+        "@LOCKS",
+        "allowed_read",
+        "CFG",
+        "consume",
+        "backups",
+        "assess_importance",
+        "APP",
+        "neocortex_security",
+        "get_dependency_graph",
+        "config_files",
+        "$SEC",
+        "base_url",
+        "@POPULATE",
+        "%ORCH301",
+        "$WL",
+        "@RULES",
+        "%ORCH302",
+        "API",
+        "tools",
+        "ZONE:TEST",
+        "require_lobe_load",
+        "get_full",
+        "action",
+        "promote_to_rule",
+        "generate_cortex",
+        "get_section",
+        "%NOW",
+        "access_type",
+        "neocortex_regression",
+        "@PROMPT",
+        "get_content",
+        "server_name",
+        "validate_access",
+        "@ROADMAP",
+        "forbidden_actions",
+        "get_aliases",
+        "root_files",
+        "run_drift",
+        "provider",
+        "categories",
+        "get_last_report",
+        "decay_knowledge",
+        "neocortex_agent",
+        "activate",
+        "TOOL",
+        "enabled",
+        "%SEC401",
+        "LIB",
+        "neocortex_lobes",
+        "PRF",
+        "$GUARDIAN",
+        "get_checkpoint_tree",
+        "check",
+        "daily_budget_usd",
+        "summarize_session",
+        "add_entity",
+        "list_models",
+        "model",
+        "neocortex_init",
+        "TG",
+        "neocortex_cortex",
+        "@CONFIG",
+        "ssot_docs",
+        "sync_state",
+        "resolve_conflict",
+        "reason",
+        "get_atomic_locks",
+        "%NEXT",
+        "mcp_server",
+        "atomic_locks",
+        "ZONE:ARCH",
+        "$BENCH",
+        "daily_budget_tokens"
+      ]
+    },
+    {
+      "path": "DIR-DOC-FR-001-docs-main\\legacy\\CHEATSHEET.md",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "check",
+        "backups"
+      ]
+    },
+    {
+      "path": "DIR-PRF-FR-001-profiles-main\\NC-PRF-FR-001-developer-schema.md",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "PRF",
+        "tools",
+        "mcp_server",
+        "update",
+        "check",
+        "T0",
+        "resource",
+        "mentor",
+        "reason",
+        "action",
+        "$schema",
+        "backend",
+        "api_key",
+        "model",
+        "role",
+        "API"
+      ]
+    },
+    {
+      "path": "DIR-PRF-FR-001-profiles-main\\NC-PRF-FR-002-team-schema.md",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "policy",
+        "PRF",
+        "tools",
+        "update",
+        "description",
+        "check",
+        "agent",
+        "resource",
+        "T0",
+        "action",
+        "$schema",
+        "backend",
+        "enabled",
+        "role",
+        "API"
+      ]
+    },
+    {
+      "path": "DIR-PRF-FR-001-profiles-main\\NC-PRF-FR-003-profile-loader.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "PRF",
+        "tools",
+        "update",
+        "description",
+        "check",
+        "resource",
+        "_meta",
+        "reason",
+        "action",
+        "$schema",
+        "backend",
+        "api_key",
+        "model",
+        "role",
+        "mcp_server"
+      ]
+    },
+    {
+      "path": "DIR-PRF-FR-001-profiles-main\\profile_manager.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "PRF",
+        "update",
+        "check",
+        "resource",
+        "reason",
+        "action",
+        "model"
+      ]
+    },
+    {
+      "path": "DIR-PRF-FR-001-profiles-main\\templates\\NC-PRF-TMP-001-dev-profile-template.json",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "PRF",
+        "tools",
+        "update",
+        "action",
+        "$schema",
+        "backend",
+        "api_key",
+        "model",
+        "role",
+        "mcp_server"
+      ]
+    },
+    {
+      "path": "DIR-PRF-FR-001-profiles-main\\users\\lucas_valerio\\NC-PRF-USR-001-profile.json",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "PRF",
+        "tools",
+        "mcp_server",
+        "update",
+        "agent",
+        "action",
+        "$schema",
+        "backend",
+        "api_key",
+        "model",
+        "role",
+        "API"
+      ]
+    },
+    {
+      "path": "scripts\\approve_handoffs.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "update",
+        "agent",
+        "SCR",
+        "generate",
+        "CFG",
+        "APP"
+      ]
+    },
+    {
+      "path": "scripts\\audit_reader.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "SCR",
+        "generate"
+      ]
+    },
+    {
+      "path": "scripts\\batch_approve.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "agent",
+        "T0",
+        "SCR",
+        "generate",
+        "CFG",
+        "reason",
+        "APP",
+        "AUD"
+      ]
+    },
+    {
+      "path": "scripts\\create_lobes.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "LBE",
+        "update",
+        "set_current",
+        "agent",
+        "SCR",
+        "NAM",
+        "ARC",
+        "discover",
+        "SEC",
+        "generate_lobe",
+        "TOOL",
+        "version",
+        "check",
+        "generate",
+        "add_relation",
+        "add_entity",
+        "API",
+        "tools",
+        "DOC",
+        "description"
+      ]
+    },
+    {
+      "path": "scripts\\dep_scanner.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "ARC",
+        "SCR",
+        "generate",
+        "BAK",
+        "LIB"
+      ]
+    },
+    {
+      "path": "scripts\\exhaustive_population.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "ARC",
+        "PRF",
+        "tools",
+        "LBE",
+        "DOC",
+        "update",
+        "description",
+        "set_current",
+        "check",
+        "SEC",
+        "SCR",
+        "generate_lobe",
+        "add_relation",
+        "generate",
+        "scan_project",
+        "add_entity"
+      ]
+    },
+    {
+      "path": "scripts\\extract_tools_robust.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "tools",
+        "SCR",
+        "generate",
+        "action",
+        "TOOL"
+      ]
+    },
+    {
+      "path": "scripts\\fix_approve_022_023.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "update",
+        "agent",
+        "SCR",
+        "generate",
+        "CFG",
+        "reason",
+        "APP",
+        "AUD"
+      ]
+    },
+    {
+      "path": "scripts\\fix_indentation.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "TOOL",
+        "tools",
+        "SCR",
+        "generate"
+      ]
+    },
+    {
+      "path": "scripts\\fix_queue.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "@LOCKS",
+        "agent",
+        "SCR",
+        "generate",
+        "CFG",
+        "NAM",
+        "TODO"
+      ]
+    },
+    {
+      "path": "scripts\\generate_all_manifests.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "get_full",
+        "SCR",
+        "generate",
+        "TODO"
+      ]
+    },
+    {
+      "path": "scripts\\inspect_config.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "SCR",
+        "generate",
+        "get_config"
+      ]
+    },
+    {
+      "path": "scripts\\migrate_to_stores.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "check",
+        "agent",
+        "SCR",
+        "generate",
+        "action",
+        "paths",
+        "get_config"
+      ]
+    },
+    {
+      "path": "scripts\\NC-SCR-FR-001-populate-lobes-ssot.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "LBE",
+        "update",
+        "agent",
+        "limits",
+        "SCR",
+        "SOP",
+        "NAM",
+        "ARC",
+        "SEC",
+        "CFG",
+        "activate",
+        "APP",
+        "PRF",
+        "check",
+        "ALN",
+        "generate",
+        "policy",
+        "tools",
+        "DOC",
+        "description",
+        "action",
+        "TODO"
+      ]
+    },
+    {
+      "path": "scripts\\NC-SCR-FR-002-tool-manifest-generator.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "tools",
+        "DOC",
+        "server_name",
+        "categories",
+        "description",
+        "check",
+        "agent",
+        "_meta",
+        "SCR",
+        "custom_tools",
+        "generate",
+        "action",
+        "TOOL",
+        "$schema",
+        "paths",
+        "generated_at"
+      ]
+    },
+    {
+      "path": "scripts\\NC-SCR-FR-003-manifest-factory.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "LBE",
+        "BOOT",
+        "agent",
+        "SCR",
+        "mentor",
+        "BAK",
+        "SOP",
+        "NAM",
+        "generated_at",
+        "ARC",
+        "SEC",
+        "CFG",
+        "TOOL",
+        "version",
+        "generate",
+        "scan_project",
+        "API",
+        "lobe_dir",
+        "policy",
+        "tools",
+        "DOC",
+        "description",
+        "TODO"
+      ]
+    },
+    {
+      "path": "scripts\\NC-SCR-FR-004-governance-validator.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "tools",
+        "DOC",
+        "update",
+        "description",
+        "check",
+        "SCR",
+        "generate",
+        "action",
+        "NAM",
+        "get_config"
+      ]
+    },
+    {
+      "path": "scripts\\NC-SCR-FR-005-auto-approve.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "policy",
+        "update",
+        "agent",
+        "T0",
+        "SCR",
+        "generate",
+        "CFG",
+        "reason",
+        "get_config",
+        "APP"
+      ]
+    },
+    {
+      "path": "scripts\\NC-SCR-FR-006-ticket-validator.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "@LOCKS",
+        "SCR",
+        "generate",
+        "neocortex_config",
+        "paths",
+        "get_config"
+      ]
+    },
+    {
+      "path": "scripts\\NC-SCR-FR-007-queue-monitor.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "ARC",
+        "description",
+        "agent",
+        "SCR",
+        "generate",
+        "CFG",
+        "action"
+      ]
+    },
+    {
+      "path": "scripts\\NC-SCR-FR-008-queue-repair.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "agent",
+        "SCR",
+        "generate",
+        "CFG",
+        "APP",
+        "AUD"
+      ]
+    },
+    {
+      "path": "scripts\\NC-SCR-FR-009-sanitize-all-yamls.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "update",
+        "agent",
+        "SCR",
+        "generate",
+        "CFG",
+        "TODO",
+        "APP",
+        "AUD"
+      ]
+    },
+    {
+      "path": "scripts\\NC-SCR-FR-010-sync-ticket-status.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "SCR",
+        "generate",
+        "update",
+        "AUD"
+      ]
+    },
+    {
+      "path": "scripts\\NC-SCR-FR-011-sanitize-handoffs.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "ARC",
+        "APP",
+        "SCR",
+        "generate"
+      ]
+    },
+    {
+      "path": "scripts\\NC-SCR-FR-012-new-tool.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "tools",
+        "update",
+        "description",
+        "SCR",
+        "generate",
+        "CFG",
+        "TOOL",
+        "NAM"
+      ]
+    },
+    {
+      "path": "scripts\\NC-SCR-FR-013-validate-file.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "ARC",
+        "tools",
+        "description",
+        "check",
+        "SCR",
+        "generate",
+        "CFG",
+        "action",
+        "BAK"
+      ]
+    },
+    {
+      "path": "scripts\\NC-SCR-FR-017-visual-server.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "description",
+        "check",
+        "SCR",
+        "generate",
+        "action",
+        "paths",
+        "get_config",
+        "mcp_server"
+      ]
+    },
+    {
+      "path": "scripts\\NC-SCR-FR-020-yaml-injector.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "T2",
+        "description",
+        "_meta",
+        "SCR",
+        "generate"
+      ]
+    },
+    {
+      "path": "scripts\\NC-SCR-FR-021-lexicon-extractor.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "policy",
+        "tools",
+        "DOC",
+        "update",
+        "agent",
+        "T0",
+        "SEC",
+        "SCR",
+        "generate",
+        "CFG",
+        "action",
+        "TOOL"
+      ]
+    },
+    {
+      "path": "scripts\\NC-SCR-FR-022-coverage-auditor.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "PRF",
+        "DOC",
+        "T0",
+        "SCR",
+        "generate"
+      ]
+    },
+    {
+      "path": "scripts\\neocortex_hud.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "list_ephemeral",
+        "complete_task",
+        "prune_context",
+        "add_entry",
+        "run_titanomachy",
+        "list_all",
+        "update",
+        "deactivate",
+        "agent",
+        "set_current",
+        "validate_access",
+        "get_metrics",
+        "@SSOT",
+        "mentor",
+        "SCR",
+        "get_aliases",
+        "set_model",
+        "backend",
+        "role",
+        "NAM",
+        "neocortex_ledger",
+        "get_workflows",
+        "run_drift",
+        "get_last_report",
+        "neocortex_agent",
+        "get_current",
+        "SEC",
+        "CFG",
+        "activate",
+        "spawn",
+        "TOOL",
+        "consume",
+        "neocortex_benchmark",
+        "get_config",
+        "version",
+        "neocortex_security",
+        "neocortex_lobes",
+        "get_dependency_graph",
+        "check",
+        "heartbeat",
+        "generate",
+        "list_models",
+        "model",
+        "list_history",
+        "neocortex_cortex",
+        "encrypt_sensitive",
+        "policy",
+        "tools",
+        "DOC",
+        "get_full",
+        "list_active",
+        "neocortex_config",
+        "action",
+        "get_atomic_locks",
+        "get_section",
+        "audit_changes",
+        "neocortex_regression",
+        "atomic_locks",
+        "neocortex_checkpoint",
+        "get_content"
+      ]
+    },
+    {
+      "path": "scripts\\populate_memory.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "tools",
+        "LBE",
+        "provider",
+        "set_current",
+        "description",
+        "check",
+        "agent",
+        "SCR",
+        "generate",
+        "add_relation",
+        "action",
+        "summarize_session",
+        "scan_project",
+        "add_entity",
+        "neocortex_init",
+        "mcp_server",
+        "neocortex_kg"
+      ]
+    },
+    {
+      "path": "scripts\\reset_ds018.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "agent",
+        "SCR",
+        "generate",
+        "reason",
+        "CFG"
+      ]
+    },
+    {
+      "path": "scripts\\saneamento_raiz.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "ARC",
+        "tools",
+        "LBE",
+        "DOC",
+        "update",
+        "description",
+        "set_current",
+        "agent",
+        "check",
+        "SCR",
+        "generate",
+        "action",
+        "root_files",
+        "BAK",
+        "backups"
+      ]
+    },
+    {
+      "path": "scripts\\sign_tickets.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "SCR",
+        "generate",
+        "update"
+      ]
+    },
+    {
+      "path": "scripts\\stamp_prompt.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "agent",
+        "SCR",
+        "generate"
+      ]
+    },
+    {
+      "path": "scripts\\test_llm_backends.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "provider",
+        "check",
+        "SCR",
+        "generate",
+        "backend",
+        "model",
+        "get_config"
+      ]
+    },
+    {
+      "path": "scripts\\update_ledger_with_tools.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "tools",
+        "update",
+        "SCR",
+        "generate",
+        "action"
+      ]
+    },
+    {
+      "path": "scripts\\update_mcp_config.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "tools",
+        "update",
+        "description",
+        "SCR",
+        "generate",
+        "neocortex_config"
+      ]
+    },
+    {
+      "path": "scripts\\update_mcp_config2.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "tools",
+        "update",
+        "description",
+        "SCR",
+        "generate",
+        "neocortex_config"
+      ]
+    },
+    {
+      "path": "scripts\\update_phase3_progress.py",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "neocortex_security",
+        "tools",
+        "LBE",
+        "update",
+        "description",
+        "discover",
+        "agent",
+        "neocortex_peers",
+        "validate_access",
+        "SCR",
+        "generate",
+        "sync_state",
+        "action",
+        "resolve_conflict",
+        "audit_changes",
+        "encrypt_sensitive"
+      ]
+    },
+    {
+      "path": "lobes\\NC-LBE-DS-003-worker-patterns.mdc",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "T2",
+        "LBE",
+        "DOC",
+        "update",
+        "description",
+        "BOOT",
+        "agent",
+        "T0",
+        "check",
+        "SCR",
+        "@SSOT",
+        "CFG",
+        "TOOL",
+        "NAM",
+        "APP"
+      ]
+    },
+    {
+      "path": "lobes\\NC-LBE-FR-QUALITY-001-env-quality.mdc",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "tools",
+        "LBE",
+        "update",
+        "description",
+        "check",
+        "agent",
+        "T0",
+        "SCR",
+        "@SSOT",
+        "TODO",
+        "NAM"
+      ]
+    },
+    {
+      "path": "lobes\\NC-LBE-FR-QUALITY-002-context-compaction.mdc",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "LBE",
+        "description",
+        "agent",
+        "T0",
+        "SCR",
+        "action"
+      ]
+    },
+    {
+      "path": "lobes\\NC-LBE-INT-001-picoclaw-architecture.mdc",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "LBE",
+        "update",
+        "agent",
+        "query",
+        "api_key",
+        "role",
+        "ARC",
+        "provider",
+        "discover",
+        "SEC",
+        "spawn",
+        "TOOL",
+        "enabled",
+        "version",
+        "T0",
+        "base_url",
+        "model",
+        "API",
+        "tools",
+        "description",
+        "neocortex_config"
+      ]
+    },
+    {
+      "path": "lobes\\NC-LBE-INT-002-opencode-architecture.mdc",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "tools",
+        "LBE",
+        "provider",
+        "update",
+        "description",
+        "agent",
+        "T0",
+        "query",
+        "action",
+        "$schema",
+        "enabled",
+        "model",
+        "role",
+        "NAM",
+        "APP",
+        "API"
+      ]
+    },
+    {
+      "path": "lobes\\NC-LBE-INT-003-antigravity-integration.mdc",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "T2",
+        "LBE",
+        "agent",
+        "mentor",
+        "allowed_tools",
+        "paths",
+        "role",
+        "NAM",
+        "@LOCKS",
+        "CFG",
+        "spawn",
+        "TOOL",
+        "check",
+        "T0",
+        "%DONE",
+        "model",
+        "API",
+        "policy",
+        "tools",
+        "description",
+        "neocortex_config",
+        "action",
+        "T3",
+        "TODO"
+      ]
+    },
+    {
+      "path": "lobes\\backend_dev\\NC-LBE-FR-DEEPSEEK-001.md",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "tools",
+        "LBE",
+        "description",
+        "check",
+        "agent",
+        "mentor",
+        "generate",
+        "query",
+        "neocortex_config",
+        "CFG",
+        "base_url",
+        "TOOL",
+        "backend",
+        "api_key",
+        "model",
+        "role",
+        "reason",
+        "API"
+      ]
+    },
+    {
+      "path": "lobes\\cc-leak\\NC-LBE-CC-002-hooks-system.mdc",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "T2",
+        "LBE",
+        "update",
+        "description",
+        "@LOCKS",
+        "mentor",
+        "reason",
+        "neocortex_config",
+        "action",
+        "TOOL",
+        "model",
+        "NAM",
+        "AUD"
+      ]
+    },
+    {
+      "path": "lobes\\cc-leak\\NC-LBE-CC-003-persistent-worker.mdc",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "T2",
+        "LBE",
+        "update",
+        "description",
+        "@LOCKS",
+        "agent",
+        "check",
+        "heartbeat",
+        "CFG",
+        "neocortex_config",
+        "spawn",
+        "enabled",
+        "model",
+        "AUD"
+      ]
+    },
+    {
+      "path": "lobes\\cc-leak\\NC-LBE-CC-004-confidence-review.mdc",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "LBE",
+        "update",
+        "description",
+        "@LOCKS",
+        "agent",
+        "T0",
+        "check",
+        "CFG",
+        "@SSOT",
+        "neocortex_config",
+        "model",
+        "TODO",
+        "NAM",
+        "APP",
+        "atomic_locks",
+        "AUD"
+      ]
+    },
+    {
+      "path": "lobes\\cc-leak\\NC-LBE-CC-005-session-mate.mdc",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "T2",
+        "LBE",
+        "update",
+        "description",
+        "get_metrics",
+        "neocortex_config",
+        "NAM",
+        "API",
+        "AUD"
+      ]
+    },
+    {
+      "path": "lobes\\cc-leak\\NC-LBE-CC-006-project-config.mdc",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "T2",
+        "LBE",
+        "update",
+        "mentor",
+        "paths",
+        "NAM",
+        "AUD",
+        "discover",
+        "@LOCKS",
+        "CFG",
+        "TOOL",
+        "enabled",
+        "get_config",
+        "max_tokens_per_task",
+        "version",
+        "check",
+        "API",
+        "description",
+        "neocortex_config",
+        "atomic_locks"
+      ]
+    },
+    {
+      "path": "lobes\\cc-leak\\NC-LBE-CC-007-plugin-template.mdc",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "T2",
+        "tools",
+        "LBE",
+        "update",
+        "description",
+        "discover",
+        "check",
+        "SCR",
+        "CFG",
+        "neocortex_config",
+        "action",
+        "TOOL",
+        "enabled",
+        "NAM",
+        "AUD"
+      ]
+    },
+    {
+      "path": "lobes\\cc-leak\\NC-LBE-CC-008-pulse-daemon.mdc",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "T2",
+        "tools",
+        "LBE",
+        "update",
+        "description",
+        "check",
+        "agent",
+        "heartbeat",
+        "CFG",
+        "neocortex_config",
+        "spawn",
+        "TOOL",
+        "enabled",
+        "model",
+        "API"
+      ]
+    },
+    {
+      "path": "lobes\\cc-leak\\NC-LBE-CC-009-ttl-session-manager.mdc",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "T2",
+        "LBE",
+        "update",
+        "description",
+        "check",
+        "agent",
+        "heartbeat",
+        "neocortex_config",
+        "spawn"
+      ]
+    },
+    {
+      "path": "lobes\\cc-leak\\NC-LBE-CC-010-feature-flags-channels.mdc",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "T2",
+        "tools",
+        "LBE",
+        "update",
+        "description",
+        "check",
+        "agent",
+        "CFG",
+        "neocortex_config",
+        "TOOL",
+        "enabled"
+      ]
+    },
+    {
+      "path": "lobes\\courier\\neocortex_config.yaml",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "neocortex_lobes",
+        "tools",
+        "provider",
+        "agent",
+        "neocortex_manifest",
+        "get_metrics",
+        "base_url",
+        "allowed_tools",
+        "neocortex_config",
+        "query",
+        "model",
+        "role",
+        "neocortex_ledger"
+      ]
+    },
+    {
+      "path": "lobes\\courier\\DIR-CORE-FR-001-core-central\\memory_ledger_courier.json",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "tools",
+        "check",
+        "agent",
+        "neocortex_config",
+        "action",
+        "$schema",
+        "allowed_write",
+        "paths",
+        "role",
+        "enabled",
+        "model",
+        "atomic_locks"
+      ]
+    },
+    {
+      "path": "lobes\\courier\\DIR-CORE-FR-001-core-central\\.agents\\rules\\00-cortex-STARTER.mdc",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "neocortex_lobes",
+        "tools",
+        "update",
+        "description",
+        "check",
+        "agent",
+        "neocortex_manifest",
+        "get_metrics",
+        "mentor",
+        "query",
+        "neocortex_config",
+        "action",
+        "add_entity",
+        "role",
+        "neocortex_ledger",
+        "neocortex_kg"
+      ]
+    },
+    {
+      "path": "lobes\\engineer\\neocortex_config.yaml",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "neocortex_lobes",
+        "tools",
+        "provider",
+        "update",
+        "neocortex_consolidation",
+        "agent",
+        "base_url",
+        "allowed_tools",
+        "neocortex_config",
+        "add_entity",
+        "model",
+        "role",
+        "neocortex_kg"
+      ]
+    },
+    {
+      "path": "lobes\\engineer\\DIR-CORE-FR-001-core-central\\memory_ledger_engineer.json",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "tools",
+        "check",
+        "agent",
+        "neocortex_config",
+        "action",
+        "$schema",
+        "allowed_write",
+        "paths",
+        "role",
+        "enabled",
+        "model",
+        "atomic_locks"
+      ]
+    },
+    {
+      "path": "lobes\\engineer\\DIR-CORE-FR-001-core-central\\.agents\\rules\\00-cortex-STARTER.mdc",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "neocortex_lobes",
+        "tools",
+        "update",
+        "neocortex_consolidation",
+        "description",
+        "agent",
+        "check",
+        "mentor",
+        "neocortex_config",
+        "action",
+        "add_entity",
+        "enabled",
+        "role",
+        "neocortex_kg"
+      ]
+    },
+    {
+      "path": "C:\\Users\\Lucas Valrio\\Desktop\\TURBOQUANT_V42\\02_memory_lobes\\NC-LBE-INT-004-mission-control.mdc",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "LBE",
+        "update",
+        "agent",
+        "role",
+        "AUD",
+        "provider",
+        "SEC",
+        "spawn",
+        "enabled",
+        "version",
+        "T0",
+        "heartbeat",
+        "generate",
+        "model",
+        "API",
+        "tools",
+        "DOC",
+        "description",
+        "action"
+      ]
+    },
+    {
+      "path": "C:\\Users\\Lucas Valrio\\Desktop\\TURBOQUANT_V42\\02_memory_lobes\\NC-LBE-INT-005-pixel-agents.mdc",
+      "status": "RECRUTADO (Indexado)",
+      "matched_terms": [
+        "version",
+        "tools",
+        "LBE",
+        "update",
+        "check",
+        "agent",
+        "T0",
+        "SCR",
+        "generate",
+        "spawn",
+        "backend",
+        "NAM",
+        "API",
+        "AUD"
+      ]
+    }
+  ]
+}

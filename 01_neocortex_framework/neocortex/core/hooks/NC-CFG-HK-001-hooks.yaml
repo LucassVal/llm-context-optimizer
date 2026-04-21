@@ -1,0 +1,16 @@
+# NC-CFG-HK-001-hooks.yaml
+# Declaração YAML dos hooks ativos — carregado pelo HookRegistry.load_yaml()
+# Uso: registry.load_yaml(Path("...NC-CFG-HK-001-hooks.yaml"))
+
+hooks:
+  - name: lexico_step0
+    event: PreToolUse
+    script: "../hooks/NC-HK-FR-004-lexico-step0-hook.py"
+    enabled: true
+    description: |
+      LEXICO-STEP0: busca léxico antes de qualquer edição de serviço core.
+      Intercepta: neocortex_system, neocortex_memory, neocortex_security,
+                  neocortex_orchestration.
+      Ações monitoradas: config.set, knowledge.store, hook.register,
+                         task.execute, agent.spawn, etc.
+      Não bloqueia — emite logger.info com matches e regiões cerebrais.

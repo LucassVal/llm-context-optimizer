@@ -1,0 +1,29 @@
+{
+  "ticket_id": "NC-DS-005",
+  "phase": "FASE_1_PLANEJAR",
+  "timestamp": "2026-04-12T15:42:00",
+  "file_list": {
+    "create": [
+      "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-022-session.py"
+    ],
+    "modify": [
+      "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md",
+      "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md"
+    ]
+  },
+  "dependencies": [
+    "neocortex.core.get_checkpoint_service",
+    "neocortex.core.get_regression_service",
+    "neocortex.core.get_save_point_service"
+  ],
+  "risk_level": "MEDIUM",
+  "risk_reason": "Consolida trs tools existentes (checkpoint, regression, savepoint) em uma nica tool session, requerendo integrao correta dos servios e manuteno de compatibilidade com aes existentes.",
+  "validation_plan": [
+    "B1: Nome do arquivo segue NC-TOOL-FR-022-session.py",
+    "B2: Nenhum lock modificado",
+    "B3: py_compile bem-sucedido",
+    "B4: NC-NAM-FR-001 atualizado com nova entrada",
+    "B5: Sem hardcode de paths C:\\ ou /home/",
+    "B6: Sem print(), apenas logger"
+  ]
+}

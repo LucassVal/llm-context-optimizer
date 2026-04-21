@@ -1,0 +1,55 @@
+Scanning 181 Python files...
+
+=== EXTERNAL IMPORTS FOUND ===
+  [ERR] NC_HK_FR_001_hook_registry     -> No module named 'NC_HK_FR_001_hook_registry'
+         used in: neocortex\core\hooks\NC-HK-FR-002-example-hook.py
+  [ERR] NC_MCP_FR_001_mcp_server       -> No module named 'NC_MCP_FR_001_mcp_server'
+         used in: DIR-MCP-FR-001-mcp-server\test_tools_simple.py
+  [ERR] NC_SEC_FR_001_security_utils   -> No module named 'NC_SEC_FR_001_security_utils'
+         used in: DIR-CORE-FR-001-core-central\test_security_integration.py
+         used in: DIR-MCP-FR-001-mcp-server\NC-HUB-FR-001-mcp-hub.py
+  [OK ] PIL                            (1 files)
+  [OK ] aiohttp                        (3 files)
+  [OK ] cachetools                     (1 files)
+  [OK ] diskcache                      (4 files)
+  [OK ] diskcache_rs                   (1 files)
+  [OK ] duckdb                         (1 files)
+  [ERR] hooks                          -> No module named 'hooks'
+         used in: DIR-TMP-FR-001-templates-main\NC-TOOL-FR-TEMPLATE\tests\test_example.py
+  [OK ] jsonschema                     (3 files)
+  [OK ] mcp                            (5 files)
+  [OK ] msgspec                        (2 files)
+  [ERR] notifypy                       -> No module named 'notifypy'
+         used in: neocortex\mcp\tools\NC-TOOL-FR-032-push-notification.py
+  [OK ] platformdirs                   (2 files)
+  [OK ] psutil                         (3 files)
+  [OK ] pystray                        (1 files)
+  [OK ] pytest                         (1 files)
+  [OK ] rich                           (2 files)
+  [OK ] ruamel                         (2 files)
+  [OK ] tantivy                        (1 files)
+  [OK ] yaml                           (14 files)
+
+=== SUMMARY ===
+External modules: 22
+  Importable (OK):  17
+  MISSING (ERR):    5
+
+=== MISSING DEPENDENCIES ===
+  MISSING: NC_HK_FR_001_hook_registry
+    Error: No module named 'NC_HK_FR_001_hook_registry'
+    Used in (1 files): neocortex\core\hooks\NC-HK-FR-002-example-hook.py
+  MISSING: NC_MCP_FR_001_mcp_server
+    Error: No module named 'NC_MCP_FR_001_mcp_server'
+    Used in (1 files): DIR-MCP-FR-001-mcp-server\test_tools_simple.py
+  MISSING: NC_SEC_FR_001_security_utils
+    Error: No module named 'NC_SEC_FR_001_security_utils'
+    Used in (2 files): DIR-CORE-FR-001-core-central\test_security_integration.py, DIR-MCP-FR-001-mcp-server\NC-HUB-FR-001-mcp-hub.py
+  MISSING: hooks
+    Error: No module named 'hooks'
+    Used in (1 files): DIR-TMP-FR-001-templates-main\NC-TOOL-FR-TEMPLATE\tests\test_example.py
+  MISSING: notifypy
+    Error: No module named 'notifypy'
+    Used in (1 files): neocortex\mcp\tools\NC-TOOL-FR-032-push-notification.py
+
+  pip install: NC_HK_FR_001_hook_registry NC_MCP_FR_001_mcp_server NC_SEC_FR_001_security_utils hooks notifypy

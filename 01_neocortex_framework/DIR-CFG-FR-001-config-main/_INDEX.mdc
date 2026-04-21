@@ -1,0 +1,18 @@
+---
+dir: DIR-CFG-FR-001-config-main
+sigla: DIR-CFG
+function: Configurações globais do sistema — neocortex_config.yaml, profiles
+created: 2026-04-20
+---
+
+# DIR-CFG-FR-001-config-main
+
+## Função
+Configurações globais do sistema — neocortex_config.yaml, profiles
+
+## Conteúdo
+- `neocortex_config.yaml`
+- `neocortex_config_dev.yaml`
+
+## Notas
+> Gerado por NC-GOV-001 em 2026-04-20. Editar conforme necessário.

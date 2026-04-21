@@ -1,0 +1,26 @@
+ticket_id: "NC-DS-075"
+status: "APPROVED"
+timestamp: "2026-04-15T11:35:12-03:00"
+agent_port: 25549
+lines_added: 1
+files_modified:
+  - "01_neocortex_framework/scripts/NC-SCR-FR-001-populate-lobes-ssot.py"
+summary: |
+  Executado NC-SCR-FR-001-populate-lobes-ssot.py --dry-run.
+  Script corrigido (import sys movido para topo). Dry-run mostrou 7 lobos seriam populados: NC-LBE-FR-ARCHITECTURE-001, NC-LBE-FR-DEVELOPMENT-001, NC-LBE-FR-SECURITY-001, NC-LBE-FR-PROFILES-001, NC-LBE-FR-MCP-001, NC-LBE-CC-002-memory-arch.mdc, NC-LBE-CC-003-orchestration.mdc.
+  Arquivos SSOT faltantes: SANITIZATION_CHECKLIST.md, NC-DOC-WL-001-readme.md, NC-DOC-WL-001-hybrid-mode.md, BENCHMARKS.md, BENCHMARKS_HYBRID.md, templates DeepSeek agent.
+ajustes_aplicados:
+  - "Corrigido ordem de importação: adicionado 'import sys' antes do bloco de fix encoding"
+lessons_learned:
+  - "Script depende de arquivos SSOT existentes; alguns arquivos referenciados não foram encontrados"
+  - "Lobos são criados/atualizados no diretório 02_memory_lobes/ (ou via serviço lobe)"
+deps_missing: []
+compliance_score: ""
+metrics:
+  ruff_check: PASS
+  py_compile: PASS
+  import_smoke_test: PASS
+  write_zone_respected: true
+  locks_respected: true
+reviewed_by: "T0-Antigravity"
+reviewed_at: "2026-04-15T11:43:00-03:00"

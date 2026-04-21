@@ -1,13 +1,23 @@
 #!/usr/bin/env python3
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:57.061527'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: mcp-server
+level: 3
+tags:
+  - mcp-server
+  - level-3
+  - python
+---"""
+
 """
 UTF-0 Cleaner for NeoCortex MCP project.
 Removes emojis, accents, and non-ASCII characters from code files.
 Converts to international language (English ASCII).
 """
 
-import os
-import re
-import sys
 from pathlib import Path
 
 
@@ -16,49 +26,15 @@ def remove_accents_and_emojis(text: str) -> str:
     # Simple accent mapping for Portuguese
     accent_map = {
         "a": "a",
-        "a": "a",
-        "a": "a",
-        "a": "a",
-        "a": "a",
-        "e": "e",
-        "e": "e",
-        "e": "e",
         "e": "e",
         "i": "i",
-        "i": "i",
-        "i": "i",
-        "i": "i",
         "o": "o",
-        "o": "o",
-        "o": "o",
-        "o": "o",
-        "o": "o",
-        "u": "u",
-        "u": "u",
-        "u": "u",
         "u": "u",
         "c": "c",
         "A": "A",
-        "A": "A",
-        "A": "A",
-        "A": "A",
-        "A": "A",
-        "E": "E",
-        "E": "E",
-        "E": "E",
         "E": "E",
         "I": "I",
-        "I": "I",
-        "I": "I",
-        "I": "I",
         "O": "O",
-        "O": "O",
-        "O": "O",
-        "O": "O",
-        "O": "O",
-        "U": "U",
-        "U": "U",
-        "U": "U",
         "U": "U",
         "C": "C",
         "n": "n",
@@ -108,9 +84,6 @@ def clean_file(filepath: Path):
 def main():
     """Clean all Python and Markdown files in the project."""
     project_root = Path(__file__).parent.parent.parent
-    mcp_dir = project_root / "DIR-MCP-FR-001-mcp-server"
-    core_dir = project_root / "DIR-CORE-FR-001-core-central"
-    profiles_dir = project_root / "DIR-PRF-FR-001-profiles-main"
 
     # Patterns to clean
     patterns = ["*.py", "*.md", "*.mdc", "*.json", "*.txt"]

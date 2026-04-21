@@ -1,0 +1,31 @@
+ticket_id: NC-DS-029
+status: PENDING_REVIEW
+timestamp: "2026-04-13T13:29:29-03:00"
+agent_port: 59520
+lines_added: 334
+files_modified:
+  - 01_neocortex_framework/neocortex/core/workers/NC-WKR-FR-001-persistent-worker.py
+summary: |
+  Implementado PersistentWorker com loop contínuo, backoff exponencial 10→20→40s,
+  claim atômico via filelock, e suporte a start/stop/pause/resume.
+ajustes_aplicados:
+  - "Backoff exponencial 10→20→40s implementado"
+  - "PersistentWorker com start/stop/pause/resume"
+  - "Claim atômico via filelock"
+lessons_learned: []
+deps_missing: []
+ruff_violations_found: 0
+metrics:
+  ruff_check: PASS
+  py_compile: PASS
+  import_smoke_test: PASS
+  write_zone_respected: true
+  locks_respected: true
+  min_80_lines: true
+errors: []
+warnings: []
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  ajustes_synthesis_applied: true
+  handoff_yaml_complete: true

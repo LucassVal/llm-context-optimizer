@@ -1,3 +1,15 @@
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:59.507403'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+tags:
+  - neocortex-other
+  - level-0
+  - python
+---"""
 #!/usr/bin/env python3
 """
 LobeIndex - SQLite + FTS5 full-text search index for lobes.
@@ -7,12 +19,11 @@ Provides fast text search across all lobe contents with metadata filtering.
 
 import json
 import logging
-import sqlite3
-import time
-from pathlib import Path
-from typing import Dict, Any, List, Optional, Tuple, Union
-from datetime import datetime
 import re
+import sqlite3
+from datetime import datetime
+from pathlib import Path
+from typing import Any, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -670,8 +681,8 @@ class LobeIndexService:
 # Test function
 def test_lobe_index():
     """Test LobeIndex functionality."""
-    import tempfile
     import shutil
+    import tempfile
 
     # Create temporary directory
     temp_dir = Path(tempfile.mkdtemp())
@@ -733,7 +744,7 @@ Some more content with keywords: search, test, lobe.
         assert index.delete_lobe("test_lobe")
         assert index.get_lobe("test_lobe") is None
 
-        print("✓ LobeIndex tests passed")
+        print(" LobeIndex tests passed")
 
     finally:
         # Cleanup

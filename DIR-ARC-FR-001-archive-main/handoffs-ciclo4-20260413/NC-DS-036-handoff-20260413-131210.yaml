@@ -1,0 +1,21 @@
+# DIR-DS-002-audit-logs/NC-DS-036-handoff-20260413-131210.yaml
+ticket_id: NC-DS-036
+status: DELIVERED
+lines_added: 341
+files_modified:
+  - 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-011-ttl-manager.py
+summary: |
+  TTLManager reimplementado com cachetools.TTLCache para gestão granular de TTL por entidade.
+  Implementados métodos set(key, value, ttl_seconds), get(key), invalidate(key), cleanup(), stats().
+  Singleton thread‑safe com integração EventBus (R09 via spec_from_file_location).
+  Background thread processa expirações automaticamente e publica eventos entity_expired.
+ajustes_aplicados:
+  - Substituída implementação heapq+threading por cachetools.TTLCache com ttl callable
+  - Classe TTLCacheWithEvents estende TTLCache para coletar chaves expiradas e callbacks
+  - Método cleanup() dispara expiração e processa eventos
+  - Estatísticas de uso (sets, gets, hits, invalidations, expirations, cleanups)
+  - Integração com EventBus usando importação dinâmica (R09) para módulos com hífen
+  - Singleton thread‑safe via __new__ e RLock
+  - TTL_CONSTANTS mantidos para defaults
+  - py_compile e ruff sem erros
+re_entrega_motivo: "Arquivo rejeitado (41L). Expandido para ≥150L com cachetools.TTLCache conforme especificação."

@@ -1,4 +1,22 @@
 #!/usr/bin/env python3
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:57.050252'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: core-central
+level: 1
+parent_ssot: NC-SEC-FR-001
+related_ssot:
+  - NC-LED-FR-001-framework-ledger
+tags:
+  - core-central
+  - level-1
+  - python
+domain: framework
+layer: core
+---"""
+
 """
 NC-SEC-FR-001 - Security Utilities for NeoCortex Framework
 
@@ -8,7 +26,7 @@ Implements can_access function based on unlimited hierarchical levels.
 
 import json
 from pathlib import Path
-from typing import Dict, Any, Optional, Tuple
+from typing import Any, Dict, Optional, Tuple
 
 # ==================== CONSTANTS ====================
 

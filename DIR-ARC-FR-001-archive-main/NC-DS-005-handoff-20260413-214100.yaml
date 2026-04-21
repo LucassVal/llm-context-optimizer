@@ -1,0 +1,46 @@
+ticket_id: NC-DS-005
+status: APPROVED
+approved_by: antigravity-t0
+approved_at: "2026-04-13T21:41:00-03:00"
+timestamp: "2026-04-13T21:40:00-03:00"
+agent_port: 45132
+
+lines_added: 341
+files_modified:
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-037-hooks.py
+
+summary: |
+  Criado NC-TOOL-FR-037-hooks.py (341L). MCP tool neocortex_hooks com 5 ações:
+  hook.register, hook.unregister, hook.trigger, hook.list, hook.stats.
+  Singleton HookRegistry importado dinamicamente de NC-HK-FR-001-hook-registry.py.
+  LoggingHook e TimingHook registrados automaticamente na inicialização.
+  SSOT atualizado em NC-NAM-FR-001a-tools-registry.md.
+
+ajustes_aplicados:
+  - "Singleton _registry global no módulo"
+  - "Hooks pré-fabricados mapeados por nome: logging, timing, ratelimit, audit"
+  - "register_tool na linha 267 (estrutura identica FR-029-health)"
+
+lessons_learned:
+  - "Agente não gerou handoff YAML — tickets futuros devem ter barrier obrigatória para handoff"
+
+deps_missing: []
+ruff_violations_found: 0
+
+metrics:
+  ruff_check: PASS
+  py_compile: PASS
+  import_smoke_test: PASS
+  write_zone_respected: true
+  locks_respected: true
+  min_80_lines: true
+
+errors: []
+warnings:
+  - "Handoff não gerado pelo agente — criado pelo T0"
+
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  ajustes_synthesis_applied: true
+  handoff_yaml_complete: true

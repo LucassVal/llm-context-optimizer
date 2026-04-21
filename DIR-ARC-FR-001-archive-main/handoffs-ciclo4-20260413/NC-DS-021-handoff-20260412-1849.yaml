@@ -1,0 +1,14 @@
+status: APPROVED
+ticket_id: NC-DS-021
+submitted_at: "2026-04-12T18:50:17"
+submitted_by: deepseek-chat
+review_by: auto-approve-script
+summary:
+  files_created: ["01_neocortex_framework/neocortex/core/services/NC-SVC-FR-005-event-bus.py"]
+  files_modified: ["01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"]
+  lines_added: 140
+  barriers_passed: ["B1","B2","B3","B4","B5","B6"]
+  locks_violated: []
+  overall: SUCCESS
+approved_at: "2026-04-12T20:19:48"
+approved_by: antigravity-t0

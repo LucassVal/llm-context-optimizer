@@ -1,0 +1,24 @@
+---
+description: "Protocolo de Compactao de Contexto e Checkpoints de Sesso (< 100k Tokens)"
+globs: "**/*.md", "**/*.mdc"
+---
+
+# LOBE: Protocolo de Compactao e Economia de Contexto
+
+Este lobo padroniza o limite operacional de 100k tokens para sesses ativas do NeoCortex, validado matematicamente como ponto ideal entre reteno de memria e custo de Hit Cache.
+
+## 1. Regra de Teto (Cap 100k)
+Toda interao orquestrada (Interface Humano-OpenCode ou A2A via PicoClaw) **DEVE** acionar rotinas de compactao ao se aproximar de 100.000 tokens de contexto.
+1. **Sintoma:** Lentido no justificada ou excesso de rolagem histrica irrisria.
+2. **Ao:** Iniciar *End of Cycle* -> Atualizar o Master Context -> Fechar janela -> Abrir nova aba.
+
+## 2. Checkpoints de Contexto
+A compactao  feita descarregando eventos em discos durveis (Lobos e Prompts de Estado):
+- O agente T0 far a sntese final.
+- O resultado consolida em `NC-PROMPT-FR-001` (na seo de STATUS).
+- Conhecimento perene vira um `.mdc` em `01_neocortex_framework/lobes/`.
+
+## 3. Auto-Povoamento (Auto-Populate)
+Antes de matar a janela de chat superlotada, o agente deve garantir que:
+- O script `NC-SCR-FR-001-populate-lobes-ssot.py` seja invocado. Ele extrai as nuances geradas e indexa os embeddings para a busca semntica nas prximas conversas curtas.
+- Em resumo: O que o chat efmero perde de histria literal, o Cortex ganha em semntica indexada para Retrieval de US$ 0.014/1M.

@@ -1,0 +1,34 @@
+# DIR-DS-002-audit-logs/NC-DS-021-handoff-20260413-111328.yaml
+ticket_id: NC-DS-021
+status: PENDING_REVIEW
+timestamp: "2026-04-13T11:13:28Z"
+agent_port: null
+lines_added: 0
+files_modified:
+  - 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-005-event-bus.py
+summary: |
+  EventBus já implementa todas as funcionalidades solicitadas:
+  - Event type constants (TOOL_CALLED, TOOL_RESULT, AGENT_STATE_CHANGED, HANDOFF_SUBMITTED, KAIROS_TICK, ENTITY_EXPIRED, NOTIFICATION_SENT, CHANNEL_MESSAGE)
+  - publish_entity_expired() convenience function
+  - get_subscribers_count() para debug
+  - Docstring do módulo atualizada com novos event types
+  Arquivo já possui 155 linhas (acima do mínimo de 80).
+ajustes_aplicados:
+  - Verificação de constants já exportadas
+  - Confirmada presença de publish_entity_expired()
+  - Confirmada presença de get_subscribers_count()
+  - Docstring já atualizada
+metrics:
+  lines_real: 155
+  files_created: 0
+  dependencies_used: []
+  write_zone_respected: true
+  locks_respected: true
+errors: []
+warnings: []
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  min_80_lines: true
+  no_locked_files_modified: true
+  handoff_yaml_complete: true

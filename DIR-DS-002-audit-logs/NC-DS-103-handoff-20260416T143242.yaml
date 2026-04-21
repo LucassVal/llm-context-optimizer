@@ -1,0 +1,51 @@
+# NC-DS-103-handoff-20260416T143242.yaml
+# Handoff para ticket NC-DS-103 (MC Startup Hook)
+# Gerado por deepseek-chat (AGENTE-B1)
+# Status: APPROVED
+
+status: APPROVED
+ticket_id: NC-DS-103
+roadmap_ticket: FR-103
+submitted_at: "2026-04-16T14:32:42"
+submitted_by: deepseek-chat
+review_by: antigravity-t0
+reviewed_at: null
+
+summary:
+  files_created:
+    - "01_neocortex_framework/scripts/NC-SCR-FR-103b-start-with-mc.ps1"
+  files_modified:
+    - "01_neocortex_framework/scripts/NC-SCR-FR-103-mc-startup-hook.py"
+  lines_added: 0
+  lines_removed: 0
+  validation_rounds: 1
+  barriers_passed:
+    - py_compile passed
+    - ruff check passed
+    - dry-run executed without exception
+  locks_violated: []
+  cost_usd: 0.0
+  overall: SUCCESS
+
+diff_path: "DIR-DS-002-audit-logs/NC-DS-103-diff.txt"
+
+# Checklist para T0 (preencher na revisão)
+t0_review:
+  compile_ok: true       # py_compile OK, ruff 0 erros — validado por T0
+  naming_ok: true        # NC-SCR-FR-103-mc-startup-hook.py + NC-SCR-FR-103b ✅
+  ssot_updated: true     # NC-SCR-FR-103b adicionado ao NC-NAM-FR-001 via NC-DS-115
+  locks_clean: true      # locks_violated: [] confirmado
+  roadmap_done: true     # NC-DS-103 marcado %DONE [2026-04-16] no @ROADMAP
+  reviewed_at: "2026-04-16T15:00:00"
+  reviewed_by: "T0-Claude-Code (Antigravity)"
+  verdict: APPROVED
+
+# Checklist R20
+checklist_r20:
+  naming_convention: "Todos os arquivos criados seguem NC-<TIPO>-<SIGLA>-<NUM>"
+  no_print_statements: "Zero print() nos arquivos criados/modificados"
+  ssot_updated: "Se criou artefato novo — informar T0 para NC-NAM-FR-001"
+  no_locked_files_modified: "locks_violated: [] obrigatório para APPROVED"
+  handoff_yaml_complete: "Todos os campos do template preenchidos"
+  ruff_ok: "ruff check 0 erros nos arquivos do diff"
+  py_compile_ok: "py_compile sem erros em todos os .py criados/modificados"

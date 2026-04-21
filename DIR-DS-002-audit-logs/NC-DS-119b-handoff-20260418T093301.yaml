@@ -1,0 +1,28 @@
+ticket_id: "NC-DS-119b"
+status: "APPROVED"
+timestamp: "2026-04-18T09:30:00-03:00"
+agent: "T0-Antigravity"
+summary: |
+  Fix de bugs nos hooks do HookRegistry (NC-HK-FR-001 e NC-HK-FR-002).
+  Causa raiz: _execute_hook passava context dict como argumento posicional.
+  Fix: hook.handler(context) -> hook.handler(**context) em NC-HK-FR-001 linha 134.
+  NC-HK-FR-002: assinaturas de LoggingHook e TimingHook corrigidas para tool_name=None (default),
+  aceitando tanto dict posicional quanto **kwargs. Todos os 5 hooks validados via trigger MCP.
+files_modified:
+  - "01_neocortex_framework/neocortex/core/hooks/NC-HK-FR-001-hook-registry.py"
+  - "01_neocortex_framework/neocortex/core/hooks/NC-HK-FR-002-simple-hook.py"
+files_created: []
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  ssot_updated: false
+  no_locked_files_modified: true
+  handoff_yaml_complete: true
+t0_review:
+  compile_ok: true
+  naming_ok: true
+  ssot_updated: false
+  locks_clean: true
+  roadmap_done: false
+  ruff_ok: true
+  notes: "SSOT e roadmap pendentes — serao cobertos na Frente A (NC-TOOL-FR-039)"

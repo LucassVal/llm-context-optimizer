@@ -1,0 +1,28 @@
+ticket_id: "NC-DS-072"
+status: "APPROVED"
+timestamp: "2026-04-15T11:31:56-03:00"
+agent_port: 65463
+lines_added: N
+files_modified:
+  - "DIR-BOOT-FR-001-bootup-main/NC-BOOT-FR-001-system-manifest.md"
+  - "DIR-BOOT-FR-001-bootup-main/NC-BOOT-FR-001-system-manifest.md.backup"
+summary: |
+  Executado script NC-SCR-FR-066-bootup-sync.py para sincronizar boot manifest com estado atual do sistema.
+  Script carregou 52 tickets YAML e 5 handoffs APPROVED.
+  Atualizou seção 6 (FRENTES OPERACIONAIS ATIVAS) com 2 frentes ativas (Tester, Outros).
+  Atualizou seção 9 (TICKETS CRÍTICOS) com 1 ticket crítico (INT-001).
+  Atualizou data da última atualização no cabeçalho.
+ajustes_aplicados:
+  - "Atualização seção 6 (FRENTES OPERACIONAIS ATIVAS) com base em tickets aprovados"
+  - "Atualização seção 9 (TICKETS CRÍTICOS) com ticket INT-001"
+  - "Atualização data última atualização no cabeçalho"
+lessons_learned: []
+deps_missing: []
+metrics:
+  ruff_check: PASS
+  py_compile: PASS
+  import_smoke_test: PASS
+  write_zone_respected: true
+  locks_respected: true
+reviewed_by: "T0-Antigravity"
+reviewed_at: "2026-04-15T11:42:00-03:00"

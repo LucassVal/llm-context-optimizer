@@ -1,0 +1,89 @@
+ticket_id: NC-DS-004
+ticket_type: FEATURE
+priority: HIGH
+assigned_to: deepseek-chat
+created_at: "2026-04-13T20:06:00-03:00"
+created_by: antigravity-t0
+
+context:
+  roadmap_ticket: NC-DS-031 (HookRegistry) + NC-DS-032 (ProjectConfig)
+  active_locks:
+    - server.py
+    - sub_server.py
+    - NC-NAM-FR-001
+    - neocortex_config.yaml
+  write_zone: "01_neocortex_framework/neocortex/core/hooks/"
+  naming_rule: "NC-HK-FR-<NUM>-<desc>.py"
+  reference_file: "neocortex/mcp/tools/NC-TOOL-FR-029-health.py"
+
+task:
+  description: |
+    PARTE 1 — Criar NC-HK-FR-001-hook-registry.py
+    
+    Implementar HookRegistry: sistema de hooks síncronos e assíncronos para extensão dos serviços.
+    
+    Interface obrigatória:
+      class HookRegistry:
+          def register(self, event: str, fn: Callable, priority: int = 0) -> None
+          def unregister(self, event: str, fn: Callable) -> None
+          def trigger(self, event: str, *args, **kwargs) -> list
+          async def trigger_async(self, event: str, *args, **kwargs) -> list
+          def list_hooks(self, event: str = None) -> dict
+    
+    Eventos pré-definidos (constantes):
+      HOOK_BEFORE_TOOL_CALL   = "before_tool_call"
+      HOOK_AFTER_TOOL_CALL    = "after_tool_call"
+      HOOK_ON_ERROR           = "on_error"
+      HOOK_ON_SESSION_START   = "on_session_start"
+      HOOK_ON_SESSION_END     = "on_session_end"
+      HOOK_ON_CHECKPOINT      = "on_checkpoint"
+    
+    PARTE 2 — Criar NC-HK-FR-002-simple-hook.py
+    
+    Implementar hooks pré-registrados úteis (plug-and-play):
+      LoggingHook    → log estruturado de cada tool_call
+      TimingHook     → mede latência de cada tool_call
+      RateLimitHook  → bloqueia agente se exceder N calls/min
+      AuditHook      → escreve linha em audit-log YAML por chamada
+    
+    Cada hook deve ser registrável com:
+      registry = HookRegistry()
+      registry.register(HOOK_BEFORE_TOOL_CALL, LoggingHook().on_before)
+    
+    Arquivos a criar:
+      - 01_neocortex_framework/neocortex/core/hooks/NC-HK-FR-001-hook-registry.py
+      - 01_neocortex_framework/neocortex/core/hooks/NC-HK-FR-002-simple-hook.py
+      - 01_neocortex_framework/neocortex/core/hooks/__init__.py (exportar HookRegistry + hooks)
+    
+    STEP-0 obrigatório antes de escrever:
+      python -c "import asyncio; print('asyncio OK')"
+      python -c "from typing import Callable; print('typing OK')"
+
+  entry_state:
+    files_exist:
+      - "01_neocortex_framework/neocortex/core/hooks/"
+    files_must_not_exist:
+      - "01_neocortex_framework/neocortex/core/hooks/NC-HK-FR-001-hook-registry.py"
+      - "01_neocortex_framework/neocortex/core/hooks/NC-HK-FR-002-simple-hook.py"
+
+  exit_state:
+    files_created:
+      - "01_neocortex_framework/neocortex/core/hooks/NC-HK-FR-001-hook-registry.py"
+      - "01_neocortex_framework/neocortex/core/hooks/NC-HK-FR-002-simple-hook.py"
+      - "01_neocortex_framework/neocortex/core/hooks/__init__.py"
+    ssot_updated: true
+    compiles_ok: true
+
+barriers:
+  - {id: B1, check: naming_convention, rule: "NC-HK-FR-001-hook-registry.py e NC-HK-FR-002-simple-hook.py", block_if_fail: true}
+  - {id: B2, check: lock_guard, rule: "NUNCA modificar server.py|sub_server.py|NC-NAM-FR-001|neocortex_config.yaml", block_if_fail: true}
+  - {id: B3, check: compile, rule: "python -m py_compile HC-HK-FR-001 e NC-HK-FR-002 == 0", block_if_fail: true}
+  - {id: B4, check: min_lines, rule: "Cada arquivo >= 80 linhas", block_if_fail: true}
+  - {id: B5, check: no_hardcode, rule: "Usar get_config() para paths de audit log", block_if_fail: false}
+  - {id: B6, check: no_print, rule: "Usar logger = logging.getLogger(__name__)", block_if_fail: false}
+
+limits:
+  max_validation_rounds: 5
+  escalate_to_t0_after: 3
+  max_tokens_per_phase: 5000
+integrity_hash: "b72ef4c8a031d95e"

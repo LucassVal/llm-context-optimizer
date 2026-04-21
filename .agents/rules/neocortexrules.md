@@ -17,7 +17,8 @@ globs: "*"
 ├── NC-RULE-001-core-ssot.mdc   ← alwaysApply: true  | Core SSOT, < 50 linhas
 ├── NC-RULE-002-python-mcp.mdc  ← globs: **/*.py      | Python & MCP patterns
 ├── NC-RULE-003-lobes-memory.mdc← globs: **/lobes/**  | Lobes & Memory
-└── NC-RULE-004-filesystem.mdc  ← globs: **/DIR-*/**  | Filesystem & Governance
+├── NC-RULE-004-filesystem.mdc  ← globs: **/DIR-*/**  | Filesystem & Governance
+└── NC-RULE-006-no-assumptions.mdc ← alwaysApply: true | R21 Zero Suposições (CRÍTICO)
 ```
 
 ## Dicionário de Linguagem Ubíqua
@@ -151,7 +152,18 @@ Raiz: C:\Users\Lucas Valério\Desktop\TURBOQUANT_V42\
 <action id="R20" category="quality" severity="high">
 20. **Checklist de Fim de Sessão:**
     ☑ @SSOT atualizado ☑ Changelog [YYYY-MM-DD] ☑ %DONE no @ROADMAP
-    ☑ @POPULATE run (se SSOT alterado) ☑ Nenhum *.db/*.wal no git
+    ☑ @POPULATE run (se SSOT alterado) ☑ **@BOOT atualizado** (tickets + lobes) ☑ Nenhum *.db/*.wal no git
+</action>
+
+<action id="R21" category="quality" severity="critical">
+21. **Zero Suposições (CRÍTICO — acima de todas as regras):**
+    NUNCA afirme que ferramentas estão instaladas, arquivos existem ou módulos importam SEM verificar.
+    OBRIGATÓRIO antes de qualquer entrega:
+    (a) `python --version` → Python disponível?
+    (b) `python -m ruff --version` → ruff existe NO AMBIENTE REAL?
+    (c) `python -c "import X"` → dependência instalada?
+    (d) `python -m py_compile arquivo.py` → sintaxe ok?
+    Referência: `NC-RULE-006-no-assumptions.mdc` | STEP-0: `NC-CFG-DS-005-step0-environment.md`
 </action>
 
 </actions>
@@ -163,8 +175,10 @@ Antes de qualquer ação:
 3. A zona de escrita está correta?
 4. O nome segue NC-TIPO-SIGLA-NUM?
 5. Atualizarei `@SSOT` e changelog ao final?
+6. **Verifiquei o ambiente REAL antes de afirmar qualquer coisa? (R21)**
+   → python? ruff? dependências? arquivo existe? módulo importa?
 
-"Protejo o SSOT, respeito as zonas, economizo tokens, e encerro com o checklist."
+"Protejo o SSOT, respeito as zonas, economizo tokens, NUNCA suponho, e encerro com o checklist."
 </validation>
 
 <references>
@@ -176,7 +190,9 @@ Antes de qualquer ação:
 @BOOT:     DIR-BOOT-FR-001-bootup-main/NC-BOOT-FR-001-system-manifest.md
 @ULQ:      01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-DOC-FR-001-ubiquitous-language-dictionary.md
 @POPULATE: 01_neocortex_framework/scripts/NC-SCR-FR-001-populate-lobes-ssot.py
+@STEP0:    DIR-DS-000-agent-config/NC-CFG-DS-005-step0-environment.md
 YAML:      01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-CFG-FR-002-rules-policy.yaml
+R21:       .agents/rules/NC-RULE-006-no-assumptions.mdc
 </references>
 
 </rule>

@@ -1,0 +1,93 @@
+{
+  "timestamp": "2026-04-14",
+  "sample_size": 3,
+  "avg_token_reduction_pct": 1.46,
+  "avg_char_reduction_pct": 1.7400000000000002,
+  "total_tokens_saved": 114,
+  "details": [
+    {
+      "file": "neocortex\\config.py",
+      "matched_terms": [
+        "update",
+        "neocortex_config",
+        "API",
+        "ARC",
+        "T2",
+        "api_key",
+        "SCR",
+        "mcp_server",
+        "base_url",
+        "DOC",
+        "paths",
+        "provider",
+        "model",
+        "get_config",
+        "version",
+        "BAK",
+        "PRF",
+        "check",
+        "agent"
+      ],
+      "stats": {
+        "original_chars": 22344,
+        "encoded_chars": 22131,
+        "chars_saved": 213,
+        "chars_reduction_pct": 0.95,
+        "original_tokens": 5586,
+        "encoded_tokens": 5532,
+        "tokens_saved": 54,
+        "tokens_reduction_pct": 0.97,
+        "terms_replaced": 61
+      }
+    },
+    {
+      "file": "neocortex\\__init__.py",
+      "matched_terms": [
+        "version",
+        "T2",
+        "SCR"
+      ],
+      "stats": {
+        "original_chars": 222,
+        "encoded_chars": 216,
+        "chars_saved": 6,
+        "chars_reduction_pct": 2.7,
+        "original_tokens": 55,
+        "encoded_tokens": 54,
+        "tokens_saved": 1,
+        "tokens_reduction_pct": 1.82,
+        "terms_replaced": 3
+      }
+    },
+    {
+      "file": "neocortex\\agent\\executor.py",
+      "matched_terms": [
+        "check",
+        "backend",
+        "agent",
+        "version",
+        "action",
+        "SCR",
+        "reason",
+        "role",
+        "T2",
+        "provider",
+        "model",
+        "get_config",
+        "spawn",
+        "generate"
+      ],
+      "stats": {
+        "original_chars": 14828,
+        "encoded_chars": 14595,
+        "chars_saved": 233,
+        "chars_reduction_pct": 1.57,
+        "original_tokens": 3707,
+        "encoded_tokens": 3648,
+        "tokens_saved": 59,
+        "tokens_reduction_pct": 1.59,
+        "terms_replaced": 146
+      }
+    }
+  ]
+}

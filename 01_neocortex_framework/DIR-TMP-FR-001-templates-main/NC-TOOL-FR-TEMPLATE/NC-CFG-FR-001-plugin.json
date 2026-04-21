@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "name": "NC-TOOL-FR-XXX-your-tool-name",
+  "version": "1.0.0",
+  "description": "Descrio da tool",
+  "author": "NeoCortex Agent",
+  "neocortex_min_version": "1.0.0",
+  "entry_point": "NC-TOOL-FR-XXX-your-tool-name.py",
+  "register_function": "register_tool",
+  "hooks": [],
+  "commands": [],
+  "permissions": {
+    "read_lobes": false,
+    "write_lobes": false,
+    "read_ssot": true,
+    "write_ssot": false
+  },
+  "dependencies": []
+}

@@ -1,0 +1,36 @@
+# NC-DS-078-handoff-20260415T143000.yaml
+# Handoff para ticket NC-DS-078 (ORCH-301 Task Broker)
+
+status: APPROVED
+ticket_id: NC-DS-078
+roadmap_ticket: ORCH-301
+submitted_at: "2026-04-15T14:30:00-03:00"
+submitted_by: T0-Antigravity
+review_by: T0-Antigravity
+reviewed_at: "2026-04-15T14:30:00-03:00"
+
+summary:
+  files_created:
+    - "01_neocortex_framework/neocortex/core/services/NC-SVC-FR-015-task-broker.py"
+  files_modified:
+    - "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-023-orchestration.py"
+    - "01_neocortex_framework/neocortex/config.py"
+  lines_added: 220
+  lines_removed: 0
+  validation_rounds: 1
+  barriers_passed: []
+  locks_violated: []
+  cost_usd: 0.0
+  overall: SUCCESS
+
+t0_review:
+  compile_ok: true
+  naming_ok: true
+  ssot_updated: true
+  locks_clean: true
+  roadmap_done: true
+
+notes: |
+  Handoff baseado em ORCH-301-handoff-20260413-151316-approved.yaml.
+  Implementação de Task Broker persistente verificada e aprovada retrospectivamente.
+  Ticket retrospectivo NC-DS-078 criado para rastreabilidade.

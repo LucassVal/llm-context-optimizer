@@ -1,0 +1,126 @@
+<!-- module: documentation -->
+<!-- category: support -->
+<!-- status: suggested -->
+<!-- suggested_by: opencode -->
+
+# Documentação
+
+Padrões de documentação, geradores e templates.
+
+## Propósito
+Gerenciar conhecimento específico do módulo documentation.
+
+## Status
+Sugerido
+
+## Tags
+#documentation, #framework, #neocortex
+
+## Checkpoints
+- CP-DOCUMENTATION-001: Criação inicial
+
+## Conteúdo Inicial
+*Este lobe está em construção. Adicione aqui:*
+
+### 1. Visão Geral
+- Objetivos principais
+- Escopo do módulo
+- Integrações com outros módulos
+
+### 2. Componentes Principais
+- Lista de componentes/classes
+- Responsabilidades
+- Dependências
+
+### 3. Padrões e Convenções
+- Padrões de código
+- Convenções de nomenclatura
+- Boas práticas
+
+### 4. Exemplos de Uso
+- Exemplos básicos
+- Casos de uso comuns
+- Configurações típicas
+
+### 5. Referências
+- Links para documentação
+- Arquivos relevantes no projeto
+- Exemplos externos
+
+## Notas
+- Criado automaticamente por OpenCode
+- Data: 2026-04-10 15:36:46
+- Revisão necessária para conteúdo específico do projeto
+
+## Documentação
+
+### Tipos de Documentação
+1. **Documentação de Usuário**: Guias, tutoriais
+2. **Documentação de Desenvolvedor**: API, arquitetura
+3. **Documentação de Operações**: Deploy, monitoramento
+4. **Documentação de Referência**: Schemas, contratos
+
+### Ferramentas
+- MkDocs para documentação estática
+- Sphinx para documentação de código
+- Swagger/OpenAPI para API documentation
+- PlantUML para diagramas
+
+### Estrutura de Diretórios
+```
+docs/
+├── user/
+│   ├── getting-started.md
+│   └── tutorials/
+├── developer/
+│   ├── architecture.md
+│   └── api-reference.md
+├── operations/
+│   ├── deployment.md
+│   └── monitoring.md
+└── reference/
+    ├── schemas.md
+    └── contracts.md
+```
+
+### Geração Automática
+- Auto-doc from docstrings
+- Schema documentation from JSON schemas
+- Tool documentation from MCP tool manifests
+
+
+# NC-LBE-FR-DOCUMENTATION-001
+
+Documentação, guias, referências
+
+## Status
+Ativo (povoado automaticamente)
+
+## Tags
+#documentation, #framework, #neocortex, #auto_populated
+
+## Checkpoints
+- CP-DOCUMENTATION-001: Criação inicial
+- CP-DOCUMENTATION-002: Povoamento automático
+
+## Análise do Diretório
+- **Total de arquivos**: 8
+
+### Arquivos Principais
+- `neocortex_framework\DIR-DOC-FR-001-docs-main\NC-ALN-FR-001-arquitetural-alignment.md` (224 linhas, 11162 bytes)
+- `neocortex_framework\DIR-DOC-FR-001-docs-main\NC-DOC-FR-002-directory-convention.md` (152 linhas, 5462 bytes)
+- `neocortex_framework\DIR-DOC-FR-001-docs-main\NC-DOC-FR-003-turboquant-prompt.md` (683 linhas, 23331 bytes)
+- `neocortex_framework\DIR-DOC-FR-001-docs-main\NC-NAM-FR-001-naming-convention.md` (121 linhas, 4786 bytes)
+- `neocortex_framework\DIR-DOC-FR-001-docs-main\NC-TKT-FR-001-tickets.md` (350 linhas, 13125 bytes)
+- `neocortex_framework\DIR-DOC-FR-001-docs-main\NC-TODO-FR-001-project-roadmap-ENGLISH.md` (226 linhas, 11447 bytes)
+- `neocortex_framework\DIR-DOC-FR-001-docs-main\NC-TODO-FR-001-project-roadmap.md` (225 linhas, 11232 bytes)
+- `neocortex_framework\DIR-DOC-FR-001-docs-main\legacy\CHEATSHEET.md` (21 linhas, 909 bytes)
+
+## Contexto do Projeto
+- **Nome do projeto**: N/A
+- **Total de arquivos no projeto**: 0
+
+## Notas de Povoamento
+- Povoado automaticamente por OpenCode
+- Data: 2026-04-10 15:57:55
+- Foco da análise: documentation_structure, guides, references

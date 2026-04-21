@@ -1,0 +1,11 @@
+ticket_id: NC-DS-023
+submitted_by: opencode
+overall: SUCCESS
+lines_added: 0
+files_created:
+  - "01_neocortex_framework/neocortex/core/services/NC-SVC-FR-007-state-machine.py"
+status: REJECTED
+submitted_at: "2026-04-12T22:23:00Z"
+rejected_at: "2026-04-12T22:50:18"
+rejected_by: antigravity-t0
+reject_reason: "duplicate handoff, best already processed (0L)"

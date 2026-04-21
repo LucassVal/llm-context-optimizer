@@ -1,3 +1,15 @@
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:59.432798'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+tags:
+  - neocortex-other
+  - level-0
+  - python
+---"""
 #!/usr/bin/env python3
 """
 HotCache - High-performance hot cache using diskcache_rs.
@@ -6,13 +18,12 @@ Provides fast in-memory and disk-backed caching for frequently accessed data
 with TTL support and size-based eviction.
 """
 
-import logging
-import time
 import json
+import logging
 import pickle
+import time
 from pathlib import Path
-from typing import Dict, Any, Optional, Union, List, Tuple
-from datetime import datetime, timedelta
+from typing import Any, Dict, List, Optional, Tuple
 
 try:
     import diskcache_rs
@@ -20,7 +31,6 @@ try:
     HAS_DISKCACHE_RS = True
 except ImportError:
     HAS_DISKCACHE_RS = False
-    import diskcache
 
     logging.warning(
         "diskcache_rs not installed, falling back to Python diskcache. "
@@ -35,7 +45,7 @@ class HotCache:
     High-performance hot cache with multiple storage tiers.
 
     Features:
-    - Multi-level caching: memory → disk (diskcache_rs) → persistence
+    - Multi-level caching: memory  disk (diskcache_rs)  persistence
     - TTL (time-to-live) support with automatic expiration
     - Size-based eviction policies (LRU, LFU)
     - Compression for large values

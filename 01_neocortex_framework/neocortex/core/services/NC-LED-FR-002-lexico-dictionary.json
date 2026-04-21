@@ -1,0 +1,182 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "service": "NC-SVC-FR-020-LexicoService",
+    "atom_count": 21,
+    "saved_at": "2026-04-20T23:15:30.302942"
+  },
+  "dictionary": {
+    "#ARCH": {
+      "definition": "architecture",
+      "scope": "global",
+      "tags": [
+        "system",
+        "design"
+      ]
+    },
+    "#SVC": {
+      "definition": "service",
+      "scope": "global",
+      "tags": [
+        "system",
+        "component"
+      ]
+    },
+    "#MCP": {
+      "definition": "model-context-protocol",
+      "scope": "global",
+      "tags": [
+        "protocol",
+        "ai"
+      ]
+    },
+    "#T0": {
+      "definition": "orchestrator-agent",
+      "scope": "global",
+      "tags": [
+        "agent",
+        "orchestration"
+      ]
+    },
+    "#LOG": {
+      "definition": "logging",
+      "scope": "global",
+      "tags": [
+        "system",
+        "monitoring"
+      ]
+    },
+    "#CFG": {
+      "definition": "configuration",
+      "scope": "global",
+      "tags": [
+        "system",
+        "settings"
+      ]
+    },
+    "#SEC": {
+      "definition": "security",
+      "scope": "global",
+      "tags": [
+        "system",
+        "protection"
+      ]
+    },
+    "#WAL": {
+      "definition": "write-ahead-log",
+      "scope": "global",
+      "tags": [
+        "persistence",
+        "database"
+      ]
+    },
+    "#KG": {
+      "definition": "knowledge-graph",
+      "scope": "global",
+      "tags": [
+        "memory",
+        "semantic"
+      ]
+    },
+    "#LBE": {
+      "definition": "memory-lobe",
+      "scope": "global",
+      "tags": [
+        "memory",
+        "context"
+      ]
+    },
+    "#TKT": {
+      "definition": "ticket",
+      "scope": "global",
+      "tags": [
+        "workflow",
+        "task"
+      ]
+    },
+    "#HDF": {
+      "definition": "handoff",
+      "scope": "global",
+      "tags": [
+        "workflow",
+        "audit"
+      ]
+    },
+    "#SCP": {
+      "definition": "savepoint",
+      "scope": "global",
+      "tags": [
+        "persistence",
+        "checkpoint"
+      ]
+    },
+    "#INT": {
+      "definition": "integration",
+      "scope": "global",
+      "tags": [
+        "system",
+        "connection"
+      ]
+    },
+    "#HK": {
+      "definition": "hook",
+      "scope": "global",
+      "tags": [
+        "system",
+        "event"
+      ]
+    },
+    "#SCR": {
+      "definition": "script",
+      "scope": "global",
+      "tags": [
+        "automation",
+        "code"
+      ]
+    },
+    "#TOOL": {
+      "definition": "mcp-tool",
+      "scope": "global",
+      "tags": [
+        "ai",
+        "function"
+      ]
+    },
+    "#BOOT": {
+      "definition": "boot-manifest",
+      "scope": "global",
+      "tags": [
+        "system",
+        "startup"
+      ]
+    },
+    "#QWN": {
+      "definition": "qwen-model",
+      "scope": "global",
+      "tags": [
+        "ai",
+        "model"
+      ]
+    },
+    "#DSK": {
+      "definition": "deepseek-model",
+      "scope": "global",
+      "tags": [
+        "ai",
+        "model"
+      ]
+    },
+    "#LEX": {
+      "key": "#LEX",
+      "definition": "lexico-semantic-compression",
+      "scope": "global",
+      "tags": [
+        "compression",
+        "semantic"
+      ],
+      "created_at": "2026-04-20T23:15:30.301258",
+      "updated_at": "2026-04-20T23:15:30.301258",
+      "usage_count": 0
+    }
+  }
+}

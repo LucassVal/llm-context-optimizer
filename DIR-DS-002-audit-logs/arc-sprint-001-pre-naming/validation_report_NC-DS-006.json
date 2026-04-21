@@ -1,0 +1,46 @@
+{
+  "ticket_id": "NC-DS-006",
+  "phase": "3",
+  "timestamp": "2026-04-12T16:35:00",
+  "validation_round": 1,
+  "barriers": [
+    {
+      "id": "B1",
+      "check": "naming_convention",
+      "passed": true,
+      "details": "Arquivo criado: NC-TOOL-FR-021-memory.py"
+    },
+    {
+      "id": "B2",
+      "check": "lock_guard",
+      "passed": true,
+      "details": "Nenhum arquivo @LOCK modificado (server.py, sub_server.py, NC-NAM-FR-001 atualizado conforme ticket, neocortex_config.yaml no tocado)"
+    },
+    {
+      "id": "B3",
+      "check": "compile",
+      "passed": true,
+      "details": "py_compile NC-TOOL-FR-021-memory.py OK"
+    },
+    {
+      "id": "B4",
+      "check": "ssot_entry",
+      "passed": true,
+      "details": "NC-NAM-FR-001 atualizado com entrada FR-021 [2026-04-12]"
+    },
+    {
+      "id": "B5",
+      "check": "no_hardcode",
+      "passed": true,
+      "details": "Nenhum hardcode de path detectado"
+    },
+    {
+      "id": "B6",
+      "check": "no_print",
+      "passed": true,
+      "details": "Nenhum print() detectado; usa logger"
+    }
+  ],
+  "overall": "SUCCESS",
+  "notes": "Todas as 6 barreiras passaram na primeira rodada."
+}

@@ -1,0 +1,21 @@
+ticket_id: LOBE-INT-003
+status: PENDING_REVIEW
+timestamp: "2026-04-13T15:37:11-03:00"
+agent_port: 32763
+lines_added: 193
+files_modified:
+  - 01_neocortex_framework/lobes/NC-LBE-INT-003-antigravity-integration.mdc
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md
+  - DIR-BOOT-FR-001-bootup-main/NC-BOOT-FR-001-system-manifest.md
+summary: |
+  Lobe criado com documentação completa do papel de T0 e integração
+metrics:
+  write_zone_respected: true
+  locks_respected: true
+  min_80_lines: true
+errors: []
+warnings: []
+checklist_r20:
+  naming_convention: true
+  handoff_yaml_complete: true

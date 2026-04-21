@@ -1,0 +1,450 @@
+# NC-GOV-FR-003 — Regras de Governança de IA para NeoCortex
+# Single Source of Truth para as 20 regras de governança de IA organizadas por categoria.
+# Consumido pelo GovernanceAuditor e SecurityService para enforcement em runtime.
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  version: "1.2"
+  hash: "IA-GOVERNANCE-RULES-v1.2-20260416"
+  description: "23 Regras de Governança de IA — machine-readable companion to NC-GOV-FR-003-ia-governance-rules.md"
+  md_file: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.md"
+  generated_at: "2026-04-14"
+  generated_by: "opencode (DeepSeek-Reasoner)"
+  audit_script: "NC-SCR-FR-080-governance-auditor.py"
+  audit_frequency: "Ciclo 4 (semanal)"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 20 REGRAS DE GOVERNANÇA DE IA (categorizadas)
+# ─────────────────────────────────────────────────────────────────────────────
+
+rules:
+  # 🔴 CATEGORIA 1: FUNDAÇÃO E ESTRUTURA
+  foundation_and_structure:
+    description: "Regras fundamentais para estrutura e organização do sistema"
+    rules:
+      - id: "R01"
+        name: "Inventário de Ativos de IA"
+        description: "Manter um catálogo completo e atualizado de todos os modelos, ferramentas, agentes e fontes de dados utilizados"
+        severity: "critical"
+        enforcement_mechanism: "artifact_catalog.json + genealogy_graph.json"
+        validation_method: "Cross-check com mapeamento de ambiente"
+        status: "implemented"
+        artifacts:
+          - "artifact_catalog.json"
+          - "mcp_tools_inventory.json"
+          - "genealogy_graph.json"
+
+      - id: "R02"
+        name: "Política Formalizada"
+        description: "As políticas de governança devem ser escritas, versionadas e acessíveis como código ou documentos SSOT"
+        severity: "critical"
+        enforcement_mechanism: "SSOT documents + version control"
+        validation_method: "Verificar existência e hash dos arquivos .md/.yaml"
+        status: "implemented"
+        artifacts:
+          - "NC-NAM-FR-001-naming-convention.md"
+          - "NC-SEC-FR-001-atomic-locks.yaml"
+          - "NC-CFG-FR-002-rules-policy.yaml"
+          - "NC-GOV-FR-003-ia-governance-rules.yaml"
+
+      - id: "R03"
+        name: "Estrutura de Diretórios Canônica"
+        description: "Definir e impor uma estrutura de diretórios padronizada para todo o projeto"
+        severity: "high"
+        enforcement_mechanism: "NC-NAM-FR-001 (seção de diretórios) + PROJECT_MAP.md"
+        validation_method: "Validar paths contra estrutura definida"
+        status: "implemented"
+        artifacts:
+          - "NC-NAM-FR-001-naming-convention.md"
+          - "PROJECT_MAP.md"
+
+      - id: "R04"
+        name: "Nomenclatura Padronizada"
+        description: "Todos os arquivos devem seguir uma convenção de nomenclatura rígida (NC-<TIPO>-<SIGLA>-<NUM>-<desc>.ext)"
+        severity: "critical"
+        enforcement_mechanism: "R01 do boot manifesto + SecurityService"
+        validation_method: "Regex pattern matching em criação de arquivos"
+        status: "implemented"
+        pattern: "^NC-[A-Z]+-[A-Z]+-[0-9]{3}-.+\\..+"
+        artifacts:
+          - "NC-NAM-FR-001-naming-convention.md"
+          - "NC-BOOT-FR-001-system-manifest.md (R01)"
+
+      - id: "R05"
+        name: "Segregação de Ambientes"
+        description: "Manter ambientes separados para desenvolvimento, teste (espelho) e produção (original)"
+        severity: "high"
+        enforcement_mechanism: "Ambiente original vs. espelho + renaming_plan.yaml"
+        validation_method: "Detecção de ambiente + validação de caminhos"
+        status: "implemented"
+        environments:
+          - name: "original"
+            path: "01_neocortex_framework/"
+            purpose: "Produção"
+          - name: "mirror"
+            path: "01_neocortex_framework_RENAMED/"
+            purpose: "Teste/Validação"
+        artifacts:
+          - "renaming_plan_v2_dedup.yaml"
+          - "NC-SCR-FR-080-governance-auditor.py"
+
+  # 🟡 CATEGORIA 2: CONTROLE DE ACESSO E IDENTIDADE
+  access_control_and_identity:
+    description: "Regras para controle de acesso, identidade de agentes e isolamento"
+    rules:
+      - id: "R06"
+        name: "Identidade para Agentes"
+        description: "Cada agente (T0, Courier, Engineer) deve ter uma identidade única e verificável"
+        severity: "high"
+        enforcement_mechanism: "agent_id + role registrados no $LDG e handoffs YAML"
+        validation_method: "Verificar presence de agent_id em handoffs"
+        status: "implemented"
+        artifacts:
+          - "DIR-DS-002-audit-logs/NC-DS-*-handoff-*.yaml"
+          - "neocortex_config.yaml (agent profiles)"
+
+      - id: "R07"
+        name: "Privilégio Mínimo (PoLP)"
+        description: "Agentes devem ter apenas as permissões estritamente necessárias para sua função"
+        severity: "high"
+        enforcement_mechanism: "allowed_tools + forbidden_actions no agent-policy-template.yaml"
+        validation_method: "Validar tool calls contra policy do agente"
+        status: "implemented"
+        artifacts:
+          - "NC-CFG-FR-001-agent-policy-template.yaml"
+          - "SecurityService.validate_access()"
+
+      - id: "R08"
+        name: "Atomic Locks (Path-Based)"
+        description: "Arquivos críticos (SSOT, configurações) devem ser protegidos contra modificação por agentes"
+        severity: "critical"
+        enforcement_mechanism: "NC-SEC-FR-001-atomic-locks.yaml + LockGuard"
+        validation_method: "SecurityService bloqueia escrita em paths protegidos"
+        status: "implemented"
+        artifacts:
+          - "NC-SEC-FR-001-atomic-locks.yaml"
+          - "neocortex.core.security_service.SecurityService"
+          - "LockGuard"
+
+      - id: "R09"
+        name: "Segregação de Zonas de Escrita"
+        description: "Agentes de diferentes domínios (ex: Courier vs. Engineer) não podem escrever nos mesmos diretórios"
+        severity: "high"
+        enforcement_mechanism: "write_zones no agent-policy-template.yaml"
+        validation_method: "Validar path de escrita contra zona permitida"
+        status: "implemented"
+        artifacts:
+          - "NC-CFG-FR-002-rules-policy.yaml (write_zones)"
+          - "agent-policy-template.yaml"
+
+  # 🔵 CATEGORIA 3: RASTREABILIDADE E AUDITORIA
+  traceability_and_audit:
+    description: "Regras para rastreabilidade, auditoria e versionamento"
+    rules:
+      - id: "R10"
+        name: "Trilha de Auditoria Imutável"
+        description: "Todas as ações dos agentes devem ser registradas em um log à prova de adulteração"
+        severity: "critical"
+        enforcement_mechanism: "Audit Trail (via LedgerService e handoffs YAML)"
+        validation_method: "Verificar integridade de handoffs (hash chain)"
+        status: "partial"
+        artifacts:
+          - "LedgerService"
+          - "DIR-DS-002-audit-logs/"
+          - "SAVE-004 + FR-026 (WAL futuro)"
+
+      - id: "R11"
+        name: "Versionamento de Artefatos"
+        description: "Todos os artefatos de governança devem ser versionados (Git) e conter hashes de integridade"
+        severity: "high"
+        enforcement_mechanism: "Dupla Mordaça: YAMLs de governança com hash MD5/SHA256"
+        validation_method: "Verificar campo hash em meta de YAMLs de governança"
+        status: "implemented"
+        artifacts:
+          - "NC-SEC-FR-001-atomic-locks.yaml (hash: ATOMIC-LOCKS-v1.0)"
+          - "NC-CFG-FR-002-rules-policy.yaml (hash: RULES-YAML-v2)"
+          - "NC-GOV-FR-003-ia-governance-rules.yaml (hash: IA-GOVERNANCE-RULES-v1.0)"
+
+      - id: "R12"
+        name: "Handoffs Formais"
+        description: "Toda tarefa delegada a um agente deve ser documentada em um handoff YAML"
+        severity: "critical"
+        enforcement_mechanism: "Formato NC-DS-*-handoff-*.yaml em DIR-DS-002-audit-logs/"
+        validation_method: "Validar estrutura YAML e referência a ticket"
+        status: "implemented"
+        artifacts:
+          - "NC-HANDOFF-TEMPLATE.yaml"
+          - "DIR-DS-002-audit-logs/"
+          - "NC-GOV-FR-002-ticket-lifecycle.md"
+
+      - id: "R13"
+        name: "Checkpoints e Save Points"
+        description: "O estado do sistema deve ser salvo periodicamente e antes de operações críticas"
+        severity: "high"
+        enforcement_mechanism: "PulseScheduler (checkpoints) + SAVE-002 (Save Points)"
+        validation_method: "Verificar existência de checkpoints recentes"
+        status: "partial"
+        artifacts:
+          - "PulseScheduler"
+          - "SAVE-002 (Save Point Service - pendente)"
+          - "neocortex_checkpoint tool"
+
+  # 🟣 CATEGORIA 4: EXECUÇÃO E ORQUESTRAÇÃO
+  execution_and_orchestration:
+    description: "Regras para execução segura, limites e resiliência"
+    rules:
+      - id: "R14"
+        name: "STEP 0 (Validação Pré-Ação)"
+        description: "Antes de qualquer ação, o agente deve validar a tarefa contra o Regression Buffer e as políticas"
+        severity: "critical"
+        enforcement_mechanism: "mentor_step_0() + neocortex_regression.check"
+        validation_method: "Execução obrigatória antes de tool calls"
+        status: "implemented"
+        artifacts:
+          - "mentor_step_0()"
+          - "neocortex_regression.check"
+          - "NC-TOOL-FR-012-regression.py"
+
+      - id: "R15"
+        name: "STEP -1 (Save Point)"
+        description: "Antes de ações de escrita, um snapshot do estado deve ser capturado para possível rollback"
+        severity: "high"
+        enforcement_mechanism: "SAVE-002 (Save Point Service)"
+        validation_method: "Snapshot diff antes/após escrita"
+        status: "pending"
+        artifacts:
+          - "SAVE-002 (pendente)"
+          - "NC-TODO-FR-001 (ticket)"
+
+      - id: "R16"
+        name: "Circuit Breaker"
+        description: "Se um agente falhar repetidamente, ele deve ser suspenso para evitar loops de falha"
+        severity: "high"
+        enforcement_mechanism: "SEC-403 (Circuit Breaker por Agente)"
+        validation_method: "Monitorar falhas consecutivas"
+        status: "pending"
+        artifacts:
+          - "SEC-403 (pendente)"
+          - "NC-TODO-FR-001 (ticket)"
+
+      - id: "R17"
+        name: "Rate Limiting por Ferramenta"
+        description: "Limitar a frequência de chamadas a ferramentas críticas ou caras (ex: APIs de LLM)"
+        severity: "high"
+        enforcement_mechanism: "SEC-403 (Rate limiting no guardian)"
+        validation_method: "Contador de chamadas por tool/agente"
+        status: "pending"
+        artifacts:
+          - "SEC-403 (pendente)"
+          - "NC-TODO-FR-001 (ticket)"
+
+  # 🟢 CATEGORIA 5: CICLO DE VIDA E MELHORIA CONTÍNUA
+  # 🔴 CATEGORIA 6: PROTOCOLO DE AGENTE (adicionada 2026-04-16)
+  agent_protocol:
+    description: "Regras de comportamento obrigatório para agentes T1 durante execução de tarefas"
+    rules:
+      - id: "R21"
+        name: "Zero Suposições — Parar e Retornar ao T0"
+        description: |
+          Em caso de QUALQUER dúvida, ambiguidade ou bloqueio, o agente DEVE parar imediatamente
+          e retornar ao T0 com: (1) o que foi feito até agora, (2) a dúvida exata,
+          (3) as opções que o agente vê. T0 decide. O agente NÃO assume, NÃO advinha, NÃO improvisa.
+        severity: "critical"
+        enforcement_mechanism: "protocolo_agente block em cada ticket YAML"
+        validation_method: "Verificar campo regra_duvida em tickets DIR-DS-001-tickets/"
+        status: "implemented"
+        quando_parar:
+          - "Arquivo mencionado no ticket não encontrado"
+          - "API/estrutura do serviço diferente do descrito"
+          - "Mudança necessária toca arquivo @LOCKS"
+          - "Dois caminhos possíveis e sem critério claro de escolha"
+          - "Script referenciado não existe"
+          - "Template de artefato não encontrado em NC-TPL-FR-001"
+        artifacts:
+          - "DIR-DS-001-tickets/*.yaml (campo protocolo_agente.regra_duvida)"
+          - "NC-TPL-FR-001-template-central-index.yaml"
+
+      - id: "R22"
+        name: "Template Central Obrigatório"
+        description: |
+          Todo agente DEVE consultar NC-TPL-FR-001-template-central-index.yaml antes de criar
+          qualquer artefato novo. NÃO criar do zero quando template existir.
+          Se o tipo de artefato não estiver no índice → aplicar R21 (parar, retornar ao T0).
+        severity: "high"
+        enforcement_mechanism: "step_0_obrigatorio em cada ticket YAML aponta para DIR-TMP-FR-001"
+        validation_method: "Verificar se novos artefatos seguem estrutura dos templates correspondentes"
+        status: "implemented"
+        artifacts:
+          - "01_neocortex_framework/DIR-TMP-FR-001-templates-main/NC-TPL-FR-001-template-central-index.yaml"
+          - "DIR-DS-001-tickets/*.yaml (campo protocolo_agente.step_0_obrigatorio)"
+
+      - id: "R24"
+        name: "Dispatch YAML Obrigatório para Qualquer Despacho a Agente T1"
+        description: |
+          ANTES de despachar qualquer agente T1 (horizontal, vertical, sprint, hotfix),
+          o T0 DEVE criar um dispatch YAML completo usando NC-TPL-FR-002-agent-dispatch.yaml.
+          O dispatch deve conter: identidade do agente, passo_0_leitura_obrigatoria,
+          regra_zero_suposicoes (R21), atomic_locks_absolutos, write_zones_autorizadas,
+          tarefas com início/meio/fim, validação obrigatória (py_compile + ruff),
+          checklist_r20_por_handoff, e protocolo_falha.
+          Despacho sem dispatch YAML = VIOLAÇÃO DE GOVERNANÇA.
+        severity: "critical"
+        enforcement_mechanism: "NC-GOV-FR-002-ticket-lifecycle.yaml (STAGE-02 dispatch_yaml_rule)"
+        validation_method: "Verificar existência de NC-DS-AGT-*-dispatch-*.yaml para cada agent assignment"
+        status: "implemented"
+        template: "01_neocortex_framework/DIR-TMP-FR-001-templates-main/NC-TPL-FR-002-agent-dispatch.yaml"
+        artifacts:
+          - "DIR-DS-001-tickets/NC-DS-AGT-*-dispatch-*.yaml"
+          - "NC-TPL-FR-002-agent-dispatch.yaml"
+          - "NC-GOV-FR-002-ticket-lifecycle.yaml (STAGE-02)"
+
+      - id: "R23"
+        name: "Handoff Obrigatório por Ticket"
+        description: |
+          Todo agente DEVE gerar handoff YAML ao concluir CADA ticket — sem exceção.
+          Usar template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+          Destino: DIR-DS-002-audit-logs/NC-DS-{ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+          Se falhar: gerar handoff com status FAILED ou ESCALATED — nunca silenciar erro.
+        severity: "critical"
+        enforcement_mechanism: "handoff_obrigatorio block em cada ticket YAML"
+        validation_method: "Ciclo 1 verifica tickets sem handoff correspondente (bloqueante)"
+        status: "implemented"
+        artifacts:
+          - "DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml"
+          - "DIR-DS-002-audit-logs/"
+          - "NC-WF-001-workspace-routine.md (CICLO 1 — verificação bloqueante)"
+
+  lifecycle_and_continuous_improvement:
+    description: "Regras para ciclo de vida, rotinas e manutenção"
+    rules:
+      - id: "R18"
+        name: "Ciclo de Vida de Tickets"
+        description: "Toda tarefa deve ser registrada como ticket e seguir um fluxo formal (criação → execução → fechamento)"
+        severity: "high"
+        enforcement_mechanism: "NC-GOV-FR-002-ticket-lifecycle.md + diretório DIR-DS-001-tickets/"
+        validation_method: "Validar presença de ticket YAML para cada handoff"
+        status: "implemented"
+        artifacts:
+          - "NC-GOV-FR-002-ticket-lifecycle.md"
+          - "DIR-DS-001-tickets/"
+          - "DIR-DS-002-audit-logs/"
+
+      - id: "R19"
+        name: "Rotina de 4 Ciclos"
+        description: "O trabalho deve seguir uma rotina diária/semanal para garantir continuidade e limpeza"
+        severity: "medium"
+        enforcement_mechanism: "NC-SOP-FR-001 (Checklist do Operador)"
+        validation_method: "Verificar execução de scripts de ciclo"
+        status: "implemented"
+        artifacts:
+          - "NC-SOP-FR-001-session-startup.md"
+          - "NC-CYC-FR-001-4-cycle-validation.md"
+          - "NC-SCR-FR-014-end-of-cycle.ps1"
+
+      - id: "R20"
+        name: "Revisão e Arquivo de Artefatos"
+        description: "Artefatos antigos (handoffs, logs) devem ser arquivados periodicamente para evitar acúmulo"
+        severity: "medium"
+        enforcement_mechanism: "Ciclo 4 (Manutenção Semanal): arquivar YAMLs >7 dias"
+        validation_method: "Verificar idade dos handoffs em DIR-DS-002-audit-logs/"
+        status: "implemented"
+        artifacts:
+          - "NC-SCR-FR-014-end-of-cycle.ps1"
+          - "DIR-ARC-FR-001-archive-main/"
+          - "NC-PROMPT-FR-001-master-context.md (Ciclo 4)"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# MÉTRICAS DE CONFORMIDADE
+# ─────────────────────────────────────────────────────────────────────────────
+compliance_metrics:
+  overall_status: "partial"
+  implemented_rules: 21
+  pending_rules: 3
+  partial_rules: 0
+  total_rules: 24
+  last_audit: null
+  next_audit_due: "2026-04-21"  # 7 dias após geração
+
+# ─────────────────────────────────────────────────────────────────────────────
+# INTEGRAÇÃO COM SISTEMA EXISTENTE
+# ─────────────────────────────────────────────────────────────────────────────
+integration:
+  security_service:
+    - "validate_access() verifica R08 (Atomic Locks)"
+    - "validate_zone() verifica R09 (Zonas de Escrita)"
+  
+  governance_auditor:
+    script: "NC-SCR-FR-080-governance-auditor.py"
+    checks:
+      - "R01 (Inventário de Ativos de IA) via artifact_catalog.json, mcp_tools_inventory.json, genealogy_graph.json"
+      - "R02 (Política Formalizada) via SSOT documents"
+      - "R04 (Nomenclatura Padronizada) via regex"
+      - "R05 (Segregação de Ambientes) via detecção"
+      - "R06 (Identidade para Agentes) via handoff files"
+      - "R07 (Privilégio Mínimo) via agent policy template"
+      - "R08 (Atomic Locks) via atomic locks file"
+      - "R09 (Zonas de Escrita) via write_zones in policy"
+      - "R10 (Trilha de Auditoria) via audit log directory"
+      - "R11 (Versionamento) via hash em YAMLs"
+      - "R12 (Handoffs Formais) via handoff files"
+      - "R13 (Checkpoints) via checkpoint tool"
+      - "R14 (STEP 0) via mentor_step_0 function"
+      - "R15 (STEP -1) via savepoint tool"
+      - "R18 (Ciclo de Vida de Tickets) via tickets directory"
+      - "R19 (Rotina de 4 Ciclos) via cycle validation document"
+      - "R20 (Revisão e Arquivo) via archive directory"
+      - "MCP_EXTRA (MCP & Mission Control Integration) via server.py and adapter"
+  
+  ciclos:
+    ciclo_1: "Carregar regras no início da sessão"
+    ciclo_3: "Executar auditoria parcial"
+    ciclo_4: "Executar auditoria completa + relatório"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# MCP & MISSION CONTROL GOVERNANCE EXTENSIONS
+# ─────────────────────────────────────────────────────────────────────────────
+mcp_extensions:
+  R01:
+    mcp_artifacts:
+      - "mcp_tools_inventory.json"
+      - "neocortex/mcp/tools/"
+    verification: "Inventory must be generated and contain all registered MCP tools"
+  R04:
+    mcp_pattern: "^NC-TOOL-FR-\\d{3}-.*\\.py$"
+    verification: "MCP tool modules must follow NC-TOOL-FR- prefix"
+  R05:
+    mcp_environments:
+      - "MCP server stdio mode"
+      - "MCP server SSE mode"
+      - "Mission Control adapter localhost:3000"
+    verification: "MCP server must support both stdio/SSE; Mission Control must be reachable"
+  R06:
+    mcp_identity: "MCP tools must be registered with unique names; Mission Control adapter must have agent_id"
+  R10:
+    mcp_audit: "MCP tool calls must be logged via HookRegistry and MetricsStore"
+  R11:
+    mcp_versioning: "MCP protocol version must be tracked; adapter version must be documented"
+  R14:
+    mcp_step0: "MCP tool calls must pass through mentor_step_0 validation"
+  R18:
+    mcp_tickets: "MCP integration tasks must have tickets (INT-*)"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CHECKLIST DE IMPLEMENTAÇÃO (para T0)
+# ─────────────────────────────────────────────────────────────────────────────
+implementation_checklist:
+  - task: "Criar documento MD correspondente (dupla mordaça)"
+    status: "pending"
+    assigned_to: "T0"
+  
+  - task: "Integrar validação de regras no SecurityService"
+    status: "pending"
+    assigned_to: "engineer"
+  
+  - task: "Atualizar NC-CYC-FR-001-4-cycle-validation.md com auditoria"
+    status: "pending"
+    assigned_to: "T0"
+  
+  - task: "Atualizar NC-BOOT-FR-001-system-manifest.md com referência"
+    status: "pending"
+    assigned_to: "T0"

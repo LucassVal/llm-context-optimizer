@@ -1,10 +1,25 @@
 #!/usr/bin/env python3
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:57.054253'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: core-central
+level: 1
+tags:
+  - core-central
+  - level-1
+  - python
+domain: framework
+layer: core
+---"""
+
 """
 Test security integration with hierarchical access control.
 """
 
-import sys
 import os
+import sys
 
 sys.path.insert(0, os.path.dirname(__file__))
 
@@ -28,7 +43,7 @@ print(f"Non-existent user: allowed={allowed2}, reason={reason2}")
 # Test load_profile
 profile = load_profile("lucas_valerio")
 if profile:
-    print(f"\nProfile loaded for lucas_valerio")
+    print("\nProfile loaded for lucas_valerio")
     print(f"  Level: {profile.get('hierarchy', {}).get('level')}")
     print(f"  Ancestors: {profile.get('hierarchy', {}).get('ancestors', [])}")
 else:
@@ -41,8 +56,6 @@ sys.path.insert(
 )
 
 # Mock the ledger read/write functions to avoid side effects
-import json
-from unittest.mock import patch, MagicMock
 
 mock_ledger = {
     "user_context": {"current_user_id": "lucas_valerio"},

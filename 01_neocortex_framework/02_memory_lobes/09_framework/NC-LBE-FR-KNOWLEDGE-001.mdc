@@ -1,0 +1,132 @@
+<!-- module: knowledge -->
+<!-- category: core -->
+<!-- status: active -->
+<!-- created_by: opencode -->
+
+# Gestão de Conhecimento
+
+Knowledge Graph, manifestos e gestão de conhecimento.
+
+## Propósito
+Gerenciar conhecimento específico do módulo knowledge.
+
+## Status
+Sugerido
+
+## Tags
+#knowledge, #framework, #neocortex
+
+## Checkpoints
+- CP-KNOWLEDGE-001: Criação inicial
+
+## Conteúdo Inicial
+*Este lobe está em construção. Adicione aqui:*
+
+### 1. Visão Geral
+- Objetivos principais
+- Escopo do módulo
+- Integrações com outros módulos
+
+### 2. Componentes Principais
+- Lista de componentes/classes
+- Responsabilidades
+- Dependências
+
+### 3. Padrões e Convenções
+- Padrões de código
+- Convenções de nomenclatura
+- Boas práticas
+
+### 4. Exemplos de Uso
+- Exemplos básicos
+- Casos de uso comuns
+- Configurações típicas
+
+### 5. Referências
+- Links para documentação
+- Arquivos relevantes no projeto
+- Exemplos externos
+
+## Notas
+- Criado automaticamente por OpenCode
+- Data: 2026-04-10 15:36:46
+- Revisão necessária para conteúdo específico do projeto
+
+## Gestão de Conhecimento NeoCortex
+
+### Componentes Principais
+1. **Knowledge Graph (KG)**: Entidades e relações
+2. **Manifestos**: Metadados de cortex e lobes
+3. **Regression Buffer**: Aprendizados e erros
+4. **Memory Cortex**: Estado ativo da memória
+
+### Knowledge Graph Service
+- `KGService`: Gerencia entidades e relações
+- Entidades: framework, component, lobe, concept
+- Relações: part_of, required_by, integrated_with
+
+### Manifest Service
+- `ManifestService`: Gera e gerencia manifestos
+- Manifestos para cortex e lobes
+- Metadados: tamanho, tags, entidades, dependências
+
+### Fluxo de Conhecimento
+1. **Aquisição**: Ferramentas MCP, análise de código
+2. **Processamento**: Extração de entidades, geração de manifestos
+3. **Armazenamento**: Ledger JSON, arquivos .mdc
+4. **Recuperação**: Query no KG, busca em manifestos
+
+### Exemplos de Uso
+```python
+# Adicionar entidade ao KG
+kg_service.add_entity(entity="neocortex", entity_type="framework")
+
+# Adicionar relação
+kg_service.add_relation(
+    source="pulse_scheduler",
+    relation="part_of",
+    target="neocortex"
+)
+
+# Gerar manifesto para lobe
+manifest_service.generate_manifest("NC-LBE-FR-CORE-001.mdc")
+```
+
+
+# NC-LBE-FR-KNOWLEDGE-001
+
+Conhecimento geral, graph, relações
+
+## Status
+Ativo (povoado automaticamente)
+
+## Tags
+#knowledge, #framework, #neocortex, #auto_populated
+
+## Checkpoints
+- CP-KNOWLEDGE-001: Criação inicial
+- CP-KNOWLEDGE-002: Povoamento automático
+
+## Análise do Diretório
+- **Total de arquivos**: 20
+
+### Arquivos Principais
+- `neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules\NC-CTX-FR-001-cortex-central.mdc` (138 linhas, 6511 bytes)
+- `neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules\NC-LBE-FR-002-claude-assistant.mdc` (173 linhas, 8131 bytes)
+- `neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules\NC-LBE-FR-ARCHITECTURE-001.mdc` (171 linhas, 5136 bytes)
+- `neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules\NC-LBE-FR-BENCHMARKS-001.mdc` (18 linhas, 344 bytes)
+- `neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules\NC-LBE-FR-CLI-001.mdc` (117 linhas, 2753 bytes)
+- `neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules\NC-LBE-FR-CORE-001.mdc` (18 linhas, 308 bytes)
+- `neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules\NC-LBE-FR-DEPLOYMENT-001.mdc` (87 linhas, 1917 bytes)
+- `neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules\NC-LBE-FR-DEVELOPMENT-001.mdc` (162 linhas, 4395 bytes)
+- `neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules\NC-LBE-FR-DOCUMENTATION-001.mdc` (89 linhas, 2122 bytes)
+- `neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules\NC-LBE-FR-INTEGRATION-001.mdc` (81 linhas, 1891 bytes)
+
+## Contexto do Projeto
+- **Nome do projeto**: N/A
+- **Total de arquivos no projeto**: 0
+
+## Notas de Povoamento
+- Povoado automaticamente por OpenCode
+- Data: 2026-04-10 15:57:54
+- Foco da análise: knowledge_graph, relationships, metadata

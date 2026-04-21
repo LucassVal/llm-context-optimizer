@@ -1,0 +1,493 @@
+metadata:
+  generated: '2026-04-14'
+  status: PENDING_REVIEW
+  total_files: 87
+renaming_plan:
+- imports_affected:
+  - 01_neocortex_framework/DIR-TEST-FR-001-tests-main/test_sanity.py
+  - 01_neocortex_framework/neocortex/core/review/NC-VAL-FR-005-async-thread-validator.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-017-task.py
+  new_path: neocortex/agent/NC-AGENT-FR-001-executor.py
+  old_path: neocortex/agent/executor.py
+- imports_affected:
+  - 01_neocortex_framework/DIR-TEST-FR-001-tests-main/test_modular_server.py
+  new_path: neocortex/cli/NC-CLI-FR-001-main.py
+  old_path: neocortex/cli/main.py
+- imports_affected:
+  - 01_neocortex_framework/DIR-TEST-FR-001-tests-main/test_config_reload.py
+  - 01_neocortex_framework/DIR-TEST-FR-001-tests-main/test_sanity.py
+  - 01_neocortex_framework/neocortex/agent/executor.py
+  - 01_neocortex_framework/neocortex/core/NC-CFG-FR-001-logging-config.py
+  - 01_neocortex_framework/neocortex/core/__init__.py
+  - 01_neocortex_framework/neocortex/core/config/NC-CFG-FR-004-project-config.py
+  - 01_neocortex_framework/neocortex/core/config/NC-CFG-FR-004-project-loader.py
+  - 01_neocortex_framework/neocortex/core/file_utils.py
+  - 01_neocortex_framework/neocortex/core/hooks/NC-HK-FR-002-simple-hook.py
+  - 01_neocortex_framework/neocortex/core/logging_config.py
+  - 01_neocortex_framework/neocortex/core/pulse_scheduler.py
+  - 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-001-logging-service.py
+  - 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-004-cache-service.py
+  - 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-015-task-broker.py
+  - 01_neocortex_framework/neocortex/core/utils/NC-UTL-FR-003-path-resolver.py
+  - 01_neocortex_framework/neocortex/infra/backup_restore.py
+  - 01_neocortex_framework/neocortex/infra/config_validation.py
+  - 01_neocortex_framework/neocortex/infra/health_metrics.py
+  - 01_neocortex_framework/neocortex/infra/hot_cache.py
+  - 01_neocortex_framework/neocortex/infra/ledger_store.py
+  - 01_neocortex_framework/neocortex/infra/lobe_index.py
+  - 01_neocortex_framework/neocortex/infra/manifest_store.py
+  - 01_neocortex_framework/neocortex/infra/metrics_store.py
+  - 01_neocortex_framework/neocortex/infra/profiler.py
+  - 01_neocortex_framework/neocortex/infra/search_engine.py
+  - 01_neocortex_framework/neocortex/infra/task_queue.py
+  - 01_neocortex_framework/neocortex/infra/vector_engine_example.py
+  - 01_neocortex_framework/neocortex/mcp/sub_server.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-000-brain.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-005-config.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-013-report.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-023-orchestration.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-024-governance.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-025-system.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-026-intelligence.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-027-knowledge.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-029-health.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-030-context.py
+  - 01_neocortex_framework/scripts/NC-SCR-FR-004-governance-validator.py
+  - 01_neocortex_framework/scripts/NC-SCR-FR-017-visual-server.py
+  - 01_neocortex_framework/scripts/inspect_config.py
+  - 01_neocortex_framework/scripts/migrate_to_stores.py
+  - 01_neocortex_framework/scripts/test_llm_backends.py
+  - DIR-ARC-FR-001-archive-main/NC-SCR-FR-015-hud-display.py
+  - DIR-ARC-FR-001-archive-main/tools-duplicates-20260413/NC-TOOL-FR-028-export.py
+  new_path: neocortex/NC-CORE-FR-001-config.py
+  old_path: neocortex/config.py
+- imports_affected: []
+  new_path: neocortex/core/NC-CORE-FR-002-nc-cfg-fr-001-logging-config.py
+  old_path: neocortex/core/NC-CFG-FR-001-logging-config.py
+- imports_affected:
+  - 01_neocortex_framework/neocortex/core/__init__.py
+  - 01_neocortex_framework/neocortex/core/security_service.py
+  new_path: neocortex/core/NC-CORE-FR-003-nc-core-fr-014-lock-guard.py
+  old_path: neocortex/core/NC-CORE-FR-014-lock-guard.py
+- imports_affected:
+  - 01_neocortex_framework/neocortex/core/__init__.py
+  - 01_neocortex_framework/neocortex/core/security_service.py
+  new_path: neocortex/core/NC-CORE-FR-004-nc-core-fr-017-policy-loader.py
+  old_path: neocortex/core/NC-CORE-FR-017-policy-loader.py
+- imports_affected:
+  - 01_neocortex_framework/neocortex/core/__init__.py
+  new_path: neocortex/core/NC-CORE-FR-005-nc-core-fr-022-save-point-service.py
+  old_path: neocortex/core/NC-CORE-FR-022-save-point-service.py
+- imports_affected:
+  - 01_neocortex_framework/neocortex/core/__init__.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-002-agent.py
+  new_path: neocortex/core/NC-CORE-FR-006-agent-service.py
+  old_path: neocortex/core/agent_service.py
+- imports_affected:
+  - 01_neocortex_framework/DIR-TEST-FR-001-tests-main/test_sanity.py
+  - 01_neocortex_framework/neocortex/core/__init__.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-020-knowledge.py
+  new_path: neocortex/core/NC-CORE-FR-007-akl-service.py
+  old_path: neocortex/core/akl_service.py
+- imports_affected:
+  - 01_neocortex_framework/neocortex/core/__init__.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-003-benchmark.py
+  new_path: neocortex/core/NC-CORE-FR-008-benchmark-service.py
+  old_path: neocortex/core/benchmark_service.py
+- imports_affected:
+  - 01_neocortex_framework/DIR-TEST-FR-001-tests-main/test_sanity.py
+  - 01_neocortex_framework/neocortex/core/__init__.py
+  - 01_neocortex_framework/neocortex/mcp/server.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-004-checkpoint.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-022-session.py
+  new_path: neocortex/core/NC-CORE-FR-009-checkpoint-service.py
+  old_path: neocortex/core/checkpoint_service.py
+- imports_affected:
+  - 01_neocortex_framework/neocortex/core/__init__.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-000-brain.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-005-config.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-025-system.py
+  new_path: neocortex/core/NC-CORE-FR-010-config-service.py
+  old_path: neocortex/core/config_service.py
+- imports_affected:
+  - 01_neocortex_framework/DIR-TEST-FR-001-tests-main/test_sanity.py
+  - 01_neocortex_framework/neocortex/core/__init__.py
+  - 01_neocortex_framework/neocortex/mcp/server.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-020-knowledge.py
+  new_path: neocortex/core/NC-CORE-FR-011-consolidation-service.py
+  old_path: neocortex/core/consolidation_service.py
+- imports_affected:
+  - 01_neocortex_framework/neocortex/cli/main.py
+  - 01_neocortex_framework/neocortex/core/__init__.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-001-cortex.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-021-memory.py
+  - 01_neocortex_framework/scripts/create_lobes.py
+  new_path: neocortex/core/NC-CORE-FR-012-cortex-service.py
+  old_path: neocortex/core/cortex_service.py
+- imports_affected:
+  - 01_neocortex_framework/DIR-TEST-FR-001-tests-main/test_sanity.py
+  - 01_neocortex_framework/neocortex/core/__init__.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-006-export.py
+  - DIR-ARC-FR-001-archive-main/tools-duplicates-20260413/NC-TOOL-FR-028-export.py
+  new_path: neocortex/core/NC-CORE-FR-013-export-service.py
+  old_path: neocortex/core/export_service.py
+- imports_affected:
+  - 01_neocortex_framework/DIR-ARC-FR-001-archive-main/development_utilities/extract_all_tools.py
+  - 01_neocortex_framework/DIR-ARC-FR-001-archive-main/development_utilities/extract_tools_final.py
+  - 01_neocortex_framework/DIR-ARC-FR-001-archive-main/development_utilities/extract_tools_robust.py
+  - 01_neocortex_framework/DIR-MCP-FR-001-mcp-server/extract_tools.py
+  - 01_neocortex_framework/DIR-TEST-FR-001-tests-main/test_sanity.py
+  - 01_neocortex_framework/neocortex/core/__init__.py
+  - 01_neocortex_framework/neocortex/core/profile_manager.py
+  - 01_neocortex_framework/neocortex/repositories/file_system_repository.py
+  - 01_neocortex_framework/scripts/create_lobes.py
+  - 01_neocortex_framework/scripts/extract_tools_robust.py
+  new_path: neocortex/core/NC-CORE-FR-014-file-utils.py
+  old_path: neocortex/core/file_utils.py
+- imports_affected:
+  - 01_neocortex_framework/neocortex/core/__init__.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-007-init.py
+  new_path: neocortex/core/NC-CORE-FR-015-init-service.py
+  old_path: neocortex/core/init_service.py
+- imports_affected:
+  - 01_neocortex_framework/neocortex/core/__init__.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-020-knowledge.py
+  new_path: neocortex/core/NC-CORE-FR-016-kg-service.py
+  old_path: neocortex/core/kg_service.py
+- imports_affected:
+  - 01_neocortex_framework/DIR-TEST-FR-001-tests-main/test_sanity.py
+  - 01_neocortex_framework/neocortex/cli/main.py
+  - 01_neocortex_framework/neocortex/core/__init__.py
+  - 01_neocortex_framework/neocortex/core/lobe_service.py
+  - 01_neocortex_framework/neocortex/mcp/server.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-008-ledger.py
+  - 01_neocortex_framework/scripts/generate_all_manifests.py
+  new_path: neocortex/core/NC-CORE-FR-017-ledger-service.py
+  old_path: neocortex/core/ledger_service.py
+- imports_affected:
+  - 01_neocortex_framework/neocortex/core/__init__.py
+  - 01_neocortex_framework/neocortex/mcp/sub_server.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-009-lobes.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-014-search.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-021-memory.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-026-intelligence.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-027-knowledge.py
+  - 01_neocortex_framework/scripts/NC-SCR-FR-001-populate-lobes-ssot.py
+  - 01_neocortex_framework/scripts/generate_all_manifests.py
+  - DIR-ARC-FR-001-archive-main/NC-SCR-FR-015-hud-display.py
+  new_path: neocortex/core/NC-CORE-FR-018-lobe-service.py
+  old_path: neocortex/core/lobe_service.py
+- imports_affected:
+  - 01_neocortex_framework/neocortex/core/__init__.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-020-knowledge.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-021-memory.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-027-knowledge.py
+  - 01_neocortex_framework/scripts/generate_all_manifests.py
+  - 01_neocortex_framework/test_vector_scan.py
+  new_path: neocortex/core/NC-CORE-FR-019-manifest-service.py
+  old_path: neocortex/core/manifest_service.py
+- imports_affected:
+  - 01_neocortex_framework/neocortex/core/__init__.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-010-peers.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-023-orchestration.py
+  new_path: neocortex/core/NC-CORE-FR-020-peers-service.py
+  old_path: neocortex/core/peers_service.py
+- imports_affected:
+  - 01_neocortex_framework/neocortex/core/__init__.py
+  new_path: neocortex/core/NC-CORE-FR-021-profile-manager.py
+  old_path: neocortex/core/profile_manager.py
+- imports_affected:
+  - 01_neocortex_framework/neocortex/core/__init__.py
+  new_path: neocortex/core/NC-CORE-FR-022-profile-service.py
+  old_path: neocortex/core/profile_service.py
+- imports_affected:
+  - 01_neocortex_framework/DIR-TEST-FR-001-tests-main/test_sanity.py
+  - 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-010-kairos-service.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-025-system.py
+  new_path: neocortex/core/NC-CORE-FR-023-pulse-scheduler.py
+  old_path: neocortex/core/pulse_scheduler.py
+- imports_affected:
+  - 01_neocortex_framework/neocortex/core/__init__.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-012-regression.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-022-session.py
+  new_path: neocortex/core/NC-CORE-FR-024-regression-service.py
+  old_path: neocortex/core/regression_service.py
+- imports_affected:
+  - 01_neocortex_framework/neocortex/core/__init__.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-015-security.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-024-governance.py
+  new_path: neocortex/core/NC-CORE-FR-025-security-service.py
+  old_path: neocortex/core/security_service.py
+- imports_affected: []
+  new_path: neocortex/infra/NC-INFRA-FR-001-backup-restore.py
+  old_path: neocortex/infra/backup_restore.py
+- imports_affected: []
+  new_path: neocortex/infra/NC-INFRA-FR-002-cache-backend.py
+  old_path: neocortex/infra/cache_backend.py
+- imports_affected: []
+  new_path: neocortex/infra/NC-INFRA-FR-003-config-validation.py
+  old_path: neocortex/infra/config_validation.py
+- imports_affected: []
+  new_path: neocortex/infra/NC-INFRA-FR-004-health-metrics.py
+  old_path: neocortex/infra/health_metrics.py
+- imports_affected:
+  - 01_neocortex_framework/neocortex/infra/backup_restore.py
+  - 01_neocortex_framework/neocortex/infra/profiler.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-030-context.py
+  new_path: neocortex/infra/NC-INFRA-FR-005-hot-cache.py
+  old_path: neocortex/infra/hot_cache.py
+- imports_affected:
+  - 01_neocortex_framework/DIR-TEST-FR-001-tests-main/test_sanity.py
+  - 01_neocortex_framework/neocortex/core/agent_service.py
+  - 01_neocortex_framework/neocortex/core/akl_service.py
+  - 01_neocortex_framework/neocortex/core/checkpoint_service.py
+  - 01_neocortex_framework/neocortex/core/config_service.py
+  - 01_neocortex_framework/neocortex/core/consolidation_service.py
+  - 01_neocortex_framework/neocortex/core/export_service.py
+  - 01_neocortex_framework/neocortex/core/kg_service.py
+  - 01_neocortex_framework/neocortex/core/ledger_service.py
+  - 01_neocortex_framework/neocortex/core/manifest_service.py
+  - 01_neocortex_framework/neocortex/core/peers_service.py
+  - 01_neocortex_framework/neocortex/core/regression_service.py
+  - 01_neocortex_framework/neocortex/core/security_service.py
+  - 01_neocortex_framework/neocortex/infra/backup_restore.py
+  - 01_neocortex_framework/neocortex/infra/profiler.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-030-context.py
+  - 01_neocortex_framework/scripts/migrate_to_stores.py
+  new_path: neocortex/infra/NC-INFRA-FR-006-ledger-store.py
+  old_path: neocortex/infra/ledger_store.py
+- imports_affected:
+  - 01_neocortex_framework/DIR-TEST-FR-001-tests-main/test_sanity.py
+  - 01_neocortex_framework/neocortex/agent/executor.py
+  - 01_neocortex_framework/neocortex/infra/llm/deepseek_backend.py
+  - 01_neocortex_framework/neocortex/infra/llm/factory.py
+  - 01_neocortex_framework/neocortex/infra/llm/ollama_backend.py
+  - 01_neocortex_framework/neocortex/infra/llm/openai_backend.py
+  - 01_neocortex_framework/scripts/test_llm_backends.py
+  new_path: neocortex/infra/llm/NC-INFRA-FR-007-backend.py
+  old_path: neocortex/infra/llm/backend.py
+- imports_affected:
+  - 01_neocortex_framework/neocortex/infra/llm/factory.py
+  new_path: neocortex/infra/llm/NC-INFRA-FR-008-deepseek-backend.py
+  old_path: neocortex/infra/llm/deepseek_backend.py
+- imports_affected:
+  - 01_neocortex_framework/DIR-TEST-FR-001-tests-main/test_sanity.py
+  - 01_neocortex_framework/neocortex/agent/executor.py
+  - 01_neocortex_framework/neocortex/mcp/sub_server.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-019-project-manifest.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-026-intelligence.py
+  - 01_neocortex_framework/scripts/create_lobes.py
+  - 01_neocortex_framework/scripts/test_llm_backends.py
+  new_path: neocortex/infra/llm/NC-INFRA-FR-009-factory.py
+  old_path: neocortex/infra/llm/factory.py
+- imports_affected:
+  - 01_neocortex_framework/neocortex/infra/llm/factory.py
+  new_path: neocortex/infra/llm/NC-INFRA-FR-010-ollama-backend.py
+  old_path: neocortex/infra/llm/ollama_backend.py
+- imports_affected:
+  - 01_neocortex_framework/neocortex/infra/llm/factory.py
+  new_path: neocortex/infra/llm/NC-INFRA-FR-011-openai-backend.py
+  old_path: neocortex/infra/llm/openai_backend.py
+- imports_affected:
+  - 01_neocortex_framework/neocortex/core/lobe_service.py
+  - 01_neocortex_framework/neocortex/infra/backup_restore.py
+  - 01_neocortex_framework/neocortex/infra/profiler.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-027-knowledge.py
+  - 01_neocortex_framework/scripts/migrate_to_stores.py
+  new_path: neocortex/infra/NC-INFRA-FR-012-lobe-index.py
+  old_path: neocortex/infra/lobe_index.py
+- imports_affected:
+  - 01_neocortex_framework/DIR-TEST-FR-001-tests-main/test_sanity.py
+  - 01_neocortex_framework/neocortex/infra/backup_restore.py
+  - 01_neocortex_framework/neocortex/infra/profiler.py
+  - 01_neocortex_framework/scripts/migrate_to_stores.py
+  new_path: neocortex/infra/NC-INFRA-FR-013-manifest-store.py
+  old_path: neocortex/infra/manifest_store.py
+- imports_affected:
+  - 01_neocortex_framework/DIR-TEST-FR-001-tests-main/test_sanity.py
+  - 01_neocortex_framework/neocortex/agent/executor.py
+  - 01_neocortex_framework/neocortex/core/pulse_scheduler.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-013-report.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-029-health.py
+  new_path: neocortex/infra/NC-INFRA-FR-014-metrics-store.py
+  old_path: neocortex/infra/metrics_store.py
+- imports_affected:
+  - 01_neocortex_framework/neocortex/core/profile_service.py
+  - 01_neocortex_framework/neocortex/repositories/file_system_repository.py
+  new_path: neocortex/infra/NC-INFRA-FR-015-profiler.py
+  old_path: neocortex/infra/profiler.py
+- imports_affected:
+  - 01_neocortex_framework/neocortex/infra/backup_restore.py
+  - 01_neocortex_framework/neocortex/infra/profiler.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-027-knowledge.py
+  new_path: neocortex/infra/NC-INFRA-FR-016-search-engine.py
+  old_path: neocortex/infra/search_engine.py
+- imports_affected: []
+  new_path: neocortex/infra/NC-INFRA-FR-017-task-queue.py
+  old_path: neocortex/infra/task_queue.py
+- imports_affected: []
+  new_path: neocortex/infra/NC-INFRA-FR-018-vector-engine-example.py
+  old_path: neocortex/infra/vector_engine_example.py
+- imports_affected:
+  - 01_neocortex_framework/neocortex/core/review/NC-VAL-FR-005-async-thread-validator.py
+  new_path: neocortex/infra/NC-INFRA-FR-019-vector-store.py
+  old_path: neocortex/infra/vector_store.py
+- imports_affected:
+  - 01_neocortex_framework/DIR-ARC-FR-001-archive-main/mcp_server_legacy/NC-MCP-FR-001-mcp-server.py
+  - 01_neocortex_framework/DIR-ARC-FR-001-archive-main/scripts/verify_mcp.py
+  - 01_neocortex_framework/DIR-BAK-FR-001-backup-main/backup_root/verify_mcp.py
+  - 01_neocortex_framework/DIR-MCP-FR-001-mcp-server/NC-HUB-FR-001-mcp-hub.py
+  - 01_neocortex_framework/DIR-MCP-FR-001-mcp-server/list_tools_simple.py
+  - 01_neocortex_framework/DIR-MCP-FR-001-mcp-server/neocortex_mcp.py
+  - 01_neocortex_framework/DIR-MCP-FR-001-mcp-server/test_tools.py
+  - 01_neocortex_framework/DIR-MCP-FR-001-mcp-server/test_tools_simple.py
+  - 01_neocortex_framework/DIR-TEST-FR-001-tests-main/fire_test.py
+  - 01_neocortex_framework/DIR-TEST-FR-001-tests-main/test_mcp_responsive.py
+  - 01_neocortex_framework/DIR-TEST-FR-001-tests-main/test_modular_server.py
+  - 01_neocortex_framework/DIR-TEST-FR-001-tests-main/test_sanity.py
+  - 01_neocortex_framework/DIR-TEST-FR-001-tests-main/test_tools.py
+  - 01_neocortex_framework/neocortex/cli/main.py
+  - 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-002-health-service.py
+  - 01_neocortex_framework/neocortex/mcp/server.py
+  - 01_neocortex_framework/neocortex/mcp/sub_server.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-013-report.py
+  new_path: neocortex/mcp/NC-CORE-FR-026-server.py
+  old_path: neocortex/mcp/server.py
+- imports_affected:
+  - 01_neocortex_framework/DIR-TEST-FR-001-tests-main/fire_test.py
+  - 01_neocortex_framework/DIR-TEST-FR-001-tests-main/test_sanity.py
+  - 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-002-health-service.py
+  new_path: neocortex/mcp/NC-CORE-FR-027-sub-server.py
+  old_path: neocortex/mcp/sub_server.py
+- imports_affected: []
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-001-nc-tool-fr-000-brain.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-000-brain.py
+- imports_affected: []
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-002-nc-tool-fr-001-cortex.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-001-cortex.py
+- imports_affected: []
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-003-nc-tool-fr-002-agent.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-002-agent.py
+- imports_affected: []
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-004-nc-tool-fr-003-benchmark.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-003-benchmark.py
+- imports_affected: []
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-005-nc-tool-fr-004-checkpoint.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-004-checkpoint.py
+- imports_affected: []
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-006-nc-tool-fr-005-config.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-005-config.py
+- imports_affected: []
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-007-nc-tool-fr-006-export.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-006-export.py
+- imports_affected: []
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-008-nc-tool-fr-007-init.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-007-init.py
+- imports_affected: []
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-009-nc-tool-fr-008-ledger.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-008-ledger.py
+- imports_affected: []
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-010-nc-tool-fr-009-lobes.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-009-lobes.py
+- imports_affected: []
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-011-nc-tool-fr-010-peers.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-010-peers.py
+- imports_affected:
+  - 01_neocortex_framework/neocortex/mcp/server.py
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-012-nc-tool-fr-011-pulse.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-011-pulse.py
+- imports_affected: []
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-013-nc-tool-fr-012-regression.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-012-regression.py
+- imports_affected: []
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-014-nc-tool-fr-013-report.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-013-report.py
+- imports_affected: []
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-015-nc-tool-fr-014-search.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-014-search.py
+- imports_affected: []
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-016-nc-tool-fr-015-security.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-015-security.py
+- imports_affected: []
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-017-nc-tool-fr-016-subserver.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-016-subserver.py
+- imports_affected: []
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-018-nc-tool-fr-017-task.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-017-task.py
+- imports_affected: []
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-019-nc-tool-fr-018-push-notification.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-018-push-notification.py
+- imports_affected: []
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-020-nc-tool-fr-019-project-manifest.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-019-project-manifest.py
+- imports_affected: []
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-021-nc-tool-fr-020-knowledge.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-020-knowledge.py
+- imports_affected: []
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-022-nc-tool-fr-021-memory.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-021-memory.py
+- imports_affected: []
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-023-nc-tool-fr-022-session.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-022-session.py
+- imports_affected: []
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-024-nc-tool-fr-023-orchestration.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-023-orchestration.py
+- imports_affected: []
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-025-nc-tool-fr-024-governance.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-024-governance.py
+- imports_affected: []
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-026-nc-tool-fr-025-system.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-025-system.py
+- imports_affected: []
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-027-nc-tool-fr-026-intelligence.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-026-intelligence.py
+- imports_affected: []
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-028-nc-tool-fr-027-knowledge.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-027-knowledge.py
+- imports_affected: []
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-029-nc-tool-fr-029-health.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-029-health.py
+- imports_affected: []
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-030-nc-tool-fr-030-context.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-030-context.py
+- imports_affected: []
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-031-nc-tool-fr-031-savepoint.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-031-savepoint.py
+- imports_affected: []
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-032-nc-tool-fr-034-dry-run.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-034-dry-run.py
+- imports_affected: []
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-033-nc-tool-fr-035-task.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-035-task.py
+- imports_affected: []
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-034-nc-tool-fr-036-picoclaw.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-036-picoclaw.py
+- imports_affected: []
+  new_path: neocortex/mcp/tools/NC-TOOL-FR-035-nc-tool-fr-037-hooks.py
+  old_path: neocortex/mcp/tools/NC-TOOL-FR-037-hooks.py
+- imports_affected:
+  - 01_neocortex_framework/DIR-ARC-FR-001-archive-main/mcp_server_legacy/NC-MCP-FR-001-mcp-server.py
+  - 01_neocortex_framework/DIR-MCP-FR-001-mcp-server/neocortex_mcp.py
+  - 01_neocortex_framework/neocortex/core/akl_service.py
+  - 01_neocortex_framework/neocortex/infra/ledger_store.py
+  - 01_neocortex_framework/neocortex/infra/profiler.py
+  - 01_neocortex_framework/neocortex/mcp/sub_server.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-020-knowledge.py
+  - 01_neocortex_framework/neocortex/repositories/__init__.py
+  - 01_neocortex_framework/neocortex/repositories/file_system_repository.py
+  new_path: neocortex/repositories/NC-REPO-FR-001-base.py
+  old_path: neocortex/repositories/base.py
+- imports_affected:
+  - 01_neocortex_framework/neocortex/repositories/__init__.py
+  - 01_neocortex_framework/scripts/create_lobes.py
+  new_path: neocortex/repositories/NC-REPO-FR-002-file-system-repository.py
+  old_path: neocortex/repositories/file_system_repository.py
+- imports_affected:
+  - 05_examples/example_architecture.py
+  new_path: neocortex/schemas/NC-SCHEMA-FR-001-a2a-message-schema.json
+  old_path: neocortex/schemas/a2a_message_schema.json
+- imports_affected:
+  - 01_neocortex_framework/neocortex/core/ledger_service.py
+  - 05_examples/example_architecture.py
+  new_path: neocortex/schemas/NC-SCHEMA-FR-002-ledger-schema.json
+  old_path: neocortex/schemas/ledger_schema.json

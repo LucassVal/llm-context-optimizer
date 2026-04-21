@@ -1,0 +1,14 @@
+{
+  "category": "04_cc_patterns",
+  "tags": [
+    "igpu",
+    "ipex-llm",
+    "ollama",
+    "qwen"
+  ],
+  "summary": "Este documento descreve a configuração e orquestração para o uso da iGPU Intel Iris Xe com o ipex-llm, permitindo dois workers locais paralelos sem custo de API.",
+  "priority_score": 8,
+  "file": "NC-LBE-INT-006-igpu-ipex-setup.mdc",
+  "lobe_id": "NC-LBE-INT-006-igpu-ipex-setup",
+  "classified": "2026-04-21T10:37:21"
+}

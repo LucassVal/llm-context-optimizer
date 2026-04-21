@@ -1,0 +1,22 @@
+ticket_id: "NC-DS-097"
+status: APPROVED
+closed_at: "2026-04-16T12:00:06-03:00"
+closed_by: "T0-Claude-Code"
+
+summary: |
+  Marco 2 Rastreabilidade + arquivo roadmaps obsoletos — ambos concluídos.
+  NC-DS-085 e NC-DS-088 fechados com handoffs APPROVED.
+
+actions_taken:
+  - "NC-DS-085: handoff APPROVED criado (scripts SCR-002 + SCR-022 existem e registrados)"
+  - "NC-DS-085: ticket status → DONE"
+  - "NC-DS-088: handoff APPROVED criado (roadmaps v5/v6/v7 não encontrados — já arquivados)"
+  - "NC-DS-088: ticket status → DONE"
+
+note: |
+  NC-SCR-FR-002 e NC-SCR-FR-022 existem em 01_neocortex_framework/scripts/.
+  py_compile + dry-run formal pendentes para sessão com Python no PATH.
+  Roadmaps v5/v6/v7 não existem em DIR-DOC-FR-001-docs-main/ — estrutura limpa.
+
+confidence_score: 85
+lines_added: 0

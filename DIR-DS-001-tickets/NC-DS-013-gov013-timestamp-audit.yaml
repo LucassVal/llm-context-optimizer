@@ -1,0 +1,71 @@
+assigned_to: DS-B_AFTER_009
+closed_at: '2026-04-12T22:36:30'
+closed_by: NC-SCR-FR-010 sync
+completed_at: '2026-04-15T13:39:18.486324'
+created_at: '2026-04-12T17:20:00'
+created_by: antigravity-t0
+description: 'Auditar e corrigir todos os timestamps em DIR-DOC-FR-001-docs-main/
+
+  para usar ISO 8601 completo: YYYY-MM-DDTHH:MM:SS
+
+
+  Problemas frequentes encontrados:
+
+  - Datas parciais: "2026-04-12" → "2026-04-12T00:00:00"
+
+  - Formatos mistos: "12/04/2026" ou "April 12"
+
+  - Changelogs sem hora: "[2026-04-12]" → "[2026-04-12T00:00:00]" (manter colchetes)
+
+
+  RESTRIÇÃO: NC-NAM-FR-001, neocortex_config.yaml, server.py = NÃO TOCAR
+
+  '
+entry_state:
+  context_files:
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md
+  scan_target: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/
+exit_state:
+  files_created:
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-AUD-FR-001-timestamp-audit.md
+  files_modified:
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001a-tools-registry.md
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001b-lobes-registry.md
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001c-config-registry.md
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001d-prompts-registry.md
+forbidden_zone:
+- 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md
+- neocortex/mcp/server.py
+- neocortex/mcp/sub_server.py
+- DIR-RES-CC-001-claude-leak-workzone/
+handoff_ref: NC-DS-013-handoff-20260415T133918-retrospective.yaml
+integrity_hash: be1b25e998c248f5
+limits:
+  escalate_after_rounds: 3
+  max_rounds: 4
+  max_tokens_per_phase: 3000
+methodology: "1. Varrer NC-NAM-FR-001a/b/c/d — grep por datas sem T ou com formato\
+  \ errado\n2. Criar NC-AUD-FR-001-timestamp-audit.md com:\n   - Lista de arquivos\
+  \ auditados\n   - Problemas encontrados por arquivo\n   - Correções aplicadas\n\
+  3. Para cada sub-registro (001a/b/c/d):\n   - Substituir \"[2026-XX-XX]\" → \"[2026-XX-XXT00:00:00]\"\
+  \ nos changelogs\n   - Substituir datas parciais nos campos created_at, updated_at\n\
+  4. Atualizar NC-TODO-FR-001: GOV-013 %DONE\n5. Handoff PENDING_REVIEW\n"
+nota: 'Este ticket é para a PRÓXIMA frente disponível após NC-DS-009 (DS-B)
+
+  ou pode ser executado por DS-A se DS-B ainda estiver rodando.
+
+  Reatribuir manualmente no NC-CFG-DS-003 quando disponível.
+
+  '
+priority: MEDIUM
+roadmap_ticket: GOV-013
+status: DONE
+ticket_id: NC-DS-013
+title: 'GOV-013 — Padronização ISO 8601 em docs-main: auditoria e correção de timestamps'
+write_zone:
+- 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001a*.md
+- 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001b*.md
+- 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001c*.md
+- 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001d*.md
+- 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-AUD-FR-001*.md
+- 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-TODO-FR-001*.md

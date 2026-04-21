@@ -1,0 +1,32 @@
+# DIR-DS-002-audit-logs/NC-DS-039-handoff-20260413-080006.yaml
+ticket_id: NC-DS-039
+status: PENDING_REVIEW
+timestamp: "2026-04-13T08:00:35-03:00"
+agent_port: opencode
+lines_added: 160
+files_modified:
+  - 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-012-channel-notifier.py
+summary: |
+  Implementado ChannelNotifier, sistema de canais de notificação com integração ao EventBus.
+  Canais padrão: log, console (com rich opcional), eventbus.
+  Feature flag KAIROS_CHANNELS controla ativação dos canais avançados.
+  Fallback gracioso para logging quando flag desativada.
+  Singleton thread-safe com registro dinâmico de canais.
+ajustes_aplicados:
+  - notifypy com ImportError fallback (referência NC-RES-CC-003)
+  - EventBus via importlib.util.spec_from_file_location (R09)
+metrics:
+  lines_real: 160
+  files_created: 1
+  dependencies_used: [] # apenas stdlib
+  write_zone_respected: true
+  locks_respected: true
+errors: []
+warnings: []
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  min_80_lines: true
+  no_locked_files_modified: true
+  ajustes_synthesis_applied: true
+  handoff_yaml_complete: true

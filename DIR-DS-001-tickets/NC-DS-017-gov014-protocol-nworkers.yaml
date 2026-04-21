@@ -1,0 +1,28 @@
+assigned_to: QUEUE
+closed_at: '2026-04-12T22:36:30'
+closed_by: NC-SCR-FR-010 sync
+completed_at: '2026-04-15T13:39:18.543670'
+created_at: '2026-04-12T18:21:00'
+exit_state:
+  files_created:
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-001-nworker-protocol.md
+forbidden_zone:
+- neocortex/mcp/server.py
+- neocortex/mcp/sub_server.py
+- DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md
+handoff_ref: NC-DS-017-handoff-20260415T133918-retrospective.yaml
+integrity_hash: 54629266d8357cbc
+limits:
+  max_rounds: 4
+  max_tokens_per_phase: 4000
+methodology: "1. Ler NC-PROMPT-DS-002-worker-universal.md (novo prompt)\n2. Ler NC-CFG-DS-004-task-queue.yaml\
+  \ (fila)\n3. Ler NC-SEC-FR-002-entry-lock-protocol.md (entry locks)\n4. Documentar\
+  \ em NC-GOV-FR-001:\n   - Diagrama ASCII do flow N-workers\n   - Claim protocol\
+  \ (EL-1/2/3/4)\n   - Auto-approve conditions\n   - Como adicionar tasks à fila\n\
+  \   - Limites de escala (API keys, filesystem)\n"
+priority: MEDIUM
+roadmap_ticket: GOV-014
+status: DONE
+ticket_id: NC-DS-017
+title: 'GOV-014 — Protocolo T0/T1 v2: documentar arquitetura N-workers + worker queue'
+write_zone: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/

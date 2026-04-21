@@ -1,0 +1,25 @@
+ticket_id: "NC-DS-072"
+status: "APPROVED"
+timestamp: "2026-04-16T01:15:42-03:00"
+agent: "T0-Antigravity"
+summary: |
+  Rastreabilidade e correção do NC-SCR-FR-066-bootup-sync.py.
+  Verificada integridade: sintaxe OK, paths corretos (PROJECT_ROOT resolvido via __file__).
+  Identificado e corrigido bug crítico: regex da seção 9 falhava silenciosamente porque o
+  bootup manifest usa dois separadores "---" antes do ## 10, mas o padrão esperava apenas um.
+  Fix aplicado: pattern alterado para (?:---\n)+\n para aceitar 1 ou mais separadores.
+  Dry-run validado: seções 6 e 9 atualizam corretamente após a correção.
+  Registrado NC-SCR-FR-066 no NC-GOV-FR-004-fr-artifacts-registry.yaml (SCR section).
+  Observações adicionais (não bloqueantes): campo "id" nos tickets usa fallback correto via
+  nome do arquivo; campo "assignee" ausente no formato atual — todos os tickets caem em
+  categoria "Outros", comportamento aceitável para o Ciclo 3.
+files_modified:
+  - "01_neocortex_framework/scripts/NC-SCR-FR-066-bootup-sync.py"
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-004-fr-artifacts-registry.yaml"
+files_created: []
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  ssot_updated: true
+  no_locked_files_modified: true
+  handoff_yaml_complete: true

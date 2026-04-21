@@ -1,0 +1,239 @@
+{
+  "metadata": {
+    "ticket_id": "NC-DS-117",
+    "audit_date": "2026-04-20",
+    "core_directory": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\core",
+    "total_files_analyzed": 31
+  },
+  "statistics": {
+    "total_files": 31,
+    "by_classification": {
+      "ARCHIVE": 2,
+      "KEEP_NON_NC": 24,
+      "KEEP_NC": 5
+    },
+    "by_action": {
+      "ARCHIVE": 2,
+      "KEEP": 29
+    }
+  },
+  "files": [
+    {
+      "name": "__init__.py",
+      "importers_count": 0,
+      "classification": "ARCHIVE",
+      "equivalent_svc": "",
+      "action_suggested": "ARCHIVE"
+    },
+    {
+      "name": "agent_policy_enforcer.py",
+      "importers_count": 1,
+      "classification": "KEEP_NON_NC",
+      "equivalent_svc": "",
+      "action_suggested": "KEEP"
+    },
+    {
+      "name": "agent_service.py",
+      "importers_count": 3,
+      "classification": "KEEP_NON_NC",
+      "equivalent_svc": "",
+      "action_suggested": "KEEP"
+    },
+    {
+      "name": "akl_service.py",
+      "importers_count": 6,
+      "classification": "KEEP_NON_NC",
+      "equivalent_svc": "",
+      "action_suggested": "KEEP"
+    },
+    {
+      "name": "benchmark_service.py",
+      "importers_count": 2,
+      "classification": "KEEP_NON_NC",
+      "equivalent_svc": "",
+      "action_suggested": "KEEP"
+    },
+    {
+      "name": "cascade_consolidator.py",
+      "importers_count": 2,
+      "classification": "KEEP_NON_NC",
+      "equivalent_svc": "",
+      "action_suggested": "KEEP"
+    },
+    {
+      "name": "checkpoint_service.py",
+      "importers_count": 7,
+      "classification": "KEEP_NON_NC",
+      "equivalent_svc": "",
+      "action_suggested": "KEEP"
+    },
+    {
+      "name": "circuit_breaker.py",
+      "importers_count": 2,
+      "classification": "KEEP_NON_NC",
+      "equivalent_svc": "",
+      "action_suggested": "KEEP"
+    },
+    {
+      "name": "config_service.py",
+      "importers_count": 6,
+      "classification": "KEEP_NON_NC",
+      "equivalent_svc": "",
+      "action_suggested": "KEEP"
+    },
+    {
+      "name": "consolidation_service.py",
+      "importers_count": 5,
+      "classification": "KEEP_NON_NC",
+      "equivalent_svc": "",
+      "action_suggested": "KEEP"
+    },
+    {
+      "name": "cortex_service.py",
+      "importers_count": 5,
+      "classification": "KEEP_NON_NC",
+      "equivalent_svc": "",
+      "action_suggested": "KEEP"
+    },
+    {
+      "name": "export_service.py",
+      "importers_count": 5,
+      "classification": "KEEP_NON_NC",
+      "equivalent_svc": "",
+      "action_suggested": "KEEP"
+    },
+    {
+      "name": "file_utils.py",
+      "importers_count": 13,
+      "classification": "KEEP_NON_NC",
+      "equivalent_svc": "",
+      "action_suggested": "KEEP"
+    },
+    {
+      "name": "init_service.py",
+      "importers_count": 3,
+      "classification": "KEEP_NON_NC",
+      "equivalent_svc": "",
+      "action_suggested": "KEEP"
+    },
+    {
+      "name": "kg_service.py",
+      "importers_count": 6,
+      "classification": "KEEP_NON_NC",
+      "equivalent_svc": "",
+      "action_suggested": "KEEP"
+    },
+    {
+      "name": "ledger_service.py",
+      "importers_count": 12,
+      "classification": "KEEP_NON_NC",
+      "equivalent_svc": "",
+      "action_suggested": "KEEP"
+    },
+    {
+      "name": "lexico_service.py",
+      "importers_count": 3,
+      "classification": "KEEP_NON_NC",
+      "equivalent_svc": "",
+      "action_suggested": "KEEP"
+    },
+    {
+      "name": "lobe_service.py",
+      "importers_count": 10,
+      "classification": "KEEP_NON_NC",
+      "equivalent_svc": "",
+      "action_suggested": "KEEP"
+    },
+    {
+      "name": "logging_config.py",
+      "importers_count": 0,
+      "classification": "ARCHIVE",
+      "equivalent_svc": "",
+      "action_suggested": "ARCHIVE"
+    },
+    {
+      "name": "manifest_service.py",
+      "importers_count": 6,
+      "classification": "KEEP_NON_NC",
+      "equivalent_svc": "",
+      "action_suggested": "KEEP"
+    },
+    {
+      "name": "NC-CFG-FR-001-logging-config.py",
+      "importers_count": 49,
+      "classification": "KEEP_NC",
+      "equivalent_svc": "NC-SVC-FR-008-config-validator.py",
+      "action_suggested": "KEEP"
+    },
+    {
+      "name": "NC-CORE-FR-014-lock-guard.py",
+      "importers_count": 6,
+      "classification": "KEEP_NC",
+      "equivalent_svc": "",
+      "action_suggested": "KEEP"
+    },
+    {
+      "name": "NC-CORE-FR-016-kg-service.py",
+      "importers_count": 58,
+      "classification": "KEEP_NC",
+      "equivalent_svc": "NC-SVC-FR-001-logging-service.py",
+      "action_suggested": "KEEP"
+    },
+    {
+      "name": "NC-CORE-FR-017-policy-loader.py",
+      "importers_count": 7,
+      "classification": "KEEP_NC",
+      "equivalent_svc": "",
+      "action_suggested": "KEEP"
+    },
+    {
+      "name": "NC-CORE-FR-022-save-point-service.py",
+      "importers_count": 58,
+      "classification": "KEEP_NC",
+      "equivalent_svc": "NC-SVC-FR-001-logging-service.py",
+      "action_suggested": "KEEP"
+    },
+    {
+      "name": "peers_service.py",
+      "importers_count": 3,
+      "classification": "KEEP_NON_NC",
+      "equivalent_svc": "",
+      "action_suggested": "KEEP"
+    },
+    {
+      "name": "profile_manager.py",
+      "importers_count": 1,
+      "classification": "KEEP_NON_NC",
+      "equivalent_svc": "",
+      "action_suggested": "KEEP"
+    },
+    {
+      "name": "profile_service.py",
+      "importers_count": 1,
+      "classification": "KEEP_NON_NC",
+      "equivalent_svc": "",
+      "action_suggested": "KEEP"
+    },
+    {
+      "name": "pulse_scheduler.py",
+      "importers_count": 6,
+      "classification": "KEEP_NON_NC",
+      "equivalent_svc": "",
+      "action_suggested": "KEEP"
+    },
+    {
+      "name": "regression_service.py",
+      "importers_count": 4,
+      "classification": "KEEP_NON_NC",
+      "equivalent_svc": "",
+      "action_suggested": "KEEP"
+    },
+    {
+      "name": "security_service.py",
+      "importers_count": 3,
+      "classification": "KEEP_NON_NC",
+      "equivalent_svc": "",
+      "action_suggested": "KEEP"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+ticket_id: NC-DS-117
+status: COMPLETED
+completed_at: "2026-04-20T19:45:00-03:00"
+agent: opencode-agent-1
+
+files_modified:
+  - path: "01_neocortex_framework/05_examples/NC-RPT-117-core-audit-report.json"
+    lines_changed: 239
+    change_summary: "Created audit report with classification of 31 core/ Python files"
+  - path: "01_neocortex_framework/05_examples/NC-RPT-117-core-audit.py"
+    lines_changed: 163
+    change_summary: "Created audit script to analyze core/ directory files"
+
+test_results:
+  py_compile: "PASS"
+  audit_execution: "PASS"
+  audit_summary: |
+    Analyzed 31 Python files in neocortex/core/
+    
+    Classification:
+    - ARCHIVE: 2 files (0 importers)
+    - KEEP_NC: 5 files (NC-prefixed)
+    - KEEP_NON_NC: 24 files (non-NC, used by other modules)
+    
+    Actions suggested:
+    - ARCHIVE: 2 files (__init__.py, logging_config.py)
+    - KEEP: 29 files
+
+errors: []
+warnings:
+  - "Some NC-prefixed files have equivalent services with different names (matching by substring only)"
+
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  handoff_yaml_complete: true
+  locks_respected: true
+  write_zone_respected: true
+
+handoff_save_path: "DIR-DS-002-audit-logs/NC-DS-117-completion.yaml"

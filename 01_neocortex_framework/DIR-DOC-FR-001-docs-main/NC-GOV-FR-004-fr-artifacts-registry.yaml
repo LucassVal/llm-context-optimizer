@@ -1,0 +1,771 @@
+meta:
+  version: '1.0'
+  hash: FR-ARTIFACTS-REGISTRY-v1.0
+  description: Registro de Artefatos FR — machine-readable companion to NC-GOV-FR-004-fr-artifacts-registry.md
+  md_file: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-004-fr-artifacts-registry.md
+  generated_at: '2026-04-14'
+  generated_by: opencode (DeepSeek-Reasoner)
+  audit_script: NC-SCR-FR-080-governance-auditor.py
+  total_artifact_types: 18
+  total_artifacts_mapped: 300
+fr_taxonomy:
+  SCR:
+    name: Scripts
+    description: Scripts de automação, utilitários e ferramentas de linha de comando
+    purpose: Automatizar tarefas repetitivas, validação, auditoria, sincronização
+    examples:
+    - NC-SCR-FR-001-populate-lobes-ssot.py
+    - NC-SCR-FR-004-governance-validator.py
+    - NC-SCR-FR-009-sanitize-all-yamls.py
+    - NC-SCR-FR-014-end-of-cycle.ps1
+    - NC-SCR-FR-064-artifact-catalog.py
+    - NC-SCR-FR-080-governance-auditor.py
+    governance_rules_applied:
+    - R04
+    - R18
+    - R19
+    - R20
+  TOOL:
+    name: Tools MCP
+    description: Ferramentas expostas via servidor MCP para agentes
+    purpose: Interface programática para funcionalidades do NeoCortex
+    examples:
+    - NC-TOOL-FR-000-brain.py
+    - NC-TOOL-FR-001-cortex.py
+    - NC-TOOL-FR-012-regression.py
+    - NC-TOOL-FR-022-session.py
+    - NC-TOOL-FR-037-hooks.py
+    governance_rules_applied:
+    - R04
+    - R07
+    - R14
+    - R17
+  HK:
+    name: Hooks
+    description: Hooks do sistema para extensão e interceptor de eventos
+    purpose: Permitir extensão modular, interceptar chamadas, adicionar middleware
+    examples:
+    - NC-HK-FR-001-hook-registry.py
+    - NC-HK-FR-002-simple-hook.py
+    governance_rules_applied:
+    - R04
+    - R13
+    - R14
+  CFG:
+    name: Configuration
+    description: Configurações e políticas em formato machine-readable
+    purpose: Definir regras, limites, zonas, políticas consumíveis por scripts
+    examples:
+    - NC-CFG-FR-002-rules-policy.yaml
+    - NC-CFG-FR-004-project-config.py
+    governance_rules_applied:
+    - R02
+    - R08
+    - R09
+    - R11
+  SEC:
+    name: Security
+    description: Regras de segurança, atomic locks e políticas de acesso
+    purpose: Proteger recursos críticos, definir permissões, aplicar controle de acesso
+    examples:
+    - NC-SEC-FR-001-atomic-locks.yaml
+    - NC-SEC-FR-002-entry-lock-protocol.md
+    governance_rules_applied:
+    - R08
+    - R09
+    - R11
+  GOV:
+    name: Governance
+    description: Regras de governança, procedimentos e ciclos de vida
+    purpose: Estabelecer governança formal, ciclos, auditoria, conformidade
+    examples:
+    - NC-GOV-FR-001-nworker-protocol.md
+    - NC-GOV-FR-002-ticket-lifecycle.md
+    - NC-GOV-FR-003-ia-governance-rules.yaml
+    - NC-GOV-FR-004-fr-artifacts-registry.yaml
+    governance_rules_applied:
+    - R02
+    - R11
+    - R18
+    - R19
+    - R20
+  NAM:
+    name: Naming Convention
+    description: Convenções de nomenclatura, SSOT e mapas de artefatos
+    purpose: Manter nomenclatura padronizada, mapa centralizado, changelog
+    examples:
+    - NC-NAM-FR-001-naming-convention.md
+    - NC-NAM-FR-001a-tools-registry.md
+    - NC-NAM-FR-001b-lobes-registry.md
+    - NC-NAM-FR-001c-config-registry.md
+    - NC-NAM-FR-001d-prompts-registry.md
+    governance_rules_applied:
+    - R01
+    - R02
+    - R03
+    - R04
+  TODO:
+    name: Roadmap
+    description: Roadmaps, planejamento e tickets
+    purpose: Planejar trabalho, rastrear progresso, gerenciar tickets
+    examples:
+    - NC-TODO-FR-001-project-roadmap-consolidated.md
+    - NC-TODO-DS-001-roadmap-pre-mcp.md
+    governance_rules_applied:
+    - R03
+    - R18
+  SOP:
+    name: Standard Operating Procedure
+    description: Procedimentos operacionais padrão
+    purpose: Documentar processos repetitivos, checklists, fluxos de trabalho
+    examples:
+    - NC-SOP-FR-001-session-startup.md
+    governance_rules_applied:
+    - R19
+  CYC:
+    name: Cycle Validation
+    description: Ciclos de validação e rotinas
+    purpose: Estabelecer rotinas de validação, ciclos de trabalho, auditoria periódica
+    examples:
+    - NC-CYC-FR-001-4-cycle-validation.md
+    governance_rules_applied:
+    - R19
+    - R20
+  APP:
+    name: Technical Appendix
+    description: Apêndices técnicos e detalhes de implementação
+    purpose: Documentar detalhes técnicos, referências, implementações específicas
+    examples:
+    - NC-APP-FR-001-technical-appendix.md
+    governance_rules_applied:
+    - R02
+  MAN:
+    name: Manifest
+    description: Manifestos de projeto e inventários
+    purpose: Listar artefatos, versões, dependências, estado do projeto
+    examples:
+    - NC-MAN-FR-001-project-manifest.md
+    - NC-BOOT-FR-001-system-manifest.md
+    governance_rules_applied:
+    - R01
+    - R02
+  DOC:
+    name: Documentation
+    description: Documentação geral e referência
+    purpose: Documentar conceitos, referências, dicionários, padrões
+    examples:
+    - NC-DOC-FR-001-ubiquitous-language-dictionary.md
+    - NC-DOC-FR-002-dev-environment-standard.md
+    governance_rules_applied:
+    - R02
+  REPORT:
+    name: Report
+    description: Relatórios de auditoria e análise
+    purpose: Gerar relatórios, análises, resultados de auditoria
+    examples:
+    - NC-REPORT-FR-001-consolidated-results.md
+    governance_rules_applied:
+    - R10
+    - R12
+  AUD:
+    name: Audit
+    description: Checklists de auditoria e validação
+    purpose: Checklists para validação, auditoria, verificação de conformidade
+    examples:
+    - NC-AUD-FR-001-timestamp-audit.md
+    - NC-AUD-FR-002-checklist-validation.md
+    governance_rules_applied:
+    - R10
+    - R12
+  ARC:
+    name: Archive Decision Log
+    description: Log de decisões arquiteturais arquivadas
+    purpose: Registrar decisões arquiteturais, rationale, contexto
+    examples:
+    - NC-ARC-FR-001-decision-log.md
+    governance_rules_applied:
+    - R11
+    - R20
+  ALN:
+    name: Architectural Alignment
+    description: Alinhamento arquitetural e padrões
+    purpose: Documentar alinhamento arquitetural, padrões, decisões de design
+    examples:
+    - NC-ALN-FR-001-arquitetural-alignment.md
+    governance_rules_applied:
+    - R03
+  TST:
+    name: Test
+    description: Testes e validações
+    purpose: Testar funcionalidades, validar implementações, garantir qualidade
+    examples:
+    - NC-TST-FR-001-test-rag-search.py
+    governance_rules_applied:
+    - R14
+  PRF:
+    name: Profile
+    description: Perfis de usuário, schemas de desenvolvedor/time e configurações de identidade cognitiva
+    purpose: Definir identidade, preferências, regras operacionais e consciência do usuário/time para agentes IA
+    examples:
+    - NC-PRF-FR-001-developer-schema.md
+    - NC-PRF-FR-002-team-schema.md
+    - NC-PRF-FR-003-profile-loader.py
+    - NC-PRF-USR-001-profile.json
+    governance_rules_applied:
+    - R01
+    - R04
+    - R09
+    - R11
+  LBE:
+    name: Lobe
+    description: Lobos de memória e contexto — arquivos .mdc injetados no contexto dos agentes
+    purpose: Prover contexto persistente e especializado a agentes IA antes de ações (arquitetura, integração, consciência
+      do usuário)
+    examples:
+    - NC-LBE-USR-001-user-consciousness.mdc
+    - NC-LBE-INT-001-picoclaw-architecture.mdc
+    - NC-LBE-INT-004-mission-control.mdc
+    - NC-LBE-INT-005-pixel-agents.mdc
+    governance_rules_applied:
+    - R04
+    - R09
+    - R11
+  WF:
+    name: Workflow
+    description: Fluxos de trabalho e rotinas de sessão — lei mestra de governança operacional
+    purpose: Definir ciclos de trabalho, governança, sequência de ações obrigatórias por sessão
+    examples:
+    - NC-WF-001-workspace-routine.md
+    governance_rules_applied:
+    - R01
+    - R02
+    - R09
+    - R11
+    - R19
+    - R20
+fr_artifacts_mapping:
+  SCR:
+  - path: 01_neocortex_framework/scripts/NC-SCR-FR-001-populate-lobes-ssot.py
+    purpose: Popular lobos de memória a partir do SSOT
+    governance_rules:
+    - R04
+    - R11
+    - R19
+  - path: 01_neocortex_framework/scripts/NC-SCR-FR-004-governance-validator.py
+    purpose: Validar integridade de documentos de governança
+    governance_rules:
+    - R04
+    - R11
+    - R19
+  - path: 01_neocortex_framework/scripts/NC-SCR-FR-009-sanitize-all-yamls.py
+    purpose: Sanitizar YAMLs de rotina (claimed_by, completed_at)
+    governance_rules:
+    - R04
+    - R12
+    - R20
+  - path: 01_neocortex_framework/scripts/NC-SCR-FR-014-end-of-cycle.ps1
+    purpose: Executar rotina de fim de ciclo (checklist R20)
+    governance_rules:
+    - R19
+    - R20
+  - path: 01_neocortex_framework/scripts/NC-SCR-FR-066-bootup-sync.py
+    purpose: Sincronizar Boot Manifest (seções 6 e 9) com estado real de tickets e handoffs
+    governance_rules:
+    - R04
+    - R11
+    - R19
+    - R20
+  - path: 01_neocortex_framework/scripts/NC-SCR-FR-080-governance-auditor.py
+    purpose: Auditoria de governança de IA e mapeamento de ambiente
+    governance_rules:
+    - R01
+    - R04
+    - R05
+    - R11
+    - R20
+  - path: 01_neocortex_framework/scripts/NC-SCR-FR-002-tool-manifest-generator.py
+    purpose: Gerar manifesto de ferramentas MCP NeoCortex a partir de módulos de ferramentas existentes (SSOT)
+    governance_rules:
+    - R01
+    - R04
+    - R11
+    - R19
+  - path: 01_neocortex_framework/scripts/NC-SCR-FR-022-coverage-auditor.py
+    purpose: Auditar cobertura do mapa simbólico KGS sobre arquivos materiais, identificando desertores (não indexados) e
+      inimigos (erros de leitura)
+    governance_rules:
+    - R01
+    - R04
+    - R11
+    - R20
+  - path: 01_neocortex_framework/scripts/NC-SCR-FR-023-ssot-auditor.py
+    purpose: Cruzar arquivos materiais da KGS com SSOT de nomenclatura para detectar arquivos fantasmas e links mortos
+    governance_rules:
+    - R01
+    - R04
+    - R05
+    - R11
+    - R20
+  - path: 01_neocortex_framework/scripts/NC-SCR-FR-024-structural-auditor.py
+    purpose: Auditar conformidade estrutural dos arquivos com NC-NAM-FR-001 (nomenclatura, diretório, heurísticas)
+    governance_rules:
+    - R01
+    - R04
+    - R05
+    - R11
+    - R20
+  - path: 01_neocortex_framework/scripts/NC-SCR-FR-075-genealogy-injector.py
+    purpose: Injetor de tags genealógicas (topology, parent_ssot, level) nos arquivos Python baseado no genealogy_graph.json
+    governance_rules:
+    - R01
+    - R04
+    - R05
+    - R11
+  - path: 01_neocortex_framework/scripts/NC-SCR-FR-065-rename-impact-analyzer.py
+    purpose: 'Analisador de impacto de renomeação: cruza catálogo de artefatos com plano de renomeação para identificar impactos
+      completos'
+    governance_rules:
+    - R01
+    - R04
+    - R11
+  - path: 01_neocortex_framework/scripts/NC-SCR-FR-098-health-wrapper.py
+    purpose: 'Health wrapper: expõe endpoints /health e /ready via HTTP sem tocar server.py @LOCK'
+    governance_rules:
+    - R04
+    - R09
+    - R11
+    - R19
+  - path: 01_neocortex_framework/scripts/NC-SCR-FR-101-tools-smoke-test.py
+    purpose: Smoke test automatizado das 38 tools MCP — valida sintaxe, importação e register_tool()
+    governance_rules:
+    - R04
+    - R09
+    - R11
+    - R19
+  TOOL:
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-000-brain.py
+    purpose: 'Ferramenta brain: orquestração e roteamento inteligente'
+    governance_rules:
+    - R04
+    - R07
+    - R14
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-001-cortex.py
+    purpose: Ferramenta MCP NeoCortex
+    governance_rules:
+    - R04
+    - R07
+    - R14
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-002-agent.py
+    purpose: Ferramenta MCP NeoCortex
+    governance_rules:
+    - R04
+    - R07
+    - R14
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-003-benchmark.py
+    purpose: Ferramenta MCP NeoCortex
+    governance_rules:
+    - R04
+    - R07
+    - R14
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-004-checkpoint.py
+    purpose: Ferramenta MCP NeoCortex
+    governance_rules:
+    - R04
+    - R07
+    - R14
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-005-config.py
+    purpose: Ferramenta MCP NeoCortex
+    governance_rules:
+    - R04
+    - R07
+    - R14
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-006-export.py
+    purpose: Ferramenta MCP NeoCortex
+    governance_rules:
+    - R04
+    - R07
+    - R14
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-007-init.py
+    purpose: Ferramenta MCP NeoCortex
+    governance_rules:
+    - R04
+    - R07
+    - R14
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-008-ledger.py
+    purpose: Ferramenta MCP NeoCortex
+    governance_rules:
+    - R04
+    - R07
+    - R14
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-009-lobes.py
+    purpose: Ferramenta MCP NeoCortex
+    governance_rules:
+    - R04
+    - R07
+    - R14
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-010-peers.py
+    purpose: Ferramenta MCP NeoCortex
+    governance_rules:
+    - R04
+    - R07
+    - R14
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-011-pulse.py
+    purpose: Ferramenta MCP NeoCortex
+    governance_rules:
+    - R04
+    - R07
+    - R14
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-012-regression.py
+    purpose: 'Ferramenta regression: STEP 0 e buffer de regressão'
+    governance_rules:
+    - R04
+    - R14
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-013-report.py
+    purpose: Ferramenta MCP NeoCortex
+    governance_rules:
+    - R04
+    - R07
+    - R14
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-014-search.py
+    purpose: Ferramenta MCP NeoCortex
+    governance_rules:
+    - R04
+    - R07
+    - R14
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-015-security.py
+    purpose: Ferramenta MCP NeoCortex
+    governance_rules:
+    - R04
+    - R07
+    - R14
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-016-subserver.py
+    purpose: Ferramenta MCP NeoCortex
+    governance_rules:
+    - R04
+    - R07
+    - R14
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-017-task.py
+    purpose: Ferramenta MCP NeoCortex
+    governance_rules:
+    - R04
+    - R07
+    - R14
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-018-push-notification.py
+    purpose: Ferramenta MCP NeoCortex
+    governance_rules:
+    - R04
+    - R07
+    - R14
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-019-project-manifest.py
+    purpose: Ferramenta MCP NeoCortex
+    governance_rules:
+    - R04
+    - R07
+    - R14
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-020-knowledge.py
+    purpose: Ferramenta MCP NeoCortex
+    governance_rules:
+    - R04
+    - R07
+    - R14
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-021-memory.py
+    purpose: Ferramenta MCP NeoCortex
+    governance_rules:
+    - R04
+    - R07
+    - R14
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-022-session.py
+    purpose: 'Ferramenta session: checkpoint, regression, savepoint unificados'
+    governance_rules:
+    - R04
+    - R13
+    - R14
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-023-orchestration.py
+    purpose: Ferramenta MCP NeoCortex
+    governance_rules:
+    - R04
+    - R07
+    - R14
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-024-governance.py
+    purpose: Ferramenta MCP NeoCortex
+    governance_rules:
+    - R04
+    - R07
+    - R14
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-025-system.py
+    purpose: Ferramenta MCP NeoCortex
+    governance_rules:
+    - R04
+    - R07
+    - R14
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-026-intelligence.py
+    purpose: Ferramenta MCP NeoCortex
+    governance_rules:
+    - R04
+    - R07
+    - R14
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-027-knowledge.py
+    purpose: Ferramenta MCP NeoCortex
+    governance_rules:
+    - R04
+    - R07
+    - R14
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-029-health.py
+    purpose: Ferramenta MCP NeoCortex
+    governance_rules:
+    - R04
+    - R07
+    - R14
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-030-context.py
+    purpose: Ferramenta MCP NeoCortex
+    governance_rules:
+    - R04
+    - R07
+    - R14
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-031-savepoint.py
+    purpose: Ferramenta MCP NeoCortex
+    governance_rules:
+    - R04
+    - R07
+    - R14
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-034-dry-run.py
+    purpose: Ferramenta MCP NeoCortex
+    governance_rules:
+    - R04
+    - R07
+    - R14
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-035-task.py
+    purpose: Ferramenta MCP NeoCortex
+    governance_rules:
+    - R04
+    - R07
+    - R14
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-036-picoclaw.py
+    purpose: Ferramenta MCP NeoCortex
+    governance_rules:
+    - R04
+    - R07
+    - R14
+  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-037-hooks.py
+    purpose: Ferramenta MCP NeoCortex
+    governance_rules:
+    - R04
+    - R07
+    - R14
+  HK:
+  - path: 01_neocortex_framework/neocortex/core/hooks/NC-HK-FR-003-mission-control-hook.py
+    purpose: Hook que reporta tool calls para o Mission Control activity feed
+    governance_rules:
+    - R04
+    - R13
+    - R14
+  CFG:
+  - path: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-CFG-FR-002-rules-policy.yaml
+    purpose: Política de regras machine-readable para enforcement
+    governance_rules:
+    - R02
+    - R07
+    - R08
+    - R09
+    - R11
+  - path: 01_neocortex_framework/neocortex/core/NC-CORE-FR-017-policy-loader.py
+    purpose: Carregador de políticas para mentor_step_0()
+    governance_rules:
+    - R04
+    - R14
+  SEC:
+  - path: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml
+    purpose: 'Atomic locks: paths protegidos contra modificação'
+    governance_rules:
+    - R08
+    - R11
+  GOV:
+  - path: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-001-nworker-protocol.md
+    purpose: Protocolo N-Worker para coordenação de múltiplos agents
+    governance_rules:
+    - R02
+    - R18
+  - path: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-002-ticket-lifecycle.md
+    purpose: Ciclo de vida de tickets (criação → execução → fechamento)
+    governance_rules:
+    - R02
+    - R12
+    - R18
+  - path: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.yaml
+    purpose: 20 regras de governança de IA (machine-readable)
+    governance_rules:
+    - R02
+    - R11
+    - R14
+  NAM:
+  - path: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md
+    purpose: 'SSOT: convenções de nomenclatura, mapa, changelog'
+    governance_rules:
+    - R01
+    - R02
+    - R03
+    - R04
+  TODO:
+  - path: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md
+    purpose: Roadmap SSOT completo do projeto NeoCortex
+    governance_rules:
+    - R02
+    - R03
+    - R18
+  SOP:
+  - path: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SOP-FR-001-session-startup.md
+    purpose: 'SOP: procedimento de inicialização de sessão'
+    governance_rules:
+    - R02
+    - R19
+  CYC:
+  - path: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-CYC-FR-001-4-cycle-validation.md
+    purpose: Validação de 4 ciclos NeoCortex
+    governance_rules:
+    - R02
+    - R19
+    - R20
+  BOOT:
+  - path: DIR-BOOT-FR-001-bootup-main/NC-BOOT-FR-001-system-manifest.md
+    purpose: 'Boot manifesto: estado operacional do sistema'
+    governance_rules:
+    - R01
+    - R02
+    - R05
+  PRF:
+  - path: 01_neocortex_framework/DIR-PRF-FR-001-profiles-main/NC-PRF-FR-001-developer-schema.md
+    purpose: Schema JSON do perfil de desenvolvedor — hierarquia, permissões, padrões cognitivos
+    governance_rules:
+    - R01
+    - R04
+    - R11
+  - path: 01_neocortex_framework/DIR-PRF-FR-001-profiles-main/NC-PRF-FR-002-team-schema.md
+    purpose: Schema JSON do perfil de time — conhecimento compartilhado, regras, hive mind base
+    governance_rules:
+    - R01
+    - R04
+    - R11
+  - path: 01_neocortex_framework/DIR-PRF-FR-001-profiles-main/NC-PRF-FR-003-profile-loader.py
+    purpose: Carregador e conversor de perfis — lê NC-PRF-USR-* e expõe para agentes
+    governance_rules:
+    - R04
+    - R11
+  - path: 01_neocortex_framework/DIR-PRF-FR-001-profiles-main/users/lucas_valerio/NC-PRF-USR-001-profile.json
+    purpose: Perfil cognitivo completo do T0 (Lucas Valério) — fonte de consciência para todos os agentes IA
+    governance_rules:
+    - R01
+    - R04
+    - R09
+    - R11
+  LBE:
+  - path: 01_neocortex_framework/lobes/NC-LBE-USR-001-user-consciousness.mdc
+    purpose: Lobe de consciência do usuário — injetado no Ciclo 0 antes de qualquer ação
+    governance_rules:
+    - R04
+    - R09
+    - R11
+  - path: 01_neocortex_framework/lobes/NC-LBE-INT-001-picoclaw-architecture.mdc
+    purpose: 'Arquitetura PicoClaw: gateway A2A, dispatcher DeepSeek, porta 18790'
+    governance_rules:
+    - R04
+    - R11
+  - path: 02_memory_lobes/NC-LBE-INT-004-mission-control.mdc
+    purpose: 'Arquitetura Mission Control: dashboard kanban, SSE, porta 3000'
+    governance_rules:
+    - R04
+    - R11
+  - path: 02_memory_lobes/NC-LBE-INT-005-pixel-agents.mdc
+    purpose: 'Arquitetura Pixel Agents: observer pixel-art, JSONL, porta 8767'
+    governance_rules:
+    - R04
+    - R11
+  WF:
+  - path: .agents/workflows/NC-WF-001-workspace-routine.md
+    purpose: 'Lei mestra: Os 4 Ciclos, governança centralizada, mapa de todos arquivos críticos'
+    governance_rules:
+    - R01
+    - R02
+    - R09
+    - R11
+    - R19
+    - R20
+  SVC:
+  - path: 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-016-wal-service.py
+    purpose: Write-Ahead Log imutável via SQLite — rastreia operações de filesystem, rollback por sessão, TTL automático (resolve
+      WAL + TTL-002)
+    governance_rules:
+    - R04
+    - R11
+    - R12
+    - R18
+    db_path: DIR-DS-003-wal/neocortex_wal.db
+    status: ACTIVE
+  - id: NC-SVC-FR-017
+    path: 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-017-crypto-hub.py
+    name: crypto-hub
+    purpose: Central de criptografia real (Fernet/AES-128-CBC + HMAC-SHA256) via NEOCORTEX_MASTER_KEY — substitui stub simulated_aes256
+      em security_service.py
+    governance_rules:
+    - R04
+    - R08
+    - R11
+    - R12
+    depends_on:
+    - NC-SVC-FR-016
+    - cryptography>=42.0.0
+    status: ACTIVE
+    ticket: NC-DS-091
+  - id: NC-SVC-FR-018
+    path: 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-018-tag-normalizer.py
+    name: tag-normalizer
+    purpose: Central universal de sanitização de tags — valida símbolos ubíquos (@/$/%)) contra NC-DOC-FR-001, normaliza frontmatter
+      YAML, valida lobos .mdc
+    governance_rules:
+    - R04
+    - R11
+    - R12
+    - R18
+    depends_on:
+    - NC-SVC-FR-016
+    - NC-DOC-FR-001
+    status: ACTIVE
+    ticket: NC-DS-090
+governance_integration:
+  audit_requirements:
+  - Todo artefato FR deve estar listado neste registro
+  - Todo artefato FR deve ter finalidade (purpose) definida
+  - Todo artefato FR deve referenciar regras de governança aplicadas
+  - Artefatos sem finalidade devem ser revisados ou arquivados
+  validation_methods:
+  - Script NC-SCR-FR-080-governance-auditor.py varre arquivos FR
+  - Compara com artifact_catalog.json para completude
+  - Verifica campo purpose não vazio
+  - Valida referências cruzadas com NC-GOV-FR-003-ia-governance-rules.yaml
+  update_frequency: Ciclo 4 (semanal)
+  responsible_role: T0 (Orchestration)
+audit_checklist:
+- task: Executar varredura completa de arquivos FR
+  command: python NC-SCR-FR-080-governance-auditor.py --environment original --audit-fr-artifacts
+  frequency: Ciclo 4
+- task: Atualizar este registro com artefatos descobertos
+  frequency: Após cada auditoria
+- task: Validar finalidade de cada artefato FR
+  frequency: Ciclo 4
+- task: Verificar referências a regras de governança
+  frequency: Ciclo 4
+- task: Identificar artefatos FR órfãos (sem referência)
+  frequency: Ciclo 4
+current_state:
+  total_fr_files_found: 298
+  total_fr_files_mapped: 35
+  coverage_percentage: 10.7
+  last_audit_date: '2026-04-14'
+  next_audit_due: '2026-04-21'
+  issues_found:
+  - 'Mapeamento incompleto: apenas 30/298 artefatos FR mapeados'
+  - Falta finalidade (purpose) para muitos artefatos
+  - Necessidade de auditoria automatizada regular
+  recommendations:
+  - Executar NC-SCR-FR-080-governance-auditor.py com flag --audit-fr-artifacts
+  - Completar mapeamento de todos os artefatos FR
+  - Integrar com artifact_catalog.json para análise semântica

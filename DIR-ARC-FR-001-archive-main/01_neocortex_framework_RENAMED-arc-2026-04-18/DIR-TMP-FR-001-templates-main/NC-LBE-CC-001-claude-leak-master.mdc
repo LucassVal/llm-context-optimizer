@@ -1,0 +1,196 @@
+---
+domain: "templating"
+layer: "infra"
+type: "TMP"
+tags: ['template', 'mdc']
+hash: "auto-generated"
+---
+---
+alwaysApply: false
+description: "Lobe mestre de inteligncia sobre o Claude Code Source Leak (v2.1.88, 2026-03-31). 512K linhas TypeScript, 1900 arquivos. Sub-lobes por categoria de descoberta."
+---
+
+# $CC_LEAK  Claude Code Source Leak Intelligence Lobe
+<!-- NC-LBE-CC-001 | v1.0 | 2026-04-12T16:26:00 | Criado por Antigravity T0 -->
+<!-- Atualizado em 2026-04-12T18:34:46 por deepseek-chat -->
+<!-- PROPSITO: Inteligncia de produto e governana extrada do leak para aprimorar o NeoCortex -->
+<!-- ISOLAMENTO: Read-only  no produz cdigo ativo, apenas insights -->
+
+---
+
+## CONTEXTO DO LEAK
+
+| Campo | Valor |
+|---|---|
+| **Data** | 2026-03-31 (descoberto por Chaofan Shou) |
+| **Verso** | @anthropic-ai/claude-code v2.1.88 |
+| **Source Map** | 59.8MB, npm registry pblico |
+| **Volume** | 512.000 linhas TypeScript, ~1.900 arquivos |
+| **Fonte** | akitaonrails.com + variaes em CLAUDE_CODE_DISSECTION/ |
+| **Pastas locais** | claw-code, free-code, leaked-claude-code, official-claude-code |
+| **Workzone** | `DIR-RES-CC-001-claude-leak-workzone/` |
+
+---
+
+## DESCOBERTAS CHAVE (Resumo Executivo)
+
+###  KAIROS  Loop Proativo Persistente
+- Modo em `assistant/`  agente que **no espera input**, age proativamente
+- Recebe `<tick>` em intervalos regulares  decide se age ou fica quieto
+- Budget de **15 segundos** para aes proativas (no bloquear usurio)
+- Logs dirios **append-only**
+- Tools exclusivas: `SendUserFile`, `PushNotification`, `SubscribePR`
+- **Relevncia NeoCortex:** anlogo ao `PulseScheduler` + `neocortex_intelligence`
+
+###  MEMRIA 3 CAMADAS  Arquitetura Elegante
+```
+MEMORY.md (ndice  sempre no contexto, ~150 chars/linha)
+ No guarda dados  guarda LOCALIZAES
+ topic files (knowledge real  carregado sob demanda)
+ transcripts (nunca lidos inteiros  apenas grep por ID)
+```
+- Escreve **primeiro no tpico**, depois atualiza ndice (write-then-index)
+- **Dream** (`services/autoDream/`)  consolidao em background como subagent
+  - 3 portas de trigger: 24h + 5 sesses + lock de consolidao
+  - 4 fases: Orient  Gather  Consolidate  Prune
+  - ndice limitado a 200 linhas / 25KB
+- Memria tratada como **pista**, no verdade  verificar antes de confiar
+- **Relevncia NeoCortex:** modelo superior ao nosso sistema de lobos atual
+
+###  COORDINATOR MODE  Multi-Agente Nativo
+- Diretrio `coordinator/`  spawna, dirige e gerencia workers em paralelo
+- Fluxo: Research paralelo  Sntese  Implementao workers  Verificao workers
+- Probe delegao preguiosa: *"Do NOT say 'based on your findings' - read the actual findings"*
+- Workers isolados via `AsyncLocalStorage` + processos separados tmux/iTerm2
+- Sincronizao de memria entre agentes
+- **Relevncia NeoCortex:** valida arquitetura DS-A/DS-B + ORCH-301
+
+###  ULTRAPLAN  Planejamento Remoto 30min
+- Offloads para Opus 4.6 remoto, at 30min de raciocnio
+- Polling terminal a cada 3s, aprovao via browser
+- Sentinela `__ULTRAPLAN_TELEPORT_LOCAL__` para retorno
+- **Relevncia NeoCortex:** possvel padro para tickets T0 complexos
+
+###  BUDDY  Tamagotchi (Curiosidade)
+- Pet companion gacha com 18 espcies, stats, shiny variants
+- PRNG determinstico seedado por userId hash
+- Sprites ASCII 5 linhas animados
+- **Relevncia NeoCortex:** nenhuma (pureza curiosidade)
+
+###  FLAGS FUTURAS DETECTADAS
+- `BRIDGE_MODE`, `VOICE_MODE`, `WORKFLOW_SCRIPTS`, `AFK_MODE`
+- `advisor-tool`, `history snipping`
+- Roadmap muito mais avanado que a verso pblica
+
+---
+
+## INSIGHTS PARA O NEOCORTEX
+
+| Descoberta Claude | Equivalente NeoCortex Atual | Gap / Oportunidade |
+|---|---|---|
+| MEMORY.md ndice leve 150 chars/linha | Lobos MDC completos | Lobos carregam TUDO  criar ndice ponteiro |
+| Dream consolidation (3 portas) | PulseScheduler (1 trigger) | Adicionar condio de sesses + lock |
+| write-then-index | `@POPULATE` manual | Automatizar: escreve tpico  atualiza SSOT |
+| Memria como pista, no verdade | Lobes como verdade absoluta | Adicionar `verified_at` nos checkpoints |
+| Coordinator probe delegao preguiosa | NC-DS-003 tinha B4 falso positivo | Chain-of-verification reforada |
+| workers isolados AsyncLocalStorage | Sub-servers isolados | ORCH-301 valida esse pattern |
+| KAIROS  tick proativo (15s budget) | PulseScheduler + neocortex_intelligence | Falta componente proativo que age sem input |
+| Memria 3 camadas (ndice/tpico/transcript) | Lobes monolticos | Adotar ndice leve + carregamento sob demanda |
+| ULTRAPLAN  planejamento remoto 30min | Tickets T0 complexos | Padro para offload de raciocnio longo |
+| Buddy  gamificao tamagotchi | Nenhum | Adicionar stats de sesso, conquistas para devs |
+| Hookify  hooks leves Markdown+YAML | Atomic locks (proativo) | Complementar com hooks reativos por projeto |
+| Plugin Marketplace (13 plugins oficiais) | Tools MCP consolidadas | Sistema de plugins para extensibilidade modular |
+| Telemetria abrangente (85 arquivos) | Logging bsico | Adicionar mtricas no intrusivas de uso |
+| Bridge Mode  sandbox remota | Isolamento via lobe local | Sandbox remota para tools perigosas |
+| Feature Flags com Growthbook | checkGate bsico | Cache + rollout progressivo + A/B testing |
+| Plugin Patterns (security, PR review, commit, feature-dev) | Tools MCP isoladas | Adotar sistema de hooks reativos e agentes especializados por domnio |
+
+---
+
+## COMPETITIVE INTELLIGENCE
+
+**Foras da Anthropic (no temos):**
+1. Plugin Marketplace (13 plugins oficiais)  extensibilidade padronizada, autodiscovery
+2. Hookify  hooks leves em Markdown+YAML, ativao imediata
+3. Plugin Architecture Uniforme  11 plugins especializados (security, PR review, commit, feature-dev) com padro de hooks reativos e agentes especializados
+4. Telemetria abrangente  85 arquivos, integrao Datadog, Growthbook
+5. Bridge Mode  sandbox remota para sesses isoladas
+6. KAIROS  tick proativo com deciso MLdriven
+7. Buddy  gamificao tamagotchi com stats, gacha
+8. Feature Flags com Growthbook  rollout progressivo, A/B testing
+9. Configurao por projeto (`.claude/`)  diretrio local para regras
+
+**Foras do NeoCortex (eles no tm):**
+1. Atomic Locks  bloqueio proativo de arquivos protegidos (@LOCKS)
+2. Mentor Mode  filtro prexecuo que injeta contexto + regras
+3. Policy Loader + Rate Limiting  limites de tokens/budget/timeout por role
+4. Lobe Isolation  cada agente em diretrio separado, crosslobe write blocking
+5. SSOT Ubquo  NCNAMFR001 como fonte nica de naming, roadmap centralizado
+6. Save Points (futuro)  snapshot diff antes de escrita, rollback automtico
+
+**Oportunidades de melhoria (incorporar do Claude Code):**
+- Prioridade Alta: Hookifylike, Plugin system, Buddy light, Projectlevel config
+- Prioridade Mdia: Growthbook completo, Bridge mode light, KAIROS tick, Telemetria no intrusiva
+- Prioridade Baixa: Voice mode, ULTRAPLAN, Gacha system
+
+### Detalhes de Anlise (NC-ANA-CC-004/005)
+
+**NC-ANA-CC-004  Competitive Intelligence (Foras da Anthropic):**
+1. **Plugin Marketplace (13 plugins)**  extensibilidade padronizada, autodiscovery
+2. **Hookify**  regras Markdown+YAML, ativao imediata, eventos granulares (bash, file, stop, prompt)
+3. **Telemetria abrangente**  85 arquivos, integrao Datadog, Growthbook, mtricas por sesso
+4. **Bridge Mode**  sandbox remota para sesses isoladas, timeout/capacity management
+5. **KAIROS**  tick proativo com deciso MLdriven, 61 arquivos, lifecycle de daemon
+6. **Buddy**  gamificao tamagotchi com stats, gacha, sprites ASCII
+7. **Growthbook**  feature flags com cache, rollout progressivo, A/B testing
+8. **Configurao por projeto**  diretrio `.claude/` na raiz, isolamento por repositrio
+
+**NC-ANA-CC-005  Plugins Deep (11 plugins restantes):**
+- **Padro arquitetural uniforme**: `.claudeplugin/plugin.json`, comandos em Markdown, hooks JSON+Python, configurao por projeto
+- **Hooks reativos**: `PreToolUse` com matchers (`Edit`, `Write`, `MultiEdit`) para segurana e governana
+- **Agentes especializados**: paralelos com scoring de confiana (>80), filtro de falsos positivos
+- **Plugins chave**: securityguidance (anlise de risco), prreviewtoolkit (6 agentes), codereview (confiana), commitcommands (git flow), featuredev (workflow completo), ralphwiggum (loop autoreferencial)
+- **Recomendaes para NeoCortex**: Hookifylike (NCTOOLFR022), template de plugin, autoreview com confiana, comandos git para tickets
+
+**NC-ANA-CC-005  KAIROS Deep Dive:**
+- **Lifecycle**: Boot  Tick interval (500ms5s)  Hooks (AFK, bridge, voice, buddy, ULTRAPLAN)  Shutdown
+- **TTL granular**: sesses bridge (`DEFAULT_SESSION_TIMEOUT_MS`), cache de feature flags, estado Buddy
+- **Analogia com PulseScheduler**: evoluir para eventdriven ticks, hooks registrados por servio, TTLManager separado
+
+## REPLICABILITY MAP
+
+| Padro Claude Code | Replicvel no NeoCortex? | Prioridade | Notas |
+|---|---|---|---|
+| Hookify (Markdown+YAML hooks) | Sim | Alta | Adotar formato .claude/ com regras reativas |
+| Plugin Marketplace | Sim | Alta | Estruturar NCTOOLFR* como plugins autodiscovery |
+| KAIROS tick proativo | Parcial | Mdia | Adaptar PulseScheduler para aes proativas |
+| Memria 3 camadas | Sim | Mdia | Criar ndice leve + carregamento sob demanda nos lobes |
+| Coordinator Mode | Sim | Alta | Validar arquitetura DSA/DSB + ORCH301 |
+| ULTRAPLAN | Sim | Baixa | Padro para offload de raciocnio longo (T0) |
+| Buddy gamificao | Sim | Baixa | Adicionar stats de sesso, conquistas para devs |
+| Bridge Mode | Parcial | Baixa | Sandbox remota apenas para tools perigosas |
+| Feature Flags com Growthbook | Sim | Mdia | Implementar cache + rollout progressivo |
+| Telemetria abrangente | No | Baixa | Manter privacidade, apenas mtricas no intrusivas |
+
+---
+
+## SUB-LOBES (a criar via disseco)
+
+| Sub-Lobe | Contedo | Ticket |
+|---|---|---|
+| `NC-LBE-CC-002-memory-arch.mdc` | Padres de memria em detalhe | NC-DS-008 (DS-A) |
+| `NC-LBE-CC-003-orchestration.mdc` | Coordinator Mode + workers | NC-DS-008 (DS-A) |
+| `NC-LBE-CC-004-governance.mdc` | Padres de governana, DRM, audit | NC-DS-009 (DS-B) |
+| `NC-LBE-CC-005-features.mdc` | KAIROS, ULTRAPLAN, flags futuras | NC-DS-009 (DS-B) |
+
+---
+
+## WORKZONE
+
+```
+DIR-RES-CC-001-claude-leak-workzone/
+ full_inventory.csv               inventrio cruzado (302KB)
+ NC-LBE-CC-001-master.mdc        ESTE ARQUIVO (ndice mestre)
+ analysis-session-a/             output DS-A (memria + orq)
+ analysis-session-b/             output DS-B (gov + features)
+```

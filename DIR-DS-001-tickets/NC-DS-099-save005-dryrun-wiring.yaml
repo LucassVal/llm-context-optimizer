@@ -1,0 +1,107 @@
+ticket_id: "NC-DS-099"
+status: "OPEN"
+priority: "HIGH"
+title: "SAVE-005 — Wire DryRunPreview como middleware nas write ops das tools"
+created_at: "2026-04-16T11:00:00-03:00"
+created_by: "T0-Claude-Code"
+agent: "AGENTE-A"
+sprint: "FASE-1-MCP-MC"
+
+context:
+  gap: "G02"
+  origin: "NC-SVC-FR-014-dry-run-preview.py existe (SAVE-005) mas não intercepta writes"
+  problem: |
+    O middleware de dry-run foi implementado como serviço isolado mas nunca foi
+    integrado no pipeline de tools. Operações de escrita ocorrem sem preview/validação.
+    NC-TOOL-FR-034-dry-run.py existe mas não chama NC-SVC-FR-014 antes de writes.
+
+task:
+  description: |
+    1. Ler NC-SVC-FR-014-dry-run-preview.py e entender API: preview(), risk_level
+    2. Ler NC-TOOL-FR-034-dry-run.py — identificar onde integrar o middleware
+    3. Integrar NC-SVC-FR-014 em NC-TOOL-FR-034:
+       - Antes de qualquer write op: chamar preview(path, content)
+       - Se risk == 'high': bloquear e retornar erro com diff
+       - Se risk == 'medium': logar aviso via logger (não print)
+       - Se risk == 'low': prosseguir normalmente
+    4. Garantir que NC-SVC-FR-014 é carregado via importlib.util (R09)
+    5. Adicionar log WAL via NC-SVC-FR-016 para operações bloqueadas
+    6. Testar com arquivo mock: write op de risco alto deve ser bloqueada
+
+  acceptance_criteria:
+    - "NC-TOOL-FR-034 chama DryRunPreview antes de writes"
+    - "Operação de risco 'high' é bloqueada com mensagem de erro + diff"
+    - "Zero print() — usar logger"
+    - "WAL registra bloqueios"
+    - "py_compile NC-TOOL-FR-034-dry-run.py sem erros"
+
+write_zone:
+  - "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-034-dry-run.py"
+  - "DIR-DS-002-audit-logs/"
+
+atomic_locks_proibidos:
+  - "01_neocortex_framework/neocortex/mcp/server.py"
+  - "01_neocortex_framework/neocortex/mcp/sub_server.py"
+  - "01_neocortex_framework/DIR-CFG-FR-001-config-main/neocortex_config.yaml"
+
+entry_state: "NC-SVC-FR-014 existe, NC-TOOL-FR-034 não o usa"
+exit_state: "Write ops em tools passam por DryRunPreview antes de executar"
+integrity_hash: "NC-DS-099-v1.0-20260416"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PROTOCOLO OBRIGATÓRIO PARA O AGENTE (ler ANTES de qualquer ação)
+# ─────────────────────────────────────────────────────────────────────────────
+protocolo_agente:
+
+  step_0_obrigatorio:
+    descricao: 'Ler estes recursos ANTES de começar qualquer implementação'
+    recursos:
+      - path: 'DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml'
+        motivo: 'Template oficial do handoff que você DEVE gerar ao concluir'
+      - path: '01_neocortex_framework/DIR-TMP-FR-001-templates-main/'
+        motivo: 'Central de templates — exemplos de YAML, JSON, manifests, processos'
+      - path: '01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.yaml'
+        motivo: '20 regras de governança — obrigatório seguir'
+      - path: '01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml'
+        motivo: 'Arquivos que NUNCA podem ser tocados'
+
+  regra_duvida:
+    instrucao: |
+      EM CASO DE QUALQUER DÚVIDA — parar imediatamente e retornar ao T0.
+      NÃO assumir, NÃO adivinhar, NÃO improvisar.
+      Retornar com: (1) o que foi feito até agora, (2) qual é a dúvida exata,
+      (3) quais são as opções que você vê. T0 decide e você continua.
+    exemplos_de_quando_parar:
+      - 'Não encontrei o arquivo mencionado no ticket'
+      - 'A API do serviço é diferente do que o ticket descreve'
+      - 'A mudança que preciso fazer toca um arquivo @LOCKS'
+      - 'Dois caminhos são possíveis e não sei qual escolher'
+      - 'O script que devia existir não existe'
+
+  handoff_obrigatorio:
+    descricao: 'Gerar handoff YAML ao concluir — sem exceção'
+    destino: 'DIR-DS-002-audit-logs/NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml'
+    template: 'DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml'
+    campos_obrigatorios:
+      - 'ticket_id'
+      - 'status'        # APPROVED | PARTIALLY_COMPLETED | FAILED | ESCALATED
+      - 'summary'
+      - 'files_created'
+      - 'files_modified'
+      - 'locks_violated'  # DEVE ser lista vazia para APPROVED
+      - 'checklist_r20'
+    checklist_r20:
+      naming_convention: 'Todos os arquivos criados seguem NC-<TIPO>-<SIGLA>-<NUM>'
+      no_print_statements: 'Zero print() — usar logger'
+      ssot_updated: 'Se criou artefato novo — NC-NAM-FR-001 foi atualizado'
+      no_locked_files_modified: 'Nenhum arquivo @LOCKS foi tocado'
+      handoff_yaml_complete: 'Este handoff está completo'
+      roadmap_marked: '%DONE marcado no @ROADMAP para este ticket'
+
+  falha_ou_bloqueio:
+    instrucao: |
+      Se falhar ou ficar bloqueado:
+      1. Gerar handoff com status: FAILED ou ESCALATED
+      2. Incluir no campo summary o que foi tentado e por que falhou
+      3. NÃO silenciar o erro — registrar tudo
+      4. Retornar ao T0 com o handoff

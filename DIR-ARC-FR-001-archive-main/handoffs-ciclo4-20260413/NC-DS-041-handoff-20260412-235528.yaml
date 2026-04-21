@@ -1,0 +1,22 @@
+---
+ticket_id: NC-DS-041
+status: APPROVED
+lines_added: 897
+files_created:
+  - 01_neocortex_framework/lobes/cc-leak/NC-LBE-CC-002-hooks-system.mdc (238 linhas)
+  - 01_neocortex_framework/lobes/cc-leak/NC-LBE-CC-003-persistent-worker.mdc (224 linhas)
+  - 01_neocortex_framework/lobes/cc-leak/NC-LBE-CC-004-confidence-review.mdc (247 linhas)
+  - DIR-RES-CC-001-claude-leak-workzone/NC-RES-CC-001-validation-hooks-worker-review.md (188 linhas)
+description: |
+  Analista de Documentação NeoCortex concluiu PARTE 1 (3 sub‑lobes CC‑002/003/004),
+  PARTE 2 (pesquisa internet 11 palavras‑chave) e PARTE 3 (renomeações NeoCortex).
+  Sub‑lobes documentam hookify → MentorHooks/GuardHooks, ralph‑wiggum → PersistentWorker,
+  code‑review → ConfidenceReviewService. Pesquisa compilada com insights de padrões
+  arquiteturais externos. Todos os arquivos usam apenas nomes NeoCortex (nenhum CC
+  original solto). Nenhum arquivo .py criado, nenhum @LOCK tocado.
+agent: opencode (Analista de Documentação NeoCortex)
+timestamp: "2026-04-12T23:55:28"
+handoff_id: NC-DS-041-handoff-20260412-235528
+
+approved_at: "2026-04-13T00:04:26"
+approved_by: antigravity-t0

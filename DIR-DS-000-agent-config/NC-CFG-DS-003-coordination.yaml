@@ -1,0 +1,125 @@
+coordination_version: "1.0"
+created_at: "2026-04-12"
+created_by: antigravity-t0
+sprint: sprint-001
+
+# ============================================================
+# RATE LIMITING GLOBAL — propaga por todos os níveis
+# Nivel 0: Sistema global (este arquivo)
+# Nivel 1: Frente (por sessão DS-A / DS-B)
+# Nivel 2: Ticket (max_tokens_per_phase no NC-DS-XXX.yaml)
+# Nivel 3: Tool (get_config().max_tokens no código Python)
+# ============================================================
+global_limits:
+  daily_budget_usd: 10.00          # teto diário total T1 (4 frentes)
+  max_concurrent_frentes: 4         # DS-A + DS-B + DS-C + DS-D
+  max_tokens_per_session: 100000    # por sessão OpenCode
+  max_api_calls_per_hour: 100       # anti-runaway global (4 frentes)
+  alert_at_pct: 80                  # alertar T0 ao atingir 80% do budget
+
+# ============================================================
+# SAVE POINTS — GAP SISTÊMICO (SAVE-005 pendente)
+# Status: manual (rollback = descartar lobe corrompido)
+# Quando SAVE-005 implementado: adicionar save_point_enabled: true
+# ============================================================
+save_points:
+  enabled: false                    # SAVE-005 não implementado ainda
+  strategy: "manual_discard"        # rollback manual via isolamento de lobe
+  note: "Ticket SAVE-005 desbloqueará rollback automático"
+
+# ============================================================
+# AUDIT TRAIL — GAP SISTÊMICO (WAL pendente)
+# Status: audit-logs manuais em DIR-DS-002-audit-logs/
+# Quando WAL implementado: mudar para append_only_wal: true
+# ============================================================
+audit_trail:
+  mode: "manual_yaml"              # WAL real não implementado ainda
+  location: "DIR-DS-002-audit-logs/"
+  sprint_log: "DIR-DS-002-audit-logs/sprint-001/"
+  immutability: "convention"       # por convenção, não por lock técnico
+  note: "WAL real desbloqueará auditoria verdadeiramente imutável"
+
+entry_lock:
+  protocol: NC-SEC-FR-002
+  doc: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-002-entry-lock-protocol.md"
+  enabled: true
+  rules: [EL-1, EL-2, EL-3, EL-4]
+  lock_dir: "DIR-DS-003-entry-locks/"
+  last_incident: "2026-04-12T16:48:00 — NC-DS-008 em reservados em vez de ativos (EL-4 teria alertado)"
+
+# ============================================================
+# FRENTES PARALELAS — Anti-conflito de escrita
+# ============================================================
+frentes:
+  DS-A:
+    lobe: NC-LBE-DS-001-deepseek-agent-a.mdc
+    launcher: DIR-DS-000-agent-config/NC-PROMPT-DS-000-launcher.md
+    tickets_done: [NC-DS-001, NC-DS-002, NC-DS-003, NC-DS-004, NC-DS-006, NC-DS-008]
+    tickets_ativos: [NC-DS-012]
+    tickets_reservados: []
+    write_zone: "DIR-BOOT-FR-001-bootup-main/NC-BOOT-FR-001-system-manifest.md"
+    rate_limit:
+      max_tokens_per_phase: 4000   # herda global, pode sobrescrever
+      max_rounds: 5
+      escalate_after_rounds: 3
+
+  DS-B:
+    lobe: NC-LBE-DS-002-deepseek-agent-b.mdc
+    launcher: DIR-DS-000-agent-config/NC-PROMPT-DS-000-launcher.md
+    tickets_done: [NC-DS-005, NC-DS-007, NC-DS-007-REVISED, NC-DS-009]
+    tickets_ativos: [NC-DS-014]
+    tickets_reservados: []
+    write_zone: "DIR-RES-CC-001-claude-leak-workzone/analysis-session-b/"
+    rate_limit:
+      max_tokens_per_phase: 4000
+      max_rounds: 5
+      escalate_after_rounds: 3
+
+  DS-C:
+    lobe: NC-LBE-DS-003-deepseek-agent-c.mdc
+    launcher: DIR-DS-000-agent-config/NC-PROMPT-DS-000-launcher.md
+    tickets_done: [NC-DS-010]
+    tickets_ativos: [NC-DS-013]
+    tickets_reservados: []
+    write_zone: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001[abcd]*.md"
+    rate_limit:
+      max_tokens_per_phase: 5000
+      max_rounds: 7
+      escalate_after_rounds: 4
+
+  DS-D:
+    lobe: NC-LBE-DS-004-deepseek-agent-d.mdc
+    launcher: DIR-DS-000-agent-config/NC-PROMPT-DS-000-launcher.md
+    tickets_done: []
+    tickets_ativos: [NC-DS-011]
+    tickets_reservados: []
+    write_zone: "01_neocortex_framework/neocortex/core/services/"
+    rate_limit:
+      max_tokens_per_phase: 4000
+      max_rounds: 5
+      escalate_after_rounds: 3
+
+# ============================================================
+# REGRAS ANTI-CONFLITO — 4 FRENTES
+# ============================================================
+anti_conflict:
+  rule: "write_zones de DS-A, DS-B, DS-C e DS-D nunca se sobrepõem"
+  verified_zones_overlap: false
+  verified_at: "2026-04-12T17:17:00"
+  if_overlap_detected: "BLOQUEIO — escalar para T0 antes de qualquer escrita"
+  step_0_local: |
+    CADA AGENTE DEVE VERIFICAR LOCALMENTE no início de sua sessão:
+    1. Ler NC-CFG-DS-003 → extrair sua própria write_zone
+    2. Confirmar que write_zone não conflita com nenhuma outra frente
+    3. Verificar DIR-DS-002-audit-logs/ por PENDING_REVIEW do mesmo agente
+    4. Registrar checkpoint com write_zone confirmada ANTES de agir
+  shared_read_zones:
+    - "DIR-DOC-FR-001-docs-main/"
+    - "DIR-DS-000-agent-config/"
+    - "DIR-DS-001-tickets/"
+  protected_always:
+    - "server.py"
+    - "sub_server.py"
+    - "neocortex_config.yaml"
+    - "NC-NAM-FR-001-naming-convention.md"
+

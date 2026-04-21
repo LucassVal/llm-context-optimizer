@@ -1,0 +1,23 @@
+{
+  "ticket_id": "NC-DS-012",
+  "roadmap_ticket": "BOOT-001",
+  "phase": "0",
+  "timestamp": "2026-04-12T17:25:00",
+  "entry_state": {
+    "write_zone": "DIR-BOOT-FR-001-bootup-main/NC-BOOT-FR-001-system-manifest.md",
+    "existing_files": ["DIR-BOOT-FR-001-bootup-main/NC-BOOT-FR-001-system-manifest.md"],
+    "existing_file_hashes": {
+      "DIR-BOOT-FR-001-bootup-main/NC-BOOT-FR-001-system-manifest.md": "A438E3A1CCCA1EB77E72D2719DC5B314"
+    },
+    "locks_verified": [
+      "server.py",
+      "sub_server.py",
+      "NC-NAM-FR-001-naming-convention.md",
+      "neocortex_config.yaml"
+    ],
+    "locks_violated": [],
+    "roadmap_entry_found": false,
+    "risk_assessment": "pending"
+  },
+  "notes": "Ticket BOOT-001  atualizar manifesto do sistema e integrar lobes CC/DS ao ndice MCP."
+}

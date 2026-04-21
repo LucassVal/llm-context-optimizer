@@ -1,0 +1,44 @@
+ticket_id: "NC-DS-074"
+status: "DONE"
+priority: "HIGH"
+title: "SCR-FR-080 — Rastreabilidade: NC-SCR-FR-080-governance-auditor.py"
+created_at: "2026-04-15T01:08:00-03:00"
+created_by: "T0-Antigravity"
+
+context:
+  origin: "Auditoria de scripts orfaos (Ciclo 1, sessao 2026-04-15)"
+  problem: |
+    NC-SCR-FR-080-governance-auditor.py e o auditor de governanca com 17+ regras
+    verificadas. E o script central do Ciclo 4 (linha 160 do NC-WF-001) mas nao
+    tem ticket formal. Compliance Meta: >80% antes da integracao MCP.
+  scope: "Rastreabilidade + elevacao de compliance de 45% para >80%"
+
+task:
+  description: |
+    1. Verificar integridade do script (17 regras implementadas confirmado na auditoria).
+    2. Executar e verificar relatorio de compliance atual.
+    3. Documentar todas as regras verificadas e seus criterios.
+    4. Identificar quais regras estao falhando para acoes corretivas.
+    5. Atualizar NC-NAM-FR-001 com entrada do script.
+    6. Gerar handoff com relatorio de compliance atual.
+  action_description:
+    utterances:
+      - "Auditar conformidade de governanca do projeto"
+      - "Verificar compliance das 20 regras de governanca NeoCortex"
+    input_instructions: "Executar da raiz. Verifica arquivos em 01_neocortex_framework/ e DIR-DS-001-tickets/."
+    output_instructions: "Score de compliance 0-100%, lista de regras OK/FAIL, relatorio em DIR-DS-002-audit-logs/."
+    usage_rules: "Ciclo 4: primeiro passo. Meta: score > 80% para autorizacao de integracao MCP."
+
+write_zone:
+  - "01_neocortex_framework/scripts/"
+  - "DIR-DS-002-audit-logs/"
+references:
+  - "01_neocortex_framework/scripts/NC-SCR-FR-080-governance-auditor.py"
+  - ".agents/workflows/NC-WF-001-workspace-routine.md#L160"
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.yaml"
+
+tags: ["ciclo4", "governance", "audit", "compliance", "mcp-gate", "infra", "SCR"]
+domain: "governance"
+layer: "infra"
+type: "SCR"
+blocking: "MCP_INTEGRATION"

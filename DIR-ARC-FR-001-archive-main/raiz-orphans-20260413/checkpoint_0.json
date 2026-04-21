@@ -1,0 +1,25 @@
+{
+  "ticket_id": "NC-DS-013",
+  "roadmap_ticket": "GOV-013",
+  "timestamp": "2026-04-12T17:36:00",
+  "phase": "FASE_0",
+  "entry_state": {
+    "files_to_modify": [
+      "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001a-tools-registry.md",
+      "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001b-lobes-registry.md",
+      "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001c-config-registry.md",
+      "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001d-prompts-registry.md",
+      "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md"
+    ],
+    "files_to_create": [
+      "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-AUD-FR-001-timestamp-audit.md"
+    ],
+    "write_zone": "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001[abcd]*.md",
+    "forbidden_zone": [
+      "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md",
+      "neocortex/mcp/server.py",
+      "neocortex/mcp/sub_server.py",
+      "DIR-RES-CC-001-claude-leak-workzone/"
+    ]
+  }
+}

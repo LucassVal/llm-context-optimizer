@@ -1,0 +1,16 @@
+{
+  "ticket_id": "NC-DS-013",
+  "roadmap_ticket": "GOV-013",
+  "entry_state_snapshot": "checkpoint_0.json",
+  "exit_state_summary": {
+    "files_created": 1,
+    "files_modified": 5,
+    "lines_added": 11,
+    "lines_removed": 0
+  },
+  "locks_violated": [],
+  "cost_usd": 0.001,
+  "validation_rounds": 1,
+  "overall": "SUCCESS",
+  "timestamp": "2026-04-12T17:37:00"
+}

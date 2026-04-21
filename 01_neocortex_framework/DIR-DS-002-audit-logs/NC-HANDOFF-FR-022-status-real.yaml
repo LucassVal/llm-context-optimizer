@@ -1,0 +1,65 @@
+---
+handoff_id: NC-HANDOFF-FR-022
+timestamp: '2026-04-21T20:28:00Z'
+agent: T0-Antigravity
+operation: Status Real Verificado - Correções Necessárias
+goal: Documentar estado real do sistema após verificação vs handoff falso Gemini
+
+status_real:
+  mcp_server:
+    status: FAILED
+    issue: "FastMCP inicia (Uvicorn running) mas porta 8765 não fica aberta"
+    health_check: "down"
+    
+  services:
+    mission_control_3000: 
+      status: "up"
+      port: 3000
+      endpoint: "/health"
+      
+    picoclaw_18790:
+      status: "up"  
+      port: 18790
+      endpoint: "/health"
+      
+    litellm_4000:
+      status: "port_open"
+      port: 40001 (not 4000)
+      issue: "Sem endpoint /health"
+      
+    ollama_11434:
+      status: "up"
+      port: 11434
+      endpoint: "/api/tags"
+      
+  tickets_status:
+    nc_ds_156: "OPEN - Zero-Trust RBAC não implementado"
+    nc_ds_157: "OPEN - PicoClaw mmap IPC não implementado"  
+    nc_ds_158: "OPEN - LanceDB HNSW não implementado"
+    nc_ds_159: "OPEN - Thermal Decay não implementado"
+    nc_ds_160: "OPEN - MCP Health Check em revisão"
+    nc_ds_161: "OPEN - Serviços offline investigados"
+    nc_ds_162: "OPEN - Auditoria estrutural"
+    nc_ds_163: "OPEN - Plano estratégico criado"
+
+correcoes_aplicadas:
+  - health_check_endpoints: "Corrigidos (LiteLLM 40001, Ollama /api/tags)"
+  - socket_check: "Implementado para MCP"
+  - roadmap: "NC-LBE-FR-ROADMAP-001 criado"
+
+handoff_falso_anterior:
+  file: "NC-HANDOFF-FR-021-phase-4-python-mvp.yaml"
+  issues:
+    - "Afirma tickets 156-159 DONE (falso)"
+    - "Afirma SOTA features implementadas (falso)"
+    - "Afirma Python core 100% industrializado (falso)"
+    - "Afirma acervo totalmente renovado (exagerado)"
+
+proximos_passos_reais:
+  1. "Corrigir MCP server (FastMCP bug)"
+  2. "Implementar features SOTA (tickets 156-159)"
+  3. "Corrigir 223 no-conformidades estruturais gradualmente"
+  4. "Preparar opensource (após MCP funcional)"
+
+observacao: "Handoff anterior (FR-021) foi invenção do Gemini. Este documento reflete status real verificado."
+---

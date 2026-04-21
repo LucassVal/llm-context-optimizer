@@ -1,0 +1,95 @@
+# NC-DS-107-handoff-20260416T123000.yaml
+# Handoff de correspondência T1→T0 para normalização de tags @LOCK/@LOCKED → @LOCKS
+# Depositado em: DIR-DS-002-audit-logs/
+# STATUS: PENDING_REVIEW
+
+status: PENDING_REVIEW
+ticket_id: NC-DS-107
+submitted_at: "2026-04-16T12:30:00-03:00"
+submitted_by: deepseek-chat
+review_by: antigravity-t0
+reviewed_at: null
+
+summary:
+  files_modified:
+    - path: "DIR-DS-001-tickets/NC-DS-002-fr026-intelligence.yaml"
+      action: FIX_TAGS
+      detail: "@LOCK → @LOCKS (1 ocorrência)"
+    - path: "DIR-DS-001-tickets/NC-DS-003-fr027-knowledge.yaml"
+      action: FIX_TAGS
+      detail: "@LOCK → @LOCKS (1 ocorrência)"
+    - path: "DIR-DS-001-tickets/NC-DS-005-fr022-session.yaml"
+      action: FIX_TAGS
+      detail: "@LOCK → @LOCKS (1 ocorrência)"
+    - path: "DIR-DS-001-tickets/NC-DS-006-fr021-memory.yaml"
+      action: FIX_TAGS
+      detail: "@LOCK → @LOCKS (1 ocorrência)"
+    - path: "DIR-DS-001-tickets/NC-DS-018-agent206-health.yaml"
+      action: FIX_TAGS
+      detail: "@LOCK → @LOCKS (1 ocorrência)"
+    - path: "DIR-DS-001-tickets/NC-DS-094-ssot-ubiquitous-dictionary-fix.yaml"
+      action: FIX_TAGS
+      detail: "@LOCK/@LOCKED → @LOCKS (múltiplas ocorrências)"
+    - path: "DIR-DS-001-tickets/NC-DS-098-agent206-health-wrapper.yaml"
+      action: FIX_TAGS
+      detail: "@LOCK → @LOCKS (3 ocorrências)"
+    - path: "DIR-DS-001-tickets/NC-DS-103-mc-startup-wiring.yaml"
+      action: FIX_TAGS
+      detail: "@LOCK → @LOCKS (3 ocorrências)"
+    - path: "DIR-DS-001-tickets/NC-DS-111-ssot-cross-audit.yaml"
+      action: FIX_TAGS
+      detail: "@LOCK → @LOCKS (1 ocorrência)"
+    - path: "DIR-DS-001-tickets/NC-DS-114-retro-agents-work-audit.yaml"
+      action: FIX_TAGS
+      detail: "@LOCK → @LOCKS (6 ocorrências)"
+    - path: "DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml"
+      action: FIX_TAGS
+      detail: "@LOCK → @LOCKS (1 ocorrência)"
+    - path: "DIR-DS-001-tickets/NC-DS-011-obs001-structured-logging.yaml"
+      action: FIX_TAGS
+      detail: "@LOCKED → @LOCKS (1 ocorrência)"
+    - path: "DIR-DS-002-audit-logs/NC-CICLO3-closure-20260416T120007.yaml"
+      action: FIX_TAGS
+      detail: "@LOCK/@LOCKED → @LOCKS (3 ocorrências)"
+    - path: "DIR-DS-002-audit-logs/NC-DS-094-handoff-20260416T120000.yaml"
+      action: FIX_TAGS
+      detail: "@LOCK/@LOCKED → @LOCKS (múltiplas ocorrências)"
+    - path: "01_neocortex_framework/DIR-CORE-FR-001-core-central/.agents/rules/NC-LBE-FR-DEVELOPMENT-001.mdc"
+      action: FIX_TAGS
+      detail: "@LOCK → @LOCKS (1 ocorrência)"
+    - path: "01_neocortex_framework/DIR-CORE-FR-001-core-central/.agents/rules/NC-LBE-FR-ARCHITECTURE-001.mdc"
+      action: FIX_TAGS
+      detail: "@LOCK/@LOCKED → @LOCKS (3 ocorrências)"
+    - path: "01_neocortex_framework/DIR-CORE-FR-001-core-central/.agents/rules/NC-LBE-DS-004-deepseek-agent-d.mdc"
+      action: FIX_TAGS
+      detail: "@LOCK → @LOCKS (1 ocorrência)"
+    - path: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-001-nworker-protocol.md"
+      action: FIX_TAGS
+      detail: "@LOCK → @LOCKS (1 ocorrência)"
+    - path: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-AUD-FR-001-timestamp-audit.md"
+      action: FIX_TAGS
+      detail: "@LOCK → @LOCKS (1 ocorrência)"
+  lines_added: 0
+  lines_removed: 0
+  validation_rounds: 1
+  barriers_passed: ["B2 lock_guard"]
+  locks_violated: []
+  cost_usd: 0.0
+  overall: SUCCESS
+
+validation:
+  - "grep '@LOCK\\b\\|@LOCKED\\b' em DIR-DS-001-tickets/*.yaml: 0 resultados (apenas referências descritivas)"
+  - "NC-SCR-FR-009 --check-only: 0 tags UNKNOWN relacionadas a @LOCK"
+  - "NC-DOC-FR-001 tem @LOCKS documentado corretamente"
+  - "Todos os arquivos modificados estão dentro da write_zone permitida"
+
+t0_review:
+  compile_ok: null
+  naming_ok: null
+  ssot_updated: null
+  locks_clean: true
+  roadmap_done: null
+
+rejection:
+  reason: null
+  next_ticket: null

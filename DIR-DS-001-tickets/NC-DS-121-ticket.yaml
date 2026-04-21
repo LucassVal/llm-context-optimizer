@@ -1,0 +1,45 @@
+ticket_id: "NC-DS-121"
+title: "Constitution Layer — NC-CONST-FR-001 — Organismo Vivo NeoCortex"
+status: "OPEN"
+priority: "CRITICAL"
+created_at: "2026-04-18T09:54:00-03:00"
+assigned_to: "T0-Antigravity"
+tags: ["governance", "constitution", "architecture", "montesquieu", "3-poderes", "picoclaw"]
+description: |
+  Implementar a Constitution Layer do NeoCortex: sistema de governança hierárquica
+  inspirado na CF Brasileira com Separação de Poderes (Montesquieu).
+  
+  Hierarquia:
+    CF (lei suprema): NC-WF-001
+    Leis Complementares: NC-GOV-FR-002 a NC-GOV-FR-005
+    Leis Ordinárias: NC-NAM-FR-001, NC-CFG-FR-002
+    Decretos/Regulamentos: Lobes (.mdc) por domínio
+    Jurisprudência: Regression buffer + handoffs REJECTED
+  
+  3 Poderes como camadas MCP:
+    Legislativo: neocortex_tickets + neocortex_governance (T0 somente)
+    Executivo: neocortex_orchestration + neocortex_picoclaw + neocortex_task
+    Judiciário: neocortex_handoff.validate + neocortex_governance.compliance + AuditHook
+  
+  Expansão de agentes para PicoClaw:
+    T0: autoridade plena
+    T1 (OpenCode/PicoClaw): autoridade delegada com handoff obrigatório
+    T2 (Qwen): autoridade restrita ao escopo do dispatch
+    T3 (Pixel Agents): somente leitura
+
+acceptance_criteria:
+  - "NC-CONST-FR-001 documento ratificado e transformado em Lei Complementar"
+  - "NC-GOV-FR-006 (agent rights) criado com T0/T1/T2/T3 definidos"
+  - "NC-GOV-FR-007 (picoclaw dispatch law) criado"
+  - "NC-GOV-FR-009 (escalation law) criado"
+  - "neocortex_constitution MCP tool implementada (pre_check, status, rights, hierarchy)"
+  - "AuditHook conectado como STF passivo permanente"
+  - "10 Artigos Constitucionais publicados em NC-WF-001 como Emenda"
+
+phases:
+  fase_1_judiciario: "DONE — handoff, tickets, governance_ops implementados"
+  fase_2_executivo: "PENDING — requer PicoClaw funcional"
+  fase_3_legislativo: "PENDING — emenda automática, escalation law"
+  fase_4_organismo_vivo: "FUTURE — self-healing, host remoto"
+
+reference_doc: "NC-CONST-FR-001-v0.1 (nc_constitution_proposal.md)"

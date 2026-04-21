@@ -1,0 +1,49 @@
+<!-- module: profiles -->
+<!-- status: active -->
+
+# NC-LBE-FR-PROFILES-001
+
+Lobe para o módulo profiles do framework NeoCortex.
+
+## Propósito
+Gerenciar conhecimento específico do módulo profiles.
+
+## Status
+Ativo
+
+## Tags
+#profiles, #framework, #neocortex
+
+## Checkpoints
+- CP-PROFILES-001: Criação inicial
+
+
+# NC-LBE-FR-PROFILES-001
+
+Perfis de configuração
+
+## Status
+Ativo (povoado automaticamente)
+
+## Tags
+#profiles, #framework, #neocortex, #auto_populated
+
+## Checkpoints
+- CP-PROFILES-001: Criação inicial
+- CP-PROFILES-002: Povoamento automático
+
+## Análise do Diretório
+- **Total de arquivos**: 2
+
+### Arquivos Principais
+- `neocortex_framework\DIR-PRF-FR-001-profiles-main\templates\NC-PRF-TMP-001-dev-profile-template.json` (109 linhas, 2614 bytes)
+- `neocortex_framework\DIR-PRF-FR-001-profiles-main\users\lucas_valerio\NC-PRF-USR-001-profile.json` (188 linhas, 6358 bytes)
+
+## Contexto do Projeto
+- **Nome do projeto**: N/A
+- **Total de arquivos no projeto**: 0
+
+## Notas de Povoamento
+- Povoado automaticamente por OpenCode
+- Data: 2026-04-10 15:57:55
+- Foco da análise: profiles_structure, configuration_profiles, settings

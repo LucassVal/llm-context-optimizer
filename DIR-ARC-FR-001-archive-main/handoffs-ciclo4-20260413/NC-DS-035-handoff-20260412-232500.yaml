@@ -1,0 +1,22 @@
+handoff_id: NC-DS-035-handoff-20260412-232500
+ticket_id: NC-DS-035
+status: APPROVED
+approved_by: antigravity-t0
+approved_at: "2026-04-12T23:25:00"
+approve_note: "Documento NC-STR-CC-001 completo com 435 linhas reais. Handoff criado pelo T0 pois agent compactou contexto antes de gravar o YAML."
+
+delivery:
+  files_created:
+    - path: "DIR-RES-CC-001-claude-leak-workzone/NC-STR-CC-001-master-strategy.md"
+      lines: 435
+      exists: true
+  lines_added: 435
+
+summary: |
+  Análise estratégica completa do Claude Code leak:
+  - 25 features inventariadas (22 não implementadas no NeoCortex)
+  - 5 itens ocultos descobertos na mineração de raw files (flags, classes, constantes)
+  - Gap analysis por 5 categorias (extensibilidade, observabilidade, scheduling, networking, governance)
+  - 12 tickets pré-MCP definidos (NC-DS-029 a NC-DS-040) com metodologia detalhada
+  - 6 tickets pós-MCP com arquitetura de A2A Gateway
+  - Mapa de dependências com ordem de implementação por fase

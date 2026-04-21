@@ -1,0 +1,33 @@
+ticket_id: "NC-DS-112"
+status: APPROVED
+closed_at: "2026-04-16T14:00:01-03:00"
+closed_by: "T1-OpenCode"
+
+summary: |
+  Tool manifest regenerado (38 tools + hooks FR‑003); registry NC‑GOV‑FR‑004 atualizado com paths de todas as 35 tools físicas.
+
+files_modified:
+  - path: "generate_manifest_simple.py"
+    action: CREATE
+    detail: "Script alternativo para gerar manifesto de tools (38 entradas: 35 tools reais + 3 placeholders para hooks FR‑003)"
+  - path: "update_registry.py"
+    action: CREATE
+    detail: "Script para atualizar registry de artefatos (NC‑GOV‑FR‑004) com paths de todas as 35 tools físicas"
+  - path: "count_tools.py"
+    action: CREATE
+    detail: "Script para contar tools físicas no diretório neocortex/mcp/tools/"
+  - path: "01_neocortex_framework/DIR-CORE-FR-001-core-central/NC-TLM-FR-001-tool-manifest.json"
+    action: UPDATE
+    detail: "Manifesto regenerado com 38 tools (array tools preenchido, antes vazio)"
+  - path: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-004-fr-artifacts-registry.yaml"
+    action: UPDATE
+    detail: "Registry atualizado com paths de todas as 35 tools físicas (seção tools_physical)"
+
+validation:
+  - "NC‑TLM‑FR‑001: array tools contém 38 entradas (35 reais + 3 placeholders)"
+  - "NC‑GOV‑FR‑004: tools_physical lista 35 paths válidos"
+  - "Script original NC‑SCR‑FR‑002 analisado (problema de importação do módulo neocortex)"
+  - "Hook NC‑HK‑FR‑003 não encontrado fisicamente — placeholder adicionado"
+
+lines_added: 89
+confidence_score: 97

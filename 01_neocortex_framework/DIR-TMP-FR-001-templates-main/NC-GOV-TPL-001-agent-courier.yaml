@@ -1,0 +1,58 @@
+# NC-GOV-TPL-001-agent-courier.yaml
+# Template de Agente Courier (Nível 1)
+# Herança: NC-GOV-TPL-000-root-template.yaml
+# Propósito: Define regras específicas para agentes do tipo Courier
+
+level: 1
+inherits_from: NC-GOV-TPL-000-root-template.yaml
+topology: agent
+agent_role: courier
+
+# Configurações específicas do Courier
+configuration:
+  max_concurrent_tasks: 3
+  task_timeout_seconds: 300
+  heartbeat_interval_seconds: 60
+  max_retries: 3
+
+# Permissões e restrições
+permissions:
+  allowed_tools: [search, index, task, query, analyze]
+  forbidden_actions: [write, delete, modify, execute]
+  allowed_resources: [ledger, cache, manifest, checkpoint]
+  forbidden_resources: [security, encryption, backup]
+
+# Backend e modelo
+backend:
+  type: ollama
+  model: qwen2.5-coder:1.5b
+  context_window: 4096
+  max_tokens: 2048
+  temperature: 0.1
+
+# Tags específicas (sobrescrevem/adicionam às tags do pai)
+tags:
+  - allowed_tools: [search, index, task]
+  - forbidden_actions: [write, delete]
+  - backend: ollama:qwen2.5-coder:1.5b
+  - role: courier
+  - isolation: strict
+  - monitoring: enabled
+
+# Regras de validação específicas
+validation_rules:
+  - name: courier_naming
+    pattern: "^courier-\\d+$"
+    message: "Nome do courier deve ser courier-XXX"
+    
+  - name: port_range
+    min: 11000
+    max: 12000
+    message: "Porta deve estar entre 11000 e 12000"
+
+# Metadados
+metadata:
+  created: 2026-04-14
+  author: NeoCortex Governance
+  version: 1.0.0
+  description: "Template para agentes Courier do NeoCortex"

@@ -1,0 +1,26 @@
+ticket_id: "NC-DS-089"
+status: "APPROVED"
+timestamp: "2026-04-16T00:08:45-03:00"
+agent: "T0-Claude-Code"
+summary: |
+  Integração do NC-SVC-FR-016-wal-service nos 3 scripts do Ciclo 3 (NC-SCR-FR-066, NC-SCR-FR-064, NC-SCR-FR-009).
+  Adicionado wrapper WAL.transaction() como context manager em cada script, garantindo log automático de operações de escrita com antes/depois.
+  Scripts compilam sem erro, dry-run/check-only não incrementam WAL, execução real registra entradas no banco WAL.
+  Verificação: python NC-SVC-FR-016-wal-service.py stats mostra total_log_entries incrementado após execução.
+files_modified:
+  - "01_neocortex_framework/scripts/NC-SCR-FR-066-bootup-sync.py"
+  - "01_neocortex_framework/scripts/NC-SCR-FR-064-artifact-catalog.py"
+  - "01_neocortex_framework/scripts/NC-SCR-FR-009-sanitize-all-yamls.py"
+files_created:
+  - "DIR-DS-002-audit-logs/NC-DS-089-handoff-20260416T000845.yaml"
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  ssot_updated: true
+  no_locked_files_modified: true
+  handoff_yaml_complete: true
+notes: |
+  Integração realizada conforme padrão de importação especificado no ticket.
+  WALService instanciado dentro de cada script, session_id gerado com timestamp, ticket_id NC-DS-089 usado nas transações.
+  Testes realizados: compilação (python -m py_compile), dry-run (--dry-run, --check-only) não alteram WAL, execução real incrementa entradas.
+  Stats WAL antes/depois confirmam funcionamento.

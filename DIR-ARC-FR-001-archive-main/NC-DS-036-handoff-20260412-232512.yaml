@@ -1,0 +1,55 @@
+ticket_id: NC-DS-036
+title: "Verificação de lacunas nos tickets NC-DS-012 e NC-DS-016"
+status: PENDING_REVIEW
+assigned_to: T0
+created_at: "2026-04-12T23:25:12"
+created_by: opencode
+lines_added: 41
+
+methodology: |
+  ## TASK 1 — NC-DS-012 (Boot manifest update)
+  - Lido: DIR-DS-001-tickets/NC-DS-012-boot001-system-manifest-update.yaml
+  - Lido: DIR-BOOT-FR-001-bootup-main/NC-BOOT-FR-001-system-manifest.md
+  - Verificação:
+    - ✅ NC-BOOT-FR-001 já continha referências a N-workers, dispatch individual, MCP-WQUEUE, atomic locks (seção 5, linhas 91‑103)
+    - ⚠️ Faltava informação dos tickets NC-DS-018 a NC-DS-028 (tabela de tickets críticos desatualizada)
+  - Ação: Adicionada seção 8.1 "TICKETS RECENTES CONCLUÍDOS (NC-DS-018 a NC-DS-028)" com tabela de 13 tickets e status.
+  - Linhas adicionadas: ~16
+
+  ## TASK 2 — NC-DS-016 (Consolidação NC-LBE-CC-001)
+  - Lido: DIR-DS-001-tickets/NC-DS-016-cc-consolidate-master.yaml
+  - Lido: 01_neocortex_framework/DIR-TMP-FR-001-templates-main/NC-LBE-CC-001-claude-leak-master.mdc
+  - Lido: DIR-RES-CC-001-claude-leak-workzone/analysis-session-b/NC-ANA-CC-004-competitive-intel.md
+  - Lido: DIR-RES-CC-001-claude-leak-workzone/analysis-session-b/NC-ANA-CC-005-plugins-deep.md  
+  - Lido: DIR-RES-CC-001-claude-leak-workzone/analysis-session-a/NC-ANA-CC-005-kairos-deep.md
+  - Verificação:
+    - ✅ O lobe CC-001 já continha insights consolidados (Plugin Patterns, Competitive Intelligence)
+    - ⚠️ Faltavam detalhes específicos das análises NC-ANA-CC-004 (8 forças da Anthropic) e NC-ANA-CC-005 (arquitetura de plugins, KAIROS lifecycle)
+  - Ação: Adicionada subseção "Detalhes de Análise (NC-ANA-CC-004/005)" antes do REPLICABILITY MAP, com listas estruturadas dos achados.
+  - Linhas adicionadas: ~25
+
+  ## CONCLUSÃO
+  Ambos os arquivos foram atualizados para refletir os achados mais recentes. O boot manifest agora inclui o status dos tickets NC-DS-018 a NC-DS-028, e o lobe CC-001 incorpora detalhes das análises de competitive intelligence, plugins e KAIROS.
+
+files_modified:
+  - path: "DIR-BOOT-FR-001-bootup-main/NC-BOOT-FR-001-system-manifest.md"
+    lines_added: 16
+    changes: "Adicionada seção 8.1 com tabela de tickets recentes (NC-DS-018 a NC-DS-028)"
+  - path: "01_neocortex_framework/DIR-TMP-FR-001-templates-main/NC-LBE-CC-001-claude-leak-master.mdc"
+    lines_added: 25
+    changes: "Adicionada subseção 'Detalhes de Análise (NC-ANA-CC-004/005)' consolidando achados das análises"
+
+validation:
+  - boot_manifest_updated: true
+  - lobe_cc001_consolidated: true
+  - references_to_n_workers: true
+  - references_to_mcp_wqueue: true
+  - references_to_atomic_locks: true
+  - includes_competitive_intel: true
+  - includes_plugins_deep: true
+  - includes_kairos_deep: true
+
+next_steps:
+  - Revisar handoff por T0
+  - Atualizar roadmap (@ROADMAP) se necessário
+  - Executar @POPULATE se novos lobes forem criados

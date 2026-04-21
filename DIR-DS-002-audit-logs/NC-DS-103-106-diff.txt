@@ -1,0 +1,2432 @@
+diff --git a/01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-004-fr-artifacts-registry.yaml b/01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-004-fr-artifacts-registry.yaml
+new file mode 100644
+index 0000000..50290c9
+--- /dev/null
++++ b/01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-004-fr-artifacts-registry.yaml
+@@ -0,0 +1,757 @@
++meta:
++  version: '1.0'
++  hash: FR-ARTIFACTS-REGISTRY-v1.0
++  description: Registro de Artefatos FR — machine-readable companion to NC-GOV-FR-004-fr-artifacts-registry.md
++  md_file: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-004-fr-artifacts-registry.md
++  generated_at: '2026-04-14'
++  generated_by: opencode (DeepSeek-Reasoner)
++  audit_script: NC-SCR-FR-080-governance-auditor.py
++  total_artifact_types: 18
++  total_artifacts_mapped: 300
++fr_taxonomy:
++  SCR:
++    name: Scripts
++    description: Scripts de automação, utilitários e ferramentas de linha de comando
++    purpose: Automatizar tarefas repetitivas, validação, auditoria, sincronização
++    examples:
++    - NC-SCR-FR-001-populate-lobes-ssot.py
++    - NC-SCR-FR-004-governance-validator.py
++    - NC-SCR-FR-009-sanitize-all-yamls.py
++    - NC-SCR-FR-014-end-of-cycle.ps1
++    - NC-SCR-FR-064-artifact-catalog.py
++    - NC-SCR-FR-080-governance-auditor.py
++    governance_rules_applied:
++    - R04
++    - R18
++    - R19
++    - R20
++  TOOL:
++    name: Tools MCP
++    description: Ferramentas expostas via servidor MCP para agentes
++    purpose: Interface programática para funcionalidades do NeoCortex
++    examples:
++    - NC-TOOL-FR-000-brain.py
++    - NC-TOOL-FR-001-cortex.py
++    - NC-TOOL-FR-012-regression.py
++    - NC-TOOL-FR-022-session.py
++    - NC-TOOL-FR-037-hooks.py
++    governance_rules_applied:
++    - R04
++    - R07
++    - R14
++    - R17
++  HK:
++    name: Hooks
++    description: Hooks do sistema para extensão e interceptor de eventos
++    purpose: Permitir extensão modular, interceptar chamadas, adicionar middleware
++    examples:
++    - NC-HK-FR-001-hook-registry.py
++    - NC-HK-FR-002-simple-hook.py
++    governance_rules_applied:
++    - R04
++    - R13
++    - R14
++  CFG:
++    name: Configuration
++    description: Configurações e políticas em formato machine-readable
++    purpose: Definir regras, limites, zonas, políticas consumíveis por scripts
++    examples:
++    - NC-CFG-FR-002-rules-policy.yaml
++    - NC-CFG-FR-004-project-config.py
++    governance_rules_applied:
++    - R02
++    - R08
++    - R09
++    - R11
++  SEC:
++    name: Security
++    description: Regras de segurança, atomic locks e políticas de acesso
++    purpose: Proteger recursos críticos, definir permissões, aplicar controle de acesso
++    examples:
++    - NC-SEC-FR-001-atomic-locks.yaml
++    - NC-SEC-FR-002-entry-lock-protocol.md
++    governance_rules_applied:
++    - R08
++    - R09
++    - R11
++  GOV:
++    name: Governance
++    description: Regras de governança, procedimentos e ciclos de vida
++    purpose: Estabelecer governança formal, ciclos, auditoria, conformidade
++    examples:
++    - NC-GOV-FR-001-nworker-protocol.md
++    - NC-GOV-FR-002-ticket-lifecycle.md
++    - NC-GOV-FR-003-ia-governance-rules.yaml
++    - NC-GOV-FR-004-fr-artifacts-registry.yaml
++    governance_rules_applied:
++    - R02
++    - R11
++    - R18
++    - R19
++    - R20
++  NAM:
++    name: Naming Convention
++    description: Convenções de nomenclatura, SSOT e mapas de artefatos
++    purpose: Manter nomenclatura padronizada, mapa centralizado, changelog
++    examples:
++    - NC-NAM-FR-001-naming-convention.md
++    - NC-NAM-FR-001a-tools-registry.md
++    - NC-NAM-FR-001b-lobes-registry.md
++    - NC-NAM-FR-001c-config-registry.md
++    - NC-NAM-FR-001d-prompts-registry.md
++    governance_rules_applied:
++    - R01
++    - R02
++    - R03
++    - R04
++  TODO:
++    name: Roadmap
++    description: Roadmaps, planejamento e tickets
++    purpose: Planejar trabalho, rastrear progresso, gerenciar tickets
++    examples:
++    - NC-TODO-FR-001-project-roadmap-consolidated.md
++    - NC-TODO-DS-001-roadmap-pre-mcp.md
++    governance_rules_applied:
++    - R03
++    - R18
++  SOP:
++    name: Standard Operating Procedure
++    description: Procedimentos operacionais padrão
++    purpose: Documentar processos repetitivos, checklists, fluxos de trabalho
++    examples:
++    - NC-SOP-FR-001-session-startup.md
++    governance_rules_applied:
++    - R19
++  CYC:
++    name: Cycle Validation
++    description: Ciclos de validação e rotinas
++    purpose: Estabelecer rotinas de validação, ciclos de trabalho, auditoria periódica
++    examples:
++    - NC-CYC-FR-001-4-cycle-validation.md
++    governance_rules_applied:
++    - R19
++    - R20
++  APP:
++    name: Technical Appendix
++    description: Apêndices técnicos e detalhes de implementação
++    purpose: Documentar detalhes técnicos, referências, implementações específicas
++    examples:
++    - NC-APP-FR-001-technical-appendix.md
++    governance_rules_applied:
++    - R02
++  MAN:
++    name: Manifest
++    description: Manifestos de projeto e inventários
++    purpose: Listar artefatos, versões, dependências, estado do projeto
++    examples:
++    - NC-MAN-FR-001-project-manifest.md
++    - NC-BOOT-FR-001-system-manifest.md
++    governance_rules_applied:
++    - R01
++    - R02
++  DOC:
++    name: Documentation
++    description: Documentação geral e referência
++    purpose: Documentar conceitos, referências, dicionários, padrões
++    examples:
++    - NC-DOC-FR-001-ubiquitous-language-dictionary.md
++    - NC-DOC-FR-002-dev-environment-standard.md
++    governance_rules_applied:
++    - R02
++  REPORT:
++    name: Report
++    description: Relatórios de auditoria e análise
++    purpose: Gerar relatórios, análises, resultados de auditoria
++    examples:
++    - NC-REPORT-FR-001-consolidated-results.md
++    governance_rules_applied:
++    - R10
++    - R12
++  AUD:
++    name: Audit
++    description: Checklists de auditoria e validação
++    purpose: Checklists para validação, auditoria, verificação de conformidade
++    examples:
++    - NC-AUD-FR-001-timestamp-audit.md
++    - NC-AUD-FR-002-checklist-validation.md
++    governance_rules_applied:
++    - R10
++    - R12
++  ARC:
++    name: Archive Decision Log
++    description: Log de decisões arquiteturais arquivadas
++    purpose: Registrar decisões arquiteturais, rationale, contexto
++    examples:
++    - NC-ARC-FR-001-decision-log.md
++    governance_rules_applied:
++    - R11
++    - R20
++  ALN:
++    name: Architectural Alignment
++    description: Alinhamento arquitetural e padrões
++    purpose: Documentar alinhamento arquitetural, padrões, decisões de design
++    examples:
++    - NC-ALN-FR-001-arquitetural-alignment.md
++    governance_rules_applied:
++    - R03
++  TST:
++    name: Test
++    description: Testes e validações
++    purpose: Testar funcionalidades, validar implementações, garantir qualidade
++    examples:
++    - NC-TST-FR-001-test-rag-search.py
++    governance_rules_applied:
++    - R14
++  PRF:
++    name: Profile
++    description: Perfis de usuário, schemas de desenvolvedor/time e configurações de identidade cognitiva
++    purpose: Definir identidade, preferências, regras operacionais e consciência do usuário/time para agentes IA
++    examples:
++    - NC-PRF-FR-001-developer-schema.md
++    - NC-PRF-FR-002-team-schema.md
++    - NC-PRF-FR-003-profile-loader.py
++    - NC-PRF-USR-001-profile.json
++    governance_rules_applied:
++    - R01
++    - R04
++    - R09
++    - R11
++  LBE:
++    name: Lobe
++    description: Lobos de memória e contexto — arquivos .mdc injetados no contexto dos agentes
++    purpose: Prover contexto persistente e especializado a agentes IA antes de ações (arquitetura, integração, consciência
++      do usuário)
++    examples:
++    - NC-LBE-USR-001-user-consciousness.mdc
++    - NC-LBE-INT-001-picoclaw-architecture.mdc
++    - NC-LBE-INT-004-mission-control.mdc
++    - NC-LBE-INT-005-pixel-agents.mdc
++    governance_rules_applied:
++    - R04
++    - R09
++    - R11
++  WF:
++    name: Workflow
++    description: Fluxos de trabalho e rotinas de sessão — lei mestra de governança operacional
++    purpose: Definir ciclos de trabalho, governança, sequência de ações obrigatórias por sessão
++    examples:
++    - NC-WF-001-workspace-routine.md
++    governance_rules_applied:
++    - R01
++    - R02
++    - R09
++    - R11
++    - R19
++    - R20
++fr_artifacts_mapping:
++  SCR:
++  - path: 01_neocortex_framework/scripts/NC-SCR-FR-001-populate-lobes-ssot.py
++    purpose: Popular lobos de memória a partir do SSOT
++    governance_rules:
++    - R04
++    - R11
++    - R19
++  - path: 01_neocortex_framework/scripts/NC-SCR-FR-004-governance-validator.py
++    purpose: Validar integridade de documentos de governança
++    governance_rules:
++    - R04
++    - R11
++    - R19
++  - path: 01_neocortex_framework/scripts/NC-SCR-FR-009-sanitize-all-yamls.py
++    purpose: Sanitizar YAMLs de rotina (claimed_by, completed_at)
++    governance_rules:
++    - R04
++    - R12
++    - R20
++  - path: 01_neocortex_framework/scripts/NC-SCR-FR-014-end-of-cycle.ps1
++    purpose: Executar rotina de fim de ciclo (checklist R20)
++    governance_rules:
++    - R19
++    - R20
++  - path: 01_neocortex_framework/scripts/NC-SCR-FR-066-bootup-sync.py
++    purpose: Sincronizar Boot Manifest (seções 6 e 9) com estado real de tickets e handoffs
++    governance_rules:
++    - R04
++    - R11
++    - R19
++    - R20
++  - path: 01_neocortex_framework/scripts/NC-SCR-FR-080-governance-auditor.py
++    purpose: Auditoria de governança de IA e mapeamento de ambiente
++    governance_rules:
++    - R01
++    - R04
++    - R05
++    - R11
++    - R20
++  - path: 01_neocortex_framework/scripts/NC-SCR-FR-002-tool-manifest-generator.py
++    purpose: Gerar manifesto de ferramentas MCP NeoCortex a partir de módulos de ferramentas existentes (SSOT)
++    governance_rules:
++    - R01
++    - R04
++    - R11
++    - R19
++  - path: 01_neocortex_framework/scripts/NC-SCR-FR-022-coverage-auditor.py
++    purpose: Auditar cobertura do mapa simbólico KGS sobre arquivos materiais, identificando desertores (não indexados) e
++      inimigos (erros de leitura)
++    governance_rules:
++    - R01
++    - R04
++    - R11
++    - R20
++  - path: 01_neocortex_framework/scripts/NC-SCR-FR-023-ssot-auditor.py
++    purpose: Cruzar arquivos materiais da KGS com SSOT de nomenclatura para detectar arquivos fantasmas e links mortos
++    governance_rules:
++    - R01
++    - R04
++    - R05
++    - R11
++    - R20
++  - path: 01_neocortex_framework/scripts/NC-SCR-FR-024-structural-auditor.py
++    purpose: Auditar conformidade estrutural dos arquivos com NC-NAM-FR-001 (nomenclatura, diretório, heurísticas)
++    governance_rules:
++    - R01
++    - R04
++    - R05
++    - R11
++    - R20
++  - path: 01_neocortex_framework/scripts/NC-SCR-FR-075-genealogy-injector.py
++    purpose: Injetor de tags genealógicas (topology, parent_ssot, level) nos arquivos Python baseado no genealogy_graph.json
++    governance_rules:
++    - R01
++    - R04
++    - R05
++    - R11
++  - path: 01_neocortex_framework/scripts/NC-SCR-FR-065-rename-impact-analyzer.py
++    purpose: 'Analisador de impacto de renomeação: cruza catálogo de artefatos com plano de renomeação para identificar impactos
++      completos'
++    governance_rules:
++    - R01
++    - R04
++    - R11
++  TOOL:
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-000-brain.py
++    purpose: 'Ferramenta brain: orquestração e roteamento inteligente'
++    governance_rules:
++    - R04
++    - R07
++    - R14
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-001-cortex.py
++    purpose: Ferramenta MCP NeoCortex
++    governance_rules:
++    - R04
++    - R07
++    - R14
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-002-agent.py
++    purpose: Ferramenta MCP NeoCortex
++    governance_rules:
++    - R04
++    - R07
++    - R14
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-003-benchmark.py
++    purpose: Ferramenta MCP NeoCortex
++    governance_rules:
++    - R04
++    - R07
++    - R14
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-004-checkpoint.py
++    purpose: Ferramenta MCP NeoCortex
++    governance_rules:
++    - R04
++    - R07
++    - R14
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-005-config.py
++    purpose: Ferramenta MCP NeoCortex
++    governance_rules:
++    - R04
++    - R07
++    - R14
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-006-export.py
++    purpose: Ferramenta MCP NeoCortex
++    governance_rules:
++    - R04
++    - R07
++    - R14
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-007-init.py
++    purpose: Ferramenta MCP NeoCortex
++    governance_rules:
++    - R04
++    - R07
++    - R14
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-008-ledger.py
++    purpose: Ferramenta MCP NeoCortex
++    governance_rules:
++    - R04
++    - R07
++    - R14
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-009-lobes.py
++    purpose: Ferramenta MCP NeoCortex
++    governance_rules:
++    - R04
++    - R07
++    - R14
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-010-peers.py
++    purpose: Ferramenta MCP NeoCortex
++    governance_rules:
++    - R04
++    - R07
++    - R14
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-011-pulse.py
++    purpose: Ferramenta MCP NeoCortex
++    governance_rules:
++    - R04
++    - R07
++    - R14
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-012-regression.py
++    purpose: 'Ferramenta regression: STEP 0 e buffer de regressão'
++    governance_rules:
++    - R04
++    - R14
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-013-report.py
++    purpose: Ferramenta MCP NeoCortex
++    governance_rules:
++    - R04
++    - R07
++    - R14
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-014-search.py
++    purpose: Ferramenta MCP NeoCortex
++    governance_rules:
++    - R04
++    - R07
++    - R14
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-015-security.py
++    purpose: Ferramenta MCP NeoCortex
++    governance_rules:
++    - R04
++    - R07
++    - R14
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-016-subserver.py
++    purpose: Ferramenta MCP NeoCortex
++    governance_rules:
++    - R04
++    - R07
++    - R14
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-017-task.py
++    purpose: Ferramenta MCP NeoCortex
++    governance_rules:
++    - R04
++    - R07
++    - R14
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-018-push-notification.py
++    purpose: Ferramenta MCP NeoCortex
++    governance_rules:
++    - R04
++    - R07
++    - R14
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-019-project-manifest.py
++    purpose: Ferramenta MCP NeoCortex
++    governance_rules:
++    - R04
++    - R07
++    - R14
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-020-knowledge.py
++    purpose: Ferramenta MCP NeoCortex
++    governance_rules:
++    - R04
++    - R07
++    - R14
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-021-memory.py
++    purpose: Ferramenta MCP NeoCortex
++    governance_rules:
++    - R04
++    - R07
++    - R14
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-022-session.py
++    purpose: 'Ferramenta session: checkpoint, regression, savepoint unificados'
++    governance_rules:
++    - R04
++    - R13
++    - R14
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-023-orchestration.py
++    purpose: Ferramenta MCP NeoCortex
++    governance_rules:
++    - R04
++    - R07
++    - R14
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-024-governance.py
++    purpose: Ferramenta MCP NeoCortex
++    governance_rules:
++    - R04
++    - R07
++    - R14
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-025-system.py
++    purpose: Ferramenta MCP NeoCortex
++    governance_rules:
++    - R04
++    - R07
++    - R14
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-026-intelligence.py
++    purpose: Ferramenta MCP NeoCortex
++    governance_rules:
++    - R04
++    - R07
++    - R14
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-027-knowledge.py
++    purpose: Ferramenta MCP NeoCortex
++    governance_rules:
++    - R04
++    - R07
++    - R14
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-029-health.py
++    purpose: Ferramenta MCP NeoCortex
++    governance_rules:
++    - R04
++    - R07
++    - R14
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-030-context.py
++    purpose: Ferramenta MCP NeoCortex
++    governance_rules:
++    - R04
++    - R07
++    - R14
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-031-savepoint.py
++    purpose: Ferramenta MCP NeoCortex
++    governance_rules:
++    - R04
++    - R07
++    - R14
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-034-dry-run.py
++    purpose: Ferramenta MCP NeoCortex
++    governance_rules:
++    - R04
++    - R07
++    - R14
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-035-task.py
++    purpose: Ferramenta MCP NeoCortex
++    governance_rules:
++    - R04
++    - R07
++    - R14
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-036-picoclaw.py
++    purpose: Ferramenta MCP NeoCortex
++    governance_rules:
++    - R04
++    - R07
++    - R14
++  - path: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-037-hooks.py
++    purpose: Ferramenta MCP NeoCortex
++    governance_rules:
++    - R04
++    - R07
++    - R14
++  HK:
++  - path: 01_neocortex_framework/neocortex/core/hooks/NC-HK-FR-003-mission-control-hook.py
++    purpose: Hook que reporta tool calls para o Mission Control activity feed
++    governance_rules:
++    - R04
++    - R13
++    - R14
++  CFG:
++  - path: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-CFG-FR-002-rules-policy.yaml
++    purpose: Política de regras machine-readable para enforcement
++    governance_rules:
++    - R02
++    - R07
++    - R08
++    - R09
++    - R11
++  - path: 01_neocortex_framework/neocortex/core/NC-CORE-FR-017-policy-loader.py
++    purpose: Carregador de políticas para mentor_step_0()
++    governance_rules:
++    - R04
++    - R14
++  SEC:
++  - path: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml
++    purpose: 'Atomic locks: paths protegidos contra modificação'
++    governance_rules:
++    - R08
++    - R11
++  GOV:
++  - path: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-001-nworker-protocol.md
++    purpose: Protocolo N-Worker para coordenação de múltiplos agents
++    governance_rules:
++    - R02
++    - R18
++  - path: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-002-ticket-lifecycle.md
++    purpose: Ciclo de vida de tickets (criação → execução → fechamento)
++    governance_rules:
++    - R02
++    - R12
++    - R18
++  - path: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.yaml
++    purpose: 20 regras de governança de IA (machine-readable)
++    governance_rules:
++    - R02
++    - R11
++    - R14
++  NAM:
++  - path: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md
++    purpose: 'SSOT: convenções de nomenclatura, mapa, changelog'
++    governance_rules:
++    - R01
++    - R02
++    - R03
++    - R04
++  TODO:
++  - path: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md
++    purpose: Roadmap SSOT completo do projeto NeoCortex
++    governance_rules:
++    - R02
++    - R03
++    - R18
++  SOP:
++  - path: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SOP-FR-001-session-startup.md
++    purpose: 'SOP: procedimento de inicialização de sessão'
++    governance_rules:
++    - R02
++    - R19
++  CYC:
++  - path: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-CYC-FR-001-4-cycle-validation.md
++    purpose: Validação de 4 ciclos NeoCortex
++    governance_rules:
++    - R02
++    - R19
++    - R20
++  BOOT:
++  - path: DIR-BOOT-FR-001-bootup-main/NC-BOOT-FR-001-system-manifest.md
++    purpose: 'Boot manifesto: estado operacional do sistema'
++    governance_rules:
++    - R01
++    - R02
++    - R05
++  PRF:
++  - path: 01_neocortex_framework/DIR-PRF-FR-001-profiles-main/NC-PRF-FR-001-developer-schema.md
++    purpose: Schema JSON do perfil de desenvolvedor — hierarquia, permissões, padrões cognitivos
++    governance_rules:
++    - R01
++    - R04
++    - R11
++  - path: 01_neocortex_framework/DIR-PRF-FR-001-profiles-main/NC-PRF-FR-002-team-schema.md
++    purpose: Schema JSON do perfil de time — conhecimento compartilhado, regras, hive mind base
++    governance_rules:
++    - R01
++    - R04
++    - R11
++  - path: 01_neocortex_framework/DIR-PRF-FR-001-profiles-main/NC-PRF-FR-003-profile-loader.py
++    purpose: Carregador e conversor de perfis — lê NC-PRF-USR-* e expõe para agentes
++    governance_rules:
++    - R04
++    - R11
++  - path: 01_neocortex_framework/DIR-PRF-FR-001-profiles-main/users/lucas_valerio/NC-PRF-USR-001-profile.json
++    purpose: Perfil cognitivo completo do T0 (Lucas Valério) — fonte de consciência para todos os agentes IA
++    governance_rules:
++    - R01
++    - R04
++    - R09
++    - R11
++  LBE:
++  - path: 01_neocortex_framework/lobes/NC-LBE-USR-001-user-consciousness.mdc
++    purpose: Lobe de consciência do usuário — injetado no Ciclo 0 antes de qualquer ação
++    governance_rules:
++    - R04
++    - R09
++    - R11
++  - path: 01_neocortex_framework/lobes/NC-LBE-INT-001-picoclaw-architecture.mdc
++    purpose: 'Arquitetura PicoClaw: gateway A2A, dispatcher DeepSeek, porta 18790'
++    governance_rules:
++    - R04
++    - R11
++  - path: 02_memory_lobes/NC-LBE-INT-004-mission-control.mdc
++    purpose: 'Arquitetura Mission Control: dashboard kanban, SSE, porta 3000'
++    governance_rules:
++    - R04
++    - R11
++  - path: 02_memory_lobes/NC-LBE-INT-005-pixel-agents.mdc
++    purpose: 'Arquitetura Pixel Agents: observer pixel-art, JSONL, porta 8765'
++    governance_rules:
++    - R04
++    - R11
++  WF:
++  - path: .agents/workflows/NC-WF-001-workspace-routine.md
++    purpose: 'Lei mestra: Os 4 Ciclos, governança centralizada, mapa de todos arquivos críticos'
++    governance_rules:
++    - R01
++    - R02
++    - R09
++    - R11
++    - R19
++    - R20
++  SVC:
++  - path: 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-016-wal-service.py
++    purpose: Write-Ahead Log imutável via SQLite — rastreia operações de filesystem, rollback por sessão, TTL automático (resolve
++      WAL + TTL-002)
++    governance_rules:
++    - R04
++    - R11
++    - R12
++    - R18
++    db_path: DIR-DS-003-wal/neocortex_wal.db
++    status: ACTIVE
++  - id: NC-SVC-FR-017
++    path: 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-017-crypto-hub.py
++    name: crypto-hub
++    purpose: Central de criptografia real (Fernet/AES-128-CBC + HMAC-SHA256) via NEOCORTEX_MASTER_KEY — substitui stub simulated_aes256
++      em security_service.py
++    governance_rules:
++    - R04
++    - R08
++    - R11
++    - R12
++    depends_on:
++    - NC-SVC-FR-016
++    - cryptography>=42.0.0
++    status: ACTIVE
++    ticket: NC-DS-091
++  - id: NC-SVC-FR-018
++    path: 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-018-tag-normalizer.py
++    name: tag-normalizer
++    purpose: Central universal de sanitização de tags — valida símbolos ubíquos (@/$/%)) contra NC-DOC-FR-001, normaliza frontmatter
++      YAML, valida lobos .mdc
++    governance_rules:
++    - R04
++    - R11
++    - R12
++    - R18
++    depends_on:
++    - NC-SVC-FR-016
++    - NC-DOC-FR-001
++    status: ACTIVE
++    ticket: NC-DS-090
++governance_integration:
++  audit_requirements:
++  - Todo artefato FR deve estar listado neste registro
++  - Todo artefato FR deve ter finalidade (purpose) definida
++  - Todo artefato FR deve referenciar regras de governança aplicadas
++  - Artefatos sem finalidade devem ser revisados ou arquivados
++  validation_methods:
++  - Script NC-SCR-FR-080-governance-auditor.py varre arquivos FR
++  - Compara com artifact_catalog.json para completude
++  - Verifica campo purpose não vazio
++  - Valida referências cruzadas com NC-GOV-FR-003-ia-governance-rules.yaml
++  update_frequency: Ciclo 4 (semanal)
++  responsible_role: T0 (Orchestration)
++audit_checklist:
++- task: Executar varredura completa de arquivos FR
++  command: python NC-SCR-FR-080-governance-auditor.py --environment original --audit-fr-artifacts
++  frequency: Ciclo 4
++- task: Atualizar este registro com artefatos descobertos
++  frequency: Após cada auditoria
++- task: Validar finalidade de cada artefato FR
++  frequency: Ciclo 4
++- task: Verificar referências a regras de governança
++  frequency: Ciclo 4
++- task: Identificar artefatos FR órfãos (sem referência)
++  frequency: Ciclo 4
++current_state:
++  total_fr_files_found: 298
++  total_fr_files_mapped: 35
++  coverage_percentage: 10.7
++  last_audit_date: '2026-04-14'
++  next_audit_due: '2026-04-21'
++  issues_found:
++  - 'Mapeamento incompleto: apenas 30/298 artefatos FR mapeados'
++  - Falta finalidade (purpose) para muitos artefatos
++  - Necessidade de auditoria automatizada regular
++  recommendations:
++  - Executar NC-SCR-FR-080-governance-auditor.py com flag --audit-fr-artifacts
++  - Completar mapeamento de todos os artefatos FR
++  - Integrar com artifact_catalog.json para análise semântica
+diff --git a/01_neocortex_framework/neocortex/core/adapters/NC-ADP-FR-001-mission-control.py b/01_neocortex_framework/neocortex/core/adapters/NC-ADP-FR-001-mission-control.py
+new file mode 100644
+index 0000000..9bbfaf1
+--- /dev/null
++++ b/01_neocortex_framework/neocortex/core/adapters/NC-ADP-FR-001-mission-control.py
+@@ -0,0 +1,430 @@
++"""---
++_genealogy:
++  injected_at: '2026-04-16T00:23:58.134720'
++  injected_by: NC-SCR-FR-075-genealogy-injector.py
++  version: '1.0'
++topology: neocortex-other
++level: 0
++parent_ssot: NC-ADP-FR-001
++tags:
++  - neocortex-other
++  - level-0
++  - nc-prefix
++  - python
++---"""
++
++#!/usr/bin/env python3
++"""
++NC-ADP-FR-001  Mission Control Generic Adapter Implementation
++
++Adapter for connecting NeoCortex to Mission Control dashboard (localhost:3000).
++Implements generic adapter interface: register, heartbeat, report, assignments.
++
++Based on NC-LBE-INT-004-mission-control.mdc (INTEGRAO COM NEOCORTEX section).
++"""
++
++import concurrent.futures
++import json
++import logging
++import threading
++import time
++import urllib.error
++import urllib.request
++from dataclasses import dataclass
++from enum import Enum
++from typing import Any, Dict, Optional
++
++logger = logging.getLogger(__name__)
++
++
++class MissionControlAction(str, Enum):
++    """Actions supported by Mission Control generic adapter endpoint."""
++
++    REGISTER = "register"
++    HEARTBEAT = "heartbeat"
++    REPORT = "report"
++    ASSIGNMENTS = "assignments"
++    DISCONNECT = "disconnect"
++
++
++@dataclass
++class MissionControlConfig:
++    """Configuration for Mission Control adapter."""
++
++    base_url: str = "http://localhost:3000"
++    api_endpoint: str = "/api/adapters"
++    framework: str = "generic"
++    agent_id: str = ""
++    name: str = "neocortex-agent"
++    role: str = "coder"
++    capabilities: Optional[list] = None
++    metadata: Optional[dict] = None
++    heartbeat_interval_sec: int = 30
++    timeout_sec: int = 3
++    max_retries: int = 3
++    circuit_breaker_failures: int = 5
++    circuit_breaker_reset_sec: int = 60
++
++    def __post_init__(self):
++        if self.capabilities is None:
++            self.capabilities = ["mcp-tools", "code-generation", "debugging"]
++        if self.metadata is None:
++            self.metadata = {"neocortex_version": "v42", "port": 45132}
++
++
++class MissionControlAdapter:
++    """Adapter for Mission Control integration."""
++
++    def __init__(self, config: Optional[MissionControlConfig] = None):
++        """
++        Initialize Mission Control adapter.
++
++        Args:
++            config: Configuration object. If None, uses defaults.
++        """
++        self.config = config or MissionControlConfig()
++        # No session with urllib; headers will be added per request
++        self._failure_count = 0
++        self._circuit_open_until = 0
++        self._last_heartbeat = 0
++        self._registered = False
++        # Thread pool for fire-and-forget requests
++        self._executor = concurrent.futures.ThreadPoolExecutor(
++            max_workers=2,
++            thread_name_prefix="MCAdapter",
++        )
++        self._shutdown_event = threading.Event()
++
++    def _call_api(
++        self, action: MissionControlAction, payload: Dict[str, Any]
++    ) -> Optional[Dict[str, Any]]:
++        """
++        Make API call to Mission Control generic adapter endpoint.
++
++        Args:
++            action: Action to perform
++            payload: Payload for the action
++
++        Returns:
++            Response JSON as dict, or None if failed
++
++        Raises:
++            Exception: Only if circuit breaker is closed and max retries exceeded.
++        """
++        # Circuit breaker check
++        if self._failure_count >= self.config.circuit_breaker_failures:
++            current_time = time.time()
++            if current_time < self._circuit_open_until:
++                logger.warning(
++                    "Circuit breaker open, skipping API call. Will reset at %s",
++                    time.ctime(self._circuit_open_until),
++                )
++                return None
++            else:
++                # Reset circuit breaker after reset period
++                logger.info("Circuit breaker reset after cooldown period")
++                self._failure_count = 0
++                self._circuit_open_until = 0
++
++        url = f"{self.config.base_url}{self.config.api_endpoint}"
++        data = {
++            "framework": self.config.framework,
++            "action": action.value,
++            "payload": payload,
++        }
++        json_data = json.dumps(data).encode("utf-8")
++        headers = {"Content-Type": "application/json"}
++
++        for attempt in range(self.config.max_retries):
++            try:
++                req = urllib.request.Request(
++                    url, data=json_data, headers=headers, method="POST"
++                )
++                # Set timeout (seconds)
++                response = urllib.request.urlopen(req, timeout=self.config.timeout_sec)
++                if response.status == 200:
++                    response_data = response.read()
++                    self._failure_count = 0  # Reset on success
++                    return json.loads(response_data)
++                else:
++                    raise urllib.error.HTTPError(
++                        url,
++                        response.status,
++                        response.reason,
++                        response.headers,
++                        response,
++                    )
++            except urllib.error.URLError as e:
++                logger.warning(
++                    "Mission Control API call failed (attempt %d/%d): %s",
++                    attempt + 1,
++                    self.config.max_retries,
++                    str(e),
++                )
++                if attempt < self.config.max_retries - 1:
++                    # Exponential backoff using threading.Event.wait to allow shutdown
++                    backoff_seconds = 1 * (2**attempt)
++                    self._shutdown_event.wait(timeout=backoff_seconds)
++                    # If shutdown event is set, abort retries
++                    if self._shutdown_event.is_set():
++                        logger.info("Shutdown during backoff, aborting API call")
++                        return None
++                else:
++                    self._failure_count += 1
++                    if self._failure_count >= self.config.circuit_breaker_failures:
++                        self._circuit_open_until = (
++                            time.time() + self.config.circuit_breaker_reset_sec
++                        )
++                        logger.error(
++                            "Circuit breaker opened after %d consecutive failures. "
++                            "Will remain open for %d seconds.",
++                            self._failure_count,
++                            self.config.circuit_breaker_reset_sec,
++                        )
++                    raise
++            except Exception as e:
++                logger.warning(
++                    "Mission Control API call failed (attempt %d/%d): %s",
++                    attempt + 1,
++                    self.config.max_retries,
++                    str(e),
++                )
++                if attempt < self.config.max_retries - 1:
++                    backoff_seconds = 1 * (2**attempt)
++                    self._shutdown_event.wait(timeout=backoff_seconds)
++                    if self._shutdown_event.is_set():
++                        logger.info("Shutdown during backoff, aborting API call")
++                        return None
++                else:
++                    self._failure_count += 1
++                    if self._failure_count >= self.config.circuit_breaker_failures:
++                        self._circuit_open_until = (
++                            time.time() + self.config.circuit_breaker_reset_sec
++                        )
++                        logger.error(
++                            "Circuit breaker opened after %d consecutive failures. "
++                            "Will remain open for %d seconds.",
++                            self._failure_count,
++                            self.config.circuit_breaker_reset_sec,
++                        )
++                    raise
++
++        return None
++
++    def register_with_mission_control(self, **kwargs) -> bool:
++        """
++        Register NeoCortex agent with Mission Control.
++
++        Args:
++            **kwargs: Override any registration parameters
++
++        Returns:
++            True if registration successful, False otherwise
++        """
++        agent_id = kwargs.get("agent_id", self.config.agent_id)
++        if not agent_id:
++            logger.error("Cannot register without agent_id")
++            return False
++
++        payload = {
++            "agentId": agent_id,
++            "name": kwargs.get("name", self.config.name),
++            "role": kwargs.get("role", self.config.role),
++            "capabilities": kwargs.get("capabilities", self.config.capabilities),
++            "metadata": kwargs.get("metadata", self.config.metadata),
++        }
++
++        try:
++            result = self._call_api(MissionControlAction.REGISTER, payload)
++            if result is not None:
++                logger.info(
++                    "Successfully registered agent %s with Mission Control", agent_id
++                )
++                self._registered = True
++                return True
++            else:
++                logger.warning(
++                    "Registration failed (circuit breaker open or no response)"
++                )
++                return False
++        except Exception as e:
++            logger.error("Registration failed with error: %s", str(e))
++            return False
++
++    def send_heartbeat(self, **kwargs) -> bool:
++        """
++        Send heartbeat to Mission Control.
++
++        Args:
++            **kwargs: Additional heartbeat data
++
++        Returns:
++            True if heartbeat successful, False otherwise
++        """
++        if not self._registered:
++            logger.warning("Cannot send heartbeat: agent not registered")
++            return False
++
++        current_time = time.time()
++        if current_time - self._last_heartbeat < self.config.heartbeat_interval_sec:
++            logger.debug("Skipping heartbeat, too soon")
++            return True
++
++        agent_id = kwargs.get("agent_id", self.config.agent_id)
++        payload = {
++            "agentId": agent_id,
++            "timestamp": int(current_time * 1000),
++            "status": "online",
++            **kwargs,
++        }
++
++        try:
++            result = self._call_api(MissionControlAction.HEARTBEAT, payload)
++            if result is not None:
++                self._last_heartbeat = current_time
++                logger.debug("Heartbeat sent successfully for agent %s", agent_id)
++                return True
++            else:
++                logger.debug("Heartbeat skipped (circuit breaker open)")
++                return False
++        except Exception as e:
++            logger.error("Heartbeat failed with error: %s", str(e))
++            return False
++
++    def report_task(
++        self, task_id: str, status: str, details: Dict[str, Any], **kwargs
++    ) -> bool:
++        """
++        Report task status to Mission Control.
++
++        Args:
++            task_id: Mission Control task identifier
++            status: Task status (e.g., "started", "completed", "failed")
++            details: Additional task details
++            **kwargs: Extra parameters
++
++        Returns:
++            True if report successful, False otherwise
++        """
++        if not self._registered:
++            logger.warning("Cannot report task: agent not registered")
++            return False
++
++        agent_id = kwargs.get("agent_id", self.config.agent_id)
++        payload = {
++            "agentId": agent_id,
++            "taskId": task_id,
++            "status": status,
++            "details": details,
++            "timestamp": int(time.time() * 1000),
++            **kwargs,
++        }
++
++        try:
++            result = self._call_api(MissionControlAction.REPORT, payload)
++            if result is not None:
++                logger.info("Task %s reported with status %s", task_id, status)
++                return True
++            else:
++                logger.warning("Task report failed (circuit breaker open)")
++                return False
++        except Exception as e:
++            logger.error("Task report failed with error: %s", str(e))
++            return False
++
++    def report(self, event_type: str, data: Dict[str, Any]) -> None:
++        """
++        Fire-and-forget report of an arbitrary event to Mission Control.
++        This method does not block; it submits the report to a background thread.
++        """
++        if not self._registered:
++            logger.warning("Cannot report event: agent not registered")
++            return
++        payload = {
++            "agentId": self.config.agent_id,
++            "eventType": event_type,
++            "data": data,
++            "timestamp": int(time.time() * 1000),
++        }
++        # Submit to thread pool (fire-and-forget)
++        self._executor.submit(self._call_api, MissionControlAction.REPORT, payload)
++        logger.debug("Report submitted for event_type=%s", event_type)
++
++    def fetch_assignments(self, **kwargs) -> Optional[Dict[str, Any]]:
++        """
++        Fetch assigned tasks from Mission Control.
++
++        Args:
++            **kwargs: Additional query parameters
++
++        Returns:
++            Assignments dictionary, or None if failed
++        """
++        if not self._registered:
++            logger.warning("Cannot fetch assignments: agent not registered")
++            return None
++
++        agent_id = kwargs.get("agent_id", self.config.agent_id)
++        payload = {"agentId": agent_id, "timestamp": int(time.time() * 1000), **kwargs}
++
++        try:
++            result = self._call_api(MissionControlAction.ASSIGNMENTS, payload)
++            if result is not None:
++                logger.debug("Fetched assignments for agent %s", agent_id)
++                return result
++            else:
++                logger.debug("No assignments (circuit breaker open or empty)")
++                return None
++        except Exception as e:
++            logger.error("Failed to fetch assignments: %s", str(e))
++            return None
++
++    def disconnect(self, **kwargs) -> bool:
++        """
++        Disconnect agent from Mission Control.
++
++        Args:
++            **kwargs: Additional disconnect parameters
++
++        Returns:
++            True if disconnect successful, False otherwise
++        """
++        if not self._registered:
++            logger.warning("Cannot disconnect: agent not registered")
++            return False
++
++        agent_id = kwargs.get("agent_id", self.config.agent_id)
++        payload = {"agentId": agent_id, "timestamp": int(time.time() * 1000), **kwargs}
++
++        try:
++            result = self._call_api(MissionControlAction.DISCONNECT, payload)
++            if result is not None:
++                logger.info("Agent %s disconnected from Mission Control", agent_id)
++                self._registered = False
++                return True
++            else:
++                logger.warning("Disconnect failed (circuit breaker open)")
++                return False
++        except Exception as e:
++            logger.error("Disconnect failed with error: %s", str(e))
++            return False
++
++    def shutdown(self):
++        """Shutdown adapter resources."""
++        self._shutdown_event.set()
++        self._executor.shutdown(wait=False)
++        logger.info("MissionControlAdapter resources shutdown")
++
++
++# Convenience function for easy access
++def get_mission_control_adapter(
++    config: Optional[MissionControlConfig] = None,
++) -> MissionControlAdapter:
++    """
++    Get a MissionControlAdapter instance.
++
++    Usage:
++        adapter = get_mission_control_adapter()
++        adapter.register_with_mission_control(agent_id="neocortex-agent-001")
++    """
++    return MissionControlAdapter(config)
+diff --git a/01_neocortex_framework/neocortex/core/hooks/NC-HK-FR-003-mission-control-hook.py b/01_neocortex_framework/neocortex/core/hooks/NC-HK-FR-003-mission-control-hook.py
+new file mode 100644
+index 0000000..5d9947c
+--- /dev/null
++++ b/01_neocortex_framework/neocortex/core/hooks/NC-HK-FR-003-mission-control-hook.py
+@@ -0,0 +1,239 @@
++#!/usr/bin/env python3
++"""
++NC-HK-FR-003-mission-control-hook.py
++
++Hook para enviar eventos de tool calls para o Mission Control activity feed.
++Registra-se no HookRegistry e, para cada tool call, envia um report assíncrono.
++
++Uso:
++    O hook é registrado automaticamente ao importar este módulo.
++    Ou pode ser registrado manualmente via HookRegistry.
++
++Interface:
++    on_before(tool_name, args) → report 'tool_call'
++    on_after(tool_name, result, duration_ms) → report 'tool_result'
++    on_error(tool_name, error) → report 'tool_error'
++"""
++
++import importlib.util
++import logging
++import threading
++from pathlib import Path
++from typing import Any, Dict
++
++logger = logging.getLogger(__name__)
++
++# -----------------------------------------------------------------------------
++# Importação dinâmica do adapter Mission Control (R09)
++# -----------------------------------------------------------------------------
++
++
++def load_adapter():
++    """Carrega NC-ADP-FR-001-mission-control.py via importlib.util."""
++    adapter_path = (
++        Path(__file__).parent.parent.parent
++        / "core"
++        / "adapters"
++        / "NC-ADP-FR-001-mission-control.py"
++    )
++    if not adapter_path.exists():
++        logger.error("Adapter não encontrado em %s", adapter_path)
++        return None
++    try:
++        spec = importlib.util.spec_from_file_location(
++            "mission_control_adapter", adapter_path
++        )
++        if spec is None or spec.loader is None:
++            logger.error("Falha ao criar spec para adapter")
++            return None
++        module = importlib.util.module_from_spec(spec)
++        spec.loader.exec_module(module)
++        logger.info("Adapter carregado com sucesso para MissionControlHook")
++        return module
++    except Exception as e:
++        logger.error("Erro ao carregar adapter: %s", e, exc_info=True)
++        return None
++
++
++# -----------------------------------------------------------------------------
++# MissionControlHook
++# -----------------------------------------------------------------------------
++
++
++class MissionControlHook:
++    """Hook que reporta tool calls para o Mission Control."""
++
++    def __init__(self, adapter_module=None):
++        """
++        Inicializa o hook.
++
++        Args:
++            adapter_module: Módulo do adapter Mission Control (opcional).
++                Se None, carrega automaticamente.
++        """
++        self.adapter_module = adapter_module or load_adapter()
++        self.adapter = None
++        self._lock = threading.Lock()
++
++    def _get_adapter(self):
++        """Retorna uma instância do adapter (singleton por hook)."""
++        with self._lock:
++            if self.adapter is None and self.adapter_module is not None:
++                try:
++                    config = self.adapter_module.MissionControlConfig(
++                        base_url="http://localhost:3000",
++                        api_endpoint="/api/adapters",
++                        agent_id="neocortex-hook",
++                        name="neocortex-hook",
++                        role="hook",
++                        capabilities=["audit"],
++                        metadata={"hook_version": "1.0"},
++                        timeout_sec=3,
++                    )
++                    self.adapter = self.adapter_module.MissionControlAdapter(config)
++                    # Registrar o agente? O hook não precisa registrar, apenas reportar.
++                    # O registro é feito pelo startup hook.
++                except Exception as e:
++                    logger.error("Falha ao criar adapter: %s", e)
++            return self.adapter
++
++    def on_before(self, tool_name: str, args: Dict[str, Any], **kwargs: Any) -> None:
++        """
++        Chamado antes da execução da tool.
++        Envia evento 'tool_call' para o Mission Control.
++        """
++        adapter = self._get_adapter()
++        if adapter is None:
++            logger.debug("Adapter não disponível, skip tool_call report")
++            return
++        try:
++            # Sumarizar args (evitar dados grandes)
++            args_summary = {k: type(v).__name__ for k, v in args.items()}
++            # Usar o método report fire-and-forget
++            adapter.report(
++                "tool_call",
++                {
++                    "tool": tool_name,
++                    "args_summary": args_summary,
++                    "args_keys": list(args.keys()),
++                },
++            )
++        except Exception as e:
++            logger.debug("Falha ao report tool_call: %s", e)
++
++    def on_after(
++        self, tool_name: str, result: Any, elapsed_ms: float = 0.0, **kwargs: Any
++    ) -> None:
++        """
++        Chamado após a execução bem-sucedida da tool.
++        Envia evento 'tool_result' para o Mission Control.
++        """
++        adapter = self._get_adapter()
++        if adapter is None:
++            logger.debug("Adapter não disponível, skip tool_result report")
++            return
++        try:
++            result_type = type(result).__name__
++            adapter.report(
++                "tool_result",
++                {
++                    "tool": tool_name,
++                    "result_type": result_type,
++                    "elapsed_ms": elapsed_ms,
++                    "success": True,
++                },
++            )
++        except Exception as e:
++            logger.debug("Falha ao report tool_result: %s", e)
++
++    def on_error(self, tool_name: str, error: Exception, **kwargs: Any) -> None:
++        """
++        Chamado quando a tool levanta uma exceção.
++        Envia evento 'tool_error' para o Mission Control.
++        """
++        adapter = self._get_adapter()
++        if adapter is None:
++            logger.debug("Adapter não disponível, skip tool_error report")
++            return
++        try:
++            adapter.report(
++                "tool_error",
++                {
++                    "tool": tool_name,
++                    "error_type": type(error).__name__,
++                    "error_message": str(error),
++                },
++            )
++        except Exception as e:
++            logger.debug("Falha ao report tool_error: %s", e)
++
++
++# -----------------------------------------------------------------------------
++# Auto-registro no HookRegistry (opcional)
++# -----------------------------------------------------------------------------
++
++
++def register_hook():
++    """Registra MissionControlHook no HookRegistry singleton."""
++    try:
++        # Carregar HookRegistry
++        hooks_dir = Path(__file__).parent
++        registry_path = hooks_dir / "NC-HK-FR-001-hook-registry.py"
++        if not registry_path.exists():
++            logger.warning("HookRegistry não encontrado, skip auto-registro")
++            return False
++        spec = importlib.util.spec_from_file_location("hook_registry", registry_path)
++        if spec is None or spec.loader is None:
++            logger.error("Falha ao criar spec para HookRegistry")
++            return False
++        module = importlib.util.module_from_spec(spec)
++        spec.loader.exec_module(module)
++        registry = module.get_hook_registry()
++        hook = MissionControlHook()
++        # Registrar para os três eventos padrão
++        registry.register(
++            "mission_control_before",
++            module.HookEvent.PRE_TOOL_USE,
++            hook.on_before,
++        )
++        registry.register(
++            "mission_control_after",
++            module.HookEvent.POST_TOOL_USE,
++            hook.on_after,
++        )
++        registry.register(
++            "mission_control_error",
++            module.HookEvent.TOOL_ERROR,
++            hook.on_error,
++        )
++        logger.info("MissionControlHook registrado no HookRegistry")
++        return True
++    except Exception as e:
++        logger.error("Falha ao registrar MissionControlHook: %s", e, exc_info=True)
++        return False
++
++
++# Auto-registro ao importar (compatibilidade com NC-HK-FR-002)
++if __name__ != "__main__":
++    # Registro automático pode ser desabilitado por variável de ambiente
++    import os
++
++    if os.getenv("NEOCORTEX_AUTO_REGISTER_HOOKS", "true").lower() == "true":
++        register_hook()
++
++# -----------------------------------------------------------------------------
++# Teste standalone
++# -----------------------------------------------------------------------------
++
++if __name__ == "__main__":
++    logging.basicConfig(level=logging.DEBUG)
++    logger.info("Testando MissionControlHook...")
++    hook = MissionControlHook()
++    if hook.adapter_module:
++        logger.info("Adapter carregado: %s", hook.adapter_module.__file__)
++    else:
++        logger.error("Adapter não carregado")
++    # Teste de registro automático
++    success = register_hook()
++    logger.info("Auto-registro: %s", success)
++    logger.info("Teste concluído.")
+diff --git a/01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-037-hooks.py b/01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-037-hooks.py
+new file mode 100644
+index 0000000..2ff95bc
+--- /dev/null
++++ b/01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-037-hooks.py
+@@ -0,0 +1,426 @@
++from __future__ import annotations
++
++"""---
++_genealogy:
++  injected_at: '2026-04-16T00:24:01.459662'
++  injected_by: NC-SCR-FR-075-genealogy-injector.py
++  version: '1.0'
++topology: neocortex-other
++level: 0
++parent_ssot: NC-HK-FR-002-simple-hook
++related_ssot:
++  - NC-HK-FR-001-hook-registry
++  - NC-TOOL-FR-037-hooks
++tags:
++  - neocortex-other
++  - level-0
++  - nc-prefix
++  - python
++---"""
++"""
++NC-TOOL-FR-037-hooks.py
++FR-037  MCP Tool: neocortex_hooks
++
++Expe o HookRegistry como ferramenta chamvel via MCP.
++
++Aes disponveis:
++  hook.register    registra hook pr-fabricado por nome (logging, timing, ratelimit, audit)
++  hook.unregister  remove hook de um evento por nome
++  hook.trigger     trigera manualmente um evento com payload
++  hook.list        lista todos os eventos e hooks registrados
++  hook.stats       retorna estatsticas de timing por tool (via TimingHook)
++
++Singleton: o HookRegistry  um singleton; LoggingHook e TimingHook so registrados automaticamente.
++"""
++
++
++import importlib.util
++import logging
++from pathlib import Path
++from typing import Any, Dict, Optional
++
++logger = logging.getLogger(__name__)
++
++# -----------------------------------------------------------------------------
++# Importao dinmica do HookRegistry e hooks simples
++# -----------------------------------------------------------------------------
++
++
++def _import_hook_registry():
++    """Importa HookRegistry de NC-HK-FR-001-hook-registry.py."""
++    hooks_dir = Path(__file__).parent.parent.parent / "core" / "hooks"
++    registry_path = hooks_dir / "NC-HK-FR-001-hook-registry.py"
++    if not registry_path.exists():
++        logger.error(f"HookRegistry no encontrado em {registry_path}")
++        return None
++    try:
++        spec = importlib.util.spec_from_file_location("hook_registry", registry_path)
++        if spec is None or spec.loader is None:
++            logger.error("Falha ao criar spec para HookRegistry")
++            return None
++        module = importlib.util.module_from_spec(spec)
++        spec.loader.exec_module(module)
++        return module
++    except Exception as e:
++        logger.error(f"Erro ao importar HookRegistry: {e}")
++        return None
++
++
++def _import_simple_hooks():
++    """Importa hooks pr-fabricados de NC-HK-FR-002-simple-hook.py."""
++    hooks_dir = Path(__file__).parent.parent.parent / "core" / "hooks"
++    simple_path = hooks_dir / "NC-HK-FR-002-simple-hook.py"
++    if not simple_path.exists():
++        logger.error(f"Hooks simples no encontrados em {simple_path}")
++        return None
++    try:
++        spec = importlib.util.spec_from_file_location("simple_hooks", simple_path)
++        if spec is None or spec.loader is None:
++            logger.error("Falha ao criar spec para simple hooks")
++            return None
++        module = importlib.util.module_from_spec(spec)
++        spec.loader.exec_module(module)
++        return module
++    except Exception as e:
++        logger.error(f"Erro ao importar hooks simples: {e}")
++        return None
++
++
++# -----------------------------------------------------------------------------
++# Singleton do HookRegistry e registro automtico de hooks
++# -----------------------------------------------------------------------------
++
++_HOOK_REGISTRY = None
++_HOOK_EVENT_ENUM = None
++_HOOK_MODULE = None
++_SIMPLE_HOOKS_MODULE = None
++_AUTO_HOOK_INSTANCES = {}
++
++
++def _get_hook_registry():
++    """Singleton do HookRegistry."""
++    global \
++        _HOOK_REGISTRY, \
++        _HOOK_EVENT_ENUM, \
++        _HOOK_MODULE, \
++        _SIMPLE_HOOKS_MODULE, \
++        _AUTO_HOOK_INSTANCES
++    if _HOOK_REGISTRY is not None:
++        return (
++            _HOOK_REGISTRY,
++            _HOOK_EVENT_ENUM,
++            _SIMPLE_HOOKS_MODULE,
++            _AUTO_HOOK_INSTANCES,
++        )
++    _HOOK_MODULE = _import_hook_registry()
++    if _HOOK_MODULE is None:
++        raise RuntimeError("HookRegistry no pde ser carregado")
++    _HOOK_REGISTRY = _HOOK_MODULE.get_hook_registry()
++    _HOOK_EVENT_ENUM = _HOOK_MODULE.HookEvent
++    _SIMPLE_HOOKS_MODULE = _import_simple_hooks()
++    if _SIMPLE_HOOKS_MODULE is None:
++        logger.warning(
++            "Hooks simples no carregados; algumas funcionalidades podem estar limitadas."
++        )
++    # Registra automaticamente LoggingHook e TimingHook
++    if _SIMPLE_HOOKS_MODULE:
++        try:
++            logging_hook = _SIMPLE_HOOKS_MODULE.LoggingHook()
++            timing_hook = _SIMPLE_HOOKS_MODULE.TimingHook()
++            # Guarda instncias para acesso posterior (ex: estatsticas)
++            _AUTO_HOOK_INSTANCES["LoggingHook"] = logging_hook
++            _AUTO_HOOK_INSTANCES["TimingHook"] = timing_hook
++            # Registra para eventos padro (PreToolUse, PostToolUse, ToolError)
++            _HOOK_REGISTRY.register(
++                "logging_hook_before",
++                _HOOK_EVENT_ENUM.PRE_TOOL_USE,
++                logging_hook.on_before,
++            )
++            _HOOK_REGISTRY.register(
++                "logging_hook_after",
++                _HOOK_EVENT_ENUM.POST_TOOL_USE,
++                logging_hook.on_after,
++            )
++            _HOOK_REGISTRY.register(
++                "logging_hook_error", _HOOK_EVENT_ENUM.TOOL_ERROR, logging_hook.on_error
++            )
++            _HOOK_REGISTRY.register(
++                "timing_hook_before",
++                _HOOK_EVENT_ENUM.PRE_TOOL_USE,
++                timing_hook.on_before,
++            )
++            _HOOK_REGISTRY.register(
++                "timing_hook_after",
++                _HOOK_EVENT_ENUM.POST_TOOL_USE,
++                timing_hook.on_after,
++            )
++            logger.info("Hooks automticos (LoggingHook, TimingHook) registrados.")
++        except Exception as e:
++            logger.warning(f"Falha ao registrar hooks automticos: {e}")
++    return _HOOK_REGISTRY, _HOOK_EVENT_ENUM, _SIMPLE_HOOKS_MODULE, _AUTO_HOOK_INSTANCES
++
++
++# -----------------------------------------------------------------------------
++# Funes auxiliares para as aes
++# -----------------------------------------------------------------------------
++
++
++def _register_hook_by_name(
++    hook_name: str, event_str: str, priority: int = 0
++) -> Dict[str, Any]:
++    """Registra um hook pr-fabricado por nome."""
++    registry, event_enum, simple_hooks, auto_instances = _get_hook_registry()
++    if simple_hooks is None:
++        return {"success": False, "error": "Mdulo de hooks simples no carregado"}
++    # Mapeamento de nomes simplificados para classes
++    hook_map = {
++        "logging": "LoggingHook",
++        "timing": "TimingHook",
++        "ratelimit": "RateLimitHook",
++        "audit": "AuditHook",
++    }
++    class_name = hook_map.get(hook_name, hook_name)  # permite tambm o nome da classe
++    hook_class = getattr(simple_hooks, class_name, None)
++    if hook_class is None:
++        return {
++            "success": False,
++            "error": f"Hook '{hook_name}' no encontrado. Opes: {list(hook_map.keys())}",
++        }
++    try:
++        event = event_enum(event_str)
++    except ValueError:
++        return {
++            "success": False,
++            "error": f"Evento invlido: '{event_str}'. Opes: {[e.value for e in event_enum]}",
++        }
++    hook_instance = hook_class()
++    # Determina qual mtodo registrar baseado no evento
++    if event == event_enum.PRE_TOOL_USE:
++        method = hook_instance.on_before
++        suffix = "before"
++    elif event == event_enum.POST_TOOL_USE:
++        method = hook_instance.on_after
++        suffix = "after"
++    elif event == event_enum.TOOL_ERROR:
++        method = getattr(hook_instance, "on_error", None)
++        if method is None:
++            method = hook_instance.on_after  # fallback
++        suffix = "error"
++    else:
++        return {
++            "success": False,
++            "error": f"Evento no suportado para hook '{hook_name}'",
++        }
++    hook_id = f"{hook_name.lower()}_{suffix}_{event.value}"
++    registry.register(hook_id, event, method)
++    return {
++        "success": True,
++        "hook_id": hook_id,
++        "hook_name": hook_name,
++        "event": event_str,
++        "priority": priority,
++    }
++
++
++def _unregister_hook(hook_id: str) -> Dict[str, Any]:
++    """Remove um hook pelo ID."""
++    registry, _, _, _ = _get_hook_registry()
++    removed = registry.unregister(hook_id)
++    return {"success": True, "removed": removed, "hook_id": hook_id}
++
++
++def _trigger_event(event_str: str, payload: Dict[str, Any]) -> Dict[str, Any]:
++    """Triga manualmente um evento."""
++    registry, event_enum, _, _ = _get_hook_registry()
++    try:
++        event = event_enum(event_str)
++    except ValueError:
++        return {
++            "success": False,
++            "error": f"Evento invlido: '{event_str}'. Opes: {[e.value for e in event_enum]}",
++        }
++    results = registry.trigger(event, payload)
++    return {"success": True, "event": event_str, "results": results}
++
++
++def _list_hooks() -> Dict[str, Any]:
++    """Lista todos os hooks registrados, agrupados por evento."""
++    registry, event_enum, _, _ = _get_hook_registry()
++    hooks_by_event = {}
++    for event in event_enum:
++        hook_names = registry.list_hooks(event)
++        hooks_by_event[event.value] = hook_names
++    all_hooks = registry.list_hooks()
++    return {"success": True, "hooks_by_event": hooks_by_event, "all_hooks": all_hooks}
++
++
++def _get_timing_stats(tool_name: Optional[str] = None) -> Dict[str, Any]:
++    """Retorna estatsticas do TimingHook."""
++    _, _, _, auto_instances = _get_hook_registry()
++    timing_hook = auto_instances.get("TimingHook")
++    if timing_hook is None:
++        return {"success": False, "error": "TimingHook no registrado automaticamente"}
++    try:
++        if tool_name:
++            stats = timing_hook.get_stats(tool_name)
++            return {"success": True, "tool": tool_name, "stats": stats}
++        # Se nenhuma tool for fornecida, retorna stats de todas as tools
++        # Isso requer acesso interno ao _latencies, que  privado.
++        # Alternativa: iterar sobre todas as tools conhecidas (no ideal)
++        return {
++            "success": False,
++            "error": "Especifique tool_name para obter estatsticas",
++        }
++    except Exception as e:
++        return {"success": False, "error": f"Erro ao obter stats: {e}"}
++
++
++# -----------------------------------------------------------------------------
++# Registro da tool MCP
++# -----------------------------------------------------------------------------
++
++
++def register_tool(mcp) -> None:
++    """Registra neocortex_hooks no servidor MCP."""
++
++    @mcp.tool(name="neocortex_hooks")
++    def neocortex_hooks(
++        action: str,
++        hook_name: str = "",
++        event: str = "",
++        hook_id: str = "",
++        payload_json: str = "{}",
++        tool_name: str = "",
++        priority: int = 0,
++    ) -> Dict[str, Any]:
++        """
++        Expe o HookRegistry como ferramenta chamvel via MCP.
++
++        Aes disponveis:
++          hook.register    registra hook pr-fabricado por nome (logging, timing, ratelimit, audit)
++          hook.unregister  remove hook de um evento por nome
++          hook.trigger     trigera manualmente um evento com payload
++          hook.list        lista todos os eventos e hooks registrados
++          hook.stats       retorna estatsticas de timing por tool (via TimingHook)
++
++        Args:
++            action:       Ao desejada (register, unregister, trigger, list, stats)
++            hook_name:    Nome do hook pr-fabricado (logging, timing, ratelimit, audit) para register
++            event:        Nome do evento (PreToolUse, PostToolUse, ToolError) para register/trigger
++            hook_id:      ID do hook para unregister
++            payload_json: JSON string com payload para trigger (default: "{}")
++            tool_name:    Nome da tool para stats (opcional)
++            priority:     Prioridade do hook (no implementado, reservado para futuro) (default: 0)
++        """
++        import json
++
++        #  hook.register
++        if action == "register":
++            if not hook_name or not event:
++                return {
++                    "success": False,
++                    "error": "Para register, fornea hook_name e event.",
++                }
++            return _register_hook_by_name(hook_name, event, priority)
++
++        #  hook.unregister
++        elif action == "unregister":
++            if not hook_id:
++                return {"success": False, "error": "Para unregister, fornea hook_id."}
++            return _unregister_hook(hook_id)
++
++        #  hook.trigger
++        elif action == "trigger":
++            if not event:
++                return {"success": False, "error": "Para trigger, fornea event."}
++            try:
++                payload = json.loads(payload_json)
++            except json.JSONDecodeError:
++                return {
++                    "success": False,
++                    "error": "payload_json invlido. Use JSON string.",
++                }
++            return _trigger_event(event, payload)
++
++        #  hook.list
++        elif action == "list":
++            return _list_hooks()
++
++        #  hook.stats
++        elif action == "stats":
++            return _get_timing_stats(tool_name)
++
++        #  webhook.receive
++        elif action == "webhook.receive":
++            if not payload_json:
++                return {
++                    "success": False,
++                    "error": "Para webhook.receive, forneça payload_json.",
++                }
++            try:
++                payload = json.loads(payload_json)
++                hook_action = payload.get("action")
++                data = payload.get("data", {})
++                if not hook_action:
++                    return {
++                        "success": False,
++                        "error": "payload_json deve conter campo 'action'.",
++                    }
++                # Roteia para HookRegistry.emit
++                registry, event_enum, _, _ = _get_hook_registry()
++                # O HookRegistry não tem método emit, mas temos trigger.
++                # Mapeia action para HookEvent
++                event = None
++                # Tenta encontrar pelo valor do enum (ex: "PreToolUse")
++                for e in event_enum:
++                    if e.value == hook_action:
++                        event = e
++                        break
++                # Se não encontrou, tenta mapeamento comum
++                if event is None:
++                    mapping = {
++                        "tool_call": event_enum.PRE_TOOL_USE,
++                        "tool_result": event_enum.POST_TOOL_USE,
++                        "tool_error": event_enum.TOOL_ERROR,
++                    }
++                    event = mapping.get(hook_action)
++                # Se ainda não encontrou, usa PRE_TOOL_USE como padrão
++                if event is None:
++                    event = event_enum.PRE_TOOL_USE
++                    logger.warning(
++                        f"Action '{hook_action}' não mapeada, usando PRE_TOOL_USE"
++                    )
++
++                # Dispara hooks registrados para o evento
++                results = registry.trigger(event, data)
++                logger.info(
++                    f"Webhook processado: action={hook_action}, event={event.value}, "
++                    f"hooks_executados={len(results)}"
++                )
++                # Retorna resultados
++                return {"success": True, "event": event.value, "results": results}
++            except json.JSONDecodeError:
++                return {
++                    "success": False,
++                    "error": "payload_json inválido. Use JSON string.",
++                }
++            except Exception as e:
++                return {
++                    "success": False,
++                    "error": f"Erro ao processar webhook: {str(e)}",
++                }
++
++        #  ao desconhecida
++        else:
++            return {
++                "success": False,
++                "error": f"Ao desconhecida: '{action}'.",
++                "available": [
++                    "register",
++                    "unregister",
++                    "trigger",
++                    "list",
++                    "stats",
++                    "webhook.receive",
++                ],
++            }
+diff --git a/01_neocortex_framework/scripts/NC-SCR-FR-103-mc-startup-hook.py b/01_neocortex_framework/scripts/NC-SCR-FR-103-mc-startup-hook.py
+new file mode 100644
+index 0000000..eab2c51
+--- /dev/null
++++ b/01_neocortex_framework/scripts/NC-SCR-FR-103-mc-startup-hook.py
+@@ -0,0 +1,308 @@
++#!/usr/bin/env python3
++"""
++NC-SCR-FR-103-mc-startup-hook.py
++
++Startup hook para registrar NeoCortex no Mission Control e manter heartbeat.
++Executado como processo separado após o servidor MCP iniciar.
++
++Uso:
++    python NC-SCR-FR-103-mc-startup-hook.py
++
++Flags:
++    --config <path>   Caminho para configuração JSON (opcional)
++    --agent-id <id>   ID do agente (padrão: gerado automaticamente)
++    --no-wal          Não registrar startup no WAL
++    --dry-run         Simular apenas, sem chamadas reais
++"""
++
++import argparse
++import importlib.util
++import logging
++import signal
++import sys
++import threading
++import uuid
++from pathlib import Path
++from typing import Optional
++
++# Configuração de logging
++logging.basicConfig(
++    level=logging.INFO,
++    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
++    datefmt="%Y-%m-%d %H:%M:%S",
++)
++logger = logging.getLogger(__name__)
++
++# -----------------------------------------------------------------------------
++# Importação dinâmica do adapter Mission Control (R09)
++# -----------------------------------------------------------------------------
++
++
++def load_adapter_module():
++    """Carrega NC-ADP-FR-001-mission-control.py via importlib.util."""
++    adapter_path = (
++        Path(__file__).parent.parent
++        / "neocortex"
++        / "core"
++        / "adapters"
++        / "NC-ADP-FR-001-mission-control.py"
++    )
++    if not adapter_path.exists():
++        logger.error("Adapter não encontrado em %s", adapter_path)
++        return None
++    try:
++        spec = importlib.util.spec_from_file_location(
++            "mission_control_adapter", adapter_path
++        )
++        if spec is None or spec.loader is None:
++            logger.error("Falha ao criar spec para adapter")
++            return None
++        module = importlib.util.module_from_spec(spec)
++        spec.loader.exec_module(module)
++        logger.info("Adapter carregado com sucesso")
++        return module
++    except Exception as e:
++        logger.error("Erro ao carregar adapter: %s", e, exc_info=True)
++        return None
++
++
++def load_wal_service_module():
++    """Carrega NC-SVC-FR-016-wal-service.py via importlib.util."""
++    service_path = (
++        Path(__file__).parent.parent
++        / "neocortex"
++        / "core"
++        / "services"
++        / "NC-SVC-FR-016-wal-service.py"
++    )
++    if not service_path.exists():
++        logger.error("WAL service não encontrado em %s", service_path)
++        return None
++    try:
++        spec = importlib.util.spec_from_file_location("wal_service", service_path)
++        if spec is None or spec.loader is None:
++            logger.error("Falha ao criar spec para WAL service")
++            return None
++        module = importlib.util.module_from_spec(spec)
++        spec.loader.exec_module(module)
++        logger.info("WAL service carregado com sucesso")
++        return module
++    except Exception as e:
++        logger.error("Erro ao carregar WAL service: %s", e, exc_info=True)
++        return None
++
++
++# -----------------------------------------------------------------------------
++# Classe principal do hook
++# -----------------------------------------------------------------------------
++
++
++class MissionControlStartupHook:
++    """Gerencia registro e heartbeat com Mission Control."""
++
++    def __init__(
++        self,
++        config_path: Optional[str] = None,
++        agent_id: Optional[str] = None,
++        dry_run: bool = False,
++    ):
++        self.dry_run = dry_run
++        self.agent_id = agent_id or f"neocortex-{uuid.uuid4().hex[:8]}"
++        self.adapter_module = load_adapter_module()
++        self.wal_module = load_wal_service_module()
++        self.adapter = None
++        self.heartbeat_thread = None
++        self.shutdown_event = threading.Event()
++        self.registered = False
++
++        if self.adapter_module is None:
++            raise RuntimeError("Não foi possível carregar o adapter Mission Control")
++
++    def _create_adapter(self):
++        """Instancia o MissionControlAdapter com configuração padrão."""
++        try:
++            config_class = self.adapter_module.MissionControlConfig
++            adapter_class = self.adapter_module.MissionControlAdapter
++        except AttributeError as e:
++            logger.error("Adapter não possui classes esperadas: %s", e)
++            return None
++
++        config = config_class(
++            base_url="http://localhost:3000",
++            api_endpoint="/api/adapters",
++            agent_id=self.agent_id,
++            name="neocortex-agent",
++            role="coder",
++            capabilities=["mcp-tools", "code-generation", "debugging"],
++            metadata={"neocortex_version": "v42", "port": 45132},
++            heartbeat_interval_sec=30,
++            timeout_sec=10,
++        )
++        adapter = adapter_class(config)
++        logger.info("Adapter criado para agent_id=%s", self.agent_id)
++        return adapter
++
++    def register(self) -> bool:
++        """Registra o NeoCortex no Mission Control."""
++        if self.dry_run:
++            logger.info("[DRY-RUN] Registraria NeoCortex no Mission Control")
++            self.registered = True
++            return True
++
++        if self.adapter is None:
++            self.adapter = self._create_adapter()
++            if self.adapter is None:
++                return False
++
++        try:
++            # O adapter atual usa register_with_mission_control
++            success = self.adapter.register_with_mission_control()
++            if success:
++                logger.info("NeoCortex registrado no Mission Control")
++                self.registered = True
++                return True
++            else:
++                logger.error("Falha ao registrar NeoCortex no Mission Control")
++                return False
++        except Exception as e:
++            logger.error("Erro durante registro: %s", e, exc_info=True)
++            return False
++
++    def heartbeat_loop(self):
++        """Loop de heartbeat a cada 30 segundos."""
++        logger.info("Heartbeat loop iniciado (intervalo: 30s)")
++        while not self.shutdown_event.is_set():
++            try:
++                if self.registered and self.adapter:
++                    if self.dry_run:
++                        logger.debug("[DRY-RUN] Enviaria heartbeat")
++                    else:
++                        success = self.adapter.send_heartbeat()
++                        if not success:
++                            logger.warning("Heartbeat falhou (MC offline?)")
++                else:
++                    logger.debug(
++                        "Heartbeat skip: não registrado ou adapter não disponível"
++                    )
++            except Exception as e:
++                logger.error("Erro no heartbeat: %s", e, exc_info=False)
++            # Aguarda 30 segundos ou shutdown
++            self.shutdown_event.wait(timeout=30)
++        logger.info("Heartbeat loop finalizado")
++
++    def log_startup_to_wal(self):
++        """Registra o startup no WAL (Write-Ahead Log)."""
++        if self.dry_run:
++            logger.info("[DRY-RUN] Registraria startup no WAL")
++            return
++        if self.wal_module is None:
++            logger.warning("WAL service não carregado, skip")
++            return
++        try:
++            wal_service = self.wal_module.WALService()
++            session_id = f"mc-startup-{uuid.uuid4().hex[:8]}"
++            wal_service.open_session(
++                session_id=session_id,
++                agent="NC-SCR-FR-103",
++                ticket_id="NC-DS-103",
++            )
++            wal_service.log_operation(
++                session_id=session_id,
++                operation="STARTUP",
++                file_path="neocortex_mc_startup",
++                ticket_id="NC-DS-103",
++                before_hash=None,
++                after_hash=None,
++            )
++            wal_service.commit_session(session_id)
++            logger.info("Startup registrado no WAL (session_id=%s)", session_id)
++        except Exception as e:
++            logger.error("Erro ao registrar startup no WAL: %s", e, exc_info=True)
++
++    def start(self):
++        """Executa o fluxo completo de startup."""
++        logger.info(
++            "Iniciando Mission Control startup hook (agent_id=%s)", self.agent_id
++        )
++
++        # 1. Registrar no WAL
++        self.log_startup_to_wal()
++
++        # 2. Registrar no Mission Control
++        if not self.register():
++            logger.error("Falha no registro, continuando sem heartbeat")
++            return
++
++        # 3. Iniciar thread de heartbeat
++        self.heartbeat_thread = threading.Thread(
++            target=self.heartbeat_loop,
++            daemon=True,
++            name="MC-Heartbeat",
++        )
++        self.heartbeat_thread.start()
++        logger.info("Heartbeat thread iniciada")
++
++        # 4. Aguardar sinal de shutdown
++        signal.signal(signal.SIGTERM, self._handle_shutdown)
++        signal.signal(signal.SIGINT, self._handle_shutdown)
++
++        logger.info("Startup hook ativo. Aguardando sinal de shutdown...")
++        try:
++            # Mantém a thread principal viva
++            while self.heartbeat_thread.is_alive():
++                self.heartbeat_thread.join(timeout=1)
++        except KeyboardInterrupt:
++            self._handle_shutdown(None, None)
++        finally:
++            self.shutdown()
++
++    def _handle_shutdown(self, signum, frame):
++        """Manipulador de sinal para graceful shutdown."""
++        logger.info("Sinal de shutdown recebido (sig=%s)", signum)
++        self.shutdown_event.set()
++
++    def shutdown(self):
++        """Finaliza recursos."""
++        logger.info("Finalizando Mission Control startup hook...")
++        self.shutdown_event.set()
++        if self.heartbeat_thread and self.heartbeat_thread.is_alive():
++            self.heartbeat_thread.join(timeout=5)
++        logger.info("Hook finalizado")
++
++
++# -----------------------------------------------------------------------------
++# Ponto de entrada
++# -----------------------------------------------------------------------------
++
++
++def main():
++    parser = argparse.ArgumentParser(description="Mission Control startup hook")
++    parser.add_argument("--config", help="Caminho para configuração JSON")
++    parser.add_argument("--agent-id", help="ID do agente")
++    parser.add_argument(
++        "--no-wal", action="store_true", help="Não registrar startup no WAL"
++    )
++    parser.add_argument(
++        "--dry-run", action="store_true", help="Simular sem chamadas reais"
++    )
++    args = parser.parse_args()
++
++    try:
++        hook = MissionControlStartupHook(
++            config_path=args.config,
++            agent_id=args.agent_id,
++            dry_run=args.dry_run,
++        )
++        if args.no_wal:
++            hook.log_startup_to_wal = lambda: None  # noop
++        hook.start()
++    except KeyboardInterrupt:
++        logger.info("Interrompido pelo usuário")
++        sys.exit(0)
++    except Exception as e:
++        logger.error("Erro fatal: %s", e, exc_info=True)
++        sys.exit(1)
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/01_neocortex_framework/scripts/NC-SCR-FR-106-launcher.py b/01_neocortex_framework/scripts/NC-SCR-FR-106-launcher.py
+new file mode 100644
+index 0000000..baab9e4
+--- /dev/null
++++ b/01_neocortex_framework/scripts/NC-SCR-FR-106-launcher.py
+@@ -0,0 +1,236 @@
++#!/usr/bin/env python3
++"""
++NC-SCR-FR-106-launcher.py
++
++Launcher para orquestrar startup do stack completo (MCP + Mission Control + NeoCortex registration).
++Verifica se o Mission Control está online; se não, inicia-o. Em seguida, executa o hook de startup.
++
++Uso:
++    python NC-SCR-FR-106-launcher.py [--dry-run] [--no-mc] [--no-hook]
++
++Flags:
++    --dry-run      Apenas simular, não executar comandos reais
++    --no-mc        Não tentar iniciar Mission Control (assume já online)
++    --no-hook      Não executar NC-SCR-FR-103-mc-startup-hook.py
++    --mc-path      Caminho para diretório do Mission Control (opcional)
++    --help         Exibir esta ajuda
++"""
++
++import argparse
++import logging
++import subprocess
++import sys
++import threading
++import time
++from pathlib import Path
++from typing import Optional
++
++# Configuração de logging
++logging.basicConfig(
++    level=logging.INFO,
++    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
++    datefmt="%Y-%m-%d %H:%M:%S",
++)
++logger = logging.getLogger(__name__)
++
++# -----------------------------------------------------------------------------
++# Constantes
++# -----------------------------------------------------------------------------
++
++DEFAULT_MC_PATH = Path(
++    "DIR-RES-CC-001-claude-leak-workzone/external-refs/mission-control"
++)
++MC_PORT = 3000
++MC_URL = f"http://localhost:{MC_PORT}"
++MAX_WAIT_SECONDS = 30
++POLL_INTERVAL = 2
++
++# -----------------------------------------------------------------------------
++# Funções auxiliares
++# -----------------------------------------------------------------------------
++
++
++def is_mc_online() -> bool:
++    """Verifica se o Mission Control responde na porta 3000."""
++    import urllib.error
++    import urllib.request
++
++    try:
++        req = urllib.request.Request(f"{MC_URL}/health", method="GET")
++        urllib.request.urlopen(req, timeout=2)
++        return True
++    except urllib.error.URLError:
++        return False
++    except Exception:
++        return False
++
++
++def start_mission_control(mc_path: Path, dry_run: bool) -> Optional[subprocess.Popen]:
++    """
++    Inicia o Mission Control via pnpm dev.
++    Retorna o processo Popen ou None se dry_run.
++    """
++    if not mc_path.exists():
++        logger.error("Diretório do Mission Control não encontrado: %s", mc_path)
++        return None
++    logger.info("Iniciando Mission Control em %s", mc_path)
++    if dry_run:
++        logger.info("[DRY-RUN] Executaria: pnpm dev (cwd=%s)", mc_path)
++        return None
++    try:
++        # pnpm dev geralmente inicia o servidor na porta 3000
++        proc = subprocess.Popen(
++            ["pnpm", "dev"],
++            cwd=mc_path,
++            stdout=subprocess.PIPE,
++            stderr=subprocess.PIPE,
++            text=True,
++        )
++        logger.info("Mission Control iniciado (PID=%d)", proc.pid)
++
++        # Log em thread separada para não bloquear
++        def log_stream(stream, prefix):
++            for line in stream:
++                if line.strip():
++                    logger.debug("%s %s", prefix, line.strip())
++
++        threading.Thread(
++            target=log_stream, args=(proc.stdout, "[MC stdout]"), daemon=True
++        ).start()
++        threading.Thread(
++            target=log_stream, args=(proc.stderr, "[MC stderr]"), daemon=True
++        ).start()
++        return proc
++    except FileNotFoundError:
++        logger.error(
++            "pnpm não encontrado. Certifique-se de que o Node.js e pnpm estão instalados."
++        )
++        return None
++    except Exception as e:
++        logger.error("Erro ao iniciar Mission Control: %s", e)
++        return None
++
++
++def wait_for_mc_online(timeout: int = MAX_WAIT_SECONDS) -> bool:
++    """Aguarda até o Mission Control ficar online ou timeout."""
++    logger.info("Aguardando Mission Control ficar online (max %ds)...", timeout)
++    start = time.time()
++    while time.time() - start < timeout:
++        if is_mc_online():
++            logger.info("Mission Control online!")
++            return True
++        logger.debug("MC ainda offline, aguardando %ds...", POLL_INTERVAL)
++        time.sleep(POLL_INTERVAL)
++    logger.error("Timeout aguardando Mission Control ficar online")
++    return False
++
++
++def run_startup_hook(dry_run: bool) -> bool:
++    """Executa NC-SCR-FR-103-mc-startup-hook.py como subprocess não bloqueante."""
++    hook_path = Path(__file__).parent / "NC-SCR-FR-103-mc-startup-hook.py"
++    if not hook_path.exists():
++        logger.error("Hook de startup não encontrado: %s", hook_path)
++        return False
++    logger.info("Executando hook de startup: %s", hook_path)
++    if dry_run:
++        logger.info("[DRY-RUN] Executaria: python %s", hook_path)
++        return True
++    try:
++        proc = subprocess.Popen(
++            [sys.executable, str(hook_path)],
++            stdout=subprocess.PIPE,
++            stderr=subprocess.PIPE,
++            text=True,
++        )
++        logger.info("Hook de startup iniciado (PID=%d)", proc.pid)
++        # Não bloqueia; podemos deixar rodando em background
++        threading.Thread(
++            target=lambda: logger.info("Hook stdout: %s", proc.stdout.read()),
++            daemon=True,
++        ).start()
++        threading.Thread(
++            target=lambda: logger.error("Hook stderr: %s", proc.stderr.read()),
++            daemon=True,
++        ).start()
++        return True
++    except Exception as e:
++        logger.error("Erro ao executar hook de startup: %s", e)
++        return False
++
++
++# -----------------------------------------------------------------------------
++# Fluxo principal
++# -----------------------------------------------------------------------------
++
++
++def main():
++    parser = argparse.ArgumentParser(
++        description="Launcher para stack NeoCortex + Mission Control"
++    )
++    parser.add_argument("--dry-run", action="store_true", help="Simular apenas")
++    parser.add_argument(
++        "--no-mc", action="store_true", help="Não iniciar Mission Control"
++    )
++    parser.add_argument(
++        "--no-hook", action="store_true", help="Não executar hook de startup"
++    )
++    parser.add_argument(
++        "--mc-path",
++        type=Path,
++        default=DEFAULT_MC_PATH,
++        help="Caminho do Mission Control",
++    )
++    args = parser.parse_args()
++
++    logger.info("Iniciando launcher (dry‑run=%s)", args.dry_run)
++
++    mc_process = None
++    hook_success = False
++
++    # 1. Verificar se MC já está online
++    if is_mc_online():
++        logger.info("Mission Control já está online")
++    else:
++        logger.info("Mission Control offline")
++        if args.no_mc:
++            logger.warning("Flag --no-mc definida; não iniciará Mission Control")
++            logger.error("Abortando porque MC está offline e não devemos iniciá-lo")
++            sys.exit(1)
++        # 2. Iniciar MC
++        mc_process = start_mission_control(args.mc_path, args.dry_run)
++        if mc_process is None and not args.dry_run:
++            logger.error("Falha ao iniciar Mission Control")
++            sys.exit(1)
++        # 3. Aguardar MC online
++        if not wait_for_mc_online():
++            # Se timeout, tentar matar o processo (se existir)
++            if mc_process:
++                mc_process.terminate()
++                mc_process.wait(timeout=5)
++            sys.exit(1)
++
++    # 4. Executar hook de startup
++    if not args.no_hook:
++        hook_success = run_startup_hook(args.dry_run)
++        if not hook_success and not args.dry_run:
++            logger.error("Falha ao executar hook de startup")
++            sys.exit(1)
++    else:
++        logger.info("Hook de startup ignorado (--no-hook)")
++
++    logger.info("Launcher concluído com sucesso")
++    logger.info("Mission Control: %s", "online" if is_mc_online() else "offline")
++    logger.info("Hook de startup: %s", "executado" if hook_success else "não executado")
++
++    # Manter o processo vivo se MC foi iniciado por nós (para não matar o subprocesso)
++    if mc_process and not args.dry_run:
++        try:
++            mc_process.wait()
++        except KeyboardInterrupt:
++            logger.info("Interrompido pelo usuário, finalizando Mission Control...")
++            mc_process.terminate()
++            mc_process.wait()
++
++
++if __name__ == "__main__":
++    main()

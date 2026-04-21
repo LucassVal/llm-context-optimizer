@@ -1,0 +1,177 @@
+ticket_id: NC-DS-122
+title: "Renomear 24 arquivos KEEP_NON_NC em neocortex/core/ para padrão NC-CORE-FR-NNN"
+status: OPEN
+priority: HIGH
+created_at: "2026-04-20T20:06:25-03:00"
+created_by: T0-Antigravity
+sprint: "NC-DS-122"
+related_tickets: ["NC-DS-117"]
+related_docs:
+  - "01_neocortex_framework/05_examples/NC-RPT-117-core-audit-report.json"
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
+
+# ─────────────────────────────────────────────────────────────────
+# CONTEXTO
+# ─────────────────────────────────────────────────────────────────
+context: |
+  O ticket NC-DS-117 auditou 31 arquivos em neocortex/core/ e classificou como:
+    - 5 KEEP_NC   → já têm prefixo NC-* correto. NÃO tocar.
+    - 24 KEEP_NON_NC → sem prefixo NC-. Devem ser renomeados.
+    - 2 ARCHIVE   → não são escopo deste ticket.
+
+  RISCO ALTO: vários arquivos têm muitos importers (ledger_service.py=12, file_utils.py=13).
+  Renomear sem atualizar imports = crash em runtime.
+
+# ─────────────────────────────────────────────────────────────────
+# IMPORTANTE — LEIA ANTES DE AGIR
+# ─────────────────────────────────────────────────────────────────
+pre_conditions:
+  - "@LOCK: server.py e sub_server.py JAMAIS serão modificados"
+  - "R21: verificar ambiente real antes de qualquer ação"
+  - "R09: imports via importlib.import_module quando nome tem hífens"
+  - "R10: usar get_config() para paths — NUNCA hardcode"
+  - "R11: logger = logging.getLogger(__name__) — NUNCA print()"
+  - "R21: PARAR IMEDIATAMENTE se qualquer arquivo KEEP_NON_NC for importado por server.py ou sub_server.py"
+
+atomic_locks_invioláveis:
+  - "neocortex/mcp/server.py → NUNCA modificar"
+  - "neocortex/mcp/sub_server.py → NUNCA modificar"
+  - "DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md → apenas ADICIONAR linhas, nunca apagar"
+
+# ─────────────────────────────────────────────────────────────────
+# ESCOPO — 24 arquivos a renomear
+# ─────────────────────────────────────────────────────────────────
+target_directory: "01_neocortex_framework/neocortex/core/"
+
+files_to_rename:
+  - {old: "agent_policy_enforcer.py",  new: "NC-CORE-FR-101-agent-policy-enforcer.py",  importers: 1}
+  - {old: "agent_service.py",           new: "NC-CORE-FR-102-agent-service.py",           importers: 3}
+  - {old: "akl_service.py",             new: "NC-CORE-FR-103-akl-service.py",             importers: 6}
+  - {old: "benchmark_service.py",       new: "NC-CORE-FR-104-benchmark-service.py",       importers: 2}
+  - {old: "cascade_consolidator.py",    new: "NC-CORE-FR-105-cascade-consolidator.py",    importers: 2}
+  - {old: "checkpoint_service.py",      new: "NC-CORE-FR-106-checkpoint-service.py",      importers: 7}
+  - {old: "circuit_breaker.py",         new: "NC-CORE-FR-107-circuit-breaker.py",         importers: 2}
+  - {old: "config_service.py",          new: "NC-CORE-FR-108-config-service.py",          importers: 6}
+  - {old: "consolidation_service.py",   new: "NC-CORE-FR-109-consolidation-service.py",   importers: 5}
+  - {old: "cortex_service.py",          new: "NC-CORE-FR-110-cortex-service.py",          importers: 5}
+  - {old: "export_service.py",          new: "NC-CORE-FR-111-export-service.py",          importers: 5}
+  - {old: "file_utils.py",              new: "NC-CORE-FR-112-file-utils.py",              importers: 13}
+  - {old: "init_service.py",            new: "NC-CORE-FR-113-init-service.py",            importers: 3}
+  - {old: "kg_service.py",              new: "NC-CORE-FR-114-kg-service.py",              importers: 6}
+  - {old: "ledger_service.py",          new: "NC-CORE-FR-115-ledger-service.py",          importers: 12}
+  - {old: "lexico_service.py",          new: "NC-CORE-FR-116-lexico-service.py",          importers: 3}
+  - {old: "lobe_service.py",            new: "NC-CORE-FR-117-lobe-service.py",            importers: 10}
+  - {old: "manifest_service.py",        new: "NC-CORE-FR-118-manifest-service.py",        importers: 6}
+  - {old: "peers_service.py",           new: "NC-CORE-FR-119-peers-service.py",           importers: 3}
+  - {old: "profile_manager.py",         new: "NC-CORE-FR-120-profile-manager.py",         importers: 1}
+  - {old: "profile_service.py",         new: "NC-CORE-FR-121-profile-service.py",         importers: 1}
+  - {old: "pulse_scheduler.py",         new: "NC-CORE-FR-122-pulse-scheduler.py",         importers: 6}
+  - {old: "regression_service.py",      new: "NC-CORE-FR-123-regression-service.py",      importers: 4}
+  - {old: "security_service.py",        new: "NC-CORE-FR-124-security-service.py",        importers: 3}
+
+files_NOT_in_scope:
+  - "__init__.py"         # T0 reverteu p/ KEEP-AS-IS — NÃO tocar
+  - "logging_config.py"  # ARCHIVE — NÃO tocar neste ticket
+  - "NC-CFG-FR-001-logging-config.py"  # já NC-* correto — NÃO tocar
+  - "NC-CORE-FR-014-lock-guard.py"     # já NC-* correto — NÃO tocar
+  - "NC-CORE-FR-016-kg-service.py"     # já NC-* correto — NÃO tocar
+  - "NC-CORE-FR-017-policy-loader.py"  # já NC-* correto — NÃO tocar
+  - "NC-CORE-FR-022-save-point-service.py" # já NC-* correto — NÃO tocar
+
+# ─────────────────────────────────────────────────────────────────
+# PROTOCOLO CONSERVADOR OBRIGATÓRIO (prevenir quebra de cascata)
+# ─────────────────────────────────────────────────────────────────
+protocol_conservador:
+  step_0_verificacao_obrigatoria: |
+    Antes de renomear QUALQUER arquivo:
+    1. grep -r "from neocortex.core import" neocortex/mcp/server.py   → deve retornar VAZIO
+    2. grep -r "from neocortex.core import" neocortex/mcp/sub_server.py → deve retornar VAZIO
+    3. grep -rn "from .{OLD_MODULE}" neocortex/ para o arquivo alvo
+    4. grep -rn "from neocortex.core.{OLD_MODULE}" . --include="*.py"
+    SE qualquer resultado mencionar server.py ou sub_server.py → PARAR e retornar ESCALATED ao T0.
+
+  step_1_rename_com_alias: |
+    Estratégia segura (NÃO rename direto):
+    (a) Criar arquivo NC-CORE-FR-NNN-{name}.py com o conteúdo original
+    (b) Manter arquivo OLD com redirecionamento (alias shim):
+        # {old_name}.py — ALIAS SHIM (deprecado → NC-CORE-FR-NNN)
+        # Mantido por compatibilidade com importers existentes
+        from neocortex.core.NC_CORE_FR_NNN_{mod} import *  # noqa: F401,F403
+        __all__ = [...]  # re-exportar todos os símbolos públicos
+    (c) Adicionar comentário deprecation warning no shim
+    ATENÇÃO: o nome NC-CORE-FR-NNN-{name}.py tem hífens → importar via importlib (R09)
+    Os shimms {old_name}.py sem hífens podem ser importados normalmente.
+
+  step_2_atualizar_imports_diretos: |
+    Para cada arquivo que importa OLD_MODULE diretamente:
+    grep -rn "from neocortex.core.{old_stem}" . --include="*.py"
+    grep -rn "from .{old_stem}" neocortex/core/ --include="*.py"
+    Atualizar APENAS se não for server.py/sub_server.py (@LOCK).
+    NÃO atualizar server.py e sub_server.py.
+
+  step_3_validacao_por_arquivo: |
+    Para cada arquivo NC-CORE-FR-NNN criado:
+    (a) python -m py_compile {arquivo}
+    (b) python -m ruff check {arquivo} --select F,E9
+    (c) print() → PROIBIDO, usar logger
+    Falhou? → NÃO prosseguir. Registrar em handoff como FAILED.
+
+  step_4_teste_importacao: |
+    python -c "
+    import sys; sys.path.insert(0, '01_neocortex_framework')
+    import importlib.util, pathlib
+    spec = importlib.util.spec_from_file_location('test', '{path_to_new_file}')
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    print('OK:', dir(mod))
+    "
+    SE falhar → registrar detalhes no handoff.
+
+  step_5_validar_shim: |
+    Verificar que o shim {old_name}.py importa e re-exporta corretamente:
+    python -c "from neocortex.core.{old_stem} import *; print('shim OK')"
+
+  step_6_lock_check_final: |
+    git diff --name-only HEAD | grep -E "server\.py|sub_server\.py"
+    → deve retornar VAZIO. Se não estiver vazio → CRÍTICO: reverter imediatamente.
+
+strategy_for_high_importer_files: |
+  Para arquivos com importers >= 5 (file_utils=13, ledger_service=12, lobe_service=10, etc.):
+  - OBRIGATÓRIO criar shim de compatibilidade (step_1b acima)
+  - NÃO remover o arquivo antigo — apenas adicionar o comentário DEPRECATED
+  - O shim deve re-exportar __all__ completo
+  - Testar AMBOS o arquivo novo e o shim
+
+batch_size: |
+  Processar em lotes de 4 arquivos, validando cada lote antes de prosseguir.
+  Lote 1: arquivos com importers <= 2 (mais seguros)
+  Lote 2: arquivos com importers 3-5
+  Lote 3: arquivos com importers >= 6 (mais críticos)
+
+# ─────────────────────────────────────────────────────────────────
+# ENTREGÁVEIS OBRIGATÓRIOS
+# ─────────────────────────────────────────────────────────────────
+deliverables:
+  - "24 arquivos NC-CORE-FR-101..124-*.py criados em neocortex/core/"
+  - "24 shims de compatibilidade (os arquivos antigos com re-export)"
+  - "python -m py_compile: PASS em todos os 48 arquivos"
+  - "ruff --select F,E9: PASS em todos os 48 arquivos"
+  - "Handoff YAML em DIR-DS-002-audit-logs/NC-DS-122-handoff-{TIMESTAMP}.yaml"
+  - "Atualizar @SSOT (NC-NAM-FR-001) com as 24 novas entradas"
+  - "NÃO deletar arquivos antigos — apenas converter em shims"
+
+handoff_save_path: "DIR-DS-002-audit-logs/NC-DS-122-handoff-{YYYYMMDDTHHMMSS}.yaml"
+handoff_template: "DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml"
+
+write_zone: "PROD → 01_neocortex_framework/neocortex/core/"
+
+# ─────────────────────────────────────────────────────────────────
+# QUANDO PARAR E ESCALAR
+# ─────────────────────────────────────────────────────────────────
+escalation_triggers:
+  - "Qualquer import encontrado em server.py ou sub_server.py"
+  - "Erro de sintaxe em py_compile após renomear"
+  - "Arquivo NC-NAM-FR-001 precisar ser modificado de forma não-trivial"
+  - "Importação circular detectada após criação do shim"
+  - "Qualquer dúvida sobre qual símbolo exportar no shim"
+  escalation_action: "Gerar handoff com status: ESCALATED e parar imediatamente"

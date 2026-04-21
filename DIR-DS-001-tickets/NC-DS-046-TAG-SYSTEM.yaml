@@ -1,0 +1,15 @@
+id: NC-DS-046
+code: TAG-SYSTEM
+title: Implementação Universal de Tags no Codebase
+assignee: Fila de Tarefas / Agentes Autônomos
+context:
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md
+  - .agents/rules/NC-RULE-007-tagging-system.mdc
+task: |
+  **OBJETIVO**: Escanear o escopo do NeoCortex e adicionar metadados baseados em Tags para padronizar e acelerar indexação (grep/FTS).
+  
+  **O QUE FAZER**:
+  1. Leia os manuais `NC-NAM-FR-001` (sessão de Prefixos e Tags) e `NC-RULE-007`.
+  2. Implemente scripts no /scripts/ do framework chamados `NC-SCR-FR-017-tag-applicator.py` que permita adicionar `# TAGS: [tag1, tag2]` ou blocks `--- tags: [...] ---` a dezenas de arquivos por glob pattern.
+  3. Atualize programaticamente os arquivos vitais base (ex: `server.py`, `neocortex_hud.py`, etc) com a devida declaração de TAGS em seu cabeçalho.
+  4. Garanta que todas as buscas em lobos via scripts nativos ou FTS incorporem suporte oficial à filtragem pela flag `tags`.

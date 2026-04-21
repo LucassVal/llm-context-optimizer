@@ -1,0 +1,53 @@
+{
+  "ticket_id": "NC-DS-008",
+  "phase": "1",
+  "timestamp": "2026-04-12T17:01:00",
+  "risk_level": "LOW",
+  "risk_reason": "Ticket de pesquisa (Claude Code Leak). Apenas leitura de cdigo externo e escrita em diretrio isolado. Nenhum arquivo protegido (@LOCK) ser modificado.",
+  "max_tokens_per_phase": 8000,
+  "max_rounds": 10,
+  "escalate_after_rounds": 8,
+  "files_to_create": [
+    "DIR-RES-CC-001-claude-leak-workzone/analysis-session-a/NC-LBE-CC-002-memory-arch.mdc",
+    "DIR-RES-CC-001-claude-leak-workzone/analysis-session-a/NC-LBE-CC-003-orchestration.mdc",
+    "DIR-RES-CC-001-claude-leak-workzone/analysis-session-a/NC-ANA-CC-001-claw-python-engine.md",
+    "DIR-RES-CC-001-claude-leak-workzone/analysis-session-a/NC-ANA-CC-002-tools-commands-schema.md"
+  ],
+  "files_to_read": [
+    "C:/Users/Lucas Valrio/Desktop/CLAUDE_CODE_DISSECTION/claw-code/src/reference_data/commands_snapshot.json",
+    "C:/Users/Lucas Valrio/Desktop/CLAUDE_CODE_DISSECTION/claw-code/src/reference_data/tools_snapshot.json",
+    "C:/Users/Lucas Valrio/Desktop/CLAUDE_CODE_DISSECTION/claw-code/src/reference_data/archive_surface_snapshot.json",
+    "C:/Users/Lucas Valrio/Desktop/CLAUDE_CODE_DISSECTION/claw-code/src/reference_data/subsystems/",
+    "C:/Users/Lucas Valrio/Desktop/CLAUDE_CODE_DISSECTION/claw-code/src/main.py",
+    "C:/Users/Lucas Valrio/Desktop/CLAUDE_CODE_DISSECTION/claw-code/src/runtime.py",
+    "C:/Users/Lucas Valrio/Desktop/CLAUDE_CODE_DISSECTION/claw-code/src/query_engine.py",
+    "C:/Users/Lucas Valrio/Desktop/CLAUDE_CODE_DISSECTION/claw-code/src/parity_audit.py",
+    "C:/Users/Lucas Valrio/Desktop/CLAUDE_CODE_DISSECTION/claw-code/src/tests/test_porting_workspace.py",
+    "C:/Users/Lucas Valrio/Desktop/CLAUDE_CODE_DISSECTION/free-code/src/memdir/",
+    "C:/Users/Lucas Valrio/Desktop/CLAUDE_CODE_DISSECTION/free-code/src/tools/agentMemory.ts",
+    "C:/Users/Lucas Valrio/Desktop/CLAUDE_CODE_DISSECTION/free-code/src/tools/agentMemorySnapshot.ts",
+    "C:/Users/Lucas Valrio/Desktop/CLAUDE_CODE_DISSECTION/free-code/src/tools/forkSubagent.ts",
+    "C:/Users/Lucas Valrio/Desktop/CLAUDE_CODE_DISSECTION/free-code/src/tools/runAgent.ts",
+    "C:/Users/Lucas Valrio/Desktop/CLAUDE_CODE_DISSECTION/free-code/src/services/",
+    "C:/Users/Lucas Valrio/Desktop/CLAUDE_CODE_DISSECTION/free-code/src/coordinator/",
+    "C:/Users/Lucas Valrio/Desktop/CLAUDE_CODE_DISSECTION/free-code/src/assistant/",
+    "C:/Users/Lucas Valrio/Desktop/CLAUDE_CODE_DISSECTION/free-code/src/tasks/"
+  ],
+  "methodology_phases": [
+    "FASE 0  GOLDEN FILES: commands_snapshot.json, tools_snapshot.json, archive_surface_snapshot.json, subsystems",
+    "FASE 1  PYTHON ENGINE: main.py, runtime.py, query_engine.py, parity_audit.py, test_porting_workspace.py",
+    "FASE 2  FREE-CODE MEMRIA: memdir/*, agentMemory.ts, agentMemorySnapshot.ts, forkSubagent.ts, runAgent.ts",
+    "FASE 3  FREE-CODE ORQUESTRAO: coordinator/*, assistant/*, tasks/*",
+    "FASE 4  DECODIFICAO DE PADRES: extrair interfaces, fluxos, locks, comunicao",
+    "FASE 5  SNTESE: gerar 4 arquivos de anlise (NC-LBE-CC-002, NC-LBE-CC-003, NC-ANA-CC-001, NC-ANA-CC-002)"
+  ],
+  "validation_plan": [
+    "B1: Naming NC- nos arquivos criados",
+    "B2: Nenhum @LOCK violado (server.py, sub_server.py, NC-NAM-FR-001, neocortex_config.yaml)",
+    "B3: Compilao no aplicvel (arquivos .mdc e .md)",
+    "B4: SSOT atualizado (NC-NAM-FR-001) com nova entrada",
+    "B5: No hardcode de paths (usar get_config() se aplicvel)",
+    "B6: No print() (usar logger)"
+  ],
+  "notes": "Ticket CC-001-A  pesquisa externa. Write_zone isolada. Arquivos de sada so documentos de anlise, no cdigo Python. Barreira B3 (compile) no se aplica."
+}

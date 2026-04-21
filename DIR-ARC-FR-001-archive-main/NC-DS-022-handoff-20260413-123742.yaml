@@ -1,0 +1,27 @@
+ticket_id: NC-DS-022
+status: PENDING_REVIEW
+timestamp: "2026-04-13T12:37:42-03:00"
+agent_port: 32763
+lines_added: 247
+files_modified:
+  - 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-006-metrics-collector.py
+summary: |
+  Implementado MetricsCollector com ToolMetric, armazenamento em deque thread-safe,
+  interface compatível com NC-SVC-FR-009-session-buddy.py, publicação de eventos
+  para erros via EventBus, e métodos get_session_metrics, get_tool_stats, get_recent_errors.
+metrics:
+  lines_real: 247
+  files_created: 0
+  ruff_check: PASS
+  py_compile: PASS
+  dependencies_used: []
+  write_zone_respected: true
+  locks_respected: true
+errors: []
+warnings: []
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  min_80_lines: true
+  no_locked_files_modified: true
+  handoff_yaml_complete: true

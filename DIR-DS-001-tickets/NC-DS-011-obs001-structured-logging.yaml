@@ -1,0 +1,83 @@
+assigned_to: DS-D
+closed_at: '2026-04-12T22:36:30'
+closed_by: NC-SCR-FR-010 sync
+completed_at: '2026-04-15T13:39:18.446641'
+created_at: '2026-04-12T17:17:00'
+created_by: antigravity-t0
+deliverables:
+  NC-SVC-FR-001-logging-service.py: "- Classe NeoCortexLogger com:\n  - setup_json_logger(name,\
+    \ level, log_file) → JSONFormatter\n  - get_logger(name) → logger configurado\n\
+    \  - rotate_logs(max_bytes=10MB, backup_count=5)\n  - log_event(level, event,\
+    \ context={}) → JSON estruturado\n- JSONFormatter: {\"timestamp\": ISO8601, \"\
+    level\": \"INFO\", \"module\": name, \"event\": \"...\", \"context\": {}}\n- Usa\
+    \ get_config() para log_dir\n- logger = logging.getLogger(__name__) — nunca print()\n"
+  logging_config.py: '- setup_default_logging() → configura o logger raiz do NeoCortex
+
+    - LOG_FORMAT = JSON com campos: timestamp, level, module, event
+
+    - Expõe: get_neocortex_logger(name) como convenience function
+
+    '
+description: 'Implementar infraestrutura de logging JSON estruturado para o NeoCortex.
+
+
+  RESTRIÇÃO CRÍTICA: server.py, sub_server.py e pulse_scheduler.py são @LOCKS.
+
+  SOLUÇÃO: criar um módulo wrapper de logging que QUALQUER módulo importa.
+
+  Os arquivos @LOCKS não são tocados — eles já usarão o logger via __name__.
+
+
+  Quando SAVE-005 liberar @LOCKS, um ticket subsequente adiciona o import.
+
+  '
+entry_state:
+  context_files:
+  - 01_neocortex_framework/neocortex/core/config.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-029-health.py
+  locks_check: server.py, sub_server.py, pulse_scheduler.py = READ-ONLY
+exit_state:
+  files_created:
+  - 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-001-logging-service.py
+  - 01_neocortex_framework/neocortex/core/logging_config.py
+  files_modified: null
+forbidden_zone:
+- neocortex/mcp/server.py
+- neocortex/mcp/sub_server.py
+- neocortex/core/services/pulse_scheduler.py
+- DIR-CFG-FR-001-config-main/neocortex_config.yaml
+- DIR-RES-CC-001-claude-leak-workzone/
+- neocortex/mcp/tools/NC-TOOL-FR-024-*.py
+handoff_ref: NC-DS-011-handoff-20260415T133918-retrospective.yaml
+integrity_hash: 7320d411baaffedb
+limits:
+  escalate_after_rounds: 3
+  max_rounds: 5
+  max_tokens_per_phase: 4000
+methodology: '1. Ler neocortex/core/config.py para entender estrutura de diretórios
+  (get_config)
+
+  2. Ler NC-TOOL-FR-029-health.py para entender como logging é usado nas tools
+
+  3. Implementar NC-SVC-FR-001-logging-service.py
+
+  4. Implementar logging_config.py (thin wrapper)
+
+  5. py_compile em ambos
+
+  6. B4: ADD linha em NC-NAM-FR-001 com timestamp ISO 8601
+
+  7. Roadmap: OBS-001 %DONE (parcial — import em @LOCKS = ticket futuro)
+
+  8. Handoff PENDING_REVIEW
+
+  '
+priority: MEDIUM
+roadmap_ticket: OBS-001
+status: DONE
+ticket_id: NC-DS-011
+title: 'OBS-001 — Structured JSON Logging: wrapper de logging centralizado (sem tocar
+  @LOCKS)'
+write_zone:
+- 01_neocortex_framework/neocortex/core/services/
+- 01_neocortex_framework/neocortex/core/logging_config.py

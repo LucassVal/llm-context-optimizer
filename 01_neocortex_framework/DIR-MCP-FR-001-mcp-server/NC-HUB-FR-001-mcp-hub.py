@@ -1,4 +1,19 @@
 #!/usr/bin/env python3
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:57.076586'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: mcp-server
+level: 3
+parent_ssot: NC-HUB-FR-001
+tags:
+  - mcp-server
+  - level-3
+  - nc-prefix
+  - python
+---"""
+
 """
 NC-HUB-FR-001 - NeoCortex MCP Hub (WebSocket Multi-User Server)
 
@@ -7,11 +22,10 @@ Uses FastMCP WebSocket transport for multi-user connections.
 """
 
 import asyncio
-import sys
-import json
 import logging
-import uuid
+import sys
 import time
+import uuid
 from pathlib import Path
 
 # Add core directory to Python path
@@ -305,11 +319,11 @@ async def main():
 
     args = parser.parse_args()
 
-    logger.info(f"Starting NeoCortex MCP Hub v4.2-cortex")
+    logger.info("Starting NeoCortex MCP Hub v4.2-cortex")
     logger.info(f"Host: {args.host}:{args.port}")
     logger.info(f"Transport: {args.transport}")
     logger.info(f"Security utilities: {SECURITY_UTILS_AVAILABLE}")
-    logger.info(f"Active tools: {len(hub_mcp.tools)}")
+    logger.info(f"Active tools: {len(hub_mcp.tool)}")
 
     # Start the server with the specified transport
     try:

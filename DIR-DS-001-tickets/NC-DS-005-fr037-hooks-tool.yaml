@@ -1,0 +1,68 @@
+ticket_id: NC-DS-005
+ticket_type: FEATURE
+priority: HIGH
+assigned_to: deepseek-chat
+created_at: "2026-04-13T21:26:00-03:00"
+created_by: antigravity-t0
+
+context:
+  roadmap_ticket: FR-037
+  active_locks:
+    - server.py
+    - sub_server.py
+    - NC-NAM-FR-001
+    - neocortex_config.yaml
+  write_zone: "01_neocortex_framework/neocortex/mcp/tools/"
+  naming_rule: "NC-TOOL-FR-037-hooks.py"
+  reference_file: "neocortex/mcp/tools/NC-TOOL-FR-029-health.py"
+  hook_registry_path: "neocortex/core/hooks/NC-HK-FR-001-hook-registry.py"
+
+task:
+  description: |
+    Criar NC-TOOL-FR-037-hooks.py — MCP tool que expõe o HookRegistry como ferramenta chamável.
+
+    Ações a implementar:
+      hook.register   → registra fn em um evento (event, fn_path, priority=0)
+                        como fn_path não é serializável via MCP, registrar hooks pré-fabricados
+                        por nome: "logging", "timing", "ratelimit", "audit"
+      hook.unregister → remove hook de um evento por nome
+      hook.trigger    → trigera manualmente um evento (event, payload=dict)
+      hook.list       → lista todos os eventos e hooks registrados
+      hook.stats      → retorna estatísticas de timing por tool (via TimingHook)
+
+    Importação dos hooks (R09 — usar importlib.util):
+      Importar HookRegistry de neocortex/core/hooks/NC-HK-FR-001-hook-registry.py
+      Importar hooks de neocortex/core/hooks/NC-HK-FR-002-simple-hook.py
+
+    Singleton: o HookRegistry deve ser um singleton — usar _registry global no módulo.
+    Na inicialização, registrar LoggingHook e TimingHook automaticamente.
+
+    Padrão: seguir EXATAMENTE estrutura de NC-TOOL-FR-029-health.py
+    Mínimo: 100 linhas
+
+  entry_state:
+    files_exist:
+      - "neocortex/core/hooks/NC-HK-FR-001-hook-registry.py"
+      - "neocortex/core/hooks/NC-HK-FR-002-simple-hook.py"
+    files_must_not_exist:
+      - "neocortex/mcp/tools/NC-TOOL-FR-037-hooks.py"
+
+  exit_state:
+    files_created:
+      - "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-037-hooks.py"
+    ssot_updated: true
+    compiles_ok: true
+
+barriers:
+  - {id: B1, check: naming, rule: "NC-TOOL-FR-037-hooks.py", block_if_fail: true}
+  - {id: B2, check: lock_guard, rule: "NUNCA modificar server.py|sub_server.py|NC-NAM-FR-001", block_if_fail: true}
+  - {id: B3, check: compile, rule: "python -m py_compile == exit 0", block_if_fail: true}
+  - {id: B4, check: register_tool, rule: "def register_tool(mcp) deve existir", block_if_fail: true}
+  - {id: B5, check: min_lines, rule: ">= 100 linhas", block_if_fail: true}
+  - {id: B6, check: no_print, rule: "logger = logging.getLogger(__name__)", block_if_fail: false}
+
+limits:
+  max_validation_rounds: 5
+  escalate_to_t0_after: 3
+  max_tokens_per_phase: 4000
+integrity_hash: "c84da271f039b15e"

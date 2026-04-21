@@ -1,10 +1,23 @@
 #!/usr/bin/env python3
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:57.134686'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: mcp-server
+level: 3
+tags:
+  - mcp-server
+  - level-3
+  - python
+---"""
+
 """
 Test script to list all MCP tools implemented in NeoCortex server.
 """
 
-import sys
 import os
+import sys
 
 # Add current directory to path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))

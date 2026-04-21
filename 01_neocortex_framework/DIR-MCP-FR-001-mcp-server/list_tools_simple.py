@@ -1,10 +1,23 @@
 #!/usr/bin/env python3
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:57.072559'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: mcp-server
+level: 3
+parent_ssot: NC-MCP-FR-001-mcp-server
+tags:
+  - mcp-server
+  - level-3
+  - python
+---"""
+
 """
 List tools by forcing simulation mode.
 """
 
 import sys
-import os
 
 # Force simulation mode by monkey-patching before import
 sys.modules["mcp"] = None

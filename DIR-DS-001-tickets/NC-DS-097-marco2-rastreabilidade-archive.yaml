@@ -1,0 +1,45 @@
+ticket_id: "NC-DS-097"
+status: "DONE"
+priority: "MEDIUM"
+title: "Marco 2 Rastreabilidade (NC-DS-085) + Arquivo roadmaps obsoletos (NC-DS-088)"
+created_at: "2026-04-16T01:26:41-03:00"
+created_by: "T0-Claude-Code"
+
+context:
+  origin: "Tickets OPEN remanescentes — NC-DS-085 MEDIUM + NC-DS-088 LOW"
+  problem: |
+    NC-DS-085: NC-SCR-FR-002 (tool-manifest-generator) e NC-SCR-FR-022 (coverage-auditor)
+    nunca foram executados/validados nesta fase.
+    NC-DS-088: Roadmaps obsoletos v5/v6/v7 ainda presentes em DIR-DOC-FR-001-docs-main/,
+    ocupando espaço e confundindo contexto.
+
+task:
+  description: |
+    PARTE A — NC-DS-085 (Marco 2 Rastreabilidade):
+    1. python -m py_compile NC-SCR-FR-002-tool-manifest-generator.py && echo OK
+    2. python NC-SCR-FR-002-tool-manifest-generator.py --dry-run
+    3. python -m py_compile NC-SCR-FR-022-coverage-auditor.py && echo OK
+    4. python NC-SCR-FR-022-coverage-auditor.py
+    Salvar resultado em reports/
+
+    PARTE B — NC-DS-088 (Arquivo roadmaps):
+    Mover para DIR-ARC-FR-001-archive-main/roadmaps-obsoletos-20260416/:
+      - NC-TODO-DS-002-roadmap-v5*.md (se existir)
+      - NC-TODO-DS-003-roadmap-v6*.md (se existir)
+      - Qualquer roadmap marcado como obsoleto/deprecated
+
+    Fechar NC-DS-085 e NC-DS-088 com handoffs APPROVED.
+
+write_zone:
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/"
+  - "DIR-ARC-FR-001-archive-main/"
+  - "DIR-DS-002-audit-logs/"
+  - "reports/"
+
+atomic_locks_proibidos:
+  - "01_neocortex_framework/neocortex/server.py"
+
+tags: ["marco2", "rastreabilidade", "archive", "roadmap", "coverage"]
+domain: "quality"
+layer: "scripts"
+type: "FEATURE+ARCHIVE"

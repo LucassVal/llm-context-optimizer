@@ -1,0 +1,93 @@
+log_id: NC-LOG-CONCURRENCY-20260412-1934
+created_at: "2026-04-12T19:34:55"
+created_by: worker-1776032508-2196eb
+log_type: CONCURRENCY_ISSUES
+ticket_in_progress: NC-DS-027
+status: PENDING_REVIEW
+
+analysis: |
+  ANÁLISE DA SITUAÇÃO ATUAL
+  
+  Workers ativos detectados (snapshot 19:34):
+  - worker-10047-2196eb (NC-DS-015, DONE)
+  - worker-1776032900258-2196eb (NC-DS-016, ACTIVE mas completed_at já preenchido)
+  - worker-701409-2196eb (NC-DS-018, ACTIVE)
+  - worker-1776032984606-2196eb (NC-DS-026, CLAIMED)
+  - worker-1776032508-2196eb (NC-DS-027, ACTIVE - este worker)
+  - worker-1702-2196eb (NC-DS-028, DONE)
+  - worker-44949-2196eb (NC-DS-029, ACTIVE)
+  - NC-DS-014 também ACTIVE (in_progress section)
+  
+  Total: ≥6 workers concorrentes.
+
+problems: |
+  1. Conflitos de escrita no YAML central
+     - Múltiplos workers lendo/escrevendo NC-CFG-DS-004-task-queue.yaml simultaneamente
+     - Protocolo "atomic-ish" (claim via timestamp) falha sob alta concorrência
+     - Erros "File has been modified since it was last read" frequentes
+  
+  2. Inconsistências de estado
+     - NC-DS-016: status ACTIVE mas completed_at: "2026-04-12T18:34:46"
+     - Vários campos claimed_by com formatos inconsistentes (timestamp vs worker-ID)
+  
+  3. Falta de atomicidade real
+     - Janela de 5s entre claim e verificação é grande para N workers
+     - Race conditions: worker A lê AVAILABLE, worker B também lê AVAILABLE, ambos tentam claim
+  
+  4. Dificuldade de debug
+     - Sem logs centralizados de operações de fila
+     - Não há rastreamento de quem modificou o YAML e quando
+
+suggestions: |
+  SUGESTÕES PARA MELHORIA DA FILA
+  
+  Opção 1: Banco de dados leve (recomendado)
+  - Usar SQLite com tabela `tasks` (id, status, claimed_by, claimed_at, completed_at)
+  - Transações ACID garantem atomicidade
+  - Queries simples: `UPDATE tasks SET status='CLAIMED', claimed_by=? WHERE id=? AND status='AVAILABLE'`
+  
+  Opção 2: Locking por arquivo
+  - Criar `DIR-DS-000-agent-config/queue.lock` com flock (file locking)
+  - Worker obtém lock exclusivo antes de ler/escrever YAML
+  - timeout curto (ex: 1s) para evitar deadlocks
+  
+  Opção 3: Fila distribuída (Redis)
+  - Redis com operações atômicas (SETNX, LPOP)
+  - Ideal para escala, mas adiciona dependência externa
+  
+  Opção 4: Melhorar protocolo atual
+  - Reduzir janela de 5s para 1s
+  - Adicionar versão/etag no YAML (hash do conteúdo)
+  - Implementar retry exponencial com backoff
+  - Validar consistência após cada escrita
+  
+  Opção 5: Sistema de tickets por worker
+  - Cada worker tem seu próprio arquivo de estado (worker-{PORT}.yaml)
+  - Coordenação via diretório `claims/` com arquivos efêmeros
+
+recommended_actions: |
+  AÇÃO IMEDIATA RECOMENDADA
+  
+  1. Auditar estado atual: script para validar consistência (status vs completed_at)
+  2. Migrar para SQLite: criar `queue.db` e migrar tasks do YAML
+  3. Manter compatibilidade: workers antigos ainda podem usar YAML durante transição
+  4. Adicionar logging: registrar todas as operações de fila em `queue_operations.log`
+
+worker_state: |
+  ESTADO DESTE WORKER
+  
+  - Worker ID: worker-1776032508-2196eb
+  - Task atual: NC-DS-027 (TOOL-001 — TicketValidator CLI)
+  - Progresso: Script NC-SCR-FR-006-ticket-validator.py criado (152 linhas)
+  - Handoff: NC-DS-027-handoff-20260412-1929.yaml submetido (PENDING_REVIEW)
+  - Dificuldade: Não consegui atualizar status para DONE devido a conflitos de concorrência (múltiplas tentativas falharam)
+  - Locks violados: Nenhum (write_zone respeitada)
+  - Ação: Hibernar após criar este log para T0 revisar
+
+next_steps: |
+  PRÓXIMOS PASSOS
+  
+  1. T0 revisa este log e decide arquitetura de fila v2
+  2. Implementar solução escolhida (recomendo SQLite)
+  3. Migrar workers gradualmente
+  4. Monitorar estabilidade

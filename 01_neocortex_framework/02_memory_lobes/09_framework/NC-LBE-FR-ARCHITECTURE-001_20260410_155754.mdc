@@ -1,0 +1,171 @@
+<!-- module: architecture -->
+<!-- category: core -->
+<!-- status: active -->
+<!-- created_by: opencode -->
+
+# Arquitetura do Framework NeoCortex
+
+Documentação e princípios arquiteturais do framework NeoCortex.
+
+## Propósito
+Gerenciar conhecimento específico do módulo architecture.
+
+## Status
+Sugerido
+
+## Tags
+#architecture, #framework, #neocortex
+
+## Checkpoints
+- CP-ARCHITECTURE-001: Criação inicial
+
+## Conteúdo Inicial
+*Este lobe está em construção. Adicione aqui:*
+
+### 1. Visão Geral
+- Objetivos principais
+- Escopo do módulo
+- Integrações com outros módulos
+
+### 2. Componentes Principais
+- Lista de componentes/classes
+- Responsabilidades
+- Dependências
+
+### 3. Padrões e Convenções
+- Padrões de código
+- Convenções de nomenclatura
+- Boas práticas
+
+### 4. Exemplos de Uso
+- Exemplos básicos
+- Casos de uso comuns
+- Configurações típicas
+
+### 5. Referências
+- Links para documentação
+- Arquivos relevantes no projeto
+- Exemplos externos
+
+## Notas
+- Criado automaticamente por OpenCode
+- Data: 2026-04-10 15:36:45
+- Revisão necessária para conteúdo específico do projeto
+
+## Princípios Arquiteturais do NeoCortex
+
+### Arquitetura Hexagonal
+- Separação clara entre lógica de negócio e infraestrutura
+- Repositórios como portas de entrada/saída
+- Serviços encapsulam regras de negócio
+
+### Camadas do Framework
+1. **Camada de Repositórios**: FileSystemRepository, HubRepository, DatabaseRepository
+2. **Camada de Serviços**: CortexService, LobeService, LedgerService
+3. **Camada de Protocolos**: MCP Server, A2A Protocol
+4. **Camada de Aplicação**: CLI, Interfaces de usuário
+
+### Contratos JSON Schema
+- LEDGER_SCHEMA: Estrutura do ledger principal
+- A2A_MESSAGE_SCHEMA: Protocolo agent-to-agent
+- TOOL_MANIFEST_SCHEMA: Metadados de ferramentas MCP
+
+### Padrões de Design
+- Repository Pattern
+- Service Layer
+- Singleton Pattern (para serviços)
+- Factory Pattern (para repositórios)
+
+
+# NC-LBE-FR-ARCHITECTURE-001
+
+Arquitetura do framework, padrões, componentes
+
+## Status
+Ativo (povoado automaticamente)
+
+## Tags
+#architecture, #framework, #neocortex, #auto_populated
+
+## Checkpoints
+- CP-ARCHITECTURE-001: Criação inicial
+- CP-ARCHITECTURE-002: Povoamento automático
+
+## Análise do Diretório
+- **Total de arquivos**: 86
+
+### Arquivos Principais
+- `neocortex_framework\create_lobes.py` (832 linhas, 23122 bytes)
+- `neocortex_framework\example_architecture.py` (239 linhas, 7984 bytes)
+- `neocortex_framework\exhaustive_population.py` (530 linhas, 20535 bytes)
+- `neocortex_framework\generate_all_manifests.py` (109 linhas, 3711 bytes)
+- `neocortex_framework\generate_official_tool_manifest.py` (361 linhas, 11931 bytes)
+- `neocortex_framework\generate_tools_manifest.py` (222 linhas, 6759 bytes)
+- `neocortex_framework\populate_memory.py` (340 linhas, 12347 bytes)
+- `neocortex_framework\test_mcp_responsive.py` (48 linhas, 1331 bytes)
+- `neocortex_framework\test_modular_server.py` (60 linhas, 1687 bytes)
+- `neocortex_framework\test_tools.py` (45 linhas, 1392 bytes)
+
+### Análise de Código Python
+
+#### `neocortex_framework\create_lobes.py`
+- **Classes**: 0
+- **Funções**: 4
+  - create_lobe, generate_manifest, main, generate_lobe_content
+- **Imports**: 6
+  - sys, neocortex, datetime, os, uuid, json
+
+#### `neocortex_framework\example_architecture.py`
+- **Classes**: 0
+- **Funções**: 5
+  - demonstrate_repository_pattern, demonstrate_service_layer, demonstrate_json_schemas, demonstrate_future_integrations, main
+- **Imports**: 3
+  - pathlib, neocortex, json
+
+#### `neocortex_framework\exhaustive_population.py`
+- **Classes**: 0
+- **Funções**: 8
+  - analyze_project_structure, get_lobe_mapping, analyze_directory, extract_python_info, generate_lobe_content
+- **Imports**: 7
+  - sys, neocortex, datetime, os, json, re, pathlib
+
+#### `neocortex_framework\generate_all_manifests.py`
+- **Classes**: 0
+- **Funções**: 1
+  - main
+- **Imports**: 3
+  - sys, neocortex, os
+
+#### `neocortex_framework\generate_official_tool_manifest.py`
+- **Classes**: 0
+- **Funções**: 4
+  - extract_actions_from_docstring, extract_parameters_from_signature, process_tool_module, main
+- **Imports**: 7
+  - datetime, importlib, inspect, json, typing, re, pathlib
+
+## Contexto do Projeto
+- **Nome do projeto**: N/A
+- **Total de arquivos no projeto**: 0
+
+## Notas de Povoamento
+- Povoado automaticamente por OpenCode
+- Data: 2026-04-10 15:57:54
+- Foco da análise: imports, classes, functions, directory_structure
+
+## Contexto do Projeto
+- **Nome do projeto**: N/A
+- **Total de arquivos no projeto**: 0
+
+## Notas de Povoamento
+- Povoado automaticamente por OpenCode
+- Data: 2026-04-10 15:56:46
+- Foco da análise: imports, classes, functions, directory_structure
+
+## Contexto do Projeto
+- **Nome do projeto**: N/A
+- **Total de arquivos no projeto**: 0
+
+## Notas de Povoamento
+- Povoado automaticamente por OpenCode
+- Data: 2026-04-10 15:55:41
+- Foco da análise: imports, classes, functions, directory_structure

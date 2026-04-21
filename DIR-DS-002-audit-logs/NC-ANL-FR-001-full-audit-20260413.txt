@@ -1,0 +1,2005 @@
+=== NC-SCR-FR-013 Validation | 179 arquivos ===
+  [OK ] DIR-CORE-FR-001-core-central\NC_SEC_FR_001_security_utils.py           compile=OK | ruff=OK
+  [OK ] DIR-CORE-FR-001-core-central\test_security_integration.py              compile=OK | ruff=OK (auto-fixed)
+  [OK ] DIR-CORE-FR-001-core-central\update_ledger.py                          compile=OK | ruff=OK (auto-fixed)
+  [ERR] DIR-MCP-FR-001-mcp-server\clean_utf0.py                                compile=OK | ruff=ERR (ap├│s fix): F601 Dictionary key literal `"a"` repeated
+  --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:16:9
+   |
+14 |     accent_map = {
+15 |         "a": "a",
+16 |         "a": "a",
+   |         ^^^
+17 |         "a": "a",
+18 |         "a": "a",
+   |
+help: Remove repeated key literal `"a"`
+
+F601 Dictionary key literal `"a"` repeated
+  --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:17:9
+   |
+15 |         "a": "a",
+16 |         "a": "a",
+17 |         "a": "a",
+   |         ^^^
+18 |         "a": "a",
+19 |         "a": "a",
+   |
+help: Remove repeated key literal `"a"`
+
+F601 Dictionary key literal `"a"` repeated
+  --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:18:9
+   |
+16 |         "a": "a",
+17 |         "a": "a",
+18 |         "a": "a",
+   |         ^^^
+19 |         "a": "a",
+20 |         "e": "e",
+   |
+help: Remove repeated key literal `"a"`
+
+F601 Dictionary key literal `"a"` repeated
+  --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:19:9
+   |
+17 |         "a": "a",
+18 |         "a": "a",
+19 |         "a": "a",
+   |         ^^^
+20 |         "e": "e",
+21 |         "e": "e",
+   |
+help: Remove repeated key literal `"a"`
+
+F601 Dictionary key literal `"e"` repeated
+  --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:21:9
+   |
+19 |         "a": "a",
+20 |         "e": "e",
+21 |         "e": "e",
+   |         ^^^
+22 |         "e": "e",
+23 |         "e": "e",
+   |
+help: Remove repeated key literal `"e"`
+
+F601 Dictionary key literal `"e"` repeated
+  --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:22:9
+   |
+20 |         "e": "e",
+21 |         "e": "e",
+22 |         "e": "e",
+   |         ^^^
+23 |         "e": "e",
+24 |         "i": "i",
+   |
+help: Remove repeated key literal `"e"`
+
+F601 Dictionary key literal `"e"` repeated
+  --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:23:9
+   |
+21 |         "e": "e",
+22 |         "e": "e",
+23 |         "e": "e",
+   |         ^^^
+24 |         "i": "i",
+25 |         "i": "i",
+   |
+help: Remove repeated key literal `"e"`
+
+F601 Dictionary key literal `"i"` repeated
+  --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:25:9
+   |
+23 |         "e": "e",
+24 |         "i": "i",
+25 |         "i": "i",
+   |         ^^^
+26 |         "i": "i",
+27 |         "i": "i",
+   |
+help: Remove repeated key literal `"i"`
+
+F601 Dictionary key literal `"i"` repeated
+  --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:26:9
+   |
+24 |         "i": "i",
+25 |         "i": "i",
+26 |         "i": "i",
+   |         ^^^
+27 |         "i": "i",
+28 |         "o": "o",
+   |
+help: Remove repeated key literal `"i"`
+
+F601 Dictionary key literal `"i"` repeated
+  --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:27:9
+   |
+25 |         "i": "i",
+26 |         "i": "i",
+27 |         "i": "i",
+   |         ^^^
+28 |         "o": "o",
+29 |         "o": "o",
+   |
+help: Remove repeated key literal `"i"`
+
+F601 Dictionary key literal `"o"` repeated
+  --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:29:9
+   |
+27 |         "i": "i",
+28 |         "o": "o",
+29 |         "o": "o",
+   |         ^^^
+30 |         "o": "o",
+31 |         "o": "o",
+   |
+help: Remove repeated key literal `"o"`
+
+F601 Dictionary key literal `"o"` repeated
+  --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:30:9
+   |
+28 |         "o": "o",
+29 |         "o": "o",
+30 |         "o": "o",
+   |         ^^^
+31 |         "o": "o",
+32 |         "o": "o",
+   |
+help: Remove repeated key literal `"o"`
+
+F601 Dictionary key literal `"o"` repeated
+  --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:31:9
+   |
+29 |         "o": "o",
+30 |         "o": "o",
+31 |         "o": "o",
+   |         ^^^
+32 |         "o": "o",
+33 |         "u": "u",
+   |
+help: Remove repeated key literal `"o"`
+
+F601 Dictionary key literal `"o"` repeated
+  --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:32:9
+   |
+30 |         "o": "o",
+31 |         "o": "o",
+32 |         "o": "o",
+   |         ^^^
+33 |         "u": "u",
+34 |         "u": "u",
+   |
+help: Remove repeated key literal `"o"`
+
+F601 Dictionary key literal `"u"` repeated
+  --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:34:9
+   |
+32 |         "o": "o",
+33 |         "u": "u",
+34 |         "u": "u",
+   |         ^^^
+35 |         "u": "u",
+36 |         "u": "u",
+   |
+help: Remove repeated key literal `"u"`
+
+F601 Dictionary key literal `"u"` repeated
+  --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:35:9
+   |
+33 |         "u": "u",
+34 |         "u": "u",
+35 |         "u": "u",
+   |         ^^^
+36 |         "u": "u",
+37 |         "c": "c",
+   |
+help: Remove repeated key literal `"u"`
+
+F601 Dictionary key literal `"u"` repeated
+  --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:36:9
+   |
+34 |         "u": "u",
+35 |         "u": "u",
+36 |         "u": "u",
+   |         ^^^
+37 |         "c": "c",
+38 |         "A": "A",
+   |
+help: Remove repeated key literal `"u"`
+
+F601 Dictionary key literal `"A"` repeated
+  --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:39:9
+   |
+37 |         "c": "c",
+38 |         "A": "A",
+39 |         "A": "A",
+   |         ^^^
+40 |         "A": "A",
+41 |         "A": "A",
+   |
+help: Remove repeated key literal `"A"`
+
+F601 Dictionary key literal `"A"` repeated
+  --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:40:9
+   |
+38 |         "A": "A",
+39 |         "A": "A",
+40 |         "A": "A",
+   |         ^^^
+41 |         "A": "A",
+42 |         "A": "A",
+   |
+help: Remove repeated key literal `"A"`
+
+F601 Dictionary key literal `"A"` repeated
+  --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:41:9
+   |
+39 |         "A": "A",
+40 |         "A": "A",
+41 |         "A": "A",
+   |         ^^^
+42 |         "A": "A",
+43 |         "E": "E",
+   |
+help: Remove repeated key literal `"A"`
+
+F601 Dictionary key literal `"A"` repeated
+  --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:42:9
+   |
+40 |         "A": "A",
+41 |         "A": "A",
+42 |         "A": "A",
+   |         ^^^
+43 |         "E": "E",
+44 |         "E": "E",
+   |
+help: Remove repeated key literal `"A"`
+
+F601 Dictionary key literal `"E"` repeated
+  --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:44:9
+   |
+42 |         "A": "A",
+43 |         "E": "E",
+44 |         "E": "E",
+   |         ^^^
+45 |         "E": "E",
+46 |         "E": "E",
+   |
+help: Remove repeated key literal `"E"`
+
+F601 Dictionary key literal `"E"` repeated
+  --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:45:9
+   |
+43 |         "E": "E",
+44 |         "E": "E",
+45 |         "E": "E",
+   |         ^^^
+46 |         "E": "E",
+47 |         "I": "I",
+   |
+help: Remove repeated key literal `"E"`
+
+F601 Dictionary key literal `"E"` repeated
+  --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:46:9
+   |
+44 |         "E": "E",
+45 |         "E": "E",
+46 |         "E": "E",
+   |         ^^^
+47 |         "I": "I",
+48 |         "I": "I",
+   |
+help: Remove repeated key literal `"E"`
+
+F601 Dictionary key literal `"I"` repeated
+  --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:48:9
+   |
+46 |         "E": "E",
+47 |         "I": "I",
+48 |         "I": "I",
+   |         ^^^
+49 |         "I": "I",
+50 |         "I": "I",
+   |
+help: Remove repeated key literal `"I"`
+
+F601 Dictionary key literal `"I"` repeated
+  --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:49:9
+   |
+47 |         "I": "I",
+48 |         "I": "I",
+49 |         "I": "I",
+   |         ^^^
+50 |         "I": "I",
+51 |         "O": "O",
+   |
+help: Remove repeated key literal `"I"`
+
+F601 Dictionary key literal `"I"` repeated
+  --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:50:9
+   |
+48 |         "I": "I",
+49 |         "I": "I",
+50 |         "I": "I",
+   |         ^^^
+51 |         "O": "O",
+52 |         "O": "O",
+   |
+help: Remove repeated key literal `"I"`
+
+F601 Dictionary key literal `"O"` repeated
+  --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:52:9
+   |
+50 |         "I": "I",
+51 |         "O": "O",
+52 |         "O": "O",
+   |         ^^^
+53 |         "O": "O",
+54 |         "O": "O",
+   |
+help: Remove repeated key literal `"O"`
+
+F601 Dictionary key literal `"O"` repeated
+  --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:53:9
+   |
+51 |         "O": "O",
+52 |         "O": "O",
+53 |         "O": "O",
+   |         ^^^
+54 |         "O": "O",
+55 |         "O": "O",
+   |
+help: Remove repeated key literal `"O"`
+
+F601 Dictionary key literal `"O"` repeated
+  --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:54:9
+   |
+52 |         "O": "O",
+53 |         "O": "O",
+54 |         "O": "O",
+   |         ^^^
+55 |         "O": "O",
+56 |         "U": "U",
+   |
+help: Remove repeated key literal `"O"`
+
+F601 Dictionary key literal `"O"` repeated
+  --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:55:9
+   |
+53 |         "O": "O",
+54 |         "O": "O",
+55 |         "O": "O",
+   |         ^^^
+56 |         "U": "U",
+57 |         "U": "U",
+   |
+help: Remove repeated key literal `"O"`
+
+F601 Dictionary key literal `"U"` repeated
+  --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:57:9
+   |
+55 |         "O": "O",
+56 |         "U": "U",
+57 |         "U": "U",
+   |         ^^^
+58 |         "U": "U",
+59 |         "U": "U",
+   |
+help: Remove repeated key literal `"U"`
+
+F601 Dictionary key literal `"U"` repeated
+  --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:58:9
+   |
+56 |         "U": "U",
+57 |         "U": "U",
+58 |         "U": "U",
+   |         ^^^
+59 |         "U": "U",
+60 |         "C": "C",
+   |
+help: Remove repeated key literal `"U"`
+
+F601 Dictionary key literal `"U"` repeated
+  --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:59:9
+   |
+57 |         "U": "U",
+58 |         "U": "U",
+59 |         "U": "U",
+   |         ^^^
+60 |         "C": "C",
+61 |         "n": "n",
+   |
+help: Remove repeated key literal `"U"`
+
+F841 Local variable `mcp_dir` is assigned to but never used
+   --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:108:5
+    |
+106 |     """Clean all Python and Markdown files in the project."""
+107 |     project_root = Path(__file__).parent.parent.parent
+108 |     mcp_dir = project_root / "DIR-MCP-FR-001-mcp-server"
+    |     ^^^^^^^
+109 |     core_dir = project_root / "DIR-CORE-FR-001-core-central"
+110 |     profiles_dir = project_root / "DIR-PRF-FR-001-profiles-main"
+    |
+help: Remove assignment to unused variable `mcp_dir`
+
+F841 Local variable `core_dir` is assigned to but never used
+   --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:109:5
+    |
+107 |     project_root = Path(__file__).parent.parent.parent
+108 |     mcp_dir = project_root / "DIR-MCP-FR-001-mcp-server"
+109 |     core_dir = project_root / "DIR-CORE-FR-001-core-central"
+    |     ^^^^^^^^
+110 |     profiles_dir = project_root / "DIR-PRF-FR-001-profiles-main"
+    |
+help: Remove assignment to unused variable `core_dir`
+
+F841 Local variable `profiles_dir` is assigned to but never used
+   --> DIR-MCP-FR-001-mcp-server\clean_utf0.py:110:5
+    |
+108 |     mcp_dir = project_root / "DIR-MCP-FR-001-mcp-server"
+109 |     core_dir = project_root / "DIR-CORE-FR-001-core-central"
+110 |     profiles_dir = project_root / "DIR-PRF-FR-001-profiles-main"
+    |     ^^^^^^^^^^^^
+111 |
+112 |     # Patterns to clean
+    |
+help: Remove assignment to unused variable `profiles_dir`
+
+Found 37 errors.
+No fixes available (37 hidden fixes can be enabled with the `--unsafe-fixes` option).
+  [OK ] DIR-MCP-FR-001-mcp-server\extract_tools.py                             compile=OK | ruff=OK
+  [OK ] DIR-MCP-FR-001-mcp-server\list_tools.py                                compile=OK | ruff=OK (auto-fixed)
+  [OK ] DIR-MCP-FR-001-mcp-server\list_tools_simple.py                         compile=OK | ruff=OK (auto-fixed)
+  [OK ] DIR-MCP-FR-001-mcp-server\NC-HUB-FR-001-mcp-hub.py                     compile=OK | ruff=OK (auto-fixed)
+  [ERR] DIR-MCP-FR-001-mcp-server\neocortex_mcp.py                             compile=OK | ruff=ERR (ap├│s fix): F401 `mcp.server.NotificationOptions` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> DIR-MCP-FR-001-mcp-server\neocortex_mcp.py:20:37
+   |
+18 | # Tentar importar FastMCP, se nao estiver disponivel, usar modo de simulacao
+19 | try:
+20 |     from mcp.server import FastMCP, NotificationOptions
+   |                                     ^^^^^^^^^^^^^^^^^^^
+21 |
+22 |     FAST_MCP_AVAILABLE = True
+   |
+help: Remove unused import: `mcp.server.NotificationOptions`
+
+B007 Loop control variable `i` not used within loop body
+   --> DIR-MCP-FR-001-mcp-server\neocortex_mcp.py:224:13
+    |
+222 |         collecting_description = False
+223 |
+224 |         for i, line in enumerate(lines):
+    |             ^
+225 |             if "##  Workflows" in line or "## Workflows" in line:
+226 |                 in_workflows_section = True
+    |
+help: Rename unused `i` to `_i`
+
+W291 Trailing whitespace
+   --> DIR-MCP-FR-001-mcp-server\neocortex_mcp.py:814:49
+    |
+812 | - **Version:** NeoCortex v4.2-Cortex
+813 | - **Active Phase:** Initial Setup
+814 | - **Last Checkpoint:** CP-INIT  Cortex generated 
+    |                                                 ^
+815 | """
+    |
+help: Remove trailing whitespace
+
+B007 Loop control variable `manifest_id` not used within loop body
+    --> DIR-MCP-FR-001-mcp-server\neocortex_mcp.py:1027:13
+     |
+1025 |         query_results = []
+1026 |
+1027 |         for manifest_id, manifest in manifests.items():
+     |             ^^^^^^^^^^^
+1028 |             # Filtro simples por tags (se metadata contem tags)
+1029 |             if metadata:
+     |
+help: Rename unused `manifest_id` to `_manifest_id`
+
+B007 Loop control variable `tool_func` not used within loop body
+    --> DIR-MCP-FR-001-mcp-server\neocortex_mcp.py:1611:24
+     |
+1609 |         print("\n=== Modo Simulacao ===")
+1610 |         print("Ferramentas disponiveis:")
+1611 |         for tool_name, tool_func in mcp.tools.items():
+     |                        ^^^^^^^^^
+1612 |             print(f"  - {tool_name}")
+     |
+help: Rename unused `tool_func` to `_tool_func`
+
+Found 5 errors.
+No fixes available (3 hidden fixes can be enabled with the `--unsafe-fixes` option).
+  [OK ] DIR-MCP-FR-001-mcp-server\test_mcp_simple.py                           compile=OK | ruff=OK (auto-fixed)
+  [OK ] DIR-MCP-FR-001-mcp-server\test_server_start.py                         compile=OK | ruff=OK (auto-fixed)
+  [ERR] DIR-MCP-FR-001-mcp-server\test_tools.py                                compile=OK | ruff=ERR (ap├│s fix): F821 Undefined name `mcp`
+  --> DIR-MCP-FR-001-mcp-server\test_tools.py:17:27
+   |
+15 | # List all tools
+16 | print("=== NeoCortex MCP Tools ===")
+17 | print(f"Total tools: {len(mcp.tools)}")
+   |                           ^^^
+18 | print()
+   |
+
+F821 Undefined name `mcp`
+  --> DIR-MCP-FR-001-mcp-server\test_tools.py:20:44
+   |
+18 | print()
+19 |
+20 | for i, (tool_name, tool_func) in enumerate(mcp.tools.items(), 1):
+   |                                            ^^^
+21 |     print(f"{i:2d}. {tool_name}")
+22 |     # Try to get docstring
+   |
+
+F821 Undefined name `mcp`
+  --> DIR-MCP-FR-001-mcp-server\test_tools.py:32:20
+   |
+30 | # Verify count
+31 | expected_tools = 16
+32 | actual_tools = len(mcp.tools)
+   |                    ^^^
+33 | if actual_tools == expected_tools:
+34 |     print(f" SUCCESS: All {expected_tools} tools implemented!")
+   |
+
+Found 3 errors.
+  [ERR] DIR-MCP-FR-001-mcp-server\test_tools_simple.py                         compile=OK | ruff=ERR (ap├│s fix): B007 Loop control variable `action` not used within loop body
+  --> DIR-MCP-FR-001-mcp-server\test_tools_simple.py:59:24
+   |
+57 |         ]
+58 |
+59 |         for func_name, action in test_functions:
+   |                        ^^^^^^
+60 |             if hasattr(mcp_module, func_name):
+61 |                 print(f" {func_name} found")
+   |
+help: Rename unused `action` to `_action`
+
+Found 1 error.
+No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).
+  [ERR] DIR-PRF-FR-001-profiles-main\NC-PRF-FR-003-profile-loader.py           compile=OK | ruff=ERR (ap├│s fix): F841 Local variable `psychological_profile` is assigned to but never used
+  --> DIR-PRF-FR-001-profiles-main\NC-PRF-FR-003-profile-loader.py:84:5
+   |
+82 |     linguistic_fingerprint = lucas_data.get("linguistic_fingerprint", {})
+83 |     operating_principles = lucas_data.get("operating_principles", {})
+84 |     psychological_profile = lucas_data.get("psychological_profile", {})
+   |     ^^^^^^^^^^^^^^^^^^^^^
+85 |
+86 |     # Construir perfil NeoCortex
+   |
+help: Remove assignment to unused variable `psychological_profile`
+
+W293 Blank line contains whitespace
+   --> DIR-PRF-FR-001-profiles-main\NC-PRF-FR-003-profile-loader.py:424:1
+    |
+422 |     --input "C:/Users/Lucas Valerio/Desktop/JSON LUCAS/Lucas.json" \\
+423 |     --output "users/lucas_valerio/profile.json"
+424 |   
+    | ^^
+425 |   # Criar novo perfil a partir do template
+426 |   python NC-PRF-FR-003-profile-loader.py create \\
+    |
+help: Remove whitespace from blank line
+
+W293 Blank line contains whitespace
+   --> DIR-PRF-FR-001-profiles-main\NC-PRF-FR-003-profile-loader.py:429:1
+    |
+427 |     --user_id "novo_usuario" \\
+428 |     --display_name "Novo Usuario"
+429 |   
+    | ^^
+430 |   # Verificar acesso entre perfis
+431 |   python NC-PRF-FR-003-profile-loader.py check-access \\
+    |
+help: Remove whitespace from blank line
+
+Found 3 errors.
+No fixes available (3 hidden fixes can be enabled with the `--unsafe-fixes` option).
+  [ERR] DIR-PRF-FR-001-profiles-main\profile_manager.py                        compile=OK | ruff=ERR (ap├│s fix): B904 Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling
+  --> DIR-PRF-FR-001-profiles-main\profile_manager.py:34:9
+   |
+32 |             return json.load(f)
+33 |     except FileNotFoundError:
+34 |         raise FileNotFoundError(f"Arquivo n├â┬úo encontrado: {filepath}")
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+35 |     except json.JSONDecodeError as e:
+36 |         raise ValueError(f"Erro ao decodificar JSON em {filepath}: {e}")
+   |
+
+B904 Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling
+  --> DIR-PRF-FR-001-profiles-main\profile_manager.py:36:9
+   |
+34 |         raise FileNotFoundError(f"Arquivo n├â┬úo encontrado: {filepath}")
+35 |     except json.JSONDecodeError as e:
+36 |         raise ValueError(f"Erro ao decodificar JSON em {filepath}: {e}")
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+
+F841 Local variable `user_level` is assigned to but never used
+   --> DIR-PRF-FR-001-profiles-main\profile_manager.py:346:9
+    |
+344 |     try:
+345 |         profile = load_profile(user_id)
+346 |         user_level = profile["hierarchy"]["level"]
+    |         ^^^^^^^^^^
+347 |
+348 |         # Regra simplificada: pode acessar usu├â┬írios do mesmo n├â┬¡vel ou inferiores
+    |
+help: Remove assignment to unused variable `user_level`
+
+Found 3 errors.
+No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).
+  [OK ] DIR-TEST-FR-001-tests-main\fire_test.py                                compile=OK | ruff=OK (auto-fixed)
+  [OK ] DIR-TEST-FR-001-tests-main\test_config_reload.py                       compile=OK | ruff=OK
+  [OK ] DIR-TEST-FR-001-tests-main\test_mcp_responsive.py                      compile=OK | ruff=OK (auto-fixed)
+  [OK ] DIR-TEST-FR-001-tests-main\test_modular_server.py                      compile=OK | ruff=OK (auto-fixed)
+  [ERR] DIR-TEST-FR-001-tests-main\test_sanity.py                              compile=OK | ruff=ERR (ap├│s fix): E712 Avoid equality comparisons to `True`; use `store.validate_tables():` for truth checks
+   --> DIR-TEST-FR-001-tests-main\test_sanity.py:237:12
+    |
+236 |     # Test 2: Validate tables
+237 |     assert store.validate_tables() == True
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+238 |
+239 |     # Test 3: Insert sample metrics
+    |
+help: Replace with `store.validate_tables()`
+
+E712 Avoid equality comparisons to `True`; use `success:` for truth checks
+   --> DIR-TEST-FR-001-tests-main\test_sanity.py:247:12
+    |
+245 |         metadata={"test_run": "sanity_check"},
+246 |     )
+247 |     assert success == True
+    |            ^^^^^^^^^^^^^^^
+248 |
+249 |     # Test 4: Record sample token usage
+    |
+help: Replace with `success`
+
+E712 Avoid equality comparisons to `True`; use `success:` for truth checks
+   --> DIR-TEST-FR-001-tests-main\test_sanity.py:259:12
+    |
+257 |         total_tokens=115,
+258 |     )
+259 |     assert success == True
+    |            ^^^^^^^^^^^^^^^
+260 |
+261 |     # Test 5: Record agent activity
+    |
+help: Replace with `success`
+
+E712 Avoid equality comparisons to `True`; use `success:` for truth checks
+   --> DIR-TEST-FR-001-tests-main\test_sanity.py:267:12
+    |
+265 |         details={"task_id": "test-123", "success": True},
+266 |     )
+267 |     assert success == True
+    |            ^^^^^^^^^^^^^^^
+268 |
+269 |     # Test 6: Record pulse health
+    |
+help: Replace with `success`
+
+E712 Avoid equality comparisons to `True`; use `success:` for truth checks
+   --> DIR-TEST-FR-001-tests-main\test_sanity.py:276:12
+    |
+274 |         details={"test": "completed"},
+275 |     )
+276 |     assert success == True
+    |            ^^^^^^^^^^^^^^^
+277 |
+278 |     # Test 7: Get stats
+    |
+help: Replace with `success`
+
+Found 5 errors.
+No fixes available (5 hidden fixes can be enabled with the `--unsafe-fixes` option).
+  [OK ] DIR-TEST-FR-001-tests-main\test_task.py                                compile=OK | ruff=OK (auto-fixed)
+  [OK ] DIR-TEST-FR-001-tests-main\test_tools.py                               compile=OK | ruff=OK (auto-fixed)
+  [OK ] DIR-TMP-FR-001-templates-main\NC-TOOL-FR-TEMPLATE\hooks\NC-HK-EXAMPLE.py compile=OK | ruff=OK (auto-fixed)
+  [OK ] DIR-TMP-FR-001-templates-main\NC-TOOL-FR-TEMPLATE\tests\test_example.py compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\__init__.py                                                  compile=OK | ruff=OK
+  [OK ] neocortex\agent\executor.py                                            compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\cli\__init__.py                                              compile=OK | ruff=OK
+  [OK ] neocortex\cli\main.py                                                  compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\config.py                                                    compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\core\__init__.py                                             compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\core\agent_service.py                                        compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\core\akl_service.py                                          compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\core\benchmark_service.py                                    compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\core\checkpoint_service.py                                   compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\core\config\NC-CFG-FR-002-feature-flags.py                   compile=OK | ruff=OK
+  [OK ] neocortex\core\config\NC-CFG-FR-004-project-loader.py                  compile=OK | ruff=OK
+  [OK ] neocortex\core\config_service.py                                       compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\core\consolidation_service.py                                compile=OK | ruff=OK (auto-fixed)
+  [ERR] neocortex\core\cortex_service.py                                       compile=OK | ruff=ERR (ap├│s fix): C416 Unnecessary list comprehension (rewrite using `list()`)
+   --> neocortex\core\cortex_service.py:186:23
+    |
+185 |         if case_sensitive:
+186 |             matches = [match for match in re.finditer(re.escape(query), content)]
+    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+187 |         else:
+188 |             matches = [
+    |
+help: Rewrite using `list()`
+
+C416 Unnecessary list comprehension (rewrite using `list()`)
+   --> neocortex\core\cortex_service.py:188:23
+    |
+186 |               matches = [match for match in re.finditer(re.escape(query), content)]
+187 |           else:
+188 |               matches = [
+    |  _______________________^
+189 | |                 match for match in re.finditer(re.escape(query), content, re.IGNORECASE)
+190 | |             ]
+    | |_____________^
+191 |
+192 |           results = []
+    |
+help: Rewrite using `list()`
+
+Found 2 errors.
+No fixes available (2 hidden fixes can be enabled with the `--unsafe-fixes` option).
+  [ERR] neocortex\core\export_service.py                                       compile=OK | ruff=ERR (ap├│s fix): F841 Local variable `lines` is assigned to but never used
+   --> neocortex\core\export_service.py:458:13
+    |
+456 |         if cortex_content:
+457 |             # Look for patterns in cortex
+458 |             lines = cortex_content.split("\n")
+    |             ^^^^^
+459 |
+460 |             # Add cortex node
+    |
+help: Remove assignment to unused variable `lines`
+
+Found 1 error.
+No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).
+  [OK ] neocortex\core\file_utils.py                                           compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\core\hooks\NC-HK-FR-001-hook-registry.py                     compile=OK | ruff=OK
+  [OK ] neocortex\core\hooks\NC-HK-FR-002-example-hook.py                      compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\core\init_service.py                                         compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\core\kg_service.py                                           compile=OK | ruff=OK (auto-fixed)
+  [ERR] neocortex\core\ledger_service.py                                       compile=OK | ruff=ERR (ap├│s fix): F841 Local variable `max_tokens` is assigned to but never used
+   --> neocortex\core\ledger_service.py:306:9
+    |
+304 |         # Check for token budget warnings
+305 |         constraints = ledger.get("system_constraints", {})
+306 |         max_tokens = constraints.get("max_json_size_tokens", 8000)
+    |         ^^^^^^^^^^
+307 |         warning_threshold = constraints.get("warning_threshold_tokens", 6000)
+    |
+help: Remove assignment to unused variable `max_tokens`
+
+Found 1 error.
+No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).
+  [OK ] neocortex\core\lobe_service.py                                         compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\core\logging_config.py                                       compile=OK | ruff=OK (auto-fixed)
+  [ERR] neocortex\core\manifest_service.py                                     compile=OK | ruff=ERR (ap├│s fix): B007 Loop control variable `manifest_id` not used within loop body
+   --> neocortex\core\manifest_service.py:271:13
+    |
+270 |         results = []
+271 |         for manifest_id, manifest in manifests.items():
+    |             ^^^^^^^^^^^
+272 |             # Apply filters
+273 |             matches = True
+    |
+help: Rename unused `manifest_id` to `_manifest_id`
+
+Found 1 error.
+No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).
+  [OK ] neocortex\core\NC-CFG-FR-001-logging-config.py                         compile=OK | ruff=OK (auto-fixed)
+  [ERR] neocortex\core\NC-CORE-FR-014-lock-guard.py                            compile=OK | ruff=ERR (ap├│s fix): W293 Blank line contains whitespace
+  --> neocortex\core\NC-CORE-FR-014-lock-guard.py:39:1
+   |
+37 |     Path-based atomic lock enforcer.
+38 |     Reads NC-SEC-FR-001-atomic-locks.yaml and blocks writes to protected paths.
+39 |     
+   | ^^^^
+40 |     SEC-401: This replaces the broken SecurityService fallback (access_granted=True).
+41 |     DENY BY DEFAULT ├óÔé¼ÔÇØ if locks YAML is missing, ALL writes are blocked.
+   |
+help: Remove whitespace from blank line
+
+C416 Unnecessary list comprehension (rewrite using `list()`)
+   --> neocortex\core\NC-CORE-FR-014-lock-guard.py:220:29
+    |
+218 |         yaml_ok = self._locks_yaml.exists()
+219 |         failsafe = any(lg["group"] in ("FAILSAFE", "PARSE_ERROR") for lg in self._locked_patterns)
+220 |         recent_violations = [v for v in self._violation_log[-20:]]
+    |                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+221 |         age_seconds = round(time.monotonic() - self._last_load_time, 1)
+    |
+help: Rewrite using `list()`
+
+Found 2 errors.
+No fixes available (2 hidden fixes can be enabled with the `--unsafe-fixes` option).
+  [OK ] neocortex\core\NC-CORE-FR-017-policy-loader.py                         compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\core\NC-CORE-FR-022-save-point-service.py                    compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\core\peers_service.py                                        compile=OK | ruff=OK (auto-fixed)
+  [ERR] neocortex\core\profile_manager.py                                      compile=OK | ruff=ERR (ap├│s fix): B904 Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling
+  --> neocortex\core\profile_manager.py:37:9
+   |
+35 |             return json.load(f)
+36 |     except FileNotFoundError:
+37 |         raise FileNotFoundError(f"Arquivo n├â┬úo encontrado: {filepath}")
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+38 |     except json.JSONDecodeError as e:
+39 |         raise ValueError(f"Erro ao decodificar JSON em {filepath}: {e}")
+   |
+
+B904 Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling
+  --> neocortex\core\profile_manager.py:39:9
+   |
+37 |         raise FileNotFoundError(f"Arquivo n├â┬úo encontrado: {filepath}")
+38 |     except json.JSONDecodeError as e:
+39 |         raise ValueError(f"Erro ao decodificar JSON em {filepath}: {e}")
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+
+F841 Local variable `user_level` is assigned to but never used
+   --> neocortex\core\profile_manager.py:349:9
+    |
+347 |     try:
+348 |         profile = load_profile(user_id)
+349 |         user_level = profile["hierarchy"]["level"]
+    |         ^^^^^^^^^^
+350 |
+351 |         # Regra simplificada: pode acessar usu├â┬írios do mesmo n├â┬¡vel ou inferiores
+    |
+help: Remove assignment to unused variable `user_level`
+
+Found 3 errors.
+No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).
+  [OK ] neocortex\core\profile_service.py                                      compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\core\pulse_scheduler.py                                      compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\core\regression_service.py                                   compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\core\review\__init__.py                                      compile=OK | ruff=OK
+  [OK ] neocortex\core\review\NC-REV-FR-001-confidence-review.py               compile=OK | ruff=OK
+  [OK ] neocortex\core\review\validators\__init__.py                           compile=OK | ruff=OK
+  [OK ] neocortex\core\review\validators\NC-VAL-FR-001-naming-validator.py     compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\core\review\validators\NC-VAL-FR-002-compile-validator.py    compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\core\review\validators\NC-VAL-FR-003-locks-validator.py      compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\core\security_service.py                                     compile=OK | ruff=OK (auto-fixed)
+  [ERR] neocortex\core\services\NC-SVC-FR-001-logging-service.py               compile=OK | ruff=ERR (ap├│s fix): B007 Loop control variable `logger_name` not used within loop body
+   --> neocortex\core\services\NC-SVC-FR-001-logging-service.py:127:13
+    |
+125 |             backup_count: Number of backup files to keep
+126 |         """
+127 |         for logger_name, logger in cls._loggers.items():
+    |             ^^^^^^^^^^^
+128 |             for handler in logger.handlers:
+129 |                 if isinstance(handler, logging.handlers.RotatingFileHandler):
+    |
+help: Rename unused `logger_name` to `_logger_name`
+
+Found 1 error.
+No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).
+  [OK ] neocortex\core\services\NC-SVC-FR-002-health-service.py                compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\core\services\NC-SVC-FR-003-savepoint-stub.py                compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\core\services\NC-SVC-FR-004-cache-service.py                 compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\core\services\NC-SVC-FR-005-event-bus.py                     compile=OK | ruff=OK (auto-fixed)
+  [ERR] neocortex\core\services\NC-SVC-FR-006-metrics-collector.py             compile=OK | ruff=ERR (ap├│s fix): B018 Found useless expression. Either assign it to a variable or remove it.
+  --> neocortex\core\services\NC-SVC-FR-006-metrics-collector.py:93:9
+   |
+91 |     @property
+92 |     def _neocortex_event_class(self):
+93 |         self._event_bus  # ensure module loaded
+   |         ^^^^^^^^^^^^^^^
+94 |         return self._event_bus_module.NeoCortexEvent
+   |
+
+C401 Unnecessary generator (rewrite as a set comprehension)
+   --> neocortex\core\services\NC-SVC-FR-006-metrics-collector.py:258:17
+    |
+256 |           sessions = (
+257 |               len(
+258 | /                 set(
+259 | |                     datetime.fromisoformat(u.get("timestamp", "")).strftime(
+260 | |                         "%Y-%m-%d %H"
+261 | |                     )
+262 | |                     for u in token_usage
+263 | |                     if u.get("timestamp")
+264 | |                 )
+    | |_________________^
+265 |               )
+266 |               or 1
+    |
+help: Rewrite as a set comprehension
+
+Found 2 errors.
+No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).
+  [ERR] neocortex\core\services\NC-SVC-FR-007-state-machine.py                 compile=OK | ruff=ERR (ap├│s fix): B018 Found useless expression. Either assign it to a variable or remove it.
+  --> neocortex\core\services\NC-SVC-FR-007-state-machine.py:94:9
+   |
+92 |     @property
+93 |     def _neocortex_event_class(self):
+94 |         self._event_bus  # ensure module loaded
+   |         ^^^^^^^^^^^^^^^
+95 |         return self._event_bus_module.NeoCortexEvent
+   |
+
+Found 1 error.
+  [OK ] neocortex\core\services\NC-SVC-FR-008-config-validator.py              compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\core\services\NC-SVC-FR-009-session-buddy.py                 compile=OK | ruff=OK
+  [ERR] neocortex\core\services\NC-SVC-FR-010-kairos-service.py                compile=OK | ruff=ERR (ap├│s fix): B007 Loop control variable `task_id` not used within loop body
+   --> neocortex\core\services\NC-SVC-FR-010-kairos-service.py:202:17
+    |
+200 |             self._tick_thread.join(timeout=5)
+201 |         with self._lock:
+202 |             for task_id, task in list(self._tasks.items()):
+    |                 ^^^^^^^
+203 |                 if task["timer"]:
+204 |                     task["timer"].cancel()
+    |
+help: Rename unused `task_id` to `_task_id`
+
+Found 1 error.
+No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).
+  [OK ] neocortex\core\services\NC-SVC-FR-011-ttl-manager.py                   compile=OK | ruff=OK
+  [OK ] neocortex\core\services\NC-SVC-FR-012-channel-notifier.py              compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\core\utils\__init__.py                                       compile=OK | ruff=OK
+  [OK ] neocortex\core\utils\NC-UTL-FR-001-yaml-safe-parser.py                 compile=OK | ruff=OK (auto-fixed)
+  [ERR] neocortex\core\utils\NC-UTL-FR-002-hash-utils.py                       compile=OK | ruff=ERR (ap├│s fix): W291 Trailing whitespace
+ --> neocortex\core\utils\NC-UTL-FR-002-hash-utils.py:4:57
+  |
+2 | NC-UTL-FR-002-hash-utils.py
+3 | Hash utilities for NeoCortex framework.
+4 | Provides SHA-256 and SHA-512 helpers for file integrity, 
+  |                                                         ^
+5 | ticket hashing, and handoff checksums.
+6 | """
+  |
+help: Remove trailing whitespace
+
+Found 1 error.
+No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).
+  [OK ] neocortex\core\utils\NC-UTL-FR-003-path-resolver.py                    compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\core\utils\NC-UTL-FR-004-id-validator.py                     compile=OK | ruff=OK
+  [OK ] neocortex\infra\backup_restore.py                                      compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\infra\cache_backend.py                                       compile=OK | ruff=OK (auto-fixed)
+  [ERR] neocortex\infra\config_validation.py                                   compile=OK | ruff=ERR (ap├│s fix): F821 Undefined name `datetime`
+  --> neocortex\infra\config_validation.py:42:52
+   |
+40 |     suggestion: Optional[str] = None
+41 |     rule_id: Optional[str] = None
+42 |     timestamp: str = field(default_factory=lambda: datetime.now().isoformat())
+   |                                                    ^^^^^^^^
+   |
+
+B007 Loop control variable `description` not used within loop body
+   --> neocortex\infra\config_validation.py:298:23
+    |
+296 |                 )
+297 |
+298 |         for var_name, description in optional_vars:
+    |                       ^^^^^^^^^^^
+299 |             if var_name in os.environ:
+300 |                 value = os.environ[var_name]
+    |
+help: Rename unused `description` to `_description`
+
+Found 2 errors.
+  [OK ] neocortex\infra\health_metrics.py                                      compile=OK | ruff=OK (auto-fixed)
+  [ERR] neocortex\infra\hot_cache.py                                           compile=OK | ruff=ERR (ap├│s fix): E722 Do not use bare `except`
+   --> neocortex\infra\hot_cache.py:157:17
+    |
+155 |                 try:
+156 |                     return json.loads(decoded)
+157 |                 except:
+    |                 ^^^^^^
+158 |                     pass
+159 |         except:
+    |
+
+E722 Do not use bare `except`
+   --> neocortex\infra\hot_cache.py:159:9
+    |
+157 |                 except:
+158 |                     pass
+159 |         except:
+    |         ^^^^^^
+160 |             pass
+    |
+
+B904 Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling
+   --> neocortex\infra\hot_cache.py:167:13
+    |
+165 |         except Exception as e:
+166 |             logger.error(f"Deserialization failed: {e}")
+167 |             raise ValueError(f"Failed to deserialize cache value: {e}")
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+168 |
+169 |     def _make_key(self, key: str) -> str:
+    |
+
+E712 Avoid equality comparisons to `True`; use `use_memory_cache:` for truth checks
+   --> neocortex\infra\hot_cache.py:497:8
+    |
+495 |     if default_ttl == 300:
+496 |         default_ttl = config.hot_cache_default_ttl
+497 |     if use_memory_cache == True:
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^
+498 |         use_memory_cache = config.hot_cache_use_memory
+    |
+help: Replace with `use_memory_cache`
+
+Found 4 errors.
+No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).
+  [OK ] neocortex\infra\ledger_store.py                                        compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\infra\llm\backend.py                                         compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\infra\llm\deepseek_backend.py                                compile=OK | ruff=OK (auto-fixed)
+  [ERR] neocortex\infra\llm\factory.py                                         compile=OK | ruff=ERR (ap├│s fix): B007 Loop control variable `key` not used within loop body
+   --> neocortex\infra\llm\factory.py:222:13
+    |
+220 |         }
+221 |
+222 |         for key, instance in cls._instances.items():
+    |             ^^^
+223 |             provider = instance.provider.value
+224 |             stats["instances_by_provider"][provider] = (
+    |
+help: Rename unused `key` to `_key`
+
+Found 1 error.
+No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).
+  [OK ] neocortex\infra\llm\ollama_backend.py                                  compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\infra\llm\openai_backend.py                                  compile=OK | ruff=OK (auto-fixed)
+  [ERR] neocortex\infra\lobe_index.py                                          compile=OK | ruff=ERR (ap├│s fix): W291 Trailing whitespace
+   --> neocortex\infra\lobe_index.py:175:49
+    |
+173 |             conn.execute(
+174 |                 """
+175 |             INSERT OR REPLACE INTO lobe_metadata 
+    |                                                 ^
+176 |             (lobe_id, lobe_name, module, status, tags, checkpoints, file_path, 
+177 |              file_size, line_count, word_count, updated_at, last_indexed_at)
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\lobe_index.py:176:79
+    |
+174 |                 """
+175 |             INSERT OR REPLACE INTO lobe_metadata 
+176 |             (lobe_id, lobe_name, module, status, tags, checkpoints, file_path, 
+    |                                                                               ^
+177 |              file_size, line_count, word_count, updated_at, last_indexed_at)
+178 |             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\lobe_index.py:274:23
+    |
+272 |                 # Use FTS5 ranking
+273 |                 sql = f"""
+274 |                 SELECT 
+    |                       ^
+275 |                     lobe_metadata.*,
+276 |                     lobe_fts.content,
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\lobe_index.py:288:23
+    |
+286 |                 # Simple search without ranking
+287 |                 sql = f"""
+288 |                 SELECT 
+    |                       ^
+289 |                     lobe_metadata.*,
+290 |                     lobe_fts.content,
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\lobe_index.py:334:19
+    |
+332 |             cursor = conn.execute(
+333 |                 """
+334 |             SELECT 
+    |                   ^
+335 |                 lobe_metadata.*,
+336 |                 lobe_fts.content,
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\lobe_index.py:439:45
+    |
+437 |             # By module
+438 |             cursor = conn.execute("""
+439 |             SELECT module, COUNT(*) as count 
+    |                                             ^
+440 |             FROM lobe_metadata 
+441 |             WHERE module IS NOT NULL AND module != ''
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\lobe_index.py:440:31
+    |
+438 |             cursor = conn.execute("""
+439 |             SELECT module, COUNT(*) as count 
+440 |             FROM lobe_metadata 
+    |                               ^
+441 |             WHERE module IS NOT NULL AND module != ''
+442 |             GROUP BY module
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\lobe_index.py:449:45
+    |
+447 |             # By status
+448 |             cursor = conn.execute("""
+449 |             SELECT status, COUNT(*) as count 
+    |                                             ^
+450 |             FROM lobe_metadata 
+451 |             WHERE status IS NOT NULL AND status != ''
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\lobe_index.py:450:31
+    |
+448 |             cursor = conn.execute("""
+449 |             SELECT status, COUNT(*) as count 
+450 |             FROM lobe_metadata 
+    |                               ^
+451 |             WHERE status IS NOT NULL AND status != ''
+452 |             GROUP BY status
+    |
+help: Remove trailing whitespace
+
+Found 9 errors.
+No fixes available (9 hidden fixes can be enabled with the `--unsafe-fixes` option).
+  [ERR] neocortex\infra\manifest_store.py                                      compile=OK | ruff=ERR (ap├│s fix): E712 Avoid equality comparisons to `True`; use `updated["metadata"]["updated"]:` for truth checks
+   --> neocortex\infra\manifest_store.py:681:16
+    |
+679 |         assert store.update_manifest_metadata("test_lobe", {"updated": True})
+680 |         updated = store.get_manifest("test_lobe")
+681 |         assert updated["metadata"]["updated"] == True
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+682 |
+683 |         # Test add/remove tag
+    |
+help: Replace with `updated["metadata"]["updated"]`
+
+Found 1 error.
+No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).
+  [ERR] neocortex\infra\metrics_store.py                                       compile=OK | ruff=ERR (ap├│s fix): W291 Trailing whitespace
+   --> neocortex\infra\metrics_store.py:183:57
+    |
+181 |         # Create indexes
+182 |         self.conn.execute("""
+183 |         CREATE INDEX IF NOT EXISTS idx_metrics_metric_id 
+    |                                                         ^
+184 |         ON metrics(metric_id)
+185 |         """)
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\metrics_store.py:188:57
+    |
+187 |         self.conn.execute("""
+188 |         CREATE INDEX IF NOT EXISTS idx_metrics_timestamp 
+    |                                                         ^
+189 |         ON metrics(timestamp DESC)
+190 |         """)
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\metrics_store.py:193:52
+    |
+192 |         self.conn.execute("""
+193 |         CREATE INDEX IF NOT EXISTS idx_metrics_type 
+    |                                                    ^
+194 |         ON metrics(metric_type)
+195 |         """)
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\metrics_store.py:307:47
+    |
+305 |             cursor = self.conn.execute(
+306 |                 """
+307 |                 SELECT name FROM sqlite_master 
+    |                                               ^
+308 |                 WHERE type='table' AND name IN (?, ?, ?, ?, ?, ?)
+309 |             """,
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\metrics_store.py:359:32
+    |
+357 |             self.conn.execute(
+358 |                 """
+359 |             INSERT INTO metrics 
+    |                                ^
+360 |             (metric_id, metric_type, value, timestamp, tags_json, metadata_json)
+361 |             VALUES (?, ?, ?, ?, ?, ?)
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\metrics_store.py:406:42
+    |
+404 |             self.conn.execute(
+405 |                 """
+406 |             INSERT INTO daily_token_usage 
+    |                                          ^
+407 |             (date, model, agent, cache_hit, cache_miss, output_tokens, total_tokens)
+408 |             VALUES (?, ?, ?, ?, ?, ?, ?)
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\metrics_store.py:447:37
+    |
+445 |             self.conn.execute(
+446 |                 """
+447 |             INSERT INTO cost_summary 
+    |                                     ^
+448 |             (date, provider, model, cost_real, cost_saved, cost_without_cache)
+449 |             VALUES (?, ?, ?, ?, ?, ?)
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\metrics_store.py:483:39
+    |
+481 |             self.conn.execute(
+482 |                 """
+483 |             INSERT INTO agent_activity 
+    |                                       ^
+484 |             (timestamp, agent_id, action, details_json, metadata_json)
+485 |             VALUES (?, ?, ?, ?, ?)
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\metrics_store.py:514:37
+    |
+512 |             self.conn.execute(
+513 |                 """
+514 |             INSERT INTO pulse_health 
+    |                                     ^
+515 |             (timestamp, event_type, status, duration_ms, details_json)
+516 |             VALUES (?, ?, ?, ?, ?)
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\metrics_store.py:543:19
+    |
+541 |         try:
+542 |             query = """
+543 |             SELECT 
+    |                   ^
+544 |                 date,
+545 |                 model,
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\metrics_store.py:602:19
+    |
+600 |         try:
+601 |             query = """
+602 |             SELECT 
+    |                   ^
+603 |                 date,
+604 |                 provider,
+    |
+help: Remove trailing whitespace
+
+F841 Local variable `time_format` is assigned to but never used
+   --> neocortex\infra\metrics_store.py:852:17
+    |
+850 |                 group_sql = "strftime('%Y-%W', timestamp)"
+851 |             elif aggregation_type == "monthly":
+852 |                 time_format = "%Y-%m-01"
+    |                 ^^^^^^^^^^^
+853 |                 group_sql = "strftime('%Y-%m-01', timestamp)"
+854 |             else:
+    |
+help: Remove assignment to unused variable `time_format`
+
+W291 Trailing whitespace
+   --> neocortex\infra\metrics_store.py:858:19
+    |
+857 |             query = f"""
+858 |             SELECT 
+    |                   ^
+859 |                 {group_sql} as period,
+860 |                 COUNT(*) as count,
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\metrics_store.py:963:27
+    |
+961 |                     query = f"""
+962 |                     INSERT INTO metric_aggregates
+963 |                     SELECT 
+    |                           ^
+964 |                         metric_id,
+965 |                         '{agg_type}' as aggregation_type,
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\metrics_store.py:978:76
+    |
+976 |                     WHERE metric_id = ?
+977 |                     GROUP BY metric_id, {period_start}, tags_json
+978 |                     ON CONFLICT (metric_id, aggregation_type, period_start) 
+    |                                                                            ^
+979 |                     DO UPDATE SET
+980 |                         count = excluded.count,
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+    --> neocortex\infra\metrics_store.py:1012:32
+     |
+1010 |             cursor = self.conn.execute(
+1011 |                 """
+1012 |             DELETE FROM metrics 
+     |                                ^
+1013 |             WHERE timestamp < ?
+1014 |             """,
+     |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+    --> neocortex\infra\metrics_store.py:1034:19
+     |
+1032 |         try:
+1033 |             cursor = self.conn.execute("""
+1034 |             SELECT 
+     |                   ^
+1035 |                 COUNT(*) as total_metrics,
+1036 |                 COUNT(DISTINCT metric_id) as unique_metrics,
+     |
+help: Remove trailing whitespace
+
+Found 17 errors.
+No fixes available (17 hidden fixes can be enabled with the `--unsafe-fixes` option).
+  [ERR] neocortex\infra\profiler.py                                            compile=OK | ruff=ERR (ap├│s fix): F841 Local variable `results` is assigned to but never used
+   --> neocortex\infra\profiler.py:230:9
+    |
+228 |             Dictionary of operation profiles.
+229 |         """
+230 |         results = {}
+    |         ^^^^^^^
+231 |
+232 |         # Import store based on name
+    |
+help: Remove assignment to unused variable `results`
+
+W293 Blank line contains whitespace
+   --> neocortex\infra\profiler.py:601:1
+    |
+599 |                 <p>Total profiles: {report_data["total_profiles"]} | Recent (24h): {report_data["recent_profiles"]}</p>
+600 |             </div>
+601 |             
+    | ^^^^^^^^^^^^
+602 |             <div class="section">
+603 |                 <h2>Performance Summary</h2>
+    |
+help: Remove whitespace from blank line
+
+W293 Blank line contains whitespace
+   --> neocortex\infra\profiler.py:630:1
+    |
+628 |                 </table>
+629 |             </div>
+630 |             
+    | ^^^^^^^^^^^^
+631 |             <div class="section">
+632 |                 <h2>Detected Bottlenecks</h2>
+    |
+help: Remove whitespace from blank line
+
+Found 3 errors.
+No fixes available (3 hidden fixes can be enabled with the `--unsafe-fixes` option).
+  [ERR] neocortex\infra\search_engine.py                                       compile=OK | ruff=ERR (ap├│s fix): W291 Trailing whitespace
+  --> neocortex\infra\search_engine.py:86:61
+   |
+84 |         # Create FTS5 virtual table for full-text search
+85 |         self.connection.execute("""
+86 |             CREATE VIRTUAL TABLE IF NOT EXISTS documents_fts 
+   |                                                             ^
+87 |             USING fts5(
+88 |                 id UNINDEXED,
+   |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\search_engine.py:207:37
+    |
+205 |                 cursor.execute(
+206 |                     """
+207 |                     UPDATE documents 
+    |                                     ^
+208 |                     SET title = ?, content = ?, document_type = ?, source_path = ?,
+209 |                         language = ?, updated_at = CURRENT_TIMESTAMP, metadata_json = ?
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\search_engine.py:232:42
+    |
+230 |                 cursor.execute(
+231 |                     """
+232 |                     INSERT INTO documents 
+    |                                          ^
+233 |                     (id, title, content, document_type, source_path, language, metadata_json)
+234 |                     VALUES (?, ?, ?, ?, ?, ?, ?)
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\search_engine.py:250:42
+    |
+248 |             cursor.execute(
+249 |                 """
+250 |                 INSERT INTO documents_fts 
+    |                                          ^
+251 |                 (id, title, content, document_type, language)
+252 |                 VALUES (?, ?, ?, ?, ?)
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\search_engine.py:396:23
+    |
+394 |             # Execute query with ranking
+395 |             sql = f"""
+396 |                 SELECT 
+    |                       ^
+397 |                     documents.*,
+398 |                     snippet(documents_fts, 2, '<b>', '</b>', '...', 64) as snippet,
+    |
+help: Remove trailing whitespace
+
+E722 Do not use bare `except`
+   --> neocortex\infra\search_engine.py:417:21
+    |
+415 |                     try:
+416 |                         doc["metadata"] = json.loads(doc["metadata_json"])
+417 |                     except:
+    |                     ^^^^^^
+418 |                         doc["metadata"] = {}
+419 |                 else:
+    |
+
+E722 Do not use bare `except`
+   --> neocortex\infra\search_engine.py:488:25
+    |
+486 |                         try:
+487 |                             doc_dict["metadata"] = json.loads(doc_dict["metadata"])
+488 |                         except:
+    |                         ^^^^^^
+489 |                             doc_dict["metadata"] = {}
+    |
+
+W291 Trailing whitespace
+   --> neocortex\infra\search_engine.py:539:36
+    |
+537 |             cursor.execute(
+538 |                 """
+539 |                 SELECT documents.*, 
+    |                                    ^
+540 |                        GROUP_CONCAT(document_tags.tag) as tag_list
+541 |                 FROM documents
+    |
+help: Remove trailing whitespace
+
+E722 Do not use bare `except`
+   --> neocortex\infra\search_engine.py:557:17
+    |
+555 |                 try:
+556 |                     doc["metadata"] = json.loads(doc["metadata_json"])
+557 |                 except:
+    |                 ^^^^^^
+558 |                     doc["metadata"] = {}
+559 |             else:
+    |
+
+E722 Do not use bare `except`
+   --> neocortex\infra\search_engine.py:606:17
+    |
+604 |                     stats["tantivy_enabled"] = True
+605 |                     stats["tantivy_docs"] = self.tantivy_index.searcher().num_docs
+606 |                 except:
+    |                 ^^^^^^
+607 |                     stats["tantivy_enabled"] = False
+    |
+
+Found 10 errors.
+No fixes available (6 hidden fixes can be enabled with the `--unsafe-fixes` option).
+  [ERR] neocortex\infra\task_queue.py                                          compile=OK | ruff=ERR (ap├│s fix): W293 Blank line contains whitespace
+   --> neocortex\infra\task_queue.py:170:1
+    |
+168 |                 result_json TEXT,
+169 |                 metadata_json TEXT,
+170 |                 
+    | ^^^^^^^^^^^^^^^^
+171 |                 -- Indexes for common queries
+172 |                 INDEX idx_status_priority (status, priority DESC),
+    |
+help: Remove whitespace from blank line
+
+W291 Trailing whitespace
+   --> neocortex\infra\task_queue.py:278:36
+    |
+276 |                 cursor = conn.execute(
+277 |                     """
+278 |                 SELECT * FROM tasks 
+    |                                    ^
+279 |                 WHERE status = ? 
+280 |                 AND (scheduled_for IS NULL OR scheduled_for <= ?)
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\task_queue.py:279:33
+    |
+277 |                     """
+278 |                 SELECT * FROM tasks 
+279 |                 WHERE status = ? 
+    |                                 ^
+280 |                 AND (scheduled_for IS NULL OR scheduled_for <= ?)
+281 |                 AND NOT EXISTS (
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\task_queue.py:282:52
+    |
+280 |                 AND (scheduled_for IS NULL OR scheduled_for <= ?)
+281 |                 AND NOT EXISTS (
+282 |                     SELECT 1 FROM task_dependencies 
+    |                                                    ^
+283 |                     WHERE task_dependencies.task_id = tasks.id 
+284 |                     AND task_dependencies.depends_on_id IN (
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\task_queue.py:283:63
+    |
+281 |                 AND NOT EXISTS (
+282 |                     SELECT 1 FROM task_dependencies 
+283 |                     WHERE task_dependencies.task_id = tasks.id 
+    |                                                               ^
+284 |                     AND task_dependencies.depends_on_id IN (
+285 |                         SELECT id FROM tasks WHERE status != ?
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\task_queue.py:303:29
+    |
+301 |                 conn.execute(
+302 |                     """
+303 |                 UPDATE tasks 
+    |                             ^
+304 |                 SET status = ?, started_at = ?, retry_count = retry_count + 1
+305 |                 WHERE id = ?
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\task_queue.py:346:29
+    |
+344 |                 conn.execute(
+345 |                     """
+346 |                 UPDATE tasks 
+    |                             ^
+347 |                 SET status = ?, completed_at = ?, result_json = ?
+348 |                 WHERE id = ?
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\task_queue.py:398:33
+    |
+396 |                     conn.execute(
+397 |                         """
+398 |                     UPDATE tasks 
+    |                                 ^
+399 |                     SET status = ?, error_message = ?, scheduled_for = ?
+400 |                     WHERE id = ?
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\task_queue.py:413:33
+    |
+411 |                     conn.execute(
+412 |                         """
+413 |                     UPDATE tasks 
+    |                                 ^
+414 |                     SET status = ?, error_message = ?, completed_at = ?
+415 |                     WHERE id = ?
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\task_queue.py:623:23
+    |
+621 |             try:
+622 |                 cursor = conn.execute("""
+623 |                 SELECT 
+    |                       ^
+624 |                     status,
+625 |                     COUNT(*) as count,
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\task_queue.py:627:27
+    |
+625 |                     COUNT(*) as count,
+626 |                     AVG((julianday(completed_at) - julianday(started_at)) * 86400) as avg_duration_seconds
+627 |                 FROM tasks 
+    |                           ^
+628 |                 WHERE started_at IS NOT NULL
+629 |                 GROUP BY status
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\task_queue.py:646:54
+    |
+644 |                 cursor = conn.execute(
+645 |                     """
+646 |                 SELECT COUNT(*) as pending FROM tasks 
+    |                                                      ^
+647 |                 WHERE status = ?
+648 |                 """,
+    |
+help: Remove trailing whitespace
+
+W291 Trailing whitespace
+   --> neocortex\infra\task_queue.py:657:27
+    |
+655 |                     """
+656 |                 SELECT AVG((julianday('now') - julianday(created_at)) * 86400) as avg_age_seconds
+657 |                 FROM tasks 
+    |                           ^
+658 |                 WHERE status = ?
+659 |                 """,
+    |
+help: Remove trailing whitespace
+
+Found 13 errors.
+No fixes available (13 hidden fixes can be enabled with the `--unsafe-fixes` option).
+  [OK ] neocortex\infra\vector_store.py                                        compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\mcp\__init__.py                                              compile=OK | ruff=OK
+  [ERR] neocortex\mcp\server.py                                                compile=OK | ruff=ERR (ap├│s fix): F841 Local variable `ledger_service` is assigned to but never used
+  --> neocortex\mcp\server.py:89:13
+   |
+87 |             from ..core import get_ledger_service
+88 |
+89 |             ledger_service = get_ledger_service()
+   |             ^^^^^^^^^^^^^^
+90 |             # Simula├â┬º├â┬úo de pruning - em produ├â┬º├â┬úo chamaria m├â┬®todo espec├â┬¡fico
+91 |             logger.info("Pruning de contexto simulado")
+   |
+help: Remove assignment to unused variable `ledger_service`
+
+F401 `mcp.server.NotificationOptions` imported but unused; consider using `importlib.util.find_spec` to test for availability
+   --> neocortex\mcp\server.py:137:37
+    |
+135 | # Tentar importar FastMCP, se n├â┬úo estiver dispon├â┬¡vel, usar modo de simula├â┬º├â┬úo
+136 | try:
+137 |     from mcp.server import FastMCP, NotificationOptions
+    |                                     ^^^^^^^^^^^^^^^^^^^
+138 |
+139 |     FAST_MCP_AVAILABLE = True
+    |
+help: Remove unused import: `mcp.server.NotificationOptions`
+
+Found 2 errors.
+No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).
+  [ERR] neocortex\mcp\sub_server.py                                            compile=OK | ruff=ERR (ap├│s fix): F401 `neocortex.core.get_lock_guard` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> neocortex\mcp\sub_server.py:25:50
+   |
+23 | # PRE-1: Policy enforcement (R09: via neocortex.core wrapper)
+24 | try:
+25 |     from neocortex.core import get_lock_guard as _get_guard
+   |                                                  ^^^^^^^^^^
+26 |     from neocortex.core import get_policy_loader as _get_policy
+27 |     _POLICY_AVAILABLE = True
+   |
+help: Remove unused import: `neocortex.core.get_lock_guard`
+
+C401 Unnecessary generator (rewrite as a set comprehension)
+   --> neocortex\mcp\sub_server.py:116:21
+    |
+115 |     paragraphs = [p.strip() for p in content.split("\n\n") if p.strip()]
+116 |     task_keywords = set(w.lower() for w in task_description.split() if len(w) > 3)
+    |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+117 |
+118 |     scored = []
+    |
+help: Rewrite as a set comprehension
+
+F841 Local variable `tool_to_module` is assigned to but never used
+   --> neocortex\mcp\sub_server.py:380:5
+    |
+379 |     # Converter nomes de ferramentas MCP para nomes de m├â┬│dulos
+380 |     tool_to_module = {v: k for k, v in TOOL_MODULE_MAP.items()}
+    |     ^^^^^^^^^^^^^^
+381 |
+382 |     filtered = []
+    |
+help: Remove assignment to unused variable `tool_to_module`
+
+Found 3 errors.
+No fixes available (2 hidden fixes can be enabled with the `--unsafe-fixes` option).
+  [OK ] neocortex\mcp\tools\__init__.py                                        compile=OK | ruff=OK
+  [ERR] neocortex\mcp\tools\NC-TOOL-FR-000-brain.py                            compile=OK | ruff=ERR (ap├│s fix): W293 Blank line contains whitespace
+  --> neocortex\mcp\tools\NC-TOOL-FR-000-brain.py:20:1
+   |
+18 |         """
+19 |         T-0 Assistant DeepSeek Engine.
+20 |         
+   | ^^^^^^^^
+21 |         Actions:
+22 |         - think: Send prompt and context to DeepSeek, retrieve rationalized plan.
+   |
+help: Remove whitespace from blank line
+
+F841 Local variable `api_key` is assigned to but never used
+  --> neocortex\mcp\tools\NC-TOOL-FR-000-brain.py:33:13
+   |
+31 |             api_key = config.get("api_keys", {}).get("deepseek", "MISSING_KEY")
+32 |         except Exception:
+33 |             api_key = "MISSING_KEY_FALLBACK"
+   |             ^^^^^^^
+34 |
+35 |         if action == "think":
+   |
+help: Remove assignment to unused variable `api_key`
+
+Found 2 errors.
+No fixes available (2 hidden fixes can be enabled with the `--unsafe-fixes` option).
+  [OK ] neocortex\mcp\tools\NC-TOOL-FR-001-cortex.py                           compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\mcp\tools\NC-TOOL-FR-002-agent.py                            compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\mcp\tools\NC-TOOL-FR-003-benchmark.py                        compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\mcp\tools\NC-TOOL-FR-004-checkpoint.py                       compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\mcp\tools\NC-TOOL-FR-005-config.py                           compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\mcp\tools\NC-TOOL-FR-006-export.py                           compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\mcp\tools\NC-TOOL-FR-007-init.py                             compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\mcp\tools\NC-TOOL-FR-008-ledger.py                           compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\mcp\tools\NC-TOOL-FR-009-lobes.py                            compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\mcp\tools\NC-TOOL-FR-010-peers.py                            compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\mcp\tools\NC-TOOL-FR-011-pulse.py                            compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\mcp\tools\NC-TOOL-FR-012-regression.py                       compile=OK | ruff=OK (auto-fixed)
+  [ERR] neocortex\mcp\tools\NC-TOOL-FR-013-report.py                           compile=OK | ruff=ERR (ap├│s fix): F841 Local variable `pulse_failure` is assigned to but never used
+  --> neocortex\mcp\tools\NC-TOOL-FR-013-report.py:94:9
+   |
+92 |             1 for event in pulse_health if event.get("status") == "success"
+93 |         )
+94 |         pulse_failure = sum(
+   |         ^^^^^^^^^^^^^
+95 |             1 for event in pulse_health if event.get("status") == "failure"
+96 |         )
+   |
+help: Remove assignment to unused variable `pulse_failure`
+
+Found 1 error.
+No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).
+  [OK ] neocortex\mcp\tools\NC-TOOL-FR-014-search.py                           compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\mcp\tools\NC-TOOL-FR-015-security.py                         compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\mcp\tools\NC-TOOL-FR-016-subserver.py                        compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\mcp\tools\NC-TOOL-FR-017-task.py                             compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\mcp\tools\NC-TOOL-FR-019-project-manifest.py                 compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\mcp\tools\NC-TOOL-FR-020-categories.py                       compile=OK | ruff=OK (auto-fixed)
+  [ERR] neocortex\mcp\tools\NC-TOOL-FR-020-knowledge.py                        compile=OK | ruff=ERR (ap├│s fix): F811 Redefinition of unused `register_tool` from line 13
+  --> neocortex\mcp\tools\NC-TOOL-FR-020-knowledge.py:64:5
+   |
+64 | def register_tool(mcp):
+   |     ^^^^^^^^^^^^^ `register_tool` redefined here
+65 |     """
+66 |     Registra a ferramenta neocortex_consolidation no servidor MCP.
+   |
+  ::: neocortex\mcp\tools\NC-TOOL-FR-020-knowledge.py:13:5
+   |
+13 | def register_tool(mcp):
+   |     ------------- previous definition of `register_tool` here
+14 |     """
+15 |     Registra a ferramenta neocortex_akl no servidor MCP.
+   |
+help: Remove definition: `register_tool`
+
+F811 Redefinition of unused `register_tool` from line 64
+   --> neocortex\mcp\tools\NC-TOOL-FR-020-knowledge.py:109:5
+    |
+109 | def register_tool(mcp):
+    |     ^^^^^^^^^^^^^ `register_tool` redefined here
+110 |     """
+111 |     Registra a ferramenta neocortex_kg no servidor MCP.
+    |
+   ::: neocortex\mcp\tools\NC-TOOL-FR-020-knowledge.py:64:5
+    |
+ 64 | def register_tool(mcp):
+    |     ------------- previous definition of `register_tool` here
+ 65 |     """
+ 66 |     Registra a ferramenta neocortex_consolidation no servidor MCP.
+    |
+help: Remove definition: `register_tool`
+
+F811 Redefinition of unused `register_tool` from line 109
+   --> neocortex\mcp\tools\NC-TOOL-FR-020-knowledge.py:161:5
+    |
+161 | def register_tool(mcp):
+    |     ^^^^^^^^^^^^^ `register_tool` redefined here
+162 |     """
+163 |     Register neocortex_manifest tool on MCP server.
+    |
+   ::: neocortex\mcp\tools\NC-TOOL-FR-020-knowledge.py:109:5
+    |
+109 | def register_tool(mcp):
+    |     ------------- previous definition of `register_tool` here
+110 |     """
+111 |     Registra a ferramenta neocortex_kg no servidor MCP.
+    |
+help: Remove definition: `register_tool`
+
+Exception in thread Thread-853 (_readerthread):
+Traceback (most recent call last):
+  File "C:\Program Files\Python312\Lib\threading.py", line 1075, in _bootstrap_inner
+    self.run()
+  File "C:\Program Files\Python312\Lib\threading.py", line 1012, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\Program Files\Python312\Lib\subprocess.py", line 1599, in _readerthread
+    buffer.append(fh.read())
+                  ^^^^^^^^^
+  File "C:\Program Files\Python312\Lib\encodings\cp1252.py", line 23, in decode
+    return codecs.charmap_decode(input,self.errors,decoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeDecodeError: 'charmap' codec can't decode byte 0x8f in position 2359: character maps to <undefined>
+Found 3 errors.
+  [OK ] neocortex\mcp\tools\NC-TOOL-FR-021-memory.py                           compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\mcp\tools\NC-TOOL-FR-022-session.py                          compile=OK | ruff=OK
+  [OK ] neocortex\mcp\tools\NC-TOOL-FR-023-orchestration.py                    compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\mcp\tools\NC-TOOL-FR-024-governance.py                       compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\mcp\tools\NC-TOOL-FR-025-system.py                           compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\mcp\tools\NC-TOOL-FR-026-intelligence.py                     compile=OK | ruff=OK (auto-fixed)
+  [ERR] neocortex\mcp\tools\NC-TOOL-FR-027-knowledge.py                        compile=OK | ruff=ERR (ap├│s fix): W293 Blank line contains whitespace
+   --> neocortex\mcp\tools\NC-TOOL-FR-027-knowledge.py:196:1
+    |
+194 |                 base_path = Path(cfg.base_path) if cfg else Path(".")
+195 |                 boot_context = f"""# NeoCortex Boot Context [2026-04-12]
+196 |                 
+    | ^^^^^^^^^^^^^^^^
+197 | ## Estrutura do Projeto
+198 | - Framework: {base_path.name}
+    |
+help: Remove whitespace from blank line
+
+Found 1 error.
+No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).
+  [OK ] neocortex\mcp\tools\NC-TOOL-FR-028-export.py                           compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\mcp\tools\NC-TOOL-FR-029-health.py                           compile=OK | ruff=OK (auto-fixed)
+  [ERR] neocortex\mcp\tools\NC-TOOL-FR-030-context.py                          compile=OK | ruff=ERR (ap├│s fix): F841 Local variable `cfg` is assigned to but never used
+   --> neocortex\mcp\tools\NC-TOOL-FR-030-context.py:231:13
+    |
+229 | ├óÔé¼┬ª     # ├óÔÇØÔé¼├óÔÇØÔé¼ session.handoff ├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼├óÔÇØÔé¼
+230 | ├óÔé¼┬ª     elif action == "session.handoff":
+231 | ├óÔé¼┬ª         cfg = _config()
+    |           ^^^
+232 | ├óÔé¼┬ª         handoff = {
+233 | ├óÔé¼┬ª             "type": "neocortex_session_handoff",
+    |
+help: Remove assignment to unused variable `cfg`
+
+Found 1 error.
+No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).
+  [OK ] neocortex\mcp\tools\NC-TOOL-FR-031-savepoint.py                        compile=OK | ruff=OK
+  [OK ] neocortex\mcp\tools\NC-TOOL-FR-032-push-notification.py                compile=OK | ruff=OK
+  [OK ] neocortex\repositories\__init__.py                                     compile=OK | ruff=OK (auto-fixed)
+  [OK ] neocortex\repositories\base.py                                         compile=OK | ruff=OK (auto-fixed)
+  [ERR] neocortex\repositories\file_system_repository.py                       compile=OK | ruff=ERR (ap├│s fix): B007 Loop control variable `i` not used within loop body
+  --> neocortex\repositories\file_system_repository.py:77:13
+   |
+75 |         separator_found = False
+76 |
+77 |         for i, line in enumerate(lines):
+   |             ^
+78 |             line_stripped = line.strip()
+   |
+help: Rename unused `i` to `_i`
+
+Found 1 error.
+No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).
+  [ERR] neocortex\schemas\__init__.py                                          compile=OK | ruff=ERR (ap├│s fix): B904 Within an `except` clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling
+  --> neocortex\schemas\__init__.py:22:9
+   |
+20 |             return json.load(f)
+21 |     except (FileNotFoundError, json.JSONDecodeError) as e:
+22 |         raise ValueError(f"Failed to load schema from {schema_path}: {e}")
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+
+Found 1 error.
+  [OK ] scripts\analyze_mcp_tools.py                                           compile=OK | ruff=OK (auto-fixed)
+  [OK ] scripts\approve_handoffs.py                                            compile=OK | ruff=OK (auto-fixed)
+  [OK ] scripts\batch_approve.py                                               compile=OK | ruff=OK (auto-fixed)
+  [OK ] scripts\create_lobes.py                                                compile=OK | ruff=OK (auto-fixed)
+  [OK ] scripts\exhaustive_population.py                                       compile=OK | ruff=OK (auto-fixed)
+  [OK ] scripts\extract_tools_final.py                                         compile=OK | ruff=OK (auto-fixed)
+  [OK ] scripts\extract_tools_robust.py                                        compile=OK | ruff=OK (auto-fixed)
+  [ERR] scripts\fix_approve_022_023.py                                         compile=OK | ruff=ERR (ap├│s fix): E701 Multiple statements on one line (colon)
+  --> scripts\fix_approve_022_023.py:34:9
+   |
+32 | for line in lines:
+33 |     m = re.search(r"ticket_id:\s*(NC-DS-\d+)", line)
+34 |     if m: current = m.group(1)
+   |         ^
+35 |     if current in to_approve and "    status: AVAILABLE" in line:
+36 |         line = line.replace("    status: AVAILABLE", "    status: DONE")
+   |
+
+Found 1 error.
+  [ERR] scripts\fix_indentation.py                                             compile=OK | ruff=ERR (ap├│s fix): F841 Local variable `base_indent` is assigned to but never used
+  --> scripts\fix_indentation.py:38:5
+   |
+36 |     # Determine base indentation of the function definition
+37 |     func_def_line = lines[tool_func_start]
+38 |     base_indent = len(func_def_line) - len(func_def_line.lstrip())
+   |     ^^^^^^^^^^^
+39 |
+40 |     # Find end of function: next line with indent <= base_indent and not empty
+   |
+help: Remove assignment to unused variable `base_indent`
+
+Found 1 error.
+Traceback (most recent call last):
+  File "C:\Users\Lucas Val├®rio\Desktop\TURBOQUANT_V42\01_neocortex_framework\scripts\NC-SCR-FR-013-validate-file.py", line 152, in <module>
+No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).
+  [OK ] scripts\fix_queue.py                                                   compile=OK | ruff=OK (auto-fixed)
+  [OK ] scripts\generate_all_manifests.py                                      compile=OK | ruff=OK (auto-fixed)
+  [ERR] scripts\generate_official_tool_manifest.py                             compile=OK | ruff=ERR (ap├│s fix): C401 Unnecessary generator (rewrite as a set comprehension)
+   --> scripts\generate_official_tool_manifest.py:344:33
+    |
+342 |     total_actions = sum(len(tool.get("actions", [])) for tool in all_tools)
+343 |     print(f"   Total actions: {total_actions}")
+344 |     print(f"   Categories: {len(set(tool['category'] for tool in all_tools))}")
+    |                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+345 |
+346 |     # Validate against schema (optional)
+    |
+help: Rewrite as a set comprehension
+
+Found 1 error.
+No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).
+  [OK ] scripts\generate_tools_manifest.py                                     compile=OK | ruff=OK (auto-fixed)
+  [OK ] scripts\inspect_config.py                                              compile=OK | ruff=OK
+  [OK ] scripts\migrate_to_stores.py                                           compile=OK | ruff=OK (auto-fixed)
+    sys.exit(main())
+             ^^^^^^
+  File "C:\Users\Lucas Val├®rio\Desktop\TURBOQUANT_V42\01_neocortex_framework\scripts\NC-SCR-FR-013-validate-file.py", line 124, in main
+    r = validate_file(f, auto_fix=not args.no_fix, run_bandit=args.bandit)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lucas Val├®rio\Desktop\TURBOQUANT_V42\01_neocortex_framework\scripts\NC-SCR-FR-013-validate-file.py", line 85, in validate_file
+    ok, err = check_ruff(filepath)
+              ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lucas Val├®rio\Desktop\TURBOQUANT_V42\01_neocortex_framework\scripts\NC-SCR-FR-013-validate-file.py", line 51, in check_ruff
+    return False, result.stdout.strip()
+                  ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'strip'

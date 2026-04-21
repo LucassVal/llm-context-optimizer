@@ -1,0 +1,34 @@
+{
+  "ticket_id": "NC-DS-007-REVISED",
+  "roadmap_ticket": "GOV-012",
+  "phase": 0,
+  "timestamp": "2026-04-12T16:50:00",
+  "entry_state": {
+    "source_file": "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md",
+    "action": "LER apenas. Extrair contedo por categoria. NO modificar."
+  },
+  "active_locks": [
+    "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md",
+    "neocortex/mcp/server.py",
+    "neocortex/mcp/sub_server.py",
+    "DIR-CFG-FR-001-config-main/neocortex_config.yaml"
+  ],
+  "write_zone": [
+    "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001a*.md",
+    "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001b*.md",
+    "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001c*.md",
+    "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001d*.md",
+    "01_neocortex_framework/scripts/NC-SCR-FR-004*.py"
+  ],
+  "forbidden_zone": [
+    "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md",
+    "neocortex/mcp/server.py",
+    "neocortex/mcp/sub_server.py",
+    "DIR-CFG-FR-001-config-main/neocortex_config.yaml"
+  ],
+  "barriers": {
+    "B2_LOCKS": "NC-NAM-FR-001 original = READ ONLY neste ticket. Zero escrita.",
+    "B1_NAMING": "Novos arquivos seguem NC-NAM-FR-001a/b/c/d + NC-SCR-FR-004"
+  },
+  "notes": "Ticket revisado aps escalao. NC-NAM-FR-001 no ser modificado. Criar apenas novos arquivos de sub-registros e script de validao."
+}

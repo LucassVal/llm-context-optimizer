@@ -1,3 +1,15 @@
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:59.924623'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+tags:
+  - neocortex-other
+  - level-0
+  - python
+---"""
 #!/usr/bin/env python3
 """
 LLMBackendFactory - Factory for creating LLM backends from configuration.
@@ -6,10 +18,11 @@ Supports dynamic backend creation and configuration.
 """
 
 import logging
-from typing import Dict, Any, List, Optional, Type
-from .backend import LLMBackend, LLMProvider, FallbackChain
-from .ollama_backend import OllamaBackend
+from typing import Any, Dict, List, Optional
+
+from .backend import FallbackChain, LLMBackend, LLMProvider
 from .deepseek_backend import DeepSeekBackend
+from .ollama_backend import OllamaBackend
 from .openai_backend import OpenAIBackend
 
 logger = logging.getLogger(__name__)

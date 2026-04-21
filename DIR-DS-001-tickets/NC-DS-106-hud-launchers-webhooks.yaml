@@ -1,0 +1,115 @@
+ticket_id: "NC-DS-106"
+status: "OPEN"
+priority: "MEDIUM"
+title: "HUD launchers + webhooks MC — NC-SCR-FR-106-launcher.py (NC-DS-045)"
+created_at: "2026-04-16T11:00:00-03:00"
+created_by: "T0-Claude-Code"
+agent: "AGENTE-B"
+sprint: "FASE-1-MCP-MC"
+
+context:
+  gap: "G09"
+  origin: "NC-DS-045 INT-003 status '?' — nunca executado. Launchers MC e Pixel não automatizados."
+  problem: |
+    Para iniciar o stack completo (MCP + MC + NeoCortex registration) é preciso
+    executar múltiplos processos manualmente. Não existe script único de orquestração
+    de startup. Também falta webhook endpoint no sub_server para receber comandos do MC.
+
+task:
+  description: |
+    PARTE A — Launcher:
+    Criar 01_neocortex_framework/scripts/NC-SCR-FR-106-launcher.py:
+    1. Verificar se Mission Control (:3000) está online → Test-NetConnection equivalente
+    2. Se offline: subprocess.Popen(['pnpm', 'dev'], cwd=MC_DIR) em thread separada
+    3. Aguardar até MC online (max 30s, poll a cada 2s)
+    4. Chamar NC-SCR-FR-103-mc-startup-hook.py como subprocess (não blocking)
+    5. Log de cada passo via logger
+    6. --dry-run flag: apenas reportar o que faria, sem executar
+
+    Caminho MC: DIR-RES-CC-001-claude-leak-workzone/external-refs/mission-control/
+
+    PARTE B — Webhook endpoint (em NC-TOOL-FR-037-hooks.py ou novo tool):
+    7. Adicionar action 'webhook.receive' em NC-TOOL-FR-037-hooks.py:
+       - Recebe payload do MC via HTTP POST (action, data)
+       - Roteia para HookRegistry.emit(action, data)
+       - Retorna {status: 'ok', event_id: uuid}
+    8. Documentar endpoint: POST /mcp/tool/neocortex_hooks {action: 'webhook.receive', ...}
+
+  acceptance_criteria:
+    - "python NC-SCR-FR-106-launcher.py --dry-run executa sem erro"
+    - "Launcher inicia MC se offline"
+    - "NC-SCR-FR-103 é chamado após MC estar online"
+    - "NC-TOOL-FR-037 tem action webhook.receive funcional"
+
+write_zone:
+  - "01_neocortex_framework/scripts/NC-SCR-FR-106-launcher.py"
+  - "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-037-hooks.py"
+  - "DIR-DS-002-audit-logs/"
+
+atomic_locks_proibidos:
+  - "01_neocortex_framework/neocortex/mcp/server.py"
+  - "01_neocortex_framework/neocortex/mcp/sub_server.py"
+  - "start_neocortex_mcp.ps1"
+  - "antigravity_neocortex_config.json"
+
+entry_state: "Startup manual — sem launcher unificado, sem webhook MC→NeoCortex"
+exit_state: "NC-SCR-FR-106 sobe stack completo. Webhook funcional."
+integrity_hash: "NC-DS-106-v1.0-20260416"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PROTOCOLO OBRIGATÓRIO PARA O AGENTE (ler ANTES de qualquer ação)
+# ─────────────────────────────────────────────────────────────────────────────
+protocolo_agente:
+
+  step_0_obrigatorio:
+    descricao: 'Ler estes recursos ANTES de começar qualquer implementação'
+    recursos:
+      - path: 'DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml'
+        motivo: 'Template oficial do handoff que você DEVE gerar ao concluir'
+      - path: '01_neocortex_framework/DIR-TMP-FR-001-templates-main/'
+        motivo: 'Central de templates — exemplos de YAML, JSON, manifests, processos'
+      - path: '01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.yaml'
+        motivo: '20 regras de governança — obrigatório seguir'
+      - path: '01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml'
+        motivo: 'Arquivos que NUNCA podem ser tocados'
+
+  regra_duvida:
+    instrucao: |
+      EM CASO DE QUALQUER DÚVIDA — parar imediatamente e retornar ao T0.
+      NÃO assumir, NÃO adivinhar, NÃO improvisar.
+      Retornar com: (1) o que foi feito até agora, (2) qual é a dúvida exata,
+      (3) quais são as opções que você vê. T0 decide e você continua.
+    exemplos_de_quando_parar:
+      - 'Não encontrei o arquivo mencionado no ticket'
+      - 'A API do serviço é diferente do que o ticket descreve'
+      - 'A mudança que preciso fazer toca um arquivo @LOCKS'
+      - 'Dois caminhos são possíveis e não sei qual escolher'
+      - 'O script que devia existir não existe'
+
+  handoff_obrigatorio:
+    descricao: 'Gerar handoff YAML ao concluir — sem exceção'
+    destino: 'DIR-DS-002-audit-logs/NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml'
+    template: 'DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml'
+    campos_obrigatorios:
+      - 'ticket_id'
+      - 'status'        # APPROVED | PARTIALLY_COMPLETED | FAILED | ESCALATED
+      - 'summary'
+      - 'files_created'
+      - 'files_modified'
+      - 'locks_violated'  # DEVE ser lista vazia para APPROVED
+      - 'checklist_r20'
+    checklist_r20:
+      naming_convention: 'Todos os arquivos criados seguem NC-<TIPO>-<SIGLA>-<NUM>'
+      no_print_statements: 'Zero print() — usar logger'
+      ssot_updated: 'Se criou artefato novo — NC-NAM-FR-001 foi atualizado'
+      no_locked_files_modified: 'Nenhum arquivo @LOCKS foi tocado'
+      handoff_yaml_complete: 'Este handoff está completo'
+      roadmap_marked: '%DONE marcado no @ROADMAP para este ticket'
+
+  falha_ou_bloqueio:
+    instrucao: |
+      Se falhar ou ficar bloqueado:
+      1. Gerar handoff com status: FAILED ou ESCALATED
+      2. Incluir no campo summary o que foi tentado e por que falhou
+      3. NÃO silenciar o erro — registrar tudo
+      4. Retornar ao T0 com o handoff

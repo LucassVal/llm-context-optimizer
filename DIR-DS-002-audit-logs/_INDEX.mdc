@@ -1,0 +1,15 @@
+---
+dir: DIR-DS-002-audit-logs
+function: Logs de auditoria de sessão — handoffs YAML arquivados
+status: ACTIVE
+registered: 2026-04-20
+ssot: NC-NAM-FR-001
+---
+
+# DIR-DS-002-audit-logs
+
+## Função
+Logs de auditoria de sessão — handoffs YAML arquivados
+
+## Notas
+> Registrado no SSOT por NC-GOV-002 em 2026-04-20.

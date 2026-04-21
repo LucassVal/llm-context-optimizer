@@ -1,0 +1,33 @@
+# NC-DS-049-handoff-20260415T144804-cancelled.yaml
+# Handoff retrospectivo — criado durante auditoria NC-DS-077
+# Ticket: NC-DS-049-AUDIT-001.yaml
+# Trabalho não realizado (cancelado)
+
+ticket_id: NC-DS-049
+status: CANCELLED
+timestamp: "2026-04-15T14:48:04-03:00"
+agent: T0-Antigravity-retrospective-audit
+
+summary: |
+  Handoff retrospectivo criado durante auditoria de tickets sem handoff (NC-DS-077).
+  Ticket NC-DS-049 (AUDIT-001) não foi implementado.
+  Ticket está em formato não padrão e não há evidência de trabalho concluído.
+  Cancelado para limpar fila.
+
+files_created: []
+files_modified: []
+
+barriers_passed: []
+
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  ssot_updated: false
+  no_locked_files_modified: true
+  handoff_yaml_complete: true
+
+integrity_check:
+  file_exists: false
+  py_compile_pass: false
+  ssot_entry_exists: false
+  roadmap_marked_done: false

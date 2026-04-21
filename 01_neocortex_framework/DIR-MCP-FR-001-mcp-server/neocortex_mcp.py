@@ -1,4 +1,20 @@
 #!/usr/bin/env python3
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:57.080113'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: mcp-server
+level: 3
+parent_ssot: NC-LED-FR-001-framework-ledger
+related_ssot:
+  - NC-CTX-FR-001-cortex-central
+tags:
+  - mcp-server
+  - level-3
+  - python
+---"""
+
 """
 NeoCortex MCP Server
 
@@ -9,12 +25,11 @@ Baseado no protocolo MCP da Anthropic (FastMCP).
 """
 
 import asyncio
-import os
-import sys
 import json
 import logging
+import sys
 from pathlib import Path
-from typing import Dict, List, Any, Optional
+from typing import Any, Dict, List, Optional
 
 # Tentar importar FastMCP, se nao estiver disponivel, usar modo de simulacao
 try:
@@ -52,8 +67,9 @@ DOCS_PATH = PROJECT_ROOT / "DIR-DOC-FR-001-docs-main"
 SOURCE_PATH = PROJECT_ROOT / "DIR-SRC-FR-001-source-main"
 
 # Inicializar servidor MCP
+# Use FastMCP if available
 if FAST_MCP_AVAILABLE:
-    mcp = FastMCP("neocortex")
+    mcp = FastMCP("neocortex", version="4.2-cortex")
 else:
     # Simulacao para desenvolvimento sem FastMCP
     class MockMCP:
@@ -1599,14 +1615,16 @@ async def main_async():
     logger.info(f"Cortex path: {CORTEX_PATH}")
     logger.info(f"Ledger path: {LEDGER_PATH}")
 
-    if FAST_MCP_AVAILABLE:
+    if FAST_MCP_AVAILABLE and not FORCE_MOCK:
         # Executa o servidor FastMCP
         await mcp.run()
     else:
         # Modo de simulacao
         mcp.run()
-
-        # Loop simples para testes
+        # Manter rodando
+        import time
+        while True:
+            time.sleep(1)
         print("\n=== Modo Simulacao ===")
         print("Ferramentas disponiveis:")
         for tool_name, tool_func in mcp.tools.items():
@@ -1620,7 +1638,9 @@ async def main_async():
 def main():
     """Wrapper sincrono para main_async."""
     try:
-        asyncio.run(main_async())
+        # Usar anyio diretamente para evitar conflito com asyncio
+        import anyio
+        anyio.run(main_async)
     except KeyboardInterrupt:
         logger.info("Servidor interrompido pelo usuario")
     except Exception as e:

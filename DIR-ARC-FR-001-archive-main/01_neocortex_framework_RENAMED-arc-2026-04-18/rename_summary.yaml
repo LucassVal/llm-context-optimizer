@@ -1,0 +1,10 @@
+mirror_creation:
+  destination_framework: 01_neocortex_framework_RENAMED
+  renamed_files: 87
+  source_framework: 01_neocortex_framework
+  timestamp: 1776187469.4459045
+  total_files: 3491
+  unwanted_directories: []
+renaming_plan_stats:
+  plan_file: renaming_plan_v2_dedup.yaml
+  total_entries: 87

@@ -1,0 +1,26 @@
+ticket_id: "NC-DS-163"
+title: "Plano Estratégico NeoCortex 2026-2027 Criado"
+status: "OPEN"
+priority: "HIGH"
+created: "2026-04-21T20:17:23"
+agent: "T0"
+description: |
+  Criado lobe NC-LBE-FR-ROADMAP-001 com plano completo de 12 meses:
+
+FASES:
+1. ESTABILIZAÇÃO (Abril-Maio) - Finalizar MCP server
+2. OPENSOURCE PREP (Junho-Julho) - GitHub prep + paper
+3. LANÇAMENTO ACADÊMICO (Agosto-Setembro) - Outreach universidades
+4. RUST MIGRATION (Outubro-Março) - Performance + segurança
+5. ECOSSISTEMA (Abril 2027+) - Comunidade + enterprise
+
+METAS:
+- 48% redução tokens LLM mantida
+- 64% redução horas humanas
+- 1,000+ GitHub stars em 12 meses
+- 5-10 papers acadêmicos citando
+
+PRÓXIMOS PASSOS:
+1. Finalizar MCP server (tickets 160-161)
+2. Iniciar opensource prep
+3. Escrever paper draft

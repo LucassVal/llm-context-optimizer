@@ -1,0 +1,1130 @@
+# NC-LBE-CEREBRAL-FRONTAL-001
+
+> Lobo SSOT auto-gerado pelo script populate_lobes_from_ssot. No edite manualmente.
+
+<!-- source: NC-TODO-FR-001-project-roadmap-consolidated.md -->
+<!-- tags: frontal, roadmap, planejamento, governanca, tickets -->
+<!-- auto-generated: true -->
+
+<!-- NC-TODO-FR-001 — NeoCortex: Roadmap SSOT Consolidado v12.0 -->
+<!-- @ROADMAP — Single Source of Truth | Atualizado: 2026-04-18 -->
+<!-- MACRO → MICRO → TICKET: De A a Z, do início ao fim -->
+<!-- Regra R20: ao concluir qualquer item → marcar `%DONE [YYYY-MM-DD]` aqui -->
+
+> **Versão:** v12.0 | **Data:** 2026-04-18 | **Fase atual:** SPRINT-ACELERADO (sem MC/Pixel — LiteLLM+PicoClaw+Ollama driving)
+> **Filosofia:** MCP = vertical (agente → ferramentas). A2A = horizontal (agente ↔ agente). T0 orquestra. LiteLLM roteia. Qwen executa braçal. DeepSeek raciocina. Nunca inverter.
+> **Inspiração:** 80-Point Plan — Sistema Operacional de Inteligência Coletiva (doc 2026-04-16)
+
+---
+
+## LEGENDA DE STATUS
+```
+%DONE [YYYY-MM-DD]   — concluído com data
+%IN_PROGRESS         — sprint atual
+%PENDING             — próximo sprint
+%BLOCKED(RAZÃO)      — bloqueado
+%VISÃO               — longo prazo (Fase 4+)
+%FORA_ESCOPO         — decidido não implementar
+```
+
+---
+
+## SPRINT ATUAL — SPRINT-ACELERADO (MC/Pixel deferidos)
+> **Critério:** LiteLLM:4000 OK + smoke 40 tools + compliance >80% + LEXICO-001 base criada
+> **Stack driving:** LiteLLM:4000 + Ollama:11434 + PicoClaw:18790 (quando online)
+
+| Ticket | Título | Status | Agente |
+|--------|--------|--------|--------|
+| NC-DS-098 | /health endpoint wrapper | %IN_PROGRESS | T0 |
+| NC-DS-099 | SAVE-005 DryRunPreview wired | %IN_PROGRESS | T0 |
+| NC-DS-100 | SavePoint → WAL persistence | %IN_PROGRESS | T0 |
+| NC-DS-101 | Smoke test 40 tools | %IN_PROGRESS | T0 |
+| NC-DS-102 | active-zones.yaml reconstruído | %IN_PROGRESS | T0 |
+| NC-DS-103 | MC startup wiring | %DONE [2026-04-16] | B |
+| NC-DS-104 | MC adapter async refactor | %DONE [2026-04-16] | B |
+| NC-DS-105 | AuditHook → MC feed | %DEFER pós-acelerado | — |
+| NC-DS-106 | HUD launchers + webhooks | %DEFER pós-acelerado | — |
+| NC-DS-107 | @LOCK → @LOCKS normalização | %IN_PROGRESS | T0 |
+| NC-DS-108 | Compliance sprint >80% | %IN_PROGRESS | T0 |
+| NC-DS-109 | GLOBAL-SANE-001 core + lobes | %IN_PROGRESS | T0 |
+| NC-DS-110 | TTL-002 log wiring | %IN_PROGRESS | T0 |
+| NC-DS-111 | SSOT cross-audit | %IN_PROGRESS | T0 |
+| NC-DS-112 | Tool manifest sync (40+ tools) | %IN_PROGRESS | T0 |
+| NC-DS-113 | Bootup v5 sync | %IN_PROGRESS | T0 |
+| NC-DS-114 | [RETRO] Auditoria trabalho agentes | %IN_PROGRESS | T0 |
+| NC-DS-115 | Install DeepSeek CLI | %DONE [2026-04-17] | T0 |
+| NC-DS-116 | FastMCP Python SDK Documentation | %DONE [2026-04-17] | T0 |
+| NC-DS-117 | Antigravity Editor MCP Documentation | %DONE [2026-04-17] | T0 |
+| NC-DS-118 | OpenCode Editor MCP Documentation | %DONE [2026-04-17] | T0 |
+| NC-DS-119 | Fix hooks NC-HK-FR-001/002 | %DONE [2026-04-18] | T0 |
+| NC-DS-120 | Frente B — 16 parciais MCP | %PENDING | Qwen-Worker |
+| NC-DS-121 | NC-CONST-FR-001 Constitution Layer | %DONE [2026-04-18] | T0 |
+| NC-DS-122 | NC-TOOL-FR-038 neocortex_handoff | %DONE [2026-04-18] | T0 |
+| NC-DS-123 | NC-TOOL-FR-039 neocortex_tickets | %DONE [2026-04-18] | T0 |
+| NC-DS-124 | NC-TOOL-FR-040 neocortex_governance_ops | %DONE [2026-04-18] | T0 |
+| NC-DS-125 | NC-TOOL-FR-041 neocortex_constitution | %DONE [2026-04-18] | T0 |
+| NC-DS-126 | 40 tools docstrings compactadas + 9 novas actions | %DONE [2026-04-18] | T0 |
+| NC-DS-127 | Lineage de dados (proveniência de contexto) | %PENDING | T0 |
+| NC-DS-128 | Auto-pause context >85% budget | %PENDING | T0 |
+| NC-DS-129 | Intenção prospectiva — defer_until em tickets | %PENDING | T0 |
+| NC-DS-130 | Lobe Cards automatizados | %PENDING | F3 |
+| NC-DS-131 | LiteLLM gateway (tool+lobe+config+startup) | %DONE [2026-04-18] | T0 |
+| NC-DS-132 | LEXICO-001 NC-SVC-FR-020 LexicoService base | %IN_PROGRESS [2026-04-18] | T0 |
+| NC-DS-133 | KG-002 knowledge-graph-builder popular KG | %PENDING | T0 |
+| NC-DS-134 | MCP Restart + smoke test 40 tools validado | %PENDING | T0 |
+| NC-DS-135 | Workflow NC-WF-001 v4.0 LiteLLM + sprint acelerado | %DONE [2026-04-18] | T0 |
+| NC-DS-136 | NC-SVC-FR-021 SessionMemoryWriter (turn.record + hot_summary) | %PENDING | F2 |
+| NC-DS-137 | NC-TOOL-FR-044 memory_auto MCP tool | %PENDING | F2 |
+| NC-DS-138 | NC-HK-FR-004 conversation hook (on_response → turn.record) | %PENDING | F2 |
+| NC-DS-139 | memory/hot-context.md + CICLO 3 session.summarize | %DONE [2026-04-18] | T0 |
+| NC-DS-140 | NC-SVC-FR-022 SemanticCataloger Qwen 1.5b → lobes auto 06_auto/ | %PENDING | F3 |
+
+---
+
+## FASE 0 — Fundação & Estabilização
+> **Status:** %DONE [2026-04-15] | Arquitetura modular, stores, LLM backends, MCP base.
+
+### Infraestrutura Core
+- %DONE [2026-04-10] **OPT-001 a 010**: LedgerStore, ManifestStore, LobeIndex, SearchEngine, HotCache, PulseScheduler
+- %DONE [2026-04-10] **LLM-001 a 012**: LLMBackend ABC, Ollama/DeepSeek/OpenAI backends, LLMFactory, AgentExecutor
+- %DONE [2026-04-10] **STAB-101 a 105**: ConfigProvider, Factories/Singletons, Sanity Suite, HotCache robustez
+- %DONE [2026-04-13] **METR-106 a 109**: MetricsStore, integração core, MCP report tool
+
+### Serviços NC-SVC-FR (16 serviços)
+- %DONE [2026-04-13] NC-SVC-FR-001 LoggingService
+- %DONE [2026-04-13] NC-SVC-FR-002 HealthService
+- %DONE [2026-04-13] NC-SVC-FR-003 SavePointStub
+- %DONE [2026-04-13] NC-SVC-FR-004 CacheService (HotCache)
+- %DONE [2026-04-13] NC-SVC-FR-005 EventBus
+- %DONE [2026-04-13] NC-SVC-FR-006 MetricsCollector
+- %DONE [2026-04-13] NC-SVC-FR-007 StateMachine (FSM)
+- %DONE [2026-04-13] NC-SVC-FR-008 ConfigValidator
+- %DONE [2026-04-13] NC-SVC-FR-009 SessionBuddy
+- %DONE [2026-04-13] NC-SVC-FR-010 KairosService
+- %DONE [2026-04-13] NC-SVC-FR-011 TTLManager
+- %DONE [2026-04-13] NC-SVC-FR-012 ChannelNotifier
+- %DONE [2026-04-14] NC-SVC-FR-014 DryRunPreview (SAVE-005 stub)
+- %DONE [2026-04-14] NC-SVC-FR-015 TaskBroker (ORCH-301)
+- %DONE [2026-04-16] NC-SVC-FR-016 WALService
+- %DONE [2026-04-16] NC-SVC-FR-017 CryptoHub (Fernet AES-128 + HMAC-SHA256)
+- %DONE [2026-04-16] NC-SVC-FR-018 TagNormalizer
+
+### Tools MCP (38 tools NC-TOOL-FR-000 a 037)
+- %DONE [2026-04-15] 38 tools criadas (FR-000-brain → FR-037-hooks)
+- %DONE [2026-04-16] Genealogy headers injetados (NC-SCR-FR-075)
+- %DONE [2026-04-16] **ORCH-301**: send_task() HTTP POST real → PicoClaw :18790 (NC-DS-096)
+- %DONE [2026-04-16] **ORCH-302**: neocortex_task SSE polling (NC-DS-096)
+
+### Governança & Rastreabilidade
+- %DONE [2026-04-15] NC-SCR-FR-009 sanitize-all-yamls
+- %DONE [2026-04-15] NC-SCR-FR-064 artifact-catalog
+- %DONE [2026-04-15] NC-SCR-FR-066 bootup-sync
+- %DONE [2026-04-15] NC-SCR-FR-075 genealogy-injector
+- %DONE [2026-04-15] NC-SCR-FR-080 governance-auditor (compliance 44.8% → meta >80%)
+- %DONE [2026-04-15] NC-WKR-FR-001 PersistentWorker
+- %DONE [2026-04-16] **Marco 2 Rastreabilidade**: SCR-FR-002, SCR-FR-022, SCR-FR-023, SCR-FR-024
+
+---
+
+## FASE 1-MCP-MC — MCP Core Hardening + Mission Control
+> **Status:** %IN_PROGRESS | Tickets: NC-DS-098 a 114
+> **Critério:** ver SPRINT ATUAL acima
+
+### Novos artefatos desta fase
+- %DONE NC-SCR-FR-098 health-wrapper.py
+- %PENDING NC-SCR-FR-101 tools-smoke-test.py
+- %PENDING NC-SCR-FR-103 mc-startup-hook.py
+- %PENDING NC-SCR-FR-106 launcher.py
+- %PENDING NC-HK-FR-003 MissionControlHook
+
+---
+
+## FASE 2 — PicoClaw + Pixel Agents
+> **Status:** %PENDING | Desbloqueada após aprovação da Fase 1
+> **Objetivo:** Loop completo T0 → Core → PicoClaw → OpenCode/DeepSeek → resultado retorna
+
+### PicoClaw Orchestration (80-point #43, #44, #45, #46)
+- %PENDING **PICOCLAW-001**: EventBus (NC-SVC-FR-005) wiring no PicoClaw dispatch — Pub/Sub desacoplado
+- %PENDING **PICOCLAW-002**: Context package no handoff de task — T0 envia lobos relevantes junto com a task
+- ✅ %DONE **PICOCLAW-003**: SEC-403 Rate Limiting por agente no PicoClaw — tokens/minuto por role
+- %PENDING **PICOCLAW-004**: Pool dinâmico de agentes — sub_server spawns formalizados com lifecycle management
+- %PENDING **PICOCLAW-005**: Balanceamento de carga — múltiplas instâncias do mesmo agente (B1-B6 workers)
+
+### Pixel Agents JSONL Bridge (NC-DS-044)
+- %PENDING **PIXEL-001**: NC-SCR-FR-016-opencode-jsonl-bridge.py — HookRegistry → JSONL para Pixel Agents :8767
+- %PENDING **PIXEL-002**: NC-DS-046 TAG-SYSTEM — NC-SCR-FR-017-tag-applicator.py (tag universal)
+- %PENDING **PIXEL-003**: Integrar NC-HK-FR-003 com bridge JSONL — tool calls animam robôs no VS Code
+
+### Critério de encerramento Fase 2
+```
+[ ] T0 chama tool MCP → Core recebe → PicoClaw despacha → DeepSeek executa → resultado retorna
+[ ] Pixel Agents animam em resposta a tool calls reais
+[ ] Rate limiting ativo: agente não excede N tokens/min
+```
+
+---
+
+## FASE 3 — Inteligência & Circuit Breaker
+> **Status:** %PENDING | Desbloqueada após Fase 2
+> **Objetivo:** Sistema que não entra em loop, pensa de forma divergente, aprende com o histórico
+
+### SEC-403 Circuit Breaker Generalizado (80-point #163 — CRÍTICO)
+> Risco identificado: 30% de tarefas complexas entram em loop degenerativo
+- ✅ %DONE **SEC-403-A**: Detectar N chamadas idênticas consecutivas de uma tool → forçar reset de contexto
+  - `NC-SVC-FR-007 StateMachine` já tem FSM — adicionar estado `LOOP_DETECTED`
+  - Threshold: 5 calls idênticas em 60s → emitir evento `loop.detected` no EventBus
+- ✅ %DONE **SEC-403-B**: Circuit breaker por agente (análogo ao do MC adapter) — generalizar para todas as tools
+- ✅ %DONE **SEC-403-C**: Escalada inteligente (HiL-Bench) — ao detectar loop, T0 recebe notificação via MC com resumo do impasse
+
+### Knowledge Graph Ativado — Pensamento Divergente (80-point #175)
+> `kg_service.py` + `vector_engine.py` + `NC-SCR-FR-051` existem — só precisam ser populados
+- %PENDING **KG-002**: Rodar NC-SCR-FR-051-knowledge-graph-builder.py → popular KG com lobos + tickets + artefatos
+- %PENDING **KG-003**: Integrar KG no STEP 0 — antes de executar, consultar KG por alternativas semânticas
+- %PENDING **KG-004**: Descoberta semântica de agentes — KG indexa capabilities, T0 consulta antes de delegar (80-point #42)
+- %PENDING **KG-005**: Síntese de conhecimento — T0 combina 2+ lobos via KG para criar skill híbrida (80-point #10)
+
+### Agente de Consolidação — CASCADE (80-point #1)
+> Pós-tarefa: analisar handoff APPROVED → extrair padrão → criar/atualizar lobe
+- %PENDING **CASC-001**: Serviço de análise de handoffs — identifica padrões de sucesso repetidos
+- %PENDING **CASC-002**: Geração automática de lobes a partir de tarefas bem-sucedidas
+- %PENDING **CASC-003**: Métricas de eficácia por skill — NC-SVC-FR-006 MetricsCollector + `skill_success_rate`
+- %PENDING **CASC-004**: Detecção de obsolescência — AKL + TTL de uso de lobes (80-point #11)
+
+### Conector REST/GraphQL Universal — `neocortex_api` (Blind Spot #1)
+> **Origem:** Análise de cobertura 2026-04-16 — PicoClaw, Mission Control, Pixel Agents e Host MCP não possuem conector HTTP genérico para APIs externas
+- %PENDING **API-001**: Criar tool MCP `neocortex_api` com actions `call_rest` e `call_graphql`
+  - Inputs: `method`, `url`, `headers`, `body`, `auth_type` (bearer/basic/api_key)
+  - Output: `status_code`, `body`, `latency_ms`
+  - Implementar como NC-TOOL-FR-038 — importlib.util via R09
+- %PENDING **API-002**: Integrar `neocortex_api` ao EventBus — emitir evento `api.call.completed` com latency para MetricsCollector
+- %PENDING **API-003**: Suporte a OAuth2 client_credentials flow — NC-SVC-FR-017 CryptoHub armazena tokens com TTL
+- ✅ %DONE **API-004**: Rate limiting por domínio — SEC-403 circuit breaker aplicado a calls externas
+> **Complexidade:** Média | **Desbloqueada:** Após Fase 2 (PicoClaw wired)
+
+---
+
+### Governança Avançada (80-points #21-28)
+- %PENDING **GOV-ADV-001**: Assinatura digital de artefatos — CryptoHub (NC-SVC-FR-017) já tem HMAC-SHA256 → assinar na criação
+- %PENDING **GOV-ADV-002**: Sandbox de execução de código — subprocess com timeout + isolamento filesystem
+- %PENDING **GOV-ADV-003**: Proteção contra prompt injection — STEP 0 + regex/heurística para comandos maliciosos
+- %PENDING **GOV-ADV-004**: Audit trail reforçada por modo — WAL modo `verbose` que grava raciocínio passo a passo
+
+### Memória Auto-Evolutiva EVOLVE-MEM (80-point #14)
+- %PENDING **MEM-001**: L1 HotCache TTL ajustável dinamicamente pelo PulseScheduler (baseado em volatilidade do projeto)
+- %PENDING **MEM-002**: L3 Semantic Memory — KG como verdade original (ground truth), não apenas resumos
+- %PENDING **MEM-003**: Refinamento iterativo de prompts (SkillForge) — sistema testa variações e promove a melhor
+
+### LEXICO — Compressão Semântica Universal de Contexto
+> **Origem:** Análise 2026-04-16 — "mega dicionário ubíquo" + resolução de ambiguidade por camadas
+> **Objetivo:** Reduzir tokens por sessão em 50-90% mantendo coerência semântica total
+> **Pré-requisito HARD:** KG-002 (KG populado com lobes + artefatos) — sem KG o sistema não tem como resolver ambiguidade
+> **Referência científica:** Lexico (dicionário de ~4.000 átomos), DAST (Dynamic Allocation of Soft Tokens), TokenSpan
+
+#### Camada 1 — Dicionário Estático Universal (Lexico)
+- %PENDING **LEXICO-001**: Criar `NC-SVC-FR-020 LexicoService` — dicionário de ~4.000 átomos semânticos independentes de domínio
+  - Cada átomo é um token com ID único, significado base, e campo `scope: global`
+  - Armazenado em `NC-LED-FR-002-lexico-dictionary.json` (novo ledger dedicado)
+- %PENDING **LEXICO-002**: Geração automática do dicionário — rodar análise estilo TokenSpan sobre todos os Lobes existentes
+  - Identificar frases que se repetem >3x nos lobos → candidatos a átomo
+  - NC-SCR-FR-XXX-lexico-builder.py: corpus = todos os `.mdc` + tickets YAML + handoffs
+
+#### Camada 2 — Compressão Dinâmica por Lobo (DAST)
+- %PENDING **LEXICO-003**: Cada Lobo declara seu `semantic_scope` — lista de átomos LEXICO que assume precedência de significado
+  - Ex: Lobo `$FINANCEIRO` → átomo `#INV` = "Invoice"; Lobo `$ARQUITETURA` → `#INV` = "Inversão de Dependência"
+  - Estrutura adicionada ao template phase-lobe-TEMPLATE.mdc como campo obrigatório
+- %PENDING **LEXICO-004**: Compressão "soft" para termos ambíguos — em vez de substituição hard (1 byte), manter vetor de contexto
+  - Implementar como peso no NC-SVC-FR-004 HotCache: token comprimido carrega `atom_id + scope_lobe_id`
+- %PENDING **LEXICO-005**: Cache-aware compression — separar termos em "Cache Hit" (compressão hard via Lexico estático) vs "Cache Miss" (compressão soft via DAST dinâmico)
+
+#### Camada 3 — Validação Pré-Compressão (KG + STEP 0)
+- %PENDING **LEXICO-006**: Hook no STEP 0 — antes de comprimir qualquer prompt, consultar KG por polissemia do termo
+  - Se KG retornar >1 significado para um token: solicitar esclarecimento ao T0 (R21 semântico)
+  - Adicionar campo `ambiguity_check: true` no template NC-TPL-FR-002-agent-dispatch.yaml
+- %PENDING **LEXICO-007**: Métricas de compressão — NC-SVC-FR-006 MetricsCollector rastreia `compression_ratio`, `ambiguity_hits`, `context_saved_tokens` por sessão
+- %PENDING **LEXICO-008**: Cascade de obsolescência — CASC-004 + Lexico: se átomo não foi usado em 30 dias → TTL remove do dicionário ativo
+
+> **Complexidade:** Alta — toca HotCache, KG, STEP 0, Lobes e todos os dispatch templates
+> **Ganho esperado:** 50-90% redução de tokens por sessão (referência: ContextZip, DAST papers 2026)
+> **Sequência obrigatória:** LEXICO-001 → LEXICO-002 → KG-002 → LEXICO-003 → LEXICO-004 → LEXICO-005 → LEXICO-006
+
+---
+
+## FASE 4 — Evolução da UI e AaaS
+> **Status:** %PENDING | Desbloqueada após Fase 3
+> **Objetivo:** Dashboard completo, CLI avançada, API de serviços
+
+### Mission Control 2.0 (80-points #61-66)
+- %PENDING **MC2-001**: Timeline de eventos cronológica — todas as ações dos agentes visualizadas
+- %PENDING **MC2-002**: Dashboards de métricas de equipe — produtividade, custo, eficiência por agente
+- %PENDING **MC2-003**: Visualização do Knowledge Graph (2D inicialmente, MeshCat futuro)
+- %PENDING **MC2-004**: Feedback loops — aprovação/rejeição de respostas alimenta sistema de aprendizado (80-point #70)
+
+### CLI Avançada (80-point #76)
+> `neocortex/cli/main.py` já existe — expandir
+- %PENDING **CLI-001**: `neocortex status` — estado completo do sistema (portas, saúde, tickets ativos)
+- %PENDING **CLI-002**: `neocortex agent dispatch <task>` — despachar task diretamente via CLI
+- %PENDING **CLI-003**: `neocortex lobe search <query>` — busca semântica via KG no terminal
+
+### Gateway Multicanal — Telegram / Discord / Email (Blind Spot #2)
+> **Origem:** Análise de cobertura 2026-04-16 — NC-SVC-FR-012 ChannelNotifier existe mas é stub; nenhum canal externo operacional
+- %PENDING **CHAN-001**: Implementar NC-SVC-FR-012 ChannelNotifier com backend Telegram Bot API
+  - Token armazenado via CryptoHub (NC-SVC-FR-017) — nunca em plaintext
+  - Eventos do EventBus → mensagem Telegram formatada (Markdown)
+- %PENDING **CHAN-002**: Adapter Discord via webhook — `POST /webhooks/{id}/{token}` com embed
+- %PENDING **CHAN-003**: Adapter Email — SMTP/SendGrid para alertas críticos (LOOP_DETECTED, FAILED handoffs)
+- %PENDING **CHAN-004**: Gateway HTTP unificado — router que despacha para o canal certo baseado em severity/tag
+  - Rotas: `CRITICAL` → Telegram + Email, `INFO` → Discord, `DEBUG` → apenas log
+- %PENDING **CHAN-005**: Lobe de configuração multicanal — NC-LBE-CHAN-001 com mapeamentos severity→canal
+> **Complexidade:** Média | **Desbloqueada:** Após Fase 3 (EventBus + CryptoHub maduros)
+
+### Agentes como Serviço — AaaS (80-point #53-54)
+- %PENDING **AAAS-001**: API REST sobre MCP — endpoint HTTP que expõe tools para sistemas externos
+- %PENDING **AAAS-002**: Integração CI/CD — webhook que aciona agentes a partir de eventos GitHub/GitLab
+
+### Cognitive Companion — Monitor Paralelo (80-point #154 IBM)
+> Modelo 1.5B local monitorando degradação do agente principal
+- %PENDING **COG-001**: Avaliar Qwen 1.5B local como monitor de raciocínio em modo probe
+- %PENDING **COG-002**: Implementar detector de "preguiça cognitiva" (encurtamento de raciocínio)
+- %PENDING **COG-003**: Ativar seletivamente apenas em tarefas abertas/propensas a loop
+
+---
+
+## FASE 4+ — Conectores CRM/ERP Especializados (Blind Spot #3)
+> **Status:** %VISÃO | Desbloqueado após Fase 4 (API-001 a 004 implementados + AaaS operacional)
+> **Origem:** Análise de cobertura 2026-04-16 — nenhuma integração com sistemas de negócio externos
+> **Pré-requisito:** `neocortex_api` (API-001) operacional + Lobes de contexto de domínio
+
+### CRM — HubSpot / Salesforce
+- %VISÃO **CRM-001**: Lobe NC-LBE-CRM-001 — contexto HubSpot (entidades: Contact, Deal, Company, Activity)
+- %VISÃO **CRM-002**: Tool `crm_hubspot` via `neocortex_api` — actions: `get_contact`, `create_deal`, `log_activity`
+- %VISÃO **CRM-003**: Tool `crm_salesforce` — OAuth2 via CryptoHub + SOQL query encapsulado
+- %VISÃO **CRM-004**: EventBus bridge — eventos de pipeline CRM → agentes de análise/alerta
+
+### ERP — Stripe / Financeiro
+- %VISÃO **ERP-001**: Lobe NC-LBE-ERP-001 — contexto Stripe (entidades: Customer, Invoice, Subscription, Charge)
+- %VISÃO **ERP-002**: Tool `erp_stripe` — actions: `get_customer`, `list_invoices`, `create_charge`
+- %VISÃO **ERP-003**: Reconciliação financeira assistida — agente compara eventos Stripe × planilha interna
+- %VISÃO **ERP-004**: Alertas automáticos — churn detectado → Telegram + HubSpot activity log
+
+> **Complexidade:** Alta (cada conector tem autenticação, rate limits e schemas próprios)
+> **Abordagem recomendada:** um conector por sprint, começar pelo mais crítico para o negócio TurboQuant
+
+---
+
+## FASE 5 — Ecossistema (Visão de Produto)
+> **Status:** %VISÃO | Decisão estratégica separada — não bloqueia nenhuma fase anterior
+
+- %VISÃO **ECO-001**: NeoCortex Hub — plataforma para compartilhar lobes e skills
+- %VISÃO **ECO-002**: Marketplace de agentes especializados
+- %VISÃO **ECO-003**: SDKs Python/JS/Go para integração externa
+- %VISÃO **ECO-004**: CLI avançada publicada (PyPI)
+- %FORA_ESCOPO **ECO-K8s**: Deploy Kubernetes — NeoCortex é local-first por design
+- %FORA_ESCOPO **ECO-CLOUD**: AWS/Azure/GCP native — só se virar SaaS
+- %FORA_ESCOPO **ECO-VOICE**: Interface de voz — distração para o core
+- %FORA_ESCOPO **ECO-LGPD**: LGPD/GDPR — só relevante com multi-tenancy real
+
+---
+
+## MAPA DE ITENS PENDENTES HISTÓRICOS (v7.0 legado)
+> Itens do roadmap anterior que não foram descartados, apenas re-priorizados
+
+- %PENDING **OPT-011**: CacheBackend abstraction — Fase 3
+- %PENDING **OPT-012**: VectorStore abstraction — Fase 3 (junto com KG)
+- %PENDING **T0-002**: requirements.txt/pyproject.toml para pip install — Fase 4
+- %PENDING **T0-005**: Unit tests para helper functions — Fase 3 (junto com GLOBAL-SANE)
+- %PENDING **T0-006**: GitHub Actions CI — Fase 4
+- %PENDING **SEC-401**: neocortex_guardian (validação avançada) — Fase 3
+- %PENDING **SEC-402**: neocortex_failsafe (recovery automático) — Fase 3
+- %PENDING **SEC-404**: Auto-repair para stores — Fase 3
+- %PENDING **SEC-405**: Autenticação & API Keys — Fase 4
+- %PENDING **AGENT-201**: Isolated agent environments (sub_server por role) — Fase 2
+- %PENDING **AGENT-205**: Isolation + Mentor enforcement test — Fase 2
+- %PENDING **HIER-001 a 005**: Hierarchy planning — Fase 4
+- %PENDING **CONN-001 a 004**: mDNS, gRPC stubs, Tailscale — Fase 5
+- %DONE [2026-04-16] **ORCH-301**: send_task() HTTP POST real
+- %DONE [2026-04-16] **ORCH-302**: neocortex_task SSE polling
+- %PENDING **ORCH-304**: Teste de fluxo manual completo — Fase 2
+
+---
+
+## REFERÊNCIA — 80 PONTOS MAPEADOS POR FASE
+
+| # | Ponto | Fase | Status |
+|---|-------|------|--------|
+| 1 | Agente de Consolidação (CASCADE) | F3 | CASC-001 a 004 |
+| 2 | Detecção de Padrões de Sucesso | F3 | CASC-001 |
+| 3 | Geração de Hipóteses (T0 multi-approach) | F3 | KG-003 |
+| 4 | Laboratório Sandbox isolado | F3 | GOV-ADV-002 |
+| 5 | Métricas de Eficácia por Skill | F3 | CASC-003 |
+| 6 | Refinamento Iterativo de Prompts (SkillForge) | F3 | MEM-003 |
+| 7 | Aprendizado por Reforço (SAGE) | F4 | %VISÃO |
+| 8 | Evolução de Perfil de Agente | F3 | CASC-002 |
+| 9 | Descoberta de Dependências entre Lobes | F3 | KG-002 |
+| 10 | Síntese de Conhecimento (lobes híbridos) | F3 | KG-005 |
+| 11 | Detecção de Obsolescência (AKL) | F3 | CASC-004 |
+| 12 | Auto-Correção Self-Healing | F3 | SEC-402 |
+| 13 | Geração automática de testes unitários | F3 | T0-005 |
+| 14 | Geração automática de documentação | F3 | CASC-002 |
+| 15 | Aprendizado por Observação (Imitation) | F4 | %VISÃO |
+| 16 | Análise Preditiva de Falhas | F3 | SEC-403-A |
+| 17 | Contexto dinâmico (PulseScheduler) | F3 | MEM-001 |
+| 18 | Negociação entre Agentes | F4 | %VISÃO |
+| 19 | Escalada Inteligente (HiL-Bench) | F3 | SEC-403-C |
+| 20 | Debate entre Agentes | F4 | %VISÃO |
+| 21 | Assinatura Digital de Artefatos | F3 | GOV-ADV-001 |
+| 22 | RBAC (controle de acesso por função) | F3 | SEC-401 |
+| 23 | Criptografia em repouso | F0 | %DONE — NC-SVC-FR-017 |
+| 24 | Audit Trail Reforçada | F3 | GOV-ADV-004 |
+| 25 | Detecção de Anomalias (Guardian) | F3 | SEC-401 |
+| 26 | Quarentena Automática de Agentes | F3 | SEC-401 + StateMachine |
+| 27 | Sandbox de Execução de Código | F3 | GOV-ADV-002 |
+| 28 | Validação de Segurança de Código | F3 | GOV-ADV-002 |
+| 29 | Gestão de Segredos | F0 | %DONE — NC-SVC-FR-017 CryptoHub |
+| 30 | TTL de dados (logs, lobes antigos) | F1 | NC-DS-110 TTL-002 |
+| 31 | LGPD/GDPR | — | %FORA_ESCOPO |
+| 32 | Relatórios de Conformidade | F1 | NC-DS-108 compliance sprint |
+| 33 | Proteção Prompt Injection | F3 | GOV-ADV-003 |
+| 34 | Rate Limiting por Agente (SEC-403) | F2 | PICOCLAW-003 |
+| 35 | Orçamento de Tokens por Projeto | F2 | PICOCLAW-003 |
+| 36 | Bloqueio de Tópicos Sensíveis | F3 | GOV-ADV-003 |
+| 37 | Verificação de Fatos (Grounding) | F3 | KG-003 |
+| 38 | Red Teaming | F4 | %VISÃO |
+| 39 | Plano de Recuperação de Desastres | F3 | SEC-402 |
+| 40 | Auditoria de Viés | F4 | %VISÃO |
+| 41 | Topologias de Orquestração Dinâmica | F2 | PICOCLAW-001 |
+| 42 | Descoberta Semântica de Agentes | F3 | KG-004 |
+| 43 | Comunicação Pub/Sub (EventBus) | F2 | PICOCLAW-001 |
+| 44 | Handoff com Contexto Rico | F2 | PICOCLAW-002 |
+| 45 | Pool Dinâmico de Agentes | F2 | PICOCLAW-004 |
+| 46 | Balanceamento de Carga | F2 | PICOCLAW-005 |
+| 47 | Interrupção em tempo real (Human-in-loop) | F1 | NC-DS-106 webhooks MC |
+| 48 | Workflows de Aprovação | F1 | NC-DS-106 |
+| 49 | Agentes como Ferramentas MCP | F0 | %DONE — sub_server.py |
+| 50 | Memória Compartilhada de Equipe | F0 | %DONE — lobes compartilhados |
+| 51 | Resolução de Conflitos (WAL locks) | F1 | NC-DS-100 SavePoint WAL |
+| 52 | Métricas de Performance da Equipe | F4 | MC2-002 |
+| 53 | Agentes como Serviço (AaaS) | F4 | AAAS-001 |
+| 54 | Integração CI/CD | F4 | AAAS-002 |
+| 55 | Notificações Inteligentes | F1 | NC-DS-105 AuditHook |
+| 56 | Delegação Hierárquica | F2 | PICOCLAW-004 |
+| 57 | Times Ad-Hoc (T0 forma equipes) | F2 | PICOCLAW-005 |
+| 58 | Revisão de Código por Pares (Agentes) | F3 | CASC-001 |
+| 59 | Estimativa de Esforço pré-tarefa | F3 | SEC-403-A |
+| 60 | Planejamento de Sprints (T0) | F0 | %DONE — WF-001 + tickets |
+| 61 | Mission Control 2.0 | F4 | MC2-001 a 004 |
+| 62 | Visualização KG 3D | F4 | MC2-003 |
+| 63 | Linha do Tempo de Eventos | F2 | PIXEL-001 (Pixel Agents) |
+| 64 | Chat Unificado | F1 | %DONE — MC + Antigravity |
+| 65 | Modo de Explicabilidade | F3 | GOV-ADV-004 |
+| 66 | Dashboards Customizáveis | F4 | MC2-002 |
+| 67 | Relatórios de ROI | F4 | MC2-002 |
+| 68 | Interface Mobile | — | %FORA_ESCOPO |
+| 69 | Assistente de Voz | — | %FORA_ESCOPO |
+| 70 | Feedback Loops (joinha/joia) | F4 | MC2-004 |
+| 71 | NeoCortex Hub | F5 | ECO-001 |
+| 72 | Marketplace de Agentes | F5 | ECO-002 |
+| 73 | Multi-Tenancy | — | %FORA_ESCOPO |
+| 74 | Kubernetes | — | %FORA_ESCOPO |
+| 75 | Cloud (AWS/Azure/GCP) | — | %FORA_ESCOPO |
+| 76 | CLI Avançada | F4 | CLI-001 a 003 |
+| 77 | SDKs Multi-linguagem | F5 | ECO-003 |
+| 78 | Certificação | F5 | ECO — comercial |
+| 79 | Comunidade Open Source | F5 | ECO — comercial |
+| 80 | Artigos Acadêmicos | F5 | ECO — comercial |
+
+---
+
+## PROGRESSO MACRO POR FASE
+
+| Fase | Nome | % Estimado | Desbloqueio |
+|------|------|-----------|-------------|
+| **F0** | Fundação & Estabilização | **95%** | — |
+| **F1-PRÉ-MCP** | Core Services + WAL + CryptoHub | **100%** | — |
+| **F1-MCP-MC** | MCP Core Hardening + Mission Control | **~35%** | Aprovação T0 |
+| **SPRINT-ACEL** | LiteLLM+Ollama+PicoClaw driving + KG + LEXICO base | **~15%** | F1-MCP-MC parcial |
+| **F2** | PicoClaw + Pixel Agents | **10%** | F1-MCP-MC aprovada |
+| **F3** | Inteligência + Circuit Breaker + KG + LEXICO | **5%** | F2 estável |
+| **F4** | UI 2.0 + CLI + AaaS | **0%** | F3 validada |
+| **F5** | Ecossistema | **0%** | Decisão estratégica |
+
+---
+
+
+---
+
+## FASE PÓS-ESTABILIZAÇÃO — Backlog Estratégico
+> **Origem:** `04_user_docs/pensamentos apos estabilização.txt` — Analisado: 2026-04-18
+> **Critério de entrada:** MCP-ATIVO estável, 16 tools validadas, GPU split operacional.
+
+| Ticket | Título | Status | Prioridade |
+|--------|--------|--------|------------|
+| NC-DS-141 | Lobe Machine Memory (NC-LBE-FR-MACHINE-001) — criptografia, compressão LEXICO, conversões ubíquas | ✅ %DONE | 🔴 Alta |
+| NC-DS-142 | Dual-Representation: `.manifest.json` automático para cada Lobe (.mdc) — -50-80% tokens | ✅ %DONE | 🔴 Alta |
+| NC-DS-143 | KG-002: popular Knowledge Graph (neocortex.core.knowledge_graph ausente) | ✅ %DONE | 🔴 Alta |
+| NC-DS-144 | LEXICO-001: LexicoService completo — dicionário de átomos semânticos | %IN_PROGRESS [2026-04-18] | 🔴 Alta |
+| NC-DS-145 | MCP_TOOLS_INVENTORY.md — tabela das 16 super-tools para GitHub/LinkedIn | ✅ %DONE | 🟡 Média |
+| NC-DS-146 | GitHub Publish — README gerado pelo NeoCortex, prova pública das 16 tools | %VISÃO | 🟡 Média |
+| NC-DS-147 | Bug NC-SUPER-012 — corrigir AKLService.add/search (métodos ausentes) | ✅ %DONE | 🟡 Média |
+| NC-DS-148 | SemanticCataloger auto — Qwen 1.5b categoriza artefatos em lobes `06_auto/` | %PENDING | 🟡 Média |
+| NC-DS-149 | NeoCortex Hub SaaS — plataforma gerenciada para times (receita recorrente) | %VISÃO | 🔵 Longo Prazo |
+
+### NC-DS-141 — Machine Memory Lobe (design)
+`NC-LBE-FR-MACHINE-001 | atomic_lock: true | allowed_agents: [T0, Guardian]`
+Conversões (MD↔JSON), Criptografia (T0-only #DEC/#ENC + WAL severity:HIGH), LEXICO engine, Codificação ubíqua.
+Tool: `neocortex_machine_memory` | ações: convert, encrypt, decrypt, compress, get_dictionary
+
+### NC-DS-142 — Dual-Representation (design)
+Para cada `.mdc` → `.manifest.json` com: version, hash, semantic\_scope, dependencies, tags.
+IA lê manifesto (100 tokens) em vez do lobe inteiro (500-2000 tokens). Executado via `@POPULATE`.
+
+## CHANGELOG
+| Data | Versão | Mudança |
+|------|--------|---------|
+| 2026-04-11 | v7.0 | Consolidação Stability v6 + Vision v5 |
+| 2026-04-16 | v10.0 | Consolidação total: 80-point plan mapeado + sprint Fase 1 MCP-MC + histórico NC-DS-001 a 114 + fases F0-F5 estruturadas |
+| 2026-04-18 | v12.0 | LiteLLM gateway integrado (NC-DS-131); SPRINT-ACELERADO sem MC/Pixel; NC-DS-132..135 criados; LEXICO-001 em andamento; 40 tools MCP compactadas |
+
+---
+
+**Hash:** `NC-TODO-FR-001-v13.0-20260418`
+_"Rotinas inertes matam produtividade. O roadmap é o contrato entre o que foi, o que é, e o que será."_
+
+
+
+---
+
+<!-- source: NC-NAM-FR-001-naming-convention.md -->
+<!-- tags: frontal, ssot, naming, governance -->
+<!-- auto-generated: true -->
+
+# NC-NAM-FR-001 - Convenções de Nomenclatura, Mapa e Changelog do Projeto NeoCortex
+
+> **Documento Unificado Oficial:** Este artefato consolida a Arquitetura do Projeto (Project Map), o Catálogo Geral de Nomenclaturas e Prefixos, e o Histórico Central (Changelog) da plataforma NeoCortex.
+> **Data Refência:** 2026-04-11
+
+---
+
+## 🗺️ 1. Estrutura de Diretórios Proposta e Mapa do Projeto
+
+O projeto utiliza um design de pastas modulares governado por prefixos restritos `DIR-<tipo>-FR`, abrigando o pacote central da framework `neocortex` rigidamente separado.
+
+```
+📁 TURBOQUANT_V42/
+├── 📄 README.md (descrição do propósito central)
+├── 📄 antigravity_neocortex_config.json (configuração IDE para MCP padrão STDIO)
+├── 📄 start_neocortex_mcp.bat (Inicializador Windows WS do Host Principal)
+├── 📄 start_neocortex_mcp.ps1 (Inicializador Powershell WS do Host Principal)
+├── 📁 neocortex_framework/ (núcleo do framework isolado)
+│   ├── 📄 __init__.py
+│   ├── 📁 neocortex/ (código fonte principal de rotas e agentes)
+│   │   ├── 📄 config.py (ConfigProvider)
+│   │   ├── 📁 core/ (serviços de domínio - Services / Schedulers)
+│   │   ├── 📁 infra/ (repositórios de conectividade com stores DB e Caches)
+│   │   ├── 📁 agent/ (agentes autônomos internos isolados, eg. Courier / Engineer)
+│   │   └── 📁 mcp/ (servidor e conexão MCP via Transporte)
+│   │       ├── 📄 server.py (Host principal em SSE)
+│   │       ├── 📄 sub_server.py
+│   │       └── 📁 tools/ (17+ ferramentas de gestão T-0 conformadas como NC-TOOL)
+│   ├── 📁 DIR-PRF-FR-001-profiles-main/ (perfis de usuário)
+│   ├── 📁 DIR-DOC-FR-001-docs-main/ (documentação vital e roadmaps de arquitetura)
+│   ├── 📁 DIR-ARC-FR-001-archive-main/ (arquivos obsoletos transferidos pelo OpenCode)
+│   ├── 📁 DIR-BAK-FR-001-backup-main/ (backups antigos originados da raiz)
+│   ├── 📁 DIR-CFG-FR-001-config-main/ (arquivos sensíveis como config.yaml)
+│   ├── 📁 DIR-TEST-FR-001-tests-main/ (suite de validação e testes de sanidade)
+│   ├── 📁 DIR-TMP-FR-001-templates-main/ (templates resguardados)
+│   └── 📁 DIR-MCP-FR-001-mcp-server/ (scripts satélites da arquitetura Server principal)
+├── 📁 memory_lobes/ (lobos ativos / dados de persistência viva)
+├── 📁 .agents/ (regras e workflows autônomos do OpenCode/Antigravity)
+└── 📁 white_label/ (templates para instanciamento modular)
+```
+
+---
+
+## 🏷️ 2. Padrão de Nomenclatura de Arquivos e Pastas
+
+Formato Base: `NC-<TIPO>-<SIGLA>-<NUM>-<desc>.ext`  
+Formato Diretório Base: `DIR-<TIPO>-<SIGLA>-<NUM>-<desc>`
+
+| Elemento | Descrição | Exemplos |
+| :--- | :--- | :--- |
+| **NC** | Prefixo fixo para Arquivos (NeoCortex) | NC |
+| **DIR** | Prefixo fixo para Diretórios Estruturais | DIR |
+| **<TIPO>** | Categoria base da operação do arquivo/pasta | MCP (Server), TOOL (Ferramenta), CORE (Serviço), INFRA (Infra), DOC (Documentos), PRF (Perfil), TKT (Ticket), ARC (Arquivo Obsoleto), BAK (Backup), CFG (Configuração), TEST (Testes), TMP (Templates) |
+| **<SIGLA>** | Abreviação do propósito contextual | FR (Framework Geral), WL (White Label), USR (Usuário) |
+| **<NUM>** | Número sequencial (3 dígitos) por módulo | 001, 002, 020 |
+| **<desc>** | Descrição curta em kebab-case intuitiva | cortex-tool, mcp-server |
+
+### Catálogo Primário de Prefixos Praticados
+- `NC-MCP-FR-001-*`: Componentes e rotas vitais do núcleo servidor Model Context Protocol.
+- `NC-TOOL-FR-<NUM>-*`: Qualquer ferramenta legível pela Interface MCP (Ex: `NC-TOOL-FR-000-brain.py`, `NC-TOOL-FR-008-ledger.py`).
+- `NC-CORE-FR-001-*`: Serviços e Orquestradores localizados em `/core`.
+- `NC-DOC-FR-001-*`: Relatórios fixos, Checklists ou Planejamentos Estratégicos (Como este documento e Roadmaps).
+- `NC-PRF-USR-XXX-*`: Profile rules localizados no `DIR-PRF-FR`.
+
+### Regras Ouro para Manutenção
+1. **Novas Ferramentas**: Se a ferramenta não puder ser consolidada num `NC-TOOL` englobador já existente, deve nascer sob a próxima numeração livre na pasta `/tools/`.
+2. **Arquivos Obsoletos**: Devem ser arrastados para `DIR-ARC-FR-001-archive-main` não sofrendo *apenas* modificação e remoção direta da raiz pra precaver vazamento de dependências escondidas.
+3. **Logs**: Devem ser descartados perante limite da HotCache de 5. Backups temporais não geram commit, moram em `DIR-BAK-FR-001-backup-main`.
+
+---
+
+## 📂 SSOT Geral do Sistema (Snapshot Local)
+| Nome | Descrição | Local | Palavras Chaves |
+|---|---|---|---|
+| antigravity_neocortex_config.json | - | \antigravity_neocortex_config.json | - |
+| README.md | - | \README.md | - |
+| start_neocortex_mcp.bat | - | \start_neocortex_mcp.bat | - |
+| start_neocortex_mcp.ps1 | - | \start_neocortex_mcp.ps1 | - |
+| pyproject.toml | - | \01_neocortex_framework\pyproject.toml | - |
+| requirements.txt | - | \01_neocortex_framework\requirements.txt | - |
+| deepseek.exe | CLI do DeepSeek (PierrunoYT) | C:\Program Files\Python312\Scripts\deepseek.exe | deepseek, cli, ai |
+| lobe_index.db | - | \01_neocortex_framework\.neocortex\cache\lobe_index.db | - |
+| index.redb | - | \01_neocortex_framework\.neocortex\cache\hot_cache\index.redb | - |
+| cache.db | - | \01_neocortex_framework\.neocortex\cache\ledger\cache.db | - |
+| 7fd282bb51e2535a2323bf377a90.val | - | \01_neocortex_framework\.neocortex\cache\ledger\de\50\7fd282bb51e2535a2323bf377a90.val | - |
+| cache.db | - | \01_neocortex_framework\.neocortex\cache\manifests\cache.db | - |
+| metrics.db | - | \01_neocortex_framework\.neocortex\metrics\metrics.db | - |
+| metrics.db.wal | - | \01_neocortex_framework\.neocortex\metrics\metrics.db.wal | - |
+| 00-cortex-20260409.mdc | - | \01_neocortex_framework\DIR-ARC-FR-001-archive-main\.agents\rules\00-cortex-20260409.mdc | - |
+| clean_security.py | - | \01_neocortex_framework\DIR-ARC-FR-001-archive-main\development_utilities\clean_security.py | - |
+| extract_all_tools.py | - | \01_neocortex_framework\DIR-ARC-FR-001-archive-main\development_utilities\extract_all_tools.py | - |
+| extract_tools_final.py | - | \01_neocortex_framework\DIR-ARC-FR-001-archive-main\development_utilities\extract_tools_final.py | - |
+| extract_tools_robust.py | - | \01_neocortex_framework\DIR-ARC-FR-001-archive-main\development_utilities\extract_tools_robust.py | - |
+| fix_indentation.py | - | \01_neocortex_framework\DIR-ARC-FR-001-archive-main\development_utilities\fix_indentation.py | - |
+| NC-MCP-FR-001-mcp-server.py | - | \01_neocortex_framework\DIR-ARC-FR-001-archive-main\mcp_server_legacy\NC-MCP-FR-001-mcp-server.py | - |
+| add_root_sanitize_event.py | - | \01_neocortex_framework\DIR-ARC-FR-001-archive-main\scripts\add_root_sanitize_event.py | - |
+| update_antigravity_confirmation.py | - | \01_neocortex_framework\DIR-ARC-FR-001-archive-main\scripts\update_antigravity_confirmation.py | - |
+| update_ledger_status.py | - | \01_neocortex_framework\DIR-ARC-FR-001-archive-main\scripts\update_ledger_status.py | - |
+| update_phase3_progress.py | - | \01_neocortex_framework\DIR-ARC-FR-001-archive-main\scripts\update_phase3_progress.py | - |
+| verify_mcp.py | - | \01_neocortex_framework\DIR-ARC-FR-001-archive-main\scripts\verify_mcp.py | - |
+| memory_neocortex_framework-20260409.json | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\memory_neocortex_framework-20260409.json | - |
+| migration.log | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration.log | - |
+| migration_debug.log | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_debug.log | - |
+| NC-CTX-FR-001-cortex-central-20260410-0140.mdc | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\NC-CTX-FR-001-cortex-central-20260410-0140.mdc | - |
+| NC-LED-FR-001-framework-ledger-20260410-0140.json | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\NC-LED-FR-001-framework-ledger-20260410-0140.json | - |
+| add_root_sanitize_event.py | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\backup_root\add_root_sanitize_event.py | - |
+| CHEATSHEET.md | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\backup_root\CHEATSHEET.md | - |
+| install.ps1 | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\backup_root\install.ps1 | - |
+| install.sh | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\backup_root\install.sh | - |
+| Sem título.txt | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\backup_root\Sem título.txt | - |
+| update_antigravity_confirmation.py | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\backup_root\update_antigravity_confirmation.py | - |
+| update_ledger_status.py | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\backup_root\update_ledger_status.py | - |
+| verify_mcp.py | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\backup_root\verify_mcp.py | - |
+| benchmark_fractal_gauntlet.py | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\backup_root\benchmarks_archive\benchmark_fractal_gauntlet.py | - |
+| benchmark_master_suite.py | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\backup_root\benchmarks_archive\benchmark_master_suite.py | - |
+| README.md | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\backup_root\benchmarks_archive\README.md | - |
+| ledger_backup_20260410_001233.json | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\backup_root\old_backup\backup\ledger_backup_20260410_001233.json | - |
+| 00-cortex-FULL.mdc | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\backup_root\templates\00-cortex-FULL.mdc | - |
+| 00-cortex-STARTER.mdc | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\backup_root\templates\00-cortex-STARTER.mdc | - |
+| memory-ledger-TEMPLATE.json | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\backup_root\templates\memory-ledger-TEMPLATE.json | - |
+| phase-lobe-TEMPLATE.mdc | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\backup_root\templates\phase-lobe-TEMPLATE.mdc | - |
+| backup_manifest.json | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\backup_manifest.json | - |
+| ledger_20260410_173509.json | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\ledger_20260410_173509.json | - |
+| ledger_20260410_173805.json | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\ledger_20260410_173805.json | - |
+| ledger_20260410_173853.json | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\ledger_20260410_173853.json | - |
+| ledger_20260410_174028.json | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\ledger_20260410_174028.json | - |
+| ledger_20260410_174150.json | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\ledger_20260410_174150.json | - |
+| ledger_20260410_203605.json | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\ledger_20260410_203605.json | - |
+| ledger_20260410_212708.json | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\ledger_20260410_212708.json | - |
+| migration_report.json | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\migration_report.json | - |
+| NC-CTX-FR-001-cortex-central.mdc | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\mdc_files\.agents\rules\NC-CTX-FR-001-cortex-central.mdc | - |
+| NC-LBE-FR-002-claude-assistant.mdc | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\mdc_files\.agents\rules\NC-LBE-FR-002-claude-assistant.mdc | - |
+| NC-LBE-FR-ARCHITECTURE-001.mdc | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\mdc_files\.agents\rules\NC-LBE-FR-ARCHITECTURE-001.mdc | - |
+| NC-LBE-FR-BENCHMARKS-001.mdc | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\mdc_files\.agents\rules\NC-LBE-FR-BENCHMARKS-001.mdc | - |
+| NC-LBE-FR-CLI-001.mdc | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\mdc_files\.agents\rules\NC-LBE-FR-CLI-001.mdc | - |
+| NC-LBE-FR-CORE-001.mdc | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\mdc_files\.agents\rules\NC-LBE-FR-CORE-001.mdc | - |
+| NC-LBE-FR-DEPLOYMENT-001.mdc | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\mdc_files\.agents\rules\NC-LBE-FR-DEPLOYMENT-001.mdc | - |
+| NC-LBE-FR-DEVELOPMENT-001.mdc | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\mdc_files\.agents\rules\NC-LBE-FR-DEVELOPMENT-001.mdc | - |
+| NC-LBE-FR-DOCUMENTATION-001.mdc | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\mdc_files\.agents\rules\NC-LBE-FR-DOCUMENTATION-001.mdc | - |
+| NC-LBE-FR-INTEGRATION-001.mdc | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\mdc_files\.agents\rules\NC-LBE-FR-INTEGRATION-001.mdc | - |
+| NC-LBE-FR-KNOWLEDGE-001.mdc | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\mdc_files\.agents\rules\NC-LBE-FR-KNOWLEDGE-001.mdc | - |
+| NC-LBE-FR-LEGACY-001.mdc | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\mdc_files\.agents\rules\NC-LBE-FR-LEGACY-001.mdc | - |
+| NC-LBE-FR-MCP-001.mdc | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\mdc_files\.agents\rules\NC-LBE-FR-MCP-001.mdc | - |
+| NC-LBE-FR-MONITORING-001.mdc | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\mdc_files\.agents\rules\NC-LBE-FR-MONITORING-001.mdc | - |
+| NC-LBE-FR-PERFORMANCE-001.mdc | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\mdc_files\.agents\rules\NC-LBE-FR-PERFORMANCE-001.mdc | - |
+| NC-LBE-FR-PROFILES-001.mdc | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\mdc_files\.agents\rules\NC-LBE-FR-PROFILES-001.mdc | - |
+| NC-LBE-FR-PULSE-001.mdc | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\mdc_files\.agents\rules\NC-LBE-FR-PULSE-001.mdc | - |
+| NC-LBE-FR-SECURITY-001.mdc | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\mdc_files\.agents\rules\NC-LBE-FR-SECURITY-001.mdc | - |
+| NC-LBE-FR-TESTING-001.mdc | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\mdc_files\.agents\rules\NC-LBE-FR-TESTING-001.mdc | - |
+| NC-LBE-FR-WHITELABEL-001.mdc | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\mdc_files\.agents\rules\NC-LBE-FR-WHITELABEL-001.mdc | - |
+| TEST_INDEX_13aa6e78.mdc | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\mdc_files\.agents\rules\TEST_INDEX_13aa6e78.mdc | - |
+| TEST_INDEX_19948498.mdc | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\mdc_files\.agents\rules\TEST_INDEX_19948498.mdc | - |
+| TEST_INDEX_8f76b831.mdc | - | \01_neocortex_framework\DIR-BAK-FR-001-backup-main\migration_backup\mdc_files\.agents\rules\TEST_INDEX_8f76b831.mdc | - |
+| neocortex_config.yaml | - | \01_neocortex_framework\DIR-CFG-FR-001-config-main\neocortex_config.yaml | - |
+| checkpoint_tree_phase1.json | - | \01_neocortex_framework\DIR-CORE-FR-001-core-central\checkpoint_tree_phase1.json | - |
+| NC-LED-FR-001-framework-ledger.json | - | \01_neocortex_framework\DIR-CORE-FR-001-core-central\NC-LED-FR-001-framework-ledger.json | - |
+| NC-LED-FR-001-framework-ledger.json.backup | - | \01_neocortex_framework\DIR-CORE-FR-001-core-central\NC-LED-FR-001-framework-ledger.json.backup | - |
+| NC-TLM-FR-001-tool-manifest-schema.json | - | \01_neocortex_framework\DIR-CORE-FR-001-core-central\NC-TLM-FR-001-tool-manifest-schema.json | - |
+| NC-TLM-FR-001-tool-manifest.json | - | \01_neocortex_framework\DIR-CORE-FR-001-core-central\NC-TLM-FR-001-tool-manifest.json | - |
+| NC_SEC_FR_001_security_utils.py | - | \01_neocortex_framework\DIR-CORE-FR-001-core-central\NC_SEC_FR_001_security_utils.py | - |
+| test_security_integration.py | - | \01_neocortex_framework\DIR-CORE-FR-001-core-central\test_security_integration.py | - |
+| update_ledger.py | - | \01_neocortex_framework\DIR-CORE-FR-001-core-central\update_ledger.py | - |
+| AGENTS.md | - | \01_neocortex_framework\DIR-CORE-FR-001-core-central\.agents\AGENTS.md | - |
+| NC-CTX-FR-001-cortex-central.mdc | - | \01_neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules\NC-CTX-FR-001-cortex-central.mdc | - |
+| NC-LBE-FR-002-claude-assistant.mdc | - | \01_neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules\NC-LBE-FR-002-claude-assistant.mdc | - |
+| NC-LBE-FR-ARCHITECTURE-001.mdc | - | \01_neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules\NC-LBE-FR-ARCHITECTURE-001.mdc | - |
+| NC-LBE-FR-BENCHMARKS-001.mdc | - | \01_neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules\NC-LBE-FR-BENCHMARKS-001.mdc | - |
+| NC-LBE-FR-CLI-001.mdc | - | \01_neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules\NC-LBE-FR-CLI-001.mdc | - |
+| NC-LBE-FR-CORE-001.mdc | - | \01_neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules\NC-LBE-FR-CORE-001.mdc | - |
+| NC-LBE-FR-DEPLOYMENT-001.mdc | - | \01_neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules\NC-LBE-FR-DEPLOYMENT-001.mdc | - |
+| NC-LBE-FR-DEVELOPMENT-001.mdc | - | \01_neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules\NC-LBE-FR-DEVELOPMENT-001.mdc | - |
+| NC-LBE-FR-DOCUMENTATION-001.mdc | - | \01_neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules\NC-LBE-FR-DOCUMENTATION-001.mdc | - |
+| NC-LBE-FR-INTEGRATION-001.mdc | - | \01_neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules\NC-LBE-FR-INTEGRATION-001.mdc | - |
+| NC-LBE-FR-KNOWLEDGE-001.mdc | - | \01_neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules\NC-LBE-FR-KNOWLEDGE-001.mdc | - |
+| NC-LBE-FR-LEGACY-001.mdc | - | \01_neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules\NC-LBE-FR-LEGACY-001.mdc | - |
+| NC-LBE-FR-MCP-001.mdc | - | \01_neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules\NC-LBE-FR-MCP-001.mdc | - |
+| NC-LBE-FR-MONITORING-001.mdc | - | \01_neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules\NC-LBE-FR-MONITORING-001.mdc | - |
+| NC-LBE-FR-PERFORMANCE-001.mdc | - | \01_neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules\NC-LBE-FR-PERFORMANCE-001.mdc | - |
+| NC-LBE-FR-PROFILES-001.mdc | - | \01_neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules\NC-LBE-FR-PROFILES-001.mdc | - |
+| NC-LBE-FR-PULSE-001.mdc | - | \01_neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules\NC-LBE-FR-PULSE-001.mdc | - |
+| NC-LBE-FR-SECURITY-001.mdc | - | \01_neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules\NC-LBE-FR-SECURITY-001.mdc | - |
+| NC-LBE-FR-TESTING-001.mdc | - | \01_neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules\NC-LBE-FR-TESTING-001.mdc | - |
+| NC-LBE-FR-WHITELABEL-001.mdc | - | \01_neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules\NC-LBE-FR-WHITELABEL-001.mdc | - |
+| TEST_INDEX_13aa6e78.mdc | - | \01_neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules\TEST_INDEX_13aa6e78.mdc | - |
+| TEST_INDEX_19948498.mdc | - | \01_neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules\TEST_INDEX_19948498.mdc | - |
+| TEST_INDEX_8f76b831.mdc | - | \01_neocortex_framework\DIR-CORE-FR-001-core-central\.agents\rules\TEST_INDEX_8f76b831.mdc | - |
+| restart-session.md | - | \01_neocortex_framework\DIR-CORE-FR-001-core-central\.agents\workflows\restart-session.md | - |
+| BENCHMARKS.md | - | \01_neocortex_framework\DIR-DOC-FR-001-docs-main\BENCHMARKS.md | - |
+| BENCHMARKS_HYBRID.md | - | \01_neocortex_framework\DIR-DOC-FR-001-docs-main\BENCHMARKS_HYBRID.md | - |
+| CHECKPOINT_AUDIT_2026-04-10.md | - | \01_neocortex_framework\DIR-DOC-FR-001-docs-main\CHECKPOINT_AUDIT_2026-04-10.md | - |
+| DEEPSEEK_API_SUMMARY.md | - | \01_neocortex_framework\DIR-DOC-FR-001-docs-main\DEEPSEEK_API_SUMMARY.md | - |
+| mcp_tools_inventory.json | - | \01_neocortex_framework\DIR-DOC-FR-001-docs-main\mcp_tools_inventory.json | - |
+| NC-ALN-FR-001-arquitetural-alignment.md | - | \01_neocortex_framework\DIR-DOC-FR-001-docs-main\NC-ALN-FR-001-arquitetural-alignment.md | - |
+| NC-AUD-FR-001-audit-findings-2026-04-10.md | - | \01_neocortex_framework\DIR-DOC-FR-001-docs-main\NC-AUD-FR-001-audit-findings-2026-04-10.md | - |
+| NC-AUD-FR-002-checklist-validation.md | - | \01_neocortex_framework\DIR-DOC-FR-001-docs-main\NC-AUD-FR-002-checklist-validation.md | - |
+| NC-DOC-FR-002-directory-convention.md | - | \01_neocortex_framework\DIR-DOC-FR-001-docs-main\NC-DOC-FR-002-directory-convention.md | - |
+| NC-DOC-FR-003-turboquant-prompt.md | - | \01_neocortex_framework\DIR-DOC-FR-001-docs-main\NC-DOC-FR-003-turboquant-prompt.md | - |
+| NC-NAM-FR-001-naming-convention.md | - | \01_neocortex_framework\DIR-DOC-FR-001-docs-main\NC-NAM-FR-001-naming-convention.md | - |
+| NC-PLN-FR-001-optimization-plan.mdc | - | \01_neocortex_framework\DIR-DOC-FR-001-docs-main\NC-PLN-FR-001-optimization-plan.mdc | - |
+| NC-SES-FR-001-session-status-2026-04-10.md | - | \01_neocortex_framework\DIR-DOC-FR-001-docs-main\NC-SES-FR-001-session-status-2026-04-10.md | - |
+| NC-TKT-FR-001-tickets.md | - | \01_neocortex_framework\DIR-DOC-FR-001-docs-main\NC-TKT-FR-001-tickets.md | - |
+| NC-TODO-FR-001-project-roadmap-consolidated.md | - | \01_neocortex_framework\DIR-DOC-FR-001-docs-main\NC-TODO-FR-001-project-roadmap-consolidated.md | - |
+| NC-TODO-FR-001-project-roadmap-v6-stability.md | - | \01_neocortex_framework\DIR-DOC-FR-001-docs-main\NC-TODO-FR-001-project-roadmap-v6-stability.md | - |
+| NC-TODO-FR-001-project-roadmap-v7-combined.md | - | \01_neocortex_framework\DIR-DOC-FR-001-docs-main\NC-TODO-FR-001-project-roadmap-v7-combined.md | - |
+| NC-TODO-FR-001-project-roadmap.md | - | \01_neocortex_framework\DIR-DOC-FR-001-docs-main\NC-TODO-FR-001-project-roadmap.md | - |
+| NC-TODO-FR-001-project-roadmap.md.backup | - | \01_neocortex_framework\DIR-DOC-FR-001-docs-main\NC-TODO-FR-001-project-roadmap.md.backup | - |
+| NC-TODO-FR-001-project-roadmap.md.bak | - | \01_neocortex_framework\DIR-DOC-FR-001-docs-main\NC-TODO-FR-001-project-roadmap.md.bak | - |
+| README_MCP_NEOCORTEX.md | - | \01_neocortex_framework\DIR-DOC-FR-001-docs-main\README_MCP_NEOCORTEX.md | - |
+| SANITIZATION_CHECKLIST.md | - | \01_neocortex_framework\DIR-DOC-FR-001-docs-main\SANITIZATION_CHECKLIST.md | - |
+| STATUS.md | - | \01_neocortex_framework\DIR-DOC-FR-001-docs-main\STATUS.md | - |
+| CHEATSHEET.md | - | \01_neocortex_framework\DIR-DOC-FR-001-docs-main\legacy\CHEATSHEET.md | - |
+| clean_utf0.py | - | \01_neocortex_framework\DIR-MCP-FR-001-mcp-server\clean_utf0.py | - |
+| extract_tools.py | - | \01_neocortex_framework\DIR-MCP-FR-001-mcp-server\extract_tools.py | - |
+| list_tools.py | - | \01_neocortex_framework\DIR-MCP-FR-001-mcp-server\list_tools.py | - |
+| list_tools_simple.py | - | \01_neocortex_framework\DIR-MCP-FR-001-mcp-server\list_tools_simple.py | - |
+| NC-HUB-FR-001-mcp-hub.py | - | \01_neocortex_framework\DIR-MCP-FR-001-mcp-server\NC-HUB-FR-001-mcp-hub.py | - |
+| neocortex_mcp.py | - | \01_neocortex_framework\DIR-MCP-FR-001-mcp-server\neocortex_mcp.py | - |
+| test_mcp_simple.py | - | \01_neocortex_framework\DIR-MCP-FR-001-mcp-server\test_mcp_simple.py | - |
+| test_server_start.py | - | \01_neocortex_framework\DIR-MCP-FR-001-mcp-server\test_server_start.py | - |
+| test_tools.py | - | \01_neocortex_framework\DIR-MCP-FR-001-mcp-server\test_tools.py | - |
+| test_tools_simple.py | - | \01_neocortex_framework\DIR-MCP-FR-001-mcp-server\test_tools_simple.py | - |
+| NC-PRF-FR-001-developer-schema.md | - | \01_neocortex_framework\DIR-PRF-FR-001-profiles-main\NC-PRF-FR-001-developer-schema.md | - |
+| NC-PRF-FR-002-team-schema.md | - | \01_neocortex_framework\DIR-PRF-FR-001-profiles-main\NC-PRF-FR-002-team-schema.md | - |
+| NC-PRF-FR-003-profile-loader.py | - | \01_neocortex_framework\DIR-PRF-FR-001-profiles-main\NC-PRF-FR-003-profile-loader.py | - |
+| profile_manager.py | - | \01_neocortex_framework\DIR-PRF-FR-001-profiles-main\profile_manager.py | - |
+| NC-PRF-TMP-001-dev-profile-template.json | - | \01_neocortex_framework\DIR-PRF-FR-001-profiles-main\templates\NC-PRF-TMP-001-dev-profile-template.json | - |
+| NC-PRF-USR-001-profile.json | - | \01_neocortex_framework\DIR-PRF-FR-001-profiles-main\users\lucas_valerio\NC-PRF-USR-001-profile.json | - |
+| detalhamento_completo.md | - | \01_neocortex_framework\DIR-REF-FR-001-reference-main\Arquivos de referência\detalhamento_completo.md | - |
+| structured_elements.md | - | \01_neocortex_framework\DIR-REF-FR-001-reference-main\Arquivos de referência\structured_elements.md | - |
+| sumario.md | - | \01_neocortex_framework\DIR-REF-FR-001-reference-main\Arquivos de referência\sumario.md | - |
+| fire_test.py | - | \01_neocortex_framework\DIR-TEST-FR-001-tests-main\fire_test.py | - |
+| test_config_reload.py | - | \01_neocortex_framework\DIR-TEST-FR-001-tests-main\test_config_reload.py | - |
+| test_mcp_responsive.py | - | \01_neocortex_framework\DIR-TEST-FR-001-tests-main\test_mcp_responsive.py | - |
+| test_modular_server.py | - | \01_neocortex_framework\DIR-TEST-FR-001-tests-main\test_modular_server.py | - |
+| test_sanity.py | - | \01_neocortex_framework\DIR-TEST-FR-001-tests-main\test_sanity.py | - |
+| test_task.py | - | \01_neocortex_framework\DIR-TEST-FR-001-tests-main\test_task.py | - |
+| test_tools.py | - | \01_neocortex_framework\DIR-TEST-FR-001-tests-main\test_tools.py | - |
+| 00-cortex-FULL.mdc | - | \01_neocortex_framework\DIR-TMP-FR-001-templates-main\00-cortex-FULL.mdc | - |
+| 00-cortex-STARTER.mdc | - | \01_neocortex_framework\DIR-TMP-FR-001-templates-main\00-cortex-STARTER.mdc | - |
+| memory-ledger-TEMPLATE.json | - | \01_neocortex_framework\DIR-TMP-FR-001-templates-main\memory-ledger-TEMPLATE.json | - |
+| NC-TMP-WL-001-cortex-template.mdc | - | \01_neocortex_framework\DIR-TMP-FR-001-templates-main\NC-TMP-WL-001-cortex-template.mdc | - |
+| phase-lobe-TEMPLATE.mdc | - | \01_neocortex_framework\DIR-TMP-FR-001-templates-main\phase-lobe-TEMPLATE.mdc | - |
+| rules.txt | - | \01_neocortex_framework\lobes\backend_dev\rules.txt | - |
+| neocortex_config.yaml | - | \01_neocortex_framework\lobes\courier\neocortex_config.yaml | - |
+| memory_ledger_courier.json | - | \01_neocortex_framework\lobes\courier\DIR-CORE-FR-001-core-central\memory_ledger_courier.json | - |
+| 00-cortex-STARTER.mdc | - | \01_neocortex_framework\lobes\courier\DIR-CORE-FR-001-core-central\.agents\rules\00-cortex-STARTER.mdc | - |
+| neocortex_config.yaml | - | \01_neocortex_framework\lobes\engineer\neocortex_config.yaml | - |
+| memory_ledger_engineer.json | - | \01_neocortex_framework\lobes\engineer\DIR-CORE-FR-001-core-central\memory_ledger_engineer.json | - |
+| 00-cortex-STARTER.mdc | - | \01_neocortex_framework\lobes\engineer\DIR-CORE-FR-001-core-central\.agents\rules\00-cortex-STARTER.mdc | - |
+| rules.txt | - | \01_neocortex_framework\lobes\guardian\rules.txt | - |
+| config.py | - | \01_neocortex_framework\neocortex\config.py | - |
+| __init__.py | - | \01_neocortex_framework\neocortex\__init__.py | - |
+| executor.py | - | \01_neocortex_framework\neocortex\agent\executor.py | - |
+| main.py | - | \01_neocortex_framework\neocortex\cli\main.py | - |
+| __init__.py | - | \01_neocortex_framework\neocortex\cli\__init__.py | - |
+| agent_service.py | - | \01_neocortex_framework\neocortex\core\agent_service.py | - |
+| akl_service.py | - | \01_neocortex_framework\neocortex\core\akl_service.py | - |
+| benchmark_service.py | - | \01_neocortex_framework\neocortex\core\benchmark_service.py | - |
+| checkpoint_service.py | - | \01_neocortex_framework\neocortex\core\checkpoint_service.py | - |
+| config_service.py | - | \01_neocortex_framework\neocortex\core\config_service.py | - |
+| consolidation_service.py | - | \01_neocortex_framework\neocortex\core\consolidation_service.py | - |
+| cortex_service.py | - | \01_neocortex_framework\neocortex\core\cortex_service.py | - |
+| export_service.py | - | \01_neocortex_framework\neocortex\core\export_service.py | - |
+| file_utils.py | - | \01_neocortex_framework\neocortex\core\file_utils.py | - |
+| init_service.py | - | \01_neocortex_framework\neocortex\core\init_service.py | - |
+| kg_service.py | - | \01_neocortex_framework\neocortex\core\kg_service.py | - |
+| ledger_service.py | - | \01_neocortex_framework\neocortex\core\ledger_service.py | - |
+| lobe_service.py | - | \01_neocortex_framework\neocortex\core\lobe_service.py | - |
+| manifest_service.py | - | \01_neocortex_framework\neocortex\core\manifest_service.py | - |
+| peers_service.py | - | \01_neocortex_framework\neocortex\core\peers_service.py | - |
+| profile_manager.py | - | \01_neocortex_framework\neocortex\core\profile_manager.py | - |
+| profile_service.py | - | \01_neocortex_framework\neocortex\core\profile_service.py | - |
+| pulse_scheduler.py | - | \01_neocortex_framework\neocortex\core\pulse_scheduler.py | - |
+| regression_service.py | - | \01_neocortex_framework\neocortex\core\regression_service.py | - |
+| security_service.py | - | \01_neocortex_framework\neocortex\core\security_service.py | - |
+| __init__.py | - | \01_neocortex_framework\neocortex\core\__init__.py | - |
+| backup_restore.py | - | \01_neocortex_framework\neocortex\infra\backup_restore.py | - |
+| cache_backend.py | - | \01_neocortex_framework\neocortex\infra\cache_backend.py | - |
+| config_validation.py | - | \01_neocortex_framework\neocortex\infra\config_validation.py | - |
+| health_metrics.py | - | \01_neocortex_framework\neocortex\infra\health_metrics.py | - |
+| hot_cache.py | - | \01_neocortex_framework\neocortex\infra\hot_cache.py | - |
+| ledger_store.py | - | \01_neocortex_framework\neocortex\infra\ledger_store.py | - |
+| lobe_index.py | - | \01_neocortex_framework\neocortex\infra\lobe_index.py | - |
+| manifest_store.py | - | \01_neocortex_framework\neocortex\infra\manifest_store.py | - |
+| metrics_store.py | - | \01_neocortex_framework\neocortex\infra\metrics_store.py | - |
+| profiler.py | - | \01_neocortex_framework\neocortex\infra\profiler.py | - |
+| search_engine.py | - | \01_neocortex_framework\neocortex\infra\search_engine.py | - |
+| task_queue.py | - | \01_neocortex_framework\neocortex\infra\task_queue.py | - |
+| vector_store.py | - | \01_neocortex_framework\neocortex\infra\vector_store.py | - |
+| backend.py | - | \01_neocortex_framework\neocortex\infra\llm\backend.py | - |
+| deepseek_backend.py | - | \01_neocortex_framework\neocortex\infra\llm\deepseek_backend.py | - |
+| factory.py | - | \01_neocortex_framework\neocortex\infra\llm\factory.py | - |
+| ollama_backend.py | - | \01_neocortex_framework\neocortex\infra\llm\ollama_backend.py | - |
+| openai_backend.py | - | \01_neocortex_framework\neocortex\infra\llm\openai_backend.py | - |
+| server.py | - | \01_neocortex_framework\neocortex\mcp\server.py | - |
+| server.py.backup | - | \01_neocortex_framework\neocortex\mcp\server.py.backup | - |
+| sub_server.py | - | \01_neocortex_framework\neocortex\mcp\sub_server.py | - |
+| tools_manifest.json | - | \01_neocortex_framework\neocortex\mcp\tools_manifest.json | - |
+| __init__.py | - | \01_neocortex_framework\neocortex\mcp\__init__.py | - |
+| NC-TOOL-FR-000-brain.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-000-brain.py | - |
+| NC-TOOL-FR-001-cortex.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-001-cortex.py | - |
+| NC-TOOL-FR-002-agent.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-002-agent.py | - |
+| NC-TOOL-FR-003-benchmark.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-003-benchmark.py | - |
+| NC-TOOL-FR-004-checkpoint.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-004-checkpoint.py | - |
+| NC-TOOL-FR-005-config.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-005-config.py | - |
+| NC-TOOL-FR-006-export.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-006-export.py | - |
+| NC-TOOL-FR-007-init.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-007-init.py | - |
+| NC-TOOL-FR-008-ledger.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-008-ledger.py | - |
+| NC-TOOL-FR-009-lobes.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-009-lobes.py | - |
+| NC-TOOL-FR-010-peers.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-010-peers.py | - |
+| NC-TOOL-FR-011-pulse.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-011-pulse.py | - |
+| NC-TOOL-FR-012-regression.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-012-regression.py | - |
+| NC-TOOL-FR-013-report.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-013-report.py | - |
+| NC-TOOL-FR-014-search.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-014-search.py | - |
+| NC-TOOL-FR-015-security.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-015-security.py | - |
+| NC-TOOL-FR-016-subserver.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-016-subserver.py | - |
+| NC-TOOL-FR-017-task.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-017-task.py | - |
+| NC-TOOL-FR-020-knowledge.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-020-knowledge.py | - |
+| __init__.py | - | \01_neocortex_framework\neocortex\mcp\tools\__init__.py | - |
+| base.py | - | \01_neocortex_framework\neocortex\repositories\base.py | - |
+| file_system_repository.py | - | \01_neocortex_framework\neocortex\repositories\file_system_repository.py | - |
+| __init__.py | - | \01_neocortex_framework\neocortex\repositories\__init__.py | - |
+| a2a_message_schema.json | - | \01_neocortex_framework\neocortex\schemas\a2a_message_schema.json | - |
+| ledger_schema.json | - | \01_neocortex_framework\neocortex\schemas\ledger_schema.json | - |
+| __init__.py | - | \01_neocortex_framework\neocortex\schemas\__init__.py | - |
+| dependency_links.txt | - | \01_neocortex_framework\neocortex_framework.egg-info\dependency_links.txt | - |
+| entry_points.txt | - | \01_neocortex_framework\neocortex_framework.egg-info\entry_points.txt | - |
+| PKG-INFO | - | \01_neocortex_framework\neocortex_framework.egg-info\PKG-INFO | - |
+| requires.txt | - | \01_neocortex_framework\neocortex_framework.egg-info\requires.txt | - |
+| SOURCES.txt | - | \01_neocortex_framework\neocortex_framework.egg-info\SOURCES.txt | - |
+| top_level.txt | - | \01_neocortex_framework\neocortex_framework.egg-info\top_level.txt | - |
+| analyze_mcp_tools.py | - | \01_neocortex_framework\scripts\analyze_mcp_tools.py | - |
+| create_lobes.py | - | \01_neocortex_framework\scripts\create_lobes.py | - |
+| exhaustive_population.py | - | \01_neocortex_framework\scripts\exhaustive_population.py | - |
+| extract_tools_final.py | - | \01_neocortex_framework\scripts\extract_tools_final.py | - |
+| extract_tools_robust.py | - | \01_neocortex_framework\scripts\extract_tools_robust.py | - |
+| fix_indentation.py | - | \01_neocortex_framework\scripts\fix_indentation.py | - |
+| generate_all_manifests.py | - | \01_neocortex_framework\scripts\generate_all_manifests.py | - |
+| generate_official_tool_manifest.py | - | \01_neocortex_framework\scripts\generate_official_tool_manifest.py | - |
+| generate_tools_manifest.py | - | \01_neocortex_framework\scripts\generate_tools_manifest.py | - |
+| inspect_config.py | - | \01_neocortex_framework\scripts\inspect_config.py | - |
+| migrate_to_stores.py | - | \01_neocortex_framework\scripts\migrate_to_stores.py | - |
+| neocortex_hud.py | - | \01_neocortex_framework\scripts\neocortex_hud.py | - |
+| populate_memory.py | - | \01_neocortex_framework\scripts\populate_memory.py | - |
+| saneamento_raiz.py | - | \01_neocortex_framework\scripts\saneamento_raiz.py | - |
+| test_llm_backends.py | - | \01_neocortex_framework\scripts\test_llm_backends.py | - |
+| update_ledger_with_tools.py | - | \01_neocortex_framework\scripts\update_ledger_with_tools.py | - |
+| update_mcp_config.py | - | \01_neocortex_framework\scripts\update_mcp_config.py | - |
+| update_mcp_config2.py | - | \01_neocortex_framework\scripts\update_mcp_config2.py | - |
+| update_phase3_progress.py | - | \01_neocortex_framework\scripts\update_phase3_progress.py | - |
+| NC-DOC-WL-001-hybrid-mode.md | - | \03_white_label_templates\NC-DOC-WL-001-hybrid-mode.md | - |
+| NC-DOC-WL-001-readme.md | - | \03_white_label_templates\NC-DOC-WL-001-readme.md | - |
+| Aqui está o prompt ajustado exatamente c.txt | - | \04_user_docs\Aqui está o prompt ajustado exatamente c.txt | - |
+| cruzar com o roadmap.txt | - | \04_user_docs\cruzar com o roadmap.txt | - |
+| LLM e API .md | - | \04_user_docs\LLM e API .md | - |
+| 📁 SANITIZAÇÃO DA PASTA TURBOQUANT_V42 –.txt | - | \04_user_docs\📁 SANITIZAÇÃO DA PASTA TURBOQUANT_V42 –.txt | - |
+| example_architecture.py | - | \05_examples\example_architecture.py | - |
+| package.json | - | \05_examples\demo-api\package.json | - |
+| README.md | - | \05_examples\demo-api\README.md | - |
+| server.js | - | \05_examples\demo-api\src\server.js | - |
+| benchmark_fractal_gauntlet.py | - | \05_examples\ollama-benchmark\benchmark_fractal_gauntlet.py | - |
+| benchmark_master_suite.py | - | \05_examples\ollama-benchmark\benchmark_master_suite.py | - |
+| README.md | - | \05_examples\ollama-benchmark\README.md | - |
+| CONTINUE.md | - | \05_examples\ollama-benchmark\protocol\CONTINUE.md | - |
+| QUICK_TEST.py | - | \05_examples\ollama-benchmark\protocol\QUICK_TEST.py | - |
+| STATUS.md | - | \05_examples\ollama-benchmark\protocol\STATUS.md | - |
+
+| NC-SVC-FR-011-ttl-manager.py | - | \01_neocortex_framework\neocortex\core\services\NC-SVC-FR-011-ttl-manager.py | - |
+| NC-SVC-FR-009-session-buddy.py | - | \01_neocortex_framework\neocortex\core\services\NC-SVC-FR-009-session-buddy.py | - |
+| NC-SVC-FR-018-tag-normalizer.py | - | \01_neocortex_framework\neocortex\core\services\NC-SVC-FR-018-tag-normalizer.py | - |
+| NC-SVC-FR-016-wal-service.py | - | \01_neocortex_framework\neocortex\core\services\NC-SVC-FR-016-wal-service.py | - |
+| NC-SVC-FR-010-kairos-service.py | - | \01_neocortex_framework\neocortex\core\services\NC-SVC-FR-010-kairos-service.py | - |
+| NC-SVC-FR-007-state-machine.py | - | \01_neocortex_framework\neocortex\core\services\NC-SVC-FR-007-state-machine.py | - |
+| NC-SVC-FR-017-crypto-hub.py | - | \01_neocortex_framework\neocortex\core\services\NC-SVC-FR-017-crypto-hub.py | - |
+| NC-SVC-FR-012-channel-notifier.py | - | \01_neocortex_framework\neocortex\core\services\NC-SVC-FR-012-channel-notifier.py | - |
+| NC-SVC-FR-015-task-broker.py | - | \01_neocortex_framework\neocortex\core\services\NC-SVC-FR-015-task-broker.py | - |
+| NC-SVC-FR-005-event-bus.py | - | \01_neocortex_framework\neocortex\core\services\NC-SVC-FR-005-event-bus.py | - |
+| NC-SVC-FR-004-cache-service.py | - | \01_neocortex_framework\neocortex\core\services\NC-SVC-FR-004-cache-service.py | - |
+| NC-SVC-FR-006-metrics-collector.py | - | \01_neocortex_framework\neocortex\core\services\NC-SVC-FR-006-metrics-collector.py | - |
+| NC-SVC-FR-014-dry-run-preview.py | - | \01_neocortex_framework\neocortex\core\services\NC-SVC-FR-014-dry-run-preview.py | - |
+| NC-SVC-FR-003-savepoint-stub.py | - | \01_neocortex_framework\neocortex\core\services\NC-SVC-FR-003-savepoint-stub.py | - |
+| NC-SVC-FR-008-config-validator.py | - | \01_neocortex_framework\neocortex\core\services\NC-SVC-FR-008-config-validator.py | - |
+| NC-SVC-FR-002-health-service.py | - | \01_neocortex_framework\neocortex\core\services\NC-SVC-FR-002-health-service.py | - |
+| NC-SVC-FR-001-logging-service.py | - | \01_neocortex_framework\neocortex\core\services\NC-SVC-FR-001-logging-service.py | - |
+| NC-SCR-FR-061-engineer-documentacao.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-061-engineer-documentacao.py | - |
+| NC-SCR-FR-066-bootup-sync.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-066-bootup-sync.py | - |
+| NC-SCR-FR-003-manifest-factory.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-003-manifest-factory.py | - |
+| NC-SCR-FR-001-populate-lobes-ssot.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-001-populate-lobes-ssot.py | - |
+| NC-SCR-FR-017-visual-server.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-017-visual-server.py | - |
+| NC-SCR-FR-023-ssot-auditor.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-023-ssot-auditor.py | - |
+| NC-SCR-FR-005-auto-approve.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-005-auto-approve.py | - |
+| NC-SCR-FR-060-courier-saneamento.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-060-courier-saneamento.py | - |
+| NC-SCR-FR-008-queue-repair.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-008-queue-repair.py | - |
+| NC-SCR-FR-061-courier-discrepancy-fix.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-061-courier-discrepancy-fix.py | - |
+| NC-SCR-FR-007-queue-monitor.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-007-queue-monitor.py | - |
+| NC-SCR-FR-080-governance-auditor.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-080-governance-auditor.py | - |
+| NC-SCR-FR-062-engineer-encoding-fix.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-062-engineer-encoding-fix.py | - |
+| NC-SCR-FR-024-structural-auditor.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-024-structural-auditor.py | - |
+| NC-SCR-FR-011-sanitize-handoffs.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-011-sanitize-handoffs.py | - |
+| NC-SCR-FR-062-tester-vector.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-062-tester-vector.py | - |
+| NC-SCR-FR-081-config-migrator.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-081-config-migrator.py | - |
+| NC-SCR-FR-006-ticket-validator.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-006-ticket-validator.py | - |
+| NC-SCR-FR-002-tool-manifest-generator.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-002-tool-manifest-generator.py | - |
+| NC-SCR-FR-064-artifact-catalog.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-064-artifact-catalog.py | - |
+| NC-SCR-FR-098-health-wrapper.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-098-health-wrapper.py | - |
+| NC-SCR-FR-022-coverage-auditor.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-022-coverage-auditor.py | - |
+| NC-SCR-FR-021-lexicon-extractor.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-021-lexicon-extractor.py | - |
+| NC-SCR-FR-013-validate-file.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-013-validate-file.py | - |
+| NC-SCR-FR-009-sanitize-all-yamls.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-009-sanitize-all-yamls.py | - |
+| NC-SCR-FR-004-governance-validator.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-004-governance-validator.py | - |
+| NC-SCR-FR-012-new-tool.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-012-new-tool.py | - |
+| NC-SCR-FR-063-tester-vector-fix.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-063-tester-vector-fix.py | - |
+| NC-SCR-FR-010-sync-ticket-status.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-010-sync-ticket-status.py | - |
+| NC-SCR-FR-075-genealogy-injector.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-075-genealogy-injector.py | - |
+| NC-SCR-FR-020-yaml-injector.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-020-yaml-injector.py | - |
+| NC-SCR-FR-051-knowledge-graph-builder.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-051-knowledge-graph-builder.py | - |
+| NC-SCR-FR-103-mc-startup-hook.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-103-mc-startup-hook.py | - |
+| NC-SCR-FR-103b-start-with-mc.ps1 | - | \01_neocortex_framework\scripts\NC-SCR-FR-103b-start-with-mc.ps1 | PS1 wrapper: inicia MCP Server + MC hook como jobs background (NC-DS-103) |
+| NC-SCR-FR-065-rename-impact-analyzer.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-065-rename-impact-analyzer.py | - |
+| NC-SVC-FR-011-ttl-manager.py | - | \01_neocortex_framework\neocortex\core\services\NC-SVC-FR-011-ttl-manager.py | - |
+| NC-SVC-FR-009-session-buddy.py | - | \01_neocortex_framework\neocortex\core\services\NC-SVC-FR-009-session-buddy.py | - |
+| NC-SVC-FR-018-tag-normalizer.py | - | \01_neocortex_framework\neocortex\core\services\NC-SVC-FR-018-tag-normalizer.py | - |
+| NC-SVC-FR-016-wal-service.py | - | \01_neocortex_framework\neocortex\core\services\NC-SVC-FR-016-wal-service.py | - |
+| NC-SVC-FR-010-kairos-service.py | - | \01_neocortex_framework\neocortex\core\services\NC-SVC-FR-010-kairos-service.py | - |
+| NC-SVC-FR-007-state-machine.py | - | \01_neocortex_framework\neocortex\core\services\NC-SVC-FR-007-state-machine.py | - |
+| NC-SVC-FR-017-crypto-hub.py | - | \01_neocortex_framework\neocortex\core\services\NC-SVC-FR-017-crypto-hub.py | - |
+| NC-SVC-FR-012-channel-notifier.py | - | \01_neocortex_framework\neocortex\core\services\NC-SVC-FR-012-channel-notifier.py | - |
+| NC-SVC-FR-015-task-broker.py | - | \01_neocortex_framework\neocortex\core\services\NC-SVC-FR-015-task-broker.py | - |
+| NC-SVC-FR-005-event-bus.py | - | \01_neocortex_framework\neocortex\core\services\NC-SVC-FR-005-event-bus.py | - |
+| NC-SVC-FR-004-cache-service.py | - | \01_neocortex_framework\neocortex\core\services\NC-SVC-FR-004-cache-service.py | - |
+| NC-SVC-FR-006-metrics-collector.py | - | \01_neocortex_framework\neocortex\core\services\NC-SVC-FR-006-metrics-collector.py | - |
+| NC-SVC-FR-014-dry-run-preview.py | - | \01_neocortex_framework\neocortex\core\services\NC-SVC-FR-014-dry-run-preview.py | - |
+| NC-SVC-FR-003-savepoint-stub.py | - | \01_neocortex_framework\neocortex\core\services\NC-SVC-FR-003-savepoint-stub.py | - |
+| NC-SVC-FR-008-config-validator.py | - | \01_neocortex_framework\neocortex\core\services\NC-SVC-FR-008-config-validator.py | - |
+| NC-SVC-FR-002-health-service.py | - | \01_neocortex_framework\neocortex\core\services\NC-SVC-FR-002-health-service.py | - |
+| NC-SVC-FR-001-logging-service.py | - | \01_neocortex_framework\neocortex\core\services\NC-SVC-FR-001-logging-service.py | - |
+| NC-TOOL-FR-034-dry-run.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-034-dry-run.py | - |
+| NC-TOOL-FR-027-knowledge.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-027-knowledge.py | - |
+| NC-TOOL-FR-030-context.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-030-context.py | - |
+| NC-TOOL-FR-021-memory.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-021-memory.py | - |
+| NC-TOOL-FR-036-picoclaw.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-036-picoclaw.py | - |
+| NC-TOOL-FR-031-savepoint.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-031-savepoint.py | - |
+| NC-TOOL-FR-018-push-notification.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-018-push-notification.py | - |
+| NC-TOOL-FR-026-intelligence.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-026-intelligence.py | - |
+| NC-TOOL-FR-023-orchestration.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-023-orchestration.py | - |
+| NC-TOOL-FR-024-governance.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-024-governance.py | - |
+| NC-TOOL-FR-022-session.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-022-session.py | - |
+| NC-TOOL-FR-025-system.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-025-system.py | - |
+| NC-TOOL-FR-037-hooks.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-037-hooks.py | - |
+| NC-TOOL-FR-019-project-manifest.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-019-project-manifest.py | - |
+| NC-TOOL-FR-029-health.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-029-health.py | - |
+| NC-TOOL-FR-035-task.py | - | \01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-035-task.py | - |
+| NC-SCR-FR-061-engineer-documentacao.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-061-engineer-documentacao.py | - |
+| NC-SCR-FR-066-bootup-sync.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-066-bootup-sync.py | - |
+| NC-SCR-FR-003-manifest-factory.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-003-manifest-factory.py | - |
+| NC-SCR-FR-001-populate-lobes-ssot.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-001-populate-lobes-ssot.py | - |
+| NC-SCR-FR-017-visual-server.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-017-visual-server.py | - |
+| NC-SCR-FR-023-ssot-auditor.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-023-ssot-auditor.py | - |
+| NC-SCR-FR-005-auto-approve.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-005-auto-approve.py | - |
+| NC-SCR-FR-060-courier-saneamento.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-060-courier-saneamento.py | - |
+| NC-SCR-FR-008-queue-repair.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-008-queue-repair.py | - |
+| NC-SCR-FR-061-courier-discrepancy-fix.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-061-courier-discrepancy-fix.py | - |
+| NC-SCR-FR-007-queue-monitor.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-007-queue-monitor.py | - |
+| NC-SCR-FR-080-governance-auditor.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-080-governance-auditor.py | - |
+| NC-SCR-FR-062-engineer-encoding-fix.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-062-engineer-encoding-fix.py | - |
+| NC-SCR-FR-024-structural-auditor.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-024-structural-auditor.py | - |
+| NC-SCR-FR-011-sanitize-handoffs.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-011-sanitize-handoffs.py | - |
+| NC-SCR-FR-062-tester-vector.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-062-tester-vector.py | - |
+| NC-SCR-FR-081-config-migrator.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-081-config-migrator.py | - |
+| NC-SCR-FR-006-ticket-validator.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-006-ticket-validator.py | - |
+| NC-SCR-FR-002-tool-manifest-generator.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-002-tool-manifest-generator.py | - |
+| NC-SCR-FR-064-artifact-catalog.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-064-artifact-catalog.py | - |
+| NC-SCR-FR-098-health-wrapper.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-098-health-wrapper.py | - |
+| NC-SCR-FR-022-coverage-auditor.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-022-coverage-auditor.py | - |
+| NC-SCR-FR-021-lexicon-extractor.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-021-lexicon-extractor.py | - |
+| NC-SCR-FR-013-validate-file.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-013-validate-file.py | - |
+| NC-SCR-FR-009-sanitize-all-yamls.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-009-sanitize-all-yamls.py | - |
+| NC-SCR-FR-004-governance-validator.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-004-governance-validator.py | - |
+| NC-SCR-FR-012-new-tool.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-012-new-tool.py | - |
+| NC-SCR-FR-063-tester-vector-fix.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-063-tester-vector-fix.py | - |
+| NC-SCR-FR-010-sync-ticket-status.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-010-sync-ticket-status.py | - |
+| NC-SCR-FR-075-genealogy-injector.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-075-genealogy-injector.py | - |
+| NC-SCR-FR-020-yaml-injector.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-020-yaml-injector.py | - |
+| NC-SCR-FR-051-knowledge-graph-builder.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-051-knowledge-graph-builder.py | - |
+| NC-SCR-FR-103-mc-startup-hook.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-103-mc-startup-hook.py | - |
+| NC-SCR-FR-103b-start-with-mc.ps1 | - | \01_neocortex_framework\scripts\NC-SCR-FR-103b-start-with-mc.ps1 | PS1 wrapper: inicia MCP Server + MC hook como jobs background (NC-DS-103) |
+| NC-SCR-FR-065-rename-impact-analyzer.py | - | \01_neocortex_framework\scripts\NC-SCR-FR-065-rename-impact-analyzer.py | - |
+| NC-SCR-FR-113-kg-populate-lobes.py | Knowledge Graph population — popula KG a partir dos lobes/AKL (NC-DS-133 KG-002) | \01_neocortex_framework\scripts\NC-SCR-FR-113-kg-populate-lobes.py | kg, knowledge-graph, lobes |
+| NC-SCR-FR-114-auto-categorize-lobes.py | Auto-categorização de lobes .mdc com Qwen 1.5b (NC-DS-148 SemanticCataloger) | \01_neocortex_framework\scripts\NC-SCR-FR-114-auto-categorize-lobes.py | semantic, categorize, qwen, lobes |
+| NC-SCR-FR-115-guardian-daemon.py | Guardian Daemon — 7 módulos automáticos (Ciclo3: 5 steps/hora, Ciclo4: 6 steps/dia) | \01_neocortex_framework\scripts\NC-SCR-FR-115-guardian-daemon.py | guardian, daemon, automação, ciclos |
+| NC-SCR-FR-116-guardian-service-installer.bat | Instalador do Guardian como serviço Windows (NSSM) | \01_neocortex_framework\scripts\NC-SCR-FR-116-guardian-service-installer.bat | guardian, windows-service, nssm |
+| NC-SCR-FR-134-smoke-test-tools.py | Smoke test 40 MCP tools via MockMCP — score e relatório JSON (NC-DS-134 P1) | \01_neocortex_framework\scripts\NC-SCR-FR-134-smoke-test-tools.py | smoke-test, mcp, tools, validação |
+| NC-SUPER-001-governance.py | Super-Tool governance: rule.list, compliance.report, cycle.archive_handoffs, yaml.sanitize, governance.full_audit, catalog.refresh, bootup.sync | \01_neocortex_framework\neocortex\mcp\tools\NC-SUPER-001-governance.py | governance, compliance, audit |
+| NC-SUPER-002-orchestration.py | Super-Tool orchestration: task.execute, agent.spawn, dispatch.create, workers.spawn | \01_neocortex_framework\neocortex\mcp\tools\NC-SUPER-002-orchestration.py | orchestration, agent, task |
+| NC-SUPER-003-memory.py | Super-Tool memory: cortex, lobes, knowledge, manifest, lexico.build/search/stats, semantic.categorize | \01_neocortex_framework\neocortex\mcp\tools\NC-SUPER-003-memory.py | memory, lobes, lexico, semantic |
+| NC-SUPER-004-state.py | Super-Tool state: checkpoint, regression, savepoint.create/list/rollback/diff (filesystem real), session, ledger | \01_neocortex_framework\neocortex\mcp\tools\NC-SUPER-004-state.py | state, savepoint, rollback, checkpoint |
+| NC-SUPER-005-llm-router.py | Super-Tool LLM router: gateway, route.call, ollama.ask, budget | \01_neocortex_framework\neocortex\mcp\tools\NC-SUPER-005-llm-router.py | llm, router, ollama, budget |
+| NC-SUPER-006-system.py | Super-Tool system: config, pulse, health, export, init | \01_neocortex_framework\neocortex\mcp\tools\NC-SUPER-006-system.py | system, config, pulse, health |
+| NC-SUPER-007-brain.py | Super-Tool brain: brain.think, brain.plan, brain.critique, brain.orchestrate | \01_neocortex_framework\neocortex\mcp\tools\NC-SUPER-007-brain.py | brain, think, plan |
+| NC-SUPER-008-context.py | Super-Tool context: context.budget_status, compress, prune, session.summarize | \01_neocortex_framework\neocortex\mcp\tools\NC-SUPER-008-context.py | context, compress, budget |
+| NC-SUPER-009-security.py | Super-Tool security: access.validate, lock.check, hook.register/trigger, audit.log | \01_neocortex_framework\neocortex\mcp\tools\NC-SUPER-009-security.py | security, locks, hooks, audit |
+| NC-SUPER-010-benchmark.py | Super-Tool benchmark: run.drift, run.titanomachy, run.omni, benchmark.status | \01_neocortex_framework\neocortex\mcp\tools\NC-SUPER-010-benchmark.py | benchmark, drift, omni |
+| NC-SUPER-011-notification.py | Super-Tool notification: push.send, push.list, push.clear, peers | \01_neocortex_framework\neocortex\mcp\tools\NC-SUPER-011-notification.py | notification, push, peers |
+| NC-SUPER-012-akl.py | Super-Tool AKL/KG: akl.add/search/export, kg.query/enrich/stats, consolidate | \01_neocortex_framework\neocortex\mcp\tools\NC-SUPER-012-akl.py | akl, knowledge-graph, consolidate |
+| NC-SUPER-013-health.py | Super-Tool health: server.health, log.errors, metrics.live, watchdog | \01_neocortex_framework\neocortex\mcp\tools\NC-SUPER-013-health.py | health, metrics, watchdog |
+| NC-SUPER-014-ledger.py | Super-Tool ledger: ledger.read/write/stats, agent.register/identity | \01_neocortex_framework\neocortex\mcp\tools\NC-SUPER-014-ledger.py | ledger, agent, identity |
+| NC-SUPER-015-memory-auto.py | Super-Tool memory-auto: turn.record, session.hot/stats/end, lobe.auto, catalog.now | \01_neocortex_framework\neocortex\mcp\tools\NC-SUPER-015-memory-auto.py | memory-auto, turn, session, catalog |
+---
+
+## 📜 3. Histórico de Versões e Changelog Core
+
+### [2026-04-20] — Automação Total e Alinhamento de Governança
+
+#### Added
+- **`NC-SCR-FR-134-smoke-test-tools.py`** — Smoke test 40 MCP Super-Tools via MockMCP. Valida 2-3 actions por tool, gera score e relatório JSON em `.neocortex/smoke_test_report.json` (P1 NC-DS-134).
+- **`NC-SCR-FR-115-guardian-daemon.py`** expandido: `Ciclo3Runner` (5 steps/hora: catalog, bootup, yaml, lexico.build, cascade) e `Ciclo4Runner` (6 steps/dia: governance.full_audit, archive, lobe.populate, kg.enrich, semantic.categorize, smoke_test).
+- **`savepoint.create`** — Snapshot filesystem real (ledger.json + cortex.json + guardian_state.json) salvo em `.neocortex/savepoints/{name}.json`.
+- **`savepoint.rollback`** — Restore real dos snapshots com auto-backup pré-rollback (P4 NC-DS-100 SEC-402).
+- **`savepoint.diff`** — Comparação estado atual vs snapshot para auditoria pré-rollback.
+- **`semantic.categorize`** (NC-SUPER-003) — Action MCP que dispara NC-SCR-FR-114 via subprocess para categorizar todos os lobes com Qwen 1.5b (P3 NC-DS-148).
+- **SSOT atualizado** — 15 NC-SUPER-001..015 + NC-SCR-FR-113/114/115/116/134 registrados na tabela SSOT.
+
+#### Changed
+- **`NC-SUPER-003-memory.py`** — Adicionados `import json`, `semantic.categorize` action. F401 lobe_result removido.
+- **`NC-SUPER-004-state.py`** — savepoint.create/list/rollback/diff reescritos com filesystem primeiro (sem depender de get_savepoint_service). F401 List removido.
+
+#### Notes
+- **Cobertura automação Guardian**: Ciclo3 5 steps/hora + Ciclo4 6 steps/dia = 11 processos automáticos diários.
+- **STEP-0 limpo**: py_compile 0 + ruff F 0 em todos os 4 arquivos modificados.
+- **Fase LEXICO-001 concluída**: LexicoService 1041 termos, 27 lobes, integrado ao Ciclo3 (step 4).
+
+
+### [2026-04-17] — Resolução Conflito de Portas e Orquestração Unitária
+
+#### Added
+- **Mapeamento de portas NeoCortex (16 portas)** — Definido orquestrador unitário com 8 portas para serviços core e 8 portas para comunicação A2A, documentado em NC-BOOT-FR-001.
+- **Health wrapper (NC-SCR-FR-098)** — Implementado e handoff aprovado (NC-DS-098).
+
+#### Changed
+- **Pixel Agents porta alterada** — De `:8765` para `:8767` para liberar porta core MCP Server. Atualizado em NC-BOOT-FR-001, NC-WF-001, NC-LBE-INT-005 e NC-GOV-FR-004.
+- **Registro de handoff NC-DS-098** — Ticket de health wrapper marcado %DONE no roadmap.
+
+#### Fixed
+- **Conflito de portas 8765** — NeoCortex MCP Server mantém porta 8765; Pixel Agents movido para 8767, permitindo operação simultânea.
+- **Documentação de acesso no Ciclo 1** — NC-WF-001 atualizado com porta correta para Pixel Agents.
+
+### [2026-04-16] — Ciclo 1 Conclusão, Protocolo T0 e Handoffs
+
+#### Added
+- **Protocolo T0 de auditoria de handoff** (NC-DS-116) — Adicionado bloco obrigatório de 7 passos ao NC-WF-001 v3.6 para validação técnica (py_compile, ruff) antes de marcar %DONE.
+- **Handoffs para tickets pendentes** — NC-DS-099, 100, 101, 102, 114 (APPROVED), 108, 110 (FAILED) com validação de conformidade.
+- **Correção de importação de tools MCP** — Recriação dinâmica de `neocortex/mcp/tools/__init__.py` para mapear nomes curtos (cortex, ledger, etc.) para módulos NC-TOOL-FR-*.
+
+#### Changed
+- **Script de inicialização NC-SCR-FR-103b** — Substituído `Start-Job` por `Start-Process` com redirecionamento de logs separados (stdout/stderr) para monitoramento robusto.
+- **Servidor MCP (`server.py`)** — Comentadas importações estáticas problemáticas (linhas 25-44) e ajustada lógica de transporte (websocket → SSE fallback).
+- **NC-WF-001 (Workspace Routine)** — Atualizado para v3.6 com protocolo T0 integrado no Ciclo 2.
+
+#### Fixed
+- **Erros de lint (F401, I001)** em 3 arquivos Python via `ruff --fix`: NC-TOOL-FR-034-dry-run.py, NC-SVC-FR-003-savepoint-stub.py, NC-SCR-FR-101-tools-smoke-test.py.
+- **Validação de handoffs** — Aplicado protocolo T0 para garantir `compile_ok: true` e `ruff_ok: true` antes de aprovação.
+
+#### Notes
+- **PicoClaw desativado** conforme solicitação — porta 18790 fechada, processo terminado.
+- **Mission Control ativo** na porta 3000 — hook de startup executado.
+- **Servidor MCP hospedado** (PID 32736) mas porta 8765 não respondendo — diagnóstico pendente.
+- **Catálogo de artefatos atualizado** — 529 arquivos .py, 403 .yaml (gerado em 2026-04-16T18:41:47).
+
+### [2026-04-11] — Sessão de Modularização de Regras e Linguagem Ubíqua (Parte 3)
+
+#### Added
+- `NC-DOC-FR-001-ubiquitous-language-dictionary.md` — Dicionário de Linguagem Ubíqua com símbolos @$% (57 entradas). Inclui NC-READ-HASH de deduplicação.
+- `NC-CFG-FR-002-rules-policy.yaml` — Policy-as-Code companion dos arquivos MDC. Machine-readable: `critical_rules`, `write_zones`, `read_dedup` checkpoints, `ubiquitous_language`, `llm_tiers`.
+- `.agents/rules/NC-RULE-001-core-ssot.mdc` — Regras core, always-on, < 50 linhas. Inclui NC-READ-HASH para evitar re-leitura.
+- `.agents/rules/NC-RULE-002-python-mcp.mdc` — Regras Python/MCP com globs `**/*.py`. Inclui exemplos de código para importação, paths e logger.
+- `.agents/rules/NC-RULE-003-lobes-memory.mdc` — Regras de lobos com globs `**/lobes/**`. Inclui mapa de lobos, isolamento, API LobeService.
+- `.agents/rules/NC-RULE-004-filesystem.mdc` — Regras de filesystem com globs `**/DIR-*/**`. Inclui zonas de escrita, hierarquia numérica, checklist de criação.
+
+#### Changed
+- `.agents/rules/neocortexrules.md` — Reescrito como índice master v3: mapa de módulos MDC, tabelas @$% de linguagem ubíqua, NC-READ-HASH dedup, 20 regras compactas com referências @$%.
+
+### [2026-04-11] — Sessão de Industrialização e Governança (Parte 2)
+
+#### Added
+- `NC-APP-FR-001-technical-appendix.md` — Apêndice técnico: inventário de 30+ ferramentas, ações MCP, bibliotecas, LLMs, políticas de roteamento e fluxo de orquestração. Ticket: OPT documentação.
+- `NC-PROMPT-FR-001-master-context.md` (raiz) — Master Context Prompt v2 com mapa de lobos, comandos de busca, tiers LLM e princípio de economia de tokens.
+- `NC-CFG-FR-001-agent-policy-template.yaml` — Template de política de agente: `allowed_tools`, `forbidden_actions`, `limits.*`, mentor mode, isolamento de lobe. Ticket: SEC-403.
+- `NC-SEC-FR-001-atomic-locks.yaml` — Lista centralizada de arquivos protegidos para o SecurityService (6 categorias + exceções por role). Ticket: SEC-401.
+- `NC-SOP-FR-001-session-startup.md` — Procedimento Operacional Padrão de inicialização de sessão NeoCortex (5 passos + checklist de encerramento).
+- `NC-ARC-FR-001-decision-log.md` — Architecture Decision Records com 8 ADRs (pyspeedb, FTS5, DuckDB, diskcache-rs, FastMCP, Qwen 1.5B, msgspec, Arquitetura de Lobos).
+- `NC-SCR-FR-001-populate-lobes-ssot.py` (scripts/) — Script de poblamento automático dos lobos a partir dos arquivos SSOT via LobeService. Suporta `--dry-run`. 12 entradas mapeadas.
+- `DIR-BOOT-FR-001-bootup-main/NC-BOOT-FR-001-system-manifest.md` — Manifesto universal de boot: qualquer IA deve ler antes de agir. Contém mapa de lobos, arquitetura de agentes, nomenclatura, proibições e tickets abertos.
+- `NC-LBE-FR-ARCHITECTURE-001.mdc` (gerado via script) — Lobo de memória indexado: Roadmap + Naming Convention + Apêndice Técnico + ADRs.
+- `NC-LBE-FR-SECURITY-001.mdc` (gerado via script) — Lobo de memória indexado: Atomic Locks + Agent Policy + SOP de Sessão + Sanitization Checklist.
+
+#### Changed
+- `neocortex/mcp/sub_server.py` — **AGENT-203 implementado**: `mentor_step_0()` com `identify_relevant_lobes` (mapeamento role+keyword → lobos), `extract_relevant_snippet` (scoring FTS5 por parágrafos), `handle_task` com logging detalhado via `neocortex.mentor` logger.
+- `NC-APP-FR-001-technical-appendix.md` — Inventário completo de 7 categorias (DB, Cache, Busca, LLM, Orquestração, Dev, Aux) adicionado.
+- `NC-SCR-FR-001-populate-lobes-ssot.py` — Mapeamento expandido com NC-CFG-FR-001, NC-SEC-FR-001, NC-SOP-FR-001, NC-ARC-FR-001.
+- `NC-NAM-FR-001-naming-convention.md` (este arquivo) — Changelog duplicado removido; entrada expandida adicionada.
+
+#### Fixed
+- Duplicação do bloco de changelog removida (linhas 396-423 redundantes eliminadas).
+- Stub `mentor_step_0()` substituído pela implementação real com LobeService.
+
+### [2026-04-11] — Sessão de Industrialização e Governança (Parte 1)
+
+#### Added
+- Ferramenta MCP `neocortex_brain` para integração com DeepSeek API como T-0 Assistente instalada.
+- Documento-Mestre criado: Este documento passa agora a consolidar o changelog, Naming Convention e Project Map centralmente limitando fragmentação indesejada.
+- Scripts de PowerShell e Batch `start_neocortex_mcp` regerados apontando para carregamento em módulo do novo Host (ex: `-m neocortex.mcp.server`).
+- Servidor MCP: varredura dinâmica foi implantada com resiliência autônoma à mutação de diretorias.
+
+#### Changed
+- Consolidados todos os 3 roadmaps (v5.0 Macro, v6.0 Stability e Translation original) em um **único** arquivo de roadmap inquebrável (`NC-TODO-FR-001-project-roadmap-consolidated.md`).
+- A estruturação da pasta `neocortex_framework/` foi refatorada e indexada segundo subdiretórios padrão `DIR-*-FR-*`.
+
+#### Fixed
+- Erro fatal do servidor MCP na inicialização (`FastMCP.run() got an unexpected keyword argument 'host'`). Corrigido adaptando o modelo SSE nativo sobre protocolo WebSocket e implementando o objeto em instância sincrônica.
+- `RuntimeError` originado pelo pacote FastMCP por colisões de pools do `asyncio` e bibliotecas AnyIO nativas.
+- Erros de Windows Prompt charset originados da tentativa de codificação nativa CP1252 em Emojis.
+
+### [2026-04-10]
+#### Added
+- Integração pioneira do MetricsStore com backend em banco de dados DuckDB (OPT-010). Testado ativamente em suite `test_sanity.py` atestando 11 hits com sucesso transacional em memória e logs reportados.
+- Inventário MCP processado diagnosticando e documentando 22 ferramentas (STUBS e acionáveis) passíveis de deleque/restauração arquitetural em fase.
+
+### [2026-04-08]
+#### Added
+- Start técnico oficial do branch de aprimoramento orgânico logístico do TurboQuant v4.2 instanciando as raízes primárias MCP e consolidando o T-0 Assistant.
+

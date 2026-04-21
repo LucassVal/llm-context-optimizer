@@ -1,0 +1,31 @@
+assigned_to: QUEUE
+closed_at: '2026-04-12T22:36:30'
+closed_by: NC-SCR-FR-010 sync
+completed_at: '2026-04-15T13:39:18.518438'
+created_at: '2026-04-12T18:21:00'
+exit_state:
+  files_created:
+  - DIR-RES-CC-001-claude-leak-workzone/analysis-session-a/NC-ANA-CC-005-kairos-deep.md
+forbidden_zone:
+- neocortex/mcp/server.py
+- neocortex/mcp/sub_server.py
+handoff_ref: NC-DS-015-handoff-20260415T133918-retrospective.yaml
+integrity_hash: 8a2cf4024081a5f5
+limits:
+  max_rounds: 5
+  max_tokens_per_phase: 4000
+methodology: '1. Ler NC-LBE-CC-005-features-kairos.mdc (session-b) para base
+
+  2. Grep em CLAUDE_CODE_DISSECTION/ por "kairos", "timer", "daemon", "scheduler"
+
+  3. Documentar: lifecycle, event loop, hooks, TTL management
+
+  4. Analogia NeoCortex: pulse_scheduler.py = KAIROS equivalente?
+
+  '
+priority: HIGH
+roadmap_ticket: CC-002-B
+status: DONE
+ticket_id: NC-DS-015
+title: CC Leak Fase 2-B — KAIROS Deep Dive (timers, event loop, daemon lifecycle)
+write_zone: DIR-RES-CC-001-claude-leak-workzone/analysis-session-a/

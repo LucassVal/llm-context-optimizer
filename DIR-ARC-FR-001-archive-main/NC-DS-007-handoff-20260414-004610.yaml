@@ -1,0 +1,21 @@
+ticket_id: NC-DS-007
+status: PENDING_REVIEW
+timestamp: "2026-04-14T00:46:10-03:00"
+agent_port: 45132
+lines_added: 449
+files_modified:
+  - "02_memory_lobes/NC-LBE-INT-004-mission-control.mdc"
+summary: |
+  Documentação completa do Mission Control gerada com 449 linhas, incluindo:
+  - Identidade, stack tecnológica (Next.js 16, React 19, SQLite), licença MIT, versão 2.0.1
+  - Arquitetura interna: gateway discovery, API REST (101 endpoints), WebSocket/SSE, agent discovery em ~/.agents, ~/.codex, ~/.claude
+  - Generic adapter: framework‑agnóstico para registrar qualquer agente (OpenClaw, CrewAI, LangGraph, AutoGen, Claude SDK, generic)
+  - SOUL system: personalidade do agente via markdown, templates, sincronização disco↔DB
+  - Cost tracking: token usage, percentis p50/p95/p99, dashboards Recharts
+  - Security audit: posture scoring (0‑100), secrets detection, MCP tool auditing, hook profiles
+  - Skills Hub: integração com ClawdHub, skills.sh, scanner de segurança com 12 regras
+  - Natural language tasks: parser "every 9am" → cron, template‑clone pattern
+  - Webhooks: HMAC‑SHA256, exponential backoff, circuit breaker
+  - Integração detalhada com NeoCortex: generic adapter connection, AuditHook → activity feed, neocortex_visual_server.py extensão
+  - Gaps e riscos: duplicação de responsabilidades Kanban vs DIR‑DS‑001‑tickets/, maturidade alpha
+  - Roadmap de integração com 7 tickets propostos e ordem de implementação

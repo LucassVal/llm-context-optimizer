@@ -1,0 +1,2329 @@
+{
+  "session_timeline": [
+    {
+      "timestamp": "2026-04-10T15:51:40.862397",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260410-155140-568b0c46",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-10T15:51:40.864226",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260410-155140-969b156e",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-10T15:51:50.840840",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260410-155150-44ecca56",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-10T15:51:50.859030",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260410-155150-44ecca56",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-10T15:57:55.815502",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-POPULATION-20260410-155755",
+      "lobe_id": "NC-LBE-FR-KNOWLEDGE-001.mdc",
+      "description": "Povoamento exaustivo de 18/18 Lobos"
+    },
+    {
+      "timestamp": "2026-04-10T21:54:40.876810",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260410-215440-02cb7138",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-10T21:54:40.883815",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260410-215440-02cb7138",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-10T21:54:45.848846",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260410-215445-903501ce",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-10T21:54:45.855027",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260410-215445-903501ce",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T01:25:58.684456",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-012558-51a38e66",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T01:25:58.689879",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-012558-51a38e66",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T01:28:58.477220",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-012858-12f451f3",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T01:28:58.478309",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-012858-7413a1fa",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T01:28:58.482566",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-012858-12f451f3",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T01:28:58.496420",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-012858-7413a1fa",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T01:29:07.444097",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-012907-a9878aca",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T01:29:07.446996",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-012907-a9878aca",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T02:17:15.520233",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-021715-196ae522",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T02:17:15.525160",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-021715-196ae522",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T02:26:05.984711",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-022605-ab098125",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T02:26:05.990682",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-022605-ab098125",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T02:27:51.253925",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-022751-1d258fe4",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T02:27:51.257922",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-022751-1d258fe4",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T02:34:27.395886",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-023427-34a50c08",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T02:34:27.401807",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-023427-34a50c08",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T02:49:44.827338",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-024944-d4a0b3ec",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T02:49:44.832025",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-024944-d4a0b3ec",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T02:50:39.675415",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-025039-271c3192",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T02:50:39.679917",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-025039-271c3192",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T02:57:04.545012",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-025704-f097eed8",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T02:57:04.553042",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-025704-f097eed8",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T10:58:20.125424",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-105820-c671529d",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T10:58:20.132015",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-105820-c671529d",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T11:01:28.321211",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-110128-ff18ca6c",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T11:01:28.327391",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-110128-ff18ca6c",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T11:25:31.335244",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-112531-dd947002",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T11:25:31.340900",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-112531-dd947002",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T11:27:50.927838",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-112750-ab55edbc",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T11:27:50.932330",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-112750-ab55edbc",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T11:31:34.377568",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-113134-fc3aecaf",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T11:31:34.391172",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-113134-fc3aecaf",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T11:32:24.016639",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-113224-94804785",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T11:32:24.033294",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-113224-94804785",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T11:32:24.826365",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-113224-f8b2970a",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T11:32:24.877174",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-113224-f8b2970a",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T11:32:41.214488",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-113241-14aedcc9",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T11:32:41.229540",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-113241-14aedcc9",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T11:32:41.926970",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-113241-e1494e3f",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T11:32:41.950387",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-113241-e1494e3f",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T11:33:20.285940",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-113320-32c23faa",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T11:33:20.310756",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-113320-32c23faa",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T11:33:38.230160",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-113338-b99b54f7",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T11:33:38.244112",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-113338-b99b54f7",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T11:34:23.760671",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-113423-0326e9c6",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T11:34:23.767493",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-113423-0326e9c6",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T11:34:57.219250",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-113457-f457f75f",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T11:34:57.231960",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-113457-f457f75f",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T11:36:11.428859",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-113611-ef81ac84",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T11:36:11.441288",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-113611-ef81ac84",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T11:36:49.633117",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-113649-76f8abb1",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T11:36:49.641519",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-113649-76f8abb1",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T11:37:06.821386",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-113706-4231df45",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T11:37:06.833243",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-113706-4231df45",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T11:37:11.883184",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-113711-891a8e5d",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T11:37:11.891812",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-113711-891a8e5d",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T19:56:07.903600",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-195607-0440bfc4",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T19:56:07.914826",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-195607-0440bfc4",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T19:58:52.220252",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-195852-182c8a9c",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T19:58:52.226272",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-195852-182c8a9c",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T19:59:12.019269",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-195912-8102f9fa",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T19:59:12.026733",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-195912-8102f9fa",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T20:21:22.075726",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-202122-1e633979",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T20:21:22.084138",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-202122-1e633979",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T20:22:07.675194",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-202207-6917300e",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T20:22:07.684611",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-202207-6917300e",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T20:22:29.797719",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-202229-290c0be9",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T20:22:29.804824",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-202229-290c0be9",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T20:27:22.296993",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-202722-8c2605b6",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T20:27:22.307341",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-202722-8c2605b6",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T20:36:12.215011",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-203612-6430617d",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T20:36:12.223041",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-203612-6430617d",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-11T20:37:07.898449",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260411-203707-124f0901",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-11T20:37:07.907301",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260411-203707-124f0901",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    }
+  ],
+  "memory_cortex": {
+    "synapses": {
+      "current_context": {
+        "lobe_id": "NC-LBE-FR-002-claude-assistant",
+        "checkpoint_id": "CP-AUTO-20260411-203707-124f0901",
+        "set_at": "2026-04-11T20:37:07.898449"
+      }
+    },
+    "global_checkpoint_index": {
+      "checkpoints": [
+        "CP-AUTO-20260410-155150-44ecca56",
+        "CP-POPULATION-20260410-155755",
+        "CP-AUTO-20260410-215440-02cb7138",
+        "CP-AUTO-20260410-215445-903501ce",
+        "CP-AUTO-20260411-012558-51a38e66",
+        "CP-AUTO-20260411-012858-12f451f3",
+        "CP-AUTO-20260411-012858-7413a1fa",
+        "CP-AUTO-20260411-012907-a9878aca",
+        "CP-AUTO-20260411-021715-196ae522",
+        "CP-AUTO-20260411-022605-ab098125",
+        "CP-AUTO-20260411-022751-1d258fe4",
+        "CP-AUTO-20260411-023427-34a50c08",
+        "CP-AUTO-20260411-024944-d4a0b3ec",
+        "CP-AUTO-20260411-025039-271c3192",
+        "CP-AUTO-20260411-025704-f097eed8",
+        "CP-AUTO-20260411-105820-c671529d",
+        "CP-AUTO-20260411-110128-ff18ca6c",
+        "CP-AUTO-20260411-112531-dd947002",
+        "CP-AUTO-20260411-112750-ab55edbc",
+        "CP-AUTO-20260411-113134-fc3aecaf",
+        "CP-AUTO-20260411-113224-94804785",
+        "CP-AUTO-20260411-113224-f8b2970a",
+        "CP-AUTO-20260411-113241-14aedcc9",
+        "CP-AUTO-20260411-113241-e1494e3f",
+        "CP-AUTO-20260411-113320-32c23faa",
+        "CP-AUTO-20260411-113338-b99b54f7",
+        "CP-AUTO-20260411-113423-0326e9c6",
+        "CP-AUTO-20260411-113457-f457f75f",
+        "CP-AUTO-20260411-113611-ef81ac84",
+        "CP-AUTO-20260411-113649-76f8abb1",
+        "CP-AUTO-20260411-113706-4231df45",
+        "CP-AUTO-20260411-113711-891a8e5d",
+        "CP-AUTO-20260411-195607-0440bfc4",
+        "CP-AUTO-20260411-195852-182c8a9c",
+        "CP-AUTO-20260411-195912-8102f9fa",
+        "CP-AUTO-20260411-202122-1e633979",
+        "CP-AUTO-20260411-202207-6917300e",
+        "CP-AUTO-20260411-202229-290c0be9",
+        "CP-AUTO-20260411-202722-8c2605b6",
+        "CP-AUTO-20260411-203612-6430617d",
+        "CP-AUTO-20260411-203707-124f0901"
+      ]
+    },
+    "consolidation_sessions": [
+      {
+        "id": "session_2026-04-10T18-51-40-662300+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_005440_cc15ff75",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T00-54-40-566417+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T04-25-58-405249+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_042858_c8aa75a6",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_042858_1f6a8c1c",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T04-28-56-270354+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_051706_9808f39d",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_051706_ea497e60",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T05-17-05-293312+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T05-17-04-561418+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_052558_459c5f11",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_052558_a702bd42",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T05-25-55-763216+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T05-25-54-180877+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_052741_1d6a5971",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_052741_9ff11fd6",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T05-27-41-051549+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T05-27-40-259508+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_053418_dd8f9f1d",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_053418_c2b6bb23",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T05-34-17-198162+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T05-34-16-028605+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_054935_a63591cb",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_054935_cdd356c4",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T05-49-34-558334+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T05-49-33-515393+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_055030_f78bc579",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_055030_881baa44",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T05-50-29-410688+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T05-50-28-780565+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_055654_791f4175",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_055654_c628f2a9",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T05-56-54-407280+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T05-56-52-179618+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_055738_e6137206",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T05-57-36-928515+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_135812_32922612",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_135812_c54bb305",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T13-58-09-690972+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T13-58-07-599938+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_140118_2ace719a",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_140118_f2874777",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T14-01-18-145094+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T14-01-17-332071+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_142523_901549f9",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_142523_bd83b0e4",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T14-25-21-025824+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T14-25-19-328794+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_142741_266de87d",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_142741_e1dfa08f",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T14-27-40-417549+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T14-27-40-107692+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T14-31-33-903928+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_143134_5d4e8f3f",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T14-31-33-415989+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T14-33-19-888840+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_143320_4d63c755",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T14-33-19-581739+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T14-33-37-796184+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_143338_fc8594e7",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T14-33-37-448462+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T14-34-23-648965+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T14-34-56-761347+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_143457_34bbdadc",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T14-34-56-416361+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T14-36-10-946682+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_143611_a697b238",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T14-36-10-633103+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_143649_8e23cc27",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T14-36-48-505843+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T14-36-48-087387+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T22-56-07-775599+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T22-58-52-121418+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T22-59-11-932057+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_230247_c9421b1b",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T23-02-45-621072+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_230549_3a793dbb",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T23-05-48-664234+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_230736_a94ac2c3",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T23-07-34-634842+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_232122_4887f24c",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-04-11T23-21-21-206218+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_232229_9575f6b4",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_232722_ea516898",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_233612_6884db30",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260411_233707_96cbb87e",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      }
+    ],
+    "manifests": {
+      "NC-LBE-FR-ARCHITECTURE-001.mdc": {
+        "id": "NC-LBE-FR-ARCHITECTURE-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:54.430426",
+        "last_accessed": "2026-04-10T15:57:54.430426",
+        "last_modified": "2026-04-10T15:57:54.430426",
+        "metadata": {
+          "line_count": 172,
+          "has_checkpoints": false,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": false,
+          "size_chars": 4890,
+          "word_count": 583
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Contedo Inicial",
+          "Notas",
+          "Princpios Arquiteturais do NeoCortex",
+          "Anlise do Diretrio",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-ARCHITECTURE-001"
+      },
+      "NC-LBE-FR-DEVELOPMENT-001.mdc": {
+        "id": "NC-LBE-FR-DEVELOPMENT-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:54.545027",
+        "last_accessed": "2026-04-10T15:57:54.545027",
+        "last_modified": "2026-04-10T15:57:54.545027",
+        "metadata": {
+          "line_count": 163,
+          "has_checkpoints": false,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": false,
+          "size_chars": 4144,
+          "word_count": 502
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Contedo Inicial",
+          "Notas",
+          "Guia de Desenvolvimento NeoCortex",
+          "Anlise do Diretrio",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-DEVELOPMENT-001"
+      },
+      "NC-LBE-FR-TESTING-001.mdc": {
+        "id": "NC-LBE-FR-TESTING-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:54.595510",
+        "last_accessed": "2026-04-10T15:57:54.595510",
+        "last_modified": "2026-04-10T15:57:54.595510",
+        "metadata": {
+          "line_count": 122,
+          "has_checkpoints": false,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": false,
+          "size_chars": 2552,
+          "word_count": 352
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Contedo Inicial",
+          "Notas",
+          "Estratgia de Testes NeoCortex",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-TESTING-001"
+      },
+      "NC-LBE-FR-CLI-001.mdc": {
+        "id": "NC-LBE-FR-CLI-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:54.649957",
+        "last_accessed": "2026-04-10T15:57:54.649957",
+        "last_modified": "2026-04-10T15:57:54.649957",
+        "metadata": {
+          "line_count": 118,
+          "has_checkpoints": false,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": false,
+          "size_chars": 2570,
+          "word_count": 372
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Contedo Inicial",
+          "Notas",
+          "Interface de Linha de Comando (CLI)",
+          "Anlise do Diretrio",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-CLI-001"
+      },
+      "NC-LBE-FR-WHITELABEL-001.mdc": {
+        "id": "NC-LBE-FR-WHITELABEL-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:54.716935",
+        "last_accessed": "2026-04-10T15:57:54.716935",
+        "last_modified": "2026-04-10T15:57:54.716935",
+        "metadata": {
+          "line_count": 116,
+          "has_checkpoints": false,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": false,
+          "size_chars": 2605,
+          "word_count": 332
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Contedo Inicial",
+          "Notas",
+          "White Label e Customizao",
+          "Anlise do Diretrio",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-WHITELABEL-001"
+      },
+      "NC-LBE-FR-KNOWLEDGE-001.mdc": {
+        "id": "NC-LBE-FR-KNOWLEDGE-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:54.785055",
+        "last_accessed": "2026-04-10T15:57:54.785055",
+        "last_modified": "2026-04-10T15:57:54.785055",
+        "metadata": {
+          "line_count": 133,
+          "has_checkpoints": false,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": false,
+          "size_chars": 4010,
+          "word_count": 425
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Contedo Inicial",
+          "Notas",
+          "Gesto de Conhecimento NeoCortex",
+          "Anlise do Diretrio",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-KNOWLEDGE-001"
+      },
+      "NC-LBE-FR-SECURITY-001.mdc": {
+        "id": "NC-LBE-FR-SECURITY-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:54.848076",
+        "last_accessed": "2026-04-10T15:57:54.848076",
+        "last_modified": "2026-04-10T15:57:54.848076",
+        "metadata": {
+          "line_count": 106,
+          "has_checkpoints": false,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": false,
+          "size_chars": 2244,
+          "word_count": 313
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Contedo Inicial",
+          "Notas",
+          "Segurana e Autenticao",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-SECURITY-001"
+      },
+      "NC-LBE-FR-DEPLOYMENT-001.mdc": {
+        "id": "NC-LBE-FR-DEPLOYMENT-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:54.907250",
+        "last_accessed": "2026-04-10T15:57:54.907250",
+        "last_modified": "2026-04-10T15:57:54.907250",
+        "metadata": {
+          "line_count": 113,
+          "has_checkpoints": false,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": false,
+          "size_chars": 2284,
+          "word_count": 317
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Contedo Inicial",
+          "Notas",
+          "Deploy e Operaes",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-DEPLOYMENT-001"
+      },
+      "NC-LBE-FR-DOCUMENTATION-001.mdc": {
+        "id": "NC-LBE-FR-DOCUMENTATION-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:55.104240",
+        "last_accessed": "2026-04-10T15:57:55.104240",
+        "last_modified": "2026-04-10T15:57:55.104240",
+        "metadata": {
+          "line_count": 127,
+          "has_checkpoints": false,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": false,
+          "size_chars": 3345,
+          "word_count": 381
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Contedo Inicial",
+          "Notas",
+          "Documentao",
+          "Anlise do Diretrio",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-DOCUMENTATION-001"
+      },
+      "NC-LBE-FR-INTEGRATION-001.mdc": {
+        "id": "NC-LBE-FR-INTEGRATION-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:55.158820",
+        "last_accessed": "2026-04-10T15:57:55.158820",
+        "last_modified": "2026-04-10T15:57:55.158820",
+        "metadata": {
+          "line_count": 109,
+          "has_checkpoints": false,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": false,
+          "size_chars": 2302,
+          "word_count": 326
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Contedo Inicial",
+          "Notas",
+          "Integraes e APIs",
+          "Anlise do Diretrio",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-INTEGRATION-001"
+      },
+      "NC-LBE-FR-MONITORING-001.mdc": {
+        "id": "NC-LBE-FR-MONITORING-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:55.229203",
+        "last_accessed": "2026-04-10T15:57:55.229203",
+        "last_modified": "2026-04-10T15:57:55.229203",
+        "metadata": {
+          "line_count": 126,
+          "has_checkpoints": false,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": true,
+          "size_chars": 2508,
+          "word_count": 344
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Contedo Inicial",
+          "Notas",
+          "Monitoramento e Logs",
+          "Anlise do Diretrio",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-MONITORING-001"
+      },
+      "NC-LBE-FR-PERFORMANCE-001.mdc": {
+        "id": "NC-LBE-FR-PERFORMANCE-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:55.311390",
+        "last_accessed": "2026-04-10T15:57:55.311390",
+        "last_modified": "2026-04-10T15:57:55.311390",
+        "metadata": {
+          "line_count": 110,
+          "has_checkpoints": false,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": false,
+          "size_chars": 2131,
+          "word_count": 293
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Contedo Inicial",
+          "Notas",
+          "Performance e Otimizao",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-PERFORMANCE-001"
+      },
+      "NC-LBE-FR-LEGACY-001.mdc": {
+        "id": "NC-LBE-FR-LEGACY-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:55.416849",
+        "last_accessed": "2026-04-10T15:57:55.416849",
+        "last_modified": "2026-04-10T15:57:55.416849",
+        "metadata": {
+          "line_count": 213,
+          "has_checkpoints": true,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": false,
+          "size_chars": 9313,
+          "word_count": 1050
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Inventrio de Arquivos Legados",
+          "Plano de Saneamento",
+          "Notas Importantes",
+          "Log de Execuo",
+          "Referncias",
+          "Resultados do Saneamento",
+          "Anlise do Diretrio",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-LEGACY-001"
+      },
+      "NC-LBE-FR-CORE-001.mdc": {
+        "id": "NC-LBE-FR-CORE-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:55.481520",
+        "last_accessed": "2026-04-10T15:57:55.481520",
+        "last_modified": "2026-04-10T15:57:55.481520",
+        "metadata": {
+          "line_count": 46,
+          "has_checkpoints": false,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": false,
+          "size_chars": 810,
+          "word_count": 111
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Anlise do Diretrio",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-CORE-001"
+      },
+      "NC-LBE-FR-MCP-001.mdc": {
+        "id": "NC-LBE-FR-MCP-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:55.558046",
+        "last_accessed": "2026-04-10T15:57:55.558046",
+        "last_modified": "2026-04-10T15:57:55.558046",
+        "metadata": {
+          "line_count": 46,
+          "has_checkpoints": false,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": false,
+          "size_chars": 806,
+          "word_count": 111
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Anlise do Diretrio",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-MCP-001"
+      },
+      "NC-LBE-FR-BENCHMARKS-001.mdc": {
+        "id": "NC-LBE-FR-BENCHMARKS-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:55.625047",
+        "last_accessed": "2026-04-10T15:57:55.625047",
+        "last_modified": "2026-04-10T15:57:55.625047",
+        "metadata": {
+          "line_count": 44,
+          "has_checkpoints": false,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": false,
+          "size_chars": 831,
+          "word_count": 103
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-BENCHMARKS-001"
+      },
+      "NC-LBE-FR-PROFILES-001.mdc": {
+        "id": "NC-LBE-FR-PROFILES-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:55.711509",
+        "last_accessed": "2026-04-10T15:57:55.711509",
+        "last_modified": "2026-04-10T15:57:55.711509",
+        "metadata": {
+          "line_count": 50,
+          "has_checkpoints": false,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": false,
+          "size_chars": 1138,
+          "word_count": 126
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Anlise do Diretrio",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-PROFILES-001"
+      },
+      "NC-LBE-FR-PULSE-001.mdc": {
+        "id": "NC-LBE-FR-PULSE-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:55.767088",
+        "last_accessed": "2026-04-10T15:57:55.767088",
+        "last_modified": "2026-04-10T15:57:55.767088",
+        "metadata": {
+          "line_count": 58,
+          "has_checkpoints": false,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": false,
+          "size_chars": 1144,
+          "word_count": 145
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Anlise do Diretrio",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-PULSE-001"
+      }
+    },
+    "knowledge_graph": {
+      "entities": {
+        "NC-CTX-FR-001-cortex-central.mdc": {
+          "id": "NC-CTX-FR-001-cortex-central.mdc",
+          "type": "cortex",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 18,
+          "metadata": {}
+        },
+        "NC-LBE-FR-ARCHITECTURE-001.mdc": {
+          "id": "NC-LBE-FR-ARCHITECTURE-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        },
+        "NC-LBE-FR-DEVELOPMENT-001.mdc": {
+          "id": "NC-LBE-FR-DEVELOPMENT-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        },
+        "NC-LBE-FR-TESTING-001.mdc": {
+          "id": "NC-LBE-FR-TESTING-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        },
+        "NC-LBE-FR-CLI-001.mdc": {
+          "id": "NC-LBE-FR-CLI-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        },
+        "NC-LBE-FR-WHITELABEL-001.mdc": {
+          "id": "NC-LBE-FR-WHITELABEL-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        },
+        "NC-LBE-FR-KNOWLEDGE-001.mdc": {
+          "id": "NC-LBE-FR-KNOWLEDGE-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        },
+        "NC-LBE-FR-SECURITY-001.mdc": {
+          "id": "NC-LBE-FR-SECURITY-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        },
+        "NC-LBE-FR-DEPLOYMENT-001.mdc": {
+          "id": "NC-LBE-FR-DEPLOYMENT-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        },
+        "NC-LBE-FR-DOCUMENTATION-001.mdc": {
+          "id": "NC-LBE-FR-DOCUMENTATION-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        },
+        "NC-LBE-FR-INTEGRATION-001.mdc": {
+          "id": "NC-LBE-FR-INTEGRATION-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        },
+        "NC-LBE-FR-MONITORING-001.mdc": {
+          "id": "NC-LBE-FR-MONITORING-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        },
+        "NC-LBE-FR-PERFORMANCE-001.mdc": {
+          "id": "NC-LBE-FR-PERFORMANCE-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        },
+        "NC-LBE-FR-LEGACY-001.mdc": {
+          "id": "NC-LBE-FR-LEGACY-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        },
+        "NC-LBE-FR-CORE-001.mdc": {
+          "id": "NC-LBE-FR-CORE-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        },
+        "NC-LBE-FR-MCP-001.mdc": {
+          "id": "NC-LBE-FR-MCP-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        },
+        "NC-LBE-FR-BENCHMARKS-001.mdc": {
+          "id": "NC-LBE-FR-BENCHMARKS-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        },
+        "NC-LBE-FR-PROFILES-001.mdc": {
+          "id": "NC-LBE-FR-PROFILES-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        },
+        "NC-LBE-FR-PULSE-001.mdc": {
+          "id": "NC-LBE-FR-PULSE-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        }
+      },
+      "relations": [
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-ARCHITECTURE-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "architecture",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:54.461565"
+          }
+        },
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-DEVELOPMENT-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "development",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:54.556413"
+          }
+        },
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-TESTING-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "testing",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:54.610212"
+          }
+        },
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-CLI-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "cli",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:54.667109"
+          }
+        },
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-WHITELABEL-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "white_label",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:54.734808"
+          }
+        },
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-KNOWLEDGE-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "knowledge",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:54.806393"
+          }
+        },
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-SECURITY-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "security",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:54.863940"
+          }
+        },
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-DEPLOYMENT-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "deployment",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:54.923403"
+          }
+        },
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-DOCUMENTATION-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "documentation",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:55.119651"
+          }
+        },
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-INTEGRATION-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "integration",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:55.175290"
+          }
+        },
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-MONITORING-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "monitoring",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:55.265403"
+          }
+        },
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-PERFORMANCE-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "performance",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:55.327964"
+          }
+        },
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-LEGACY-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "legacy",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:55.440156"
+          }
+        },
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-CORE-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "core",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:55.499483"
+          }
+        },
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-MCP-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "mcp",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:55.576436"
+          }
+        },
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-BENCHMARKS-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "benchmarks",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:55.642503"
+          }
+        },
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-PROFILES-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "profiles",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:55.730221"
+          }
+        },
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-PULSE-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "pulse",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:55.790098"
+          }
+        }
+      ],
+      "entity_types": [
+        "lobe",
+        "cortex",
+        "file",
+        "directory",
+        "command",
+        "pattern",
+        "concept"
+      ]
+    },
+    "active_lobes": [
+      "NC-LBE-FR-ARCHITECTURE-001.mdc",
+      "NC-LBE-FR-DEVELOPMENT-001.mdc",
+      "NC-LBE-FR-SECURITY-001.mdc",
+      "NC-LBE-FR-PROFILES-001.mdc",
+      "NC-LBE-FR-WHITELABEL-001.mdc",
+      "NC-LBE-FR-BENCHMARKS-001.mdc",
+      "NC-LBE-FR-MCP-001.mdc",
+      "NC-LBE-CC-002-memory-arch.mdc",
+      "NC-LBE-CC-003-orchestration.mdc",
+      "NC-LBE-DS-001-deepseek-agent.mdc",
+      "NC-LBE-DS-002-deepseek-agent-b.mdc",
+      "NC-LBE-DS-003-deepseek-agent-c.mdc",
+      "NC-LBE-DS-004-deepseek-agent-d.mdc"
+    ]
+  },
+  "test_section": {
+    "foo": "bar"
+  },
+  "session_metrics": {
+    "total_interactions": 53,
+    "compactions_executed": 0,
+    "token_budget_warnings": 0,
+    "interaction_types": {
+      "heartbeat": 53
+    },
+    "total_tokens_used": 0
+  },
+  "memory_temperature": {
+    "hot_context": {
+      "interactions": []
+    },
+    "cold_storage": {
+      "archived_interactions": []
+    },
+    "compaction_log": {
+      "entries": []
+    }
+  },
+  "hierarchical_validation": {
+    "regression_buffer": {
+      "failed_attempts": [
+        {
+          "error": "Ticket exit_state.files_modified lista arquivo @LOCK (NC-NAM-FR-001-naming-convention.md)  worker corretamente bloqueia com EL, gerando handoff BLOCKED e nenhuma entrega real",
+          "attempt": "Worker tenta executar ticket mas detecta @LOCK em files_modified via EL-1/EL-6 e para",
+          "lesson": "NUNCA incluir @LOCKS (server.py, sub_server.py, neocortex_config.yaml, NC-NAM-FR-001) em exit_state.files_modified dos tickets. Atualizao de SSOT  responsabilidade de T0, no de workers. Tickets s devem listar arquivos na write_zone exclusiva.",
+          "timestamp": "2026-04-12T19:07:52.781892",
+          "source": "regression_tool"
+        },
+        {
+          "error": "Worker prompt sem exit condition quando fila est 100% CLAIMED  worker entra em loop infinito lendo o mesmo YAML indefinidamente, consumindo tokens sem entregar nada",
+          "attempt": "Worker segue instruo 'volte ao PASSO 1' aps handoff, mas sem AVAILABLE entra em spin",
+          "lesson": "Todo worker prompt DEVE ter: se CLAIMED>0 e AVAILABLE=0  aguarda 30s  retry MAX 3x  PARA com 'WORKER IDLE'. Adicionar LIMITES DE LOOP com max_retries, max_tickets_por_sesso e timeout por ticket.",
+          "timestamp": "2026-04-12T19:07:58.157053",
+          "source": "regression_tool"
+        },
+        {
+          "error": "Ticket YAML referenciado na fila (field: file) no existe em DIR-DS-001-tickets/  EL-3 bloqueia worker, todos os workers do batch retornam BLOCKED sem executar nada",
+          "attempt": "Worker l fila, encontra task AVAILABLE, tenta abrir DIR-DS-001-tickets/NC-DS-015-*.yaml  arquivo no existe  BLOCKED",
+          "lesson": "SEMPRE criar os ticket YAMLs em DIR-DS-001-tickets/ ANTES de adicionar a task  fila NC-CFG-DS-004. Rodar NC-SCR-FR-006-ticket-validator.py antes de enfileirar para validar EL-3.",
+          "timestamp": "2026-04-12T19:08:02.972405",
+          "source": "regression_tool"
+        },
+        {
+          "error": "Worker relata DONE e atualiza fila com status:DONE mas no criou nenhum arquivo (lines_added:0, files_created vazio)  fila aparece concluda mas nenhuma entrega real",
+          "attempt": "Worker atualiza NC-CFG-DS-004 status:DONE aps gerar handoff PENDING_REVIEW mesmo com 0 arquivos, porque o protocolo no exige verificao de existncia real do arquivo",
+          "lesson": "Auto-approve (NC-SCR-FR-005) deve rejeitar handoffs com lines_added=0 OU files_created vazio como ESCALATED. Adicionar critrio: lines_added_gt:5 E len(files_created)>0. T0 deve verificar filesystem antes de marcar DONE real.",
+          "timestamp": "2026-04-12T19:08:07.154447",
+          "source": "regression_tool"
+        },
+        {
+          "error": "PowerShell heredoc (@'...'@ / << 'EOF') falha silenciosamente em alguns contextos  arquivo  criado mas stdin no  capturado corretamente, resultando em contedo incorreto ou criao sem output visvel",
+          "attempt": "Batch de criao de tickets via mltiplos heredocs PS em um nico comando  output vazio sem erro explcito",
+          "lesson": "Para criar mltiplos arquivos YAML em batch: usar Python script (write_to_file + Python) em vez de PS heredoc. PS Set-Content funciona para strings simples mas falha com heredocs multibloco em um nico pipeline.",
+          "timestamp": "2026-04-12T19:08:07.314993",
+          "source": "regression_tool"
+        },
+        {
+          "error": "SSOT desatualizado por sesso completa  novos arquivos (NC-CFG-DS-004, NC-PROMPT-DS-002, NC-SCR-FR-005, DIR-DS-003, DIR-DS-004) existiam sem registro. Risco de coliso: outro agente cria arquivo com mesmo nome sem saber que j existe",
+          "attempt": "Sesso termina com novos arquivos DS criados mas @SSOT (NC-NAM-FR-001) no atualizado com changelog [2026-04-12]",
+          "lesson": "R02 + R20 so INVIOLVEIS: qualquer arquivo criado/movido NESTA sesso  entrada no changelog @SSOT com [YYYY-MM-DD] ANTES de encerrar. Adicionar @SSOT update como PASSO 8 obrigatrio no NC-PROMPT-FR-002 (no opcional, no ps-sesso  durante a sesso, logo aps criar qualquer arquivo).",
+          "timestamp": "2026-04-12T19:26:45.689325",
+          "source": "regression_tool"
+        },
+        {
+          "error": "7 tasks ficaram com status AVAILABLE + claimed_by preenchido de runs anteriores. Workers novos leram o campo e entraram em confuso  sistema de claim falhou pois o ID antigo estava presente",
+          "attempt": "fix_queue.py reseta status BLOCKED/CLAIMEDAVAILABLE mas no limpa claimed_by residual dos campos",
+          "lesson": "Todo script de reset de fila DEVE tambm: (1) setar claimed_by: null em tasks AVAILABLE, (2) limpar completed_at se resetando para AVAILABLE, (3) limpar queue.lock, (4) limpar active-zones.yaml. NC-SCR-FR-008 implementa isso corretamente.",
+          "timestamp": "2026-04-12T20:10:09.158182",
+          "source": "regression_tool"
+        },
+        {
+          "error": "Tasks com status AVAILABLE mas completed_at preenchido foram claimadas por novos workers causando retrabalho e colises. NC-DS-021 a 025 tinham completed_at mas status incorreto AVAILABLE",
+          "attempt": "PASSO 1 busca status: AVAILABLE sem verificar completed_at  workers tentam claim de tasks que j tm handoff entregue",
+          "lesson": "PASSO 1 DEVE usar filtro duplo: status: AVAILABLE E completed_at: null. Uma task AVAILABLE com completed_at j foi concluda   dado corrompido. Worker que detectar isso deve reportar como inconsistncia ao T0 via NC-LOG e pular a task.",
+          "timestamp": "2026-04-12T20:10:13.305548",
+          "source": "regression_tool"
+        },
+        {
+          "error": "Handoffs aprovados manualmente pelo T0 via approve_handoffs.py mas a fila no foi atualizada junto. Resultado: 9 tasks com handoff APPROVED mas fila mostrando AVAILABLE/ACTIVE  desync total entre fila e estado real",
+          "attempt": "NC-SCR-FR-005 (auto-approve) aprova handoffs mas no atualiza NC-CFG-DS-004 com status DONE e completed_at",
+          "lesson": "Aprovao de handoff = SEMPRE atualizar fila na mesma operao: statusDONE, completed_atnow. NC-SCR-FR-005 e approve_handoffs.py devem ter esse passo obrigatrio. Testar: aps aprovar, verificar fila manualmente.",
+          "timestamp": "2026-04-12T20:10:18.454727",
+          "source": "regression_tool"
+        },
+        {
+          "error": "active-zones.yaml acumulou entradas rfs (NC-DS-028 DONE ainda registrada como zona ativa). Monitoramento de zonas estava incorreto  T0 pensava que write_zone estava ocupada quando worker j tinha terminado",
+          "attempt": "Workers finalizam task e marcam DONE na fila mas no removem entrada de active-zones.yaml",
+          "lesson": "PASSO final (F6) do worker DEVE incluir: remover MY_CLAIM de active-zones.yaml + deletar queue.lock. Adicionar ao NC-PROMPT-DS-002 como passo explcito na seo PASSO 2C (cleanup obrigatrio). NC-SCR-FR-008 limpa em batch, mas workers devem ser self-cleaning.",
+          "timestamp": "2026-04-12T20:10:18.603509",
+          "source": "regression_tool"
+        },
+        {
+          "error": "LLM agents no tm semntica de OS mutex. Qualquer protocolo de lock baseado em arquivo (readcheckwrite) tem janela TOCTOU. 3h de iteraes custaram tokens e causaram caos. Workers geraram logs CRITICAL e hibernaram.",
+          "attempt": "Fila YAML compartilhada com 6-10 workers LLM simultneos  File Lock, filtro duplo, UUID  nada funcionou de forma confivel",
+          "lesson": "Para N workers com LLM agents: use dispatch individual (1 task = 1 prompt = 1 worker, sem concorrncia). Fila compartilhada s  segura com SQLite ACID (MCP-WQUEUE). NUNCA tentar escalar fila YAML com mais de 2 workers simultneos at MCP-WQUEUE estar pronto.",
+          "timestamp": "2026-04-12T21:59:06.123644",
+          "source": "regression_tool"
+        },
+        {
+          "error": "NC-DS-018 ticket YAML diz status:CLOSED + closed_at preenchido, mas fila diz AVAILABLE. Worker que l o ticket acredita que est feito. Worker que l a fila acredita que est disponvel. Nenhum sabe a verdade real. Alm disso, exit_state.files_created lista arquivos que podem no existir em disco.",
+          "attempt": "Quando handoff  rejeitado e ticket resetado para AVAILABLE na fila, o arquivo de ticket YAML em DIR-DS-001-tickets/ fica com status CLOSED/DONE desatualizado",
+          "lesson": "REG-012: Ao rejeitar handoff e resetar ticket na fila, SEMPRE tambm: (1) atualizar ticket YAML em DIR-DS-001-tickets/ para status:AVAILABLE, limpar closed_at e exit_state. (2) Auditoria de entregveis: antes de marcar DONE, verificar se files_created existem em disco com py_compile ou Test-Path. NC-SCR-FR-009 deve incluir sincronizao ticket YAML x fila.",
+          "timestamp": "2026-04-12T22:12:20.200495",
+          "source": "regression_tool"
+        },
+        {
+          "error": "STEP-0-MISSING: Agentes entregaram cdigo sem verificar ambiente (ruff, py_compile) antes. Ruff no est instalado no ambiente global. py_compile disponvel mas no foi usado nos handoffs do sprint.",
+          "attempt": "Rodar ruff check assumindo que estava instalado  falhou com 'No module named ruff'",
+          "lesson": "OBRIGATRIO: Todo prompt de agente deve incluir STEP-0: (1) python --version, (2) python -m py_compile arquivo.py, (3) apenas rodar ruff se 'python -m ruff --version' retornar sucesso. Nunca assumir ferramentas instaladas sem verificar.",
+          "timestamp": "2026-04-13T09:31:46.422903",
+          "source": "regression_tool"
+        }
+      ]
+    }
+  }
+}

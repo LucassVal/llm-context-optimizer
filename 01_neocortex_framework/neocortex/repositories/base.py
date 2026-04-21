@@ -1,3 +1,15 @@
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:24:01.501971'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+tags:
+  - neocortex-other
+  - level-0
+  - python
+---"""
 #!/usr/bin/env python3
 """
 Repository Pattern Base Interfaces for NeoCortex
@@ -7,8 +19,7 @@ implementations (filesystem, database, hub, etc.).
 """
 
 from abc import ABC, abstractmethod
-from typing import Dict, Any, List, Optional
-from pathlib import Path
+from typing import Any, Dict, List, Optional
 
 
 class Repository(ABC):

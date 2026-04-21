@@ -1,0 +1,199 @@
+{
+  "$schema": "neocortex-v4.2-cortex",
+  "separation_rule": "JSON = LEDGER. MDC = INSTRUCTIONS. Never duplicate.",
+  "neocortex_version": "4.2-cortex",
+  "system_type": "framework",
+  "architecture": "6_layer_conceptual_fractal",
+  "system_constraints": {
+    "max_context_depth": 3,
+    "enforce_ssot": true,
+    "token_optimization": true,
+    "hot_context_limit": 5,
+    "max_json_size_tokens": 8000,
+    "warning_threshold_tokens": 6000,
+    "scratchpad_enabled": true,
+    "react_loop_enabled": true
+  },
+  "granular_state_management": {
+     "atomic_locks": { "locked_modules": [".agents/rules/NC-CTX-FR-001-cortex-central.mdc", "NC-LED-FR-001-framework-ledger.json"] },
+     "session_scope": {
+      "current_focus_module": "framework_development",
+      "allowed_write_paths": ["white_label/", "examples/", "DIR-TMP-FR-001-templates-main/"],
+      "readonly_paths": [".agents/rules/NC-CTX-FR-001-cortex-central.mdc", "NC-LED-FR-001-framework-ledger.json"]
+    }
+  },
+  "hierarchical_validation": {
+    "regression_buffer": { "failed_attempts": [] },
+    "audit_trail": { "entries": [] },
+    "changelog": {
+      "entries": [
+        {
+          "timestamp": "2026-04-10T00:10:00Z",
+          "change": "Updated MCP server paths to use DIR-CORE-FR-001-core-central structure",
+          "impact": "Ensures MCP tools can locate cortex and lobe files after directory reorganization"
+        },
+        {
+          "timestamp": "2026-04-10T00:30:00Z",
+          "change": "Created Claude assistant lobe (NC-LBE-FR-002-claude-assistant.mdc) with specialized implementation instructions",
+          "impact": "Provides structured guidance for Claude to help implement remaining 47 actions across 6 new MCP tools"
+        },
+        {
+          "timestamp": "2026-04-10T00:42:00Z",
+          "change": "Implemented neocortex_manifest tool (3 actions) for manifest management",
+          "impact": "Enables lightweight indexing of lobes/cortex with metadata, tags, and querying"
+        },
+        {
+          "timestamp": "2026-04-10T00:43:00Z",
+          "change": "Implemented neocortex_kg tool (5 actions) for Mini Knowledge Graph",
+          "impact": "Evolves Compact Encoding to semantic graph with entities, relations, and visualization"
+        },
+        {
+          "timestamp": "2026-04-10T00:44:00Z",
+          "change": "Expanded neocortex_cortex tool with get_workflows action",
+          "impact": "Completes PHASE 1 (Manifestos + KG) with all planned functionality"
+        },
+        {
+          "timestamp": "2026-04-10T00:45:00Z",
+          "change": "Updated Antigravity MCP config with corrected Python path and NeoCortex server",
+          "impact": "Enables NeoCortex integration with Antigravity IDE via MCP protocol"
+        },
+        {
+          "timestamp": "2026-04-10T00:50:00Z",
+          "change": "Implemented neocortex_consolidation tool (3 actions: summarize_session, merge_learnings, promote_to_rule)",
+          "impact": "Enables semantic consolidation of ephemeral experience into permanent rules"
+        },
+        {
+          "timestamp": "2026-04-10T00:51:00Z",
+          "change": "Implemented neocortex_akl tool (3 actions: assess_importance, decay_knowledge, suggest_cleanup)",
+          "impact": "Adds Adaptive Knowledge Lifecycle for managing rule relevance and archiving"
+        }
+      ]
+    }
+  },
+  "memory_temperature": {
+    "hot_context": { "interactions": [] },
+    "cold_storage": { "archived_interactions": [] },
+    "compaction_log": { "entries": [] }
+  },
+  "ubiquitous_language": {
+    "domain_vocabulary": {
+      "terms": {
+        "Cortex": "Central rule set (.mdc file)",
+        "Lobe": "Phase/module-specific context",
+        "Ledger": "JSON state file",
+        "STEP 0": "Mandatory regression check",
+        "Compact Encoding": "Symbolic references ($ @ ! ?)"
+      }
+    },
+    "compact_encoding": {
+       "files": {
+        "ctx": ".agents/rules/NC-CTX-FR-001-cortex-central.mdc",
+        "ldg": "NC-LED-FR-001-framework-ledger.json",
+        "claude": ".agents/rules/NC-LBE-FR-002-claude-assistant.mdc"
+      },
+       "directories": {
+        "core": "DIR-CORE-FR-001-core-central/",
+        "mcp": "DIR-MCP-FR-001-mcp-server/",
+        "tpl": "DIR-TMP-FR-001-templates-main/",
+        "ex": "examples/",
+        "arc": "DIR-ARC-FR-001-archive-main/",
+        "bak": "DIR-BAK-FR-001-backup-main/",
+        "doc": "DIR-DOC-FR-001-docs-main/",
+        "src": "DIR-SRC-FR-001-source-main/",
+        "ref": "DIR-REF-FR-001-reference-main/"
+      },
+      "commands": {
+        "init": "python -m neocortex.init",
+        "bench": "python examples/benchmark_master_suite.py"
+      },
+      "patterns": {}
+    }
+  },
+  "agent_session": {
+    "model_id": "deepseek-reasoner",
+    "mode": "single_agent",
+    "scratchpad_enabled": true,
+    "token_budget_warnings": []
+  },
+  "project_identity": {
+    "name": "NeoCortex Framework",
+    "path": "C:\\Users\\Lucas Valerio\\Desktop\\TURBOQUANT_V42\\neocortex_framework",
+    "type": "framework"
+  },
+  "session_timeline": [
+    {
+      "timestamp": "2026-04-09T12:00:00Z",
+      "event": "cortex_created",
+      "description": "Created central cortex ($ctx) and ledger ($ldg) with NeoCortex v4.2 structure"
+    },
+    {
+      "timestamp": "2026-04-09T23:40:00Z",
+      "event": "naming_convention_implemented",
+      "description": "Implemented NC naming convention and renamed core files to NC- format"
+    },
+    {
+      "timestamp": "2026-04-10T00:10:00Z",
+      "event": "mcp_server_updated",
+      "description": "Updated MCP server paths to use DIR-CORE-FR-001-core-central structure"
+    },
+    {
+      "timestamp": "2026-04-10T00:30:00Z",
+      "event": "claude_lobe_created",
+      "description": "Created NC-LBE-FR-002-claude-assistant.mdc with specialized instructions for Claude to help implement framework expansion"
+    },
+    {
+      "timestamp": "2026-04-10T00:42:00Z",
+      "event": "manifest_tool_implemented",
+      "description": "Implemented neocortex_manifest tool with 3 actions (generate, update, query) for manifest management"
+    },
+    {
+      "timestamp": "2026-04-10T00:43:00Z",
+      "event": "kg_tool_implemented",
+      "description": "Implemented neocortex_kg tool with 5 actions (add_entity, add_relation, query_relations, find_similar, visualize) for Mini Knowledge Graph"
+    },
+    {
+      "timestamp": "2026-04-10T00:44:00Z",
+      "event": "workflows_action_expanded",
+      "description": "Expanded neocortex_cortex tool with get_workflows action to extract workflows from cortex content"
+    },
+    {
+      "timestamp": "2026-04-10T00:45:00Z",
+      "event": "antigravity_config_updated",
+      "description": "Updated Antigravity MCP config with NeoCortex server reference (corrected Python path to C:\\Program Files\\Python312\\python.exe)"
+    },
+    {
+      "timestamp": "2026-04-10T00:50:00Z",
+      "event": "consolidation_tool_implemented",
+      "description": "Implemented neocortex_consolidation tool with 3 actions (summarize_session, merge_learnings, promote_to_rule) for semantic consolidation"
+    },
+    {
+      "timestamp": "2026-04-10T00:51:00Z",
+      "event": "akl_tool_implemented",
+      "description": "Implemented neocortex_akl tool with 3 actions (assess_importance, decay_knowledge, suggest_cleanup) for Adaptive Knowledge Lifecycle"
+    },
+    {
+      "timestamp": "2026-04-10T01:40:00Z",
+      "event": "session_end",
+      "description": "Session ended after completing PHASE 2 (Consolidacao + AKL). Framework at 14/16 MCP tools, 48/81 actions."
+    }
+  ],
+  "action_queue": {
+    "pending": ["create_benchmark_integration", "document_components", "review_mcp_compliance", "implement_peers_security"],
+    "in_progress": ["implement_framework_in_opencode", "implement_mcp_server", "organize_directory_structure"],
+    "completed": ["create_cortex_structure", "create_white_label_structure", "implement_naming_convention", "rename_existing_files", "update_mcp_paths", "create_claude_lobe", "implement_manifest_tool", "implement_kg_tool", "implement_workflows_action", "update_antigravity_config", "implement_consolidation_tool", "implement_akl_tool"],
+    "blocked": []
+  },
+  "validation_checkpoints": [],
+  "session_metrics": {
+    "total_interactions": 7,
+    "compactions_executed": 0,
+    "token_budget_warnings": 0
+  },
+  "memory_cortex": {
+    "active_lobes": ["NC-CTX-FR-001-cortex-central", "NC-LBE-FR-002-claude-assistant"],
+    "consolidation_sessions": [],
+    "akl_metrics": {},
+    "synapses": { "current_context": { "lobe_id": "NC-LBE-FR-002-claude-assistant", "checkpoint_id": "CP-CLA-010" } },
+    "global_checkpoint_index": { "checkpoints": ["CP-001", "CP-002", "CP-003", "CP-004", "CP-CLA-001", "CP-CLA-002", "CP-CLA-003", "CP-CLA-004", "CP-CLA-005", "CP-CLA-006", "CP-CLA-007", "CP-CLA-008", "CP-CLA-009", "CP-CLA-010"] }
+  }
+}

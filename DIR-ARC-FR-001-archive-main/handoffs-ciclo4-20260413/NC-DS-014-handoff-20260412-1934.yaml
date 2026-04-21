@@ -1,0 +1,30 @@
+status: APPROVED
+ticket_id: NC-DS-014
+submitted_at: "2026-04-12T19:34:19"
+submitted_by: deepseek-chat
+review_by: auto-approve-script
+summary:
+  files_created:
+    - path: "DIR-RES-CC-001-claude-leak-workzone/analysis-session-b/NC-ANA-CC-005-plugins-deep.md"
+      sha256: "385B8529D64EA594E7318989738B723077EFEAAB3A80FDEB91F7CB16741A5D2B"
+      lines: 175
+  files_modified:
+    - path: "DIR-RES-CC-001-claude-leak-workzone/analysis-session-b/NC-ANA-CC-003-plugin-patterns.md"
+      sha256: "3F3BAD2C1DC191EDEE75CC488CE0918F543808EC01A986248D51BEB698E155FC"
+      lines_added: 30
+  lines_added: 205
+  barriers_passed: ["B1", "B2", "B3", "B4", "B5", "B6"]
+  locks_violated: []
+  overall: SUCCESS
+output_fingerprint:
+  NC-ANA-CC-005-plugins-deep.md: "385B8529D64EA594E7318989738B723077EFEAAB3A80FDEB91F7CB16741A5D2B"
+  NC-ANA-CC-003-plugin-patterns.md: "3F3BAD2C1DC191EDEE75CC488CE0918F543808EC01A986248D51BEB698E155FC"
+methodology_followed:
+  - "F1 PLANEJAR: listados plugins, risco baixo."
+  - "F2 EXECUTAR: análise de 11 plugins, criação de arquivo de síntese."
+  - "F3 VALIDAR: barreiras B1-B6 passadas."
+  - "F4 AUDITAR: exit_state conforme ticket."
+  - "F5 LOG: handoff gerado."
+  - "F6 FILA: a ser atualizada (ticket designado pelo T0, fora da fila)."
+approved_at: "2026-04-12T19:48:51"
+approved_by: antigravity-t0

@@ -1,0 +1,81 @@
+{
+  "ticket_id": "NC-DS-009",
+  "risk_level": "LOW",
+  "risk_reason": "Anlise de cdigo de terceiros (read-only). Write zone isolada. Nenhum arquivo protegido ser modificado.",
+  "file_list": [
+    "DIR-RES-CC-001-claude-leak-workzone/analysis-session-b/NC-LBE-CC-004-governance.mdc",
+    "DIR-RES-CC-001-claude-leak-workzone/analysis-session-b/NC-LBE-CC-005-features-kairos.mdc",
+    "DIR-RES-CC-001-claude-leak-workzone/analysis-session-b/NC-ANA-CC-003-plugin-patterns.md",
+    "DIR-RES-CC-001-claude-leak-workzone/analysis-session-b/NC-ANA-CC-004-competitive-intel.md"
+  ],
+  "dependencies": [
+    "C:/Users/Lucas Valrio/Desktop/CLAUDE_CODE_DISSECTION/free-code/",
+    "C:/Users/Lucas Valrio/Desktop/CLAUDE_CODE_DISSECTION/official-claude-code/",
+    "C:/Users/Lucas Valrio/Desktop/CLAUDE_CODE_DISSECTION/leaked-claude-code/"
+  ],
+  "methodology_steps": [
+    {
+      "phase": "FASE 0  GREP GLOBAL free-code",
+      "actions": [
+        "Executar grep em free-code/src/ pelos termos: KAIROS, tick, SendUserFile, PushNotification, SubscribePR, BRIDGE_MODE, VOICE_MODE, AFK, ULTRAPLAN, TELEPORT_LOCAL, DRM, license, telemetry, obfuscat",
+        "Listar todos os arquivos que contm cada termo"
+      ]
+    },
+    {
+      "phase": "FASE 1  KAIROS (assistant/ + grep results)",
+      "actions": [
+        "Ler todos os arquivos de free-code/src/assistant/",
+        "Para cada arquivo que contm 'KAIROS' ou 'tick': ler completo",
+        "Extrair: como tick  disparado? Critrio de agir vs. ficar quieto?",
+        "Extrair: como SendUserFile, PushNotification, SubscribePR so implementados?"
+      ]
+    },
+    {
+      "phase": "FASE 2  BRIDGE + VOICE + BUDDY",
+      "actions": [
+        "Ler todos os 31 arquivos de free-code/src/bridge/ (BRIDGE_MODE)",
+        "Ler free-code/src/voice/ (VOICE_MODE)",
+        "Ler todos os 6 arquivos de free-code/src/buddy/ (gacha, Tamagotchi)",
+        "Procurar ULTRAPLAN em free-code/src/remote/ e free-code/src/commands/"
+      ]
+    },
+    {
+      "phase": "FASE 3  13 PLUGINS OFICIAIS (um a um)",
+      "actions": [
+        "Para cada plugin em official-claude-code/plugins/:",
+        "  a) Ler README.md completo",
+        "  b) Listar todos os arquivos do plugin",
+        "  c) Ler main/index/config de cada um",
+        "  d) Extrair: padro de extenso, hooks usados, formato de configurao",
+        "Prioridade: hookify > agent-sdk-dev > security-guidance > pr-review-toolkit > plugin-dev"
+      ]
+    },
+    {
+      "phase": "FASE 4  .CLAUDE CONFIG",
+      "actions": [
+        "Ler official-claude-code/.claude/ (padres de configurao)",
+        "Ler official-claude-code/examples/settings/README.md"
+      ]
+    },
+    {
+      "phase": "FASE 5  VALIDAO CRUZADA",
+      "actions": [
+        "Confirmar padres KAIROS em leaked-claude-code/assistant/",
+        "Confirmar DRM se existir"
+      ]
+    },
+    {
+      "phase": "FASE 6  SNTESE",
+      "actions": [
+        "Produzir NC-LBE-CC-004 (governance: DRM, audit, locks, plugin system)",
+        "Produzir NC-LBE-CC-005 (KAIROS, ULTRAPLAN, flags futuras, BUDDY)",
+        "Produzir NC-ANA-CC-003 com padro de cada plugin + recomendaes para NeoCortex",
+        "Produzir NC-ANA-CC-004 'O que a Anthropic tem que ns no temos?' (priorizados)"
+      ]
+    }
+  ],
+  "validation_barriers": ["B1", "B2", "B3", "B4", "B5", "B6"],
+  "estimated_cost_usd": 0.007,
+  "max_files_created": 4,
+  "timestamp": "2026-04-12T17:32:00"
+}

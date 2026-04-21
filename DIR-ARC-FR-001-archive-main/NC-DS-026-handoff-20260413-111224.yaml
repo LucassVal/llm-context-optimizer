@@ -1,0 +1,31 @@
+# DIR-DS-002-audit-logs/NC-DS-026-handoff-20260413-111224.yaml
+ticket_id: NC-DS-026
+status: PENDING_REVIEW
+timestamp: "2026-04-13T11:12:24Z"
+agent_port: null
+lines_added: 0
+files_modified:
+  - 01_neocortex_framework/neocortex/core/utils/NC-UTL-FR-003-path-resolver.py
+summary: |
+  PathResolver implementado com métodos para resolução de caminhos usando get_config() como âncora.
+  Métodos: resolve_ticket_path, resolve_handoff_path, resolve_lobe_path, resolve_tool_path, list_zone_files, get_root.
+  Usa glob() para busca por padrão, retorna None quando arquivo não encontrado.
+ajustes_aplicados:
+  - get_config() como única âncora de root_path
+  - glob() para resolução por padrão
+  - singleton get_path_resolver()
+  - retorna None em vez de raise quando não encontrado
+metrics:
+  lines_real: 140
+  files_created: 0
+  dependencies_used: []
+  write_zone_respected: true
+  locks_respected: true
+errors: []
+warnings: []
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  min_80_lines: true
+  no_locked_files_modified: true
+  handoff_yaml_complete: true

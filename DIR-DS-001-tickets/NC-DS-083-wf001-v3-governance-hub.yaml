@@ -1,0 +1,50 @@
+ticket_id: "NC-DS-083"
+status: "DONE"
+priority: "HIGH"
+type: "RETROSPECTIVE"
+title: "NC-WF-001 v3.0 — Governança centralizada e consolidação de baseline"
+created_at: "2026-04-16T01:30:00-03:00"
+completed_at: "2026-04-16T01:35:00-03:00"
+created_by: "T0-Antigravity"
+handoff_ref: "NC-DS-083-handoff-20260416T013511.yaml"
+
+context:
+  origin: "Decisão T0 — sessão 2026-04-15/16"
+  problem: |
+    NC-WF-001 v2.1 não cobria explicitamente todos os componentes do sistema:
+    lobes de referência, Ciclo 0 MCP, fallback chain, PulseScheduler, MetricsStore,
+    HUD, e tinha 2 bugs: path do catálogo errado e chave 'artifacts' inexistente.
+    Governança não estava centralizada — arquivos soltos sem vínculo formal ao WF-001.
+  scope: |
+    Atualização completa do NC-WF-001 para v3.0:
+    - Mapa de governança (hierarquia explícita de todos os arquivos)
+    - Lobes de referência vinculados
+    - Ciclo 0 (verificação MCP stack)
+    - Correção de bugs (path catálogo + chave python_files/yaml_files)
+    - Cobertura explícita de componentes implícitos (Fallback Chain, PulseScheduler,
+      MetricsStore, HUD, Compact Encoding, Vocabulário Ubíquo)
+    - Componentes pendentes documentados (WAL, OBS-001, AGENT-206, TTL-002, SQLite-Q)
+    - Consolidação de baseline: 5 tickets OPEN → DONE, catálogo regenerado
+
+task:
+  description: |
+    1. Fechar 5 tickets OPEN com handoff APPROVED (071, 073, 074, 075, 076)
+    2. Regenerar artifact_catalog.json (DIR-DOC-FR-001-docs-main/)
+    3. Escrever NC-WF-001 v3.0 com mapa de governança completo
+    4. Corrigir bugs do Ciclo 1 e Ciclo 2
+    5. Adicionar Ciclo 0 (verificação MCP)
+    6. Gerar ticket retrospectivo + handoff
+
+write_zone:
+  - ".agents/workflows/"
+  - "DIR-DS-001-tickets/"
+  - "DIR-DS-002-audit-logs/"
+
+references:
+  - ".agents/workflows/NC-WF-001-workspace-routine.md"
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-005-governance-ecosystem.yaml"
+  - "C:/Users/Lucas Valério/.gemini/antigravity/brain/38dcb9b6-6dbf-4876-8cc3-4400a362d6de/implementation_plan.md"
+
+tags: ["governance", "wf", "ciclo0", "mcp", "consolidation", "baseline", "v3"]
+domain: "orchestration"
+layer: "governance"

@@ -1,0 +1,88 @@
+ticket_id: NC-DS-122
+status: APPROVED
+validated_by: T0-Antigravity
+timestamp: "2026-04-20T20:10:00-03:00"
+agent: T0-Antigravity
+
+summary: |
+  Executado NC-DS-122 (T0 direto, sem delegar a OpenCode).
+  Renomeação segura de 24 arquivos KEEP_NON_NC em neocortex/core/ para padrão NC-CORE-FR-101..124.
+  Estratégia: cópia para NC-CORE-FR-NNN-*.py + shim importlib no arquivo antigo.
+  Server.py e sub_server.py NÃO foram tocados (@LOCK respeitado).
+  Script executor NC-SCR-FR-147 criado, validado (ruff F,E9 PASS) e executado.
+
+files_created:
+  - "neocortex/core/NC-CORE-FR-101-agent-policy-enforcer.py"
+  - "neocortex/core/NC-CORE-FR-102-agent-service.py"
+  - "neocortex/core/NC-CORE-FR-103-akl-service.py"
+  - "neocortex/core/NC-CORE-FR-104-benchmark-service.py"
+  - "neocortex/core/NC-CORE-FR-105-cascade-consolidator.py"
+  - "neocortex/core/NC-CORE-FR-106-checkpoint-service.py"
+  - "neocortex/core/NC-CORE-FR-107-circuit-breaker.py"
+  - "neocortex/core/NC-CORE-FR-108-config-service.py"
+  - "neocortex/core/NC-CORE-FR-109-consolidation-service.py"
+  - "neocortex/core/NC-CORE-FR-110-cortex-service.py"
+  - "neocortex/core/NC-CORE-FR-111-export-service.py"
+  - "neocortex/core/NC-CORE-FR-112-file-utils.py"
+  - "neocortex/core/NC-CORE-FR-113-init-service.py"
+  - "neocortex/core/NC-CORE-FR-114-kg-service.py"
+  - "neocortex/core/NC-CORE-FR-115-ledger-service.py"
+  - "neocortex/core/NC-CORE-FR-116-lexico-service.py"
+  - "neocortex/core/NC-CORE-FR-117-lobe-service.py"
+  - "neocortex/core/NC-CORE-FR-118-manifest-service.py"
+  - "neocortex/core/NC-CORE-FR-119-peers-service.py"
+  - "neocortex/core/NC-CORE-FR-120-profile-manager.py"
+  - "neocortex/core/NC-CORE-FR-121-profile-service.py"
+  - "neocortex/core/NC-CORE-FR-122-pulse-scheduler.py"
+  - "neocortex/core/NC-CORE-FR-123-regression-service.py"
+  - "neocortex/core/NC-CORE-FR-124-security-service.py"
+  - "scripts/NC-SCR-FR-147-nc-ds-122-executor.py"
+
+files_modified:
+  - "neocortex/core/agent_policy_enforcer.py (→ shim)"
+  - "neocortex/core/agent_service.py (→ shim)"
+  - "neocortex/core/akl_service.py (→ shim)"
+  - "neocortex/core/benchmark_service.py (→ shim)"
+  - "neocortex/core/cascade_consolidator.py (→ shim)"
+  - "neocortex/core/checkpoint_service.py (→ shim)"
+  - "neocortex/core/circuit_breaker.py (→ shim)"
+  - "neocortex/core/config_service.py (→ shim)"
+  - "neocortex/core/consolidation_service.py (→ shim)"
+  - "neocortex/core/cortex_service.py (→ shim)"
+  - "neocortex/core/export_service.py (→ shim)"
+  - "neocortex/core/file_utils.py (→ shim)"
+  - "neocortex/core/init_service.py (→ shim)"
+  - "neocortex/core/kg_service.py (→ shim)"
+  - "neocortex/core/ledger_service.py (→ shim)"
+  - "neocortex/core/lexico_service.py (→ shim)"
+  - "neocortex/core/lobe_service.py (→ shim)"
+  - "neocortex/core/manifest_service.py (→ shim)"
+  - "neocortex/core/peers_service.py (→ shim)"
+  - "neocortex/core/profile_manager.py (→ shim)"
+  - "neocortex/core/profile_service.py (→ shim)"
+  - "neocortex/core/pulse_scheduler.py (→ shim)"
+  - "neocortex/core/regression_service.py (→ shim)"
+  - "neocortex/core/security_service.py (→ shim)"
+
+validation_results:
+  nc_files_created: 24
+  shim_files_created: 24
+  total_files: 48
+  py_compile_pass: "48/48"
+  ruff_F_E9_executor: PASS
+  locks_violated: []
+  server_py_touched: false
+  sub_server_py_touched: false
+  git_diff_lock: "server.py/sub_server.py not in diff"
+
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  ssot_updated: false  # pendente — NC-NAM-FR-001 precisa das 24+1 entradas
+  no_locked_files_modified: true
+  handoff_yaml_complete: true
+
+next_actions:
+  - "Atualizar NC-NAM-FR-001 com as 24 novas entradas NC-CORE-FR-101..124 (pode ser sprint NC-DS-123)"
+  - "Migrar importers diretos para usar NC-CORE-FR-NNN quando conveniente (não urgente — shims funcionais)"
+  - "Remover shims após todos importers migrados (futuro sprint)"

@@ -1,0 +1,85 @@
+# NC-LOG-CRITICAL — Falha sistêmica após 3 tentativas de aquisição de task
+# Gerado por: worker-57120-723033 (v2026-04-12c)
+# Data: 2026-04-12T20:44:30.870
+# Destinatário: antigravity-t0 (urgente)
+
+summary: "Worker falhou em adquirir task após 3 tentativas. Sistema com inconsistências graves impede operação de múltiplos workers."
+
+attempts:
+  - attempt: 1
+    timestamp: "2026-04-12T20:44:28.891"
+    result: "NENHUMA task com status:AVAILABLE e completed_at:null encontrada"
+    lock_created: true
+    queue_state: "corrompido"
+  - attempt: 2
+    timestamp: "2026-04-12T20:44:29.910"
+    result: "NENHUMA task válida (mesmo resultado)"
+    lock_created: true
+    queue_state: "corrompido"
+  - attempt: 3
+    timestamp: "2026-04-12T20:44:30.870"
+    result: "NENHUMA task válida (mesmo resultado)"
+    lock_created: true
+    queue_state: "corrompido"
+
+critical_issues:
+  # 1. Estrutura YAML malformada
+  - issue: "YAML queue malformado — tasks NC-DS-020 a 029 fora do nó 'tasks:'"
+    impact: "Parser YAML só vê 5 tasks (015-019), ignorando batch completo"
+    evidence: "safe_load() retorna apenas 5 itens; restante está em nível raiz"
+    severity: "HIGH"
+
+  # 2. Estados inconsistentes (REG-008 violado)
+  - issue: "Tasks com completed_at preenchido mas status: AVAILABLE"
+    examples: ["NC-DS-021", "NC-DS-022", "NC-DS-023"]
+    impact: "Workers pulam tasks corrompidas, reduzindo pool disponível"
+    severity: "HIGH"
+
+  # 3. Claims duplicados/quebrados
+  - issue: "Tasks com claimed_by preenchido mas status: AVAILABLE (não CLAIMED)"
+    examples: ["NC-DS-026 (worker-1776032984606-2196eb)", "NC-DS-021,022,023"]
+    impact: "Múltiplos workers podem tentar claim simultâneo → race condition"
+    severity: "HIGH"
+
+  # 4. Protocolo de claim deficiente
+  - issue: "Janela de 5s entre claim e verificação permite race conditions"
+    impact: "Dois workers podem ler mesmo AVAILABLE antes de lock efetivo"
+    severity: "MEDIUM"
+
+  # 5. File lock soft (queue.lock) não resolve concorrência extrema
+  - issue: "≥6 workers ativos competindo por poucas tasks"
+    impact: "Lock via arquivo não é atômico em Windows com múltiplos processos"
+    severity: "MEDIUM"
+
+root_cause_analysis: |
+  O sistema tenta coordenar 10 workers T1 paralelos usando:
+  1. Fila YAML central (single point of failure)
+  2. File lock via queue.lock (soft, não atômico)
+  3. Protocolo de claim com janela de 5s (race condition)
+  4. Estado inconsistente persistente (tasks corrompidas não são limpas)
+
+  As soluções sugeridas em logs anteriores (NC-LOG-CONCURRENCY-*, NC-LOG-T0-COMMS-*) não foram implementadas:
+  - Migrar para SQLite com transações atômicas
+  - Usar atomic lock via mkdir (criação de diretório atômica)
+  - Script de cleanup automático para estados inconsistentes
+
+  Com a fila corrompida (YAML malformado + estados inválidos), workers ficam presos em loop tentando adquirir tasks inexistentes.
+
+recommendations:
+  - immediate:
+    - "T0 deve executar script de reparo do YAML (reestruturar tasks: incluir batch 020-029)"
+    - "T0 deve executar cleanup de estados inconsistentes (colocar status:DONE onde completed_at preenchido)"
+    - "T0 deve resetar claims expirados (>300s)"
+    - "Pausar todos os workers até queue ser reparado"
+  - short_term:
+    - "Implementar atomic lock via mkdir (criar DIR-DS-000-agent-config/queue.lock.d/)"
+    - "Migrar fila para SQLite com transações (eliminar race conditions)"
+    - "Implementar health check automatizado para detectar corrupção"
+  - long_term:
+    - "Redesenhar protocolo com semáforos distribuídos (ex: Redis)"
+    - "Adicionar sistema de heartbeat e timeouts automáticos"
+
+worker_state: "HIBERNATING"
+action_taken: "Cleanup final — queue.lock removido, active-zones verificado vazio"
+next_step: "Aguardar intervenção de T0. Worker entra em modo hibernar (inativo)."
+

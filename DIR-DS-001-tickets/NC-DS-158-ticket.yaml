@@ -1,0 +1,8 @@
+ticket_id: "NC-DS-158"
+title: "Optimize LanceDB with HNSW and PQ Quantization"
+status: "OPEN"
+priority: "MEDIUM"
+created: "2026-04-21T19:49:54"
+agent: "T0"
+description: |
+  Atualizar banco LanceDB em '02_memory_lobes' para utilizar índices HNSW (Hierarchical Navigable Small World) e IVF-PQ Vector Quantization. Promove compressão extrema de vetores passivos sem comprometer precisão de recall do LexicoService.

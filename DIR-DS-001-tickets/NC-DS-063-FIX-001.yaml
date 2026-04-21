@@ -1,0 +1,24 @@
+id: NC-DS-063
+code: FIX-001
+title: "Correção de Encoding UTF‑8 para Script Engineer no Windows"
+assignee: "Agente OpenCode (Engineer)"
+context:
+  - "01_neocortex_framework/scripts/NC-SCR-FR-061-engineer-documentacao.py"
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/PROJECT_MAP.md"
+  - "DIR-DS-002-audit-logs/NC-DS-063-handoff-20260414T121130.yaml"
+task: |
+  **PROBLEMA**: O script NC‑SCR‑FR‑061‑engineer‑documentacao.py apresentava erro de encoding Unicode (caracteres 🚨✅🏥 e acentos) no output do console em ambiente Windows, causando exibição incorreta e potencial falha em pipelines de auditoria.
+  
+  **SOLUÇÃO APLICADA**:
+  1. **Configuração de encoding UTF‑8 para stdout/stderr no Windows**:
+     - Adicionado bloco `if sys.platform == "win32":` que substitui `sys.stdout` e `sys.stderr` por wrappers `io.TextIOWrapper` com encoding UTF‑8.
+     - Remove tentativa falha de usar `sys.stdout.reconfigure` (atributo desconhecido no runtime).
+  2. **Correção de anotação de tipo**:
+     - Alterado `exclude_dirs: Set[str] = None` para `exclude_dirs: Optional[Set[str]] = None` (resolvendo erro de tipo no LSP).
+  3. **Validação**:
+     - Script agora executa sem erros de Unicode, exibindo corretamente acentos e emojis.
+     - Exit code 0 mantido, geração do PROJECT_MAP.md preservada.
+  
+  **IMPACTO**: Garantia de que ferramentas de auditoria e documentação (Engineer Agent) funcionem corretamente em ambientes Windows, assegurando conformidade com SSOT e legibilidade dos logs.
+  
+  **EVIDÊNCIAS**: Handoff correspondente em `DIR-DS-002-audit-logs/NC-DS-063-handoff-20260414T121130.yaml`.

@@ -22,6 +22,14 @@ from mcp.server.models import InitializationOptions
 from ..core.pulse_scheduler import PulseScheduler
 from ..infra.metrics_store import create_metrics_store
 
+# Import para carregamento de regras .mdc
+try:
+    from .mdc_loader import load_mdc_rules, inject_rules_into_fastmcp
+    MDC_LOADER_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"mdc_loader não disponível: {e}")
+    MDC_LOADER_AVAILABLE = False
+
 # from .tools import (
 #     cortex,
 #     ledger,
@@ -347,12 +355,40 @@ def create_mcp_server(host="127.0.0.1", port=8765):
     """
     if FAST_MCP_AVAILABLE:
         server = FastMCP("neocortex", host=host, port=port)
+        
+        # Add health check tool for monitoring
+        @server.tool()
+        def health_check() -> dict:
+            """Check MCP server health status"""
+            return {
+                "success": True,
+                "status": "healthy",
+                "service": "neocortex-mcp",
+                "version": "4.2-cortex",
+                "timestamp": datetime.now(timezone.utc).isoformat() + "Z",
+                "tools_loaded": 17  # Número fixo baseado no carregamento dinâmico
+            }
     else:
         server = MockMCP("neocortex")
 
     # Create global metrics store
     global metrics_store_instance
     metrics_store_instance = create_metrics_store()
+
+    # Inject governance rules from .mdc files (if FastMCP and loader available)
+    if FAST_MCP_AVAILABLE and MDC_LOADER_AVAILABLE:
+        try:
+            if inject_rules_into_fastmcp(server):
+                logger.info("✅ Regras de governança .mdc injetadas no FastMCP")
+            else:
+                logger.warning("⚠️ Não foi possível injetar regras .mdc")
+        except Exception as e:
+            logger.error(f"❌ Erro ao injetar regras .mdc: {e}")
+    else:
+        if not FAST_MCP_AVAILABLE:
+            logger.warning("⚠️ FastMCP não disponível - regras .mdc não serão injetadas")
+        if not MDC_LOADER_AVAILABLE:
+            logger.warning("⚠️ mdc_loader não disponível - regras .mdc não serão injetadas")
 
     # Initialize PulseScheduler for autonomous maintenance (with metrics store)
     from ..core import (

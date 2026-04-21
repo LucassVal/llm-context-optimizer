@@ -1,0 +1,44 @@
+# NC-HANDOFF-TEMPLATE.yaml
+# Template OBRIGATÓRIO para handoffs de tickets NeoCortex
+# Todos os campos são obrigatórios exceto os marcados com # OPCIONAL
+# Gerado: 2026-04-13 | Versão: 1.0
+
+ticket_id: NC-DS-XXX                        # ex: NC-DS-034
+status: PENDING_REVIEW                       # PENDING_REVIEW | APPROVED | REJECTED
+timestamp: "2026-04-13T01:06:08-03:00"      # ISO 8601 completo com timezone
+agent_port: 25993                            # porta do opencode que executou
+
+lines_added: 256                             # total de linhas reais (não contar comentários vazios)
+files_modified:
+  - path/to/NC-TIPO-SIGLA-NUM-arquivo.py    # path relativo à raiz do projeto
+  # adicionar todos os arquivos criados/modificados
+
+summary: |
+  Descrição em 1-3 linhas do que foi implementado.
+  Incluir: padrão usado, integrações, dependências.
+
+ajustes_aplicados:                           # listar TODOS os ajustes da @SYNTHESIS que foram aplicados
+  - "Ajuste específico 1 implementado"
+  - "Ajuste específico 2 implementado"
+
+metrics:
+  lines_real: 256                            # linhas de código real (excluindo docstrings vazias)
+  lines_total: 260                           # total incluindo comentários
+  files_created: 1                           # arquivos novos
+  files_modified: 0                          # arquivos existentes modificados
+  dependencies_used:                         # libs externas usadas
+    - "cachetools>=5.0"
+  write_zone_respected: true                 # escreveu apenas na write_zone do prompt?
+  locks_respected: true                      # não tocou em server.py/sub_server.py?
+
+errors: []                                   # lista de erros encontrados durante implementação
+warnings:                                    # avisos não-bloqueantes
+  - "Aviso exemplo: import relativo usado, testar em runtime"  # OPCIONAL
+
+checklist_r20:
+  naming_convention: true                    # arquivo segue NC-TIPO-SIGLA-NUM?
+  no_print_statements: true                  # usa logger, não print?
+  min_80_lines: true                         # >= 80L de código real?
+  no_locked_files_modified: true             # não tocou em @LOCKS?
+  ajustes_synthesis_applied: true            # ajustes da @SYNTHESIS aplicados?
+  handoff_yaml_complete: true                # este YAML tem todos os campos?

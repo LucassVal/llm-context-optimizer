@@ -1,0 +1,48 @@
+ticket_id: NC-DS-001
+status: APPROVED
+approved_by: antigravity-t0
+approved_at: "2026-04-13T19:58:00-03:00"
+timestamp: "2026-04-13T19:52:02-03:00"
+agent_port: 45132
+
+lines_added: 480
+files_modified:
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-025-system.py
+
+summary: |
+  Criado NC-TOOL-FR-025-system.py com ações de gerenciamento unificado de sistema, configuração e pulso.
+  Inclui todas as ações especificadas no ticket (config.get, config.reload, config.diff, system.diagnostics, system.env_check, pulse.status, pulse.schedule_custom, pulse.force) mais ações estendidas (config.set_model, config.list_models, config.set_constraint, config.list_constraints, config.set_agent_backend, pulse.start, pulse.stop).
+  Segue template NC-TOOL-FR-029-health.py e absorve funcionalidades de NC-TOOL-FR-005-config.py e NC-TOOL-FR-011-pulse.py.
+
+ajustes_aplicados:
+  - "Seguido template NC-TOOL-FR-029-health.py na estrutura"
+  - "Funções auxiliares _config, _get_config_service, _get_pulse_scheduler, _get_config_dev_path"
+  - "Ações config.* com fallback para ConfigService quando disponível"
+  - "Ações system.* coletam diagnósticos e verificam ambiente"
+  - "Ações pulse.* interagem com PulseScheduler"
+  - "Implementação de diff entre config prod e dev usando yaml"
+
+lessons_learned:
+  - "ConfigService e PulseScheduler podem não estar disponíveis em todos os ambientes; fallbacks implementados"
+  - "Necessidade de lidar com múltiplos formatos de configuração (to_dict, reload)"
+  - "Importância de verificar existência de atributos (hasattr) para compatibilidade"
+
+deps_missing: []
+ruff_violations_found: 0
+
+metrics:
+  ruff_check: PASS
+  py_compile: PASS
+  import_smoke_test: PASS
+  write_zone_respected: true
+  locks_respected: true
+  min_80_lines: true
+
+errors: []
+warnings: []
+
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  ajustes_synthesis_applied: true
+  handoff_yaml_complete: true

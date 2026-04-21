@@ -1,0 +1,51 @@
+# NC-DS-105-handoff-20260416T145709.yaml
+# Handoff gerado pelo DeepSeek ao concluir ticket NC-DS-105
+# Depositado em: DIR-DS-002-audit-logs/NC-DS-105-handoff-20260416T145709.yaml
+# STATUS POSSÍVEIS: PENDING_REVIEW | APPROVED | REJECTED | ESCALATED
+
+status: PENDING_REVIEW
+ticket_id: NC-DS-105
+roadmap_ticket: FR-037
+submitted_at: "2026-04-16T14:57:09"
+submitted_by: deepseek-chat
+review_by: antigravity-t0
+reviewed_at: null
+
+summary:
+  files_created: []
+  files_modified:
+    - "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-037-hooks.py"
+  lines_added: 35
+  lines_removed: 0
+  validation_rounds: 1
+  barriers_passed:
+    - "ruff_check"
+    - "py_compile"
+  locks_violated: []
+  cost_usd: 0.0
+  overall: SUCCESS
+
+diff_path: "DIR-DS-002-audit-logs/NC-DS-105-diff-20260416T145709.txt"
+
+# Checklist para T0 (preencher na revisão)
+t0_review:
+  compile_ok: null
+  naming_ok: null
+  ssot_updated: null
+  locks_clean: null
+  roadmap_done: null
+
+# Checklist R20 (preenchido pelo agente)
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  ssot_updated: false
+  no_locked_files_modified: true
+  handoff_yaml_complete: true
+  ruff_ok: true
+  py_compile_ok: true
+
+# Se REJECTED, preencher motivo e criar novo ticket
+rejection:
+  reason: null
+  next_ticket: null

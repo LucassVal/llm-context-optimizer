@@ -1,3 +1,15 @@
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:59.696985'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+tags:
+  - neocortex-other
+  - level-0
+  - python
+---"""
 #!/usr/bin/env python3
 """
 TaskQueue - Persistent task queue for NeoCortex background operations.
@@ -11,11 +23,11 @@ import sqlite3
 import threading
 import time
 import uuid
-from pathlib import Path
-from typing import Dict, Any, List, Optional, Callable, Union
+from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 from enum import Enum
-from dataclasses import dataclass, asdict, field
+from pathlib import Path
+from typing import Any, Callable, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 

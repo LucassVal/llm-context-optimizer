@@ -1,0 +1,45 @@
+{
+  "ticket_id": "NC-DS-007",
+  "phase": 1,
+  "timestamp": "2026-04-12T16:26:00",
+  "file_list": [
+    {
+      "action": "create",
+      "path": "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001a-tools-registry.md",
+      "description": "Extract tools category from NC-NAM-FR-001"
+    },
+    {
+      "action": "create",
+      "path": "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001b-lobes-registry.md",
+      "description": "Extract lobes category from NC-NAM-FR-001"
+    },
+    {
+      "action": "create",
+      "path": "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001c-config-registry.md",
+      "description": "Extract config category from NC-NAM-FR-001"
+    },
+    {
+      "action": "create",
+      "path": "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001d-prompts-registry.md",
+      "description": "Extract prompts category from NC-NAM-FR-001"
+    },
+    {
+      "action": "create",
+      "path": "01_neocortex_framework/scripts/NC-SCR-FR-004-governance-validator.py",
+      "description": "Script to compute SHA-256 and report outdated artifacts"
+    },
+    {
+      "action": "modify",
+      "path": "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md",
+      "description": "Add references to sub-registros (index section)"
+    }
+  ],
+  "dependencies": [
+    "NC-NAM-FR-001-naming-convention.md must exist",
+    "Python hashlib library",
+    "get_config() function available"
+  ],
+  "risk_level": "HIGH",
+  "risk_reason": "Ticket requires modification of NC-NAM-FR-001-naming-convention.md which is protected by atomic lock (block_write) and appears in inviolable rule list (NUNCA editar). This creates a conflict between ticket instructions and security policy. Need T0 clarification.",
+  "action": "STOP, deposit handoff with status=ESCALATED, notify T0"
+}

@@ -1,10 +1,24 @@
 #!/usr/bin/env python3
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:57.096940'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: mcp-server
+level: 3
+parent_ssot: NC-MCP-FR-001-mcp-server
+tags:
+  - mcp-server
+  - level-3
+  - python
+---"""
+
 """
 Simple test for MCP tools.
 """
 
-import sys
 import os
+import sys
 
 sys.path.insert(0, os.path.dirname(__file__))
 
@@ -76,7 +90,6 @@ mcp.server.FastMCP.run = original_run
 
 print("\n=== Direct function test ===")
 # Try to import functions directly from the file
-import ast
 
 with open("NC-MCP-FR-001-mcp-server.py", "r", encoding="utf-8") as f:
     content = f.read()

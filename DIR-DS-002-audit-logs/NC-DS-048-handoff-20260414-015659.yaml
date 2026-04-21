@@ -1,0 +1,50 @@
+# NC-DS-048-handoff-20260414-015659.yaml
+# Handoff para ticket NC-DS-048-GLOBAL-SANE-002
+
+ticket_id: NC-DS-048
+status: APPROVED
+timestamp: "2026-04-14T01:56:59-03:00"
+agent_port: 51148
+
+lines_added: 400
+files_modified:
+  - 01_neocortex_framework/DIR-TEST-FR-001-tests-main/*.py (7 arquivos)
+  - 01_neocortex_framework/scripts/*.py (40 arquivos)
+  - 01_neocortex_framework/DIR-CFG-FR-001-config-main/*.yaml (2 arquivos)
+  - 01_neocortex_framework/DIR-TMP-FR-001-templates-main/*.mdc (6 arquivos)
+  - 01_neocortex_framework/DIR-TMP-FR-001-templates-main/*.json (1 arquivo)
+  - .pre-commit-config.yaml
+
+summary: |
+  Aplicação massiva de metadados de frontmatter (domain, layer, type, tags, hash) em todos os arquivos complementares (Testes, Templates, Scripts base, configurações raiz) conforme especificado no ticket.
+  Frontmatter adicionado seguindo o padrão do Universal Tagging System (NC-RULE-007) e validado com o Dicionário de Linguagem Ubíqua.
+  Para arquivos Python: frontmatter em docstring; Markdown/MDC: frontmatter YAML; JSON/YAML: chave _meta no objeto raiz.
+  Validação de sintaxe realizada para garantir que parsers YAML/JSON não foram quebrados.
+
+ajustes_aplicados:
+  - "Frontmatter adicionado a 58 arquivos, 50 atualizados (outros já possuíam frontmatter)"
+  - "Metadados definidos conforme mapeamento: domain, layer, type e tags baseados no diretório e nome do arquivo"
+  - "Tags validadas contra Dicionário de Linguagem Ubíqua"
+  - "Sintaxe YAML/JSON verificada, sem erros de parsing"
+
+metrics:
+  lines_real: 400
+  lines_total: 450
+  files_created: 0
+  files_modified: 50
+  dependencies_used:
+    - "PyYAML"
+  write_zone_respected: true
+  locks_respected: true
+
+errors: []
+warnings:
+  - "Arquivos .mdc templates possuem frontmatter duplicado (adicionado antes do frontmatter existente), mas ainda são YAML válidos."
+
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  min_80_lines: true
+  no_locked_files_modified: true
+  ajustes_synthesis_applied: true
+  handoff_yaml_complete: true

@@ -1,0 +1,75 @@
+ticket_id: "NC-DS-088"
+status: "DONE"
+priority: "LOW"
+title: "Sanitização: Deprecar roadmaps v5/v6/v7 + mover para DIR-ARC-FR-001"
+created_at: "2026-04-15T00:00:00-03:00"
+created_by: "T0-Claude-Code"
+
+context:
+  origin: "Auditoria cruzada Lucas.json vs roadmaps (sessão 2026-04-15)"
+  problem: |
+    Foram encontradas 3+ versões de roadmap fora do archive:
+    - NC-TODO-FR-001-project-roadmap.md (v5.0) — em DIR-ARC-FR-001 mas referenciado externamente
+    - NC-TODO-FR-001-project-roadmap-v6-stability.md (v6.0) — localização incerta
+    - NC-TODO-FR-001-project-roadmap-v7-combined.md (v7.0) — localização incerta
+    - NC-TODO-DS-002-roadmap-full.md — orphan em raiz-orphans-20260413
+    SSOT oficial é NC-TODO-FR-001-project-roadmap-consolidated.md (v9.0).
+    Versões antigas criam ambiguidade e risco de agentes lerem roadmap errado.
+  scope: "Limpeza e archive das versões obsoletas de roadmap"
+
+task:
+  description: |
+    1. Localizar todos os arquivos de roadmap obsoletos:
+       find . -name "*roadmap*" -o -name "*TODO-FR-001*" | grep -v archive | grep -v consolidated
+
+    2. Para cada arquivo obsoleto encontrado FORA de DIR-ARC-FR-001:
+       a. Adicionar header de depreciação no topo:
+          # DEPRECATED — Superseded by NC-TODO-FR-001-project-roadmap-consolidated.md (v9.0)
+          # Movido para archive em 2026-04-15. NÃO USE ESTE ARQUIVO.
+       b. Mover para DIR-ARC-FR-001-archive-main/deprecated-roadmaps/
+
+    3. Verificar NC-TODO-DS-001-roadmap-pre-mcp.md:
+       - Este arquivo é VÁLIDO (Sprint Imediato complementar ao v9.0)
+       - NÃO deprecar — apenas confirmar que ainda é relevante
+
+    4. Verificar se NC-TODO-FR-001-project-roadmap-consolidated.md (v9.0) tem
+       frontmatter correto com versão e hash
+
+    5. Atualizar NC-GOV-FR-004 se necessário (seção TODO)
+
+    6. Gerar handoff APPROVED
+
+  instrucoes_handoff: |
+    Salvar em: DIR-DS-002-audit-logs/NC-DS-088-handoff-YYYYMMDDTHHMMSS.yaml
+    Campos: ticket_id, status, timestamp, agent, summary, files_modified, files_moved
+
+  checklist_r20:
+    naming_convention: true
+    no_print_statements: true
+    ssot_updated: true
+    no_locked_files_modified: true
+    handoff_yaml_complete: true
+
+environment:
+  python: "C:\\Program Files\\Python312\\python.exe"
+  project_root: "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
+
+ssot_after_cleanup:
+  roadmap_principal: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md"
+  roadmap_sprint: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-TODO-DS-001-roadmap-pre-mcp.md"
+  archive_destino: "DIR-ARC-FR-001-archive-main/deprecated-roadmaps/"
+
+write_zone:
+  - "DIR-ARC-FR-001-archive-main/"
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/"
+  - "DIR-DS-002-audit-logs/"
+
+atomic_locks_proibidos:
+  - "01_neocortex_framework/neocortex/server.py"
+  - "01_neocortex_framework/neocortex/sub_server.py"
+  - "01_neocortex_framework/neocortex_config.yaml"
+
+tags: ["sanitizacao", "roadmap", "deprecated", "archive", "governance"]
+domain: "orchestration"
+layer: "governance"
+type: "CHORE"

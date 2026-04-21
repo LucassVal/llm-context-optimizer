@@ -1,0 +1,22 @@
+ticket_id: NC-DS-037
+status: PENDING_REVIEW
+timestamp: "2026-04-13T12:49:44-03:00"
+agent_port: 44624
+lines_added: 120
+files_modified:
+  - 01_neocortex_framework/neocortex/core/config/NC-CFG-FR-002-feature-flags.py
+summary: |
+  FeatureFlagService implementado com cache TTL 1h conforme especificação NC-DS-037.
+  Suporte a env vars NEOCORTEX_FF_* com precedência sobre config YAML.
+  Interface pública is_enabled, get_flag, reload, list_flags.
+metrics:
+  ruff_check: PASS
+  py_compile: PASS
+  write_zone_respected: true
+  locks_respected: true
+errors: []
+warnings: []
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  handoff_yaml_complete: true

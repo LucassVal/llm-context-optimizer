@@ -1,3 +1,16 @@
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:24:01.835250'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+tags:
+  - neocortex-other
+  - level-0
+  - python
+---"""
+
 #!/usr/bin/env python3
 """
 Configuration provider for NeoCortex framework.
@@ -6,11 +19,13 @@ Centralized configuration management with environment variable support,
 configuration file loading, and sensible defaults.
 """
 
-import os
 import json
-import yaml
+import logging
+import os
 from pathlib import Path
-from typing import Dict, Any, Optional, Union, List
+from typing import Any, Dict, List, Union
+
+import yaml
 
 
 class Config:
@@ -81,6 +96,21 @@ class Config:
 
         # Load from YAML file if exists
         yaml_path = self._project_root / "neocortex_config.yaml"
+
+        # Load from .nc/config.yaml if exists (per-project configuration)
+        nc_config_path = self._project_root / ".nc" / "config.yaml"
+        if nc_config_path.exists():
+            try:
+                with open(nc_config_path, "r", encoding="utf-8") as f:
+                    nc_config = yaml.safe_load(f) or {}
+                    config.update(nc_config)
+                    logger = logging.getLogger(__name__)
+                    logger.info(
+                        f"Loaded per-project configuration from {nc_config_path}"
+                    )
+            except Exception as e:
+                logger = logging.getLogger(__name__)
+                logger.warning(f"Failed to load .nc/config.yaml: {e}")
         if yaml_path.exists():
             try:
                 with open(yaml_path, "r", encoding="utf-8") as f:
@@ -139,6 +169,27 @@ class Config:
             )
             if env_key:
                 llm_config["api_key"] = env_key
+
+        # Ensure vector store configuration section exists with defaults
+        if "vector_store" not in config:
+            config["vector_store"] = {}
+
+        vector_config = config["vector_store"]
+
+        # Default vector store configuration (LanceDB)
+        default_vector_config = {
+            "provider": "lancedb",
+            "path": str(self._project_root / "data" / "vector_db"),
+            "collection_prefix": "neocortex_",
+            "embedding_dimension": 384,
+            "metric": "cosine",
+            "max_connections": 10,
+        }
+
+        # Merge defaults with user config
+        for key, default_value in default_vector_config.items():
+            if key not in vector_config:
+                vector_config[key] = default_value
 
         return config
 
@@ -203,6 +254,8 @@ class Config:
         # Core directories
         self.PATHS = {
             "project_root": self._project_root,
+            "memory_lobes": self._project_root
+            / paths_config.get("memory_lobes", "02_memory_lobes"),
             "core_central": self._project_root
             / paths_config.get("core_central", "DIR-CORE-FR-001-core-central"),
             "archive": self._project_root
@@ -219,6 +272,12 @@ class Config:
             / paths_config.get("mcp_server", "DIR-MCP-FR-001-mcp-server"),
             "profiles": self._project_root
             / paths_config.get("profiles", "DIR-PRF-FR-001-profiles-main"),
+            "metrics": self._project_root
+            / paths_config.get("metrics", "NC-MET-FR-001-metrics"),
+            "data": self._project_root
+            / paths_config.get("data", "DIR-DAT-FR-001-data-main"),
+            "vector_db": self._project_root
+            / paths_config.get("vector_db", "DIR-VEC-FR-001-vector-db"),
         }
 
         # Critical files
@@ -251,6 +310,9 @@ class Config:
             self.PATHS["source"],
             self.PATHS["mcp_server"],
             self.PATHS["profiles"],
+            self.PATHS["metrics"],
+            self.PATHS["data"],
+            self.PATHS["vector_db"],
             self.PATHS["core_central"] / ".agents" / "rules",
         ]
 
@@ -262,6 +324,11 @@ class Config:
     def project_root(self) -> Path:
         """Get project root directory."""
         return self.PATHS["project_root"]
+
+    @property
+    def memory_lobes(self) -> Path:
+        """Get memory lobes directory."""
+        return self.PATHS["memory_lobes"]
 
     @property
     def core_central(self) -> Path:
@@ -322,6 +389,26 @@ class Config:
     def profiles_path(self) -> Path:
         """Get profiles directory."""
         return self.PATHS["profiles"]
+
+    @property
+    def metrics_path(self) -> Path:
+        """Get metrics directory."""
+        return self.PATHS["metrics"]
+
+    @property
+    def metrics_dir(self) -> Path:
+        """Get metrics directory (alias for metrics_path)."""
+        return self.PATHS["metrics"]
+
+    @property
+    def data_dir(self) -> Path:
+        """Get data directory."""
+        return self.PATHS["data"]
+
+    @property
+    def vector_db_path(self) -> Path:
+        """Get vector database directory."""
+        return self.PATHS["vector_db"]
 
     # LLM configuration access
     @property
@@ -436,6 +523,42 @@ class Config:
         """Get checkpoint interval in minutes."""
         return int(self.scheduler_config.get("checkpoint_interval_minutes", 5))
 
+    # Vector store configuration access
+    @property
+    def vector_store_config(self) -> Dict[str, Any]:
+        """Get vector store configuration."""
+        return self._config.get("vector_store", {}).copy()
+
+    @property
+    def vector_store_provider(self) -> str:
+        """Get configured vector store provider."""
+        return self.vector_store_config.get("provider", "lancedb")
+
+    @property
+    def vector_store_path(self) -> str:
+        """Get configured vector store path."""
+        return self.vector_store_config.get("path", str(self.data_dir / "vector_db"))
+
+    @property
+    def vector_store_collection_prefix(self) -> str:
+        """Get configured vector store collection prefix."""
+        return self.vector_store_config.get("collection_prefix", "neocortex_")
+
+    @property
+    def vector_store_embedding_dimension(self) -> int:
+        """Get configured embedding dimension."""
+        return int(self.vector_store_config.get("embedding_dimension", 384))
+
+    @property
+    def vector_store_metric(self) -> str:
+        """Get configured distance metric."""
+        return self.vector_store_config.get("metric", "cosine")
+
+    @property
+    def vector_store_max_connections(self) -> int:
+        """Get configured maximum connections."""
+        return int(self.vector_store_config.get("max_connections", 10))
+
     # Configuration access
     def get(self, key: str, default: Any = None) -> Any:
         """
@@ -515,12 +638,24 @@ class Config:
         if self.hot_cache_size_mb <= 0:
             warnings.append("Hot cache size must be positive, using default 100MB")
 
+        # Validate vector store configuration
+        vector_config = self.vector_store_config
+        if vector_config.get("provider") not in ["lancedb", "chroma", "qdrant"]:
+            warnings.append(
+                "Vector store provider should be lancedb, chroma, or qdrant"
+            )
+        if self.vector_store_embedding_dimension <= 0:
+            warnings.append("Embedding dimension must be positive, using default 384")
+        if self.vector_store_max_connections <= 0:
+            warnings.append("Max connections must be positive, using default 10")
+
         return {
             "valid": len(issues) == 0,
             "issues": issues,
             "warnings": warnings,
             "paths_validated": len(self.PATHS),
             "llm_provider": llm_config.get("provider", "not set"),
+            "vector_store_provider": vector_config.get("provider", "not set"),
         }
 
     def to_dict(self) -> Dict[str, Any]:

@@ -1,0 +1,290 @@
+---
+alwaysApply: false
+description: "Worker persistente estilo RalphWiggum do Claude Code. Mapeamento para NeoCortex: PersistentWorker. Loop whiletrue, flags DAEMON/PROACTIVE, funes maybeActivateProactive/maybeActivateBrief, EXIT_CODE_PERMANENT=42, condio de parada: fila vazia 3x consecutivas."
+---
+# $PERSISTENT_WORKER  RalphWiggum do Claude Code  NeoCortex
+
+<!-- NC-LBE-CC-003 | v1.0 | 20260412T23:55:00 | Criado por Analista de Documentao NeoCortex -->
+<!-- PROPSITO: Documentar padro de worker persistente (ralphwiggum) do Claude Code e mapear para implementao NeoCortex (PersistentWorker). -->
+<!-- ISOLAMENTO: Readonly  no produz cdigo ativo, apenas insights de arquitetura. -->
+
+---
+
+## 1. VISO GERAL DO RALPHWIGGUM NO CLAUDE CODE
+
+### 1.1 Conceito Central
+- **Ralphwiggum**  um plugin experimental do Claude Code que implementa uma **tcnica de loop autoreferencial**.
+- **Funcionamento:** Executa o agente (Claude) em um loop `whiletrue` com o **mesmo prompt** at que a tarefa seja concluda.
+- **Objetivo:** Permitir tasks longas e iterativas sem perda de contexto entre iteraes  o agente persiste na mesma sesso.
+
+### 1.2 Arquitetura do Loop
+
+```typescript
+// Pseudocdigo inspirado no cdigo fonte
+function ralphWiggumLoop(initialPrompt: string, maxIterations: number = 100) {
+  let iteration = 0;
+  let taskComplete = false;
+  let context = loadInitialContext();
+
+  while (iteration < maxIterations && !taskComplete) {
+    // Monta prompt com estado atual
+    const currentPrompt = `${initialPrompt}\n\n## Iterao ${iteration}\n${context}`;
+    
+    // Executa Claude com o prompt
+    const response = executeClaude(currentPrompt);
+    
+    // Atualiza contexto com a resposta
+    context = updateContext(context, response);
+    
+    // Verifica se a tarefa est completa
+    taskComplete = checkTaskCompletion(response);
+    
+    iteration++;
+    
+    // Pausa entre iteraes (evita rate limit)
+    sleep(10_000); // 10 segundos
+  }
+  
+  return context;
+}
+```
+
+### 1.3 Flags Relacionadas (DAEMON, PROACTIVE)
+
+- **DAEMON flag**  habilita funcionalidades de daemon (worker em segundo plano). Presente em `commands.ts:628`.
+- **PROACTIVE flag**  ativa modo proativo (tick peridico). Controlado por `maybeActivateProactive()`.
+- **BRIDGE_MODE flag**  relacionado a sesses remotas, usado em conjunto com DAEMON.
+
+### 1.4 Funes de Ativao
+
+#### `maybeActivateProactive()`
+- **Localizao:** `commands.ts:4610`
+- **Lgica:** Verifica se a flag `--proactive` ou env var `PROACTIVE` est definida.
+- **Se ativado:** Habilita o **modo proativo**  agente recebe `<tick>` peridico e pode agir sem input do usurio.
+- **Budget de tempo:** 15 segundos para aes proativas (no bloquear usurio).
+
+#### `maybeActivateBrief()`
+- **Localizao:** `commands.ts:4621`
+- **Lgica:** Verifica flag `--brief` ou env var `BRIEF`.
+- **Se ativado:** Habilita **modo brief**  ferramenta `SendUserMessage` para comunicao concisa.
+
+### 1.5 Exit Codes e Erros Permanentes
+
+- **EXIT_CODE_PERMANENT = 42**  cdigo de sada para erros permanentes (daemon worker no deve ser respawnado).
+- **BridgeHeadlessPermanentError**  erro fatal para daemon workers (problema no retentvel).
+- **BridgeFatalError**  erro geral da bridge (configurao invlida, trust no aceito).
+
+### 1.6 Lifecycle do Daemon Worker
+
+1. **Boot**  carrega configurao, verifica flags, registra no gateway (se bridge).
+2. **Loop principal**  whiletrue com sleep entre iteraes.
+3. **Tick proativo**  se PROACTIVE ativo, recebe `<tick>` a cada intervalo (ex.: 30s).
+4. **Processamento de task**  l fila, executa uma task, gera handoff.
+5. **Condio de parada**  fila vazia por N iteraes consecutivas ou erro permanente.
+6. **Shutdown**  flush de mtricas, cleanup de recursos, exit code apropriado.
+
+---
+
+## 2. MAPEAMENTO PARA NEOCORTEX
+
+### 2.1 Deciso Arquitetural
+- **ralphwiggum  PersistentWorker**
+- **PersistentWorker:** Worker NeoCortex que roda em **loop contnuo**, processando tickets da fila indefinidamente.
+- **Objetivo:** Substituir o modelo atual de 1 worker = 1 ticket por um worker persistente que **sobrevive entre tickets**, mantendo contexto e estado.
+
+### 2.2 Justificativa
+- **Eficincia de recursos**  no precisa reiniciar processo para cada ticket.
+- **Contexto preservado**  cache de SSOT, configuraes, conexes mantidas entre tickets.
+- **Proatividade**  pode executar tarefas de manuteno (cleanup, metrics flush) entre tickets.
+- **Resilincia**  trata erros transitrios sem morrer, apenas backoff.
+
+### 2.3 Componentes NeoCortex Equivalentes
+
+| Componente Claude Code | Equivalente NeoCortex | Status |
+|---|---|---|
+| ralphwiggum loop | `NCPROMPTDS003persistentworker.md` | **A criar** (NCDS029) |
+| DAEMON flag | `--daemon` flag no worker | **Novo parmetro** |
+| PROACTIVE flag | `--proactive` flag + PulseDaemon | **Integrar com KairosService** |
+| maybeActivateProactive() | `proactive_tick_interval` config | **Novo parmetro** |
+| maybeActivateBrief() | `--brief` flag para comunicao | **Novo parmetro** |
+| EXIT_CODE_PERMANENT | `EXIT_CODE_PERMANENT = 42` | **Definir em constants** |
+| BridgeHeadlessPermanentError | `PermanentWorkerError` | **Nova exceo** |
+
+### 2.4 Condio de Parada (NeoCortex)
+
+- **Fila vazia 3x consecutivas**  worker verifica fila a cada iterao; se vazia, incrementa contador; aps 3 iteraes consecutivas vazias, encerra.
+- **Timeout global**  mximo de tempo de execuo (ex.: 24h) para evitar runaway.
+- **Erro permanente**  EXIT_CODE_PERMANENT (42) fora shutdown imediato sem respawn.
+- **Sinal externo**  SIGTERM, SIGINT para graceful shutdown.
+
+---
+
+## 3. ESTRUTURA DO PERSISTENT WORKER (NCPROMPTDS003persistentworker.md)
+
+### 3.1 Prompt Mestre
+
+```
+Voc  um PersistentWorker do NeoCortex (estilo RalphWiggum).
+
+## CONFIGURAO
+- Modo: DAEMON (worker persistente)
+- Flags ativas: {{PROACTIVE}}, {{BRIEF}}
+- Tick proativo: {{PROACTIVE_TICK_INTERVAL}}s
+- Condio de parada: fila vazia 3x consecutivas
+
+## ESTADO INICIAL
+{{CONTEXT_PERSISTENT}}
+
+## LOOP PRINCIPAL
+1. Verificar fila (NCCFGDS004queue.yaml)
+2. Se fila NO vazia:
+   a. Claim do ticket mais antigo com status AVAILABLE
+   b. Executar ticket (ler NCDSXXX.yaml)
+   c. Gerar handoff NCDSXXXhandoff{timestamp}.yaml
+   d. Atualizar fila: status  DONE
+   e. Resetar contador de fila vazia
+3. Se fila VAZIA:
+   a. Incrementar contador de vazia
+   b. Se contador >= 3  shutdown graceful
+   c. Seno  aguardar {{SLEEP_BETWEEN_CHECKS}}s
+4. Se PROACTIVE ativo:
+   a. Executar tick proativo (manuteno, metrics flush)
+5. Repetir
+```
+
+### 3.2 Parmetros de Configurao
+
+```yaml
+# neocortex_config.yaml (seo persistent_worker)
+persistent_worker:
+  enabled: false
+  sleep_between_checks: 10           # segundos
+  empty_queue_threshold: 3           # iteraes consecutivas vazias para parar
+  max_runtime_hours: 24
+  proactive_tick_interval: 30        # segundos (0 = desabilitado)
+  brief_mode: false                  # comunicao concisa
+  daemon_mode: true                  # sempre true para persistent worker
+```
+
+### 3.3 Integrao com Sistema Existente
+
+- **Fila YAML (NCCFGDS004)**  mesma fila usada por workers normais.
+- **EventBus (NCSVCFR005)**  emitir eventos `worker_started`, `worker_stopped`, `ticket_claimed`.
+- **Metrics Collector (NCSVCFR006)**  mtricas de tempo por ticket, taxa de sucesso, tempo de vida do worker.
+- **Health Service (NCSVCFR002)**  endpoint `/health` reporta status do worker persistente.
+
+---
+
+## 4. FLUXO DE ERROS E RECUPERAO
+
+### 4.1 Exit Codes
+
+| Cdigo | Significado | Ao do Supervisor |
+|---|---|---|
+| 0 | Shutdown normal (fila vazia) | No respawna |
+| 1 | Erro genrico | Respawn aps backoff (ex.: 30s) |
+| 42 | Erro permanente (EXIT_CODE_PERMANENT) | **Nunca respawna**  notificar admin |
+| 130 | SIGINT (Ctrl+C) | No respawna |
+| 143 | SIGTERM | No respawna |
+
+### 4.2 Tratamento de Erros no Loop
+
+```python
+try:
+    ticket = queue.claim_oldest_available()
+except QueueEmpty:
+    empty_count += 1
+    if empty_count >= 3:
+        shutdown_graceful()
+    else:
+        sleep(SLEEP_BETWEEN_CHECKS)
+except PermanentWorkerError as e:
+    log.error(f"Erro permanente: {e}")
+    sys.exit(EXIT_CODE_PERMANENT)
+except TransientError as e:
+    log.warning(f"Erro transitrio: {e}, retry em 10s")
+    sleep(10)
+    empty_count = 0  # reset pois erro no  fila vazia
+```
+
+### 4.3 Supervisor (Opcional  Futuro)
+
+- **Supervisor service** monitora workers persistentes, respawna se morrerem com exit code != 42.
+- **Heartbeat**  worker envia heartbeat peridico; se faltar, supervisor mata e respawna.
+- **Capacity management**  limita nmero de workers persistentes por host.
+
+---
+
+## 5. EXEMPLO DE USO
+
+### 5.1 Inicializao
+
+```bash
+# Worker persistente bsico
+python neocortex/worker.py --daemon --persistent
+
+# Com proativo (tick a cada 30s)
+python neocortex/worker.py --daemon --persistent --proactive 30
+
+# Modo brief (comunicao concisa)
+python neocortex/worker.py --daemon --persistent --brief
+```
+
+### 5.2 Logs Tpicos
+
+```
+[20260412 23:45:00] PersistentWorker iniciado (worker44949a1b2c3)
+[20260412 23:45:10] Fila verificada  2 tickets disponveis
+[20260412 23:45:10] Claim NCDS029  RalphWiggum Worker Persistente
+[20260412 23:47:22] Handoff gerado: NCDS029handoff20260412234722.yaml
+[20260412 23:47:23] Ticket marcado como DONE
+[20260412 23:47:33] Fila verificada  0 tickets (vazia 1/3)
+[20260412 23:47:43] Fila verificada  0 tickets (vazia 2/3)
+[20260412 23:47:53] Fila verificada  0 tickets (vazia 3/3)  shutdown
+[20260412 23:47:53] PersistentWorker encerrado (cdigo 0)
+```
+
+---
+
+## 6. IMPLEMENTAO NO TICKET NCDS029
+
+### 6.1 Componentes a Criar
+
+| Arquivo | Localizao | Descrio |
+|---|---|---|
+| `NCPROMPTDS003persistentworker.md` | `DIRDS000agentconfig/` | Prompt mestre do worker persistente |
+| `NCSVCFR015persistentworker.py` | `neocortex/core/services/` | Implementao do loop (opcional) |
+| `NCCFGFR005persistentworker.yaml` | `neocortex/core/config/` | Configuraes especficas |
+| `NCUTLFR005exitcodes.py` | `neocortex/core/utils/` | Constantes EXIT_CODE_* |
+
+### 6.2 Fluxo de Desenvolvimento
+
+1. **Anlise do ralphwiggum plugin**  extrair padres de loop, flags, tratamento de erro.
+2. **Criao do prompt**  NCPROMPTDS003 com instrues completas.
+3. **Adaptao do worker atual**  adicionar flags `--persistent`, `--proactive`, `--brief`.
+4. **Testes**  simular fila vazia, erros permanentes, ticks proativos.
+5. **Integrao com mtricas**  adicionar contadores de tickets processados, tempo de vida.
+
+### 6.3 Dependncias
+
+- **Nenhuma**  pode ser implementado independentemente (no toca em @LOCKS).
+- **Recomendvel:** Integrar com EventBus e Metrics Collector para observabilidade.
+
+---
+
+## 7. CONCLUSO
+
+O **padro RalphWiggum (worker persistente)** do Claude Code oferece um modelo robusto para execuo contnua de tasks, preservando contexto entre iteraes e permitindo proatividade. A adaptao para **PersistentWorker** do NeoCortex preenche uma lacuna importante no sistema atual  workers que sobrevivem entre tickets.
+
+**Prximos passos:**
+1. **Ticket NCDS029**  implementar `NCPROMPTDS003persistentworker.md` e testes.
+2. **Integrao com flags**  adicionar `--daemon`, `--proactive`, `--brief` ao worker CLI.
+3. **Definir exit codes**  adicionar EXIT_CODE_PERMANENT e tratamento no supervisor futuro.
+
+---
+
+**Referncias:**
+- NCANACC005pluginsdeep.md (anlise do plugin ralphwiggum)
+- NCSTRCC001masterstrategy.md (gap analysis  worker persistente)
+- NCLBECC001claudeleakmaster.mdc (viso geral do leak)
+

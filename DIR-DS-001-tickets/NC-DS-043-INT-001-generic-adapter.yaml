@@ -1,0 +1,26 @@
+id: NC-DS-043
+code: INT-001
+title: Mission Control Generic Adapter Implementation
+status: DONE
+handoff_ref: NC-DS-043-handoff-20260415T135000-retrospective.yaml
+completed_at: "2026-04-15T13:50:00-03:00"
+assignee: Agente OpenCode na porta 34363
+context:
+  - 02_memory_lobes/NC-LBE-INT-004-mission-control.mdc
+  - 01_neocortex_framework/neocortex/core/config/neocortex_config.yaml
+task: |
+  **OBJETIVO**: Desenvolver a classe `MissionControlAdapter` conectando NeoCortex ao endpoint local localhost:3000.
+  Este ticket implementa toda a parte de Backend/Orquestração do Mission Control para enviar status das tarefas.
+  
+  **O QUE FAZER**:
+  1. Leia rigorosamente o arquivo `NC-LBE-INT-004-mission-control.mdc` (seção INTEGRAÇÃO COM NEOCORTEX).
+  2. Implemente o adaptador de frameworks no arquivo `01_neocortex_framework/neocortex/core/adapters/NC-ADP-FR-001-mission-control.py`.
+  3. Implemente as funções fundamentais mapeadas no arquivo `.mdc`: 
+      - `register_with_mission_control()`
+      - `send_heartbeat()`
+      - `report_task()`
+      - `fetch_assignments()`
+  4. Utilize a estrutura preexistente de classes Python e faça logs ricos usando o módulo `logging`.
+  5. Garanta que o adapter lide graciosamente com ausências do Mission Control (circuit breaker simplificado via timeout).
+  
+  **ATENÇÃO MASTER RULE R21**: Teste os imports gerando python -m py_compile após a geração e certifique de não usar módulos que não existem.

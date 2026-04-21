@@ -1,0 +1,75 @@
+---
+domain: "templating"
+layer: "infra"
+type: "TMP"
+tags: ['template', 'mdc']
+hash: "auto-generated"
+---
+---
+alwaysApply: false
+description: "DeepSeek T1 Parent Lobe  Estado consolidado de todas as frentes. Lobe-me de NC-LBE-DS-001 (Frente A) e NC-LBE-DS-002 (Frente B)."
+---
+
+# $DS_PARENT  DeepSeek Sprint Master Lobe
+<!-- NC-LBE-DS-000 | v1.0 | 2026-04-12 | Criado por Antigravity T0 -->
+<!-- PAPEL: Consolidao de estado global. No executa  apenas registra. -->
+
+---
+
+## SPRINT STATUS  sprint-001
+
+| Mtrica | Valor |
+|---|---|
+| **Sprint** | sprint-001 |
+| **Incio** | 2026-04-12 |
+| **Frentes ativas** | DS-A + DS-B |
+| **Tools meta** | 6 (FR-025  FR-021) |
+| **Tools concludas** | 3 (FR-025, FR-026, FR-027) |
+| **Custo total** | USD 0.021 |
+| **Custo mdio/tool** | USD 0.007 |
+| **Status** |  Em andamento |
+
+---
+
+## TICKETS CONSOLIDADOS
+
+| Ticket | Tool | Frente | Status | Custo |
+|---|---|---|---|---|
+| NC-DS-001 | FR-025 `neocortex_system` | DS-A |  APPROVED | USD 0.007 |
+| NC-DS-002 | FR-026 `neocortex_intelligence` | DS-A |  APPROVED | USD 0.007 |
+| NC-DS-003 | FR-027 `neocortex_knowledge` | DS-A |  APPROVED | USD 0.007 |
+| NC-DS-004 | FR-023 `neocortex_orchestration` | DS-A |  PENDENTE |  |
+| NC-DS-005 | FR-022 `neocortex_session` | DS-B |  PENDENTE |  |
+| NC-DS-006 | FR-021 `neocortex_memory` | DS-A |  PENDENTE |  |
+
+---
+
+## GAPS SISTMICOS (Documentados  No Bloqueantes)
+
+| Gap | Status | Mitigao Atual | Ticket Desbloqueador |
+|---|---|---|---|
+| Save Points |  No impl. | Isolamento de lobe = rollback manual | SAVE-005 |
+| WAL Audit Trail |  No impl. | YAML manual em DIR-DS-002-audit-logs/ | OBS-001 |
+| Rate Limiting Global |  Parcial | NC-CFG-DS-003 define limites por nvel | SEC-403 |
+
+---
+
+## HIERARQUIA DE RATE LIMITING
+
+```
+Nvel 0  Global     (NC-CFG-DS-003): daily_budget_usd=5.00, max_concurrent=2
+Nvel 1  Frente     (NC-CFG-DS-003): max_tokens_per_phase=4000, max_rounds=5
+Nvel 2  Ticket     (NC-DS-XXX.yaml): limits.max_tokens_per_phase (por ticket)
+Nvel 3  Tool       (cdigo): get_config().max_tokens (runtime)
+```
+
+---
+
+## SUB-LOBES
+
+| Lobe | Frente | Arquivo |
+|---|---|---|
+| `$DS_AGENT_A` | DS-A (OpenCode 1) | `NC-LBE-DS-001-deepseek-agent-a.mdc` |
+| `$DS_AGENT_B` | DS-B (OpenCode 2) | `NC-LBE-DS-002-deepseek-agent-b.mdc` |
+
+**Coordenao:** `DIR-DS-000-agent-config/NC-CFG-DS-003-coordination.yaml`

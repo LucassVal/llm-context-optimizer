@@ -135,17 +135,10 @@ def test_tool(tool_path: Path) -> Dict[str, Any]:
         if str(neocortex_root) not in sys.path:
             sys.path.insert(0, str(neocortex_root))
 
-        spec = importlib.util.spec_from_file_location(f"tool_{tool_name}", tool_path)
-        if spec is None:
-            result["status"] = "FAIL_IMPORT"
-            result["error"] = "spec_from_file_location returned None"
-            return result
-        if spec.loader is None:
-            result["status"] = "FAIL_IMPORT"
-            result["error"] = "spec.loader is None"
-            return result
-        module = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(module)
+        # Import as proper package module (same as server)
+        stem = tool_path.stem  # e.g., NC-TOOL-FR-001-cortex
+        module_name = f"neocortex.mcp.tools.{stem}"
+        module = importlib.import_module(module_name)
         result["import"] = "OK"
     except Exception as e:
         result["status"] = "FAIL_IMPORT"

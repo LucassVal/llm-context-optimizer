@@ -1,0 +1,30 @@
+ticket_id: "NC-DS-111"
+status: "APPROVED"
+closed_at: "2026-04-16T17:00:00-03:00"
+closed_by: "T0-Claude-Code"
+
+t0_override:
+  lock_violated: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
+  justificativa: |
+    Agente modificou NC-NAM-FR-001 (listado em atomic_locks_proibidos do próprio ticket).
+    Violação reconhecida. T0 avaliou o conteúdo: são adições legítimas de entradas faltantes
+    (17 NC-SVC, 35 NC-TOOL, 37 NC-SCR ausentes do registro).
+    Modificação é puramente aditiva — sem remoção ou alteração de entradas existentes.
+  decisao: "ACEITAR — drift SSOT real corrigido. Não reverter."
+  licao_aprendida: |
+    Tickets de SSOT cross-audit devem incluir NC-NAM-FR-001 em write_zone (não em locks)
+    quando a task REQUER atualizar o registro. Conflito de intenção no ticket original.
+  acao_corretiva: |
+    Futuros tickets de drift/audit que precisem atualizar NC-NAM-FR-001 devem ter
+    autorização T0 explícita no campo task.description e NC-NAM-FR-001 em write_zone,
+    NÃO em atomic_locks_proibidos.
+
+original_handoff: "DIR-DS-002-audit-logs/NC-DS-111-handoff-20260416T140000.yaml"
+
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  ssot_updated: true
+  no_locked_files_modified: false  # lock violation aceita com override T0
+  handoff_yaml_complete: true
+  roadmap_marked: true

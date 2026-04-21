@@ -1,0 +1,46 @@
+{
+  "ticket_id": "NC-DS-007-REVISED",
+  "roadmap_ticket": "GOV-012",
+  "phase": 4,
+  "timestamp": "2026-04-12T16:56:00",
+  "entry_state": {
+    "source_file": "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md",
+    "action": "LER apenas. Extrair contedo por categoria. NO modificar."
+  },
+  "exit_state": {
+    "files_created": [
+      "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001a-tools-registry.md",
+      "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001b-lobes-registry.md",
+      "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001c-config-registry.md",
+      "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001d-prompts-registry.md",
+      "01_neocortex_framework/scripts/NC-SCR-FR-004-governance-validator.py"
+    ],
+    "files_modified": []
+  },
+  "diff": {
+    "added": [
+      "NC-NAM-FR-001a-tools-registry.md (30 entradas NC-TOOL-FR-*)",
+      "NC-NAM-FR-001b-lobes-registry.md (22 entradas NC-LBE-* nicas)",
+      "NC-NAM-FR-001c-config-registry.md (3 entradas NC-CFG-*)",
+      "NC-NAM-FR-001d-prompts-registry.md (4 entradas NC-PROMPT-* / NC-DS-*)",
+      "NC-SCR-FR-004-governance-validator.py (script SHA256 validator)"
+    ],
+    "removed": [],
+    "modified": []
+  },
+  "locks_violated": [],
+  "locks_checked": [
+    "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md (read-only)",
+    "neocortex/mcp/server.py",
+    "neocortex/mcp/sub_server.py",
+    "DIR-CFG-FR-001-config-main/neocortex_config.yaml"
+  ],
+  "cost_estimation": {
+    "tokens_input": 5000,
+    "tokens_output": 3000,
+    "usd_per_1k_input": 0.00027,
+    "usd_per_1k_output": 0.00027,
+    "total_usd": 0.007
+  },
+  "notes": "Ticket revisado aps escalao. Sub-registros criados como novos arquivos; mestre NC-NAM-FR-001 intocado. Script de validao implementa SHA256 e get_config(). Barreiras B1B6 aprovadas."
+}

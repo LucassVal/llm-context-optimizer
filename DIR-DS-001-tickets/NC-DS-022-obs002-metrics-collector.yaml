@@ -1,0 +1,27 @@
+assigned_to: QUEUE
+completed_at: '2026-04-15T13:39:18.606204'
+created_at: '2026-04-12T18:27:00'
+exit_state:
+  files_created:
+  - 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-006-metrics-collector.py
+forbidden_zone:
+- neocortex/mcp/server.py
+- neocortex/mcp/sub_server.py
+handoff_ref: NC-DS-022-handoff-20260415T133918-retrospective.yaml
+integrity_hash: dafe3e0b6771c213
+limits:
+  max_rounds: 4
+  max_tokens_per_phase: 3000
+methodology: "Criar NC-SVC-FR-006-metrics-collector.py com MetricsCollector:\n  -\
+  \ record_token_usage(model, input_tokens, output_tokens, cost_usd)\n  - record_tool_call(tool_name,\
+  \ duration_ms, success)\n  - get_session_summary() -> dict: {total_tokens, total_cost_usd,\
+  \ tool_calls, avg_duration_ms}\n  - get_daily_report() -> dict: {date, sessions,\
+  \ top_tools, cost_breakdown}\n  - reset_session()\n  - Persistência simples: JSON\
+  \ em get_config().metrics_dir / \"metrics-{date}.json\"\n"
+priority: HIGH
+roadmap_ticket: OBS-002
+status: DONE
+ticket_id: NC-DS-022
+title: 'OBS-002 — NC-SVC-FR-006-metrics-collector.py: coleta de métricas (tokens,
+  custo, calls)'
+write_zone: 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-006-metrics-collector.py

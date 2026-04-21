@@ -1,0 +1,92 @@
+# NC-DS-HANDOFF-TEMPLATE.yaml
+# Template de correspondência T1→T0
+# Gerado pelo DeepSeek ao final da FASE 5 (LOG)
+# Depositado em: DIR-DS-002-audit-logs/NC-DS-{NUM}-handoff-{timestamp}.yaml
+# STATUS POSSÍVEIS: PENDING_REVIEW | APPROVED | REJECTED | ESCALATED
+
+status: PENDING_REVIEW
+ticket_id: NC-DS-152
+roadmap_ticket: FR-025
+submitted_at: "2026-04-20T20:45:00-03:00"
+submitted_by: opencode-agent-3
+review_by: antigravity-t0
+reviewed_at: null
+
+summary:
+  files_created:
+    - "01_neocortex_framework/neocortex/core/services/NC-SVC-FR-025-savepoint-wal-bridge.py"
+    - "01_neocortex_framework/05_examples/NC-TEST-152-savepoint-wal-integration.py"
+  files_modified: []
+  lines_added: 20165
+  lines_removed: 0
+  validation_rounds: 2
+  barriers_passed:
+    - "Step 0: All required files exist and importlib available"
+    - "py_compile passes on both created files"
+    - "ruff F,E9 checks pass on both created files"
+    - "Integration tests pass (6/6)"
+    - "No @LOCK files modified"
+  locks_violated: []
+  cost_usd: 0.0
+  overall: SUCCESS
+
+diff_path: "DIR-DS-002-audit-logs/NC-DS-152-diff.txt"
+
+# Checklist para T0 (preencher na revisão)
+t0_review:
+  compile_ok: null
+  naming_ok: null
+  ssot_updated: null
+  locks_clean: null
+  roadmap_done: null
+
+# Se REJECTED, preencher motivo e criar novo ticket
+rejection:
+  reason: null
+  next_ticket: null
+
+# Detalhes da implementação
+implementation_details:
+  bridge_service:
+    name: "SavePointWALBridge"
+    location: "neocortex/core/services/NC-SVC-FR-025-savepoint-wal-bridge.py"
+    methods:
+      - "create_savepoint(name, data) → logs to WAL with operation='savepoint.create'"
+      - "restore_savepoint(name) → logs to WAL with operation='savepoint.restore' (HIGH severity)"
+      - "list_savepoints() → returns savepoints from SavePointService"
+    features:
+      - "Uses importlib (R09) to import WALService and SavePointService"
+      - "Singleton pattern via get_bridge() function"
+      - "Thread-safe using existing locks in wrapped services"
+      - "Graceful degradation if WALService unavailable"
+  
+  test_script:
+    name: "NC-TEST-152-savepoint-wal-integration.py"
+    location: "05_examples/NC-TEST-152-savepoint-wal-integration.py"
+    tests:
+      - "1. Create bridge instance"
+      - "2. Create savepoint with test data"
+      - "3. List savepoints (verifies creation)"
+      - "4. Restore savepoint"
+      - "5. Verify WAL entries were created"
+      - "6. Cleanup information"
+    test_results: "6/6 tests pass"
+
+  dependencies_verified:
+    - "NC-SVC-FR-016-wal-service.py: exists and API compatible"
+    - "NC-SVC-FR-003-savepoint-stub.py: exists and API compatible (note: actual filename is savepoint-stub.py, not save-point-stub.py)"
+    - "Python 3.12.10: confirmed"
+    - "importlib.util: available"
+
+  issues_encountered:
+    - "SavePoint stub filename mismatch: ticket references 'save-point-stub.py' but actual file is 'savepoint-stub.py' (adapted in code)"
+    - "WALService.log_operation() doesn't accept 'metadata' parameter (fixed)"
+    - "SavePointService.rollback() returns empty state_snapshot (expected for stub)"
+
+  compliance:
+    - "R09: Used importlib.util for module imports"
+    - "R10: Uses get_config() pattern (via service constructors)"
+    - "R11: Proper logging with logger = logging.getLogger(__name__)"
+    - "No print() statements in service code"
+    - "Thread-safe implementation"
+    - "All @LOCK files respected (server.py, sub_server.py not modified)"

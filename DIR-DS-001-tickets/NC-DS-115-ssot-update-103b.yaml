@@ -1,0 +1,58 @@
+# NC-DS-115-ssot-update-103b.yaml
+# Ticket de manutenção — SSOT update para artefato criado em NC-DS-103
+# Executor: T0-Claude-Code (NC-NAM-FR-001 é @LOCK — nunca despachar para T1)
+# ─────────────────────────────────────────────────────────────────────────────
+
+ticket_id: "NC-DS-115"
+status: "DONE"
+priority: "LOW"
+title: "SSOT: registrar NC-SCR-FR-103b-start-with-mc.ps1 em NC-NAM-FR-001"
+created_at: "2026-04-16T15:00:00-03:00"
+created_by: "T0-Claude-Code"
+agent: "T0-Claude-Code"        # @LOCK → T0 executa diretamente, nunca T1
+sprint: "FASE-1-MCP-MC"
+parent_ticket: "NC-DS-103"     # artefato foi criado durante este ticket
+
+context:
+  origin: |
+    Durante a execução de NC-DS-103, AGENTE-B1 criou o artefato novo:
+      01_neocortex_framework/scripts/NC-SCR-FR-103b-start-with-mc.ps1
+    O handoff NC-DS-103 registrou ssot_updated: PENDING.
+    NC-NAM-FR-001 é @LOCK — apenas T0 pode editar.
+  why_matters: "SSOT desatualizado = outros agentes não sabem que o arquivo existe → risco de recriar ou ignorar"
+
+task:
+  description: |
+    Adicionar entrada de NC-SCR-FR-103b em NC-NAM-FR-001-naming-convention.md
+    na seção de scripts (NC-SCR-FR-*).
+  entry_to_add:
+    id: "NC-SCR-FR-103b"
+    name: "start-with-mc.ps1"
+    path: "01_neocortex_framework/scripts/NC-SCR-FR-103b-start-with-mc.ps1"
+    type: "PowerShell wrapper"
+    description: "Inicia NeoCortex MCP Server + Mission Control startup hook como jobs background"
+    created_at: "2026-04-16"
+    created_by: "AGENTE-B1 (deepseek-chat)"
+    parent_script: "NC-SCR-FR-103-mc-startup-hook.py"
+
+write_zone:
+  files:
+    - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
+  nota: "Este arquivo é @LOCK — T0 executa com autorização explícita do usuário (R21 override)"
+
+atomic_locks_proibidos: []     # T0 tem autorização explícita para este @LOCK
+
+entry_state:
+  - "NC-NAM-FR-001 NÃO contém entrada para NC-SCR-FR-103b"
+  - "handoff NC-DS-103 tem ssot_updated: PENDING"
+
+exit_state:
+  - "NC-NAM-FR-001 contém entrada completa para NC-SCR-FR-103b"
+  - "handoff NC-DS-103 t0_review.ssot_updated atualizado de PENDING para true"
+
+integrity_hash: "NC-DS-115-v1.0-20260416"
+
+protocolo_agente:
+  nota: "Este ticket é de execução exclusiva T0. Não despachar para T1."
+  step_0: "Ler NC-NAM-FR-001 para encontrar seção correta de NC-SCR-FR-*"
+  handoff_obrigatorio: "Gerar handoff em DIR-DS-002-audit-logs/ ao concluir"

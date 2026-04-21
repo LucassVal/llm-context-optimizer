@@ -1,0 +1,18 @@
+ticket_id: "NC-GOV-UPDATE"
+status: "PENDING_REVIEW"
+timestamp: "2026-04-15T11:46:14-03:00"
+agent_port: 38291
+lines_added: 0
+files_modified: []
+summary: |
+  Arquivo NC-GOV-FR-005-governance-ecosystem.yaml existe (30057 linhas).
+  Verificação de menções a extensões MCP (SAVE-005, ORCH-301, ORCH-302): NÃO ENCONTRADAS.
+  O arquivo é um mapa de ecossistema de governança, mas não lista essas extensões específicas.
+ajustes_aplicados: []
+lessons_learned:
+  - "Extensões MCP não estão documentadas no mapa de governança; possível gap de documentação."
+deps_missing: []
+metrics:
+  write_zone_respected: true
+  locks_respected: true
+  no_content_deleted: true

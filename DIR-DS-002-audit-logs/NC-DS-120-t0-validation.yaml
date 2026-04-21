@@ -1,0 +1,24 @@
+ticket_id: NC-DS-120
+status: APPROVED
+validated_by: T0-Antigravity
+validated_at: "2026-04-20T19:58:40-03:00"
+
+t0_validation_results:
+  exists_NC_SCR_FR_145: PASS
+  exists_NC_CFG_FR_005: PASS
+  py_compile_NC_SCR_FR_145: PASS
+  ruff_F_E9_NC_SCR_FR_145: PASS
+  yaml_valid_NC_CFG_FR_005: PASS
+  import_via_importlib: PASS
+  no_print_T201: PASS
+  lock_server_py: UNTOUCHED
+  lock_sub_server_py: UNTOUCHED
+  overall_score: "8/8 (server.py mtime=leitura MCP, git diff limpo)"
+
+agent_deliverables:
+  - "scripts/NC-SCR-FR-145-tool-autoloader.py (202 linhas)"
+  - "neocortex/mcp/NC-CFG-FR-005-tool-autoload.yaml (16 linhas)"
+
+next_actions:
+  - "Registrar NC-SCR-FR-145 e NC-CFG-FR-005 no @SSOT (sprint NC-DS-122)"
+  - "Integrar no boot: subprocess.run(['python', 'NC-SCR-FR-145-tool-autoloader.py']) pós-start"

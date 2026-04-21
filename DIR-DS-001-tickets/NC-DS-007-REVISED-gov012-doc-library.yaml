@@ -1,0 +1,84 @@
+assigned_to: DS-B
+barriers:
+  B1_NAMING: Novos arquivos seguem NC-NAM-FR-001a/b/c/d + NC-SCR-FR-004
+  B2_LOCKS: NC-NAM-FR-001 original = READ ONLY neste ticket. Zero escrita.
+  NOTA_T0: T0 (Antigravity) adicionará referências cruzadas ao NC-NAM-FR-001 mestre
+    após aprovação deste handoff
+completed_at: '2026-04-15T13:39:18.289182'
+created_at: '2026-04-12T16:48:00'
+created_by: antigravity-t0
+description: 'Implementar sub-registros da biblioteca documental como NOVOS arquivos
+  APENAS.
+
+  NC-NAM-FR-001 NÃO será tocado por T1 neste ticket.
+
+
+  Criar:
+
+  - NC-NAM-FR-001a-tools-registry.md    (extração de NC-TOOL-FR-* do NC-NAM-FR-001)
+
+  - NC-NAM-FR-001b-lobes-registry.md    (extração de NC-LBE-* do NC-NAM-FR-001)
+
+  - NC-NAM-FR-001c-config-registry.md   (extração de NC-CFG-*, NC-SEC-* do NC-NAM-FR-001)
+
+  - NC-NAM-FR-001d-prompts-registry.md  (extração de NC-PROMPT-*, NC-BOOT-*, NC-DS-*)
+
+  - NC-SCR-FR-004-governance-validator.py (script SHA-256 validator)
+
+  '
+entry_state:
+  action: LER apenas. Extrair conteúdo por categoria. NÃO modificar.
+  source_file: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md
+exit_state:
+  files_created:
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001a-tools-registry.md
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001b-lobes-registry.md
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001c-config-registry.md
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001d-prompts-registry.md
+  - 01_neocortex_framework/scripts/NC-SCR-FR-004-governance-validator.py
+  files_modified: []
+forbidden_zone:
+- 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md
+- neocortex/mcp/server.py
+- neocortex/mcp/sub_server.py
+- DIR-CFG-FR-001-config-main/neocortex_config.yaml
+handoff_ref: NC-DS-007-handoff-20260415T133918-retrospective.yaml
+integrity_hash: 2d5eb110ba95dc92
+limits:
+  escalate_after_rounds: 3
+  max_rounds: 5
+  max_tokens_per_phase: 4000
+lock_history: 'NC-DS-007 bloqueado por @LOCKS em NC-NAM-FR-001.
+
+  DS-B corretamente escalou sem fazer nada. GOVERNANCA FUNCIONOU.
+
+  RESOLUCAO T0: sub-registros sao arquivos NOVOS. NC-NAM-FR-001 intocado.
+
+  T0 adicionara o indice de referencias ao mestre manualmente apos validacao.
+
+  '
+methodology: "1. Ler NC-NAM-FR-001-naming-convention.md COMPLETAMENTE (read-only)\n\
+  2. Identificar seções por categoria:\n   - Linhas com NC-TOOL-FR-* → extrair para\
+  \ NC-NAM-FR-001a\n   - Linhas com NC-LBE-*     → extrair para NC-NAM-FR-001b\n \
+  \  - Linhas com NC-CFG-*, NC-SEC-* → extrair para NC-NAM-FR-001c\n   - Linhas com\
+  \ NC-PROMPT-*, NC-BOOT-*, NC-DS-* → extrair para NC-NAM-FR-001d\n3. Cada sub-registro\
+  \ deve ter:\n   - Header: \"# NC-NAM-FR-001X — Registry [Categoria]\"\n   - Tabela\
+  \ idêntica ao mestre (| Arquivo | Descrição | Localização | Tags |)\n   - Changelog:\
+  \ [2026-04-12T16:48:00] Criado por T1 DS-B\n4. Criar NC-SCR-FR-004-governance-validator.py:\n\
+  \   - Usa hashlib.sha256 em cada arquivo dos 4 sub-registros\n   - Compara SHA-256\
+  \ com NC-NAM-FR-001 original para verificar paridade\n   - usa get_config() — SEM\
+  \ hardcode de paths\n   - logger = logging.getLogger(__name__)\n5. py_compile em\
+  \ NC-SCR-FR-004\n6. Gerar handoff PENDING_REVIEW\n"
+priority: HIGH
+roadmap_ticket: GOV-012
+status: DONE
+supersedes: NC-DS-007
+ticket_id: NC-DS-007-REVISED
+title: 'Biblioteca Documental Hierárquica — REVISADO: criar APENAS sub-registros novos
+  (sem tocar NC-NAM-FR-001)'
+write_zone:
+- 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001a*.md
+- 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001b*.md
+- 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001c*.md
+- 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001d*.md
+- 01_neocortex_framework/scripts/NC-SCR-FR-004*.py

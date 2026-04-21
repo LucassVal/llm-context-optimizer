@@ -1,0 +1,137 @@
+ticket_id: "NC-DS-113"
+status: "OPEN"
+priority: "HIGH"
+title: "Bootup v5 — Atualizar NC-BOOT-FR-001 com estado real pós-Fase 1"
+created_at: "2026-04-16T11:00:00-03:00"
+created_by: "T0-Claude-Code"
+agent: "AGENTE-D"
+sprint: "FASE-1-MCP-MC"
+
+context:
+  gap: "BOOTUP-SYNC"
+  origin: "NC-BOOT-FR-001 é v4 (2026-04-15). Fase 1 criou novos tickets NC-DS-098 a 112."
+  problem: |
+    O boot manifest deve refletir o estado real do sistema após cada sprint.
+    Após a Fase 1 concluída, novos serviços (NC-SCR-FR-098, 101, 103, 106),
+    novo hook (NC-HK-FR-003), e o compliance score atualizado precisam ser
+    documentados. Deve ser executado COMO ÚLTIMO TICKET da Fase 1.
+
+task:
+  description: |
+    ATENÇÃO: Executar APÓS todos os outros tickets da Fase 1 estarem DONE.
+
+    1. Executar NC-SCR-FR-066-bootup-sync.py para auto-sync base
+    2. Editar manualmente NC-BOOT-FR-001-system-manifest.md:
+
+    SEÇÃO 6 — Adicionar frentes da Fase 1:
+    | NC-DS-098 | DONE | /health wrapper via NC-SCR-FR-098 |
+    | NC-DS-099 | DONE | SAVE-005 DryRunPreview wired |
+    | NC-DS-100 | DONE | SavePoint → WAL persistence |
+    | NC-DS-101 | DONE | Smoke test 38 tools |
+    | NC-DS-102 | DONE | active-zones.yaml reconstruído |
+    | NC-DS-103 | DONE | MC startup wiring |
+    | NC-DS-104 | DONE | MC adapter async refactor |
+    | NC-DS-105 | DONE | AuditHook → MC feed |
+    | NC-DS-106 | DONE | HUD launchers + webhooks |
+    | NC-DS-107 | DONE | LOCK/LOCKED → @LOCKS normalizados |
+    | NC-DS-108 | DONE | Compliance >80% |
+    | NC-DS-109 | DONE | GLOBAL-SANE-001 core |
+    | NC-DS-110 | DONE | TTL-002 wired |
+    | NC-DS-111 | DONE | SSOT cross-audit |
+    | NC-DS-112 | DONE | Tool manifest sync |
+
+    SEÇÃO 7 — Atualizar estado construído:
+    - Adicionar: NC-SCR-FR-098 (health wrapper), NC-SCR-FR-101 (smoke test),
+      NC-SCR-FR-103 (MC startup), NC-SCR-FR-106 (launcher), NC-HK-FR-003
+    - Compliance: atualizar score real
+
+    SEÇÃO 8 — Atualizar caminho crítico:
+    - SAVE-005: ✅ DONE (wired)
+    - /health: ✅ DONE
+    - MC integration: ✅ DONE
+    - Próxima fase: FASE-2 PicoClaw + Pixel Agents
+
+    SEÇÃO 9 — Limpar tickets críticos resolvidos
+
+    3. Atualizar hash e versão: v5 | 2026-04-16
+    4. Executar NC-SCR-FR-064-artifact-catalog.py para regen catalog
+
+  acceptance_criteria:
+    - "NC-BOOT-FR-001 reflete todos os tickets NC-DS-098 a 112"
+    - "Versão atualizada para v5"
+    - "Seção 8 mostra Fase 1 completa, Fase 2 como próximo passo"
+    - "artifact_catalog.json regerado"
+
+write_zone:
+  - "DIR-BOOT-FR-001-bootup-main/NC-BOOT-FR-001-system-manifest.md"
+  - "DIR-DOC-FR-001-docs-main/artifact_catalog.json"
+  - "DIR-DS-002-audit-logs/"
+
+atomic_locks_proibidos:
+  - "01_neocortex_framework/neocortex/mcp/server.py"
+  - "01_neocortex_framework/neocortex/mcp/sub_server.py"
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml"
+  - "antigravity_neocortex_config.json"
+
+entry_state: "Bootup v4 — desatualizado, não reflete Fase 1"
+exit_state: "Bootup v5 — estado real documentado. Fase 2 desbloqueada."
+integrity_hash: "NC-DS-113-v1.0-20260416"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PROTOCOLO OBRIGATÓRIO PARA O AGENTE (ler ANTES de qualquer ação)
+# ─────────────────────────────────────────────────────────────────────────────
+protocolo_agente:
+
+  step_0_obrigatorio:
+    descricao: 'Ler estes recursos ANTES de começar qualquer implementação'
+    recursos:
+      - path: 'DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml'
+        motivo: 'Template oficial do handoff que você DEVE gerar ao concluir'
+      - path: '01_neocortex_framework/DIR-TMP-FR-001-templates-main/'
+        motivo: 'Central de templates — exemplos de YAML, JSON, manifests, processos'
+      - path: '01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.yaml'
+        motivo: '20 regras de governança — obrigatório seguir'
+      - path: '01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml'
+        motivo: 'Arquivos que NUNCA podem ser tocados'
+
+  regra_duvida:
+    instrucao: |
+      EM CASO DE QUALQUER DÚVIDA — parar imediatamente e retornar ao T0.
+      NÃO assumir, NÃO adivinhar, NÃO improvisar.
+      Retornar com: (1) o que foi feito até agora, (2) qual é a dúvida exata,
+      (3) quais são as opções que você vê. T0 decide e você continua.
+    exemplos_de_quando_parar:
+      - 'Não encontrei o arquivo mencionado no ticket'
+      - 'A API do serviço é diferente do que o ticket descreve'
+      - 'A mudança que preciso fazer toca um arquivo @LOCKS'
+      - 'Dois caminhos são possíveis e não sei qual escolher'
+      - 'O script que devia existir não existe'
+
+  handoff_obrigatorio:
+    descricao: 'Gerar handoff YAML ao concluir — sem exceção'
+    destino: 'DIR-DS-002-audit-logs/NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml'
+    template: 'DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml'
+    campos_obrigatorios:
+      - 'ticket_id'
+      - 'status'        # APPROVED | PARTIALLY_COMPLETED | FAILED | ESCALATED
+      - 'summary'
+      - 'files_created'
+      - 'files_modified'
+      - 'locks_violated'  # DEVE ser lista vazia para APPROVED
+      - 'checklist_r20'
+    checklist_r20:
+      naming_convention: 'Todos os arquivos criados seguem NC-<TIPO>-<SIGLA>-<NUM>'
+      no_print_statements: 'Zero print() — usar logger'
+      ssot_updated: 'Se criou artefato novo — NC-NAM-FR-001 foi atualizado'
+      no_locked_files_modified: 'Nenhum arquivo @LOCKS foi tocado'
+      handoff_yaml_complete: 'Este handoff está completo'
+      roadmap_marked: '%DONE marcado no @ROADMAP para este ticket'
+
+  falha_ou_bloqueio:
+    instrucao: |
+      Se falhar ou ficar bloqueado:
+      1. Gerar handoff com status: FAILED ou ESCALATED
+      2. Incluir no campo summary o que foi tentado e por que falhou
+      3. NÃO silenciar o erro — registrar tudo
+      4. Retornar ao T0 com o handoff

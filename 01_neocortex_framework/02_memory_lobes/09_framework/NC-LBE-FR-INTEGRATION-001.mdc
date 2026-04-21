@@ -1,0 +1,108 @@
+<!-- module: integration -->
+<!-- category: extensions -->
+<!-- status: suggested -->
+<!-- suggested_by: opencode -->
+
+# Integrações e APIs
+
+Integrações com sistemas externos, APIs e webhooks.
+
+## Propósito
+Gerenciar conhecimento específico do módulo integration.
+
+## Status
+Sugerido
+
+## Tags
+#integration, #framework, #neocortex
+
+## Checkpoints
+- CP-INTEGRATION-001: Criação inicial
+
+## Conteúdo Inicial
+*Este lobe está em construção. Adicione aqui:*
+
+### 1. Visão Geral
+- Objetivos principais
+- Escopo do módulo
+- Integrações com outros módulos
+
+### 2. Componentes Principais
+- Lista de componentes/classes
+- Responsabilidades
+- Dependências
+
+### 3. Padrões e Convenções
+- Padrões de código
+- Convenções de nomenclatura
+- Boas práticas
+
+### 4. Exemplos de Uso
+- Exemplos básicos
+- Casos de uso comuns
+- Configurações típicas
+
+### 5. Referências
+- Links para documentação
+- Arquivos relevantes no projeto
+- Exemplos externos
+
+## Notas
+- Criado automaticamente por OpenCode
+- Data: 2026-04-10 15:36:46
+- Revisão necessária para conteúdo específico do projeto
+
+## Integrações e APIs
+
+### Protocolos Suportados
+1. **MCP (Model Context Protocol)**: Integração com IDEs
+2. **A2A (Agent-to-Agent)**: Comunicação entre agentes
+3. **REST API**: Para integrações externas
+4. **WebSocket**: Comunicação em tempo real
+
+### MCP Server
+- 17 ferramentas multi-ação
+- Suporte a stdio e socket modes
+- Tool discovery and documentation
+
+### A2A Protocol
+- Message schemas definidos
+- Agentes: cortex, security, consolidation, etc.
+- Comunicação assíncrona via event bus
+
+### REST API
+- CRUD para lobes, cortex, ledger
+- GraphQL para queries complexas
+- Webhooks para notificações
+
+### WebSocket
+- Real-time updates
+- Bi-directional communication
+- Subscription to events
+
+
+# NC-LBE-FR-INTEGRATION-001
+
+Integração com outros sistemas
+
+## Status
+Ativo (povoado automaticamente)
+
+## Tags
+#integration, #framework, #neocortex, #auto_populated
+
+## Checkpoints
+- CP-INTEGRATION-001: Criação inicial
+- CP-INTEGRATION-002: Povoamento automático
+
+## Análise do Diretório
+- **Total de arquivos**: 0
+
+## Contexto do Projeto
+- **Nome do projeto**: N/A
+- **Total de arquivos no projeto**: 0
+
+## Notas de Povoamento
+- Povoado automaticamente por OpenCode
+- Data: 2026-04-10 15:57:55
+- Foco da análise: integrations, apis, protocols

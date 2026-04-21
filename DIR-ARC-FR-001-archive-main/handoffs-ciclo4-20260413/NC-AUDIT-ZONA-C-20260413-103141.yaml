@@ -1,0 +1,37 @@
+# DIR-DS-002-audit-logs/NC-AUDIT-ZONA-C-20260413-103141.yaml
+tipo: AUDITORIA
+zona: C
+ticket_ref: NC-AUDIT-001
+timestamp: "2026-04-13T10:31:41Z"
+agent_port: 32763
+files_audited: 22
+files_with_errors_before: 7
+files_with_errors_after: 2
+known_errors_fixed:
+  - file: "DIR-MCP-FR-001-mcp-server/clean_utf0.py"
+    type: C401
+    fix: "set comprehension replacement"
+dead_files_found: []
+errors_fixed:
+  - {file: "neocortex/mcp/tools/NC-TOOL-FR-030-context.py", type: F841, description: "remove unused variable cfg"}
+  - {file: "DIR-MCP-FR-001-mcp-server/clean_utf0.py", type: F601, description: "remove duplicate dictionary keys"}
+  - {file: "DIR-MCP-FR-001-mcp-server/clean_utf0.py", type: F841, description: "remove unused variables mcp_dir, core_dir, profiles_dir"}
+  - {file: "scripts/NC-SCR-FR-001-populate-lobes-ssot.py", type: F841, description: "remove unused variable config"}
+  - {file: "scripts/NC-SCR-FR-001-populate-lobes-ssot.py", type: F401, description: "remove unused import get_config"}
+  - {file: "scripts/NC-SCR-FR-007-queue-monitor.py", type: B007, description: "rename unused loop variable key to _key"}
+  - {file: "scripts/NC-SCR-FR-007-queue-monitor.py", type: E722, description: "replace bare except with except Exception"}
+  - {file: "scripts/NC-SCR-FR-008-queue-repair.py", type: E722, description: "replace bare except with except Exception"}
+files_unfixable:
+  - {file: "neocortex/mcp/tools/NC-TOOL-FR-020-knowledge.py", type: F811, description: "multiple register_tool definitions (requires refactor)"}
+  - {file: "neocortex/mcp/tools/NC-TOOL-FR-027-knowledge.py", type: W293, description: "whitespace inside multiline string (preserved)"}
+summary: |
+  Auditoria completa da Zona C (tools MCP FR-020 a FR-032, scripts e DIR-MCP). 
+  Verificados 22 arquivos com py_compile e ruff. 
+  Corrigidos 5 arquivos com erros de lint (F841, F601, F401, B007, E722). 
+  2 arquivos com erros não corrigidos (F811, W293) por requererem mudanças estruturais ou serem warnings insignificantes.
+checklist:
+  py_compile_all_pass: true
+  ruff_all_pass: false
+  dead_files_archived: false
+  no_locked_files_modified: true
+  handoff_complete: true

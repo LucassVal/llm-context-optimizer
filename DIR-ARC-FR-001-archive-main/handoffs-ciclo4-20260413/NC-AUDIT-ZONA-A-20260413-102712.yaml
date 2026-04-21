@@ -1,0 +1,55 @@
+# DIR-DS-002-audit-logs/NC-AUDIT-ZONA-A-20260413-102712.yaml
+tipo: AUDITORIA
+zona: A
+ticket_ref: NC-AUDIT-001
+timestamp: "2026-04-13T10:26:31.492834"
+agent_port: 59520
+environment:
+  python: "Python 3.12.10"
+  ruff: "ruff 0.15.10"
+  bandit: "__main__.py 1.9.4\n  python version = 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]"
+files_audited: 16
+files_with_errors_before: 3
+files_with_errors_after: 0
+errors_fixed:
+  - file: "neocortex/core/services/NC-SVC-FR-001-logging-service.py"
+    type: "B007"
+    description: "Loop control variable logger_name not used within loop body"
+  - file: "neocortex/core/services/NC-SVC-FR-001-logging-service.py"
+    type: "TYPE"
+    description: "Parameter context type mismatch, changed to Optional[Dict[str, Any]]"
+  - file: "neocortex/core/utils/NC-UTL-FR-002-hash-utils.py"
+    type: "W291"
+    description: "Trailing whitespace"
+files_ok:
+  - "neocortex/__init__.py"
+  - "neocortex/config.py"
+  - "neocortex/core/__init__.py"
+  - "neocortex/core/config/NC-CFG-FR-002-feature-flags.py"
+  - "neocortex/core/config/NC-CFG-FR-004-project-loader.py"
+  - "neocortex/core/hooks/NC-HK-FR-001-hook-registry.py"
+  - "neocortex/core/review/NC-REV-FR-001-confidence-review.py"
+  - "neocortex/core/services/NC-SVC-FR-004-cache-service.py"
+  - "neocortex/core/services/NC-SVC-FR-005-event-bus.py"
+  - "neocortex/core/services/NC-SVC-FR-009-session-buddy.py"
+  - "neocortex/core/services/NC-SVC-FR-011-ttl-manager.py"
+  - "neocortex/core/utils/NC-UTL-FR-001-yaml-safe-parser.py"
+  - "neocortex/core/utils/NC-UTL-FR-004-id-validator.py"
+  - "neocortex/core/logging_config.py"
+files_fixed:
+  - "neocortex/core/services/NC-SVC-FR-001-logging-service.py"
+  - "neocortex/core/utils/NC-UTL-FR-002-hash-utils.py"
+files_unfixable:
+  - "neocortex/core/config/NC-CFG-FR-001-base.py"
+  - "neocortex/core/config/NC-CFG-FR-003-env-validator.py"
+  - "neocortex/core/services/NC-SVC-FR-003-save-point.py"
+  - "neocortex/core/services/NC-SVC-FR-010-coordinator.py"
+summary: |
+  Audit completed for Zone A (neocortex/core/ + neocortex/mcp/tools/).
+  16 files audited, 3 lint errors fixed (B007, TYPE, W291). All files now compile successfully and pass ruff lint.
+  Missing files (4) noted as unfixable. No locked files modified.
+checklist:
+  py_compile_all_pass: true
+  ruff_all_pass: true
+  no_locked_files_modified: true
+  handoff_complete: true

@@ -1,0 +1,69 @@
+metadata:
+  name: Research Catalog
+  version: '1.0'
+  last_updated: '2026-04-21T11:07:31.917324'
+  description: Consolidated catalog of legacy and loose research analyses.
+entries:
+- id: NC-ANA-INT-001-synthesis-t0
+  original_filename: NC-ANA-INT-001-synthesis-t0.md
+  type: synthesis
+  topic: analysis
+  tags:
+  - legacy
+  - consolidation
+  - analysis
+  cataloged_date: '2026-04-21T11:07:31.919348'
+  new_location: $temporal/research/NC-ANA-INT-001-synthesis-t0.md
+- id: NC-GOV-CC-001-governance-mcp-insights
+  original_filename: NC-GOV-CC-001-governance-mcp-insights.yaml
+  type: synthesis
+  topic: governance
+  tags:
+  - legacy
+  - consolidation
+  - governance
+  cataloged_date: '2026-04-21T11:07:31.921370'
+  new_location: $temporal/research/NC-GOV-CC-001-governance-mcp-insights.yaml
+- id: NC-RES-CC-001-validation-hooks-worker-review
+  original_filename: NC-RES-CC-001-validation-hooks-worker-review.md
+  type: synthesis
+  topic: research
+  tags:
+  - legacy
+  - consolidation
+  - research
+  cataloged_date: '2026-04-21T11:07:31.922519'
+  new_location: 
+    $temporal/research/NC-RES-CC-001-validation-hooks-worker-review.md
+- id: NC-RES-CC-002-validation-buddy-config-plugin
+  original_filename: NC-RES-CC-002-validation-buddy-config-plugin.md
+  type: synthesis
+  topic: research
+  tags:
+  - legacy
+  - consolidation
+  - research
+  cataloged_date: '2026-04-21T11:07:31.923538'
+  new_location: 
+    $temporal/research/NC-RES-CC-002-validation-buddy-config-plugin.md
+- id: NC-RES-CC-003-validation-scheduling-ttl-flags
+  original_filename: NC-RES-CC-003-validation-scheduling-ttl-flags.md
+  type: synthesis
+  topic: research
+  tags:
+  - legacy
+  - consolidation
+  - research
+  cataloged_date: '2026-04-21T11:07:31.924632'
+  new_location: 
+    $temporal/research/NC-RES-CC-003-validation-scheduling-ttl-flags.md
+- id: NC-STR-CC-001-master-strategy
+  original_filename: NC-STR-CC-001-master-strategy.md
+  type: synthesis
+  topic: strategy
+  tags:
+  - legacy
+  - consolidation
+  - strategy
+  cataloged_date: '2026-04-21T11:07:31.926074'
+  new_location: $temporal/research/NC-STR-CC-001-master-strategy.md

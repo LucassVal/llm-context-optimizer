@@ -1,0 +1,22 @@
+ticket_id: NC-DS-032
+status: PENDING_REVIEW
+timestamp: "2026-04-13T13:00:47-03:00"
+agent_port: 59520
+lines_added: 232
+files_modified:
+  - 01_neocortex_framework/neocortex/core/config/NC-CFG-FR-004-project-loader.py
+  - 05_examples/.nc/config.yaml
+summary: |
+  Implementado ProjectConfigLoader com suporte a config local por projeto (.nc/config.yaml).
+  Merge profundo, precedência local > global > defaults, singleton get_project_config_loader.
+metrics:
+  ruff_check: PASS
+  py_compile: PASS
+  write_zone_respected: true
+  locks_respected: true
+errors: []
+warnings: []
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  handoff_yaml_complete: true

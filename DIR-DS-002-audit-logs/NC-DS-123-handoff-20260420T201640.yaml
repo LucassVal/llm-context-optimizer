@@ -1,0 +1,30 @@
+ticket_id: NC-DS-123
+status: APPROVED
+validated_by: T0-Antigravity
+timestamp: "2026-04-20T20:16:40-03:00"
+agent: T0-Antigravity
+
+summary: |
+  Atualizado NC-NAM-FR-001 (@SSOT) com 25 novas entradas:
+    - NC-CORE-FR-101 a NC-CORE-FR-124 (24 módulos core/ renomeados pelo NC-DS-122)
+    - NC-SCR-FR-147-nc-ds-122-executor.py (script executor do NC-DS-122)
+  Arquivo cresceu de 631 → 658+ linhas. Seção adicionada com changelog [2026-04-20].
+
+files_modified:
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
+
+entries_added: 25
+entries_range: "NC-CORE-FR-101 .. NC-CORE-FR-124 + NC-SCR-FR-147"
+
+validation_results:
+  ssot_file_exists: true
+  lines_before: 631
+  lines_after: 658
+  locks_violated: []
+
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  ssot_updated: true
+  no_locked_files_modified: true
+  handoff_yaml_complete: true

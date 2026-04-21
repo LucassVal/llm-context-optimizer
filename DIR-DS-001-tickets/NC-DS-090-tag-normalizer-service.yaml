@@ -1,0 +1,112 @@
+ticket_id: "NC-DS-090"
+status: "DONE"
+priority: "HIGH"
+title: "Criar NC-SVC-FR-018-tag-normalizer.py — Central Universal de Sanitização de Tags"
+created_at: "2026-04-16T00:00:00-03:00"
+created_by: "T0-Claude-Code"
+
+context:
+  origin: "Diagnóstico sessão 2026-04-16"
+  problem: |
+    Símbolos ubíquos (@, $, %) estão sendo usados em lobos .mdc, YAMLs e
+    templates sem qualquer validação contra o dicionário SSOT (NC-DOC-FR-001).
+    Grep confirmou: 8 arquivos de lobe usam @/$/% sem validação.
+    NC-SCR-FR-009 e NC-SCR-FR-011 são sanitizadores pontuais — não há pipeline
+    universal de normalização.
+  gap: "Nenhum mecanismo valida se símbolos ubíquos são canônicos."
+
+task:
+  description: |
+    Criar NC-SVC-FR-018-tag-normalizer.py em:
+      01_neocortex_framework/neocortex/core/services/
+
+    O serviço deve:
+    1. Carregar NC-DOC-FR-001-ubiquitous-language-dictionary.md como SSOT
+       - Extrair todas as entradas da tabela @, $, % em memória
+       - Formato: dict {simbolo: {expande_para, caminho_real}}
+
+    2. scan(path: str | Path, recursive=False) -> ScanResult
+       - Localiza todos os padrões @[A-Z]+, $[A-Z_]+, %[A-Z_]+ no arquivo/dir
+       - Retorna: {found: [...], invalid: [...], unknown: [...]}
+       - "invalid" = símbolo existe no dict mas casing errado
+       - "unknown" = símbolo não existe no dict
+
+    3. normalize(path: str | Path) -> NormalizeResult
+       - Corrige casing de tags em frontmatter YAML (_genealogy.tags)
+       - Regra: tags em minúsculas, sem espaços
+       - Retorna: {changed: int, diff: [...]}
+       - WAL-logged via NC-SVC-FR-016
+
+    4. validate_lobe(path: str | Path) -> ValidationResult
+       - Verifica campos obrigatórios de frontmatter .mdc: name, description, type
+       - Verifica que todos os símbolos ubíquos no corpo existem em NC-DOC-FR-001
+       - Retorna: {valid: bool, violations: [...]}
+
+    5. CLI:
+       python NC-SVC-FR-018-tag-normalizer.py scan <path> [--recursive]
+       python NC-SVC-FR-018-tag-normalizer.py fix <path> [--dry-run]
+       python NC-SVC-FR-018-tag-normalizer.py validate <path>
+       python NC-SVC-FR-018-tag-normalizer.py stats
+
+    Dependências: stdlib apenas (re, pathlib, yaml/json, hashlib)
+    Integração WAL: via import_pattern idêntico ao NC-DS-089
+
+  import_pattern_wal: |
+    import importlib.util
+    from pathlib import Path
+
+    _wal_path = Path(__file__).resolve().parents[2] / "core/services/NC-SVC-FR-016-wal-service.py"
+    _spec = importlib.util.spec_from_file_location("wal_service", _wal_path)
+    _mod = importlib.util.module_from_spec(_spec)
+    _spec.loader.exec_module(_mod)
+    WALService = _mod.WALService
+
+  ssot_path: |
+    # NC-DOC-FR-001 está em:
+    _dict_path = Path(__file__).resolve().parents[3] / \
+        "DIR-DOC-FR-001-docs-main/NC-DOC-FR-001-ubiquitous-language-dictionary.md"
+
+  verification: |
+    python -m py_compile NC-SVC-FR-018-tag-normalizer.py && echo OK
+    python NC-SVC-FR-018-tag-normalizer.py scan 01_neocortex_framework/lobes/ --recursive
+    # Deve reportar os 8 arquivos com símbolos ubíquos
+    python NC-SVC-FR-018-tag-normalizer.py stats
+
+  instrucoes_handoff: |
+    Salvar em: DIR-DS-002-audit-logs/NC-DS-090-handoff-YYYYMMDDTHHMMSS.yaml
+
+  checklist_r20:
+    naming_convention: true
+    no_print_statements: true
+    ssot_updated: true
+    no_locked_files_modified: true
+    handoff_yaml_complete: true
+
+environment:
+  python: "C:\\Program Files\\Python312\\python.exe"
+  project_root: "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
+  ssot_dict: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-DOC-FR-001-ubiquitous-language-dictionary.md"
+  wal_service: "01_neocortex_framework/neocortex/core/services/NC-SVC-FR-016-wal-service.py"
+  output_path: "01_neocortex_framework/neocortex/core/services/NC-SVC-FR-018-tag-normalizer.py"
+
+targets_existing:
+  - "01_neocortex_framework/lobes/"          # 8 arquivos com símbolos não validados
+  - "01_neocortex_framework/scripts/"        # scripts com frontmatter YAML
+  - "DIR-DS-001-tickets/"                    # YAMLs de tickets
+
+write_zone:
+  - "01_neocortex_framework/neocortex/core/services/"
+  - "DIR-DS-002-audit-logs/"
+
+atomic_locks_proibidos:
+  - "01_neocortex_framework/neocortex/server.py"
+  - "01_neocortex_framework/neocortex/sub_server.py"
+  - "01_neocortex_framework/neocortex_config.yaml"
+
+depends_on: "NC-DS-089"  # WAL deve estar integrado antes
+blocks: "NC-DS-092"      # Wiring depende deste serviço
+
+tags: ["sanitizacao", "normalizacao", "tags", "ubiquitous-language", "stdlib", "pipeline"]
+domain: "quality"
+layer: "infra"
+type: "FEATURE"

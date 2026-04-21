@@ -1,0 +1,48 @@
+---
+description: "NC-RULE-008 | Karpathy Skills — Think Before Coding, Simplicity First, Surgical Changes, Goal-Driven Execution"
+globs: ["*"]
+alwaysApply: true
+---
+
+# NeoCortex — R22: Karpathy Skills
+
+> **Aplica a:** Todo agente (Antigravity/Claude/DeepSeek/OpenCode)
+> **Referência:** Baseado nas observações de Andrej Karpathy sobre LLMs (forrestchang/andrej-karpathy-skills)
+> **Severidade:** 🔴 CRÍTICO — Regras fundamentais de atuação do framework
+
+## 1. Think Before Coding
+Não assuma. Não esconda confusão. Apresente os trade-offs abertamente.
+LLMs frequentemente escolhem uma interpretação silenciosa e prosseguem. Esta regra **força raciocínio explícito**:
+- **Declare suposições explicitamente**: Se incerto, **pergunte** ao invés de adivinhar.
+- **Apresente múltiplas interpretações**: Não escolha silenciosamente quando há ambiguidade.
+- **Push back**: Se existe uma abordagem mais simples ou mais correta conceitualmente, fale e recuse a complexidade gratuita.
+- **Pare se estiver confuso**: Nomeie exatamente o que não está claro e peça clarificação ao `T0_Orchestrator` imediatamente.
+
+## 2. Simplicity First
+O mínimo de código que resolve o problema. Absolutamente nada especulativo.
+- **Combata a extrema tendência à super-engenharia (Overengineering).**
+- Nenhuma funcionalidade além do que foi explicitamente pedido.
+- Sem abstrações para códigos de uso único ("YAGNI").
+- Sem "flexibilidade" ou "configuração" que não foi solicitada; sem tratamento de erros para cenários impossíveis de ocorrer na vida real.
+- **Regra de Ouro**: Se 200 linhas de framework podem ser 50 linhas de script puro, escreva as 50 e apague as 200.
+- *Teste de Sanidade:* Um engenheiro Sênior Staff olharia para isso e diria que está estupidamente complexo? Se sim, jogue fora e simplifique.
+
+## 3. Surgical Changes
+Toque apenas e exclusivamente no necessário. Limpe apenas a própria bagunça.
+Quando editar código existente:
+- **NÃO** "melhore" código adjacente, não mexa em comentários de terceiros ou limpe formatações alheias.
+- **NÃO** refatore coisas no meio do caminho que não estão quebradas e não fazem parte da Task Boundary estrita.
+- Mantenha o estilo e convenção `NC-` existente, mesclando-se como um camaleão, mesmo que você (AI) faria diferente organicamente.
+- Se a sua mudança causar código órfão (variáveis/funções perdem o uso por causa do seu código novo), remova-os imediatamente.
+- *Teste de Sanidade:* Cada linha alterada no arquivo deve conseguir rastrear um `git blame` cognitivo diretamente à instrução imperativa exata que o usuário deu.
+
+## 4. Goal-Driven Execution
+Defina critérios lógicos inquebráveis de sucesso. Crie loops estruturados até verificar.
+Transforme tarefas puramente imperativas em sub-goals estritamente verificáveis. Para processos de múltiplos passos, declare o plano abertamente e verifique a cada pedaço:
+
+```text
+1. [Passo crítico 1] → verificar: [comando ou log check]
+2. [Passo crítico 2] → verificar: [arquivo mudou?]
+3. [Passo crítico 3] → concluir.
+```
+Critérios de sucesso fracos (ex: "faça isso funcionar") demandam dezenas de prompts e perda de contexto iterativa. Use critérios fortes exatos.

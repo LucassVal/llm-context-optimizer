@@ -1,0 +1,58 @@
+ticket_id: "NC-DS-SESS-20260418"
+status: "APPROVED"
+timestamp: "2026-04-18T13:26:53-03:00"
+agent: "T0-Antigravity"
+session_type: "sprint-acelerado"
+
+summary: |
+  Sessão de sprint acelerado (2026-04-18). Entregues:
+  1. Reestruturação dos 25 lobes MDC em 5 categorias (01_framework..05_user)
+  2. NC-SVC-FR-021 SessionMemoryWriter + NC-TOOL-FR-044 memory_auto MCP (Auto-Memory F1)
+  3. NC-SVC-FR-020 LexicoService base + NC-LED-FR-002 ledger com 28 átomos
+  4. Fixes de governança: NC-SCR-FR-080 timeout + compliance.report standalone
+  5. Plano consolidação 42→15 tools por Poder/Corte CF (aguardando implementação)
+  6. Diagnóstico: 42 arquivos OK, 40 únicas (2 duplicatas: knowledge, task)
+
+files_created:
+  - 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-021-session-memory-writer.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-044-memory-auto.py
+  - 02_memory_lobes/01_framework/NC-LBE-FR-GOVERNANCE-001.mdc
+  - 02_memory_lobes/01_framework/NC-LBE-FR-LITELLM-001.mdc
+  - 02_memory_lobes/01_framework/NC-LBE-FR-TOOLS-MANIFEST-001.mdc
+  - 02_memory_lobes/01_framework/NC-LBE-FR-CORE-OPS-001.mdc
+  - ".claude/projects/.../memory/hot-context.md"
+
+files_modified:
+  - 01_neocortex_framework/scripts/NC-SCR-FR-080-governance-auditor.py  # timeout=30s
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-024-governance.py  # compliance.report standalone
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md  # v12, NC-DS-136..140
+  - .agents/workflows/NC-WF-001-workspace-routine.md  # CICLO 3 auto-memory steps
+
+next_session_priorities:
+  1: "Fase 1 consolidação tools: fundir knowledge×2 e task×2 (duplicatas FastMCP)"
+  2: "Criar neocortex_governance (constitution + governance + governance_ops)"
+  3: "Criar neocortex_llm_router (litellm + local_llm)"
+  4: "Smoke test compliance.report após restart MCP"
+  5: "NC-DS-133: KG-002 popular knowledge graph"
+
+stack_state:
+  litellm_4000: ONLINE
+  ollama_11434: ONLINE
+  mcp_8765: "40 tools únicas (restart pendente para compliance.report fix)"
+  picoclaw: DEFERIDO
+  mission_control: DEFERIDO
+  pixel: DEFERIDO
+
+constitution_status:
+  version: "CF v0.2"
+  articles: 10
+  powers: ["legislativo", "executivo", "judiciario"]
+  pre_check: "ALLOWED | PLENA | T0"
+
+checklist_r20:
+  ssot_updated: false  # SSOT pendente (NC-DS-002) — próxima sessão
+  roadmap_updated: true
+  lobes_updated: true
+  handoff_yaml_complete: true
+  no_locked_files_modified: true
+  py_compile_all: true

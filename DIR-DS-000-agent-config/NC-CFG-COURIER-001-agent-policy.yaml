@@ -1,0 +1,52 @@
+# NC-CFG-COURIER-001 — Agent Policy: courier (Qwen 1.5b)
+# Gerado: 2026-04-19 | AGENT-001
+
+agent:
+  role: "courier"
+  tier: "T2"
+  description: "Agente de tarefas simples e braçal. Usa Qwen 1.5b iGPU (:11435)."
+
+  backend:
+    provider: "ollama"
+    model: "qwen2.5-coder:1.5b-instruct"
+    base_url: "http://localhost:11435"
+    keep_alive: -1
+
+  circuit_breaker:
+    max_calls: 15
+    window_sec: 60
+    max_identical: 4
+    cooldown_sec: 90
+
+  token_budget:
+    max_tokens_per_task: 1024
+    max_tokens_session: 8192
+    warn_at_percent: 80
+
+  allowed_tools:
+    - "neocortex_memory"       # Leitura de lobes
+    - "neocortex_akl"          # AKL add/search
+    - "neocortex_ledger"       # ledger.read (somente leitura)
+    - "neocortex_health"       # server.status, metrics
+    - "neocortex_notification" # push.send (notificar T0)
+
+  forbidden_actions:
+    - "agent.spawn"
+    - "agent.stop"
+    - "lobe.delete"
+    - "lobe.deactivate"
+    - "config.set"
+    - "config.reload"
+    - "cb.reset"
+    - "akl.export"
+    - "ledger.write"
+    - "session.end"
+
+  allowed_lobes:
+    read:  ["NC-LBE-CC-*", "NC-LBE-FR-ARCHITECTURE-001", "machine_memory"]
+    write: ["machine_memory"]   # APENAS machine_memory via akl.add
+
+  isolation:
+    can_delegate_to: []         # T2 não spawna sub-agentes
+    reports_to: "T0"
+    heartbeat_interval_sec: 30

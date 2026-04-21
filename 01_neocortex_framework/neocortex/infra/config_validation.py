@@ -1,3 +1,15 @@
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:59.354870'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+tags:
+  - neocortex-other
+  - level-0
+  - python
+---"""
 #!/usr/bin/env python3
 """
 Configuration validation for NeoCortex infrastructure.
@@ -10,10 +22,11 @@ import json
 import logging
 import os
 import re
-from pathlib import Path
-from typing import Dict, Any, List, Optional, Tuple, Set, Union
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from enum import Enum
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Tuple
+
 import yaml
 
 logger = logging.getLogger(__name__)
@@ -623,7 +636,7 @@ class ConfigValidator:
     def format_results(self, results: List[ValidationResult]) -> str:
         """Format validation results for human reading."""
         if not results:
-            return "✅ All validations passed"
+            return " All validations passed"
 
         output = []
 
@@ -649,11 +662,11 @@ class ConfigValidator:
 
             output.append(f"\n{severity.upper()} ({len(severity_results)}):")
             for result in severity_results:
-                line = f"  • {result.message}"
+                line = f"   {result.message}"
                 if result.field:
                     line += f" [Field: {result.field}]"
                 if result.suggestion:
-                    line += f" → {result.suggestion}"
+                    line += f"  {result.suggestion}"
                 if result.rule_id:
                     line += f" ({result.rule_id})"
                 output.append(line)

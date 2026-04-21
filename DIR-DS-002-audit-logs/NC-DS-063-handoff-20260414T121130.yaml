@@ -1,0 +1,49 @@
+# NC-DS-063-handoff-20260414T121130.yaml
+# Handoff para correção de encoding Unicode no script Engineer
+# Agente: opencode (DeepSeek-Reasoner)
+# Ticket relacionado: NC-SCR-FR-061-engineer-documentacao.py
+
+ticket_id: NC-DS-063
+status: APPROVED
+timestamp: "2026-04-14T12:11:30-03:00"
+agent_port: null
+
+lines_added: 12
+files_modified:
+  - "01_neocortex_framework/scripts/NC-SCR-FR-061-engineer-documentacao.py"
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/PROJECT_MAP.md"
+
+summary: |
+  Correção de encoding UTF‑8 para ambiente Windows no script NC‑SCR‑FR‑061‑engineer‑documentacao.py.
+  O script apresentava erro de caracteres Unicode (emojis 🚨✅🏥) e acentos no output do console.
+  Foram aplicadas as seguintes alterações:
+  1. Adicionada configuração de encoding UTF‑8 para sys.stdout/sys.stderr no Windows.
+  2. Ajustada anotação de tipo Optional[Set[str]] no parâmetro exclude_dirs.
+  3. Script agora executa sem erros de Unicode e exibe corretamente acentos e emojis.
+  O arquivo PROJECT_MAP.md continua sendo gerado com sucesso (exit code 0).
+
+ajustes_aplicados:
+  - "Adicionado import io e bloco if sys.platform == 'win32' para configurar wrappers UTF‑8"
+  - "Alterada anotação de tipo de exclude_dirs: Set[str] = None para exclude_dirs: Optional[Set[str]] = None"
+  - "Removida tentativa de usar sys.stdout.reconfigure (atributo desconhecido no runtime)"
+
+metrics:
+  lines_real: 12
+  lines_total: 12
+  files_created: 0
+  files_modified: 2
+  dependencies_used: []
+  write_zone_respected: true
+  locks_respected: true
+
+errors: []
+warnings:
+  - "O script ainda usa logging.basicConfig que pode herdar encoding do sistema; porém stdout/stderr já estão configurados."
+
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  min_80_lines: true
+  no_locked_files_modified: true
+  ajustes_synthesis_applied: true
+  handoff_yaml_complete: true

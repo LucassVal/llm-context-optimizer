@@ -1,0 +1,25 @@
+# Salvar em: DIR-DS-002-audit-logs/LOBE-INT-001-handoff-{YYYYMMDD-HHMMSS}.yaml
+ticket_id: LOBE-INT-001
+status: PENDING_REVIEW
+timestamp: "2026-04-13T15:30:00-03:00"
+agent_port: 59520
+lines_added: 515
+files_modified:
+  - 01_neocortex_framework/lobes/NC-LBE-INT-001-picoclaw-architecture.mdc
+summary: |
+  Lobe criado com documentação completa do PicoClaw
+  Contém 10 seções obrigatórias: 1) O que é PicoClaw, 2) Arquitetura Interna,
+  3) Ferramentas Nativas, 4) MCP, 5) Skills (opencode-controller),
+  6) Gateway como Orquestrador, 7) Configuração Completa para NeoCortex,
+  8) Integração Windows, 9) Limitações e Riscos, 10) Roadmap PicoClaw.
+  Documentação baseada em pesquisa das URLs obrigatórias: GitHub README,
+  tools_configuration.md, ROADMAP.md, picoclaw.io, clawhub.ai.
+metrics:
+  write_zone_respected: true
+  locks_respected: true
+  min_80_lines: true
+errors: []
+warnings: []
+checklist_r20:
+  naming_convention: true
+  handoff_yaml_complete: true

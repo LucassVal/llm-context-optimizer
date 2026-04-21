@@ -1,0 +1,24 @@
+id: NC-DS-049
+code: AUDIT-001
+title: Auditoria Estrutural Cruzada e Otimização de Tokens (SSOT vs Docs)
+assignee: Agente OpenCode
+context:
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-TODO-DS-001-roadmap-pre-mcp.md
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md
+  - DIR-BOOT-FR-001-bootup-main/NC-BOOT-FR-001-system-manifest.md
+task: |
+  **OBJETIVO**: Realizar um cruzamento ortogonal de todos os arquivos organizacionais (SSOT) para localizar discrepâncias hierárquicas, lógicas, de nomenclatura e de versionamento.
+  
+  **O QUE FAZER**:
+  1. Extraia a estrutura declarada nos Manifestos (Boot e Naming Conventions).
+  2. Compare linha a linha com as frentes ativas nos Roadmaps e Arquiteturas.
+  3. Identifique atritos (conflitos de fase, regras que se contradizem ou itens obsoletos).
+  4. **Purga da Raiz**: Identifique e realoque/limpe arquivos ilegais na raiz `C:\...\TURBOQUANT_V42` (ex: `test_costs.py`, `test_costs.txt`, `picoclaw_stderr*.log`); e certifique-se que NENHUM log infrinja a R08 do git.
+  5. **Conformidade de Tags NC-RULE-007**: Vasculhe os prompts Mestres (`NC-PROMPT-FR-001`, `002`) e o `NeoCortex_HUD.bat`. Eles são arquivos válidos do SSOT mas atualmente NÃO possuem os cabeçalhos YAML/Block de TAG obrigatórios (domain/layer/tags/hash). Injetar neles!
+  6. **Refatoração Crítica NC-SCR-FR-003**: O `manifest-factory.py` hoje só captura a docstring (linha 1:10) para extrair um "resumo". É obrigatório refatorá-lo para parsear os campos rígidos do FrontMatter/Header exigidos na `NC-RULE-007`. Precisamos que as TAGS fiquem expostas no boot da IA.
+  
+  **MELHORIA CONTÍNUA (Foco NeoCortex)**:
+  - Detecte blocos de texto repetitivos ou desnecessários que possam estar inflando a **janela de contexto / tokens** (Token Exhaustion/Waste).
+  - Sugestões focadas em 'Token Optimization': Redução de chamadas inúteis, consolidação de regras e purga de loops mortos no fluxo dos lobos. 
+  - Produza um relatório final detalhando (a) Descrepâncias encontradas, (b) Os expurgos feitos na raiz, e (c) Soluções de otimização adotadas.

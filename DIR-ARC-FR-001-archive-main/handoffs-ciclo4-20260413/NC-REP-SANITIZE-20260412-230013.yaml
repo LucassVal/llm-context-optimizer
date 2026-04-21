@@ -1,0 +1,121 @@
+sanitize_run: "20260412-230013"
+handoffs_kept: 29
+duplicates_archived: 14
+noise_archived: 11
+kept_handoffs:
+  - ticket: NC-DS-001
+    file: "NC-DS-001-handoff-20260412-0438.yaml"
+    status: APPROVED
+    lines: 282
+  - ticket: NC-DS-002
+    file: "NC-DS-002-handoff-20260412-0835.yaml"
+    status: APPROVED
+    lines: 245
+  - ticket: NC-DS-003
+    file: "NC-DS-003-handoff-20260412-1025.yaml"
+    status: APPROVED
+    lines: 245
+  - ticket: NC-DS-004
+    file: "NC-DS-004-handoff-20260412-1548.yaml"
+    status: APPROVED
+    lines: 1
+  - ticket: NC-DS-005
+    file: "NC-DS-005-handoff-20260412-1600.yaml"
+    status: APPROVED
+    lines: 261
+  - ticket: NC-DS-006
+    file: "NC-DS-006-handoff-20260412-1636.yaml"
+    status: APPROVED
+    lines: 320
+  - ticket: NC-DS-007
+    file: "NC-DS-007-handoff-20260412-1626.yaml"
+    status: REDESIGNED_BY_T0
+    lines: 0
+  - ticket: NC-DS-008
+    file: "NC-DS-008-handoff-20260412-1715.yaml"
+    status: APPROVED
+    lines: 429
+  - ticket: NC-DS-009
+    file: "NC-DS-009-handoff-20260412-1747.yaml"
+    status: APPROVED
+    lines: 0
+  - ticket: NC-DS-010
+    file: "NC-DS-010-handoff-20260412-1735.yaml"
+    status: APPROVED
+    lines: 1
+  - ticket: NC-DS-011
+    file: "NC-DS-011-handoff-20260412-1733.yaml"
+    status: UNKNOWN
+    lines: 120
+  - ticket: NC-DS-012
+    file: "NC-DS-012-handoff-20260412-1738.yaml"
+    status: UNKNOWN
+    lines: 80
+  - ticket: NC-DS-013
+    file: "NC-DS-013-handoff-20260412-1737.yaml"
+    status: UNKNOWN
+    lines: 11
+  - ticket: NC-DS-014
+    file: "NC-DS-014-handoff-20260412-1934.yaml"
+    status: APPROVED
+    lines: 30
+  - ticket: NC-DS-015
+    file: "NC-DS-015-handoff-20260412-2227.yaml"
+    status: APPROVED
+    lines: 117
+  - ticket: NC-DS-016
+    file: "NC-DS-016-handoff-20260412-1834.yaml"
+    status: APPROVED
+    lines: 50
+  - ticket: NC-DS-017
+    file: "NC-DS-017-handoff-20260412-1842.yaml"
+    status: APPROVED
+    lines: 141
+  - ticket: NC-DS-018
+    file: "NC-DS-018-handoff-20260412-1830.yaml"
+    status: REJECTED
+    lines: 15
+  - ticket: NC-DS-019
+    file: "NC-DS-019-handoff-20260412-1843.yaml"
+    status: APPROVED
+    lines: 137
+  - ticket: NC-DS-020
+    file: "NC-DS-020-handoff-20260412-1854.yaml"
+    status: APPROVED
+    lines: 180
+  - ticket: NC-DS-021
+    file: "NC-DS-021-handoff-20260412-1849.yaml"
+    status: APPROVED
+    lines: 140
+  - ticket: NC-DS-022
+    file: "NC-DS-022-handoff-20260412-221714.yaml"
+    status: APPROVED
+    lines: 323
+  - ticket: NC-DS-023
+    file: "NC-DS-023-handoff-20260412-221708.yaml"
+    status: APPROVED
+    lines: 137
+  - ticket: NC-DS-024
+    file: "NC-DS-024-handoff-20260412-1856.yaml"
+    status: APPROVED
+    lines: 200
+  - ticket: NC-DS-025
+    file: "NC-DS-025-handoff-20260412-1853.yaml"
+    status: BLOCKED
+    lines: 0
+  - ticket: NC-DS-026
+    file: "NC-DS-026-handoff-20260412-2253.yaml"
+    status: APPROVED
+    lines: 344
+  - ticket: NC-DS-027
+    file: "NC-DS-027-handoff-20260412-1929.yaml"
+    status: APPROVED
+    lines: 152
+  - ticket: NC-DS-028
+    file: "NC-DS-028-handoff-20260412-2231.yaml"
+    status: APPROVED
+    lines: 273
+  - ticket: NC-DS-030
+    file: "NC-DS-030-handoff-20260412-2223.yaml"
+    status: APPROVED
+    lines: 480

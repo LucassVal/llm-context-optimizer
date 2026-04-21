@@ -1,0 +1,489 @@
+{
+  "summary": {
+    "total_arquivos_fisicos": 215,
+    "total_entradas_ssot": 273,
+    "total_fantasmas": 107,
+    "total_links_mortos": 154
+  },
+  "dead_links": [
+    "pyproject.toml",
+    "ledger_20260410_203605.json",
+    "checkpoint_tree_phase1.json",
+    "CONTINUE.md",
+    "benchmark_fractal_gauntlet.py",
+    "test_security_integration.py",
+    "fire_test.py",
+    "server.js",
+    "BENCHMARKS_HYBRID.md",
+    "migration.log",
+    "benchmark_master_suite.py",
+    "test_config_reload.py",
+    "TEST_INDEX_8f76b831.mdc",
+    "ledger_20260410_174150.json",
+    "ledger_20260410_174028.json",
+    "NC-LBE-FR-DEVELOPMENT-001.mdc",
+    "00-cortex-FULL.mdc",
+    "NeoCortex_HUD.bat",
+    "extract_all_tools.py",
+    "package.json",
+    "NC-DS-HANDOFF-TEMPLATE.yaml",
+    "NC-LBE-FR-LEGACY-001.mdc",
+    "extract_tools_final.py",
+    "BENCHMARKS.md",
+    "metrics.db.wal",
+    "restart-session.md",
+    "cache.db",
+    "TEST_INDEX_13aa6e78.mdc",
+    "NC_SEC_FR_001_security_utils.py",
+    "rules.txt",
+    "entry_points.txt",
+    "NC-LED-FR-001-framework-ledger.json.backup",
+    "update_ledger.py",
+    "NC-TOOL-FR-028-export.py",
+    "top_level.txt",
+    "tools_manifest.json",
+    "install.sh",
+    "NC-DOC-FR-003-turboquant-prompt.md",
+    "NC-LBE-FR-DEPLOYMENT-001.mdc",
+    "NC-LBE-DS-002-deepseek-agent-b.mdc",
+    "update_ledger_status.py",
+    "update_antigravity_confirmation.py",
+    "requires.txt",
+    "NC-DOC-WL-001-hybrid-mode.md",
+    "NC-LBE-DS-001-deepseek-agent.mdc",
+    "NC-TODO-FR-001-project-roadmap.md",
+    "generate_official_tool_manifest.py",
+    "antigravity_neocortex_config.json",
+    "start_neocortex_mcp.bat",
+    "cruzar com o roadmap.txt",
+    "TEST_INDEX_19948498.mdc",
+    "NC-LBE-FR-CORE-001.mdc",
+    "ledger_20260410_173509.json",
+    "ledger_20260410_173853.json",
+    "NC-LBE-FR-DOCUMENTATION-001.mdc",
+    "analyze_mcp_tools.py",
+    "SANITIZATION_CHECKLIST.md",
+    "requirements.txt",
+    "test_mcp_simple.py",
+    "Sem ttulo.txt",
+    "ledger_backup_20260410_001233.json",
+    "NC-LBE-FR-002-claude-assistant.mdc",
+    "NC-HUB-FR-001-mcp-hub.py",
+    "CHECKPOINT_AUDIT_2026-04-10.md",
+    "example_architecture.py",
+    "NC-CFG-DS-003-coordination.yaml",
+    "NC-TLM-FR-001-tool-manifest-schema.json",
+    "memory_neocortex_framework-20260409.json",
+    "memory-ledger-TEMPLATE.json",
+    "migration_report.json",
+    "detalhamento_completo.md",
+    "dependency_links.txt",
+    "backup_manifest.json",
+    "NC-LBE-FR-ARCHITECTURE-001.mdc",
+    "NC-LBE-DS-000-parent.mdc",
+    "7fd282bb51e2535a2323bf377a90.val",
+    "ledger_20260410_173805.json",
+    "PKG-INFO",
+    "LLM e API .md",
+    "STATUS.md",
+    "mcp_tools_inventory.json",
+    "00-cortex-20260409.mdc",
+    "test_tools_simple.py",
+    "SOURCES.txt",
+    "NC-LBE-FR-SECURITY-001.mdc",
+    "NC-LBE-FR-BENCHMARKS-001.mdc",
+    "extract_tools.py",
+    "index.redb",
+    "neocortex_mcp.py",
+    "NC-LBE-FR-WHITELABEL-001.mdc",
+    "NC-CTX-FR-001-cortex-central.mdc",
+    "phase-lobe-TEMPLATE.mdc",
+    "NC-CFG-DS-001-agent-policy.yaml",
+    "NC-TKT-FR-001-tickets.md",
+    "NC-PLN-FR-001-optimization-plan.mdc",
+    "Aqui est o prompt ajustado exatamente c.txt",
+    "ledger_20260410_212708.json",
+    "NC-DS-001-fr025-system.yaml",
+    "NC-PROMPT-DS-000-launcher.md",
+    "NC-LED-FR-001-framework-ledger-20260410-0140.json",
+    "sumario.md",
+    "NC-LBE-FR-PERFORMANCE-001.mdc",
+    "list_tools.py",
+    "NC-LBE-FR-MCP-001.mdc",
+    "NC-LBE-FR-MONITORING-001.mdc",
+    "NC-TODO-FR-001-project-roadmap.md.bak",
+    "NC-AUD-FR-001-audit-findings-2026-04-10.md",
+    "metrics.db",
+    "NC-LBE-FR-PULSE-001.mdc",
+    "NC-LBE-FR-CLI-001.mdc",
+    "add_root_sanitize_event.py",
+    "NC-DOC-WL-001-readme.md",
+    "test_mcp_responsive.py",
+    "NC-LED-FR-001-framework-ledger.json",
+    "verify_mcp.py",
+    "list_tools_simple.py",
+    "NC-LBE-FR-INTEGRATION-001.mdc",
+    "NC-TODO-FR-001-project-roadmap.md.backup",
+    "test_task.py",
+    "clean_security.py",
+    "NC-TMP-WL-001-cortex-template.mdc",
+    "neocortex_config_dev.yaml",
+    "DEEPSEEK_API_SUMMARY.md",
+    "NC-LBE-FR-TESTING-001.mdc",
+    "test_modular_server.py",
+    "NC-CFG-DS-002-session-contract.yaml",
+    "NC-SES-FR-001-session-status-2026-04-10.md",
+    "start_neocortex_mcp.ps1",
+    "test_sanity.py",
+    "NC-TODO-FR-001-project-roadmap-v6-stability.md",
+    "NC-LBE-FR-KNOWLEDGE-001.mdc",
+    "NC-TOOL-FR-020-categories.py",
+    "start_neocortex_dev.bat",
+    "test_server_start.py",
+    " SANITIZAO DA PASTA TURBOQUANT_V42 .txt",
+    "lobe_index.db",
+    "migration_debug.log",
+    "clean_utf0.py",
+    "NC-TLM-FR-001-tool-manifest.json",
+    "QUICK_TEST.py",
+    "structured_elements.md",
+    "NC-CTX-FR-001-cortex-central-20260410-0140.mdc",
+    "install.ps1",
+    "test_tools.py",
+    "README.md",
+    "NC-MAN-FR-001-project-manifest.jsonl",
+    "NC-PROMPT-DS-001-deepseek-subordinate.md",
+    "README_MCP_NEOCORTEX.md",
+    "server.py.backup",
+    "generate_tools_manifest.py",
+    "NC-TODO-FR-001-project-roadmap-v7-combined.md",
+    "NC-LBE-FR-PROFILES-001.mdc",
+    "AGENTS.md",
+    "NC-MCP-FR-001-mcp-server.py"
+  ],
+  "ghosts_by_folder": {
+    "neocortex": [
+      "__init__.py"
+    ],
+    "neocortex\\cli": [
+      "__init__.py"
+    ],
+    "neocortex\\core": [
+      "logging_config.py",
+      "__init__.py"
+    ],
+    "neocortex\\core\\adapters": [
+      "NC-ADP-FR-001-mission-control.py",
+      "__init__.py"
+    ],
+    "neocortex\\core\\config": [
+      "NC-CFG-FR-002-feature-flags.py",
+      "NC-CFG-FR-004-project-config-schema.yaml",
+      "NC-CFG-FR-004-project-config.py",
+      "NC-CFG-FR-004-project-loader.py"
+    ],
+    "neocortex\\core\\hooks": [
+      "NC-HK-FR-001-hook-registry.py",
+      "NC-HK-FR-002-simple-hook.py",
+      "__init__.py"
+    ],
+    "neocortex\\core\\review": [
+      "NC-REV-FR-001-confidence-review.py",
+      "NC-VAL-FR-005-async-thread-validator.py",
+      "__init__.py"
+    ],
+    "neocortex\\core\\review\\validators": [
+      "NC-VAL-FR-001-naming-validator.py",
+      "NC-VAL-FR-002-compile-validator.py",
+      "NC-VAL-FR-003-locks-validator.py",
+      "__init__.py"
+    ],
+    "neocortex\\core\\services": [
+      "NC-SVC-FR-003-savepoint-stub.py",
+      "NC-SVC-FR-006-metrics-collector.py",
+      "NC-SVC-FR-008-config-validator.py",
+      "NC-SVC-FR-009-session-buddy.py",
+      "NC-SVC-FR-010-kairos-service.py",
+      "NC-SVC-FR-011-ttl-manager.py",
+      "NC-SVC-FR-012-channel-notifier.py",
+      "NC-SVC-FR-014-dry-run-preview.py",
+      "NC-SVC-FR-015-task-broker.py"
+    ],
+    "neocortex\\core\\utils": [
+      "NC-UTL-FR-002-hash-utils.py",
+      "NC-UTL-FR-003-path-resolver.py",
+      "NC-UTL-FR-004-id-validator.py",
+      "__init__.py"
+    ],
+    "neocortex\\core\\workers": [
+      "NC-WKR-FR-001-persistent-worker.py"
+    ],
+    "neocortex\\infra": [
+      "vector_engine.py",
+      "vector_engine_example.py"
+    ],
+    "neocortex\\mcp": [
+      "__init__.py"
+    ],
+    "neocortex\\mcp\\tools": [
+      "NC-TOOL-FR-018-push-notification.py",
+      "NC-TOOL-FR-021-memory.py",
+      "NC-TOOL-FR-034-dry-run.py",
+      "NC-TOOL-FR-035-task.py",
+      "NC-TOOL-FR-036-picoclaw.py",
+      "NC-TOOL-FR-037-hooks.py",
+      "__init__.py"
+    ],
+    "neocortex\\repositories": [
+      "__init__.py"
+    ],
+    "neocortex\\schemas": [
+      "__init__.py"
+    ],
+    "DIR-DOC-FR-001-docs-main": [
+      "NC-APP-FR-001-technical-appendix.md",
+      "NC-ARC-FR-001-decision-log.md",
+      "NC-AUD-FR-001-timestamp-audit.md",
+      "NC-CFG-FR-001-agent-policy-template.yaml",
+      "NC-CFG-FR-002-rules-policy.yaml",
+      "NC-DOC-DS-005-topological-taxonomy.md",
+      "NC-DOC-FR-001-ubiquitous-language-dictionary.md",
+      "NC-DOC-FR-002-dev-environment-standard.md",
+      "NC-GOV-FR-001-nworker-protocol.md",
+      "NC-NAM-FR-001a-tools-registry.md",
+      "NC-NAM-FR-001b-lobes-registry.md",
+      "NC-NAM-FR-001c-config-registry.md",
+      "NC-NAM-FR-001d-prompts-registry.md",
+      "NC-SEC-FR-001-atomic-locks.yaml",
+      "NC-SEC-FR-002-entry-lock-protocol.md",
+      "NC-SOP-FR-001-session-startup.md",
+      "NC-TODO-DS-001-roadmap-pre-mcp.md",
+      "symbolic_map.json"
+    ],
+    "scripts": [
+      "approve_handoffs.py",
+      "audit_reader.py",
+      "batch_approve.py",
+      "dep_scanner.py",
+      "fix_approve_022_023.py",
+      "fix_queue.py",
+      "NC-SCR-FR-001-populate-lobes-ssot.py",
+      "NC-SCR-FR-002-tool-manifest-generator.py",
+      "NC-SCR-FR-004-governance-validator.py",
+      "NC-SCR-FR-005-auto-approve.py",
+      "NC-SCR-FR-006-ticket-validator.py",
+      "NC-SCR-FR-007-queue-monitor.py",
+      "NC-SCR-FR-008-queue-repair.py",
+      "NC-SCR-FR-009-sanitize-all-yamls.py",
+      "NC-SCR-FR-010-sync-ticket-status.py",
+      "NC-SCR-FR-011-sanitize-handoffs.py",
+      "NC-SCR-FR-012-new-tool.py",
+      "NC-SCR-FR-013-validate-file.py",
+      "NC-SCR-FR-017-visual-server.py",
+      "NC-SCR-FR-020-yaml-injector.py",
+      "NC-SCR-FR-021-lexicon-extractor.py",
+      "NC-SCR-FR-022-coverage-auditor.py",
+      "reset_ds018.py",
+      "sign_tickets.py",
+      "stamp_prompt.py"
+    ],
+    "lobes": [
+      "NC-LBE-DS-003-worker-patterns.mdc",
+      "NC-LBE-FR-QUALITY-001-env-quality.mdc",
+      "NC-LBE-FR-QUALITY-002-context-compaction.mdc",
+      "NC-LBE-INT-001-picoclaw-architecture.mdc",
+      "NC-LBE-INT-002-opencode-architecture.mdc",
+      "NC-LBE-INT-003-antigravity-integration.mdc"
+    ],
+    "lobes\\backend_dev": [
+      "NC-LBE-FR-DEEPSEEK-001.md"
+    ],
+    "lobes\\cc-leak": [
+      "NC-LBE-CC-002-hooks-system.mdc",
+      "NC-LBE-CC-003-persistent-worker.mdc",
+      "NC-LBE-CC-004-confidence-review.mdc",
+      "NC-LBE-CC-005-session-mate.mdc",
+      "NC-LBE-CC-006-project-config.mdc",
+      "NC-LBE-CC-007-plugin-template.mdc",
+      "NC-LBE-CC-008-pulse-daemon.mdc",
+      "NC-LBE-CC-009-ttl-session-manager.mdc",
+      "NC-LBE-CC-010-feature-flags-channels.mdc"
+    ],
+    "C:\\Users\\Lucas Valrio\\Desktop\\TURBOQUANT_V42\\02_memory_lobes": [
+      "NC-LBE-INT-004-mission-control.mdc",
+      "NC-LBE-INT-005-pixel-agents.mdc"
+    ]
+  },
+  "documented_by_folder": {
+    "neocortex": [
+      "config.py"
+    ],
+    "neocortex\\agent": [
+      "executor.py"
+    ],
+    "neocortex\\cli": [
+      "main.py"
+    ],
+    "neocortex\\core": [
+      "agent_service.py",
+      "akl_service.py",
+      "benchmark_service.py",
+      "checkpoint_service.py",
+      "config_service.py",
+      "consolidation_service.py",
+      "cortex_service.py",
+      "export_service.py",
+      "file_utils.py",
+      "init_service.py",
+      "kg_service.py",
+      "ledger_service.py",
+      "lobe_service.py",
+      "manifest_service.py",
+      "NC-CFG-FR-001-logging-config.py",
+      "NC-CORE-FR-014-lock-guard.py",
+      "NC-CORE-FR-017-policy-loader.py",
+      "NC-CORE-FR-022-save-point-service.py",
+      "peers_service.py",
+      "profile_manager.py",
+      "profile_service.py",
+      "pulse_scheduler.py",
+      "regression_service.py",
+      "security_service.py"
+    ],
+    "neocortex\\core\\services": [
+      "NC-SVC-FR-001-logging-service.py",
+      "NC-SVC-FR-002-health-service.py",
+      "NC-SVC-FR-004-cache-service.py",
+      "NC-SVC-FR-005-event-bus.py",
+      "NC-SVC-FR-007-state-machine.py"
+    ],
+    "neocortex\\core\\utils": [
+      "NC-UTL-FR-001-yaml-safe-parser.py"
+    ],
+    "neocortex\\infra": [
+      "backup_restore.py",
+      "cache_backend.py",
+      "config_validation.py",
+      "health_metrics.py",
+      "hot_cache.py",
+      "ledger_store.py",
+      "lobe_index.py",
+      "manifest_store.py",
+      "metrics_store.py",
+      "profiler.py",
+      "search_engine.py",
+      "task_queue.py",
+      "vector_store.py"
+    ],
+    "neocortex\\infra\\llm": [
+      "backend.py",
+      "deepseek_backend.py",
+      "factory.py",
+      "ollama_backend.py",
+      "openai_backend.py"
+    ],
+    "neocortex\\mcp": [
+      "server.py",
+      "sub_server.py"
+    ],
+    "neocortex\\mcp\\tools": [
+      "NC-TOOL-FR-000-brain.py",
+      "NC-TOOL-FR-001-cortex.py",
+      "NC-TOOL-FR-002-agent.py",
+      "NC-TOOL-FR-003-benchmark.py",
+      "NC-TOOL-FR-004-checkpoint.py",
+      "NC-TOOL-FR-005-config.py",
+      "NC-TOOL-FR-006-export.py",
+      "NC-TOOL-FR-007-init.py",
+      "NC-TOOL-FR-008-ledger.py",
+      "NC-TOOL-FR-009-lobes.py",
+      "NC-TOOL-FR-010-peers.py",
+      "NC-TOOL-FR-011-pulse.py",
+      "NC-TOOL-FR-012-regression.py",
+      "NC-TOOL-FR-013-report.py",
+      "NC-TOOL-FR-014-search.py",
+      "NC-TOOL-FR-015-security.py",
+      "NC-TOOL-FR-016-subserver.py",
+      "NC-TOOL-FR-017-task.py",
+      "NC-TOOL-FR-019-project-manifest.py",
+      "NC-TOOL-FR-020-knowledge.py",
+      "NC-TOOL-FR-022-session.py",
+      "NC-TOOL-FR-023-orchestration.py",
+      "NC-TOOL-FR-024-governance.py",
+      "NC-TOOL-FR-025-system.py",
+      "NC-TOOL-FR-026-intelligence.py",
+      "NC-TOOL-FR-027-knowledge.py",
+      "NC-TOOL-FR-029-health.py",
+      "NC-TOOL-FR-030-context.py",
+      "NC-TOOL-FR-031-savepoint.py"
+    ],
+    "neocortex\\repositories": [
+      "base.py",
+      "file_system_repository.py"
+    ],
+    "neocortex\\schemas": [
+      "a2a_message_schema.json",
+      "ledger_schema.json"
+    ],
+    "DIR-DOC-FR-001-docs-main": [
+      "NC-ALN-FR-001-arquitetural-alignment.md",
+      "NC-AUD-FR-002-checklist-validation.md",
+      "NC-DOC-FR-002-directory-convention.md",
+      "NC-MAN-FR-001-project-manifest.json",
+      "NC-MAN-FR-001-project-manifest.md",
+      "NC-NAM-FR-001-naming-convention.md",
+      "NC-TODO-FR-001-project-roadmap-consolidated.md"
+    ],
+    "DIR-DOC-FR-001-docs-main\\legacy": [
+      "CHEATSHEET.md"
+    ],
+    "DIR-PRF-FR-001-profiles-main": [
+      "NC-PRF-FR-001-developer-schema.md",
+      "NC-PRF-FR-002-team-schema.md",
+      "NC-PRF-FR-003-profile-loader.py",
+      "profile_manager.py"
+    ],
+    "DIR-PRF-FR-001-profiles-main\\templates": [
+      "NC-PRF-TMP-001-dev-profile-template.json"
+    ],
+    "DIR-PRF-FR-001-profiles-main\\users\\lucas_valerio": [
+      "NC-PRF-USR-001-profile.json"
+    ],
+    "scripts": [
+      "create_lobes.py",
+      "exhaustive_population.py",
+      "extract_tools_robust.py",
+      "fix_indentation.py",
+      "generate_all_manifests.py",
+      "inspect_config.py",
+      "migrate_to_stores.py",
+      "NC-SCR-FR-003-manifest-factory.py",
+      "neocortex_hud.py",
+      "populate_memory.py",
+      "saneamento_raiz.py",
+      "test_llm_backends.py",
+      "update_ledger_with_tools.py",
+      "update_mcp_config.py",
+      "update_mcp_config2.py",
+      "update_phase3_progress.py"
+    ],
+    "lobes\\courier": [
+      "neocortex_config.yaml"
+    ],
+    "lobes\\courier\\DIR-CORE-FR-001-core-central": [
+      "memory_ledger_courier.json"
+    ],
+    "lobes\\courier\\DIR-CORE-FR-001-core-central\\.agents\\rules": [
+      "00-cortex-STARTER.mdc"
+    ],
+    "lobes\\engineer": [
+      "neocortex_config.yaml"
+    ],
+    "lobes\\engineer\\DIR-CORE-FR-001-core-central": [
+      "memory_ledger_engineer.json"
+    ],
+    "lobes\\engineer\\DIR-CORE-FR-001-core-central\\.agents\\rules": [
+      "00-cortex-STARTER.mdc"
+    ]
+  }
+}

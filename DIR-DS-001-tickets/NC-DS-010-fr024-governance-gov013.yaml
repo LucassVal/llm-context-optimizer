@@ -1,0 +1,85 @@
+assigned_to: DS-C
+completed_at: '2026-04-15T13:39:18.423564'
+created_at: '2026-04-12T17:10:00'
+created_by: antigravity-t0
+description: 'Dois entregáveis neste ticket:
+
+
+  1. FR-024 — neocortex_governance tool (última das 10 tools MCP)
+
+  2. GOV-013 — padronização de timestamp ISO 8601 em todos os artefatos novos
+
+
+  Com isso: 10/10 tools MCP concluídas + timestamp padronizado.
+
+  '
+entry_state:
+  context_files:
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-023-orchestration.py
+  locks_file: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml
+exit_state:
+  files_created:
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-024-governance.py
+  files_modified: null
+forbidden_zone:
+- neocortex/mcp/server.py
+- neocortex/mcp/sub_server.py
+- DIR-CFG-FR-001-config-main/neocortex_config.yaml
+- DIR-RES-CC-001-claude-leak-workzone/
+handoff_ref: NC-DS-010-handoff-20260415T133918-retrospective.yaml
+integrity_hash: da1afa68eb2fd8ef
+limits:
+  escalate_after_rounds: 5
+  max_rounds: 7
+  max_tokens_per_phase: 5000
+methodology: '1. Ler NC-TODO-FR-001 para entender FR-024 no contexto
+
+  2. Ler NC-TOOL-FR-023-orchestration.py para padrão de estrutura
+
+  3. Ler NC-SEC-FR-001-atomic-locks.yaml para entender o que governance deve validar
+
+  4. Implementar NC-TOOL-FR-024-governance.py com 8 ações
+
+  5. Todos os timestamps no arquivo usar formato ISO 8601 completo (GOV-013)
+
+  6. py_compile → grep NC- → ssot_update (ADD linha em NC-NAM-FR-001)
+
+  7. Roadmap: marcar FR-024 %DONE e GOV-013 (parcial)
+
+  8. Gerar handoff PENDING_REVIEW
+
+  '
+part_1_fr024:
+  actions:
+  - policy.check — validar se uma ação viola alguma policy
+  - audit.replay — re-executar audit trail de uma sessão
+  - compliance.report — gerar relatório de conformidade
+  - lock.validate — verificar integridade dos atomic locks
+  - rule.list — listar todas as regras ativas por categoria
+  - session.contracts — listar contratos de sessão ativos
+  - violation.log — registrar violação detectada
+  - ssot.diff — comparar estado atual vs SSOT esperado
+  description: Tool MCP de governança — policy enforcement, audit trail e compliance
+  padrao: 'Ler NC-TOOL-FR-023-orchestration.py como referência de estrutura.
+
+    Seguir mesmo padrão: register_tool(server) + TOOL_MODULE_MAP entry.
+
+    importlib.import_module para sub-tools com hífen.
+
+    get_config() para paths. logger = logging.getLogger(__name__).
+
+    '
+  tool_name: neocortex_governance
+part_2_gov013:
+  description: Padronizar timestamp em todos os NOVOS artefatos gerados
+  format: YYYY-MM-DDTHH:MM:SS
+  nota: GOV-013 global (todos os artefatos existentes) = ticket futuro separado
+  scope: Apenas no arquivo NC-TOOL-FR-024 que será criado neste ticket
+priority: HIGH
+roadmap_ticket: FR-024
+status: DONE
+ticket_id: NC-DS-010
+title: FR-024 neocortex_governance + GOV-013 padronização timestamp ISO 8601
+write_zone:
+- 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-024-*.py

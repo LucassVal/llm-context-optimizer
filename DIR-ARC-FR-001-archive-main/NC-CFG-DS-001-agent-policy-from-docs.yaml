@@ -1,0 +1,47 @@
+# NC-CFG-DS-001-agent-policy.yaml
+# Policy do agente DeepSeek T1 (subordinado)
+# Conforme R13: cada sub-servidor deve ter policy própria
+# Referência: NC-CFG-FR-001-agent-policy-template.yaml
+
+agent:
+  id: deepseek-t1
+  role: executor
+  tier: T1
+  model: deepseek-chat
+  base_url: "https://api.deepseek.com"
+  lobe: NC-LBE-DS-001-deepseek-agent.mdc
+  sandbox_port: 8766
+
+permissions:
+  read:
+    - "01_neocortex_framework/neocortex/mcp/tools/**"
+    - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/**"
+    - "DIR-DS-001-tickets/**"
+  write:
+    - "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-0[2-3][0-9]-*.py"  # apenas tools novas
+    - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
+    - "DIR-DS-002-audit-logs/**"
+  forbidden:                   # @LOCKS — NUNCA TOCAR
+    - "**/server.py"
+    - "**/sub_server.py"
+    - "**/NC-NAM-FR-001-naming-convention.md"   # somente append na seção de tools
+    - "**/neocortex_config.yaml"
+    - "**/NC-TODO-FR-001-project-roadmap-consolidated.md"  # somente %DONE em linha existente
+
+limits:
+  max_tokens_per_phase: 4000
+  max_validation_rounds: 5
+  escalate_after_failures: 3
+  max_files_per_ticket: 3      # máximo de arquivos criados por ticket (evitar scope creep)
+
+handoff:
+  output_dir: "DIR-DS-002-audit-logs/"
+  template: "DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml"
+  status_field: "status"
+  pending_value: "PENDING_REVIEW"
+  approved_by: "antigravity-t0"
+
+escalation:
+  trigger: "3 failed validation rounds OR risk_level=HIGH"
+  escalate_to: "antigravity-t0"
+  method: "Depositar handoff_to_t0.json com status=ESCALATED em DIR-DS-002-audit-logs/"

@@ -1,0 +1,25 @@
+{
+  "ticket_id": "NC-DS-004",
+  "roadmap_ticket": "FR-023",
+  "timestamp": "2026-04-12T15:43:22",
+  "phase": "0",
+  "entry_state": {
+    "write_zone": "01_neocortex_framework/neocortex/mcp/tools/",
+    "files_exist": [
+      "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-016-subserver.py",
+      "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-017-task.py",
+      "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-010-peers.py",
+      "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-029-health.py"
+    ],
+    "files_must_not_exist": [
+      "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-023-orchestration.py"
+    ],
+    "active_locks": [
+      "server.py",
+      "sub_server.py",
+      "NC-NAM-FR-001",
+      "neocortex_config.yaml"
+    ],
+    "lock_files_present": true
+  }
+}

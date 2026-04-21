@@ -1,3 +1,15 @@
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:57.272695'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+tags:
+  - neocortex-other
+  - level-0
+  - python
+---"""
 #!/usr/bin/env python3
 """
 NeoCortex CLI Tool
@@ -49,9 +61,9 @@ def main():
         return 1
 
     if args.command == "server":
-        from neocortex.mcp.server import create_mcp_server, FAST_MCP_AVAILABLE
+        from neocortex.mcp.server import FAST_MCP_AVAILABLE, create_mcp_server
 
-        print(f"Starting NeoCortex MCP server...")
+        print("Starting NeoCortex MCP server...")
 
         # Create server
         server = create_mcp_server()
@@ -92,8 +104,9 @@ def main():
                 print(f"  {key}: {value}")
 
     elif args.command == "tools":
-        from neocortex.mcp.server import create_mcp_server
         import asyncio
+
+        from neocortex.mcp.server import create_mcp_server
 
         server = create_mcp_server()
         # FastMCP uses list_tools() method (async)
@@ -110,7 +123,7 @@ def main():
                 return 0
             for tool in tools:
                 name = getattr(tool, "name", "Unknown")
-                print(f"• {name}")
+                print(f" {name}")
             return 0
         else:
             # Fallback for MockMCP
@@ -133,7 +146,7 @@ def main():
 
             for tool in tools:
                 name = getattr(tool, "name", "Unknown")
-                print(f"• {name}")
+                print(f" {name}")
             return 0
 
     elif args.command == "version":

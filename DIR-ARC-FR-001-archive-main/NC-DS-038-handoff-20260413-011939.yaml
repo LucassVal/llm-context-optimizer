@@ -1,0 +1,13 @@
+ticket_id: NC-DS-038
+status: PENDING_REVIEW
+lines_added: 119
+files_modified:
+  - 01_neocortex_framework/neocortex/core/utils/NC-UTL-FR-004-id-validator.py
+  - 01_neocortex_framework/neocortex/core/utils/__init__.py
+summary: |
+  Validador de IDs e constantes compartilhadas implementado, com padrões para ticket, worker, session, nc_file, lobe, checksum SHA-256 truncado, geração de IDs e constante EXIT_CODE_PERMANENT=42.
+ajustes_aplicados:
+  - EXIT_CODE_PERMANENT=42 exportado como constante
+  - Padrões regex para IDs NeoCortex
+  - Checksum SHA-256[:4] para validação de integridade
+  - Geração de session ID e worker ID

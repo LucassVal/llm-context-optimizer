@@ -1,0 +1,15 @@
+# .nc/config.yaml — Exemplo de config local de projeto
+# Override local: prevalece sobre neocortex_config.yaml global
+project:
+  name: "MeuProjeto"
+  version: "1.0.0"
+
+feature_flags:
+  kairos_channels: false
+  kairos_push_notification: false
+
+mcp:
+  timeout_seconds: 30
+
+logging:
+  level: "INFO"

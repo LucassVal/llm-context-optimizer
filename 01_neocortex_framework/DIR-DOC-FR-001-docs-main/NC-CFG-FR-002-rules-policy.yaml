@@ -14,6 +14,7 @@ meta:
     - ".agents/rules/NC-RULE-003-lobes-memory.mdc"
     - ".agents/rules/NC-RULE-004-filesystem.mdc"
   ubiquitous_language: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-DOC-FR-001-ubiquitous-language-dictionary.md"
+  md_file: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-CFG-FR-002-rules-policy.md"
 
 # ─────────────────────────────────────────────────────────────────────────────
 # REGRAS CRÍTICAS (enforcement automático pelo SecurityService)

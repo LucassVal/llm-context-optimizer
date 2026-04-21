@@ -1,0 +1,34 @@
+ticket_id: "NC-DS-094"
+status: APPROVED
+closed_at: "2026-04-16T12:00:00-03:00"
+closed_by: "T0-Claude-Code"
+
+summary: |
+  SSOT + Dicionário Ubíquo: símbolos faltantes adicionados + @LOCKS corrigido + sys.modules fix
+
+files_modified:
+  - path: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-DOC-FR-001-ubiquitous-language-dictionary.md"
+    action: ADD_SYMBOLS
+    detail: "Adicionados $DEEPSEEK, $WORKER_PATTERNS, $PICOCLAW_ARCHITECTURE, $ANTIGRAVITY, $MISSION_CTRL, $PIXEL_AGENTS na tabela $"
+  - path: "01_neocortex_framework/lobes/cc-leak/NC-LBE-CC-002-hooks-system.mdc"
+    action: FIX_TAGS
+    detail: "@LOCKS → @LOCKS (6 ocorrências corrigidas)"
+  - path: "01_neocortex_framework/lobes/cc-leak/NC-LBE-CC-004-confidence-review.mdc"
+    action: FIX_TAGS
+    detail: "@LOCKS → @LOCKS (6 ocorrências corrigidas)"
+  - path: "01_neocortex_framework/lobes/cc-leak/NC-LBE-CC-006-project-config.mdc"
+    action: FIX_TAGS
+    detail: "@LOCKS → @LOCKS (4 ocorrências corrigidas)"
+  - path: "01_neocortex_framework/scripts/NC-SCR-FR-009-sanitize-all-yamls.py"
+    action: FIX_IMPORTLIB
+    detail: "sys.modules['tag_normalizer'] = _norm_mod antes de exec_module (Python 3.12+ @dataclass fix)"
+
+validation:
+  - "NC-DOC-FR-001: 6 novos símbolos $ adicionados com paths e descrições corretas"
+  - "CC-002: grep @LOCK[^S] → 0 ocorrências após fix"
+  - "CC-004: grep @LOCK[^S] → 0 ocorrências após fix"
+  - "CC-006: grep @LOCKED → 0 ocorrências após fix"
+  - "NC-SCR-FR-009: sys.modules pattern idêntico ao security_service.py (validado)"
+
+lines_added: 18
+confidence_score: 95

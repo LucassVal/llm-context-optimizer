@@ -1,10 +1,24 @@
 #!/usr/bin/env python3
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:57.068545'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: mcp-server
+level: 3
+parent_ssot: NC-MCP-FR-001-mcp-server
+tags:
+  - mcp-server
+  - level-3
+  - python
+---"""
+
 """
 List all tools from NeoCortex MCP server without starting the server.
 """
 
-import sys
 import os
+import sys
 
 # Prevent main from running
 sys.modules["__main__"] = type(sys)("__main__")

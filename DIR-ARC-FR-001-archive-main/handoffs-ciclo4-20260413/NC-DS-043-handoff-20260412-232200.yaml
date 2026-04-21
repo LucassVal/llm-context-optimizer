@@ -1,0 +1,25 @@
+ticket_id: NC-DS-043
+status: APPROVED
+lines_added: 773
+files_created:
+  - 01_neocortex_framework/lobes/cc-leak/NC-LBE-CC-008-pulse-daemon.mdc
+  - 01_neocortex_framework/lobes/cc-leak/NC-LBE-CC-009-ttl-session-manager.mdc
+  - 01_neocortex_framework/lobes/cc-leak/NC-LBE-CC-010-feature-flags-channels.mdc
+  - DIR-RES-CC-001-claude-leak-workzone/NC-RES-CC-003-validation-scheduling-ttl-flags.md
+files_modified:
+  - DIR-RES-CC-001-claude-leak-workzone/analysis-session-a/NC-ANA-CC-005-kairos-deep.md
+summary: |
+  Analista de Documentação NeoCortex concluiu PARTE 1 (sub‑lobes CC‑008 a CC‑010),
+  PARTE 2 (pesquisa internet com 11 palavras‑chave) e PARTE 3 (adição da seção F
+  em NC‑ANA‑CC‑005‑kairos‑deep.md). Documentação detalha mapeamento KAIROS → PulseDaemon,
+  TTLs reais do Claude Code, feature flags, channel notifications e validação de IDs.
+  Entregáveis prontos para revisão T0.
+timestamp: 2026-04-12T23:22:00
+worker_claim: worker-{PORT}-{HASH}
+handoff_type: documentation
+review_notes: |
+  - Verificar se os lobes atingem mínimo de linhas (CC‑008:164, CC‑009:168, CC‑010:169, pesquisa:252).
+  - Validar mapeamentos com NC‑STR‑CC‑001.
+  - Garantir que não há referências a server.py/sub_server.py.
+approved_at: "2026-04-13T00:04:26"
+approved_by: antigravity-t0

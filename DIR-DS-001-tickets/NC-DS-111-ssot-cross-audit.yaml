@@ -1,0 +1,118 @@
+ticket_id: "NC-DS-111"
+status: "OPEN"
+priority: "MEDIUM"
+title: "AUDIT-001 — Cross-audit SSOT vs arquivos físicos: mapear drift completo"
+created_at: "2026-04-16T11:00:00-03:00"
+created_by: "T0-Claude-Code"
+agent: "AGENTE-D"
+sprint: "FASE-1-MCP-MC"
+
+context:
+  gap: "G13"
+  origin: "NC-DS-049 AUDIT-001 status '?' — cross-audit nunca executado"
+  problem: |
+    O NC-NAM-FR-001 (SSOT de nomenclatura) declara artefatos que podem não existir
+    fisicamente, e existem arquivos físicos que não estão no SSOT. Esse drift
+    causa confusão em qualquer agente que lê o SSOT para tomar decisões.
+
+task:
+  description: |
+    Executar NC-SCR-FR-023-ssot-auditor.py e NC-SCR-FR-024-structural-auditor.py:
+
+    1. python NC-SCR-FR-023-ssot-auditor.py
+       → gera ssot_audit_report.json em DIR-DOC-FR-001-docs-main/
+    2. python NC-SCR-FR-024-structural-auditor.py
+       → gera structural_audit_report.md em DIR-DOC-FR-001-docs-main/
+
+    3. Analisar os relatórios:
+       a. Artefatos no SSOT sem arquivo físico → listar como "declared but missing"
+       b. Arquivos físicos NC-* sem entrada no SSOT → listar como "orphan files"
+       c. Discrepâncias de path → listar como "path mismatch"
+
+    4. Atualizar NC-NAM-FR-001 (SSOT) para refletir estado real:
+        ATENÇÃO: NC-NAM-FR-001 é @LOCKS (ssot_docs) — APENAS registrar drift no
+       relatório. NÃO editar NC-NAM-FR-001 diretamente. Criar ticket separado
+       NC-DS-114 para aprovação do T0 antes de editar o SSOT.
+
+    5. Salvar relatório consolidado: DIR-DOC-FR-001-docs-main/ssot_audit_report.md
+       com seções: missing, orphans, mismatches, summary
+
+  acceptance_criteria:
+    - "ssot_audit_report.json e structural_audit_report.md gerados"
+    - "Relatório consolidado com 3 seções: missing/orphans/mismatches"
+    - "NC-NAM-FR-001 NÃO modificado (drift apenas documentado)"
+    - "Ticket NC-DS-114 criado para correção do SSOT (se drift > 5 itens)"
+
+write_zone:
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/ssot_audit_report.json"
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/ssot_audit_report.md"
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/structural_audit_report.md"
+  - "DIR-DS-002-audit-logs/"
+
+atomic_locks_proibidos:
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml"
+  - "01_neocortex_framework/neocortex/mcp/server.py"
+  - "01_neocortex_framework/neocortex/mcp/sub_server.py"
+
+entry_state: "Drift SSOT vs físico desconhecido — não há relatório"
+exit_state: "Relatório completo de drift gerado. Ticket NC-DS-114 criado se necessário."
+integrity_hash: "NC-DS-111-v1.0-20260416"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PROTOCOLO OBRIGATÓRIO PARA O AGENTE (ler ANTES de qualquer ação)
+# ─────────────────────────────────────────────────────────────────────────────
+protocolo_agente:
+
+  step_0_obrigatorio:
+    descricao: 'Ler estes recursos ANTES de começar qualquer implementação'
+    recursos:
+      - path: 'DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml'
+        motivo: 'Template oficial do handoff que você DEVE gerar ao concluir'
+      - path: '01_neocortex_framework/DIR-TMP-FR-001-templates-main/'
+        motivo: 'Central de templates — exemplos de YAML, JSON, manifests, processos'
+      - path: '01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.yaml'
+        motivo: '20 regras de governança — obrigatório seguir'
+      - path: '01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml'
+        motivo: 'Arquivos que NUNCA podem ser tocados'
+
+  regra_duvida:
+    instrucao: |
+      EM CASO DE QUALQUER DÚVIDA — parar imediatamente e retornar ao T0.
+      NÃO assumir, NÃO adivinhar, NÃO improvisar.
+      Retornar com: (1) o que foi feito até agora, (2) qual é a dúvida exata,
+      (3) quais são as opções que você vê. T0 decide e você continua.
+    exemplos_de_quando_parar:
+      - 'Não encontrei o arquivo mencionado no ticket'
+      - 'A API do serviço é diferente do que o ticket descreve'
+      - 'A mudança que preciso fazer toca um arquivo @LOCKS'
+      - 'Dois caminhos são possíveis e não sei qual escolher'
+      - 'O script que devia existir não existe'
+
+  handoff_obrigatorio:
+    descricao: 'Gerar handoff YAML ao concluir — sem exceção'
+    destino: 'DIR-DS-002-audit-logs/NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml'
+    template: 'DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml'
+    campos_obrigatorios:
+      - 'ticket_id'
+      - 'status'        # APPROVED | PARTIALLY_COMPLETED | FAILED | ESCALATED
+      - 'summary'
+      - 'files_created'
+      - 'files_modified'
+      - 'locks_violated'  # DEVE ser lista vazia para APPROVED
+      - 'checklist_r20'
+    checklist_r20:
+      naming_convention: 'Todos os arquivos criados seguem NC-<TIPO>-<SIGLA>-<NUM>'
+      no_print_statements: 'Zero print() — usar logger'
+      ssot_updated: 'Se criou artefato novo — NC-NAM-FR-001 foi atualizado'
+      no_locked_files_modified: 'Nenhum arquivo @LOCKS foi tocado'
+      handoff_yaml_complete: 'Este handoff está completo'
+      roadmap_marked: '%DONE marcado no @ROADMAP para este ticket'
+
+  falha_ou_bloqueio:
+    instrucao: |
+      Se falhar ou ficar bloqueado:
+      1. Gerar handoff com status: FAILED ou ESCALATED
+      2. Incluir no campo summary o que foi tentado e por que falhou
+      3. NÃO silenciar o erro — registrar tudo
+      4. Retornar ao T0 com o handoff

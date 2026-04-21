@@ -1,0 +1,112 @@
+<!-- module: deployment -->
+<!-- category: operations -->
+<!-- status: suggested -->
+<!-- suggested_by: opencode -->
+
+# Deploy e Operações
+
+Deploy, containers, orchestration e operações.
+
+## Propósito
+Gerenciar conhecimento específico do módulo deployment.
+
+## Status
+Sugerido
+
+## Tags
+#deployment, #framework, #neocortex
+
+## Checkpoints
+- CP-DEPLOYMENT-001: Criação inicial
+
+## Conteúdo Inicial
+*Este lobe está em construção. Adicione aqui:*
+
+### 1. Visão Geral
+- Objetivos principais
+- Escopo do módulo
+- Integrações com outros módulos
+
+### 2. Componentes Principais
+- Lista de componentes/classes
+- Responsabilidades
+- Dependências
+
+### 3. Padrões e Convenções
+- Padrões de código
+- Convenções de nomenclatura
+- Boas práticas
+
+### 4. Exemplos de Uso
+- Exemplos básicos
+- Casos de uso comuns
+- Configurações típicas
+
+### 5. Referências
+- Links para documentação
+- Arquivos relevantes no projeto
+- Exemplos externos
+
+## Notas
+- Criado automaticamente por OpenCode
+- Data: 2026-04-10 15:36:46
+- Revisão necessária para conteúdo específico do projeto
+
+## Deploy e Operações
+
+### Opções de Deploy
+1. **Local**: Python package, desenvolvimento
+2. **Docker**: Containerização
+3. **Kubernetes**: Orchestration
+4. **Serverless**: AWS Lambda, Azure Functions
+
+### Docker
+```dockerfile
+FROM python:3.11-slim
+WORKDIR /app
+COPY . .
+RUN pip install -e .
+CMD ["neocortex", "server", "--stdio"]
+```
+
+### Kubernetes
+- Deployment para MCP server
+- ConfigMap para configurações
+- Secret para tokens e chaves
+- Service para exposição
+
+### CI/CD
+- GitHub Actions para build e testes
+- Docker image auto-build
+- Automated deployment to staging/prod
+
+### Monitoramento
+- Health checks: /health endpoint
+- Metrics: Prometheus metrics
+- Logs: Structured logging (JSON)
+- Alerts: AlertManager integration
+
+
+# NC-LBE-FR-DEPLOYMENT-001
+
+Deploy, CI/CD, infraestrutura
+
+## Status
+Ativo (povoado automaticamente)
+
+## Tags
+#deployment, #framework, #neocortex, #auto_populated
+
+## Checkpoints
+- CP-DEPLOYMENT-001: Criação inicial
+- CP-DEPLOYMENT-002: Povoamento automático
+
+
+## Contexto do Projeto
+- **Nome do projeto**: N/A
+- **Total de arquivos no projeto**: 0
+
+## Notas de Povoamento
+- Povoado automaticamente por OpenCode
+- Data: 2026-04-10 15:57:54
+- Foco da análise: deployment_config, ci_cd, infrastructure

@@ -1,0 +1,16 @@
+# DIR-DS-002-audit-logs/NC-DS-036-handoff-20260413-005523.yaml
+ticket_id: NC-DS-036
+status: PENDING_REVIEW
+lines_added: 215
+files_modified:
+  - 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-011-ttl-manager.py
+summary: |
+  TTLManager completo com heapq+threading, TTL_CONSTANTS, start/stop, EventBus integration.
+ajustes_aplicados:
+  - Código base de @RES003 linhas 150-179 utilizado como partida
+  - TTL_CONSTANTS: 18000s, 300s, 3600s, 60s, 300s
+  - Evento entity_expired publicado via EventBus com try/except
+  - Implementados métodos register, refresh, cancel, get_remaining, list_active, start, stop, _check_expirations
+  - Thread background com verificação periódica de expirações
+  - Singleton pattern com get_ttl_manager()
+re_entrega_motivo: "Entrega anterior 41L era stub — re-entrega com >=150L"

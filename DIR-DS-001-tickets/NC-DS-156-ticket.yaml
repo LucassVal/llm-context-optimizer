@@ -1,0 +1,8 @@
+ticket_id: "NC-DS-156"
+title: "Zero-Trust RBAC Authentication for PicoClaw"
+status: "OPEN"
+priority: "HIGH"
+created: "2026-04-21T19:49:52"
+agent: "T0"
+description: |
+  Implementar validação Zero-Trust nas ferramentas de governança, migrando do atual parâmetro 'role' em plaintext para um sistema baseado em Tokens Criptográficos (JWT/Context Hash) com intercepção direta no novo gateway em Rust. Rejeitar ações proibidas pela constituição.

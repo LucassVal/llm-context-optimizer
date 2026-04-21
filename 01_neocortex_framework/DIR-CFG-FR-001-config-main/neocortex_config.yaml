@@ -43,6 +43,7 @@ llm:
 
 # Paths configuration (relative to project root)
 paths:
+  memory_lobes: "02_memory_lobes"
   core_central: "DIR-CORE-FR-001-core-central"
   archive: "DIR-ARC-FR-001-archive-main"
   backup: "DIR-BAK-FR-001-backup-main"

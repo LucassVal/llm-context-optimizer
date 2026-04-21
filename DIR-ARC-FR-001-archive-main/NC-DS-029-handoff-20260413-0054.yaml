@@ -1,0 +1,19 @@
+ticket_id: NC-DS-029
+status: PENDING_REVIEW
+lines_added: 135
+files_modified:
+  - DIR-DS-000-agent-config/NC-PROMPT-DS-003-persistent-worker.md
+summary: |
+  Prompt de sistema para worker persistente em loop contínuo, conforme ajustes da pesquisa:
+  - Loop síncrono com sleep(10) e backoff exponencial 10→20→40s após erros consecutivos
+  - Classe PersistentWorker com start/stop/pause (referência)
+  - Heartbeat interno a cada 60s (log)
+  - EXIT_CODE_PERMANENT = 42 mencionado
+  - Protocolo FILE_LOCK copiado de NC-PROMPT-DS-002
+  - Checklist pré‑entrega R20 adaptado e template de handoff incluídos
+ajustes_aplicados:
+  - Backoff exponencial 10→20→40s implementado
+  - Classe PersistentWorker com start/stop/pause
+  - Heartbeat interno a cada 60s
+  - FILE_LOCK protocol reutilizado
+  - Referência a EXIT_CODE_PERMANENT = 42

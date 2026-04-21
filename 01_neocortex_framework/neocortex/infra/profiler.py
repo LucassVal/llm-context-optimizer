@@ -1,3 +1,15 @@
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:59.619973'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+tags:
+  - neocortex-other
+  - level-0
+  - python
+---"""
 #!/usr/bin/env python3
 """
 Performance profiler for NeoCortex infrastructure.
@@ -7,18 +19,18 @@ recommendations for NeoCortex components.
 """
 
 import cProfile
+import functools
+import json
+import logging
 import pstats
 import time
 import tracemalloc
-import logging
-import json
-from pathlib import Path
-from typing import Dict, Any, List, Optional, Callable, Union, TextIO
-from datetime import datetime, timedelta
-from dataclasses import dataclass, asdict, field
-from enum import Enum
 from contextlib import contextmanager
-import functools
+from dataclasses import asdict, dataclass, field
+from datetime import datetime, timedelta
+from enum import Enum
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Union
 
 logger = logging.getLogger(__name__)
 
@@ -556,7 +568,7 @@ class Profiler:
         lines.append("-" * 40)
 
         if not report_data["bottlenecks"]:
-            lines.append("  ✅ No bottlenecks detected")
+            lines.append("   No bottlenecks detected")
         else:
             for i, bottleneck in enumerate(report_data["bottlenecks"], 1):
                 lines.append(
@@ -633,7 +645,7 @@ class Profiler:
         """
 
         if not report_data["bottlenecks"]:
-            html += "<p>✅ No bottlenecks detected</p>"
+            html += "<p> No bottlenecks detected</p>"
         else:
             for bottleneck in report_data["bottlenecks"]:
                 html += f"""

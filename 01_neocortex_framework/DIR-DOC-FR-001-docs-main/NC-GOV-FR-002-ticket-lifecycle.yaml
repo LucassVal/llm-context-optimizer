@@ -1,0 +1,196 @@
+# NC-GOV-FR-002-ticket-lifecycle.yaml
+# Companion YAML para NC-GOV-FR-002-ticket-lifecycle.md
+# Machine-readable ticket lifecycle protocol for NeoCortex routines
+# Consumido pelo SecurityService e scripts de auditoria
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  version: "1.0"
+  hash: "TICKET-LIFECYCLE-v1.0"
+  description: "Ticket Lifecycle Protocol — machine-readable companion to NC-GOV-FR-002-ticket-lifecycle.md"
+  md_file: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-002-ticket-lifecycle.md"
+  generated_at: "2026-04-14"
+  generated_by: "opencode (DeepSeek-Reasoner)"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ESTÁGIOS DO CICLO DE VIDA
+# ─────────────────────────────────────────────────────────────────────────────
+lifecycle_stages:
+  creation:
+    id: "STAGE-01"
+    description: "Identificar necessidade e criar ticket YAML"
+    required_fields:
+      - "id"
+      - "title"
+      - "task"
+      - "entry_state"
+      - "exit_state"
+      - "integrity_hash"
+    validation_script: "NC-SCR-FR-006-ticket-validator.py"
+    success_criteria: "Ticket criado com integrity_hash válido"
+
+  opening:
+    id: "STAGE-02"
+    description: "Colocar ticket em estado pronto para execução"
+    actions:
+      - "add_to_queue: NC-CFG-DS-004-task-queue.yaml"
+      - "assign_to_agent"
+      - "update_bootup_section_9_if_critical"
+      - "CREATE_DISPATCH_YAML_OBRIGATORIO"  # ← R24 — ver dispatch_protocol abaixo
+    validation: "Ticket aparece na fila (se aplicável)"
+    dispatch_yaml_rule: |
+      OBRIGATÓRIO antes de despachar qualquer agente T1:
+      Criar NC-DS-AGT-{ID}-dispatch-{tickets}.yaml em DIR-DS-001-tickets/
+      usando template NC-TPL-FR-002-agent-dispatch.yaml.
+      Sem dispatch YAML = despacho inválido (R24).
+
+  verification:
+    id: "STAGE-03"
+    description: "Validar pré-condições (entry_state) antes de executar"
+    checks:
+      - "files_exist: todos os arquivos listados existem"
+      - "files_must_not_exist: nenhum arquivo proibido existe"
+      - "active_locks: locks atômicos intactos"
+    validation_script: "NC-SCR-FR-006-ticket-validator.py"
+    block_if_fail: true
+
+  execution:
+    id: "STAGE-04"
+    description: "Realizar trabalho descrito no ticket"
+    actions:
+      - "follow_task_description"
+      - "respect_barriers"
+      - "update_ssot_if_creates_renames"
+      - "run_lint_typecheck"
+    success_criteria: "exit_state alcançado"
+
+  closure:
+    id: "STAGE-05"
+    description: "Gerar handoff como evidência de conclusão"
+    required_artifacts:
+      - "handoff_yaml: DIR-DS-002-audit-logs/NC-DS-*-handoff-*.yaml"
+    required_fields:
+      - "ticket_id"
+      - "status"
+      - "timestamp"
+      - "summary"
+      - "checklist_r20"
+    status_options:
+      - "APPROVED"
+      - "PARTIALLY_COMPLETED"
+      - "FAILED"
+      - "CANCELLED"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CLASSIFICAÇÃO DE TICKETS ÓRFÃOS
+# ─────────────────────────────────────────────────────────────────────────────
+orphan_classification:
+  template:
+    criterion: "Contém 'Ticket de Exemplo' ou 'Copie e adapte'"
+    action: "keep_as_reference"
+    rename_suggestion: "TEMPLATE-*.yaml"
+
+  placeholder:
+    criterion: "task.description vazio ou 'TODO'/'TBD'"
+    action: "complete_or_archive"
+    max_age_days: 30
+
+  active:
+    criterion: "Possui integrity_hash e task definida"
+    action: "create_handoff_or_mark_cancelled"
+    priority: "high"
+
+  incomplete:
+    criterion: "Falta campos obrigatórios ou estrutura inválida"
+    action: "fix_or_delete"
+    max_age_days: 7
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PROTOCOLO DE AUDITORIA (CICLO 4)
+# ─────────────────────────────────────────────────────────────────────────────
+audit_protocol:
+  frequency: "weekly"
+  scripts:
+    - "audit_tickets.py"
+    - "classify_tickets.py"
+    - "NC-SCR-FR-066-bootup-sync.py"
+  outputs:
+    - "DIR-DS-002-audit-logs/ticket_audit_report.md"
+    - "DIR-DS-002-audit-logs/ticket_classification_report.md"
+    - "DIR-DS-002-audit-logs/active_orphaned_tickets.md"
+  actions:
+    - "identify_orphans"
+    - "classify_orphans"
+    - "resolve_orphans"
+    - "update_bootup"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# INTEGRAÇÃO COM BOOTUP
+# ─────────────────────────────────────────────────────────────────────────────
+bootup_integration:
+  section_6_frentes_ativas:
+    rule: "Apenas tickets com handoff APPROVED nos últimos 7 dias"
+    update_script: "NC-SCR-FR-066-bootup-sync.py"
+    frequency: "end_of_cycle_3"
+
+  section_9_tickets_criticos:
+    rule: "Tickets bloqueantes pré-MCP (SAVE-005, ORCH-301, ORCH-302)"
+    update_manual: true
+
+# ─────────────────────────────────────────────────────────────────────────────
+# REFERÊNCIAS CRUZADAS
+# ─────────────────────────────────────────────────────────────────────────────
+cross_references:
+  ssot: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
+  roadmap_fr: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md"
+  roadmap_ds: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-TODO-DS-001-roadmap-pre-mcp.md"
+  atomic_locks: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml"
+  rules_policy: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-CFG-FR-002-rules-policy.yaml"
+  four_cycle_validation: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-CYC-FR-001-4-cycle-validation.md"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CHECKLIST DE CONFORMIDADE (simplificado para machine-readable)
+# ─────────────────────────────────────────────────────────────────────────────
+compliance_checklist:
+  new_ticket:
+    - "naming_pattern: NC-DS-XXX-CODE-*.yaml"
+    - "required_fields_present: id, title, task, entry_state, exit_state"
+    - "required_field_protocolo_agente: bloco protocolo_agente presente"
+    - "integrity_hash_calculated: SHA-256[:16] of id|write_zone|title"
+    - "roadmap_ticket_referenced"
+    - "write_zone_exists"
+    - "active_locks_listed"
+  dispatch:
+    - "dispatch_yaml_exists: NC-DS-AGT-{ID}-dispatch-{tickets}.yaml em DIR-DS-001-tickets/"
+    - "dispatch_yaml_valid: yaml.safe_load sem erros"
+    - "dispatch_template_used: NC-TPL-FR-002-agent-dispatch.yaml"
+    - "atomic_locks_listados_no_dispatch: campo atomic_locks_absolutos.files presente"
+    - "write_zones_listadas_no_dispatch: campo write_zones_autorizadas presente"
+    - "r21_presente: campo regra_zero_suposicoes com lei + como_retornar"
+    - "checklist_r20_presente: campo checklist_r20_por_handoff com ruff_ok + py_compile_ok"
+    - "entry_exit_state_presentes: campos entry_state e exit_state definidos"
+
+  handoff:
+    - "naming_pattern: NC-DS-XXX-handoff-<timestamp>.yaml"
+    - "ticket_id_matches_original"
+    - "status_reflects_reality"
+    - "summary_describes_work"
+    - "checklist_r20_complete"
+    - "referenced_in_ticket_context"
+
+  audit:
+    - "orphans_identified_and_classified"
+    - "handoffs_without_ticket_resolved"
+    - "bootup_updated_with_real_fronts"
+    - "report_generated"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# DICIONÁRIO DE LINGUAGEM UBÍQUA (extensão)
+# ─────────────────────────────────────────────────────────────────────────────
+ubiquitous_language_ext:
+  "@TICKET_LIFECYCLE": "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-002-ticket-lifecycle.md"
+  "%ORPHAN": "Ticket sem handoff correspondente (>30 dias)"
+  "%ACTIVE_ORPHAN": "Ticket com integrity_hash mas sem handoff"
+  "%HANDOFF_MISSING_TICKET": "Handoff YAML sem ticket correspondente"
+  "%CYCLE4_AUDIT": "Auditoria semanal de tickets órfãos"
+  "%BOOTUP_SYNC": "Atualização automática do bootup com frentes reais"

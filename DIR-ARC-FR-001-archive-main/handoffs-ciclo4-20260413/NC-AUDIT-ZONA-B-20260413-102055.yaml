@@ -1,0 +1,26 @@
+# DIR-DS-002-audit-logs/NC-AUDIT-ZONA-B-20260413-102055.yaml
+tipo: AUDITORIA
+zona: B
+ticket_ref: NC-AUDIT-001
+timestamp: "2026-04-13T10:25:35Z"
+agent_port: 44624
+files_audited: 20
+files_with_errors_before: 4
+files_with_errors_after: 3
+r09_violations: []
+r11_violations: [neocortex/mcp/tools/NC-TOOL-FR-001-cortex.py, neocortex/mcp/tools/NC-TOOL-FR-002-agent.py, neocortex/mcp/tools/NC-TOOL-FR-003-benchmark.py, neocortex/mcp/tools/NC-TOOL-FR-004-checkpoint.py, neocortex/mcp/tools/NC-TOOL-FR-005-config.py, neocortex/mcp/tools/NC-TOOL-FR-006-export.py, neocortex/mcp/tools/NC-TOOL-FR-007-init.py, neocortex/mcp/tools/NC-TOOL-FR-008-ledger.py, neocortex/mcp/tools/NC-TOOL-FR-009-lobes.py, neocortex/mcp/tools/NC-TOOL-FR-010-peers.py, neocortex/mcp/tools/NC-TOOL-FR-011-pulse.py, neocortex/mcp/tools/NC-TOOL-FR-012-regression.py, neocortex/mcp/tools/NC-TOOL-FR-014-search.py, neocortex/mcp/tools/NC-TOOL-FR-015-security.py, neocortex/mcp/tools/NC-TOOL-FR-016-subserver.py, neocortex/mcp/tools/NC-TOOL-FR-017-task.py, neocortex/mcp/tools/NC-TOOL-FR-019-project-manifest.py, neocortex/mcp/tools/NC-TOOL-FR-020-categories.py, neocortex/mcp/tools/NC-TOOL-FR-020-knowledge.py]
+r12_violations: []
+errors_fixed:
+  - {file: neocortex/mcp/tools/NC-TOOL-FR-020-knowledge.py, type: ruff, description: F811 Redefinition of unused `register_tool` from line 13}
+  - {file: neocortex/mcp/tools/NC-TOOL-FR-020-knowledge.py, type: ruff, description: F811 Redefinition of unused `register_tool` from line 64}
+  - {file: neocortex/mcp/tools/NC-TOOL-FR-020-knowledge.py, type: ruff, description: F811 Redefinition of unused `register_tool` from line 109}
+
+files_unfixable: []
+summary: |
+  Auditoria completa da Zona B (tools MCP). Foram encontrados erros.
+checklist:
+  py_compile_all_pass: true
+  ruff_all_pass: false
+  r09_compliant: true
+  no_locked_files_modified: true
+  handoff_complete: true

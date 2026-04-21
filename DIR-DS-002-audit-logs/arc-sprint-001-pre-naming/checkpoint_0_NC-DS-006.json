@@ -1,0 +1,29 @@
+{
+  "ticket_id": "NC-DS-006",
+  "roadmap_ticket": "FR-021",
+  "phase": "0",
+  "timestamp": "2026-04-12T16:30:00",
+  "entry_state": {
+    "write_zone": "01_neocortex_framework/neocortex/mcp/tools/",
+    "files_exist": [
+      "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-001-cortex.py",
+      "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-009-lobes.py",
+      "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-014-search.py",
+      "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-013-report.py",
+      "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-007-init.py"
+    ],
+    "files_must_not_exist": [
+      "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-021-memory.py"
+    ],
+    "active_locks": [
+      "server.py",
+      "sub_server.py",
+      "NC-NAM-FR-001",
+      "neocortex_config.yaml"
+    ],
+    "roadmap_status": ""
+  },
+  "validation": {
+    "pending_review_handoffs": []
+  }
+}

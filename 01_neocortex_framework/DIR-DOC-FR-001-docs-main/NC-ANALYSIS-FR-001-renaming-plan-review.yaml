@@ -1,0 +1,131 @@
+# NC-ANALYSIS-FR-001-renaming-plan-review.yaml
+# Análise do plano de renomeação gerado por NC-SCR-FR-060-courier-saneamento.py
+# Gerado: 2026-04-14 | Versão: 1.0
+
+metadata:
+  analysis_id: NC-ANALYSIS-FR-001-renaming-plan-review
+  generated: '2026-04-14T12:10:00-03:00'
+  status: PENDING_REVIEW
+  source_plan: DIR-DOC-FR-001-docs-main/renaming_plan.yaml
+  generator_script: NC-SCR-FR-060-courier-saneamento.py
+  analyst: opencode
+
+summary: |
+  Análise do plano de renomeação de 87 arquivos legados para nomenclatura NC-*.
+  O plano foi gerado automaticamente e está em status PENDING_REVIEW.
+  Esta análise identifica categorias, impactos e recomendações para execução segura.
+
+plan_overview:
+  total_files: 87
+  files_with_dependencies: 46
+  files_without_dependencies: 41
+  status: PENDING_REVIEW
+  generated_date: '2026-04-14'
+
+categories:
+  core_services:
+    count: 25
+    description: "Serviços core do framework NeoCortex"
+    examples:
+      - old: neocortex/core/security_service.py
+        new: neocortex/core/NC-CORE-FR-025-security-service.py
+      - old: neocortex/core/agent_service.py
+        new: neocortex/core/NC-CORE-FR-006-agent-service.py
+      - old: neocortex/core/config_service.py
+        new: neocortex/core/NC-CORE-FR-010-config-service.py
+
+  infrastructure:
+    count: 19
+    description: "Componentes de infraestrutura (storage, cache, search)"
+    examples:
+      - old: neocortex/infra/backup_restore.py
+        new: neocortex/infra/NC-INFRA-FR-001-backup-restore.py
+      - old: neocortex/infra/ledger_store.py
+        new: neocortex/infra/NC-INFRA-FR-006-ledger-store.py
+      - old: neocortex/infra/vector_store.py
+        new: neocortex/infra/NC-INFRA-FR-019-vector-store.py
+
+  llm_backends:
+    count: 5
+    description: "Backends de LLM (factory e providers)"
+    examples:
+      - old: neocortex/infra/llm/backend.py
+        new: neocortex/infra/llm/NC-INFRA-FR-007-backend.py
+      - old: neocortex/infra/llm/deepseek_backend.py
+        new: neocortex/infra/llm/NC-INFRA-FR-008-deepseek-backend.py
+
+  mcp_tools:
+    count: 34
+    description: "Ferramentas MCP (já renomeadas, ajuste de numeração)"
+    note: "Arquivos já possuem prefixo NC-TOOL-FR-*, plano ajusta numeração"
+    examples:
+      - old: neocortex/mcp/tools/NC-TOOL-FR-000-brain.py
+        new: neocortex/mcp/tools/NC-TOOL-FR-001-nc-tool-fr-000-brain.py
+      - old: neocortex/mcp/tools/NC-TOOL-FR-001-cortex.py
+        new: neocortex/mcp/tools/NC-TOOL-FR-002-nc-tool-fr-001-cortex.py
+
+  other:
+    count: 4
+    description: "Outros componentes (agent, CLI, repositories, schemas)"
+    examples:
+      - old: neocortex/agent/executor.py
+        new: neocortex/agent/NC-AGENT-FR-001-executor.py
+      - old: neocortex/cli/main.py
+        new: neocortex/cli/NC-CLI-FR-001-main.py
+
+impact_analysis:
+  most_dependent_file:
+    path: neocortex/config.py
+    new_name: neocortex/NC-CORE-FR-001-config.py
+    imports_affected: 47
+    description: "Arquivo de configuração principal, amplamente referenciado"
+
+  critical_files:
+    - path: neocortex/mcp/server.py
+      new_name: neocortex/mcp/NC-CORE-FR-026-server.py
+      impact: "Afeta múltiplos testes e ferramentas MCP"
+    - path: neocortex/mcp/sub_server.py
+      new_name: neocortex/mcp/NC-CORE-FR-027-sub-server.py
+      impact: "Usado por health service e testes"
+
+  dependency_breakdown:
+    high_impact: 12    # > 10 imports afetados
+    medium_impact: 18   # 2-10 imports afetados
+    low_impact: 16      # 1 import afetado
+    no_impact: 41       # nenhum import afetado
+
+verification:
+  old_files_exist: true
+  new_naming_pattern: "NC-[CATEGORIA]-FR-[NÚMERO]-descrição.py"
+  pattern_compliance: true
+  path_structure_preserved: true
+
+recommendations:
+  - "Executar backup completo antes da renomeação"
+  - "Implementar renomeação em fases: 1) Arquivos sem dependências, 2) Arquivos com poucas dependências, 3) Arquivos críticos"
+  - "Atualizar imports após cada fase para validar funcionamento"
+  - "Executar testes de sanidade após cada fase"
+  - "Manter registro de rollback para cada arquivo renomeado"
+
+next_steps:
+  - "Aprovar plano após revisão manual"
+  - "Criar script de renomeação com validação de imports"
+  - "Executar renomeação faseada"
+  - "Validar sistema após renomeação completa"
+  - "Atualizar documentação de referência"
+
+risks:
+  - risk: "Quebra de imports não detectados"
+    mitigation: "Validação estática de imports antes/depois"
+  - risk: "Arquivos duplicados durante renomeação"
+    mitigation: "Usar mv com verificação de existência"
+  - risk: "Serviços em execução podem falhar"
+    mitigation: "Executar em ambiente de desenvolvimento primeiro"
+
+checklist:
+  naming_convention: true
+  dependency_mapping_complete: true
+  impact_assessment_done: true
+  backup_plan_defined: true
+  rollback_plan_defined: false
+  test_plan_defined: false

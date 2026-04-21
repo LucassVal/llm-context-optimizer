@@ -1,0 +1,269 @@
+{
+  "total_tools": 17,
+  "tested_tools": 17,
+  "statistics": {
+    "status_counts": {
+      "PASS": 17
+    },
+    "pass_rate": "100.0%",
+    "total_tools": 17,
+    "passing_tools": 17
+  },
+  "results": [
+    {
+      "tool_name": "NC-SUPER-010-benchmark",
+      "module_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-010-benchmark.py",
+      "status": "PASS",
+      "error": null,
+      "methods": [
+        "Any",
+        "Dict",
+        "Path",
+        "datetime",
+        "register_tool"
+      ],
+      "import_time": null,
+      "register_time": null
+    },
+    {
+      "tool_name": "NC-SUPER-002-orchestration",
+      "module_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-002-orchestration.py",
+      "status": "PASS",
+      "error": null,
+      "methods": [
+        "Any",
+        "Dict",
+        "Path",
+        "datetime",
+        "register_tool"
+      ],
+      "import_time": null,
+      "register_time": null
+    },
+    {
+      "tool_name": "NC-SUPER-014-ledger",
+      "module_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-014-ledger.py",
+      "status": "PASS",
+      "error": null,
+      "methods": [
+        "Any",
+        "Dict",
+        "Path",
+        "datetime",
+        "register_tool"
+      ],
+      "import_time": null,
+      "register_time": null
+    },
+    {
+      "tool_name": "NC-SUPER-009-security",
+      "module_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-009-security.py",
+      "status": "PASS",
+      "error": null,
+      "methods": [
+        "Any",
+        "Dict",
+        "Path",
+        "datetime",
+        "register_tool"
+      ],
+      "import_time": null,
+      "register_time": null
+    },
+    {
+      "tool_name": "NC-SUPER-008-context",
+      "module_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-008-context.py",
+      "status": "PASS",
+      "error": null,
+      "methods": [
+        "Any",
+        "Dict",
+        "Path",
+        "datetime",
+        "register_tool"
+      ],
+      "import_time": null,
+      "register_time": null
+    },
+    {
+      "tool_name": "NC-SUPER-015-memory-auto",
+      "module_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-015-memory-auto.py",
+      "status": "PASS",
+      "error": null,
+      "methods": [
+        "Any",
+        "Dict",
+        "Path",
+        "datetime",
+        "register_tool"
+      ],
+      "import_time": null,
+      "register_time": null
+    },
+    {
+      "tool_name": "NC-SUPER-013-health",
+      "module_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-013-health.py",
+      "status": "PASS",
+      "error": null,
+      "methods": [
+        "Any",
+        "Dict",
+        "Path",
+        "datetime",
+        "register_tool"
+      ],
+      "import_time": null,
+      "register_time": null
+    },
+    {
+      "tool_name": "NC-SUPER-012-akl",
+      "module_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-012-akl.py",
+      "status": "PASS",
+      "error": null,
+      "methods": [
+        "Any",
+        "Dict",
+        "Path",
+        "datetime",
+        "register_tool"
+      ],
+      "import_time": null,
+      "register_time": null
+    },
+    {
+      "tool_name": "NC-SUPER-016-picoclaw",
+      "module_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-016-picoclaw.py",
+      "status": "PASS",
+      "error": null,
+      "methods": [
+        "Any",
+        "Dict",
+        "register_tool"
+      ],
+      "import_time": null,
+      "register_time": null
+    },
+    {
+      "tool_name": "NC-SUPER-005-llm-router",
+      "module_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-005-llm-router.py",
+      "status": "PASS",
+      "error": null,
+      "methods": [
+        "Any",
+        "Dict",
+        "Path",
+        "register_tool"
+      ],
+      "import_time": null,
+      "register_time": null
+    },
+    {
+      "tool_name": "NC-SUPER-007-brain",
+      "module_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-007-brain.py",
+      "status": "PASS",
+      "error": null,
+      "methods": [
+        "Any",
+        "Dict",
+        "datetime",
+        "register_tool"
+      ],
+      "import_time": null,
+      "register_time": null
+    },
+    {
+      "tool_name": "NC-SUPER-011-notification",
+      "module_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-011-notification.py",
+      "status": "PASS",
+      "error": null,
+      "methods": [
+        "Any",
+        "Dict",
+        "List",
+        "datetime",
+        "register_tool"
+      ],
+      "import_time": null,
+      "register_time": null
+    },
+    {
+      "tool_name": "NC-SUPER-006-system",
+      "module_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-006-system.py",
+      "status": "PASS",
+      "error": null,
+      "methods": [
+        "Any",
+        "Dict",
+        "Path",
+        "datetime",
+        "register_tool"
+      ],
+      "import_time": null,
+      "register_time": null
+    },
+    {
+      "tool_name": "NC-SUPER-001-governance",
+      "module_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-001-governance.py",
+      "status": "PASS",
+      "error": null,
+      "methods": [
+        "Any",
+        "Dict",
+        "Path",
+        "datetime",
+        "register_tool"
+      ],
+      "import_time": null,
+      "register_time": null
+    },
+    {
+      "tool_name": "pulse",
+      "module_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\pulse.py",
+      "status": "PASS",
+      "error": null,
+      "methods": [
+        "Any",
+        "Dict",
+        "datetime",
+        "get_pulse_scheduler",
+        "register_tool",
+        "set_pulse_scheduler"
+      ],
+      "import_time": null,
+      "register_time": null
+    },
+    {
+      "tool_name": "NC-SUPER-004-state",
+      "module_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-004-state.py",
+      "status": "PASS",
+      "error": null,
+      "methods": [
+        "Any",
+        "Dict",
+        "Path",
+        "datetime",
+        "register_tool"
+      ],
+      "import_time": null,
+      "register_time": null
+    },
+    {
+      "tool_name": "NC-SUPER-003-memory",
+      "module_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-003-memory.py",
+      "status": "PASS",
+      "error": null,
+      "methods": [
+        "Any",
+        "Dict",
+        "List",
+        "Optional",
+        "Path",
+        "datetime",
+        "register_tool"
+      ],
+      "import_time": null,
+      "register_time": null
+    }
+  ],
+  "timestamp": "2026-04-21T10:14:07.693209"
+}

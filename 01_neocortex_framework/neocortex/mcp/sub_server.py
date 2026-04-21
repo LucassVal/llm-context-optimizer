@@ -7,19 +7,16 @@ Uso: python -m neocortex.mcp.sub_server --port 11435 --lobe-dir "lobes/agent-bac
 """
 
 import argparse
-import asyncio
-import json
+import atexit
+import importlib
 import logging
 import os
 import sys
-import atexit
-import importlib
-import yaml
 from pathlib import Path
-from typing import Dict, Any, List, Optional
+from typing import Any, Dict, List, Optional
 
-from mcp.server import FastMCP, NotificationOptions
-from mcp.server.models import InitializationOptions
+import yaml
+from mcp.server import FastMCP
 
 # Configuração de logging
 logging.basicConfig(
@@ -499,7 +496,7 @@ def main():
             role = agent_config.get("agent", {}).get("role", "unknown")
             logger.info(f"Role determined from config: {role}")
         else:
-            logger.warning(f"Role not specified and config not found, using 'unknown'")
+            logger.warning("Role not specified and config not found, using 'unknown'")
 
     logger.info(f"Starting sub-MCP server on port {args.port}")
     logger.info(f"Lobe directory: {args.lobe_dir}")

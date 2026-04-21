@@ -1,28 +1,28 @@
-📁 SANITIZAÇÃO DA PASTA TURBOQUANT_V42 – RELATÓRIO FINAL
+ SANITIZAO DA PASTA TURBOQUANT_V42  RELATRIO FINAL
 ---
-🧹 Organização de arquivos e pastas
-Arquivos movidos para localização correta:
+ Organizao de arquivos e pastas
+Arquivos movidos para localizao correta:
 Origem (raiz)
 extract_tools_final.py, extract_tools_robust.py, fix_indentation.py, update_mcp_config.py, update_mcp_config2.py, update_phase3_progress.py, saneamento_raiz.py, neocortex_hud.py
 README_MCP_NEOCORTEX.md, BENCHMARKS.md, DEEPSEEK_API_SUMMARY.md, STATUS.md
-backup_root/ (todo conteúdo)
+backup_root/ (todo contedo)
 .agents/ (regras, workflows, AGENTS.md)
 DIR-PRF-FR-001-profiles-main/ (vazia)
 neocortex_framework/white_label/NC-DOC-WL-001-hybrid-mode.md
 neocortex_framework/white_label/ (vazia)
 Arquivos de teste movidos:
-- fire_test.py, test_*.py → neocortex_framework/DIR-TEST-FR-001-tests-main/
-Arquivos de configuração movidos:
-- neocortex_config.yaml → neocortex_framework/DIR-CFG-FR-001-config-main/
-- mcp_tools_inventory.json → neocortex_framework/DIR-DOC-FR-001-docs-main/
-- migration_debug.log, migration.log → neocortex_framework/DIR-BAK-FR-001-backup-main/
+- fire_test.py, test_*.py  neocortex_framework/DIR-TEST-FR-001-tests-main/
+Arquivos de configurao movidos:
+- neocortex_config.yaml  neocortex_framework/DIR-CFG-FR-001-config-main/
+- mcp_tools_inventory.json  neocortex_framework/DIR-DOC-FR-001-docs-main/
+- migration_debug.log, migration.log  neocortex_framework/DIR-BAK-FR-001-backup-main/
 Arquivos que permanecem na raiz:
-- README.md – Documentação principal
-- antigravity_neocortex_config.json – Configuração do Antigravity
-- start_neocortex_mcp.bat, start_neocortex_mcp.ps1 – Scripts de inicialização
-- pyproject.toml, requirements.txt – Dependências do pacote
+- README.md  Documentao principal
+- antigravity_neocortex_config.json  Configurao do Antigravity
+- start_neocortex_mcp.bat, start_neocortex_mcp.ps1  Scripts de inicializao
+- pyproject.toml, requirements.txt  Dependncias do pacote
 ---
-🗺️ Roadmaps (3 versões)
+ Roadmaps (3 verses)
 1. NC-TODO-FR-001-project-roadmap.md (v5.0 Evolution)
 - Fase 1 (Foundation & Stabilization): 80% completo (25/31 tarefas)
 - Fase 2 (MCP & Advanced Tools): 100% completo (6/6 tarefas)
@@ -31,78 +31,78 @@ Arquivos que permanecem na raiz:
 - Fase 5 (Ecosystem): 0%
 - Fase 6 (Multi-Agent Orchestration): 50%
 - Fase 7 (Advanced Hierarchy): 0%
-- Total: 69 tickets, estimativa 187–236 horas
+- Total: 69 tickets, estimativa 187236 horas
 2. NC-TODO-FR-001-project-roadmap-v6-stability.md (v6.0 Stability-First)
-- ✅ Concluído: Servidor MCP modular (22 ferramentas, 73+ ações), stores otimizadas, métricas DuckDB, modo híbrido LLM, sub‑servidores, testes de sanidade (11/11)
-- ⚠️ Parcial: Isolamento de agentes (courier/engineer), mentor mode pendente, HotCache com fallback, otimização GPU/iGPU pendente
-- ❌ Faltante: Mentor mode, testes de isolamento, orquestração manual, políticas de segurança, testes de integração
+-  Concludo: Servidor MCP modular (22 ferramentas, 73+ aes), stores otimizadas, mtricas DuckDB, modo hbrido LLM, subservidores, testes de sanidade (11/11)
+-  Parcial: Isolamento de agentes (courier/engineer), mentor mode pendente, HotCache com fallback, otimizao GPU/iGPU pendente
+-  Faltante: Mentor mode, testes de isolamento, orquestrao manual, polticas de segurana, testes de integrao
 3. NC-TODO-FR-001-project-roadmap-v7-combined.md (v7.0 Combined)
 - Mescla a abordagem de estabilidade (v6) com o plano de funcionalidades (v5)
-- Caminho crítico: Integração do ConfigProvider → agentes isolados com mentor mode → orquestração manual → segurança → testes → orquestração avançada → hierarquia & conectividade
+- Caminho crtico: Integrao do ConfigProvider  agentes isolados com mentor mode  orquestrao manual  segurana  testes  orquestrao avanada  hierarquia & conectividade
 ---
-🔧 MCP (Model Context Protocol) – Detalhes técnicos
+ MCP (Model Context Protocol)  Detalhes tcnicos
 Servidor MCP principal
 - Arquivo: neocortex_framework/neocortex/mcp/server.py
-- Ferramentas: 22 ferramentas, 73+ ações
+- Ferramentas: 22 ferramentas, 73+ aes
 - Transportes: WebSocket (ws://localhost:8765) e stdio
-- Alias no AGENTS.md: $mcp (atualmente aponta para neocortex_framework/DIR-MCP-FR-001-mcp-server/NC-MCP-FR-001-mcp-server.py, mas o arquivo real está em neocortex/mcp/server.py)
-Diretório de ferramentas MCP
-- neocortex_framework/neocortex/mcp/tools/ – Módulos individuais das ferramentas
-- neocortex_framework/DIR-MCP-FR-001-mcp-server/ – Scripts auxiliares e testes
-Configurações do MCP
-1. Configuração para Antigravity
+- Alias no AGENTS.md: $mcp (atualmente aponta para neocortex_framework/DIR-MCP-FR-001-mcp-server/NC-MCP-FR-001-mcp-server.py, mas o arquivo real est em neocortex/mcp/server.py)
+Diretrio de ferramentas MCP
+- neocortex_framework/neocortex/mcp/tools/  Mdulos individuais das ferramentas
+- neocortex_framework/DIR-MCP-FR-001-mcp-server/  Scripts auxiliares e testes
+Configuraes do MCP
+1. Configurao para Antigravity
 - Arquivo: antigravity_neocortex_config.json (raiz do projeto)
 - Servidores definidos:
   - neocortex (stdio): inicia automaticamente via python -m neocortex.mcp.server --transport stdio
   - neocortex-websocket (WebSocket): conecta a ws://localhost:8765
 - Ferramentas autoaprovadas: neocortex_cortex, neocortex_ledger, neocortex_report, neocortex_subserver, neocortex_task, neocortex_checkpoint, neocortex_config, neocortex_lobes, neocortex_search, neocortex_agent, neocortex_pulse
-2. Configuração do sistema NeoCortex
+2. Configurao do sistema NeoCortex
 - Arquivo: neocortex_framework/DIR-CFG-FR-001-config-main/neocortex_config.yaml
-- Seções principais:
-  - llm: provedor primário (Ollama), fallback chain (Ollama → DeepSeek → OpenAI), backends por agente (courier, engineer)
-  - paths: mapeamento de aliases para diretórios DIR-*
+- Sees principais:
+  - llm: provedor primrio (Ollama), fallback chain (Ollama  DeepSeek  OpenAI), backends por agente (courier, engineer)
+  - paths: mapeamento de aliases para diretrios DIR-*
   - cache: tamanhos de cache para ledger, manifest, hot cache
   - search: motor de busca (Xapian/SQLite FTS5)
-  - scheduler: intervalos de pruning, consolidação, AKL, backup, checkpoint
-  - monitoring: métricas ativadas, store DuckDB
-Scripts de inicialização
-- start_neocortex_mcp.bat (Windows) – inicia servidor WebSocket
-- start_neocortex_mcp.ps1 (PowerShell) – mesma funcionalidade com logs
+  - scheduler: intervalos de pruning, consolidao, AKL, backup, checkpoint
+  - monitoring: mtricas ativadas, store DuckDB
+Scripts de inicializao
+- start_neocortex_mcp.bat (Windows)  inicia servidor WebSocket
+- start_neocortex_mcp.ps1 (PowerShell)  mesma funcionalidade com logs
 ---
-📂 Estrutura de diretórios final (principais)
+ Estrutura de diretrios final (principais)
 TURBOQUANT_V42/
-├── neocortex_framework/
-│   ├── DIR-CORE-FR-001-core-central/       # Núcleo do framework
-│   │   ├── .agents/                        # Regras e workflows
-│   │   └── memory_lobes/                   # (a criar)
-│   ├── DIR-MCP-FR-001-mcp-server/          # Scripts MCP auxiliares
-│   ├── DIR-TMP-FR-001-templates-main/      # Templates
-│   ├── DIR-ARC-FR-001-archive-main/        # Arquivos arquivados
-│   ├── DIR-BAK-FR-001-backup-main/         # Backups (incluindo backup_root)
-│   ├── DIR-DOC-FR-001-docs-main/           # Documentação
-│   ├── DIR-CFG-FR-001-config-main/         # Configurações
-│   ├── DIR-TEST-FR-001-tests-main/         # Testes
-│   ├── scripts/                            # Scripts utilitários
-│   ├── lobes/                              # Lobes (engineer, courier)
-│   └── neocortex/                          # Pacote Python principal
-│       ├── mcp/
-│       │   ├── server.py                   # Servidor MCP principal
-│       │   ├── sub_server.py               # Sub‑servidor
-│       │   └── tools/                      # Ferramentas MCP
-│       └── infra/, core/, agent/, …        # Módulos internos
-├── white_label/                            # White‑label templates
-├── examples/                               # Projetos de exemplo
-├── .kilocode/, .ruff_cache/, __pycache__/  # Caches
-├── README.md
-├── antigravity_neocortex_config.json
-└── start_neocortex_mcp.bat/.ps1
+ neocortex_framework/
+    DIR-CORE-FR-001-core-central/       # Ncleo do framework
+       .agents/                        # Regras e workflows
+       memory_lobes/                   # (a criar)
+    DIR-MCP-FR-001-mcp-server/          # Scripts MCP auxiliares
+    DIR-TMP-FR-001-templates-main/      # Templates
+    DIR-ARC-FR-001-archive-main/        # Arquivos arquivados
+    DIR-BAK-FR-001-backup-main/         # Backups (incluindo backup_root)
+    DIR-DOC-FR-001-docs-main/           # Documentao
+    DIR-CFG-FR-001-config-main/         # Configuraes
+    DIR-TEST-FR-001-tests-main/         # Testes
+    scripts/                            # Scripts utilitrios
+    lobes/                              # Lobes (engineer, courier)
+    neocortex/                          # Pacote Python principal
+        mcp/
+           server.py                   # Servidor MCP principal
+           sub_server.py               # Subservidor
+           tools/                      # Ferramentas MCP
+        infra/, core/, agent/,         # Mdulos internos
+ white_label/                            # Whitelabel templates
+ examples/                               # Projetos de exemplo
+ .kilocode/, .ruff_cache/, __pycache__/  # Caches
+ README.md
+ antigravity_neocortex_config.json
+ start_neocortex_mcp.bat/.ps1
 ---
-## 🚀 **Próximos passos recomendados**
+##  **Prximos passos recomendados**
 1. **Atualizar alias `$mcp` no AGENTS.md** para apontar para `neocortex/mcp/server.py`.
-2. **Completar a implementação do mentor mode** (etapa crítica para isolamento de agentes).
-3. **Executar testes de isolamento** (AGENT‑205) para courier/engineer.
-4. **Implementar autenticação JWT/API keys** no servidor MCP.
-5. **Finalizar a integração do HotCache** com diskcache‑rs (opcional).
-6. **Criar CLI client** (`NC‑CLI‑FR‑001‑cli‑tool.py`) para uso local.
+2. **Completar a implementao do mentor mode** (etapa crtica para isolamento de agentes).
+3. **Executar testes de isolamento** (AGENT205) para courier/engineer.
+4. **Implementar autenticao JWT/API keys** no servidor MCP.
+5. **Finalizar a integrao do HotCache** com diskcachers (opcional).
+6. **Criar CLI client** (`NCCLIFR001clitool.py`) para uso local.
 ---
-✅ Organização concluída. Todos os arquivos estão nas pastas corretas, os roadmaps foram consolidados e as configurações do MCP estão documentadas. A base está pronta para a próxima IA ajustar o servidor.
+ Organizao concluda. Todos os arquivos esto nas pastas corretas, os roadmaps foram consolidados e as configuraes do MCP esto documentadas. A base est pronta para a prxima IA ajustar o servidor.

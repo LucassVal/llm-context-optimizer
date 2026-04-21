@@ -1,0 +1,103 @@
+# NC-DS-TICKET-TEMPLATE-v2.yaml
+# Template melhorado pós-sprint NC-DS-150..154
+# Root cause dos problemas identificados e corrigidos aqui
+# Uso: copiar este template e preencher as seções marcadas com <PREENCHER>
+
+ticket_id: NC-DS-<PREENCHER>
+title: "<PREENCHER>"
+status: OPEN
+priority: <CRITICAL|HIGH|MEDIUM>
+roadmap_ref: "<PREENCHER>"
+created_at: "<PREENCHER>"
+created_by: T0-Antigravity
+assigned_to: OpenCode-Agent-<N>
+
+# ═══════════════════════════════════════════════════════════════════
+# CRÍTICO: WORKING DIRECTORY OBRIGATÓRIO
+# O agente DEVE executar TODOS os comandos a partir deste diretório.
+# ═══════════════════════════════════════════════════════════════════
+working_directory: "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
+framework_subdir: "01_neocortex_framework"
+note_paths: |
+  TODOS os arquivos Python vivem em:
+    C:\Users\Lucas Valério\Desktop\TURBOQUANT_V42\01_neocortex_framework\
+  O diretório raiz do projeto É esse. Não é o diretório do OpenCode.
+  Verificar ANTES de qualquer ação:
+    cd C:\Users\Lucas Valério\Desktop\TURBOQUANT_V42
+    python -c "from pathlib import Path; print(Path('01_neocortex_framework').exists())"
+
+# ─── STEP 0 OBRIGATÓRIO ─────────────────────────────────────────────
+step_0:
+  - "cd C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
+  - "python -c \"from pathlib import Path; assert Path('01_neocortex_framework').exists(), 'WRONG DIR'\" → DEVE PASSAR"
+  - "Ler 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml"
+  - "python --version → confirmar Python"
+  - "<PREENCHER: verificações específicas do ticket>"
+
+atomic_locks_inviolaveis:
+  - "01_neocortex_framework/neocortex/mcp/server.py → NUNCA MODIFICAR"
+  - "01_neocortex_framework/neocortex/mcp/sub_server.py → NUNCA MODIFICAR"
+
+# ─── TAREFA ──────────────────────────────────────────────────────────
+task: |
+  <PREENCHER>
+
+implementation_notes: |
+  Regras INVIOLÁVEIS:
+  - R09: NUNCA 'import NC-TOOL-FR-XXX'. Usar importlib.util.spec_from_file_location()
+  - R10: NUNCA hardcode paths. Usar get_config() ou Path(__file__).resolve().parent
+  - R11: NUNCA print() em produção. Usar logger = logging.getLogger(__name__)
+  - R21: VERIFICAR ambiente real antes de afirmar. Se dúvida → ESCALATED
+  <PREENCHER: notas específicas>
+
+pre_handoff_checklist:
+  - "python -m py_compile <ARQUIVO>.py → PASS"
+  - "python -m ruff check <ARQUIVO>.py --select F,E9 → 0 erros"
+  - "grep print( <ARQUIVO>.py (excluindo comentários e __main__) → VAZIO"
+  - "git -C C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework diff --name-only HEAD | Select-String 'server\\.py|sub_server\\.py' → VAZIO"
+  - "<PREENCHER: verificações específicas>"
+
+deliverables:
+  - "<PREENCHER: path ABSOLUTO do arquivo principal>"
+  - "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\DIR-DS-002-audit-logs\\NC-DS-<NNN>-handoff-<YYYYMMDDTHHMMSS>.yaml"
+
+# ═══════════════════════════════════════════════════════════════════
+# HANDOFF OBRIGATÓRIO — Copiar e preencher ao concluir
+# Nome do arquivo: NC-DS-<NNN>-handoff-<YYYYMMDDTHHMMSS>.yaml
+# Destino: C:\Users\Lucas Valério\Desktop\TURBOQUANT_V42\DIR-DS-002-audit-logs\
+# ═══════════════════════════════════════════════════════════════════
+handoff_template_inline:
+  ticket_id: "NC-DS-<NNN>"
+  status: "PENDING_REVIEW"   # NÃO ALTERAR — T0 muda para APPROVED/REJECTED
+  submitted_at: "<YYYYMMDDTHHMMSS>"
+  submitted_by: "opencode-agent"
+  review_by: "T0-Antigravity"
+
+  summary:
+    files_created: []        # lista dos arquivos criados (paths relativos ao TURBOQUANT_V42)
+    files_modified: []       # lista dos arquivos modificados
+    lines_added: 0
+    validation_rounds: 1
+    locks_violated: []       # DEVE estar VAZIO
+    overall: "SUCCESS"       # SUCCESS | FAILED | ESCALATED
+
+  t0_review_checklist:       # Agente preenche, T0 valida
+    compile_ok: true         # python -m py_compile passou
+    ruff_ok: true            # ruff --select F,E9 passou
+    no_print: true           # sem print() em produção
+    ssot_updated: false      # NC-NAM-FR-001 atualizado?
+    locks_clean: true        # server.py/sub_server.py não tocados
+
+  test_results:
+    total: 0
+    passed: 0
+    failed: 0
+    notes: ""
+
+  escalation:
+    escalated: false
+    reason: ""
+
+write_zone: "<PROD|TEST|SCRIPTS|DOCS> → <path>"
+escalation_triggers:
+  - "<PREENCHER>"

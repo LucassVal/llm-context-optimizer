@@ -1,0 +1,133 @@
+# NC-CFG-HK-002-lexico-hooks.yaml
+# Configuração YAML para hooks lexicais - carregado pelo LexicoBootLoader
+# Formato compatível com HookRegistry.load_yaml() e LexicoBootLoader
+
+hooks:
+  # Hook: Pré-análise lexical
+  - name: lexico_pre_analysis
+    event: PreToolUse
+    script: "../hooks/NC-HK-FR-004-lexico-step0-hook.py"
+    enabled: true
+    priority: CRITICAL
+    load_mode: SYNC
+    timeout_seconds: 3.0
+    description: |
+      Hook de pré-análise lexical que intercepta ferramentas de serviço core
+      e consulta o léxico antes de qualquer operação de escrita.
+    dependencies: []
+    version: "1.0.0"
+    author: "NeoCortex Framework"
+    created: "2026-04-20T00:00:00"
+    updated: "2026-04-20T00:00:00"
+
+  # Hook: Pós-tokenização
+  - name: lexico_post_tokenization
+    event: PostToolUse
+    script: "../hooks/NC-HK-FR-004-lexico-step0-hook.py"
+    enabled: true
+    priority: HIGH
+    load_mode: SYNC
+    timeout_seconds: 2.0
+    description: |
+      Hook de pós-tokenização que analisa resultados de ferramentas
+      e atualiza o léxico com novos termos.
+    dependencies: ["lexico_pre_analysis"]
+    version: "1.0.0"
+    author: "NeoCortex Framework"
+
+  # Hook: Enriquecimento semântico
+  - name: lexico_semantic_enrichment
+    event: PreToolUse
+    script: ""
+    enabled: true
+    priority: MEDIUM
+    load_mode: ASYNC
+    timeout_seconds: 5.0
+    description: |
+      Hook de enriquecimento semântico que expande termos do léxico
+      com relações semânticas e contexto.
+    dependencies: ["lexico_post_tokenization"]
+    version: "1.0.0"
+    author: "NeoCortex Framework"
+
+  # Hook: Compressão de contexto
+  - name: lexico_context_compression
+    event: ToolError
+    script: ""
+    enabled: true
+    priority: LOW
+    load_mode: LAZY
+    timeout_seconds: 1.0
+    description: |
+      Hook de compressão de contexto que otimiza representações
+      lexicais para uso eficiente de memória.
+    dependencies: ["lexico_semantic_enrichment"]
+    version: "1.0.0"
+    author: "NeoCortex Framework"
+
+# Configurações do LexicoBootLoader
+boot_loader:
+  auto_discover: true
+  max_workers: 4
+  hook_dirs:
+    - "../hooks/"
+    - "../../DIR-CFG-FR-001-config-main/hooks/"
+    - "../../DIR-TMP-FR-001-templates-main/hooks/"
+  scan_patterns:
+    - "NC-HK-*.yaml"
+    - "NC-HK-*.yml"
+    - "*hook*.yaml"
+    - "*hook*.yml"
+
+# Configurações do LexicoHookChain
+hook_chains:
+  pre_lexical_analysis:
+    execution_mode: SEQUENTIAL
+    max_parallel_workers: 2
+    hooks:
+      - lexico_pre_analysis
+      - lexico_semantic_enrichment
+  
+  post_tokenization:
+    execution_mode: PARALLEL
+    max_parallel_workers: 4
+    hooks:
+      - lexico_post_tokenization
+  
+  semantic_enrichment:
+    execution_mode: WATERFALL
+    max_parallel_workers: 2
+    hooks:
+      - lexico_semantic_enrichment
+  
+  context_compression:
+    execution_mode: SEQUENTIAL
+    max_parallel_workers: 1
+    hooks:
+      - lexico_context_compression
+
+# Integração com sistemas NeoCortex
+integration:
+  neocortex_memory:
+    auto_register: true
+    lobe_category: "04_cc_patterns"
+    
+  neocortex_context:
+    compress: true
+    max_tokens: 4096
+    
+  neocortex_brain:
+    think: true
+    complexity: "RACIOCINIO"
+    
+  neocortex_system:
+    boot_service: true
+    priority: 500
+
+# Metadados
+metadata:
+  framework: "NeoCortex"
+  version: "1.0.0"
+  description: "Sistema de hooks lexicais com boot loader e cadeias de execução"
+  created: "2026-04-20"
+  updated: "2026-04-20"

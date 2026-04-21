@@ -1,0 +1,119 @@
+---
+id: "NC-LBE-INT-006-igpu-ipex-setup"
+title: "Intel iGPU via ipex-llm — Setup e Orquestração"
+category: "04_cc_patterns"
+tags: ["igpu", "ipex-llm", "ollama", "qwen", "intel-iris-xe", "gpu-split", "2026-04-18"]
+version: "1.0"
+created: "2026-04-18"
+status: "ACTIVE"
+temperature: 30
+---
+
+# Intel iGPU (Iris Xe) via ipex-llm — Setup e Orquestração
+
+## O que é e por que usamos
+
+O **ipex-llm** (Intel Extension for PyTorch LLM) permite rodar modelos LLM na iGPU Intel Iris Xe do laptop.
+No nosso sistema, usamos isso para ter **dois workers locais paralelos sem custo de API**:
+
+| GPU | Modelo | Porta | Uso |
+|-----|--------|-------|-----|
+| Intel Iris Xe (iGPU) | qwen2.5-coder:1.5b-instruct | :11435 | Trabalho braçal (tier OPERACIONAL) |
+| NVIDIA RTX 3050 (dGPU) | qwen2.5-coder:3b-instruct | :11434 | Tarefas técnicas (tier TECNICO local) |
+
+## Como foi instalado
+
+```
+1. Miniforge3 instalado em C:\miniforge3 (sem espaços — requerido)
+   Installer: Miniforge3-Windows-x86_64.exe /InstallationType=AllUsers /S /D=C:\miniforge3
+
+2. Conda env criada:
+   conda create -n llm-cpp python=3.11 -y
+
+3. ipex-llm instalado no env:
+   C:\miniforge3\envs\llm-cpp\Scripts\pip.exe install "ipex-llm[cpp]" \
+     --extra-index-url https://download.pytorch.org/whl/cpu
+
+4. init-ollama.bat executado (ADMIN obrigatório):
+   conda activate llm-cpp
+   init-ollama.bat   ← cria symlinks + copia DLLs SYCL para C:\igpu
+```
+
+## Como ativar após reboot
+
+**Script oficial:** `01_neocortex_framework/scripts/NC-SCR-FR-111-ollama-igpu-launcher.bat`
+
+```bat
+@echo off
+cd /d C:\igpu
+call C:\miniforge3\condabin\conda.bat activate llm-cpp
+set OLLAMA_HOST=0.0.0.0:11435
+set SYCL_CACHE_PERSISTENT=1
+set ZES_ENABLE_SYSMAN=1
+set OLLAMA_NUM_GPU=999
+ollama serve
+```
+
+Ou via MCP (CICLO 0 automatizado):
+```python
+neocortex_system(action="pulse.schedule_custom", task_name="igpu-boot", interval=0)
+```
+
+## Verificação
+
+```powershell
+# Porta UP?
+Invoke-RestMethod http://localhost:11435/api/tags
+
+# Via MCP
+neocortex_llm_router(action="ollama.ask",
+  ollama_model="qwen2.5-coder:1.5b-instruct",
+  prompt="ping")
+# Deve retornar success: true, done: true
+```
+
+## Integração LiteLLM (config.yaml)
+
+```yaml
+- model_name: qwen-1.5b
+  litellm_params:
+    model: ollama/qwen2.5-coder:1.5b-instruct
+    api_base: http://localhost:11435   # ← iGPU Intel
+
+- model_name: qwen-3b
+  litellm_params:
+    model: ollama/qwen2.5-coder:3b-instruct
+    api_base: http://localhost:11434   # ← RTX 3050
+```
+
+## Estrutura de Arquivos
+
+```
+C:\igpu\                          ← Diretório de trabalho do Ollama iGPU
+  ollama.exe                      ← Symlink para ollama ipex-llm
+  *.dll                           ← DLLs SYCL Intel
+  start.bat                       ← Launcher simples
+
+C:\miniforge3\                    ← Miniforge3 (conda base)
+  envs\llm-cpp\                   ← Ambiente Python 3.11 com ipex-llm
+    Scripts\init-ollama.bat       ← Script de inicialização oficial Intel
+    Lib\site-packages\bigdl\cpp\libs\  ← binários ipex-llm Ollama
+
+TURBOQUANT_V42\
+  01_neocortex_framework\
+    scripts\NC-SCR-FR-111-ollama-igpu-launcher.bat  ← launcher NC
+  config.yaml                     ← LiteLLM com rotas dGPU + iGPU
+```
+
+## Tier de Orquestração
+
+```
+neocortex_llm_router(action="route.call", complexity="OPERACIONAL")
+→ qwen-1.5b (Intel iGPU :11435) — gratuito, 24/7
+
+neocortex_llm_router(action="route.call", complexity="TECNICO")
+→ deepseek-chat (Cloud via LiteLLM) — ou fallback qwen-3b (RTX 3050)
+
+neocortex_llm_router(action="route.call", complexity="RACIOCINIO")
+→ deepseek-reasoner (Cloud)
+```

@@ -1,0 +1,33 @@
+# NC-GOV-TPL-000-root-template.yaml
+# Template de Governança Universal (Nível 0)
+# Herança: Nenhuma (raiz)
+# Propósito: Define regras universais aplicáveis a todo o sistema NeoCortex
+
+level: 0
+topology: governance
+inherits_from: null  # Raiz não herda de ninguém
+
+# Tags universais (aplicadas a todos os artefatos)
+tags:
+  - atomic_locks: true           # Bloqueios atômicos obrigatórios
+  - audit_trail: required        # Trilha de auditoria obrigatória
+  - naming: NC-required          # Nomenclatura NC- obrigatória
+  - versioning: required         # Controle de versão obrigatório
+  - backup: required             # Backup obrigatório
+
+# Regras de validação
+validation_rules:
+  - name: naming_convention
+    pattern: "^NC-[A-Z]+-FR-\\d+(-[a-z0-9-]+)?$"
+    message: "Nome deve seguir padrão NC-XXX-FR-XXX"
+    
+  - name: version_schema
+    pattern: "^\\d+\\.\\d+\\.\\d+$"
+    message: "Versão deve seguir semver (X.Y.Z)"
+
+# Metadados
+metadata:
+  created: 2026-04-14
+  author: NeoCortex Governance
+  version: 1.0.0
+  description: "Template raiz para governança universal do sistema NeoCortex"

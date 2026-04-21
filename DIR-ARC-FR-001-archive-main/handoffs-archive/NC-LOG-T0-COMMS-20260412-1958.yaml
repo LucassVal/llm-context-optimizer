@@ -1,0 +1,114 @@
+log_id: NC-LOG-T0-COMMS-20260412-1958
+created_at: "2026-04-12T19:58:55"
+created_by: worker-20260412195125877-f87cfd
+prompt_hash: f87cfd178a00
+log_type: T0_COMMUNICATION_ANALYSIS
+status: PENDING_REVIEW
+
+communication_channels: |
+  CANAIS DE COMUNICAÇÃO WORKER → T0:
+  
+  1. **Handoffs YAML** (DIR-DS-002-audit-logs/NC-DS-{ID}-handoff-*.yaml)
+     - status: PENDING_REVIEW
+     - review_by: auto-approve-script (NC-SCR-FR-005-auto-approve.py)
+     - Se aprovado → status: APPROVED, task marcada DONE na fila
+     - Se rejeitado → status: REJECTED, T0 fornece feedback
+  
+  2. **Logs de sistema** (DIR-DS-002-audit-logs/NC-LOG-*.yaml)
+     - Logs de concorrência, problemas operacionais, sugestões
+     - T0 revisa periodicamente ou é alertado por monitor
+  
+  3. **Entry locks registry** (DIR-DS-003-entry-locks/active-zones.yaml)
+     - Registry de write_zones ativas por worker
+     - Prevenção de colisão entre workers
+  
+  4. **Patches** (DIR-DS-004-patches/NC-PATCH-*.diff)
+     - Patches gerados após aprovação de tickets com progressive_gate
+     - Aplicados manualmente por T0 nos @LOCKS
+  
+  5. **Queue YAML** (NC-CFG-DS-004-task-queue.yaml)
+     - Estado central observável por T0
+     - Inconsistências detectáveis via scripts de validação
+
+current_issues: |
+  PROBLEMAS OPERACIONAIS IDENTIFICADOS (19:58):
+  
+  1. **Concorrência extrema**: ≥6 workers ativos para 2 tasks teoricamente AVAILABLE
+  2. **File lock soft falha**: queue.lock ajuda mas não elimina race conditions
+  3. **Inconsistências de estado**:
+     - NC-DS-024: completed_at="2026-04-12T18:57:31" mas status: AVAILABLE (deveria ser DONE)
+     - NC-DS-025: completed_at="2026-04-12T18:53:59" mas status: AVAILABLE (deveria ser DONE)
+     - NC-DS-016: status: ACTIVE mas completed_at preenchido (inconsistente)
+  4. **Protocolo de claim deficiente**:
+     - Janela de 5s entre claim e verificação → race conditions
+     - Múltiplos workers podem ler mesmo AVAILABLE simultaneamente
+  5. **Formato inconsistentes**: claimed_by mistura timestamps e worker IDs
+
+root_cause_analysis: |
+  ANÁLISE DE CAUSA RAÍZ:
+  
+  - **Arquitetura atual**: YAML central + file lock soft
+  - **Problema fundamental**: Coordenação distribuída via arquivo compartilhado sem atomicidade real
+  - **Com 10 workers**: Probabilidade de colisão aumenta exponencialmente
+  - **Solução atual (lock soft)**: Reduz mas não elimina janelas de race condition
+  
+  **Efeitos observados**:
+  1. Workers gastam tempo em backoff exponencial (3s, 6s, 12s...)
+  2. Múltiplas tentativas de claim falham
+  3. Workers ficam ociosos enquanto tasks estão "disponíveis"
+  4. Overhead de I/O no arquivo YAML
+
+recommendations_t0: |
+  RECOMENDAÇÕES PARA T0 (AÇÃO IMEDIATA):
+  
+  1. **Corrigir inconsistências** (URGENTE):
+     ```bash
+     python scripts/fix_queue_consistency.py
+     ```
+     - NC-DS-024, NC-DS-025: status: AVAILABLE → DONE
+     - Validar todos os tickets com completed_at não-nulo
+  
+  2. **Migrar para SQLite** (PRIORIDADE ALTA):
+     - Criar `queue.db` com schema simples (id, status, claimed_by, claimed_at, completed_at)
+     - Transações ACID garantem atomicidade
+     - Migração gradual: workers antigos usam YAML, novos usam SQLite
+  
+  3. **Implementar atomic lock real** (ALTERNATIVA):
+     - `mkdir queue.lock.dir` (atomic em sistemas de arquivos)
+     - Ou usar `fcntl.flock()` com timeout curto (1s)
+  
+  4. **Adicionar health checks**:
+     - Monitorar `claimed_at`: se >300s sem ACTIVE → reset para AVAILABLE
+     - Script de limpeza de locks abandonados
+  
+  5. **Melhorar logging**:
+     - `queue_operations.log` com todas as operações (read, claim, update)
+     - Audit trail para debug de race conditions
+
+worker_state: |
+  ESTADO DESTE WORKER (worker-20260412195125877-f87cfd):
+  
+  - **Task alvo**: NC-DS-021 (EventBus) - CLAIMED mas não conseguiu avançar para ACTIVE
+  - **Tentativas**: 3 com backoff exponencial (3s, 6s, 12s)
+  - **Lock adquirido**: Sim (queue.lock criado) mas outro worker tomou durante janela de 5s
+  - **Conclusão**: Protocolo atual falha sob alta concorrência
+  - **Ação**: Gerar este log e hibernar
+
+immediate_actions: |
+  AÇÕES IMEDIATAS SUGERIDAS:
+  
+  1. T0 revisa este log e decide arquitetura v2
+  2. Criar script `fix_queue_consistency.py`
+  3. Implementar SQLite ou atomic lock mkdir
+  4. Comunicar upgrade protocol para todos os workers
+  5. Monitorar estabilidade pós-correção
+
+next_steps: |
+  PRÓXIMOS PASSOS (ROADMAP):
+  
+  **Fase 1 (24h)**: Correções de inconsistência + atomic lock
+  **Fase 2 (48h)**: Migração para SQLite + scripts de migração
+  **Fase 3 (72h)**: Monitoramento + alertas automáticos
+  **Fase 4**: Queue manager central (RPC/gRPC) para escala >20 workers
+
+note: "COMUNICAÇÃO WORKER→T0: via logs YAML + handoffs. T0 monitora DIR-DS-002-audit-logs/ e age conforme prioridade."

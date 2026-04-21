@@ -1,0 +1,22 @@
+ticket_id: "NC-DS-084"
+status: "APPROVED"
+timestamp: "2026-04-15T23:41:37-03:00"
+agent: "T0-Claude-Code"
+summary: |
+  Scripts NC-SCR-FR-075-genealogy-injector.py e NC-SCR-FR-065-rename-impact-analyzer.py
+  verificados e registrados no NC-GOV-FR-004-fr-artifacts-registry.yaml conforme ticket NC-DS-084.
+  Sintaxe validada, dry-run executado, propósito documentado.
+files_modified:
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-004-fr-artifacts-registry.yaml"
+files_created:
+  - "DIR-DS-002-audit-logs/NC-DS-084-handoff-20260415T234137.yaml"
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  ssot_updated: true
+  no_locked_files_modified: true
+  handoff_yaml_complete: true
+notes: |
+  ssot_updated=true: NC-NAM-FR-001 já possui entrada, não foi necessário atualizar.
+  Scripts funcionam corretamente em modo dry-run e --help.
+  Registro de artefatos atualizado com sucesso.

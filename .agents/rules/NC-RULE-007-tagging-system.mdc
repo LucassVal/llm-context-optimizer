@@ -1,0 +1,65 @@
+---
+description: Universal Tagging System para metadados e buscabilidade (grep/rg/FTS)
+globs: *.*
+alwaysApply: true
+---
+
+# Universal Tagging System (Sistema de Tags Universal)
+
+A pesquisa e a prática de mercado demonstram que aplicar metadados em "frontmatter" estruturado (cabeçalho no topo de cada arquivo) potencializa a interoperabilidade com agentes AI, diminui em até 90% o custo de tokens em leituras longas e viabiliza buscas semânticas (Vector/Tree-sitter) e exatas (`grep`).
+
+## 1. O Cabeçalho Obrigatório
+**TODOS os arquivos criados ou modificados no sistema, sem exceção, DEVEM possuir um bloco de metadados no topo.**
+O schema obrigatório dos metadados deve prover o máximo de contexto *AI-ready*:
+
+- `domain` ou `context`: O Bounded Context de negócio via Domain-Driven Design.
+- `layer`: A camada arquitetural (ex: core, infra, utils, config).
+- `type`: A tipologia (ex: service, controller, tool, script, doc).
+- `keywords` ou `tags`: Array de palavras chave puras.
+- `hash`: Assinatura / MD5 (Pode ser deixado como "auto-generated" na criação).
+- `topology`: Metadados de Geometria/Relação Arquitetural do DDD:
+  - `parent`: Entidade originadora, orquestradora ou módulo "Pai" (Graph Head).
+  - `children`: Nódulos escravos ou sub-módulos (Graph Leaves).
+  - `dependence`: Módulos ou bibliotecas estritas para rodar (Upstream).
+  - `codependence`: Relações de acoplamento bidirecional ou par-a-par (Lateral).
+  - `tier`: Nível de criticidade na arquitetura (Ex: Tier 1=Kernel, 2=Orchestrator, 3=Adapter, 4=UI).
+
+## 2. Formatação por Extensão
+
+### A. Para Markdown/MDC (Documentation/Lobos):
+Deve-se adotar o frontmatter YAML estrito (`---`):
+```yaml
+---
+domain: "orchestration"
+layer: "core"
+type: "module"
+topology:
+  parent: "MissionControlCore"
+  children: ["HttpWorker"]
+  dependence: ["aiohttp"]
+  tier: 1
+tags: [agent, task, mcp, sse]
+hash: "auto-generated"
+---
+```
+
+### B. Para Scripts e Código (.py, .js, .ts):
+Semelhante à DocString, emular o frontmatter em block-comment no absoluto topo do arquivo:
+```python
+"""---
+domain: "orchestration"
+layer: "infra"
+type: "tool"
+topology:
+  parent: "MCPClient"
+  tier: 3
+tags: [mcp, execution]
+hash: "auto-generated"
+---"""
+```
+
+### C. Para JSON/YAML Objeto:
+Alocar uma Key raiz `_meta: { ... }` para suportar o contexto sem quebrar os parsers formais.
+
+## 3. Dicionário de Linguagem Ubíqua (Domain Driven Design)
+NUNCA invente sinônimos ou tags genéricas. TODAS as `tags`, `domain`, `layer` e outras identificações exigidas no cabeçalho OBRIGATORIAMENTE devem ser validadas e controladas através do **Dicionário de Linguagem Ubíqua** (`NC-DOC-FR-001-ubiquitous-language-dictionary.md`). Em arquiteturas DDD, o meta-tagging só salva tokens se o time (AI ou Humano) utiliza exata e idêntica nomenclatura semantica, anulando "auth" vs "authentication".

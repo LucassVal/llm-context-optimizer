@@ -1,0 +1,30 @@
+ticket_id: NC-DS-035
+status: PENDING_REVIEW
+timestamp: "2026-04-13T11:42:25-03:00"
+agent_port: unknown
+lines_added: 242
+files_modified:
+  - 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-010-kairos-service.py
+summary: |
+  KairosService implementado como serviço event-driven de scheduling.
+  Integra com EventBus para publicar eventos de tick, tarefas agendadas e executadas.
+  Mantém compatibilidade com pulse_scheduler.py existente via duck-typing.
+ajustes_aplicados:
+  - "Ajuste da @SYNTHESIS não aplicado: código base do NC-RES-CC-003 (sched) não utilizado"
+metrics:
+  lines_real: 242
+  files_created: 0
+  dependencies_used: []
+  write_zone_respected: true
+  locks_respected: true
+errors: []
+warnings:
+  - "Arquivo já existia, não foi criado do zero"
+  - "Não utiliza sched conforme código base NC-RES-CC-003"
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  min_80_lines: true
+  no_locked_files_modified: true
+  ajustes_synthesis_applied: false
+  handoff_yaml_complete: true

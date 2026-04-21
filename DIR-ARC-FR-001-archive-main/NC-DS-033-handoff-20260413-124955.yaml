@@ -1,0 +1,23 @@
+ticket_id: NC-DS-033
+status: PENDING_REVIEW
+timestamp: "2026-04-13T12:49:44-03:00"
+agent_port: 44624
+lines_added: 37
+files_modified:
+  - 01_neocortex_framework/DIR-TMP-FR-001-templates-main/NC-TOOL-FR-TEMPLATE/NC-CFG-FR-001-plugin.json
+  - 01_neocortex_framework/DIR-TMP-FR-001-templates-main/NC-TOOL-FR-TEMPLATE/hooks/NC-HK-EXAMPLE.py
+summary: |
+  Template padronizado de plugin/tool MCP atualizado conforme especificação NC-DS-033.
+  Plugin.json ajustado para schema 1.0 com campos obrigatórios.
+  Hook de exemplo substituído pelo modelo mínimo.
+metrics:
+  ruff_check: PASS
+  py_compile: PASS
+  write_zone_respected: true
+  locks_respected: true
+errors: []
+warnings: []
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  handoff_yaml_complete: true

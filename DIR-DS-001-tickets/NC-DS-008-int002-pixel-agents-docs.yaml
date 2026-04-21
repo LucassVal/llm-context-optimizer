@@ -1,0 +1,105 @@
+ticket_id: NC-DS-008
+ticket_type: RESEARCH + DOCUMENTATION
+priority: HIGH
+assigned_to: deepseek-chat
+created_at: "2026-04-14T00:15:00-03:00"
+created_by: antigravity-t0
+
+context:
+  roadmap_ticket: INT-002 (Pixel Agents Integration)
+  active_locks:
+    - server.py
+    - sub_server.py
+    - NC-NAM-FR-001
+    - neocortex_config.yaml
+  write_zone: "02_memory_lobes/"
+  naming_rule: "NC-LBE-INT-005-pixel-agents.mdc"
+  reference_file: "01_neocortex_framework/lobes/NC-LBE-INT-003-antigravity-integration.mdc"
+
+research_context: |
+  Pixel Agents é uma extensão VS Code open-source que visualiza agentes IA como
+  personagens pixel-art em um escritório virtual.
+  GitHub: https://github.com/pablodelucca/pixel-agents
+  VS Code Marketplace: pablodelucca.pixel-agents
+  Repositório clonado localmente em:
+    DIR-RES-CC-001-claude-leak-workzone\external-refs\pixel-agents\
+
+  FUNCIONALIDADES CONFIRMADAS:
+  - 1 agente = 1 personagem pixel-art único no escritório
+  - Live activity tracking: typing (escrevendo código), reading (buscando arquivos),
+    waiting (aguarda input), running (executando comandos)
+  - Office Layout Editor: editor de escritório com floors, walls, furniture
+  - Speech bubbles: indica quando agente aguarda/precisa de permissão
+  - Sound notifications: chime quando agente termina seu turno
+  - Sub-agent visualization: Task tool spawna personagens filhos ligados ao pai
+  - Persistent layouts: salvo entre sessões VS Code
+  - External asset directories: furniture packs customizados
+  - 6 personagens (baseados em JIK-A-4 Metro City pack)
+  - COMO FUNCIONA: lê arquivos JSONL transcript do Claude Code (~/.claude/projects/)
+    parseando em tempo real para animar personagens
+  - NÃO modifica o Claude Code — é observador passivo
+  - Stack: TypeScript, VS Code Extension API, esbuild
+
+  LIMITAÇÃO CRÍTICA para NeoCortex:
+  - Hoje suporta APENAS Claude Code (lê JSONL de ~/.claude/projects/)
+  - DeepSeek/OpenCode gera logs em formato diferente
+  - BRIDGE NECESSÁRIA: converter logs OpenCode → JSONL compatível Claude Code
+
+  INTEGRAÇÃO COM NEOCORTEX (contexto T0):
+  - Criar NC-SCR-FR-016-opencode-jsonl-bridge.py:
+    lê logs dos agentes OpenCode e converte para JSONL que Pixel Agents entende
+  - Porta WebSocket: :8767 (onde Pixel Agents se conecta para receber eventos)
+  - DDD: Pixel Agents = Adaptador Primário (observador de eventos do domínio)
+  - HookRegistry (NC-HK-FR-001) pode emitir eventos → bridge → Pixel Agents
+  - Adicionar aba "Pixel Agents" no neocortex_hud.py com WebView
+
+task:
+  description: |
+    Com base no contexto de pesquisa acima e nos arquivos do repositório clonado em
+    DIR-RES-CC-001-claude-leak-workzone\external-refs\pixel-agents\,
+    criar o lobe NC-LBE-INT-005-pixel-agents.mdc SUPER DETALHADO:
+
+    SEÇÕES OBRIGATÓRIAS (mínimo 300 linhas):
+    1. ## IDENTIDADE
+       - O que é, repositório, licença, stack (TypeScript, VS Code Extension API)
+    2. ## COMO FUNCIONA INTERNAMENTE
+       - Mecanismo de leitura de JSONL transcripts
+       - Formato exato do JSONL que ele consome (com exemplo real)
+       - Ciclo de animação: como o estado do agente mapeia para animação
+    3. ## FUNCIONALIDADES DETALHADAS
+       - Cada feature com screenshots/descrição e configuração
+    4. ## INTEGRAÇÃO COM NEOCORTEX — BRIDGE
+       - Por que precisa de bridge (NeoCortex usa DeepSeek/OpenCode, não Claude Code)
+       - Especificação técnica do NC-SCR-FR-016-opencode-jsonl-bridge.py:
+           * Formato de entrada: logs OpenCode
+           * Formato de saída: JSONL Claude Code compatível
+           * Como o HookRegistry (NC-HK-FR-001) pode emitir eventos para a bridge
+       - Como adicionar aba Pixel Agents no neocortex_hud.py (tkinterweb ou webview)
+        - Porta :8767 e configuração WebSocket
+    5. ## GAPS E RISCOS
+       - Maturidade (ainda evolui para agent-agnostic)
+       - Dependência de VS Code (não standalone ainda)
+       - Overhead da bridge de conversão
+    6. ## PRÓXIMOS PASSOS
+       - Ticket para criar NC-SCR-FR-016-opencode-jsonl-bridge.py
+       - Ticket para instalar Pixel Agents e testar com NeoCortex
+
+    LEIA os arquivos do repo clonado:
+      DIR-RES-CC-001-claude-leak-workzone\external-refs\pixel-agents\README.md
+      DIR-RES-CC-001-claude-leak-workzone\external-refs\pixel-agents\package.json
+      (qualquer arquivo .ts ou .js relevante para entender o formato JSONL)
+
+  exit_state:
+    files_created:
+      - "02_memory_lobes/NC-LBE-INT-005-pixel-agents.mdc"
+    min_lines: 300
+
+barriers:
+  - {id: B1, check: naming, rule: "NC-LBE-INT-005-pixel-agents.mdc em 02_memory_lobes/", block_if_fail: true}
+  - {id: B2, check: min_lines, rule: ">= 300 linhas", block_if_fail: true}
+  - {id: B3, check: sections, rule: "Todas as 6 seções incluindo especificação da bridge", block_if_fail: true}
+  - {id: B4, check: handoff, rule: "Gerar NC-DS-008-handoff-YYYYMMDD-HHMMSS.yaml em DIR-DS-002-audit-logs/", block_if_fail: true}
+
+limits:
+  max_tokens_per_phase: 6000
+integrity_hash: "f28bd382c14ea06d"

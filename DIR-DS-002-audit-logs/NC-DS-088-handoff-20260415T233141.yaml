@@ -1,0 +1,39 @@
+ticket_id: "NC-DS-088"
+status: "APPROVED"
+timestamp: "2026-04-15T23:31:41-03:00"
+agent: "opencode"
+summary: |
+  Sanitização de roadmaps obsoletos v5/v6/v7 e DS-002.
+  Adicionado header de depreciação e movido para DIR-ARC-FR-001-archive-main/deprecated-roadmaps/.
+  Verificado NC-TODO-DS-001-roadmap-pre-mcp.md (válido).
+  Verificado frontmatter do consolidated roadmap v9.0.
+files_modified:
+  - "01_neocortex_framework/DIR-ARC-FR-001-archive-main/NC-TODO-FR-001-project-roadmap.md"
+  - "01_neocortex_framework_RENAMED/DIR-ARC-FR-001-archive-main/NC-TODO-FR-001-project-roadmap.md"
+  - "01_neocortex_framework/DIR-ARC-FR-001-archive-main/NC-TODO-FR-001-project-roadmap-v6-stability.md"
+  - "01_neocortex_framework_RENAMED/DIR-ARC-FR-001-archive-main/NC-TODO-FR-001-project-roadmap-v6-stability.md"
+  - "01_neocortex_framework/DIR-ARC-FR-001-archive-main/NC-TODO-FR-001-project-roadmap-v7-combined.md"
+  - "01_neocortex_framework_RENAMED/DIR-ARC-FR-001-archive-main/NC-TODO-FR-001-project-roadmap-v7-combined.md"
+  - "DIR-ARC-FR-001-archive-main/raiz-orphans-20260413/NC-TODO-DS-002-roadmap-full.md"
+files_moved:
+  - from: "01_neocortex_framework/DIR-ARC-FR-001-archive-main/NC-TODO-FR-001-project-roadmap.md"
+    to: "DIR-ARC-FR-001-archive-main/deprecated-roadmaps/NC-TODO-FR-001-project-roadmap.md"
+  - from: "01_neocortex_framework_RENAMED/DIR-ARC-FR-001-archive-main/NC-TODO-FR-001-project-roadmap.md"
+    to: "DIR-ARC-FR-001-archive-main/deprecated-roadmaps/NC-TODO-FR-001-project-roadmap_RENAMED.md"
+  - from: "01_neocortex_framework/DIR-ARC-FR-001-archive-main/NC-TODO-FR-001-project-roadmap-v6-stability.md"
+    to: "DIR-ARC-FR-001-archive-main/deprecated-roadmaps/NC-TODO-FR-001-project-roadmap-v6-stability.md"
+  - from: "01_neocortex_framework_RENAMED/DIR-ARC-FR-001-archive-main/NC-TODO-FR-001-project-roadmap-v6-stability.md"
+    to: "DIR-ARC-FR-001-archive-main/deprecated-roadmaps/NC-TODO-FR-001-project-roadmap-v6-stability_RENAMED.md"
+  - from: "01_neocortex_framework/DIR-ARC-FR-001-archive-main/NC-TODO-FR-001-project-roadmap-v7-combined.md"
+    to: "DIR-ARC-FR-001-archive-main/deprecated-roadmaps/NC-TODO-FR-001-project-roadmap-v7-combined.md"
+  - from: "01_neocortex_framework_RENAMED/DIR-ARC-FR-001-archive-main/NC-TODO-FR-001-project-roadmap-v7-combined.md"
+    to: "DIR-ARC-FR-001-archive-main/deprecated-roadmaps/NC-TODO-FR-001-project-roadmap-v7-combined_RENAMED.md"
+  - from: "DIR-ARC-FR-001-archive-main/raiz-orphans-20260413/NC-TODO-DS-002-roadmap-full.md"
+    to: "DIR-ARC-FR-001-archive-main/deprecated-roadmaps/NC-TODO-DS-002-roadmap-full.md"
+directory_created: "DIR-ARC-FR-001-archive-main/deprecated-roadmaps/"
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  ssot_updated: false
+  no_locked_files_modified: true
+  handoff_yaml_complete: true

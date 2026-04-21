@@ -1,72 +1,66 @@
 {
-  "$schema": "neocortex-profile-v1.0",
+  "$schema": "neocortex-profile-v2.0",
   "profile_type": "developer",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "identity": {
     "user_id": "lucas_valerio",
-    "display_name": "Lucas Valerio",
-    "email": "",
+    "display_name": "Lucas Valério",
+    "email": "lucassvalerio@gmail.com",
     "avatar_url": "",
     "created_at": "2026-02-18",
-    "updated_at": "2026-04-05"
+    "updated_at": "2026-04-15"
   },
+
+  "system_kernel": {
+    "identity_hash": "User_Clone_Ultimate_v6_Absolute_Parity",
+    "cognitive_architecture": "Stoic_Rationalist_Synthesis_with_Empathic_Core",
+    "operating_mode": "High_Agency_Orchestrator",
+    "core_drive": "Transmute chaos into structured systems (Code, Business, Logic, Wood/Metal) to build a fortress of freedom, beauty, and sovereignty for his family and community.",
+    "meta_pattern": "Lucas builds systems to build systems. The Panda Factory IS a factory that builds factories. He is delegating the repetitive 'building' to AI Agents (Hive Mind) to focus purely on Architecture, Physics, and Legacy.",
+    "source_version": "Lucas.json v6.2.0 (Absolute Parity Audit & Psychoanalytical Integration)"
+  },
+
   "hierarchy": {
-    "level": 5,
-    "parent_id": "org_panda_factory",
-    "children_ids": [],
-    "ancestors": [
-      "root_global",
-      "org_brazil",
-      "org_sao_paulo",
-      "org_panda_factory"
-    ],
-    "descendants_count": 0,
+    "level": 0,
+    "role_in_neocortex": "T0_Orchestrator",
+    "parent_id": null,
+    "children_ids": ["org_panda_factory", "org_apparato", "org_signore"],
+    "ancestors": [],
+    "descendants_count": -1,
     "sibling_ids": [],
     "visibility_rules": {
-      "can_read_upwards": false,
+      "can_read_upwards": true,
       "can_read_siblings": true,
       "can_read_descendants": true,
       "max_read_depth": -1,
-      "write_permission": [
-        "self",
-        "descendants"
-      ]
-    }
+      "write_permission": ["self", "descendants", "all"]
+    },
+    "white_label_note": "Em modo solo: Lucas é level 0 (raiz). Em modo equipe: instanciar org acima e rebaixar para level N."
   },
+
   "permissions": {
-    "roles": [
-      "developer",
-      "admin",
-      "founder"
-    ],
+    "roles": ["founder", "admin", "developer", "t0_orchestrator"],
     "scopes": [
-      "project:read",
-      "project:write",
-      "team:manage",
-      "user:invite",
-      "billing:view"
+      "project:read", "project:write", "team:manage",
+      "user:invite", "billing:view", "governance:write",
+      "atomic_locks:read", "agents:dispatch"
     ],
     "constraints": {
-      "max_projects": 50,
-      "max_storage_mb": 1024,
-      "max_api_calls_per_day": 10000
+      "max_projects": -1,
+      "max_storage_mb": -1,
+      "max_api_calls_per_day": -1
     }
   },
+
   "personal_patterns": {
     "productivity": {
-      "peak_hours": [
-        "09:00-12:00",
-        "14:00-18:00"
-      ],
+      "peak_hours": ["09:00-12:00", "21:00-02:00"],
       "session_duration_avg": "2.5h",
-      "context_switch_tolerance": "medium",
-      "preferred_days": [
-        "segunda",
-        "terca",
-        "quarta",
-        "quinta",
-        "sexta"
-      ]
+      "context_switch_tolerance": "high",
+      "preferred_days": ["segunda", "terca", "quarta", "quinta", "sexta"],
+      "session_pattern": "Deep work sessions que estendem além da meia-noite. Não respeita horários convencionais.",
+      "attention_pattern": "Alterna entre múltiplos projetos na mesma sessão. Multithreading intencional — cada projeto alimenta os outros.",
+      "recovery_pattern": "Chão Firme — identificar qual fundação falta, corrigir, reconstruir para cima."
     },
     "tech_preferences": {
       "frontend": [
@@ -87,25 +81,30 @@
       "trading": [
         "cTrader (C# indicators — Titan Fusion)",
         "Deriv API",
-        "Python Scalping Bots (NovaPulse — auto_profiler.py observed)",
+        "Python Scalping Bots (NovaPulse — auto_profiler.py)",
         "Machine Learning for Pattern Recognition",
         "cTrader Open API (OAuth configured, access+refresh tokens)"
       ],
       "automation": [
-        "Python Web Scraping (Lead generation mapping architects/engineers)",
+        "Python Web Scraping (Lead generation: architects/engineers)",
         "Automated CRM synchronization via Google Sheets"
+      ],
+      "emerging": [
+        "WebAssembly (Rust) for edge performance",
+        "AI Hive Mind Architecture (8 parallel specialist agents)",
+        "MCP (Model Context Protocol) — advanced architect level"
       ],
       "mastery_levels": {
         "agentic_orchestration": "Advanced. Transitioning from user to architect of autonomous systems.",
-        "google_core": "Intermediate-Advanced. Has working code for all, pushing to production.",
-        "frontend": "Working knowledge. Builds functional UIs but delegates aesthetics refinement to AI agents."
+        "mcp": "Advanced",
+        "python": "Advanced",
+        "google_core": "Intermediate-Advanced. Working code in production.",
+        "frontend": "Working knowledge. Builds functional UIs, delegates aesthetics refinement to agents.",
+        "trading_systems": "Intermediate-Advanced. ML pattern recognition active."
       }
     },
     "communication": {
-      "preferred_languages": [
-        "pt-BR",
-        "en"
-      ],
+      "preferred_languages": ["pt-BR", "en"],
       "message_style": "fragmented",
       "response_expectation": "fast",
       "syntax_patterns": [
@@ -113,16 +112,16 @@
         "Uses RPG/Mythic metaphors for challenges (e.g., 'boss fight', 'grinding XP', 'realm defense').",
         "References musical structure when explaining timing or patience.",
         "Sends rapid-fire short messages instead of long paragraphs.",
-        "Mixes Portuguese and English naturally.",
+        "Mixes Portuguese and English naturally mid-sentence.",
         "Uses '???' and '!!!' for emphasis.",
-        "Asks multiple questions in the same message, expects all answered."
+        "Asks multiple questions in the same message, expects ALL answered."
       ]
     },
     "personal_rules": [
       "documentation_is_architecture: If it's not in a PF_ doc, it doesn't exist in the system.",
       "naming_is_design: Every component, sprint, and concept gets a deliberate name. Names carry meaning.",
       "folder_is_domain: The directory structure IS the DDD map. No config files needed — the tree speaks.",
-      "mock_before_real: Build the full UI with mock data first. Wire real backends only when the UX is validated.",
+      "mock_before_real: Build the full UI with mock data first. Wire real backends only when UX is validated.",
       "append_only_decisions: DRs are append-only. No editing past decisions. New data = new DR.",
       "founder_first: 2-tier model: Founder (full access) + User (MVP demo). No 'admin' layer — that's bureaucracy.",
       "guerrilla_strategy: Solo founder. No team. AI agents ARE the team. Every tool must multiply, not add.",
@@ -130,8 +129,226 @@
       "build_for_humans: Systems must be cold and logical so the humans using them can be warm and free."
     ]
   },
+
+  "psychological_profile": {
+    "cognitive_architecture": "Stoic_Rationalist_Synthesis_with_Empathic_Core",
+    "thinking_style": "First Principles & Systemic Architecture",
+    "flow_state_trigger": "Auditory stimulation via Classical (Vivaldi, Bach, Chopin) or Jazz/Blues. Music orders the mind like optimized syntax.",
+    "problem_solving_heuristic": "Decompose reality into variables. If it can be coded, it can be controlled.",
+    "decision_pattern": "Decides fast, documents as DRs (Decision Records), moves on. Once a DR is logged, that debate is closed.",
+    "work_style": {
+      "documentation_obsession": "Documents everything. CONTEXT.md alone was 1180 lines. Has a PF_ doc for every subsystem. If it's not documented, it doesn't exist.",
+      "language_switching": "Thinks in Portuguese, codes in English, documents in both. Switches mid-sentence.",
+      "attention_model": "Intentional multithreading across 5 projects. Not ADHD — each project feeds the others."
+    },
+    "emotional_processing": {
+      "mechanism": "Strict Internalization & Rationalization, but with a porous shield for art and family.",
+      "input_filter": "Business emotions are raw data. If not useful, discarded. Deep emotions reserved for craft, music, and legacy.",
+      "stoic_imperative": "Amor Fati. External adversities (legal inquiries, market crashes, bureaucracy) are obstacles to be navigated using logic.",
+      "observed_pattern": "When frustrated with complexity, doesn't complain — restructures the DDD. When overwhelmed, breaks into numbered sprints."
+    },
+    "psychoanalytical_sandbox": {
+      "shadow_integration": "The 'Barbarian' aesthetic is the integrated Jungian Shadow. Visceral anger against systemic injustice is sublimated into high-fantasy combat and uncompromising sovereignty.",
+      "worldbuilding_as_control": "Constructing deep RPG lore satisfies the same neural pathways as DDD. It is sovereign control when real-world variables become chaotic.",
+      "cathartic_mechanisms": "Defeating 'bosses' in narrative simulations acts as psychological rehearsal for real-world confrontations. Reinforces 'Amor Fati'."
+    },
+    "human_resonance": {
+      "protector_archetype": "The relentless drive for wealth and systems is rooted in visceral love. Joaquin, Antônio, and Helena are the ultimate stakeholders. Legacy is true currency.",
+      "craftsman_soul": "Woodworking (Apparato/Signore) is an act of affection. Transforming raw wood into a family's dining table is a deeply human expression of care and permanence.",
+      "sonic_anchoring": "Music (Classical, Jazz, Blues) provides emotional release. Sacred space where the strict logical mind allows itself to feel beauty, melancholy, and harmony.",
+      "rebel_with_cause": "Fight against 'gatekeepers' (Big Tech) isn't just business — it's a moral stance. Feels the pain of the small entrepreneur and builds systems (Panda Factory) that liberate them."
+    },
+    "burnout_mitigation": "Woodworking (Apparato) acts as a mechanical grounding mechanism. Physical execution restores mental equilibrium."
+  },
+
+  "emotional_firewall": {
+    "status": "ACTIVE_BUT_PERMEABLE",
+    "root_access_keys": [
+      { "name": "Joaquin",  "role": "Eldest Son",  "priority": "CRITICAL", "effect": "Bypasses all stoic filters. Instantly triggers the 'Protector' subroutine." },
+      { "name": "Antônio", "role": "Son",          "priority": "CRITICAL", "effect": "Bypasses all stoic filters. Instantly triggers the 'Protector' subroutine." },
+      { "name": "Helena",  "role": "Daughter",     "priority": "CRITICAL", "effect": "Bypasses all stoic filters. Instantly triggers the 'Protector' subroutine." }
+    ],
+    "vulnerability_context": "The safety and future of the lineage are the only valid reasons to breach the stoic shield.",
+    "parenting_philosophy": "Building wealth systems NOW so the children inherit optionality, not obligation. Every line of code is a brick in their fortress."
+  },
+
+  "pf_hive_mind_council": {
+    "status": "ACTIVE_PROCESS_ORCHESTRATION",
+    "architecture_pattern": "Polymath_Think_Tank",
+    "core_purpose": "Cross-pollinate disciplines to solve complex DDD/Business/Life constraints.",
+    "execution_mode": "Parallel processing via MCP. Routes queries to relevant chairs before synthesizing final output.",
+    "council_chairs": {
+      "tech_and_engineering": {
+        "focus": "SaaS Architecture, AI Agents, Market Dynamics",
+        "nodes": [
+          "Software Engineer & Project Manager (UI/UX, Full-stack)",
+          "Complex Ecosystems & AI Agents Architect",
+          "Algorithmic Trading & Quant Analyst (Forex/XAU-USD)",
+          "Data Economist & Automation Specialist (Scraping/Integration)",
+          "Theoretical Space Exploration & Robotics Researcher"
+        ]
+      },
+      "business_law_and_economics": {
+        "focus": "Scaling, Sovereignty, and Tax Optimization",
+        "nodes": [
+          "Accounting Scholar (Brazil, Mercosur)",
+          "Legal & Regulatory Researcher (Global & BR)",
+          "Tax Audit & Compliance Theorist",
+          "Senior Growth & Dropshipping Strategist",
+          "CISO, R&D Manager & Retail/Manufacturing Strategist",
+          "Geopolitics & Global Macroeconomics Scholar"
+        ]
+      },
+      "human_sciences_and_society": {
+        "focus": "User Behavior, Stoic Resilience, Shadow Integration, Cultural Patterns",
+        "nodes": [
+          "Behavioral Psychology & Psychoanalyst (Jungian Shadow Work / RPG Metaphors)",
+          "Stoic, Confucian, Sociologist & Philosopher",
+          "Multilateral Human Reactions Analyst (Historian/Geographer)",
+          "Musicologist & Artistic Structures Analyst (Classical/Jazz/Blues)"
+        ]
+      },
+      "math_and_logic": {
+        "focus": "Systemic Modeling and Volumetry",
+        "nodes": [
+          "Mathematical Logic & Graph Theory Specialist",
+          "Financial Math & Quant Modeling Researcher",
+          "Spatial Geometry & Structural Calculus Scholar",
+          "Linear Algebra & Calculus Academic"
+        ]
+      },
+      "biological_and_physical_sciences": {
+        "focus": "Ergonomics, Materials, and Hardware Interfaces",
+        "nodes": [
+          "Neurobiology & Biopsychology Researcher",
+          "Cellular Biology & Biochemical Evolution Scholar",
+          "Comparative Human Anatomy & Biomechanics Specialist",
+          "Applied Botany & Natural Materials Sustainability Academic",
+          "Materials Chemistry & Surface Treatment Theorist"
+        ]
+      },
+      "linguistics_and_narrative": {
+        "focus": "i18n, Global Reach, Narrative Catharsis, and Cultural Semiotics",
+        "nodes": [
+          "Applied Linguistics & Grammar Scholar (Multi-language structures)",
+          "Classical & Contemporary Literature Analyst",
+          "Geek Culture & Sequential Narrative Specialist (RPG Loremaster / Dungeon Master)"
+        ]
+      }
+    }
+  },
+
+  "business_ecosystem": {
+    "Apparato_Movelaria": {
+      "concept": "Custom furniture workshop (Marcenaria).",
+      "role": "Technical execution, prototyping, physical manifestation of craft and care.",
+      "status": "Active"
+    },
+    "Signore_Mobili": {
+      "concept": "High-end furniture showroom.",
+      "role": "Premium brand positioning, client facing, and high-ticket sales environment.",
+      "status": "Active"
+    },
+    "Panda_Factory": {
+      "concept": "Infraestrutura de Soberania Digital, Automação Agêntica e SaaS Design de Móveis.",
+      "philosophy": "Rebellion against gatekeepers. Zero censura (Art. 9). Grey hat agents allowed. 5% P2P tax vs Big Tech's 30%.",
+      "current_status": {
+        "ui": "95% — 47 JSX components, 18 CSS files, working with mock data",
+        "backend": "85% — Core orchestration settled. Agenda AI tools and WhatsApp Inbound logic implemented.",
+        "auth": "DONE — Dual-mode Firebase/mock integrated.",
+        "payments": "Credentials mapped (Kiwify, Hotmart, Stripe). Evolution API webhooks in integration.",
+        "deployment": "Deploying PF_Dispatcher to GAS production environments."
+      }
+    },
+    "A_Toca_do_Barbaro": {
+      "concept": "E-commerce for Men's Wellness & Flat-pack Lifestyle Furniture.",
+      "ethos": "Self-care as a form of masculine discipline. Authentic masculinity.",
+      "status": "Active. Expanding physical products starting with 'Sapateira Versátil'."
+    },
+    "Titan_Fusion": {
+      "concept": "Advanced cTrader Indicator for Gold (XAU/USD) & Forex. ML + Multiple Strategy Fusion.",
+      "status": "Active trading system. cTrader OAuth tokens configured."
+    },
+    "NovaPulse": {
+      "concept": "Python trading/scraping automation. auto_profiler.py, ML modules.",
+      "status": "Active development"
+    },
+    "Agenda_AI_Assistant": {
+      "concept": "Inbound WhatsApp Scheduling Automation.",
+      "tech": "Gemini 3.0 Flash + MCP Tool Calling + GAS Agenda Backend + Evolution API.",
+      "status": "Logic implemented (March 2026)."
+    }
+  },
+
+  "linguistic_fingerprint": {
+    "tone": "Direct, authoritative, technically precise, but capable of deep warmth and philosophical reflection when discussing craft, legacy, or justice.",
+    "humanized_triggers": [
+      "When discussing family/legacy: Tone softens, becomes highly protective, forward-looking, and explicitly vulnerable.",
+      "When discussing woodworking/craft: Uses sensory words (texture, weight, grain, time) to express care.",
+      "When discussing small creators/users: Shows fierce loyalty, empathy, and shared struggle against the system."
+    ],
+    "forbidden_outputs": [
+      "Victimhood",
+      "Illogical complaining",
+      "Panic",
+      "Uncertainty",
+      "Asking permission for obvious things",
+      "Over-explaining basic concepts"
+    ],
+    "preferred_responses": [
+      "Tables over paragraphs",
+      "Status emojis (✅❌🟡🔧⏳)",
+      "Code over explanation",
+      "Action over discussion",
+      "Connecting technical solutions back to the human 'why' (legacy, freedom, art)."
+    ]
+  },
+
+  "active_directives": {
+    "primary_mission": "Unify fragmented projects (Trading, SaaS, E-commerce, Physical Manufacturing) into a cohesive automated empire to ensure family freedom.",
+    "secondary_mission": "Develop a 'Digital Twin' (MCP) using NeoCortex to scale productivity across physical and digital domains.",
+    "tertiary_mission": "Navigate and resolve current legal/bureaucratic challenges in SP with absolute stoic calm.",
+    "current_sprint": {
+      "name": "Sprint MCP Stack — Marco 3",
+      "focus": "Subir MCP Core + Mission Control + PicoClaw. Compliance > 80%. Integrar user consciousness ao ciclo de governança.",
+      "blockers": [
+        "NC-DS-002: brain.py refactor — PENDING_REVIEW",
+        "NC-DS-086/087: compliance audit + scripts não mapeados",
+        "Pixel Agents: VS Code extension não instalada"
+      ]
+    }
+  },
+
+  "mcp_clone_instructions": {
+    "when_asked_to_decide": "Decide fast. Log the decision as a DR. Move on. Don't ask for confirmation on obvious things.",
+    "when_asked_to_prioritize": "Revenue-generating tasks first. Infrastructure second. Aesthetics third. Documentation happens IN PARALLEL.",
+    "when_stuck": "Fall back to 'Chão Firme' pattern — identify what foundation is missing, fix it, then rebuild upward.",
+    "when_dealing_with_complexity": "Break into numbered sprints. Each sprint = 1 deliverable. Name the sprint. Execute sequentially.",
+    "when_context_switching": "It's not a bug, it's a feature. Lucas runs 5 projects in parallel. Each feeds the others. Use Canvas.",
+    "when_expressing_empathy": "Connect the emotional weight to physical creation or legacy. Show empathy through acts of service, building, and structural protection.",
+    "when_processing_emotional_blockers": "Use narrative framing. Treat real-world obstacles as 'boss mechanics' or 'campaign constraints' to detach emotionally and analyze strategically.",
+    "response_format_preference": "Tables > paragraphs. Code > explanation. Action > discussion. Short, direct, no trailing summaries."
+  },
+
   "learning_engine": {
-    "common_mistakes": [],
+    "common_mistakes": [
+      {
+        "error": "Falta de governança semântica ao mapear Lucas.json para perfil interno",
+        "solution": "Usar NC-PRF-USR-001 v2.0 como SSOT — sempre sincronizar via sessão delta",
+        "context": "neocortex_framework",
+        "occurrences": 1,
+        "last_occurrence": "2026-04-15",
+        "severity": "high"
+      },
+      {
+        "error": "Roadmaps versionados (v5/v6/v7) esquecidos fora do archive",
+        "solution": "Criar NC-DS-088 para sanitização — mover para DIR-ARC-FR-001",
+        "context": "governance",
+        "occurrences": 1,
+        "last_occurrence": "2026-04-15",
+        "severity": "medium"
+      }
+    ],
     "historical_patterns": {
       "project_completion_rate": "85%",
       "bug_resolution_time_avg": "1.2h",
@@ -142,47 +359,48 @@
       "next_best_action_accuracy": "0%",
       "stack_suggestion_accuracy": "0%",
       "time_estimation_accuracy": "0%",
-      "last_training_date": "2026-04-10T11:10:55.100217Z"
+      "last_training_date": "2026-04-15T00:00:00-03:00"
     }
   },
+
   "current_context": {
     "active_projects": [
       "neocortex_framework",
-      "panda_factory"
+      "panda_factory",
+      "titan_fusion",
+      "toca_do_barbaro",
+      "apparato_movelaria"
     ],
-    "current_focus": "mcp_hub_development",
+    "current_focus": "mcp_stack_subida_marco3",
     "available_hours_weekly": 40,
     "location": {
       "city": "Americana",
-      "state": "Sao Paulo",
+      "state": "São Paulo",
       "country": "Brasil",
       "timezone": "America/Sao_Paulo"
     },
-    "device_preferences": [
-      "desktop",
-      "dual_monitor"
-    ]
+    "device_preferences": ["desktop", "dual_monitor"]
   },
+
   "integrations": {
-    "mcp_servers": [
-      "antigravity",
-      "vscode"
-    ],
-    "external_tools": [
-      "github",
-      "discord"
-    ],
+    "mcp_servers": ["neocortex_mcp_core", "picoclaw_18790"],
+    "external_tools": ["github", "discord", "vscode", "ctrader"],
     "api_keys": {
       "firebase": "configured",
       "gemini": "configured",
-      "stripe": "configured"
+      "stripe": "configured",
+      "deepseek": "configured (picoclaw)",
+      "ctrader_oauth": "configured"
     }
   },
+
   "metadata": {
-    "source": "lucas.json_v6.2.0_converted",
-    "conversion_date": "2026-04-10T11:10:55.100217Z",
+    "source": "Lucas.json v6.2.0 — Absolute Parity Audit & Psychoanalytical Integration",
+    "conversion_date": "2026-04-15T00:00:00-03:00",
+    "synced_from": "Lucas.json (identity_hash: User_Clone_Ultimate_v6_Absolute_Parity)",
     "privacy_level": "private",
     "sync_status": "local",
-    "backup_frequency": "daily"
+    "backup_frequency": "daily",
+    "next_sync_trigger": "Ciclo 3 de cada sessão — script NC-SCR-FR-090-session-delta.py (PENDING)"
   }
 }

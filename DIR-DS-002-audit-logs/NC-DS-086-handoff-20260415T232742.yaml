@@ -1,0 +1,39 @@
+# NC-DS-086-handoff-20260415T232742.yaml
+# Handoff para ticket NC-DS-086 — auditoria de scripts ssot-auditor + structural-auditor
+# Ticket: NC-DS-086-marco2-scripts-ssot-structural-auditors.yaml
+
+ticket_id: NC-DS-086
+status: APPROVED
+timestamp: "2026-04-15T23:27:42-03:00"
+agent: opencode (DeepSeek-Reasoner)
+
+summary: |
+  Concluída auditoria e rastreabilidade dos scripts NC-SCR-FR-023-ssot-auditor.py e NC-SCR-FR-024-structural-auditor.py.
+  Verificação de sintaxe (py_compile) passou para ambos os scripts.
+  Execução dos scripts com --help/--dry-run produziu relatórios de auditoria (ssot_audit_report.md, structural_audit_report.md).
+  Scripts registrados no NC-GOV-FR-004-fr-artifacts-registry.yaml (seção SCR) com finalidades e regras de governança [R01,R04,R05,R11,R20].
+  Entradas adicionadas ao SSOT de nomenclatura NC-NAM-FR-001-naming-convention.md (tabela principal e duplicata).
+  Corrigido bug de importação (sys não importado antes do uso) em ambos os scripts.
+  Atualizados contadores de artefatos mapeados no registro (total_artifacts_mapped: 300, total_fr_files_mapped: 32, coverage_percentage: 10.7).
+
+files_created:
+  - (nenhum)
+
+files_modified:
+  - "01_neocortex_framework/scripts/NC-SCR-FR-023-ssot-auditor.py"
+  - "01_neocortex_framework/scripts/NC-SCR-FR-024-structural-auditor.py"
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-004-fr-artifacts-registry.yaml"
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
+
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  ssot_updated: true
+  no_locked_files_modified: true
+  handoff_yaml_complete: true
+
+integrity_check:
+  file_exists: true
+  py_compile_pass: true
+  ssot_entry_exists: true
+  governance_registry_updated: true

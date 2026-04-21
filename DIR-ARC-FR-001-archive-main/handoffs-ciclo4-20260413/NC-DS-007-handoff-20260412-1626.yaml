@@ -1,0 +1,27 @@
+status: REDESIGNED_BY_T0
+ticket_id: NC-DS-007
+roadmap_ticket: GOV-012
+submitted_at: "2026-04-12T16:26:00"
+submitted_by: deepseek-chat
+review_by: antigravity-t0
+reviewed_at: null
+summary:
+  files_created: []
+  files_modified: []
+  lines_added: 0
+  lines_removed: 0
+  validation_rounds: 0
+  barriers_passed: []
+  locks_violated: []
+  cost_usd: 0.0
+  overall: ESCALATED
+t0_review:
+  compile_ok: null
+  naming_ok: null
+  ssot_updated: null
+  locks_clean: null
+  roadmap_done: null
+rejection:
+  reason: "NC-NAM-FR-001 protegido por @LOCKS. DS-B corretamente escalou sem tocar nada. RESOLUCAO T0: sub-registros criados como NOVOS arquivos (NC-NAM-FR-001a/b/c/d). NC-NAM-FR-001 mestre nao sera modificado por T1. T0 adiciona index manualmente pos-validacao."
+  next_ticket: NC-DS-007-REVISED
+redesign_note: "Ticket reformulado. Write_zone atualizada para nao incluir NC-NAM-FR-001 original. DS-B cria apenas arquivos novos."

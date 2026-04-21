@@ -1,0 +1,93 @@
+ticket_id: NC-DS-007
+ticket_type: RESEARCH + DOCUMENTATION
+priority: HIGH
+assigned_to: deepseek-chat
+created_at: "2026-04-14T00:15:00-03:00"
+created_by: antigravity-t0
+
+context:
+  roadmap_ticket: INT-001 (Mission Control Integration)
+  active_locks:
+    - server.py
+    - sub_server.py
+    - NC-NAM-FR-001
+    - neocortex_config.yaml
+  write_zone: "02_memory_lobes/"
+  naming_rule: "NC-LBE-INT-004-mission-control.mdc"
+  reference_file: "01_neocortex_framework/lobes/NC-LBE-INT-003-antigravity-integration.mdc"
+
+research_context: |
+  Mission Control é uma plataforma open-source de orquestração de agentes IA.
+  GitHub: https://github.com/builderz-labs/mission-control
+  Repositório clonado localmente em:
+    DIR-RES-CC-001-claude-leak-workzone\external-refs\mission-control\
+
+  FUNCIONALIDADES CONFIRMADAS:
+  - Kanban Board: 6 colunas (inbox→assigned→in progress→review→quality review→done)
+  - Agent Management: descobre agentes em ~/.agents/, ~/.codex/, ~/.claude/agents/
+  - Agent SOUL system: bidirectional workspace sync
+  - Memory Knowledge Graph: filesystem-backed + relationship graph
+  - Skills Hub: instala skills de ClawdHub, skills.sh com scanner de segurança
+  - Cost Tracking: p50/p95/p99 latência por modelo via Recharts
+  - Security Audit: postura 0-100, detecção secrets, MCP tool auditing, trust scores
+  - Agent Eval Framework: output evals, trace evals, component evals, drift detection
+  - Natural Language Recurring Tasks: "every 9am" → cron
+  - Claude Code Integration: lê ~/.claude/projects/ diretamente
+  - Framework Adapters: OpenClaw, CrewAI, LangGraph, AutoGen, Claude SDK, generic fallback
+  - Activity Feed: WebSocket/SSE real-time
+  - Webhooks: HMAC-SHA256, exponential backoff, circuit breaker
+  - Multi-tenant: workspace isolation via /api/super/*
+  - Porta padrão: :3000
+
+  INTEGRAÇÃO COM NEOCORTEX (contexto T0):
+  - Generic adapter registra agentes DeepSeek/OpenCode
+  - MCP tool call auditing ↔ AuditHook (NC-HK-FR-002) já implementado
+  - Porta MCP :8765 (NeoCortex) + porta Mission Control :3000
+  - DDD: Mission Control = Adaptador Primário (porta de entrada de comandos)
+  - neocortex_visual_server.py: processo único que sobe core + Mission Control (:3000)
+
+task:
+  description: |
+    Com base no contexto de pesquisa acima e nos arquivos do repositório clonado em
+    DIR-RES-CC-001-claude-leak-workzone\external-refs\mission-control\,
+    criar o lobe NC-LBE-INT-004-mission-control.mdc SUPER DETALHADO:
+
+    SEÇÕES OBRIGATÓRIAS (mínimo 300 linhas):
+    1. ## IDENTIDADE
+       - O que é, repositório, licença, stack tecnológica
+    2. ## ARQUITETURA
+       - Como funciona internamente (WebSocket/SSE, adaptadores, workspace isolation)
+       - Estrutura de pastas do repositório clonado
+    3. ## FUNCIONALIDADES DETALHADAS
+       - Cada feature com exemplos de uso e configuração
+    4. ## INTEGRAÇÃO COM NEOCORTEX
+       - Passo a passo de como conectar ao NeoCortex via generic adapter
+       - Como o AuditHook do NeoCortex se integra com o MCP tool auditing
+       - Arquivo neocortex_visual_server.py: como seria o processo unificado
+       - Portas e configuração: :3000 (Mission Control) + :8765 (NeoCortex MCP)
+    5. ## GAPS E RISCOS
+       - O que Mission Control não faz que o NeoCortex já faz
+       - Potenciais conflitos de responsabilidade
+    6. ## PRÓXIMOS PASSOS
+       - Tickets de implementação da integração
+       - Dependências e ordem de execução
+
+    LEIA os arquivos do repo clonado antes de documentar:
+      DIR-RES-CC-001-claude-leak-workzone\external-refs\mission-control\README.md
+      DIR-RES-CC-001-claude-leak-workzone\external-refs\mission-control\package.json
+      (outros arquivos relevantes)
+
+  exit_state:
+    files_created:
+      - "02_memory_lobes/NC-LBE-INT-004-mission-control.mdc"
+    min_lines: 300
+
+barriers:
+  - {id: B1, check: naming, rule: "NC-LBE-INT-004-mission-control.mdc em 02_memory_lobes/", block_if_fail: true}
+  - {id: B2, check: min_lines, rule: ">= 300 linhas", block_if_fail: true}
+  - {id: B3, check: sections, rule: "Todas as 6 seções obrigatórias presentes", block_if_fail: true}
+  - {id: B4, check: handoff, rule: "Gerar NC-DS-007-handoff-YYYYMMDD-HHMMSS.yaml em DIR-DS-002-audit-logs/", block_if_fail: true}
+
+limits:
+  max_tokens_per_phase: 6000
+integrity_hash: "e49ac271b03df15c"

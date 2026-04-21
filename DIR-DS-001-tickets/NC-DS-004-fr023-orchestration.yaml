@@ -1,0 +1,63 @@
+ticket_id: NC-DS-004
+ticket_type: FEATURE
+priority: MEDIUM
+assigned_to: deepseek-chat
+created_at: "2026-04-12T04:19:00"
+created_by: antigravity-t0
+
+context:
+  roadmap_ticket: FR-023
+  active_locks:
+    - server.py
+    - sub_server.py
+    - NC-NAM-FR-001
+    - neocortex_config.yaml
+  write_zone: "01_neocortex_framework/neocortex/mcp/tools/"
+  naming_rule: "NC-<TIPO>-<SIGLA>-<NUM>-<desc>.ext"
+  reference_file: "neocortex/mcp/tools/NC-TOOL-FR-029-health.py"
+  warning: "FR-023 NÃO toca sub_server.py — apenas orquestra via HTTP. Se precisar tocar sub_server.py → ESCALATE status=ESCALATED imediatamente"
+
+task:
+  description: |
+    Criar NC-TOOL-FR-023-orchestration.py com register_tool(mcp) e ações:
+
+    agent.spawn       → inicia sub-servidor efêmero via neocortex_subserver (HTTP, não stdio)
+    agent.heartbeat   → verifica status de agente em execução
+    agent.consume     → consome resultado de agente efêmero
+    agent.list_ephemeral → lista agentes efêmeros ativos
+    task.execute      → envia task para sub-servidor via HTTP POST /task
+    task.get_result   → recupera resultado de task executada
+    peers.discover    → descobre instâncias NeoCortex disponíveis na rede local
+
+    Absorve: NC-TOOL-FR-015-subserver.py + NC-TOOL-FR-018-task.py (partes de orquestração)
+    ATENÇÃO: A comunicação é via HTTP (porta 8766+). NÃO modificar sub_server.py.
+    Padrão: seguir estrutura de NC-TOOL-FR-029-health.py
+
+  entry_state:
+    files_exist:
+      - "neocortex/mcp/tools/NC-TOOL-FR-015-subserver.py"
+      - "neocortex/mcp/tools/NC-TOOL-FR-018-task.py"
+    files_must_not_exist:
+      - "neocortex/mcp/tools/NC-TOOL-FR-023-orchestration.py"
+
+  exit_state:
+    files_created:
+      - "neocortex/mcp/tools/NC-TOOL-FR-023-orchestration.py"
+    files_modified:
+    ssot_updated: true
+    compiles_ok: true
+    roadmap_done: FR-023
+
+barriers:
+  - {id: B1, check: naming_convention, rule: "NC-TOOL-FR-023-orchestration.py", block_if_fail: true}
+  - {id: B2, check: lock_guard, rule: "NUNCA modificar sub_server.py — ESCALATE se necessário", block_if_fail: true}
+  - {id: B3, check: compile, rule: "py_compile OK", block_if_fail: true}
+  - {id: B4, check: ssot_entry, rule: "NC-NAM-FR-001 atualizado [2026-04-12]", block_if_fail: true}
+  - {id: B5, check: no_hardcode, rule: "Usar get_config()", block_if_fail: false}
+  - {id: B6, check: no_print, rule: "Usar logger", block_if_fail: false}
+
+limits:
+  max_validation_rounds: 5
+  escalate_to_t0_after: 3
+  max_tokens_per_phase: 4000
+integrity_hash: "3770dfa24d412371"  # sha256[:16] of ticket_id|write_zone|title

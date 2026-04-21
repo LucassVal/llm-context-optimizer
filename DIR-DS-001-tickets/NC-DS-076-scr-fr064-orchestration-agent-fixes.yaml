@@ -1,0 +1,61 @@
+ticket_id: "NC-DS-076"
+status: "DONE"
+priority: "HIGH"
+title: "SCR-FR-064-orch — Rastreabilidade + Fix: NC-SCR-FR-064-orchestration-agent-fixes.ps1"
+created_at: "2026-04-15T01:08:00-03:00"
+created_by: "T0-Antigravity"
+
+context:
+  origin: "Auditoria de scripts orfaos (Ciclo 1, sessao 2026-04-15)"
+  problem: |
+    NC-SCR-FR-064-orchestration-agent-fixes.ps1 (393 linhas) e o orquestrador
+    multi-agente que executa Engineer -> Courier -> Tester em sequencia com STEP-0
+    integrado. Nao tem ticket formal e tem referencias possivelmente obsoletas:
+    - structural_audit_report.md (linha 83 do script)
+    - renaming_plan.yaml (linha 84 do script)
+    Estas dependencias de arquivo de entrada precisam ser verificadas.
+  scope: "Rastreabilidade + correcao de referencias obsoletas + integracao ao NC-WF-001"
+
+task:
+  description: |
+    1. Verificar se structural_audit_report.md e renaming_plan.yaml ainda existem.
+    2. Se nao existirem, parametrizar as entradas ou tornar opcionais.
+    3. Documentar sequência Engineer -> Courier -> Tester e casos de uso atuais.
+    4. Adicionar referencia ao script na secao de coordenacao multi-agente do NC-WF-001.
+    5. Executar com -DryRun para validar prerequisitos.
+    6. Atualizar NC-NAM-FR-001.
+    7. Gerar handoff APPROVED.
+  action_description:
+    utterances:
+      - "Orquestrar execucao sequencial dos agentes Engineer, Courier e Tester"
+      - "Executar pipeline completo de correcoes de agentes"
+    dependent_actions:
+      - "Verificar existencia de structural_audit_report.md ANTES de executar"
+      - "Executar com -DryRun primeiro para validar prereqs"
+    input_instructions: |
+      Parametros: [-Sequential] [-LogDir path] [-DryRun]
+      Arquivos de entrada: structural_audit_report.md e renaming_plan.yaml
+      (verificar existencia antes de executar sem -DryRun)
+    output_instructions: "Logs por agente em DIR-DOC-FR-001-docs-main/orchestration_TIMESTAMP.log e relatorio .md"
+    usage_rules: |
+      Usar quando precisar executar os 3 agentes no pipeline de correcao.
+      SEMPRE executar com -DryRun primeiro.
+      Nao usar para tarefas de governanca rotineiras (use NC-SCR-FR-080 para isso).
+
+write_zone:
+  - "01_neocortex_framework/scripts/"
+  - ".agents/workflows/NC-WF-001-workspace-routine.md"
+references:
+  - "01_neocortex_framework/scripts/NC-SCR-FR-064-orchestration-agent-fixes.ps1"
+  - "01_neocortex_framework/scripts/NC-SCR-FR-062-engineer-encoding-fix.py"
+  - "01_neocortex_framework/scripts/NC-SCR-FR-061-courier-discrepancy-fix.py"
+  - "01_neocortex_framework/scripts/NC-SCR-FR-063-tester-vector-fix.py"
+
+tags: ["orchestration", "multi-agent", "engineer", "courier", "tester", "powershell", "SCR"]
+domain: "orchestration"
+layer: "infra"
+type: "SCR"
+
+risks:
+  - "Referencias a structural_audit_report.md e renaming_plan.yaml podem ser obsoletas"
+  - "Agentes referenciados (NC-SCR-FR-061/062/063) existem mas podem estar desatualizados"

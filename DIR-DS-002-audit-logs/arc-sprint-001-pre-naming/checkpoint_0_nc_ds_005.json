@@ -1,0 +1,27 @@
+{
+  "ticket_id": "NC-DS-005",
+  "roadmap_ticket": "FR-022",
+  "phase": "FASE_0_RECEBER",
+  "timestamp": "2026-04-12T15:41:41",
+  "active_locks": [
+    "server.py",
+    "sub_server.py",
+    "NC-NAM-FR-001",
+    "neocortex_config.yaml"
+  ],
+  "write_zone": "01_neocortex_framework/neocortex/mcp/tools/",
+  "naming_rule": "NC-<TIPO>-<SIGLA>-<NUM>-<desc>.ext",
+  "reference_file": "neocortex/mcp/tools/NC-TOOL-FR-029-health.py",
+  "entry_state": {
+    "files_exist": [
+      "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-004-checkpoint.py",
+      "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-012-regression.py",
+      "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-031-savepoint.py"
+    ],
+    "files_must_not_exist": [
+      "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-022-session.py"
+    ],
+    "ssot_file": "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md",
+    "roadmap_file": "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md"
+  }
+}

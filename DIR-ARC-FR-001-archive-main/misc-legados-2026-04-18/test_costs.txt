@@ -1,0 +1,15 @@
+COMPARATIVE COSTS FOR SAME VOLUME (441.56M Cache Hit, 19.12M Miss, 3.61M Out)
+---------------------------------------------------------------------------
+Model                               |      Cost (USD) |      Multiplier
+---------------------------------------------------------------------------
+DeepSeek (Custo Real Faturado)      | $         19.23 |            1.0x
+DeepSeek Reasoner (API Tabela)      | $         19.23 |            1.0x (Estimativa pura)
+Gemini 1.5 Flash (>128k)            | $         21.59 |            1.1x
+Claude 3 Haiku                      | $         22.54 |            1.2x
+GPT-4o-mini                         | $         38.15 |            2.0x
+Claude 3.5 Sonnet                   | $        243.96 |           12.7x
+Gemini 1.5 Pro (>128k)              | $        350.84 |           18.2x
+GPT-4o                              | $        635.84 |           33.1x
+OpenAI o1-mini                      | $        763.01 |           39.7x
+Mistral Large 2                     | $        943.02 |           49.0x
+Claude 3 Opus                       | $       1219.78 |           63.4x

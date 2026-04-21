@@ -1,0 +1,21 @@
+ticket_id: "NC-DS-085"
+status: "APPROVED"
+timestamp: "2026-04-15T23:19:12-03:00"
+agent: "opencode (DeepSeek-Reasoner)"
+summary: |
+  Verificação de sintaxe, execução de --help/--dry-run, leitura das primeiras 60 linhas e registro nos artefatos FR dos scripts NC-SCR-FR-002 (tool-manifest-generator) e NC-SCR-FR-022 (coverage-auditor).
+  - Scripts verificados com sucesso.
+  - Entradas adicionadas em NC-GOV-FR-004-fr-artifacts-registry.yaml (seção SCR).
+  - NC-NAM-FR-001 atualizado com entrada para NC-SCR-FR-022.
+files_modified:
+  - "01_neocortex_framework/scripts/NC-SCR-FR-002-tool-manifest-generator.py"
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-004-fr-artifacts-registry.yaml"
+  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
+files_created:
+  - "DIR-DS-002-audit-logs/NC-DS-085-handoff-20260415T231912.yaml"
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  ssot_updated: true
+  no_locked_files_modified: true
+  handoff_yaml_complete: true

@@ -1,0 +1,20 @@
+ticket_id: NC-DS-033
+status: PENDING_REVIEW
+lines_added: 384
+files_modified:
+  - 01_neocortex_framework/DIR-TMP-FR-001-templates-main/NC-TOOL-FR-TEMPLATE/NC-CFG-FR-001-plugin.json
+  - 01_neocortex_framework/DIR-TMP-FR-001-templates-main/NC-TOOL-FR-TEMPLATE/commands/NC-CMD-EXAMPLE.md
+  - 01_neocortex_framework/DIR-TMP-FR-001-templates-main/NC-TOOL-FR-TEMPLATE/hooks/NC-HK-EXAMPLE.py
+  - 01_neocortex_framework/DIR-TMP-FR-001-templates-main/NC-TOOL-FR-TEMPLATE/README.md
+  - 01_neocortex_framework/DIR-TMP-FR-001-templates-main/NC-TOOL-FR-TEMPLATE/tests/test_example.py
+  - 01_neocortex_framework/scripts/NC-SCR-FR-012-new-tool.py
+summary: |
+  Template de plugin (NC-TOOL-FR-TEMPLATE) com estrutura completa para criação de novos tools.
+  Inclui metadados (plugin.json), templates de documentação, hooks, testes e script de scaffolding.
+  Campo `neocortex_min_version` obrigatório conforme pesquisa.
+ajustes_aplicados:
+  - Campo `neocortex_min_version` adicionado ao plugin.json (obrigatório)
+  - Script de scaffolding (NC-SCR-FR-012-new-tool.py) que copia template e substitui placeholders
+  - Templates de hook seguindo padrão MCP (PreToolUse, PostToolUse, ToolError)
+  - Estrutura de diretórios padronizada (commands/, hooks/, tests/)
+  - Testes unitários básicos inclusos

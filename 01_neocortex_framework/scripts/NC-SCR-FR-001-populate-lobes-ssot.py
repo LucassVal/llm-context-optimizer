@@ -1,40 +1,56 @@
 #!/usr/bin/env python3
+import sys
+
+# Fix encoding for Windows (UTF-8)
+if sys.platform == "win32":
+    import io
+
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
+
+"""---
+domain: "orchestration"
+layer: "infra"
+type: "SCR"
+tags: ['script', 'automation']
+hash: "auto-generated"
+---"""
+
 """
 NC-SCR-FR-001-populate-lobes-ssot.py
-Script de Povoamento Automático de Lobos a partir dos Arquivos SSOT
+Script de Povoamento Automtico de Lobos a partir dos Arquivos SSOT
 
-Lê os arquivos SSOT do NeoCortex e os injeta nos lobos apropriados,
-garantindo que o conhecimento fique indexado e buscável via FTS5.
+L os arquivos SSOT do NeoCortex e os injeta nos lobos apropriados,
+garantindo que o conhecimento fique indexado e buscvel via FTS5.
 
 Uso:
     cd 01_neocortex_framework
     python scripts/NC-SCR-FR-001-populate-lobes-ssot.py
 
-Ou com flag de dry-run para só visualizar o que seria feito:
+Ou com flag de dry-run para s visualizar o que seria feito:
     python scripts/NC-SCR-FR-001-populate-lobes-ssot.py --dry-run
 """
 
-import sys
 import argparse
 import logging
+import sys
 from pathlib import Path
 
-# ─── Setup do PATH para importar o pacote neocortex ───────────────────────────
+#  Setup do PATH para importar o pacote neocortex
 SCRIPT_DIR = Path(__file__).parent.resolve()
 FRAMEWORK_ROOT = SCRIPT_DIR.parent  # 01_neocortex_framework/
 sys.path.insert(0, str(FRAMEWORK_ROOT))
 
-# ─── Imports do NeoCortex ─────────────────────────────────────────────────────
+#  Imports do NeoCortex
 try:
     from neocortex.core.lobe_service import get_lobe_service
-    from neocortex.config import get_config
 except ImportError as e:
-    print(f"[ERRO] Não foi possível importar o pacote neocortex: {e}")
-    print(f"       Certifique-se de executar de dentro de 01_neocortex_framework/ ou")
+    print(f"[ERRO] No foi possvel importar o pacote neocortex: {e}")
+    print("       Certifique-se de executar de dentro de 01_neocortex_framework/ ou")
     print(f"       que PYTHONPATH aponta para {FRAMEWORK_ROOT}")
     sys.exit(1)
 
-# ─── Configuração de Logging ──────────────────────────────────────────────────
+#  Configurao de Logging
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
@@ -42,10 +58,10 @@ logging.basicConfig(
 )
 log = logging.getLogger("populate_lobes")
 
-# ─── Mapeamento SSOT → Lobo ───────────────────────────────────────────────────
+#  Mapeamento SSOT  Lobo
 # Cada entrada: (caminho_relativo_ao_framework, nome_do_lobo, tags)
 SSOT_LOBE_MAP = [
-    # ── Arquitetura e Documentação → Lobo architecture ──────────────────────
+    #  Arquitetura e Documentao  Lobo architecture
     (
         "DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md",
         "NC-LBE-FR-ARCHITECTURE-001",
@@ -66,18 +82,18 @@ SSOT_LOBE_MAP = [
         "NC-LBE-FR-ARCHITECTURE-001",
         ["ssot", "adr", "decisions", "architecture"],
     ),
-    # ── MCP e Desenvolvimento → Lobo development ─────────────────────────────
     (
-        "DIR-DOC-FR-001-docs-main/NC-AUD-FR-001-audit-findings-2026-04-10.md",
-        "NC-LBE-FR-DEVELOPMENT-001",
-        ["ssot", "audit", "mcp", "development"],
+        "DIR-DOC-FR-001-docs-main/NC-DOC-FR-002-directory-convention.md",
+        "NC-LBE-FR-ARCHITECTURE-001",
+        ["ssot", "directories", "conventions", "architecture"],
     ),
+    #  MCP e Desenvolvimento  Lobo development
     (
         "DIR-DOC-FR-001-docs-main/NC-ALN-FR-001-arquitetural-alignment.md",
         "NC-LBE-FR-DEVELOPMENT-001",
         ["ssot", "alignment", "architecture", "development"],
     ),
-    # ── Segurança → Lobo security ────────────────────────────────────────────
+    #  Segurana  Lobo security
     (
         "DIR-DOC-FR-001-docs-main/SANITIZATION_CHECKLIST.md",
         "NC-LBE-FR-SECURITY-001",
@@ -98,7 +114,7 @@ SSOT_LOBE_MAP = [
         "NC-LBE-FR-SECURITY-001",
         ["ssot", "sop", "startup", "checklist", "security"],
     ),
-    # ── Profiles e Config → Lobo profiles ───────────────────────────────────
+    #  Profiles e Config  Lobo profiles
     (
         "DIR-PRF-FR-001-profiles-main/NC-PRF-FR-001-developer-schema.md",
         "NC-LBE-FR-PROFILES-001",
@@ -109,7 +125,7 @@ SSOT_LOBE_MAP = [
         "NC-LBE-FR-PROFILES-001",
         ["ssot", "profile", "team", "schema"],
     ),
-    # ── White Label → Lobo whitelabel ────────────────────────────────────────
+    #  White Label  Lobo whitelabel
     (
         "../03_white_label_templates/NC-DOC-WL-001-readme.md",
         "NC-LBE-FR-WHITELABEL-001",
@@ -120,7 +136,25 @@ SSOT_LOBE_MAP = [
         "NC-LBE-FR-WHITELABEL-001",
         ["ssot", "whitelabel", "hybrid-mode"],
     ),
-    # ── Benchmarks → Lobo benchmarks ─────────────────────────────────────────
+    #  Checklist Pr-MCP  Lobo development
+    (
+        "../NC-PROMPT-FR-002-pre-mcp-manual-checklist.md",
+        "NC-LBE-FR-DEVELOPMENT-001",
+        ["ssot", "checklist", "pre-mcp", "governance", "session"],
+    ),
+    #  Plano de Refatorao 10 Tools  Lobo architecture
+    (
+        "DIR-DOC-FR-001-docs-main/NC-MAN-FR-001-project-manifest.md",
+        "NC-LBE-FR-ARCHITECTURE-001",
+        ["ssot", "manifest", "tools", "architecture", "refactoring"],
+    ),
+    #  Manifesto de Projeto (tool map, bootcontext)  Lobo mcp
+    (
+        "DIR-DOC-FR-001-docs-main/NC-MAN-FR-001-project-manifest.md",
+        "NC-LBE-FR-MCP-001",
+        ["ssot", "manifest", "mcp", "tools", "boot-context", "system-profile"],
+    ),
+    #  Benchmarks  Lobo benchmarks
     (
         "DIR-DOC-FR-001-docs-main/BENCHMARKS.md",
         "NC-LBE-FR-BENCHMARKS-001",
@@ -131,14 +165,120 @@ SSOT_LOBE_MAP = [
         "NC-LBE-FR-BENCHMARKS-001",
         ["ssot", "benchmarks", "hybrid", "llm"],
     ),
+    #  Claude Code Leak Analysis  Lobos CC
+    (
+        "../DIR-RES-CC-001-claude-leak-workzone/analysis-session-a/NC-LBE-CC-002-memory-arch.mdc",
+        "NC-LBE-CC-002-memory-arch.mdc",
+        ["claude-code", "memory", "architecture", "leak", "analysis"],
+    ),
+    (
+        "../DIR-RES-CC-001-claude-leak-workzone/analysis-session-a/NC-LBE-CC-003-orchestration.mdc",
+        "NC-LBE-CC-003-orchestration.mdc",
+        ["claude-code", "orchestration", "coordinator", "leak", "analysis"],
+    ),
+    #  DeepSeek Agents (DSA a DSD)  Lobos DS
+    (
+        "DIR-TMP-FR-001-templates-main/NC-LBE-DS-001-deepseek-agent.mdc",
+        "NC-LBE-DS-001-deepseek-agent.mdc",
+        ["deepseek", "agent", "t1", "ds-a", "executor"],
+    ),
+    (
+        "DIR-TMP-FR-001-templates-main/NC-LBE-DS-002-deepseek-agent-b.mdc",
+        "NC-LBE-DS-002-deepseek-agent-b.mdc",
+        ["deepseek", "agent", "t1", "ds-b", "research"],
+    ),
+    (
+        "DIR-TMP-FR-001-templates-main/NC-LBE-DS-003-deepseek-agent-c.mdc",
+        "NC-LBE-DS-003-deepseek-agent-c.mdc",
+        ["deepseek", "agent", "t1", "ds-c", "development"],
+    ),
+    (
+        "DIR-TMP-FR-001-templates-main/NC-LBE-DS-004-deepseek-agent-d.mdc",
+        "NC-LBE-DS-004-deepseek-agent-d.mdc",
+        ["deepseek", "agent", "t1", "ds-d", "observability"],
+    ),
+
+    # ══════════════════════════════════════════════════════════
+    #  REGIÕES CEREBRAIS v2.0 (2026-04-20)
+    #  Nomes: NC-LBE-CEREBRAL-{REGION}-001 (sem / para LobeService)
+    # ══════════════════════════════════════════════════════════
+
+    # $FRONTAL — Planejamento e Governança
+    (
+        "DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md",
+        "NC-LBE-CEREBRAL-FRONTAL-001",
+        ["frontal", "roadmap", "planejamento", "governanca", "tickets"],
+    ),
+    (
+        "DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md",
+        "NC-LBE-CEREBRAL-FRONTAL-001",
+        ["frontal", "ssot", "naming", "governance"],
+    ),
+
+    # $TEMPORAL — Memória Semântica (Léxico + KG + ULQ)
+    (
+        "DIR-DOC-FR-001-docs-main/NC-DOC-FR-001-ubiquitous-language-dictionary.md",
+        "NC-LBE-CEREBRAL-TEMPORAL-001",
+        ["temporal", "ulq", "lexico", "semantico", "linguagem-ubiqua"],
+    ),
+
+    # $PARIETAL — Integração (MCP, Profiles, Health)
+    (
+        "DIR-DOC-FR-001-docs-main/NC-ALN-FR-001-arquitetural-alignment.md",
+        "NC-LBE-CEREBRAL-PARIETAL-001",
+        ["parietal", "mcp", "integracao", "alinhamento", "health"],
+    ),
+    (
+        "DIR-PRF-FR-001-profiles-main/NC-PRF-FR-001-developer-schema.md",
+        "NC-LBE-CEREBRAL-PARIETAL-001",
+        ["parietal", "profile", "developer", "schema"],
+    ),
+
+    # $OCCIPITAL — Padrões Estruturais (Naming, Manifests, Architecture)
+    (
+        "DIR-DOC-FR-001-docs-main/NC-ARC-FR-001-decision-log.md",
+        "NC-LBE-CEREBRAL-OCCIPITAL-001",
+        ["occipital", "adr", "decisoes", "arquitetura", "patterns"],
+    ),
+    (
+        "DIR-DOC-FR-001-docs-main/NC-APP-FR-001-technical-appendix.md",
+        "NC-LBE-CEREBRAL-OCCIPITAL-001",
+        ["occipital", "technical", "libraries", "llm", "patterns"],
+    ),
+
+    # $CEREBELO — Controle Motor Automático (Guardian, Benchmark)
+    (
+        "DIR-DOC-FR-001-docs-main/BENCHMARKS.md",
+        "NC-LBE-CEREBRAL-CEREBELO-001",
+        ["cerebelo", "benchmark", "automacao", "guardian", "ciclos"],
+    ),
+    (
+        "DIR-DOC-FR-001-docs-main/BENCHMARKS_HYBRID.md",
+        "NC-LBE-CEREBRAL-CEREBELO-001",
+        ["cerebelo", "benchmark", "hybrid", "llm", "automacao"],
+    ),
+
+    # $HIPOCAMPO — Memória Episódica (Sessões, Savepoints, SOP)
+    (
+        "DIR-DOC-FR-001-docs-main/NC-SOP-FR-001-session-startup.md",
+        "NC-LBE-CEREBRAL-HIPOCAMPO-001",
+        ["hipocampo", "sop", "startup", "checklist", "episodico"],
+    ),
+    (
+        "DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml",
+        "NC-LBE-CEREBRAL-HIPOCAMPO-001",
+        ["hipocampo", "locks", "security", "savepoint"],
+    ),
 ]
 
 
-def build_lobe_content(lobe_name: str, file_path: Path, raw_content: str, tags: list) -> str:
+def build_lobe_content(
+    lobe_name: str, file_path: Path, raw_content: str, tags: list
+) -> str:
     """
-    Monta o conteúdo do lobo em formato MDC com header e metadados.
-    Cada lobo pode receber múltiplos arquivos SSOT — este helper
-    cria a seção de um único arquivo para ser concatenada.
+    Monta o contedo do lobo em formato MDC com header e metadados.
+    Cada lobo pode receber mltiplos arquivos SSOT  este helper
+    cria a seo de um nico arquivo para ser concatenada.
     """
     tag_str = ", ".join(tags)
     header = (
@@ -151,67 +291,66 @@ def build_lobe_content(lobe_name: str, file_path: Path, raw_content: str, tags: 
 
 def populate_lobes(dry_run: bool = False):
     """
-    Iterage sobre o mapeamento SSOT→Lobo e injeta o conteúdo nos lobos.
+    Iterage sobre o mapeamento SSOTLobo e injeta o contedo nos lobos.
     """
     svc = get_lobe_service()
-    config = get_config()
 
-    # Acumulador: lobo_name → conteúdo completo concatenado
+    # Acumulador: lobo_name  contedo completo concatenado
     lobe_contents: dict[str, dict] = {}
 
-    log.info("═" * 60)
-    log.info("  NeoCortex — Povoamento de Lobos via SSOT")
-    log.info("═" * 60)
+    log.info("" * 60)
+    log.info("  NeoCortex  Povoamento de Lobos via SSOT")
+    log.info("" * 60)
     log.info(f"  Framework Root: {FRAMEWORK_ROOT}")
-    log.info(f"  Dry-run: {'SIM (nada será gravado)' if dry_run else 'NÃO (gravando)'}")
-    log.info("─" * 60)
+    log.info(f"  Dry-run: {'SIM (nada ser gravado)' if dry_run else 'NO (gravando)'}")
+    log.info("" * 60)
 
     for rel_path, lobe_name, tags in SSOT_LOBE_MAP:
         file_path = (FRAMEWORK_ROOT / rel_path).resolve()
 
-        # ── Verificar se arquivo existe ──────────────────────────────────────
+        #  Verificar se arquivo existe
         if not file_path.exists():
-            log.warning(f"  ⚠️  ARQUIVO NÃO ENCONTRADO (pulando): {file_path.name}")
+            log.warning(f"    ARQUIVO NO ENCONTRADO (pulando): {file_path.name}")
             continue
 
-        # ── Ler conteúdo ─────────────────────────────────────────────────────
+        #  Ler contedo
         try:
             raw = file_path.read_text(encoding="utf-8")
         except Exception as e:
-            log.error(f"  ❌ Erro ao ler {file_path.name}: {e}")
+            log.error(f"   Erro ao ler {file_path.name}: {e}")
             continue
 
-        # ── Acumular por lobo (vários arquivos podem ir para o mesmo lobo) ──
+        #  Acumular por lobo (vrios arquivos podem ir para o mesmo lobo)
         section = build_lobe_content(lobe_name, file_path, raw, tags)
 
         if lobe_name not in lobe_contents:
             lobe_contents[lobe_name] = {
-                "header": f"# {lobe_name}\n\n> Lobo SSOT auto-gerado pelo script populate_lobes_from_ssot. Não edite manualmente.\n\n",
+                "header": f"# {lobe_name}\n\n> Lobo SSOT auto-gerado pelo script populate_lobes_from_ssot. No edite manualmente.\n\n",
                 "sections": [],
                 "files": [],
             }
 
         lobe_contents[lobe_name]["sections"].append(section)
         lobe_contents[lobe_name]["files"].append(file_path.name)
-        log.info(f"  📄 Lendo {file_path.name} → {lobe_name}")
+        log.info(f"   Lendo {file_path.name}  {lobe_name}")
 
-    log.info("─" * 60)
+    log.info("" * 60)
 
-    # ── Gravar / atualizar cada lobo ─────────────────────────────────────────
+    #  Gravar / atualizar cada lobo
     results = {"created": 0, "updated": 0, "skipped": 0, "errors": 0}
 
     for lobe_name, data in lobe_contents.items():
-        # Montar conteúdo final com separador entre arquivos
+        # Montar contedo final com separador entre arquivos
         separator = "\n\n---\n\n"
         full_content = data["header"] + separator.join(data["sections"])
 
         files_str = ", ".join(data["files"])
-        log.info(f"  🧠 Processando lobo: {lobe_name}")
+        log.info(f"   Processando lobo: {lobe_name}")
         log.info(f"     Arquivos: {files_str}")
         log.info(f"     Tamanho: {len(full_content):,} chars")
 
         if dry_run:
-            log.info(f"  ✅ [DRY-RUN] Lobo '{lobe_name}' seria criado/atualizado.")
+            log.info(f"   [DRY-RUN] Lobo '{lobe_name}' seria criado/atualizado.")
             results["skipped"] += 1
             continue
 
@@ -228,36 +367,40 @@ def populate_lobes(dry_run: bool = False):
             results["created"] += 1
 
         if result.get("success"):
-            log.info(f"  ✅ Lobo '{lobe_name}' {verb} com sucesso!")
+            log.info(f"   Lobo '{lobe_name}' {verb} com sucesso!")
             # Ativar o lobo no ledger
             try:
                 svc.activate_lobe(lobe_file)
-                log.info(f"     🔗 Lobo ativado no ledger.")
+                log.info("      Lobo ativado no ledger.")
             except Exception as e:
-                log.warning(f"     ⚠️  Falha ao ativar no ledger: {e}")
+                log.warning(f"       Falha ao ativar no ledger: {e}")
         else:
-            log.error(f"  ❌ Falha ao {verb[:-1]}r lobo '{lobe_name}': {result.get('error')}")
+            log.error(
+                f"   Falha ao {verb[:-1]}r lobo '{lobe_name}': {result.get('error')}"
+            )
             results["errors"] += 1
 
-    # ── Resumo final ─────────────────────────────────────────────────────────
-    log.info("═" * 60)
+    #  Resumo final
+    log.info("" * 60)
     log.info("  RESUMO")
-    log.info(f"  ✅ Criados:     {results['created']}")
-    log.info(f"  🔄 Atualizados: {results['updated']}")
-    log.info(f"  ⏭️  Pulados:     {results['skipped']}")
-    log.info(f"  ❌ Erros:       {results['errors']}")
-    log.info("═" * 60)
+    log.info(f"   Criados:     {results['created']}")
+    log.info(f"   Atualizados: {results['updated']}")
+    log.info(f"    Pulados:     {results['skipped']}")
+    log.info(f"   Erros:       {results['errors']}")
+    log.info("" * 60)
 
     if results["errors"] == 0:
-        log.info("  🚀 Conhecimento SSOT indexado com sucesso nos lobos!")
-        log.info("  Use neocortex_search para buscar conteúdo nos lobos agora.")
+        log.info("   Conhecimento SSOT indexado com sucesso nos lobos!")
+        log.info("  Use neocortex_search para buscar contedo nos lobos agora.")
     else:
-        log.warning(f"  ⚠️  {results['errors']} erro(s) ocorreram. Verifique os logs acima.")
+        log.warning(
+            f"    {results['errors']} erro(s) ocorreram. Verifique os logs acima."
+        )
 
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Povoa os lobos NeoCortex com o conteúdo dos arquivos SSOT."
+        description="Povoa os lobos NeoCortex com o contedo dos arquivos SSOT."
     )
     parser.add_argument(
         "--dry-run",

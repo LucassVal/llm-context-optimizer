@@ -1,0 +1,21 @@
+ticket_id: "NC-DS-162"
+title: "Auditoria Estrutural - 223 No-Conformidades"
+status: "OPEN"
+priority: "MEDIUM"
+created: "2026-04-21T19:55:50"
+agent: "T0"
+description: |
+  Relatório audit_structural_report.md mostra 223/275 arquivos violam padrões SSOT.
+
+PROBLEMAS:
+1. Nomenclatura incorreta (não segue NC-<TIPO>-<SIGLA>-<NUM>-<desc>)
+2. Diretórios errados
+3. Tipos inválidos ('CORE' não permitido)
+
+RISCO: Renomear tudo pode quebrar sistema.
+
+RECOMENDAÇÃO:
+- NÃO renomear massivamente agora
+- Aplicar padrões gradualmente
+- Focar em Rust migration (novo código já padronizado)
+- Criar script de migração controlada

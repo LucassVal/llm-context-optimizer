@@ -7,7 +7,6 @@ Execute com: python QUICK_TEST.py
 import subprocess
 import sys
 import os
-import json
 
 
 def test_syntax():

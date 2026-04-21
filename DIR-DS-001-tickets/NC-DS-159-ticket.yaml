@@ -1,0 +1,8 @@
+ticket_id: "NC-DS-159"
+title: "Thermal Decay (TTL) Logic for Context Pruning"
+status: "OPEN"
+priority: "MEDIUM"
+created: "2026-04-21T19:49:54"
+agent: "T0"
+description: |
+  Criar lógica de decaimento térmico (Thermal Decay) no Auto-Memory e Session Manager. Dados semânticos que não são acedidos pelas tarefas há N turnos sofrem pruning e perdem prioridade no Context Window, resgatando tokens LLM per sessão.

@@ -1,18 +1,31 @@
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:57.926071'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: profiles
+level: 3
+tags:
+  - profiles
+  - level-3
+  - python
+---"""
+
 """
 NeoCortex Profile Manager
 
-Módulo para gerenciamento de perfis hierárquicos de desenvolvedores e equipes.
+Mdulo para gerenciamento de perfis hierrquicos de desenvolvedores e equipes.
 """
 
 import json
 import os
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, Any, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
-# ==================== CONFIGURAÇÕES ====================
+# ==================== CONFIGURAES ====================
 
-# Caminhos relativos ao diretório do framework
+# Caminhos relativos ao diretrio do framework
 PROJECT_ROOT = Path(__file__).parent.parent  # neocortex_framework
 PROFILES_DIR = PROJECT_ROOT / "DIR-PRF-FR-001-profiles-main"
 TEMPLATES_DIR = PROFILES_DIR / "templates"
@@ -22,7 +35,7 @@ USERS_DIR = PROFILES_DIR / "users"
 DEV_PROFILE_SCHEMA = "neocortex-profile-v1.0"
 TEAM_PROFILE_SCHEMA = "neocortex-team-v1.0"
 
-# ==================== FUNÇÕES AUXILIARES ====================
+# ==================== FUNES AUXILIARES ====================
 
 
 def load_json_file(filepath: Path) -> Dict[str, Any]:
@@ -31,13 +44,13 @@ def load_json_file(filepath: Path) -> Dict[str, Any]:
         with open(filepath, "r", encoding="utf-8") as f:
             return json.load(f)
     except FileNotFoundError:
-        raise FileNotFoundError(f"Arquivo não encontrado: {filepath}")
+        raise FileNotFoundError(f"Arquivo no encontrado: {filepath}")
     except json.JSONDecodeError as e:
         raise ValueError(f"Erro ao decodificar JSON em {filepath}: {e}")
 
 
 def save_json_file(filepath: Path, data: Dict[str, Any], indent: int = 2):
-    """Salva arquivo JSON com formatação."""
+    """Salva arquivo JSON com formatao."""
     os.makedirs(filepath.parent, exist_ok=True)
     with open(filepath, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=indent, ensure_ascii=False)
@@ -48,7 +61,7 @@ def get_timestamp() -> str:
     return datetime.now().isoformat() + "Z"
 
 
-# ==================== GESTÃO DE PERFIS ====================
+# ==================== GESTO DE PERFIS ====================
 
 
 def load_profile(user_id: str) -> Dict[str, Any]:
@@ -56,13 +69,13 @@ def load_profile(user_id: str) -> Dict[str, Any]:
     Carrega perfil de desenvolvedor pelo user_id.
 
     Args:
-        user_id: ID do usuário (ex: "lucas_valerio")
+        user_id: ID do usurio (ex: "lucas_valerio")
 
     Returns:
-        Dicionário com perfil carregado
+        Dicionrio com perfil carregado
 
     Raises:
-        FileNotFoundError: Se perfil não existir
+        FileNotFoundError: Se perfil no existir
     """
     profile_path = USERS_DIR / user_id / f"NC-PRF-USR-{user_id}-profile.json"
     if not profile_path.exists():
@@ -71,7 +84,7 @@ def load_profile(user_id: str) -> Dict[str, Any]:
         if alt_path.exists():
             profile_path = alt_path
         else:
-            raise FileNotFoundError(f"Perfil não encontrado para user_id: {user_id}")
+            raise FileNotFoundError(f"Perfil no encontrado para user_id: {user_id}")
 
     return load_json_file(profile_path)
 
@@ -81,7 +94,7 @@ def save_profile(profile: Dict[str, Any]) -> Path:
     Salva perfil de desenvolvedor.
 
     Args:
-        profile: Dicionário com dados do perfil
+        profile: Dicionrio com dados do perfil
 
     Returns:
         Caminho do arquivo salvo
@@ -107,10 +120,10 @@ def create_profile(
     Cria novo perfil a partir do template.
 
     Args:
-        user_id: ID único do usuário
-        display_name: Nome para exibição
-        email: Email do usuário (opcional)
-        hierarchy_level: Nível hierárquico inicial
+        user_id: ID nico do usurio
+        display_name: Nome para exibio
+        email: Email do usurio (opcional)
+        hierarchy_level: Nvel hierrquico inicial
         parent_id: ID do pai na hierarquia (opcional)
 
     Returns:
@@ -144,7 +157,7 @@ def profile_exists(user_id: str) -> bool:
     Verifica se perfil existe.
 
     Args:
-        user_id: ID do usuário
+        user_id: ID do usurio
 
     Returns:
         True se perfil existir
@@ -154,38 +167,38 @@ def profile_exists(user_id: str) -> bool:
     return profile_path.exists() or alt_path.exists()
 
 
-# ==================== VERIFICAÇÃO DE ACESSO HIERÁRQUICO ====================
+# ==================== VERIFICAO DE ACESSO HIERRQUICO ====================
 
 
 def check_hierarchical_access(
     user_profile: Dict[str, Any], resource_profile: Dict[str, Any], action: str = "read"
 ) -> Dict[str, Any]:
     """
-    Verifica se usuário pode acessar recurso baseado em hierarquia.
+    Verifica se usurio pode acessar recurso baseado em hierarquia.
 
     Regras:
-    1. Usuário pode ler recursos do MESMO nível se for dono OU se recurso for público
-    2. Usuário pode ler recursos de NÍVEIS INFERIORES sempre
-    3. Usuário NÃO pode ler recursos de NÍVEIS SUPERIORES
-    4. Recursos laterais (mesmo nível, dono diferente) requerem permissão explícita
+    1. Usurio pode ler recursos do MESMO nvel se for dono OU se recurso for pblico
+    2. Usurio pode ler recursos de NVEIS INFERIORES sempre
+    3. Usurio NO pode ler recursos de NVEIS SUPERIORES
+    4. Recursos laterais (mesmo nvel, dono diferente) requerem permisso explcita
 
     Args:
-        user_profile: Perfil do usuário solicitante
+        user_profile: Perfil do usurio solicitante
         resource_profile: Perfil do recurso (ou dono do recurso)
-        action: Ação desejada ("read" ou "write")
+        action: Ao desejada ("read" ou "write")
 
     Returns:
         Dict com:
-        - allowed (bool): Se acesso é permitido
-        - reason (str): Razão da decisão
-        - required_permission (str, opcional): Permissão necessária se negado
+        - allowed (bool): Se acesso  permitido
+        - reason (str): Razo da deciso
+        - required_permission (str, opcional): Permisso necessria se negado
     """
     user_level = user_profile["hierarchy"]["level"]
     resource_level = resource_profile["hierarchy"]["level"]
     user_id = user_profile["identity"]["user_id"]
     resource_owner_id = resource_profile["identity"]["user_id"]
 
-    # REGRA 1: Usuário é SUPERIOR ao recurso → PERMITIDO (para leitura)
+    # REGRA 1: Usurio  SUPERIOR ao recurso  PERMITIDO (para leitura)
     if user_level > resource_level:
         if action == "read":
             return {
@@ -193,7 +206,7 @@ def check_hierarchical_access(
                 "reason": "hierarchy_superior_can_read_descendants",
             }
         elif action == "write":
-            # Para escrita, verificar se usuário pode escrever em descendentes
+            # Para escrita, verificar se usurio pode escrever em descendentes
             write_permission = user_profile["hierarchy"]["visibility_rules"][
                 "write_permission"
             ]
@@ -209,12 +222,12 @@ def check_hierarchical_access(
                     "required_permission": "write_descendants",
                 }
 
-    # REGRA 2: Mesmo nível → verificar ownership
+    # REGRA 2: Mesmo nvel  verificar ownership
     elif user_level == resource_level:
         if user_id == resource_owner_id:
             return {"allowed": True, "reason": "self_ownership"}
         else:
-            # Recurso lateral → verificar permissões explícitas
+            # Recurso lateral  verificar permisses explcitas
             if action == "read":
                 can_read_siblings = user_profile["hierarchy"]["visibility_rules"][
                     "can_read_siblings"
@@ -234,7 +247,7 @@ def check_hierarchical_access(
                     "required_permission": "write_siblings",
                 }
 
-    # REGRA 3: Usuário é INFERIOR ao recurso → NEGADO (para leitura de superiores)
+    # REGRA 3: Usurio  INFERIOR ao recurso  NEGADO (para leitura de superiores)
     else:  # user_level < resource_level
         if action == "read":
             can_read_upwards = user_profile["hierarchy"]["visibility_rules"][
@@ -260,15 +273,15 @@ def can_access(
     user_id: str, resource_owner_id: str, action: str = "read"
 ) -> Dict[str, Any]:
     """
-    Verificação de acesso simplificada (carrega perfis automaticamente).
+    Verificao de acesso simplificada (carrega perfis automaticamente).
 
     Args:
-        user_id: ID do usuário solicitante
+        user_id: ID do usurio solicitante
         resource_owner_id: ID do dono do recurso
-        action: Ação desejada ("read" ou "write")
+        action: Ao desejada ("read" ou "write")
 
     Returns:
-        Resultado da verificação (mesma estrutura de check_hierarchical_access)
+        Resultado da verificao (mesma estrutura de check_hierarchical_access)
     """
     try:
         user_profile = load_profile(user_id)
@@ -278,18 +291,18 @@ def can_access(
         return {"allowed": False, "reason": f"profile_not_found: {str(e)}"}
 
 
-# ==================== UTILITÁRIOS DE HIERARQUIA ====================
+# ==================== UTILITRIOS DE HIERARQUIA ====================
 
 
 def get_user_level(user_id: str) -> Optional[int]:
     """
-    Obtém nível hierárquico do usuário.
+    Obtm nvel hierrquico do usurio.
 
     Args:
-        user_id: ID do usuário
+        user_id: ID do usurio
 
     Returns:
-        Nível hierárquico ou None se perfil não existir
+        Nvel hierrquico ou None se perfil no existir
     """
     try:
         profile = load_profile(user_id)
@@ -300,13 +313,13 @@ def get_user_level(user_id: str) -> Optional[int]:
 
 def get_user_ancestors(user_id: str) -> List[str]:
     """
-    Obtém ancestrais (caminho até a raiz) do usuário.
+    Obtm ancestrais (caminho at a raiz) do usurio.
 
     Args:
-        user_id: ID do usuário
+        user_id: ID do usurio
 
     Returns:
-        Lista de IDs dos ancestrais (do mais próximo à raiz)
+        Lista de IDs dos ancestrais (do mais prximo  raiz)
     """
     try:
         profile = load_profile(user_id)
@@ -317,55 +330,55 @@ def get_user_ancestors(user_id: str) -> List[str]:
 
 def get_user_descendants(user_id: str, max_depth: int = -1) -> List[str]:
     """
-    Obtém descendentes do usuário (filhos, netos, etc.).
+    Obtm descendentes do usurio (filhos, netos, etc.).
 
     Args:
-        user_id: ID do usuário
-        max_depth: Profundidade máxima (-1 = todos)
+        user_id: ID do usurio
+        max_depth: Profundidade mxima (-1 = todos)
 
     Returns:
         Lista de IDs dos descendentes
     """
-    # Nota: Implementação simplificada - precisaria de índice para ser eficiente
-    # Por enquanto retorna lista vazia (será implementado quando tivermos BD)
+    # Nota: Implementao simplificada - precisaria de ndice para ser eficiente
+    # Por enquanto retorna lista vazia (ser implementado quando tivermos BD)
     return []
 
 
 def get_accessible_users(user_id: str) -> List[str]:
     """
-    Obtém lista de usuários que o usuário atual pode acessar.
+    Obtm lista de usurios que o usurio atual pode acessar.
 
     Args:
-        user_id: ID do usuário
+        user_id: ID do usurio
 
     Returns:
-        Lista de IDs de usuários acessíveis
+        Lista de IDs de usurios acessveis
     """
     try:
         profile = load_profile(user_id)
         user_level = profile["hierarchy"]["level"]
 
-        # Regra simplificada: pode acessar usuários do mesmo nível ou inferiores
-        # Implementação real precisaria varrer todos os perfis
+        # Regra simplificada: pode acessar usurios do mesmo nvel ou inferiores
+        # Implementao real precisaria varrer todos os perfis
         # Por enquanto retorna lista vazia
         return []
     except FileNotFoundError:
         return []
 
 
-# ==================== ATUALIZAÇÃO DE PERFIL ====================
+# ==================== ATUALIZAO DE PERFIL ====================
 
 
 def update_profile_pattern(
     user_id: str, pattern_type: str, data: Dict[str, Any]
 ) -> bool:
     """
-    Atualiza padrão no perfil do usuário (para aprendizado contínuo).
+    Atualiza padro no perfil do usurio (para aprendizado contnuo).
 
     Args:
-        user_id: ID do usuário
-        pattern_type: Tipo de padrão (ex: "common_mistakes", "tech_preferences")
-        data: Dados do padrão
+        user_id: ID do usurio
+        pattern_type: Tipo de padro (ex: "common_mistakes", "tech_preferences")
+        data: Dados do padro
 
     Returns:
         True se atualizado com sucesso
@@ -392,13 +405,13 @@ def update_profile_pattern(
 
 def get_profile_insights(user_id: str) -> Dict[str, Any]:
     """
-    Retorna insights do perfil (para predições).
+    Retorna insights do perfil (para predies).
 
     Args:
-        user_id: ID do usuário
+        user_id: ID do usurio
 
     Returns:
-        Dicionário com insights
+        Dicionrio com insights
     """
     try:
         profile = load_profile(user_id)
@@ -418,7 +431,7 @@ def get_profile_insights(user_id: str) -> Dict[str, Any]:
         return {}
 
 
-# ==================== VALIDAÇÃO ====================
+# ==================== VALIDAO ====================
 
 
 def validate_profile(profile: Dict[str, Any]) -> Tuple[bool, List[str]]:
@@ -426,14 +439,14 @@ def validate_profile(profile: Dict[str, Any]) -> Tuple[bool, List[str]]:
     Valida estrutura do perfil.
 
     Args:
-        profile: Dicionário com perfil
+        profile: Dicionrio com perfil
 
     Returns:
         Tuple (is_valid, error_messages)
     """
     errors = []
 
-    # Verificar campos obrigatórios
+    # Verificar campos obrigatrios
     required_fields = [
         ("identity.user_id", str),
         ("identity.display_name", str),
@@ -454,11 +467,11 @@ def validate_profile(profile: Dict[str, Any]) -> Tuple[bool, List[str]]:
             if not isinstance(value, expected_type):
                 errors.append(f"Campo {field_path} deve ser {expected_type.__name__}")
         except KeyError:
-            errors.append(f"Campo obrigatório faltando: {field_path}")
+            errors.append(f"Campo obrigatrio faltando: {field_path}")
 
-    # Verificar níveis hierárquicos
+    # Verificar nveis hierrquicos
     level = profile.get("hierarchy", {}).get("level")
     if level is not None and level < 0:
-        errors.append("Nível hierárquico não pode ser negativo")
+        errors.append("Nvel hierrquico no pode ser negativo")
 
     return (len(errors) == 0, errors)

@@ -1,0 +1,31 @@
+# Salvar em: DIR-DS-002-audit-logs/ORCH-302-handoff-20260413-150455.yaml
+ticket_id: ORCH-302
+status: PENDING_REVIEW
+timestamp: "2026-04-13T15:06:14-03:00"
+agent_port: 32763
+lines_added: 315
+files_modified:
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-035-task.py
+summary: |
+  Implementada tool MCP `neocortex_task` com ações execute, poll, cancel, list_queued.
+  Integração com HTTP POST /task e GET /health de sub-servidores.
+  Fallback para registry em memória; compatível com TaskBroker se disponível.
+  Polling real com timeout configurável.
+ajustes_aplicados: []
+lessons_learned: []
+deps_missing: []
+ruff_violations_found: 0
+metrics:
+  ruff_check: PASS
+  py_compile: PASS
+  import_smoke_test: PASS
+  write_zone_respected: true
+  locks_respected: true
+  min_80_lines: true
+errors: []
+warnings: []
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  ajustes_synthesis_applied: true
+  handoff_yaml_complete: true

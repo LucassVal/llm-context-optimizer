@@ -1,0 +1,32 @@
+ticket_id: NC-DS-119
+status: APPROVED_WITH_NOTE
+validated_by: T0-Antigravity
+validated_at: "2026-04-20T19:46:19-03:00"
+
+t0_validation_results:
+  compile_test119: PASS
+  compile_test119_fixed: PASS
+  ruff_F_E9_both: PASS
+  lock_server_py: "OK — git diff confirma não modificado"
+  lock_sub_server_py: UNTOUCHED
+  integration_score: "4/5 (80%)"
+  overall_score: "9/9 checks T0"
+
+known_issue:
+  endpoint: "POST /task/dispatch"
+  error: "500 — ImportError: No module named 'neocortex'"
+  root_cause: |
+    O PICOCLAW server spawna subprocess sem herdar PYTHONPATH.
+    A variável de ambiente não é propagada para o worker de tasks.
+  severity: WARNING (não bloqueia o ticket — é issue de configuração de ambiente)
+  fix_suggested: |
+    No NC-SVC-FR-019-picoclaw-server.py, ao spawnar task workers via subprocess:
+    env = os.environ.copy()
+    env['PYTHONPATH'] = str(project_root)
+    subprocess.run([...], env=env)
+  ticket_criado: "NC-DS-122 pode incluir este fix"
+
+note: |
+  O ticket NC-DS-119 entregou o script de integração funcional com 4/5 testes OK.
+  O erro do dispatch é de ambiente/configuração, não de código do script de teste.
+  APROVADO com nota.

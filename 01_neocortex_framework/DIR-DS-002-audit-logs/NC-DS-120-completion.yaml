@@ -1,0 +1,69 @@
+ticket_id: NC-DS-120
+status: COMPLETED
+completed_at: "2026-04-20T19:35:00-03:00"
+agent: opencode-agent-4
+
+files_created:
+  - path: "01_neocortex_framework/scripts/NC-SCR-FR-145-tool-autoloader.py"
+    lines: 202
+  - path: "01_neocortex_framework/neocortex/mcp/NC-CFG-FR-005-tool-autoload.yaml"
+    lines: 16
+
+test_results:
+  ruff_NC_SCR_145: "PASS"
+  py_compile_NC_SCR_145: "PASS"
+  yaml_valid_NC_CFG_005: "PASS"
+  import_via_importlib: "PASS"
+  no_print_T201: "PASS"
+  full_output: |
+    Teste 1 (ruff F,E9):
+    All checks passed!
+    
+    Teste 2 (py_compile):
+    OK
+    
+    Teste 3 (YAML válido):
+    YAML OK: ['extra_tools']
+    
+    Teste 4 (import via importlib):
+    IMPORT OK True
+    
+    Teste 5 (no print T201):
+    All checks passed!
+
+constraints_verified:
+  server_py_untouched: true
+  sub_server_py_untouched: true
+  get_config_used: true
+  importlib_used: true
+  logger_used: true
+
+script_features:
+  - "Função autoload() para carregamento dinâmico de ferramentas"
+  - "Suporte a múltiplas ferramentas via configuração YAML"
+  - "Carregamento via importlib.util (R09)"
+  - "Uso de get_config() para paths (R10)"
+  - "Logging apropriado com logger (R11)"
+  - "Tratamento de erros robusto"
+
+tools_configured:
+  - name: neocortex_picoclaw
+    module_path: neocortex/mcp/tools/NC-SUPER-016-picoclaw.py
+    status: "Configurado para auto-load"
+    description: "Picoclaw MCP tool - HTTP A2A server for agent-to-agent communication"
+
+usage_example: |
+  # Para usar o auto-loader:
+  from scripts.NC_SCR_FR_145_tool_autoloader import autoload
+  
+  # Em um servidor MCP:
+  loaded_tools = autoload(server_instance)
+  print(f"Ferramentas carregadas: {loaded_tools}")
+
+next_steps:
+  - "Integrar NC-SCR-FR-145 no processo de inicialização do servidor"
+  - "Testar carregamento real do NC-SUPER-016-picoclaw.py"
+  - "Documentar uso no README do framework"
+
+handoff_ready: true
+handoff_notes: "NC-SCR-FR-145 criado com sucesso. Todas constraints respeitadas."

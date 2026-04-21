@@ -1,0 +1,11 @@
+ticket_id: NC-DS-009
+status: PENDING_REVIEW
+timestamp: "2026-04-14T00:51:51-03:00"
+agent_port: 0
+lines_added: 506
+files_modified:
+  - "neocortex/core/hooks/__init__.py"
+  - "01_neocortex_framework/scripts/NC-SCR-FR-017-visual-server.py"
+summary: |
+  __init__.py criado: imports dinâmicos via importlib.util
+  NC-SCR-FR-017: VisualServer com start/stop/health para Mission Control + PicoClaw + NeoCortex

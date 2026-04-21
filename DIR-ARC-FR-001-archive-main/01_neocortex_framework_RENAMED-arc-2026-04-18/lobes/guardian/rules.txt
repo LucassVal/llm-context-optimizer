@@ -1,0 +1,16 @@
+# Guardian Lobe Rules
+
+## Security Rules
+1. All access attempts must be logged
+2. Unauthorized access attempts trigger immediate alert
+3. Data encryption required for all external communications
+
+## Compliance Rules
+1. 7-year data retention for audit logs
+2. Monthly compliance review
+3. Two-factor authentication for administrative access
+
+## Isolation Rules
+1. No lateral access to other lobes without explicit authorization
+2. All inter-lobe communication must be audited
+3. Resource limits: max 512MB memory, 2 CPU cores

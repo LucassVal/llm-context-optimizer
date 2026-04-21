@@ -1,3 +1,15 @@
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:59.803950'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+tags:
+  - neocortex-other
+  - level-0
+  - python
+---"""
 #!/usr/bin/env python3
 """
 Vector Store - Abstract interface for vector similarity search.
@@ -9,8 +21,7 @@ with embedding generation and similarity search capabilities.
 import logging
 from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import List, Dict, Any, Optional, Union, Tuple
-import numpy as np
+from typing import Any, Dict, List, Union
 
 logger = logging.getLogger(__name__)
 
@@ -224,7 +235,7 @@ def test_vector_store():
     assert len(ids) == 2
     results = infinity.search([0.1, 0.2, 0.3], top_k=1)
     assert len(results) == 1
-    print("✓ InfinityVectorStore stub tests passed")
+    print(" InfinityVectorStore stub tests passed")
 
     # Test LanceDB stub
     lancedb = LanceDBVectorStore()
@@ -232,7 +243,7 @@ def test_vector_store():
     assert len(ids2) == 2
     results2 = lancedb.search([0.1, 0.2, 0.3], top_k=1)
     assert len(results2) == 1
-    print("✓ LanceDBVectorStore stub tests passed")
+    print(" LanceDBVectorStore stub tests passed")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,15 @@
+# NC-CFG-FR-005: Configuração de auto-loader de ferramentas extras
+# Este arquivo define ferramentas adicionais que não estão no TOOL_MODULE_MAP padrão
+# O script NC-SCR-FR-145-tool-autoloader.py carrega estas ferramentas dinamicamente
+
+extra_tools:
+  - name: neocortex_picoclaw
+    module_path: neocortex/mcp/tools/NC-SUPER-016-picoclaw.py
+    register_fn: register_tool
+    description: "Picoclaw MCP tool - HTTP A2A server for agent-to-agent communication"
+    
+  # Outras ferramentas extras podem ser adicionadas aqui seguindo o mesmo padrão
+  # - name: exemplo_outra_tool
+  #   module_path: neocortex/mcp/tools/NC-SUPER-XXX-exemplo.py
+  #   register_fn: register_tool
+  #   description: "Descrição da ferramenta"

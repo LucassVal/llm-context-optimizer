@@ -1,0 +1,29 @@
+assigned_to: QUEUE
+closed_at: '2026-04-12T22:36:30'
+closed_by: NC-SCR-FR-010 sync
+completed_at: '2026-04-15T13:39:18.628769'
+created_at: '2026-04-12T18:27:00'
+exit_state:
+  files_created:
+  - 01_neocortex_framework/neocortex/core/utils/NC-UTL-FR-001-yaml-safe-parser.py
+forbidden_zone:
+- neocortex/mcp/server.py
+- neocortex/mcp/sub_server.py
+handoff_ref: NC-DS-024-handoff-20260415T133918-retrospective.yaml
+integrity_hash: 9b772e81fc7e3360
+limits:
+  max_rounds: 4
+  max_tokens_per_phase: 3000
+methodology: "Criar NC-UTL-FR-001-yaml-safe-parser.py:\n  - safe_load(path: Path)\
+  \ -> dict  # yaml.safe_load com fallback regex para campos simples\n  - safe_dump(data:\
+  \ dict, path: Path) -> None\n  - get_field(path: Path, field: str) -> Optional[str]\
+  \  # extrai campo sem carregar tudo\n  - set_field(path: Path, field: str, value:\
+  \ str) -> None  # atualiza campo sem parser completo\n  - validate_schema(data:\
+  \ dict, required_fields: list) -> tuple[bool, list[str]]\n  - Detecta automaticamente\
+  \ se yaml está disponível; usa regex como fallback\n"
+priority: MEDIUM
+roadmap_ticket: UTIL-001
+status: DONE
+ticket_id: NC-DS-024
+title: 'UTIL-001 — NC-UTL-FR-001-yaml-safe-parser.py: parser YAML seguro com fallback'
+write_zone: 01_neocortex_framework/neocortex/core/utils/

@@ -1,0 +1,28 @@
+---
+ticket_id: NC-DS-042
+status: APPROVED
+lines_added: 783
+files_created:
+  - 01_neocortex_framework/lobes/cc-leak/NC-LBE-CC-005-session-mate.mdc
+  - 01_neocortex_framework/lobes/cc-leak/NC-LBE-CC-006-project-config.mdc
+  - 01_neocortex_framework/lobes/cc-leak/NC-LBE-CC-007-plugin-template.mdc
+  - DIR-RES-CC-001-claude-leak-workzone/NC-RES-CC-002-validation-buddy-config-plugin.md
+files_modified:
+  - DIR-RES-CC-001-claude-leak-workzone/analysis-session-b/NC-ANA-CC-004-competitive-intel.md
+handoff_generated_at: '2026-04-12T23:55:11'
+handoff_author: opencode (Analista de Documentação NeoCortex)
+summary: |
+  Criação de três sub‑lobes de análise competitiva (SessionMate, Project Config, Plugin Template)
+  com base no Claude Code leak, pesquisa de padrões arquiteturais correspondentes,
+  e atualização do mapeamento de nomes CC → NeoCortex na análise competitiva.
+deliverables_verified: true
+notes: |
+  - NC-LBE-CC-005-session-mate.mdc (174L): análise do padrão Buddy e adaptação para SessionMate com API, métricas, gamificação leve.
+  - NC-LBE-CC-006-project-config.mdc (244L): análise do diretório .claude/ e adaptação para .nc/ com merge seguro e proteção @LOCKED.
+  - NC-LBE-CC-007-plugin-template.mdc (262L): análise do plugin‑dev e adaptação para NC‑TOOL‑FR‑TEMPLATE com scaffolding completo.
+  - NC-RES-CC-002-validation-buddy-config-plugin.md (90L): pesquisa de 10 padrões arquiteturais com fontes e recomendações.
+  - NC-ANA-CC-004-competitive-intel.md: adicionada seção G com mapeamento de nomes CC → NeoCortex (13 linhas).
+  Todos os arquivos criados estão dentro das zonas permitidas (lobes/, workzone/), sem tocar em @LOCKS.
+...
+approved_at: "2026-04-13T00:04:26"
+approved_by: antigravity-t0

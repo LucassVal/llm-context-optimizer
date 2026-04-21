@@ -1,0 +1,115 @@
+ticket_id: "NC-DS-103"
+status: "OPEN"
+priority: "HIGH"
+title: "Mission Control startup wiring — NC-SCR-FR-103-mc-startup-hook.py (sem tocar @LOCKS)"
+created_at: "2026-04-16T11:00:00-03:00"
+created_by: "T0-Claude-Code"
+agent: "AGENTE-B"
+sprint: "FASE-1-MCP-MC"
+
+context:
+  gap: "G06"
+  origin: "NC-ADP-FR-001-mission-control.py existe mas não é chamado no startup do server"
+  problem: |
+    O Mission Control não sabe que o NeoCortex está rodando porque o adapter
+    nunca é ativado.     server.py é @LOCKS — não podemos editar diretamente.
+    A solução é um script de inicialização externo que roda junto com o server.
+
+task:
+  description: |
+    Criar 01_neocortex_framework/scripts/NC-SCR-FR-103-mc-startup-hook.py:
+
+    1. Carregar NC-ADP-FR-001-mission-control.py via importlib.util (R09)
+    2. Instanciar MissionControlAdapter com config padrão (localhost:3000)
+    3. Chamar adapter.register() — registrar NeoCortex no Mission Control
+    4. Iniciar heartbeat loop em threading.Thread(daemon=True):
+       - A cada 30s: adapter.heartbeat()
+       - Se MC offline: logger.warning, não crashar
+    5. Registrar startup no WAL via NC-SVC-FR-016
+    6. Script deve rodar em background: python NC-SCR-FR-103-mc-startup-hook.py &
+    7. Suportar graceful shutdown via signal.SIGTERM
+    8. Atualizar start_neocortex_mcp.ps1 (se necessário) para chamar este script
+        como processo separado APÓS o server — ATENÇÃO: start_neocortex_mcp.ps1 é @LOCKS
+
+    IMPORTANTE: Não modificar start_neocortex_mcp.ps1 diretamente.
+    Criar NC-SCR-FR-103b-start-with-mc.ps1 como wrapper que chama ambos.
+
+  acceptance_criteria:
+    - "python NC-SCR-FR-103-mc-startup-hook.py roda sem erro"
+    - "MC em localhost:3000 recebe register() ao iniciar"
+    - "Heartbeat thread ativa, log a cada 30s"
+    - "Se MC offline: não crasha, apenas loga warning"
+    - "start_neocortex_mcp.ps1 INTOCADO"
+
+write_zone:
+  - "01_neocortex_framework/scripts/"
+  - "DIR-DS-003-wal/"
+  - "DIR-DS-002-audit-logs/"
+
+atomic_locks_proibidos:
+  - "01_neocortex_framework/neocortex/mcp/server.py"
+  - "01_neocortex_framework/neocortex/mcp/sub_server.py"
+  - "antigravity_neocortex_config.json"
+  - "start_neocortex_mcp.ps1"
+
+entry_state: "MC não recebe registro do NeoCortex ao iniciar"
+exit_state: "NC-SCR-FR-103 registra NeoCortex no MC + heartbeat loop ativo"
+integrity_hash: "NC-DS-103-v1.0-20260416"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PROTOCOLO OBRIGATÓRIO PARA O AGENTE (ler ANTES de qualquer ação)
+# ─────────────────────────────────────────────────────────────────────────────
+protocolo_agente:
+
+  step_0_obrigatorio:
+    descricao: 'Ler estes recursos ANTES de começar qualquer implementação'
+    recursos:
+      - path: 'DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml'
+        motivo: 'Template oficial do handoff que você DEVE gerar ao concluir'
+      - path: '01_neocortex_framework/DIR-TMP-FR-001-templates-main/'
+        motivo: 'Central de templates — exemplos de YAML, JSON, manifests, processos'
+      - path: '01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.yaml'
+        motivo: '20 regras de governança — obrigatório seguir'
+      - path: '01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml'
+        motivo: 'Arquivos que NUNCA podem ser tocados'
+
+  regra_duvida:
+    instrucao: |
+      EM CASO DE QUALQUER DÚVIDA — parar imediatamente e retornar ao T0.
+      NÃO assumir, NÃO adivinhar, NÃO improvisar.
+      Retornar com: (1) o que foi feito até agora, (2) qual é a dúvida exata,
+      (3) quais são as opções que você vê. T0 decide e você continua.
+    exemplos_de_quando_parar:
+      - 'Não encontrei o arquivo mencionado no ticket'
+      - 'A API do serviço é diferente do que o ticket descreve'
+      - 'A mudança que preciso fazer toca um arquivo @LOCKS'
+      - 'Dois caminhos são possíveis e não sei qual escolher'
+      - 'O script que devia existir não existe'
+
+  handoff_obrigatorio:
+    descricao: 'Gerar handoff YAML ao concluir — sem exceção'
+    destino: 'DIR-DS-002-audit-logs/NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml'
+    template: 'DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml'
+    campos_obrigatorios:
+      - 'ticket_id'
+      - 'status'        # APPROVED | PARTIALLY_COMPLETED | FAILED | ESCALATED
+      - 'summary'
+      - 'files_created'
+      - 'files_modified'
+      - 'locks_violated'  # DEVE ser lista vazia para APPROVED
+      - 'checklist_r20'
+    checklist_r20:
+      naming_convention: 'Todos os arquivos criados seguem NC-<TIPO>-<SIGLA>-<NUM>'
+      no_print_statements: 'Zero print() — usar logger'
+      ssot_updated: 'Se criou artefato novo — NC-NAM-FR-001 foi atualizado'
+      no_locked_files_modified: 'Nenhum arquivo @LOCKS foi tocado'
+      handoff_yaml_complete: 'Este handoff está completo'
+      roadmap_marked: '%DONE marcado no @ROADMAP para este ticket'
+
+  falha_ou_bloqueio:
+    instrucao: |
+      Se falhar ou ficar bloqueado:
+      1. Gerar handoff com status: FAILED ou ESCALATED
+      2. Incluir no campo summary o que foi tentado e por que falhou
+      3. NÃO silenciar o erro — registrar tudo
+      4. Retornar ao T0 com o handoff

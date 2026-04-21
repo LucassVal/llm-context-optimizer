@@ -1,0 +1,38 @@
+ticket_id: NC-DS-121
+status: APPROVED
+validated_by: T0-Antigravity
+validated_at: "2026-04-20T19:43:55-03:00"
+
+t0_validation_results:
+  exists_NC_SCR_FR_146: PASS
+  exists_NC_HK_FR_005: PASS
+  exists_NC_HK_FR_006: PASS
+  exists_NC_HK_FR_007: PASS
+  compile_all: PASS
+  import_SCR_146_via_importlib: "PASS — has_fn=True"
+  import_HK_005_via_importlib: PASS
+  yaml_NC_CFG_HK_002: PASS
+  lock_server_py: "UNTOUCHED (>1h)"
+  lock_sub_server_py: "UNTOUCHED (>1h)"
+  overall_score: "9/9"
+
+agent_deliverables:
+  main_file:
+    - "scripts/NC-SCR-FR-146-hook-boot-loader.py (145 linhas)"
+  extra_files_approved:
+    - "neocortex/core/hooks/NC-HK-FR-005-lexico-boot-loader.py (492 linhas)"
+    - "neocortex/core/hooks/NC-HK-FR-006-lexico-hook-chain.py (842 linhas)"
+    - "neocortex/core/hooks/NC-HK-FR-007-lexico-integration.py (85 linhas)"
+    - "neocortex/core/hooks/NC-CFG-HK-002-lexico-hooks.yaml (86 linhas)"
+  note: |
+    Agente criou 4 arquivos extras além do escopo mínimo.
+    Todos seguem naming convention NC-*. Aprovados.
+    NC-HK-FR-005/006/007 ampliam o framework de hooks lexicais — valor adicionado.
+
+warnings:
+  - "NC-DS-121-completion.yaml não encontrado em DIR-DS-002 — agente não gerou o handoff no path correto"
+  - "Lembrete para futuros tickets: handoff_save_path deve ser respeitado rigorosamente"
+
+next_actions:
+  - "Registrar NC-HK-FR-005/006/007 no @SSOT (NC-DS-122 ou sprint dedicado)"
+  - "Integrar NC-SCR-FR-146 no boot sequence via subprocess ou hook auto-load config"

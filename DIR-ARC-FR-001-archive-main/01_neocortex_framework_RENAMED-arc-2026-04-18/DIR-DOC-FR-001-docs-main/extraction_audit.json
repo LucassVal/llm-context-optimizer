@@ -1,0 +1,698 @@
+[
+  {
+    "file": "neocortex\\config.py",
+    "line": 11
+  },
+  {
+    "file": "neocortex\\config.py",
+    "line": 11
+  },
+  {
+    "file": "neocortex\\agent\\executor.py",
+    "line": 14
+  },
+  {
+    "file": "neocortex\\agent\\executor.py",
+    "line": 14
+  },
+  {
+    "file": "neocortex\\cli\\main.py",
+    "line": 17
+  },
+  {
+    "file": "neocortex\\cli\\main.py",
+    "line": 17
+  },
+  {
+    "file": "neocortex\\core\\agent_service.py",
+    "line": 20
+  },
+  {
+    "file": "neocortex\\core\\agent_service.py",
+    "line": 20
+  },
+  {
+    "file": "neocortex\\core\\akl_service.py",
+    "line": 23
+  },
+  {
+    "file": "neocortex\\core\\akl_service.py",
+    "line": 23
+  },
+  {
+    "file": "neocortex\\core\\benchmark_service.py",
+    "line": 26
+  },
+  {
+    "file": "neocortex\\core\\benchmark_service.py",
+    "line": 26
+  },
+  {
+    "file": "neocortex\\core\\checkpoint_service.py",
+    "line": 29
+  },
+  {
+    "file": "neocortex\\core\\checkpoint_service.py",
+    "line": 29
+  },
+  {
+    "file": "neocortex\\core\\config_service.py",
+    "line": 32
+  },
+  {
+    "file": "neocortex\\core\\config_service.py",
+    "line": 32
+  },
+  {
+    "file": "neocortex\\core\\consolidation_service.py",
+    "line": 35
+  },
+  {
+    "file": "neocortex\\core\\consolidation_service.py",
+    "line": 35
+  },
+  {
+    "file": "neocortex\\core\\cortex_service.py",
+    "line": 38
+  },
+  {
+    "file": "neocortex\\core\\cortex_service.py",
+    "line": 38
+  },
+  {
+    "file": "neocortex\\core\\export_service.py",
+    "line": 41
+  },
+  {
+    "file": "neocortex\\core\\export_service.py",
+    "line": 41
+  },
+  {
+    "file": "neocortex\\core\\file_utils.py",
+    "line": 44
+  },
+  {
+    "file": "neocortex\\core\\file_utils.py",
+    "line": 44
+  },
+  {
+    "file": "neocortex\\core\\init_service.py",
+    "line": 47
+  },
+  {
+    "file": "neocortex\\core\\init_service.py",
+    "line": 47
+  },
+  {
+    "file": "neocortex\\core\\kg_service.py",
+    "line": 50
+  },
+  {
+    "file": "neocortex\\core\\kg_service.py",
+    "line": 50
+  },
+  {
+    "file": "neocortex\\core\\ledger_service.py",
+    "line": 53
+  },
+  {
+    "file": "neocortex\\core\\ledger_service.py",
+    "line": 53
+  },
+  {
+    "file": "neocortex\\core\\lobe_service.py",
+    "line": 56
+  },
+  {
+    "file": "neocortex\\core\\lobe_service.py",
+    "line": 56
+  },
+  {
+    "file": "neocortex\\core\\manifest_service.py",
+    "line": 59
+  },
+  {
+    "file": "neocortex\\core\\manifest_service.py",
+    "line": 59
+  },
+  {
+    "file": "neocortex\\core\\NC-CFG-FR-001-logging-config.py",
+    "line": 62
+  },
+  {
+    "file": "neocortex\\core\\NC-CFG-FR-001-logging-config.py",
+    "line": 62
+  },
+  {
+    "file": "neocortex\\core\\NC-CORE-FR-014-lock-guard.py",
+    "line": 65
+  },
+  {
+    "file": "neocortex\\core\\NC-CORE-FR-014-lock-guard.py",
+    "line": 65
+  },
+  {
+    "file": "neocortex\\core\\NC-CORE-FR-017-policy-loader.py",
+    "line": 68
+  },
+  {
+    "file": "neocortex\\core\\NC-CORE-FR-017-policy-loader.py",
+    "line": 68
+  },
+  {
+    "file": "neocortex\\core\\NC-CORE-FR-022-save-point-service.py",
+    "line": 71
+  },
+  {
+    "file": "neocortex\\core\\NC-CORE-FR-022-save-point-service.py",
+    "line": 71
+  },
+  {
+    "file": "neocortex\\core\\peers_service.py",
+    "line": 74
+  },
+  {
+    "file": "neocortex\\core\\peers_service.py",
+    "line": 74
+  },
+  {
+    "file": "neocortex\\core\\profile_manager.py",
+    "line": 77
+  },
+  {
+    "file": "neocortex\\core\\profile_manager.py",
+    "line": 77
+  },
+  {
+    "file": "neocortex\\core\\profile_service.py",
+    "line": 80
+  },
+  {
+    "file": "neocortex\\core\\profile_service.py",
+    "line": 80
+  },
+  {
+    "file": "neocortex\\core\\pulse_scheduler.py",
+    "line": 83
+  },
+  {
+    "file": "neocortex\\core\\pulse_scheduler.py",
+    "line": 83
+  },
+  {
+    "file": "neocortex\\core\\regression_service.py",
+    "line": 86
+  },
+  {
+    "file": "neocortex\\core\\regression_service.py",
+    "line": 86
+  },
+  {
+    "file": "neocortex\\core\\security_service.py",
+    "line": 89
+  },
+  {
+    "file": "neocortex\\core\\security_service.py",
+    "line": 89
+  },
+  {
+    "file": "neocortex\\infra\\backup_restore.py",
+    "line": 92
+  },
+  {
+    "file": "neocortex\\infra\\backup_restore.py",
+    "line": 92
+  },
+  {
+    "file": "neocortex\\infra\\cache_backend.py",
+    "line": 95
+  },
+  {
+    "file": "neocortex\\infra\\cache_backend.py",
+    "line": 95
+  },
+  {
+    "file": "neocortex\\infra\\config_validation.py",
+    "line": 98
+  },
+  {
+    "file": "neocortex\\infra\\config_validation.py",
+    "line": 98
+  },
+  {
+    "file": "neocortex\\infra\\health_metrics.py",
+    "line": 101
+  },
+  {
+    "file": "neocortex\\infra\\health_metrics.py",
+    "line": 101
+  },
+  {
+    "file": "neocortex\\infra\\hot_cache.py",
+    "line": 104
+  },
+  {
+    "file": "neocortex\\infra\\hot_cache.py",
+    "line": 104
+  },
+  {
+    "file": "neocortex\\infra\\ledger_store.py",
+    "line": 107
+  },
+  {
+    "file": "neocortex\\infra\\ledger_store.py",
+    "line": 107
+  },
+  {
+    "file": "neocortex\\infra\\lobe_index.py",
+    "line": 110
+  },
+  {
+    "file": "neocortex\\infra\\lobe_index.py",
+    "line": 110
+  },
+  {
+    "file": "neocortex\\infra\\manifest_store.py",
+    "line": 113
+  },
+  {
+    "file": "neocortex\\infra\\manifest_store.py",
+    "line": 113
+  },
+  {
+    "file": "neocortex\\infra\\metrics_store.py",
+    "line": 116
+  },
+  {
+    "file": "neocortex\\infra\\metrics_store.py",
+    "line": 116
+  },
+  {
+    "file": "neocortex\\infra\\profiler.py",
+    "line": 119
+  },
+  {
+    "file": "neocortex\\infra\\profiler.py",
+    "line": 119
+  },
+  {
+    "file": "neocortex\\infra\\search_engine.py",
+    "line": 122
+  },
+  {
+    "file": "neocortex\\infra\\search_engine.py",
+    "line": 122
+  },
+  {
+    "file": "neocortex\\infra\\task_queue.py",
+    "line": 125
+  },
+  {
+    "file": "neocortex\\infra\\task_queue.py",
+    "line": 125
+  },
+  {
+    "file": "neocortex\\infra\\vector_engine_example.py",
+    "line": 128
+  },
+  {
+    "file": "neocortex\\infra\\vector_engine_example.py",
+    "line": 128
+  },
+  {
+    "file": "neocortex\\infra\\vector_store.py",
+    "line": 131
+  },
+  {
+    "file": "neocortex\\infra\\vector_store.py",
+    "line": 131
+  },
+  {
+    "file": "neocortex\\infra\\llm\\backend.py",
+    "line": 134
+  },
+  {
+    "file": "neocortex\\infra\\llm\\backend.py",
+    "line": 134
+  },
+  {
+    "file": "neocortex\\infra\\llm\\deepseek_backend.py",
+    "line": 137
+  },
+  {
+    "file": "neocortex\\infra\\llm\\deepseek_backend.py",
+    "line": 137
+  },
+  {
+    "file": "neocortex\\infra\\llm\\factory.py",
+    "line": 140
+  },
+  {
+    "file": "neocortex\\infra\\llm\\factory.py",
+    "line": 140
+  },
+  {
+    "file": "neocortex\\infra\\llm\\ollama_backend.py",
+    "line": 143
+  },
+  {
+    "file": "neocortex\\infra\\llm\\ollama_backend.py",
+    "line": 143
+  },
+  {
+    "file": "neocortex\\infra\\llm\\openai_backend.py",
+    "line": 146
+  },
+  {
+    "file": "neocortex\\infra\\llm\\openai_backend.py",
+    "line": 146
+  },
+  {
+    "file": "neocortex\\mcp\\server.py",
+    "line": 149
+  },
+  {
+    "file": "neocortex\\mcp\\server.py",
+    "line": 149
+  },
+  {
+    "file": "neocortex\\mcp\\sub_server.py",
+    "line": 152
+  },
+  {
+    "file": "neocortex\\mcp\\sub_server.py",
+    "line": 152
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-000-brain.py",
+    "line": 155
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-000-brain.py",
+    "line": 155
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-001-cortex.py",
+    "line": 158
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-001-cortex.py",
+    "line": 158
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-002-agent.py",
+    "line": 161
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-002-agent.py",
+    "line": 161
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-003-benchmark.py",
+    "line": 164
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-003-benchmark.py",
+    "line": 164
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-004-checkpoint.py",
+    "line": 167
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-004-checkpoint.py",
+    "line": 167
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-005-config.py",
+    "line": 170
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-005-config.py",
+    "line": 170
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-006-export.py",
+    "line": 173
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-006-export.py",
+    "line": 173
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-007-init.py",
+    "line": 176
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-007-init.py",
+    "line": 176
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-008-ledger.py",
+    "line": 179
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-008-ledger.py",
+    "line": 179
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-009-lobes.py",
+    "line": 182
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-009-lobes.py",
+    "line": 182
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-010-peers.py",
+    "line": 185
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-010-peers.py",
+    "line": 185
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-011-pulse.py",
+    "line": 188
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-011-pulse.py",
+    "line": 188
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-012-regression.py",
+    "line": 191
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-012-regression.py",
+    "line": 191
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-013-report.py",
+    "line": 194
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-013-report.py",
+    "line": 194
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-014-search.py",
+    "line": 197
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-014-search.py",
+    "line": 197
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-015-security.py",
+    "line": 200
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-015-security.py",
+    "line": 200
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-016-subserver.py",
+    "line": 203
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-016-subserver.py",
+    "line": 203
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-017-task.py",
+    "line": 206
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-017-task.py",
+    "line": 206
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-018-push-notification.py",
+    "line": 209
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-018-push-notification.py",
+    "line": 209
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-019-project-manifest.py",
+    "line": 212
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-019-project-manifest.py",
+    "line": 212
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-020-knowledge.py",
+    "line": 215
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-020-knowledge.py",
+    "line": 215
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-021-memory.py",
+    "line": 218
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-021-memory.py",
+    "line": 218
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-022-session.py",
+    "line": 221
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-022-session.py",
+    "line": 221
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-023-orchestration.py",
+    "line": 224
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-023-orchestration.py",
+    "line": 224
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-024-governance.py",
+    "line": 227
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-024-governance.py",
+    "line": 227
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-025-system.py",
+    "line": 230
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-025-system.py",
+    "line": 230
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-026-intelligence.py",
+    "line": 233
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-026-intelligence.py",
+    "line": 233
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-027-knowledge.py",
+    "line": 236
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-027-knowledge.py",
+    "line": 236
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-029-health.py",
+    "line": 239
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-029-health.py",
+    "line": 239
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-030-context.py",
+    "line": 242
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-030-context.py",
+    "line": 242
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-031-savepoint.py",
+    "line": 245
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-031-savepoint.py",
+    "line": 245
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-034-dry-run.py",
+    "line": 248
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-034-dry-run.py",
+    "line": 248
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-035-task.py",
+    "line": 251
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-035-task.py",
+    "line": 251
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-036-picoclaw.py",
+    "line": 254
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-036-picoclaw.py",
+    "line": 254
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-037-hooks.py",
+    "line": 257
+  },
+  {
+    "file": "neocortex\\mcp\\tools\\NC-TOOL-FR-037-hooks.py",
+    "line": 257
+  },
+  {
+    "file": "neocortex\\repositories\\base.py",
+    "line": 260
+  },
+  {
+    "file": "neocortex\\repositories\\base.py",
+    "line": 260
+  },
+  {
+    "file": "neocortex\\repositories\\file_system_repository.py",
+    "line": 263
+  },
+  {
+    "file": "neocortex\\repositories\\file_system_repository.py",
+    "line": 263
+  },
+  {
+    "file": "neocortex\\schemas\\a2a_message_schema.json",
+    "line": 266
+  },
+  {
+    "file": "neocortex\\schemas\\a2a_message_schema.json",
+    "line": 266
+  },
+  {
+    "file": "neocortex\\schemas\\ledger_schema.json",
+    "line": 269
+  },
+  {
+    "file": "neocortex\\schemas\\ledger_schema.json",
+    "line": 269
+  }
+]

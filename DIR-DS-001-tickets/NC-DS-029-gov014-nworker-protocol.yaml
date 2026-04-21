@@ -1,0 +1,31 @@
+assigned_to: QUEUE
+block_reason: 'EL-6 violation - output file NC-GOV-FR-001-nworker-protocol.md already
+  exists (sha256: fe64588d40c3364540ce369791968f5654bdcab100f62f69b0bccd64290a89f6)'
+completed_at: '2026-04-15T13:39:18.693683'
+created_at: '2026-04-12T18:27:00'
+exit_state:
+  files_created:
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-001-nworker-protocol.md
+forbidden_zone:
+- neocortex/mcp/server.py
+- neocortex/mcp/sub_server.py
+- DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md
+handoff_ref: NC-DS-029-handoff-20260415T133918-retrospective.yaml
+integrity_hash: 426a807860defad2
+limits:
+  max_rounds: 4
+  max_tokens_per_phase: 4000
+methodology: "Ler NC-PROMPT-DS-002-worker-universal.md + NC-CFG-DS-004-task-queue.yaml\
+  \ + NC-SEC-FR-002\nCriar NC-GOV-FR-001-nworker-protocol.md com:\n  - Diagrama ASCII\
+  \ do sistema (T0 + N workers + fila + auto-approve)\n  - Claim protocol (5s wait\
+  \ + re-read)\n  - Entry Lock rules EL-1/2/3/4\n  - Como adicionar novas tasks à\
+  \ fila (checklist)\n  - Auto-approve conditions e quando escalar para T0\n  - Limites\
+  \ de escala: filesystem concurrency, API keys separadas\n  - FAQ: \"por que BLOCKED?\"\
+  , \"como resetar claim expirado?\"\n"
+priority: MEDIUM
+roadmap_ticket: GOV-014
+status: DONE
+ticket_id: NC-DS-029
+title: 'GOV-014 — NC-GOV-FR-001-nworker-protocol.md: documentar arquitetura N-workers
+  completa'
+write_zone: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-001-nworker-protocol.md
