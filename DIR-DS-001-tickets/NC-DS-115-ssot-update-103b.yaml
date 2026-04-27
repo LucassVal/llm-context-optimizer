@@ -32,7 +32,7 @@ task:
     type: "PowerShell wrapper"
     description: "Inicia NeoCortex MCP Server + Mission Control startup hook como jobs background"
     created_at: "2026-04-16"
-    created_by: "AGENTE-B1 (deepseek-chat)"
+    created_by: "AGENTE-B1 (deepseek-v4-flash)"
     parent_script: "NC-SCR-FR-103-mc-startup-hook.py"
 
 write_zone:

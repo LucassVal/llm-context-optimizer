@@ -8,7 +8,7 @@ status: PENDING_REVIEW       # T0 altera para APPROVED ou REJECTED ap√≥s valida√
 ticket_id: NC-DS-XXX
 roadmap_ticket: FR-0XX
 submitted_at: "YYYY-MM-DDTHH:MM:SS"
-submitted_by: deepseek-chat
+submitted_by: deepseek-v4-flash
 review_by: antigravity-t0
 reviewed_at: null             # T0 preenche ao revisar
 

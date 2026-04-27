@@ -1,8 +1,8 @@
 ticket_id: NC-DS-003
 ticket_type: REFACTOR + FEATURE
-priority: HIGH
+priority: MEDIUM
 status: DONE
-assigned_to: deepseek-chat
+assigned_to: deepseek-v4-flash
 handoff_ref: "NC-DS-003-handoff-20260415T134000-retrospective.yaml"
 completed_at: "2026-04-15T13:40:00-03:00"
 created_at: "2026-04-13T20:06:00-03:00"

@@ -10,20 +10,22 @@ import time
 import threading
 import os
 
-def start_service(script_name, description):
+def start_service(service):
     """Start a service in a separate thread"""
+    script_name = service['script']
+    description = service['description']
     print(f"Iniciando {description}...")
-    
+
     def run_script():
         try:
-            # Usar o Python do sistema
             python_exe = sys.executable
+            cmd = [python_exe, script_name]
+            if service.get('args'):
+                cmd.extend(service['args'])
             process = subprocess.Popen(
-                [python_exe, script_name],
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                text=True,
-                encoding='utf-8'
+                cmd,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
             )
             
             # Aguardar um pouco para ver se inicia
@@ -56,8 +58,9 @@ def main():
     # Lista de serviços para iniciar (arquivos NC-)
     services = [
         {
-            'script': 'NC-SVC-FR-100-mcp-server.py',
-            'description': 'MCP Server (porta 8765)',
+            'script': 'NC-HUB-FR-001-mcp-hub.py',
+            'args': ['--transport', 'sse'],
+            'description': 'MCP Hub SSE (porta 8765)',
             'port': 8765
         },
         {
@@ -76,7 +79,7 @@ def main():
     # Iniciar serviços
     threads = []
     for service in services:
-        thread = start_service(service['script'], service['description'])
+        thread = start_service(service)
         if thread:
             threads.append(thread)
     

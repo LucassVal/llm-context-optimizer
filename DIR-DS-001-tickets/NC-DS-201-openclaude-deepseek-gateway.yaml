@@ -1,0 +1,51 @@
+# NC-DS-201-openclaude-deepseek-gateway
+# Ticket: Gateway DeepSeek v4-Pro exclusivo
+# Criado: 2026-04-26
+# Ciclo: 2 (Hardening)
+# Prioridade: MÉDIA
+
+ticket:
+  id: "NC-DS-201"
+  title: "DeepSeek v4-Pro Gateway - Proxy exclusivo sem fallback"
+  version: 1.0
+  created: "2026-04-26T00:20:00"
+  agent: "antigravity"
+  status: "HANDOFF_READY"
+  priority: "MEDIUM"
+
+entry_state:
+  conditions:
+    - "MCP server :8765 está ativo"
+    - "Python 3.12+ disponível"
+    - "API key DeepSeek v4-Pro configurada"
+  validations:
+    - "Gateway NC-SVC-FR-102 deve rejeitar modelos != deepseek-v4-pro"
+    - "Profile do Antigravity deve apontar para localhost:4001"
+    - "Circuito completo: Antigravity → Gateway :4001 → DeepSeek API"
+
+goal:
+  what: "Proxy local que intercepta chamadas do Antigravity para DeepSeek e força deepseek-v4-pro, bloqueando qualquer fallback para Flash."
+  why: "Antigravity estava consumindo tokens no modelo Flash quando v4-Pro caía por rate limit. Gateway garante 0% de vazamento."
+  how:
+    - "Servidor HTTP puro (stdlib) :4001, sem dependências externas"
+    - "Endpoint /v1/chat/completions API OpenAI-compatible"
+    - "Hardcode model=deepseek-v4-pro, rejeita HTTP 403 qualquer outro"
+    - "Log de auditoria por requisição (tokens, modelo requisitado)"
+    - "CORS habilitado para tools NeoCortex"
+
+artifacts:
+  created:
+    - "01_neocortex_framework/DIR-MCP-FR-001-mcp-server/NC-SVC-FR-102-deepseek-gateway.py"
+  modified:
+    - "C:/Users/Lucas Valério/.gemini/antigravity/brain/.openclaude-profile.json"
+    - "DIR-BOOT-FR-001-bootup-main/NC-BOOT-FR-001-system-manifest.md"
+    - "01_neocortex_framework/.neocortex/guardian_state.json"
+
+validation:
+  - "curl http://localhost:4001/health → status: healthy"
+  - "curl http://localhost:4001/v1/models → lista apenas deepseek-v4-pro"
+  - "POST modelo deepseek-v4-flash → HTTP 403 BLOCKED"
+  - "POST modelo deepseek-v4-pro → HTTP 200 com resposta"
+  - "profile aponta para http://localhost:4001/v1"
+
+handoff: "Pendente - Aguardando validação do T0 (Antigravity)"

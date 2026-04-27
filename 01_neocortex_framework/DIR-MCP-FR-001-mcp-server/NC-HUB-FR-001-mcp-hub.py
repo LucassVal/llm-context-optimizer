@@ -301,19 +301,19 @@ async def tool_hub_get_profile(session_id: str, target_user_id: str = "") -> dic
 # ==================== SERVER STARTUP ====================
 
 
-async def main():
-    """Start the MCP Hub WebSocket server."""
+def main():
+    """Start the MCP Hub server (SSE, WebSocket, or stdio)."""
     import argparse
 
     parser = argparse.ArgumentParser(
-        description="NeoCortex MCP Hub - Multi-User WebSocket Server"
+        description="NeoCortex MCP Hub - Multi-User Server"
     )
-    parser.add_argument("--host", default="localhost", help="Host to bind to")
+    parser.add_argument("--host", default="0.0.0.0", help="Host to bind to")
     parser.add_argument("--port", type=int, default=8765, help="Port to listen on")
     parser.add_argument(
         "--transport",
-        default="websocket",
-        choices=["websocket", "stdio"],
+        default="sse",
+        choices=["sse", "websocket", "stdio"],
         help="Transport protocol",
     )
 
@@ -323,16 +323,19 @@ async def main():
     logger.info(f"Host: {args.host}:{args.port}")
     logger.info(f"Transport: {args.transport}")
     logger.info(f"Security utilities: {SECURITY_UTILS_AVAILABLE}")
-    logger.info(f"Active tools: {len(hub_mcp.tool)}")
 
-    # Start the server with the specified transport
     try:
-        if args.transport == "websocket":
-            logger.info(f"WebSocket server listening on ws://{args.host}:{args.port}")
-            await hub_mcp.run(transport="websocket", host=args.host, port=args.port)
+        if args.transport == "sse":
+            import uvicorn
+            logger.info(f"SSE server starting on http://{args.host}:{args.port}/sse")
+            starlette_app = hub_mcp.sse_app()
+            uvicorn.run(starlette_app, host=args.host, port=args.port, log_level="info")
+        elif args.transport == "websocket":
+            logger.info(f"WebSocket server starting on ws://{args.host}:{args.port}")
+            hub_mcp.run(transport="websocket", host=args.host, port=args.port)
         else:
             logger.info("Running in stdio mode (single connection)")
-            await hub_mcp.run(transport="stdio")
+            hub_mcp.run(transport="stdio")
     except KeyboardInterrupt:
         logger.info("Hub stopped by user")
     except Exception as e:
@@ -341,5 +344,4 @@ async def main():
 
 
 if __name__ == "__main__":
-    # Run the async main function
-    asyncio.run(main())
+    main()
