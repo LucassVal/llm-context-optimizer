@@ -267,6 +267,8 @@ def _wrap_tool_with_metrics(tool_func, tool_name):
             if isinstance(result, dict) and result.get("success") is False:
                 status = "failure"
                 details = {"error": result.get("error", "unknown")}
+                # NC-DS-256: MCP Error Protocol — convert to isError:true via FastMCP
+                raise RuntimeError(result.get("error", "unknown tool error"))
 
             return result
         except Exception as e:
