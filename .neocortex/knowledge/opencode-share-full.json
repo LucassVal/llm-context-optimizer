@@ -1,0 +1,6 @@
+{
+  "key": "opencode-share-full",
+  "content": "# Share - Session Sharing\n\n## How It Works\n\nUsing `/share` creates a shareable link at `opncd.ai/s/<id>` that contains your session. Others can view the session in their browser.\n\n## Sharing Modes\n\n- **Manual** (default) - Share only when you use `/share`\n- **Auto** - Automatically share all sessions (enable with `OPENCODE_AUTO_SHARE`)\n- **Disabled** - Sharing is completely disabled\n\n## Un-sharing\n\nUse `/unshare` to remove sharing from a session. The link will become invalid.\n\n## Privacy\n\n- Shared sessions contain the conversation and file diffs\n- Session data is encrypted in transit and at rest\n- Only people with the link can access a shared session\n\n## Data Retention\n\nShared sessions are retained for a limited time period. After the retention period, the session data is permanently deleted.\n\n## Enterprise\n\nEnterprise customers have additional controls:\n- Centralized sharing policies\n- Audit logging of shared sessions\n- Custom data retention periods\n- SSO-based access control for shared sessions",
+  "tag": "opencode, share, complete",
+  "stored_at": "2026-05-03T22:47:56.021124"
+}

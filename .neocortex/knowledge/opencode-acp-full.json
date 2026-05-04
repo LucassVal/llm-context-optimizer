@@ -1,0 +1,6 @@
+{
+  "key": "opencode-acp-full",
+  "content": "# ACP Support - Agent Client Protocol\n\n## Overview\n\nOpenCode supports the Agent Client Protocol (ACP), a standard protocol for AI agent integration with development tools.\n\n## Usage\n\nUse the `opencode acp` command to interact with ACP features.\n\n## Configure for IDEs\n\n### Zed\nConfigure ACP in Zed settings to use OpenCode as the AI agent backend.\n\n### JetBrains IDEs\nConfigure ACP in JetBrains IDEs (IntelliJ, WebStorm, etc.) to integrate with OpenCode.\n\n### Avante.nvim\nConfigure ACP with Avante.nvim for Neovim integration.\n\n### CodeCompanion.nvim\nConfigure ACP with CodeCompanion.nvim for Neovim integration.\n\n## Supported Features\n\nACP supports various features depending on the client:\n- Session management\n- Code context sharing\n- File editing\n- Terminal command execution\n- Agent communication",
+  "tag": "opencode, acp, complete",
+  "stored_at": "2026-05-03T22:48:43.864813"
+}

@@ -1,0 +1,6 @@
+{
+  "key": "opencode-windows-wsl-full",
+  "content": "# Windows/WSL - OpenCode on Windows Subsystem for Linux\n\n## Setup WSL\n\nInstall WSL on Windows:\n```bash\nwsl --install\n```\n\nThis installs WSL 2 with a default Linux distribution (usually Ubuntu).\n\n## Install OpenCode in WSL\n\nOnce WSL is set up, install OpenCode inside your WSL distribution using the standard install methods:\n\n```bash\ncurl -fsSL https://opencode.ai/install.sh | sh\n```\n\n## Desktop + WSL Server\n\nRun the OpenCode server in WSL and connect from the Windows desktop app:\n1. Install OpenCode in WSL\n2. Run `opencode serve` in WSL\n3. Connect from the Windows desktop client\n\n## Web + WSL\n\nAccess OpenCode's web interface running in WSL from Windows:\n1. Run `opencode web` in WSL\n2. Access `http://localhost:<port>` from your Windows browser\n\n## Accessing Windows Files\n\nWindows files are accessible in WSL via `/mnt/c/`:\n```bash\ncd /mnt/c/Users/YourName/Projects\n```\n\n## Tips\n\n- Use Windows Terminal for the best WSL experience\n- Ensure WSL2 is used for better performance\n- Network access between Windows and WSL works seamlessly\n- File performance is better when working within the WSL filesystem rather than `/mnt/c/`",
+  "tag": "opencode, windows-wsl, complete",
+  "stored_at": "2026-05-03T22:47:25.408497"
+}

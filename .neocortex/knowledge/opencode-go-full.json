@@ -1,0 +1,6 @@
+{
+  "key": "opencode-go-full",
+  "content": "# Go - OpenCode Coding Models\n\nOpenCode Go is a subscription service for open coding models: $5 first month, then $10/month.\n\n## Background\n\nOpenCode Go provides access to curated open-weight coding models that are optimized for software development tasks.\n\n## How It Works\n\n1. Subscribe to OpenCode Go\n2. Access open coding models through OpenCode\n3. Models are automatically updated and maintained\n\n## Usage Limits\n\n- **5 hours**: $12\n- **Weekly**: $30\n- **Monthly**: $60\n\n## Endpoints\n\nOpenCode Go provides endpoints for various open coding models. Each model has a unique model ID that can be used when configuring OpenCode.\n\n## Privacy\n\nOpenCode Go follows the same privacy standards as OpenCode Enterprise. Your code is not stored, and you retain full ownership.\n\n## Goals\n\n- Provide affordable access to high-quality open coding models\n- Support the open-source AI ecosystem\n- Enable developers to use state-of-the-art coding models without high costs",
+  "tag": "opencode, go, complete",
+  "stored_at": "2026-05-03T22:47:28.673322"
+}

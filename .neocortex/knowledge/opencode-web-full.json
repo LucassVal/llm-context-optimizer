@@ -1,0 +1,6 @@
+{
+  "key": "opencode-web-full",
+  "content": "# Web - OpenCode Web Interface\n\n## Usage\n\nStart the web interface with:\n```bash\nopencode web\n```\n\n## Configuration\n\nConfigure the web interface via `opencode.json` or environment variables:\n\n### Port and Hostname\n- **port** - Server port (default: 18791)\n- **hostname** - Server hostname (default: localhost)\n\n### mDNS\nEnable mDNS for local network discovery.\n\n### CORS\nConfigure Cross-Origin Resource Sharing settings.\n\n### Authentication\nSet `OPENCODE_SERVER_PASSWORD` environment variable to require a password for web access:\n```bash\nexport OPENCODE_SERVER_PASSWORD=your-password\nopencode web\n```\n\n## Using the Web Interface\n\n- **Sessions** - View and manage your OpenCode sessions\n- **Server Status** - Monitor server status and health\n- **File Access** - Browse and edit project files\n\n## Attaching Terminal\n\nUse `opencode attach` from another terminal to connect to a running web session.\n\n## Config File\n\nThe web server configuration can be placed in the `server` section of `opencode.json`:\n```json\n{\n  \"server\": {\n    \"port\": 18791,\n    \"hostname\": \"0.0.0.0\",\n    \"auth\": true\n  }\n}\n```",
+  "tag": "opencode, web, complete",
+  "stored_at": "2026-05-03T22:47:45.458032"
+}

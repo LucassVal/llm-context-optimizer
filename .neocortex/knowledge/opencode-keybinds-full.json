@@ -1,0 +1,6 @@
+{
+  "key": "opencode-keybinds-full",
+  "content": "# Keybinds - Keyboard Shortcuts\n\n## Full List\n\nA complete list of all keybindings is available in `tui.json`. Keybindings control navigation, editing, and command execution in the TUI.\n\n## Leader Key\n\nThe leader key is `Ctrl+x` by default. Press the leader key followed by another key to trigger commands.\n\n## Disable\n\nSet a keybind to `\"none\"` to disable it.\n\n## Desktop Prompt Shortcuts\n\nDesktop versions support Readline/Emacs-style keybindings for the prompt input:\n- `Ctrl+a` - Beginning of line\n- `Ctrl+e` - End of line\n- `Ctrl+k` - Kill to end of line\n- `Ctrl+u` - Kill to beginning of line\n- `Ctrl+w` - Kill word backwards\n- `Ctrl+y` - Yank\n- And other standard Readline shortcuts\n\n## Shift+Enter Configuration\n\nFor Windows Terminal, Shift+Enter can be configured to insert a newline instead of submitting.\nConfigure in Windows Terminal settings:\n```json\n{\n  \"actions\": [\n    {\n      \"keys\": \"shift+enter\",\n      \"command\": \"sendInput\",\n      \"args\": \"\\n\"\n    }\n  ]\n}\n```",
+  "tag": "opencode, keybinds, complete",
+  "stored_at": "2026-05-03T22:48:15.374787"
+}

@@ -1,0 +1,38 @@
+# .nc/config.yaml — NeoCortex project configuration v1.0
+# Inherits from: 01_neocortex_framework/DIR-CFG-FR-001-config-main/neocortex_config.yaml
+# Schema: NC-CFG-FR-004-project-config-schema.yaml
+
+meta:
+  version: "1.0"
+  generated_at: "2026-05-04"
+  inherits_from: "01_neocortex_framework/DIR-CFG-FR-001-config-main/neocortex_config.yaml"
+
+project:
+  name: "TURBOQUANT_V42"
+  root: "C:/Users/Lucas Valério/Desktop/TURBOQUANT_V42"
+  framework_root: "01_neocortex_framework"
+  lexico: "01_neocortex_framework/.neocortex/lexico/NC-LEXICO-LATEST.json"
+
+agents:
+  t0:
+    model: "deepseek/deepseek-v4-pro"
+    tier: "T0"
+    role: "orchestrator"
+  courier:
+    model: "ollama/qwen2.5-coder:1.5b-instruct"
+    tier: "T2"
+    role: "courier"
+  engineer:
+    model: "ollama/qwen2.5-coder:3b-instruct"
+    tier: "T2"
+    role: "engineer"
+  guardian:
+    model: "ollama/qwen2.5-coder:1.5b-instruct"
+    tier: "TG"
+    role: "guardian"
+
+paths:
+  ubl: "@ULQ → NC-DOC-FR-001-ubiquitous-language-dictionary.md"
+  ssot: "@SSOT → NC-NAM-FR-001-naming-convention.md"
+  lexico: "NC-LEXICO-LATEST.json (69 services, 23 engines, 123 rules)"
+  boot: "@BOOT → NC-BOOT-FR-001-system-manifest.md"

@@ -1,0 +1,6 @@
+{
+  "key": "opencode-enterprise-full",
+  "content": "# Enterprise - OpenCode for Organizations\n\n## Trial\n\nEnterprise trials are available. Contact the OpenCode team for evaluation access.\n\n## Data Handling\n\n- **No code storage**: OpenCode does not store your code. Only session data and configurations are stored.\n- **Code ownership**: You retain full ownership of all your code. OpenCode never claims any rights to your code.\n\n## Pricing\n\nPer-seat pricing model. Contact sales for specific pricing tiers and volume discounts.\n\n## Deployment\n\n- **Central config**: Deploy centralized configuration across your organization\n- **SSO integration**: Single Sign-On support for team authentication\n- **Internal AI gateway**: Route AI requests through your own internal gateway\n- **Self-hosting roadmap**: Self-hosting capabilities are on the roadmap\n\n## FAQ\n\n- **Data privacy**: Your code never leaves your environment unless you explicitly share a session\n- **Security**: Enterprise-grade security with permission controls and audit logging\n- **Support**: Dedicated enterprise support included",
+  "tag": "opencode, enterprise, complete",
+  "stored_at": "2026-05-03T22:47:14.448007"
+}

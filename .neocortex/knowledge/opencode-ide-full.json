@@ -1,0 +1,6 @@
+{
+  "key": "opencode-ide-full",
+  "content": "# IDE - VS Code and Cursor Integration\n\n## Overview\n\nOpenCode integrates with VS Code and Cursor through an extension.\n\n## Keyboard Shortcuts\n\n- **Cmd+Esc** (Mac) / **Ctrl+Esc** (Windows/Linux) - Quick launch OpenCode\n- **Cmd+Shift+Esc** (Mac) / **Ctrl+Shift+Esc** (Windows/Linux) - Start a new session\n\n## File Reference Shortcuts\n\nQuickly reference files from your editor in OpenCode using @ shortcuts.\n\n## Installation\n\n### Automatic\nThe extension installs automatically when you run `opencode` in your terminal.\n\n### Manual\nInstall from the VS Code marketplace or Cursor extensions panel. Search for \"OpenCode\".\n\n## Troubleshooting\n\nIf the extension is not working:\n1. Ensure the OpenCode server is running\n2. Check that the extension is enabled\n3. Restart VS Code/Cursor\n4. Reinstall the extension if necessary\n5. Check the extension logs for errors",
+  "tag": "opencode, ide, complete",
+  "stored_at": "2026-05-03T22:47:48.816897"
+}
