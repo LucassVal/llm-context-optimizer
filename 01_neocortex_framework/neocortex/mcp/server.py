@@ -461,6 +461,20 @@ def create_mcp_server(host="127.0.0.1", port=8765):
     hook_registry_instance = _HookProxy()
     logger.info(f"Hooks: {len(_hooks_pre)}P/{len(_hooks_post)}O/{len(_hooks_err)}E ativos")
 
+    # ── LOGGING (NC-DS-257) ────────────────────────────────────────
+    _current_log_level = "INFO"
+
+    async def _handle_set_level(level: str):
+        nonlocal _current_log_level
+        valid = {"DEBUG","INFO","WARNING","ERROR","CRITICAL"}
+        if level.upper() in valid:
+            _current_log_level = level.upper()
+            logging.getLogger().setLevel(getattr(logging, _current_log_level))
+            _hlog(f"LogLevel: {_current_log_level}")
+
+    if FAST_MCP_AVAILABLE:
+        server.set_logging_level = lambda level: _handle_set_level(level) if not None else None
+
     # Register pulse tool with scheduler instance
     from .tools import pulse
 
@@ -644,7 +658,13 @@ def main():
     if transport == "streamable-http":
         print(f"-> SSE Host: {args.host}:{args.port}")
         if FAST_MCP_AVAILABLE:
-            mcp.run(transport="streamable-http")
+            # NC-DS-252: auth_token from env var for Streamable HTTP
+            _auth = os.environ.get("NEOCORTEX_MCP_AUTH_TOKEN", "")
+            if _auth:
+                mcp.run(transport="streamable-http", auth_token=_auth)
+                logger.info("MCP auth_token enabled")
+            else:
+                mcp.run(transport="streamable-http")
         else:
             print("FastMCP indisponível. Saindo.")
     else:
