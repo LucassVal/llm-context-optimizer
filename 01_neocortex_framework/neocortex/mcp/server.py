@@ -359,8 +359,21 @@ def create_mcp_server(host="127.0.0.1", port=8765):
     if FAST_MCP_AVAILABLE:
         server = FastMCP("neocortex", host=host, port=port)
         
-        # Add health check tool for monitoring
-        @server.tool()
+        # Add health check tool (NC-DS-253: outputSchema PoC)
+        @server.tool(
+            outputSchema={
+                "type": "object",
+                "properties": {
+                    "success": {"type": "boolean"},
+                    "status": {"type": "string", "enum": ["healthy", "degraded", "down"]},
+                    "service": {"type": "string"},
+                    "version": {"type": "string"},
+                    "timestamp": {"type": "string", "format": "date-time"},
+                    "tools_loaded": {"type": "integer"}
+                },
+                "required": ["success", "status", "service"]
+            }
+        )
         def health_check() -> dict:
             """Check MCP server health status"""
             return {
@@ -369,7 +382,7 @@ def create_mcp_server(host="127.0.0.1", port=8765):
                 "service": "neocortex-mcp",
                 "version": "4.2-cortex",
                 "timestamp": datetime.now(timezone.utc).isoformat() + "Z",
-                "tools_loaded": 17  # Número fixo baseado no carregamento dinâmico
+                "tools_loaded": 17
             }
     else:
         server = MockMCP("neocortex")
