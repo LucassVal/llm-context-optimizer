@@ -1,0 +1,551 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-INT-005-pixel-agents-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-005-pixel-agents-v1 ja esta no contexto desta sessao, SALTE. -->
+id: NC-LBE-INT-005
+name: pixel-agents
+status: ACTIVE  documentao completa gerada por NC-DS-008
+version: "1.0"
+created_at: "2026-04-14T00:16:00-03:00"
+created_by: antigravity-t0
+updated_at: "2026-04-14T12:00:00-03:00"
+updated_by: agente-32879
+tags: [integration, pixel-agents, visualization, pixel-art, vscode, bridge, jsonl, opencode, neocortex]
+domain: integration
+layer: lobe
+type: documentation
+hash: auto-generated
+temperature: 0
+status: archived
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-INT-005-pixel-agents-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-005-pixel-agents-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+## What
+Cria arquivo JSONL para nova sesso
+
+## Why
+o da bridge
+
+## Where
+02_memory_lobes/02_integrations
+
+---
+
+
+
+<!-- NC-READ-HASH: NC-LBE-INT-005-pixel-agents-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-005-pixel-agents-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL pixel-agents-overview
+LEXICO: #pixel-agents #visualization #pixel-art #integration
+# 1. NC-LBE-INT-005: Pixel Agents Integration
+
+> **STATUS**: Documentao completa gerada pelo agente 32879 (NC-DS-008). Especificao da bridge OpenCodeJSONL includa. Lobe pronto para implementao.
+
+@UBL pixel-agents-identity
+LEXICO: #identity #vscode-extension #claude-code #jsonl
+# 2. IDENTIDADE
+
+**Pixel Agents**  uma extenso open-source para VS Code desenvolvida por Pablo De Lucca (pablodelucca) que transforma agentes de IA em personagens pixel-art animados em um escritrio virtual. Cada agente (terminal Claude Code)  representado por um personagem que reage em tempo real s atividades do agente: digita quando escreve cdigo, l quando busca arquivos, espera quando precisa de permisso ou input do usurio.
+
+- **Repositrio GitHub:** https://github.com/pablodelucca/pixel-agents
+- **VS Code Marketplace:** `pablodelucca.pixel-agents`
+- **Licena:** MIT
+- **Stack:** TypeScript, VS Code Extension API, esbuild (backend), React 19 + Vite + Canvas 2D (webview)
+- **Verso atual:** 4 releases, 236 arquivos, comunidade ativa com issues e discusses.
+
+A extenso  uma camada de visualizao ldica que no modifica o comportamento dos agentes; apenas observa os arquivos de transcript JSONL gerados pelo Claude Code e traduz eventos em animaes.
+
+@UBL pixel-agents-internals
+LEXICO: #observation-mechanism #jsonl-format #animation-cycle #sub-agents
+# 3. COMO FUNCIONA INTERNAMENTE
+
+### Mecanismo de observao
+
+Pixel Agents opera em dois modos:
+
+1. **Modo hooks (preferencial)**: Utiliza a API de Hooks do Claude Code para receber eventos em tempo real via HTTP (servidor interno na porta `:8767`). O hook script (`claude-hook.js`)  instalado em `~/.claude/settings.json` e redireciona eventos para o servidor Pixel Agents. Este modo fornece deteco instantnea e confivel de incio/fim de sesso, ferramentas, permisses e trmino de turno.
+
+2. **Modo heurstico (fallback)**: Quando hooks no esto disponveis (ex: usurio desativou), a extenso recorre ao polling de arquivos JSONL. Escaneia os diretrios `~/.claude/projects/<hash>/` a cada 500ms-3s (intervalos configurveis) para detectar novos arquivos `.jsonl` e monitorar alteraes.
+
+Independemente do modo, o contedo dos transcripts  sempre analisado para extrair textos de status, nomes de ferramentas e atualizaes de sub-agents.
+
+### Formato JSONL consumido
+
+Pixel Agents espera arquivos JSONL (JSON Lines) compatveis com o formato gerado pelo Claude Code. Cada linha  um objeto JSON com os seguintes campos principais:
+
+#### Estrutura comum
+
+```json
+{
+  "type": "assistant" | "user" | "system" | "progress" | "queue-operation",
+  "timestamp": "2026-04-14T12:00:00.000Z",
+  "message": {
+    "content": string | Array<Block>
+  },
+  "content": string | Array<Block> // alternativa
+}
+```
+
+O campo `content` pode estar no nvel superior ou dentro de `message`. A extenso tenta ambas as localizaes para compatibilidade entre verses do Claude Code.
+
+#### Tipos de registros e seus campos
+
+**1. `type: "assistant"`**  Resposta do assistente (turno do agente)
+- `content` array de blocos (`tool_use` ou `text`)
+- Bloco `tool_use`:
+  ```json
+  {
+    "type": "tool_use",
+    "id": "tool_12345",
+    "name": "Read",
+    "input": { "file_path": "/path/to/file.js" }
+  }
+  ```
+- Bloco `text`:
+  ```json
+  {
+    "type": "text",
+    "text": "I'll help you write that function."
+  }
+  ```
+
+**2. `type: "user"`**  Input do usurio (incio de turno)
+- `content` array de blocos (`tool_result` ou `text`)
+- Bloco `tool_result`:
+  ```json
+  {
+    "type": "tool_result",
+    "tool_use_id": "tool_12345",
+    "content": "/* contedo do resultado */"
+  }
+  ```
+
+**3. `type: "system"`**  Eventos do sistema
+- `subtype: "turn_duration"`  sinal confivel de trmino de turno (emitido aps cada turno que usou ferramentas)
+  ```json
+  {
+    "type": "system",
+    "subtype": "turn_duration",
+    "duration_ms": 4500
+  }
+  ```
+
+**4. `type: "progress"`**  Atualizaes de progresso de ferramentas de longa durao
+- `data.type`: `"agent_progress"`, `"bash_progress"`, `"mcp_progress"`
+- `parentToolUseID`: ID da ferramenta pai (Task/Agent)
+- Para `agent_progress`: `data.message` contm transcript aninhado de sub-agents
+  ```json
+  {
+    "type": "progress",
+    "data": {
+      "type": "agent_progress",
+      "message": {
+        "type": "assistant",
+        "message": {
+          "content": [...]
+        }
+      }
+    },
+    "parentToolUseID": "tool_parent_123"
+  }
+  ```
+
+**5. `type: "queue-operation"`**  Operaes de fila de agentes assncronos
+- `operation: "enqueue"`  indica que um agente em background foi finalizado
+- `content` contm XML com `<tool-use-id>`
+  ```json
+  {
+    "type": "queue-operation",
+    "operation": "enqueue",
+    "content": "<tool-use-id>tool_12345</tool-use-id>"
+  }
+  ```
+
+**6. Outros tipos conhecidos (ignorados):**
+- `file-history-snapshot`: snapshot do histrico de arquivos
+- `queue-operation` (outras operaes alm de `enqueue`)
+
+### Ciclo de animao e mapeamento de estados
+
+Pixel Agents mapeia os tipos de registros JSONL para estados visuais dos personagens:
+
+| Estado do personagem | Gatilho JSONL | Detalhes |
+|----------------------|---------------|----------|
+| **typing** (digitando) | `tool_use` com ferramentas de escrita: `Write`, `Edit`, `Bash`, `Task`, `Agent` | Animao de digitao (frames alternados) |
+| **reading** (lendo) | `tool_use` com ferramentas de leitura: `Read`, `Grep`, `Glob`, `WebFetch`, `WebSearch` | Animao de leitura (livro aberto) |
+| **waiting** (esperando) | `system` + `subtype: "turn_duration"` ou timer de idle textual (5s sem novos dados) | Bolha de espera ( verde), auto-fade aps 2s |
+| **permission** (permisso) | Timer de permisso (7s aps `tool_use` no-exempt) ou evento `PermissionRequest` via hook | Bolha de permisso ( mbar), persiste at clique |
+| **idle** (ocioso) | Sem atividade recente, agente caminha aleatoriamente pelo escritrio | Animao de caminhada ou parado |
+
+**Ferramentas exempt de permisso:** `Task`, `Agent`, `AskUserQuestion`  no disparam timer de permisso.
+
+**Deteco de trmino de turno:** Dois mecanismos:
+1. **Confiavel:** `turn_duration`  emitido aps turnos que usaram ferramentas (~98% dos casos)
+2. **Heurstico:** Timer de idle textual (`TEXT_IDLE_DELAY_MS = 5000`)  para turnos apenas textuais onde `turn_duration` nunca  emitido
+
+### Sub-agents (ferramentas Task/Agent)
+
+Quando um agente usa a ferramenta `Task` ou `Agent`, Pixel Agents cria um personagem filho (sub-agent) com ID negativo (-1, -2, ...). O sub-agent:
+- Herda a paleta de cores e hue shift do pai
+- Aparece no escritrio como personagem separado
+- Click focaliza o terminal pai
+- No  persistido entre sesses
+- Spawn no assento mais prximo disponvel (distncia Manhattan)
+
+Sub-agents possuem seus prprios tools aninhados (detectados via `agent_progress`). Ferramentas no-exempt em sub-agents disparam timer de permisso no pai.
+
+@UBL pixel-agents-features
+LEXICO: #features #characters #layout-editor #speech-bubbles #debug
+# 4. FUNCIONALIDADES DETALHADAS
+
+### 1. Um agente = um personagem (6 opes, JIK-A-4 Metro City)
+
+- **6 personagens pr-coloridos** baseados no asset pack gratuito "Metro City" de JIK-A-4
+- **Paletas nicas** para os primeiros 6 agentes; alm disso, repetio com hue shift aleatrio (45-315)
+- **Sprites 1632px** com 7 frames (3 walk, 2 type, 2 read)  3 direes (down, up, right)
+- **Left = flipped right** em tempo real
+
+### 2. Office Layout Editor (floors, walls, furniture)
+
+- **Editor integrado** (boto "Layout") com ferramentas: SELECT, Floor paint, Wall paint, Erase, Furniture place, Pick, Eyedropper
+- **Grid expansvel** at 6464 tiles (clique na borda ghost)
+- **Floors:** 7 padres do `floors.png`, colorizveis via HSBC sliders (modo Colorize)
+- **Walls:** auto-tile 4-bit (N/E/S/W) com peas 1632px, colorizveis
+- **Furniture:** catlogo dinmico de `furniture-catalog.json` (bundled + external)
+  - Categorias: desks, chairs, storage, electronics, decor, wall, misc
+  - **Rotation groups:** itens com mltiplas orientaes (front/back/left/right)
+  - **State groups:** itens com estados on/off (ex: monitor ligado/desligado)
+  - **Background tiles:** N linhas superiores permitem sobreposio de outros mveis
+  - **Surface placement:** itens como laptops podem ser colocados sobre desks
+  - **Wall placement:** pinturas, janelas, relgios apenas em paredes
+- **Undo/Redo** 50 nveis (Ctrl+Z/Y)
+
+### 3. Speech bubbles, sound notifications
+
+- **Bolhas de permisso** ( mbar): aparecem aps 7s de ferramenta no-exempt, persistem at clique
+- **Bolhas de espera** ( verde): aparecem no trmino de turno, auto-fade 2s
+- **Notificao sonora:** chim two-note (E5E6) via Web Audio API quando waiting aparece
+  - Desbloqueio de udio no primeiro clique (webviews comeam suspended)
+  - Configurvel no modal Settings
+
+### 4. Persistent layouts, external asset directories
+
+- **Layout persistido** em `~/.pixel-agents/layout.json` (user-level, compartilhado entre janelas VS Code)
+  - Escrita atmica (`.tmp` + rename)
+  - Watch hbrido (`fs.watch` + polling 2s) para sincronia cross-window
+  - Migrao automtica de workspace state antigo
+- **Config persistida** em `~/.pixel-agents/config.json`
+  - Armazena `externalAssetDirectories: string[]`
+- **Diretrios de assets externos:** Settings  Add Asset Directory
+  - Merge com assets bundled (IDs externos sobrescrevem em coliso)
+  - Suporte a packs de furniture de terceiros
+
+### 5. Debug view & diagnostics
+
+- **Debug View:** Settings  toggle "Debug View" mostra status por agente:
+  - Caminho do JSONL, linhas parseadas, ltimo timestamp, conexo hooks
+- **Console de debug:** (Extension Development Host) logs `[Pixel Agents]` com:
+  - Resoluo de diretrio de projeto, polling status, encoding mismatches
+  - Tipos de record no reconhecidos (para diagnstico de mudanas de formato)
+
+@UBL pixel-agents-bridge
+LEXICO: #bridge #opencode #jsonl-spec #hook-registry
+# 5. BRIDGE OPENCODE  JSONL (ESPECIFICAO TCNICA)
+
+### Por que precisamos da bridge
+
+Pixel Agents foi projetado para consumir transcripts JSONL do Claude Code. O NeoCortex utiliza agentes DeepSeek/OpenCode que geram logs em formato diferente. Sem uma bridge, os agentes NeoCortex so invisveis ao Pixel Agents, perdendo a camada visual e de auditabilidade.
+
+**Objetivo:** Traduzir em tempo real a atividade dos agentes OpenCode para o formato JSONL compatvel, permitindo que apaream como personagens no escritrio pixel-art.
+
+### NC-SCR-FR-016-opencode-jsonl-bridge.py  Especificao
+
+#### Viso geral
+
+A bridge  um script Python que:
+1. Monitora os logs/eventos dos agentes OpenCode (via HookRegistry do NeoCortex ou leitura de arquivos de log)
+2. Converte cada evento em uma linha JSONL no formato Claude Code
+3. Escreve no diretrio `~/.claude/projects/neocortex-agents/` (ou subdiretrio por agente)
+4. Mantm a consistncia temporal e de estado
+
+#### Entradas (fontes de eventos)
+
+**Opo preferida: HookRegistry do NeoCortex**
+- O NeoCortex Core j possui HookRegistry (NC-HK-FR-001) com 6 eventos: `before_tool_call`, `after_tool_call`, `on_error`, `session_start`, `session_end`, `on_checkpoint`
+- A bridge se registra como listener e transforma esses hooks em linhas JSONL
+- Vantagens: baixa latncia, contexto completo, integrao nativa
+
+**Opo fallback: leitura de logs do OpenCode**
+- OpenCode (porta 32879) gera logs em diretrio especfico (a ser descoberto)
+- Polling peridico (500ms) ou inotify para detectar novas linhas
+- Parsing do formato nativo do OpenCode (JSON lines prprio)
+
+#### Sada (destino JSONL)
+
+- **Diretrio raiz:** `~/.claude/projects/neocortex-agents/`
+- **Estrutura por agente:** `{agent_id}/{session_id}.jsonl`
+  - `agent_id`: identificador nico do agente NeoCortex (ex: `deepseek-32879`)
+  - `session_id`: UUID da sesso (gerado no `session_start`)
+- **Permisses:** 644 (rw-r--r--)
+- **Atomicidade:** append linha a linha (cada linha  um JSON completo)
+
+#### Mapeamento de estados OpenCode  JSONL
+
+| Estado OpenCode | Evento HookRegistry | Linha JSONL gerada | Estado Pixel Agents |
+|-----------------|---------------------|---------------------|---------------------|
+| Agente inicia | `session_start` | (no necessrio para visualizao) | Personagem spawna (Matrix effect) |
+| Thinking / planejamento | `before_tool_call` (com tool_name=null?) | `{"type":"assistant","content":[{"type":"text","text":"Thinking..."}]}` | reading |
+| Chamada de ferramenta | `before_tool_call` (com tool_name) | `{"type":"assistant","content":[{"type":"tool_use","id":"...","name":"Read","input":{...}}]}` | typing ou reading conforme tool |
+| Resultado da ferramenta | `after_tool_call` | `{"type":"user","content":[{"type":"tool_result","tool_use_id":"...","content":"..."}]}` | mantm estado ativo |
+| Erro na ferramenta | `on_error` | `{"type":"user","content":[{"type":"tool_result","tool_use_id":"...","content":"Error: ..."}]}` | mantm estado ativo |
+| Agente esperando input | timeout ou evento especfico | `{"type":"system","subtype":"turn_duration"}` | waiting ( verde) |
+| Agente precisa de permisso | (detectvel via anlise de input) | (timer de permisso interno) | permission ( mbar) |
+| Fim da sesso | `session_end` | (no necessrio) | Personagem despawna (Matrix effect) |
+
+#### Formato JSONL de sada (exemplo completo)
+
+```jsonl
+{"type":"assistant","message":{"content":[{"type":"tool_use","id":"tool_read_123","name":"Read","input":{"file_path":"/home/user/project/src/main.js"}}]},"timestamp":"2026-04-14T12:00:00.000Z"}
+{"type":"user","message":{"content":[{"type":"tool_result","tool_use_id":"tool_read_123","content":"// contedo do arquivo..."}]},"timestamp":"2026-04-14T12:00:01.500Z"}
+{"type":"assistant","message":{"content":[{"type":"text","text":"I'll now edit this file."}]},"timestamp":"2026-04-14T12:00:02.000Z"}
+{"type":"assistant","message":{"content":[{"type":"tool_use","id":"tool_edit_456","name":"Edit","input":{"file_path":"/home/user/project/src/main.js","oldString":"...","newString":"..."}}]},"timestamp":"2026-04-14T12:00:03.000Z"}
+{"type":"user","message":{"content":[{"type":"tool_result","tool_use_id":"tool_edit_456","content":"Edit applied successfully."}]},"timestamp":"2026-04-14T12:00:04.200Z"}
+{"type":"system","subtype":"turn_duration","duration_ms":4200,"timestamp":"2026-04-14T12:00:04.500Z"}
+```
+
+#### Implementao da bridge
+
+**Estrutura do script:**
+
+```python
+# NC-SCR-FR-016-opencode-jsonl-bridge.py
+import json
+import os
+import time
+from pathlib import Path
+from datetime import datetime
+from typing import Dict, Any
+import threading
+from neocortex_hooks import HookRegistry  # importar do NeoCortex Core
+
+class OpenCodeJsonlBridge:
+    def __init__(self, output_base: str = "~/.claude/projects/neocortex-agents"):
+        self.output_base = Path(output_base).expanduser()
+        self.output_base.mkdir(parents=True, exist_ok=True)
+        self.active_sessions: Dict[str, Dict] = {}  # session_id -> {agent_id, file_handle}
+        
+    def on_session_start(self, session_id: str, agent_id: str, metadata: Dict):
+        """Cria arquivo JSONL para nova sesso"""
+        session_dir = self.output_base / agent_id
+        session_dir.mkdir(exist_ok=True)
+        jsonl_path = session_dir / f"{session_id}.jsonl"
+        self.active_sessions[session_id] = {
+            "agent_id": agent_id,
+            "jsonl_path": jsonl_path,
+            "file": open(jsonl_path, "a", encoding="utf-8")
+        }
+        # Pixel Agents detectar novo arquivo via polling
+        
+    def on_before_tool_call(self, session_id: str, tool_name: str, tool_id: str, input_data: Dict):
+        """Escreve linha tool_use"""
+        if session_id not in self.active_sessions:
+            return
+        record = {
+            "type": "assistant",
+            "message": {
+                "content": [
+                    {
+                        "type": "tool_use",
+                        "id": tool_id,
+                        "name": tool_name,
+                        "input": input_data
+                    }
+                ]
+            },
+            "timestamp": datetime.utcnow().isoformat() + "Z"
+        }
+        self._write_line(session_id, record)
+        
+    def on_after_tool_call(self, session_id: str, tool_id: str, result: Any, error: bool = False):
+        """Escreve linha tool_result"""
+        if session_id not in self.active_sessions:
+            return
+        content = str(result) if not error else f"Error: {result}"
+        record = {
+            "type": "user",
+            "message": {
+                "content": [
+                    {
+                        "type": "tool_result",
+                        "tool_use_id": tool_id,
+                        "content": content
+                    }
+                ]
+            },
+            "timestamp": datetime.utcnow().isoformat() + "Z"
+        }
+        self._write_line(session_id, record)
+        
+    def on_turn_end(self, session_id: str):
+        """Escreve turn_duration (sinal de waiting)"""
+        if session_id not in self.active_sessions:
+            return
+        record = {
+            "type": "system",
+            "subtype": "turn_duration",
+            "duration_ms": 0,  # placeholder - calcular durao real
+            "timestamp": datetime.utcnow().isoformat() + "Z"
+        }
+        self._write_line(session_id, record)
+        
+    def on_session_end(self, session_id: str):
+        """Fecha arquivo da sesso"""
+        if session_id in self.active_sessions:
+            self.active_sessions[session_id]["file"].close()
+            del self.active_sessions[session_id]
+            
+    def _write_line(self, session_id: str, record: Dict):
+        """Escreve uma linha JSONL atomicamente"""
+        session = self.active_sessions[session_id]
+        json_line = json.dumps(record, ensure_ascii=False)
+        session["file"].write(json_line + "\n")
+        session["file"].flush()  # garantir escrita imediata
+        
+    def register_hooks(self, hook_registry):
+        """Registra callbacks no HookRegistry do NeoCortex"""
+        hook_registry.on("session_start", self.on_session_start)
+        hook_registry.on("before_tool_call", self.on_before_tool_call)
+        hook_registry.on("after_tool_call", self.on_after_tool_call)
+        hook_registry.on("session_end", self.on_session_end)
+        # turn_end precisa ser detectado por heurstica ou evento prprio
+
+# Ponto de entrada
+if __name__ == "__main__":
+    bridge = OpenCodeJsonlBridge()
+    # Conectar ao HookRegistry do NeoCortex
+    from neocortex_core import get_hook_registry
+    hook_registry = get_hook_registry()
+    bridge.register_hooks(hook_registry)
+    print("Bridge OpenCodeJSONL registrada. Aguardando eventos...")
+    # Manter processo vivo
+    threading.Event().wait()
+```
+
+#### Consideraes de performance
+
+- **Latncia:** A bridge deve responder a eventos em <100ms para animaes fluidas
+- **CPU:** Polling de logs (fallback) consome CPU; preferir hooks
+- **IO:** Append frequente a arquivos pequenos; usar `flush()` aps cada linha para visibilidade imediata
+- **Concorrncia:** Suportar mltiplas sesses simultneas (thread-safe)
+
+#### Caminhos especficos
+
+- **Logs do OpenCode:** Investigar diretrio padro de logs do OpenCode (provavelmente em `~/.opencode/logs/` ou similar)
+- **HookRegistry:** O arquivo `NC-HK-FR-001-hook-registry.py` j existe no NeoCortex Core (285 linhas)
+- **Integrao com NeoCortex HUD:** Adicionar boto "Pixel Agents" que abre VS Code com a extenso j ativa
+
+@UBL pixel-agents-hud
+LEXICO: #hud-integration #launcher #vscode
+# 6. INTEGRAO COM HUD
+
+### Opes de integrao no neocortex_hud.py
+
+**Opo 1: Launcher (boto que abre VS Code com Pixel Agents)**
+- Boto "Pixel Agents" no HUD que executa `code --folder-uri <workspace_path>`
+- Assume que VS Code est instalado e extenso Pixel Agents j est instalada
+- Mais simples, funciona imediatamente
+
+**Opo 2: tkinterweb (embedding HTML)**
+- Usar `tkinterweb` para embedar a webview do Pixel Agents diretamente no HUD
+- Requer servir assets localmente e compatibilidade com a arquitetura de webview
+- Mais integrado, mas complexo (CORS, comunicao, performance)
+
+**Recomendao:** Implementar **Opo 1 (Launcher)** inicialmente como MVP, com **Opo 2** como futuro enhancement quando a bridge estiver estvel.
+
+### Implementao do launcher
+
+No `neocortex_hud.py`:
+
+```python
+def open_pixel_agents(self):
+    """Abre VS Code com workspace atual para visualizao no Pixel Agents"""
+    import subprocess
+    import os
+    
+    workspace_path = os.getcwd()  # ou obter do NeoCortex config
+    cmd = ["code", workspace_path]
+    
+    try:
+        subprocess.Popen(cmd, shell=False)
+        self.log("Pixel Agents: VS Code launched with workspace")
+    except Exception as e:
+        self.log(f"Failed to launch VS Code: {e}")
+        # Fallback: mostrar mensagem com instrues manuais
+```
+
+@UBL pixel-agents-gaps
+LEXICO: #gaps #risks #vscode-dependency #maturity
+# 7. GAPS E RISCOS
+
+### Dependncia exclusiva de VS Code (no standalone)
+- Pixel Agents funciona apenas como extenso VS Code
+- No h verso standalone (web app, Electron) pblica atualmente
+- **Impacto:** Usurios precisam ter VS Code instalado e rodando
+
+### Roadmap "agent-agnostic"
+- O projeto visa suportar mltiplos agentes (OpenCode, Codex, Gemini, Cursor, Copilot)
+- Atualmente suporta apenas Claude Code via JSONL + hooks
+- **Timeline:** "agent-agnostic" est em desenvolvimento ativo; estimativa 2-4 meses
+
+### Overhead da bridge (latncia, CPU)
+- Traduo em tempo real adiciona latncia (<100ms target)
+- Polling de logs (fallback) consome CPU contnua
+- **Mitigao:** Usar hooks preferencialmente; otimizar parsing; considerar batch de eventos
+
+### Maturidade (4 releases, 236 arquivos)
+- Projeto relativamente novo mas ativo
+- Issues reportadas: desync terminal-agente, heuristicas de deteco imperfeitas
+- **Concluso:** Estvel para uso bsico, mas pode requerer troubleshooting
+
+@UBL pixel-agents-next-steps
+LEXICO: #next-steps #tickets #implementation
+# 8. PRXIMOS PASSOS
+
+### Ticket NC-DS-009: criar NC-SCR-FR-016-opencode-jsonl-bridge.py
+- Implementar bridge conforme especificao acima
+- Integrar com HookRegistry do NeoCortex
+- Testar com agente OpenCode bsico
+
+### Ticket NC-DS-010: instalar Pixel Agents extension e testar com bridge
+- Instalar extenso no VS Code (marketplace ou from source)
+- Configurar diretrio de sada da bridge (`~/.claude/projects/neocortex-agents/`)
+- Validar que personagens aparecem e animam corretamente
+
+### Ticket NC-DS-011: integrao com NeoCortex HUD
+- Adicionar boto "Pixel Agents" ao HUD
+- Implementar launcher VS Code
+- Documentar workflow para usurios
+
+### Ticket NC-DS-012: otimizao e monitoramento
+- Perfomance profiling da bridge
+- Logging detalhado de converses
+- Mtricas de latncia eventoanimao
+
+@UBL pixel-agents-references
+LEXICO: #references #documentation
+# 9. REFERNCIAS
+
+1. **Pixel Agents repository:** `DIR-RES-CC-001-claude-leak-workzone\external-refs\pixel-agents\`
+2. **Documentao comprimida:** `CLAUDE.md` (arquivo interno com arquitetura detalhada)
+3. **HookRegistry do NeoCortex:** `NC-HK-FR-001-hook-registry.py` (285 linhas)
+4. **Simple hook example:** `NC-HK-FR-002-simple-hook.py` (151 linhas)
+5. **NeoCortex Core:** Estrutura de eventos e auditoria j implementada
+
+---
+
+<!-- NC-READ-HASH: NC-LBE-INT-005-pixel-agents-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-005-pixel-agents-v1 ja esta no contexto desta sessao, SALTE. -->
+*Documentao gerada pelo agente 32879 (NC-DS-008) em 2026-04-14. Especificao da bridge pronta para implementao pelo prximo agente na cadeia.*

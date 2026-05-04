@@ -1,0 +1,44 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-FR-SESSION-002-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-SESSION-002-v1 ja esta no contexto desta sessao, SALTE. -->
+lobe_id: NC-LBE-FR-SESSION-002
+domain: 08_sessions
+type: SESSION_RECORD
+created: 2026-04-29
+status: closed
+temperature: 35
+---
+
+@UBL $SESSION_002
+LEXICO: #session #record #audit #status
+
+<!-- NC-READ-HASH: NC-LBE-FR-SESSION-002-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-SESSION-002-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+
+@UBL 3Ws
+LEXICO: #3W #what #why #where
+
+## What
+Módulo: NC LBE FR SESSION 002
+
+## Why
+Criado em 2026-04-29 — arquivo do ecossistema NeoCortex
+
+## Where
+02_memory_lobes/08_sessions
+
+---
+
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-SESSION-002-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-SESSION-002-v1 ja esta no contexto desta sessao, SALTE. -->
+
+@UBL Session20260429
+LEXICO: #session #20260429 #rules #lobes #engines
+
+# 1. Session 20260429-015251
+
+Rules: 119 | Lobes: 75 | Engines: 18 | Ruff: 100% | CICLOS: 2+3+4

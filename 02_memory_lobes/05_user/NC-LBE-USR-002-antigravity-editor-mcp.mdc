@@ -1,0 +1,205 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-USR-002-antigravity-editor-mcp-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-002-antigravity-editor-mcp-v1 ja esta no contexto desta sessao, SALTE. -->
+name: NC-LBE-USR-002-antigravity-editor-mcp
+description: Guia exaustivo de integração MCP do editor Antigravity, incluindo configuração, autenticação e capacidades.
+tags: [antigravity, mcp, editor, config, auth, oauth, google-credentials]
+status: active
+module: integration
+last_updated: 2026-04-17
+temperature: 0
+status: archived
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-USR-002-antigravity-editor-mcp-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-002-antigravity-editor-mcp-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+
+
+
+
+@UBL what
+LEXICO: #section #content
+## What
+Módulo: NC LBE USR 002 antigravity editor mcp
+
+
+
+
+
+@UBL why
+LEXICO: #section #content
+## Why
+Criado em 2026-04-17 — arquivo do ecossistema NeoCortex
+
+
+
+
+
+@UBL where
+LEXICO: #section #content
+## Where
+02_memory_lobes/05_user
+
+---
+
+
+
+<!-- NC-READ-HASH: NC-LBE-USR-002-antigravity-editor-mcp-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-002-antigravity-editor-mcp-v1 ja esta no contexto desta sessao, SALTE. -->
+
+
+
+
+@UBL antigravity-mcp-integration
+LEXICO: #antigravity #mcp
+# 1. Antigravity Editor: Integração MCP — NC-LBE-USR-002
+
+> **Propósito:** Documentar as capacidades, configuração manual e protocolos de autenticação do editor Antigravity ao atuar como cliente de servidores MCP.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-USR-002-antigravity-editor-mcp-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-002-antigravity-editor-mcp-v1 ja esta no contexto desta sessao, SALTE. -->
+
+
+
+
+@UBL overview
+LEXICO: #overview #capabilities
+## 1. Visão Geral
+O Antigravity é compatível com o Model Context Protocol (MCP), permitindo conexão segura a ferramentas locais, bancos de dados e serviços externos.
+
+### Capacidades Principais
+1. **Recursos de Contexto:** Leitura de dados de servidores conectados (ex: esquemas SQL, logs de depuração).
+2. **Ferramentas Personalizadas:** Execução de ações específicas (ex: criar tarefas no Linear, busca no Notion/GitHub).
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-USR-002-antigravity-editor-mcp-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-002-antigravity-editor-mcp-v1 ja esta no contexto desta sessao, SALTE. -->
+
+
+
+
+@UBL manual-config
+LEXICO: #config #mcp-config
+## 2. Configuração Manual (`mcp_config.json`)
+
+O arquivo de configuração está localizado em:
+`~/.gemini/antigravity/mcp_config.json`
+
+> [!IMPORTANT]
+> O Antigravity funciona **estilo VS Code**. O MCP **não** é iniciado via stdio pela IDE — ele conecta a servidores **já rodando** via `httpUrl` (SSE/HTTP) ou inicia processos locais via `command` (stdio).
+
+### 2.1 Schema de Propriedades
+
+| Propriedade | Tipo | Uso |
+|:---|:---|:---|
+| `command` | string | **Transporte stdio** — caminho do executável (servidor local) |
+| `serverURL` | string | **Transporte HTTP/SSE** — URL do servidor já em execução ✅ CONFIRMADO |
+| `args` | string[] | Argumentos de linha de comando (stdio) |
+| `env` | objeto | Variáveis de ambiente (stdio) |
+| `cwd` | string | Diretório de trabalho (stdio) |
+| `headers` | objeto | Headers HTTP customizados (`Authorization: Bearer ...`) |
+| `authProviderType` | string | Provedor de auth (`"GOOGLE_CREDENTIALS"` para ADC) |
+| `oauth` | objeto | Credenciais OAuth (`clientId`, `clientSecret`) |
+| `disabled` | boolean | Desativa temporariamente o servidor |
+| `disabledTools` | string[] | Ferramentas ocultas do modelo |
+
+> [!WARNING]
+> `serverUrl` e `url` **NÃO são propriedades válidas** no Antigravity. Use `httpUrl` para servidores remotos. O uso de `serverUrl` causa **loading infinito** no MCP Manager.
+
+### 2.2 Servidor Local (`command` / stdio)
+
+```json
+{
+  "mcpServers": {
+    "meu-servidor-local": {
+      "command": "C:/Program Files/Python312/python.exe",
+      "args": ["-m", "neocortex.mcp.server", "--transport", "stdio"],
+      "env": {
+        "PYTHONPATH": "C:/caminho/para/framework",
+        "NEOCORTEX_PROJECT_ROOT": "C:/caminho/para/framework"
+      }
+    }
+  }
+}
+```
+
+### 2.3 Servidor Remoto/SSE já em execução (`httpUrl`)
+
+```json
+{
+  "mcpServers": {
+    "neocortex": {
+      "httpUrl": "http://127.0.0.1:8765/sse",
+      "disabled": false
+    }
+  }
+}
+```
+
+> O NeoCortex MCP roda via Uvicorn/FastMCP em `http://127.0.0.1:8765`.
+> Iniciado por: `01_neocortex_framework/scripts/NC-SCR-FR-103b-start-with-mc.ps1`
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-USR-002-antigravity-editor-mcp-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-002-antigravity-editor-mcp-v1 ja esta no contexto desta sessao, SALTE. -->
+
+
+
+
+@UBL auth-protocols
+LEXICO: #auth #oauth
+## 3. Protocolos de Autenticação
+
+### 3.1 Credenciais do Google (ADC)
+Configure `authProviderType` como `"GOOGLE_CREDENTIALS"`.
+Requer execução prévia de: `gcloud auth application-default login`.
+
+### 3.2 OAuth
+- **DCR (Dynamic Client Registration):** Suportado automaticamente se o servidor permitir.
+- **Configuração Manual:** Forneça `clientId` e `clientSecret` no objeto `oauth`.
+- **URI de Redirecionamento:** `https://antigravity.google/oauth-callback`
+- **Armazenamento:** Tokens são salvos em `~/.gemini/antigravity/mcp_oauth_tokens.json`.
+- **Fluxo:** Se necessário auth, um botão "Authenticate" aparece em **Agent Settings → Customizations**.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-USR-002-antigravity-editor-mcp-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-002-antigravity-editor-mcp-v1 ja esta no contexto desta sessao, SALTE. -->
+
+
+
+
+@UBL supported-servers
+LEXICO: #servers #integrations
+## 4. Servidores Suportados (Integrados/Store)
+O Antigravity oferece integração nativa para:
+- Google (AlloyDB, BigQuery, Cloud SQL, Firebase, Maps)
+- Ferramentas Dev (GitHub, Linear, Netlify, Heroku, SonarQube)
+- Bancos de Dados (MongoDB, Neon, Redis, Supabase, ClickHouse)
+- Outros (Notion, Figma, PayPal, Stripe, Perplexity, Postman)
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-USR-002-antigravity-editor-mcp-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-002-antigravity-editor-mcp-v1 ja esta no contexto desta sessao, SALTE. -->
+
+
+
+
+@UBL changelog
+LEXICO: #changelog
+## Changelog
+- [2026-04-17] Lobe criado por T0 Antigravity. Incorporadas informações detalhadas sobre configuração de cliente MCP, autenticação ADC/OAuth e estrutura de headers conforme dados exaustivos do usuário.
+- [2026-04-17] **ATUALIZAÇÃO CRÍTICA:** Pesquisa oficial docs `antigravity.google/docs/mcp`. Corrigido: `serverUrl` é INVÁLIDO, propriedade correta é `httpUrl`. Adicionada tabela completa de schema, exemplos locais vs remotos, e warning sobre loading infinito.

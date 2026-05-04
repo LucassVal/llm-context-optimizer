@@ -1,0 +1,1379 @@
+---
+id: NC-LBE-INT-006
+name: mcp-specification
+status: ACTIVE
+version: "2.0"
+created_at: "2026-05-04"
+updated_at: "2026-05-04"
+tags: [mcp, specification, protocol, registry, extensions, seps, integration, authorization, security, debugging, clients, servers]
+domain: integration
+layer: lobe
+sources:
+  - https://modelcontextprotocol.io/llms.txt
+  - https://modelcontextprotocol.io/docs/learn/architecture
+  - https://modelcontextprotocol.io/docs/learn/server-concepts
+  - https://modelcontextprotocol.io/docs/learn/client-concepts
+  - https://modelcontextprotocol.io/docs/learn/versioning
+  - https://modelcontextprotocol.io/docs/develop/connect-local-servers
+  - https://modelcontextprotocol.io/docs/develop/connect-remote-servers
+  - https://modelcontextprotocol.io/docs/develop/build-with-agent-skills
+  - https://modelcontextprotocol.io/docs/develop/build-server
+  - https://modelcontextprotocol.io/docs/develop/build-client
+  - https://modelcontextprotocol.io/docs/develop/clients/client-best-practices
+  - https://modelcontextprotocol.io/docs/sdk
+  - https://modelcontextprotocol.io/docs/tutorials/security/authorization
+  - https://modelcontextprotocol.io/docs/tutorials/security/security_best_practices
+  - https://modelcontextprotocol.io/docs/tools/debugging
+  - https://modelcontextprotocol.io/clients
+  - https://modelcontextprotocol.io/examples
+temperature: 30
+---
+
+# NC-LBE-INT-006 — MCP Specification (COMPLETE REFERENCE v2.0)
+
+## 3W
+- **WHAT:** Referência completa do Model Context Protocol — arquitetura, spec, SDKs, registry, extensions, SEPs, segurança, debugging e TODAS as páginas de documentação oficial.
+- **WHY:** NeoCortex MCP server (`neocortex/mcp/server.py`) deve seguir o padrão oficial. Hooks, tools e wire-up precisam estar alinhados com a spec completa.
+- **WHERE:** `neocortex/mcp/server.py` (server), `neocortex/mcp/hooks.py` (hooks), `neocortex/mcp/` (módulo MCP)
+
+---
+@UBL architecture
+# 1. MCP ARCHITECTURE
+LEXICO: #mcp-architecture #mcp-scope #mcp-participants #mcp-layers #mcp-primitives
+
+## 1.1 Scope
+
+MCP inclui:
+- **MCP Specification**: spec da spec (`specification/latest`)
+- **MCP SDKs**: TypeScript (T1), Python (T1), C# (T1), Go (T1), Java (T2), Rust (T2), Swift (T3), Ruby (T3), PHP (T3), Kotlin (TBD)
+- **MCP Development Tools**: MCP Inspector, debugging tools
+- **MCP Reference Servers**: Everything, Fetch, Filesystem, Git, Memory, Sequential Thinking, Time
+
+MCP foca SOMENTE no protocolo de troca de contexto — NÃO dita como AI apps usam LLMs.
+
+## 1.2 Participants (Client-Server Architecture)
+
+```
+MCP Host (AI App) → MCP Client 1 → MCP Server A (Local, stdio)
+                   → MCP Client 2 → MCP Server B (Local, stdio)
+                   → MCP Client 3 → MCP Server C (Remote, Streamable HTTP)
+                   → MCP Client 4 → MCP Server C (shared remote)
+```
+
+- **MCP Host**: AI application (Claude Desktop, VS Code, Cursor, etc.) que coordena múltiplos clients
+- **MCP Client**: Componente que mantém conexão dedicada com UM servidor MCP
+- **MCP Server**: Programa que fornece contexto (tools, resources, prompts) aos clients
+
+Local servers (stdio) tipicamente servem 1 client. Remote servers (Streamable HTTP) servem múltiplos clients.
+
+## 1.3 Layers
+
+### Data Layer (inner)
+JSON-RPC 2.0 based exchange protocol:
+- **Lifecycle management**: Initialize → capability negotiation → initialized → operation → shutdown
+- **Server features**: Tools, Resources, Prompts
+- **Client features**: Sampling, Elicitation, Logging (servers can ask clients for these)
+- **Utility features**: Notifications, Progress tracking, Ping, Cancellation, Tasks, Pagination, Completion
+
+### Transport Layer (outer)
+- **stdio**: Standard input/output streams, local processes, zero network overhead. Usado pelo NeoCortex.
+- **Streamable HTTP**: HTTP POST client→server + optional SSE for streaming. Suporta bearer tokens, API keys, OAuth. Para servidores remotos.
+- **SSE (legacy)**: Deprecated em favor de Streamable HTTP.
+
+## 1.4 Data Layer Protocol (JSON-RPC 2.0)
+
+### Lifecycle Management
+Stateful protocol. Handshake: `initialize` → capability negotiation → `notifications/initialized`.
+
+### Primitives (Core Concept)
+
+**Server Primitives:**
+| Primitive | Protocol Ops | Who Controls |
+|-----------|-------------|--------------|
+| **Tools** | `tools/list`, `tools/call` | Model (LLM decides) |
+| **Resources** | `resources/list`, `resources/templates/list`, `resources/read`, `resources/subscribe` | Application |
+| **Prompts** | `prompts/list`, `prompts/get` | User |
+
+**Client Primitives:**
+| Primitive | Protocol Ops | Description |
+|-----------|-------------|-------------|
+| **Sampling** | `sampling/createMessage` | Server requests LLM completions from client |
+| **Elicitation** | `elicitation/create` | Server requests structured user input |
+| **Logging** | `logging/setLevel`, `notifications/message` | Server sends logs to client |
+| **Roots** | `roots/list` | Client specifies filesystem boundaries |
+
+**Utility Primitives:**
+- **Tasks (Experimental)**: Durable execution wrappers, deferred result retrieval, status tracking
+- **Notifications**: Real-time updates (`notifications/tools/list_changed`, etc.)
+- **Progress**: Progress tracking for long-running operations
+- **Ping**: Keepalive
+- **Cancellation**: Cancel in-flight requests
+
+### Capability Negotiation (Initialize)
+
+Client sends:
+```json
+{
+  "jsonrpc": "2.0", "id": 1, "method": "initialize",
+  "params": {
+    "protocolVersion": "2025-06-18",
+    "capabilities": { "elicitation": {} },
+    "clientInfo": { "name": "example-client", "version": "1.0.0" }
+  }
+}
+```
+
+Server responds:
+```json
+{
+  "result": {
+    "protocolVersion": "2025-06-18",
+    "capabilities": {
+      "tools": { "listChanged": true },
+      "resources": {}
+    },
+    "serverInfo": { "name": "example-server", "version": "1.0.0" }
+  }
+}
+```
+
+Client then sends: `{"jsonrpc": "2.0", "method": "notifications/initialized"}`
+
+### Tool Definition Example
+```json
+{
+  "name": "searchFlights",
+  "description": "Search for available flights",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "origin": { "type": "string", "description": "Departure city" },
+      "destination": { "type": "string", "description": "Arrival city" },
+      "date": { "type": "string", "format": "date" }
+    },
+    "required": ["origin", "destination", "date"]
+  }
+}
+```
+
+### Tool Execution Example
+Request: `{"method": "tools/call", "params": {"name": "weather_current", "arguments": {"location": "San Francisco", "units": "imperial"}}}`
+Response: `{"result": {"content": [{"type": "text", "text": "Current weather: 68°F, partly cloudy..."}]}}`
+
+### Notifications
+Server→Client: `{"jsonrpc": "2.0", "method": "notifications/tools/list_changed"}`
+Client then re-fetches: `{"method": "tools/list"}`
+
+---
+
+---
+@UBL servers
+# 2. MCP SERVERS (Complete)
+LEXICO: #mcp-servers #tools #resources #prompts #server-logging
+
+## 2.1 Core Server Features
+
+| Feature | Explanation | Examples | Who Controls |
+|---------|------------|----------|--------------|
+| **Tools** | Schema-defined functions LLM can call. Can write to DB, call APIs, modify files. JSON Schema validation. May require user consent. | searchFlights, sendMessage, createCalendarEvent | Model |
+| **Resources** | Passive, read-only data sources with unique URIs. Two patterns: Direct (`calendar://events/2024`) and Templates (`travel://activities/{city}/{category}`). Support parameter completion. | file contents, DB schemas, API docs, calendar data | Application |
+| **Prompts** | Pre-built, user-controlled instruction templates. Parameterized. Showcase best use of server. | "Plan a vacation", "Summarize meetings", "Draft an email" | User |
+
+### Tools Protocol
+- `tools/list` → Array of tool definitions with schemas
+- `tools/call` → Tool execution result (content array)
+
+### Resources Protocol
+- `resources/list` → Direct resources
+- `resources/templates/list` → Resource templates (URI templates with params)
+- `resources/read` → Resource data with MIME type
+- `resources/subscribe` → Monitor resource changes
+
+Resource template example:
+```json
+{
+  "uriTemplate": "weather://forecast/{city}/{date}",
+  "name": "weather-forecast",
+  "mimeType": "application/json"
+}
+```
+
+### Prompts Protocol
+- `prompts/list` → Prompt descriptors
+- `prompts/get` → Full prompt with arguments
+
+## 2.2 Multi-Server Orchestration
+
+Multiple servers (Travel + Weather + Calendar/Email) work together via unified interface:
+1. User invokes prompt "plan-vacation" with params
+2. User selects resources (calendar, preferences, past trips)
+3. AI processes: reads resources → executes tools (searchFlights, checkWeather) → books (bookHotel, createCalendarEvent, sendEmail)
+4. User approves where needed
+
+## 2.3 Logging in MCP Servers
+
+**STDIO-based servers**: NEVER write to stdout. stdout = JSON-RPC channel. Use stderr or logging libraries.
+```python
+# BAD (STDIO): print("Processing request")
+# GOOD (STDIO): print("Processing request", file=sys.stderr)
+# GOOD (STDIO): logging.info("Processing request")
+```
+**HTTP-based servers**: stdout logging is fine.
+
+---
+
+---
+@UBL clients
+# 3. MCP CLIENTS (Complete)
+LEXICO: #mcp-clients #elicitation #roots #sampling
+
+## 3.1 Core Client Features
+
+| Feature | Explanation | Example |
+|---------|------------|---------|
+| **Elicitation** | Server requests structured user info during interactions | Booking server asks seat preference, room type, contact number |
+| **Roots** | Client specifies filesystem boundaries (file:// URIs). Advisory, NOT security enforcement. | Server given access to `/Users/agent/travel-planning` |
+| **Sampling** | Server requests LLM completions through client. Human-in-the-loop by design. | Server sends flight list to LLM asking "pick best flight" |
+
+### Elicitation Flow
+```
+Server → elicitation/create → Client → User (UI) → response → Server
+```
+Schema defines what to ask: `{schema: {type: "object", properties: {confirmBooking: {type: "boolean"}, seatPreference: {type: "string", enum: ["window","aisle"]}}}}`
+
+### Elicitation JSON-RPC Example
+```json
+{
+  "method": "elicitation/create",
+  "params": {
+    "message": "Please confirm your booking details:",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "confirmBooking": { "type": "boolean", "description": "Confirm booking ($3,000)" },
+        "seatPreference": { "type": "string", "enum": ["window", "aisle", "no preference"] },
+        "roomType": { "type": "string", "enum": ["sea view", "city view", "garden view"] },
+        "travelInsurance": { "type": "boolean", "default": false }
+      },
+      "required": ["confirmBooking"]
+    }
+  }
+}
+```
+
+### Roots
+- Exclusively `file://` URIs
+- Communicate intended boundaries (NOT security)
+- Dynamic updates via `roots/list_changed`
+- Servers SHOULD respect (not MUST enforce)
+
+### Sampling Flow
+```
+Server → sampling/createMessage → Client → User (approve) → LLM → User (approve response) → Server
+```
+Two human-in-the-loop checkpoints: approve request, approve response.
+
+Sampling request example:
+```json
+{
+  "messages": [{"role": "user", "content": "Analyze these flights and recommend the best choice..."}],
+  "modelPreferences": {"hints": [{"name": "claude-sonnet-4-20250514"}], "costPriority": 0.3, "speedPriority": 0.2, "intelligencePriority": 0.9},
+  "systemPrompt": "You are a travel expert...",
+  "maxTokens": 1500
+}
+```
+
+---
+
+---
+@UBL versioning
+# 4. VERSIONING
+LEXICO: #mcp-versioning #protocol-version #yyyy-mm-dd
+
+- Format: `YYYY-MM-DD` (date of last backwards-incompatible change)
+- Current version: **2025-11-25**
+- Revisions: Draft → Current → Final
+- Version is NOT incremented for backwards-compatible changes
+- Negotiated during `initialize`. Both sides MAY support multiple versions, MUST agree on one.
+- Error handling if negotiation fails → graceful termination
+
+---
+
+---
+@UBL connect-local
+# 5. CONNECT TO LOCAL MCP SERVERS (FULL TUTORIAL)
+LEXICO: #connect-local #mcp-server-filesystem #claude-desktop-config
+---
+
+## 5.1 Overview
+
+Local MCP servers extend AI apps with secure, controlled access to local resources. Uses Claude Desktop as example client. Server: `@modelcontextprotocol/server-filesystem` (Filesystem Server).
+
+Capabilities: Read files/directories, create files/dirs, move/rename, search by name/content. ALL actions require explicit user approval.
+
+## 5.2 Prerequisites
+- Claude Desktop installed (macOS/Windows)
+- Node.js (LTS recommended, verify with `node --version`)
+
+## 5.3 Installation Steps
+
+### Step 1: Open Claude Desktop Settings
+Click Claude menu (system menu bar, NOT within Claude window) → "Settings..."
+
+### Step 2: Access Developer Settings
+Settings window → "Developer" tab → "Edit Config" button.
+Creates/opens config file at:
+- macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- Windows: `%APPDATA%\Claude\claude_desktop_config.json`
+
+### Step 3: Configure Filesystem Server
+
+macOS config:
+```json
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/Users/username/Desktop", "/Users/username/Downloads"]
+    }
+  }
+}
+```
+
+Windows config:
+```json
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "C:\\Users\\username\\Desktop", "C:\\Users\\username\\Downloads"]
+    }
+  }
+}
+```
+
+Replace `username` with actual username. Paths = directories server can access.
+
+Config breakdown:
+- `"filesystem"`: Friendly name in Claude Desktop
+- `"command": "npx"`: Node.js npx runner
+- `"-y"`: Auto-confirm package install
+- `"@modelcontextprotocol/server-filesystem"`: Package name
+- Remaining args: Allowed directories
+
+SECURITY: Only grant access to directories you're comfortable with. Server runs with user account permissions.
+
+### Step 4: Restart Claude Desktop
+Save config → COMPLETELY quit Claude Desktop (Cmd+Q macOS, system tray Exit on Windows — closing window is NOT enough) → restart.
+
+On success: MCP server indicator (hammer icon) appears in bottom-right of chat input. Click to see available tools.
+
+## 5.4 Using the Filesystem Server
+
+Example requests:
+- "Can you write a poem and save it to my desktop?"
+- "What work-related files are in my downloads folder?"
+- "Please organize all images on my desktop into a new folder called 'Images'"
+
+Before each file operation, Claude requests approval. Review carefully before approving.
+
+## 5.5 Troubleshooting
+
+### Server not showing up / hammer icon missing
+1. Restart Claude Desktop completely
+2. Check `claude_desktop_config.json` syntax
+3. Verify paths are absolute (not relative)
+4. Check logs: `~/Library/Logs/Claude` (macOS) or `%APPDATA%\Claude\logs` (Windows)
+5. Test server manually:
+   - macOS: `npx -y @modelcontextprotocol/server-filesystem /Users/username/Desktop /Users/username/Downloads`
+   - Windows: `npx -y @modelcontextprotocol/server-filesystem C:\Users\username\Desktop C:\Users\username\Downloads`
+
+### Getting logs from Claude Desktop
+- `mcp.log`: General MCP connection logging
+- `mcp-server-SERVERNAME.log`: stderr from named server
+- macOS: `tail -n 20 -f ~/Library/Logs/Claude/mcp*.log`
+- Windows: `type "%APPDATA%\Claude\logs\mcp*.log"`
+
+### ENOENT error / `${APPDATA}` in paths on Windows
+Add expanded `%APPDATA%` to `env` key:
+```json
+{
+  "brave-search": {
+    "command": "npx",
+    "args": ["-y", "@modelcontextprotocol/server-brave-search"],
+    "env": {
+      "APPDATA": "C:\\Users\\user\\AppData\\Roaming\\",
+      "BRAVE_API_KEY": "..."
+    }
+  }
+}
+```
+If npm not installed globally: `npm install -g npm`
+
+---
+@UBL connect-remote
+# 6. CONNECT TO REMOTE MCP SERVERS (FULL TUTORIAL)
+LEXICO: #connect-remote #custom-connectors #remote-mcp #claude-ai
+---
+
+## 6.1 Overview
+
+Remote MCP servers are internet-hosted, accessible from any MCP client. No local installation. Ideal for web-based AI apps, easy-to-use integrations, server-side processing/authentication.
+
+Uses Claude.ai's Custom Connectors feature as example.
+
+## 6.2 Custom Connectors
+
+Bridge between Claude and remote MCP servers. Enable:
+- Connect Claude to existing remote MCP servers
+- Build custom remote MCP servers for proprietary tools
+
+## 6.3 Connection Steps
+
+### Step 1: Navigate to Connector Settings
+Open Claude in browser → profile icon → "Settings" → "Connectors" section in sidebar.
+
+### Step 2: Add a Custom Connector
+Scroll to bottom → "Add custom connector" button.
+Enter remote MCP server URL (with https:// and path). Click "Add".
+
+### Step 3: Complete Authentication
+Most servers require auth: OAuth, API keys, or username/password. Follow server prompts (may redirect to third-party auth provider or show form within Claude).
+
+### Step 4: Access Resources and Prompts
+Click paperclip icon in message input → attachment menu shows all resources/prompts from connected servers. Select items to include in conversation.
+
+### Step 5: Configure Tool Permissions
+Connectors settings → click connected server → enable/disable specific tools, set usage limits, configure security parameters.
+
+## 6.4 Best Practices
+
+- Verify authenticity before connecting
+- Only connect to trusted sources
+- Review permissions during authentication
+- Organize connectors by purpose/project
+- Remove unused connectors regularly
+
+---
+@UBL agent-skills
+# 7. BUILD WITH AGENT SKILLS (FULL REFERENCE)
+LEXICO: #agent-skills #mcp-server-dev #build-mcp-server #build-mcp-app #build-mcpb
+---
+
+## 7.1 Concept
+
+Agent skills = portable instruction sets for AI coding assistants. Encode design decisions (deployment model, tool patterns, auth) so agents can interrogate use cases and scaffold servers.
+
+Reference plugin: `mcp-server-dev` (`anthropics/claude-plugins-official`)
+
+## 7.2 Three Composing Skills
+
+| Skill | Purpose |
+|-------|---------|
+| `build-mcp-server` | Entry point. Interrogates use case, picks deployment model + tool-design pattern, routes to specialized skills. |
+| `build-mcp-app` | Adds interactive UI widgets (forms, pickers, dashboards) rendered inline in chat. |
+| `build-mcpb` | Packages local stdio server with runtime as single `.mcpb` archive. No Node/Python install needed. |
+
+Each skill ships `SKILL.md` + `references/` folder (auth flows, tool-design patterns, widget templates, manifest schemas).
+
+Install in Claude Code:
+```bash
+/plugin marketplace add anthropics/claude-plugins-official
+/plugin install mcp-server-dev
+```
+
+## 7.3 Discovery Phase (Questions Before Code)
+
+- **What it connects to**: Cloud API, local process, filesystem, hardware
+- **Who will use it**: Just you, your team, anyone
+- **Action surface size**: Few ops vs large API wrapper
+- **User interaction needs**: Plain text, structured input (elicitation), rich UI widgets
+- **Upstream auth**: API keys, OAuth 2.0, none
+
+## 7.4 Deployment Paths
+
+### Path 1: Remote Streamable HTTP (DEFAULT)
+For anything wrapping a cloud API. Zero install friction, one deployment serves all users, OAuth flows work properly (server handles redirects + token storage). Scaffolds for Cloudflare Workers, Express/FastMCP.
+
+### Path 2: MCP Apps
+Extends server with interactive widgets in chat (searchable pickers, charts, live dashboards). Handoff to `build-mcp-app` when elicitation's flat-form constraints don't fit.
+
+### Path 3: MCP Bundles (MCPB)
+Packages local server + runtime as single `.mcpb` archive. For servers that touch user's machine: reading local files, driving desktop apps, localhost services. Handoff to `build-mcpb`.
+
+### Path 4: Local stdio
+Prototyping only, with noted upgrade path to MCPB for distribution.
+
+## 7.5 Next Steps After Scaffold
+1. Iterate tool descriptions + error handling
+2. Test with MCP Inspector
+3. Wire into MCP client (local/remote config)
+4. Publish to MCP Registry
+
+---
+@UBL build-server
+# 8. BUILD AN MCP SERVER (FULL TUTORIAL — ALL LANGUAGES)
+LEXICO: #build-server #weather-server #fastmcp #stdio-server
+---
+
+## 8.1 Overview
+
+Build a weather server exposing two tools: `get_alerts` and `get_forecast`. Uses US National Weather Service API. Connect to Claude Desktop.
+
+Core MCP capabilities:
+1. **Resources**: File-like data readable by clients
+2. **Tools**: Functions callable by LLM (with user approval)
+3. **Prompts**: Pre-written templates for tasks
+
+**CRITICAL LOGGING RULE (ALL LANGUAGES)**: STDIO servers MUST NOT write to stdout. Stdout = JSON-RPC channel. Use stderr or logging libraries. HTTP servers: stdout OK.
+
+## 8.2 Python (FastMCP)
+
+### Setup
+```bash
+uv init weather && cd weather
+uv venv && source .venv/bin/activate  # Windows: .venv\Scripts\activate
+uv add "mcp[cli]" httpx
+touch weather.py  # Windows: new-item weather.py
+```
+
+### Imports + Constants
+```python
+from typing import Any
+import httpx
+from mcp.server.fastmcp import FastMCP
+
+mcp = FastMCP("weather")
+NWS_API_BASE = "https://api.weather.gov"
+USER_AGENT = "weather-app/1.0"
+```
+
+### Helper Functions
+```python
+async def make_nws_request(url: str) -> dict[str, Any] | None:
+    headers = {"User-Agent": USER_AGENT, "Accept": "application/geo+json"}
+    async with httpx.AsyncClient() as client:
+        try:
+            response = await client.get(url, headers=headers, timeout=30.0)
+            response.raise_for_status()
+            return response.json()
+        except Exception:
+            return None
+
+def format_alert(feature: dict) -> str:
+    props = feature["properties"]
+    return f"""
+Event: {props.get("event", "Unknown")}
+Area: {props.get("areaDesc", "Unknown")}
+Severity: {props.get("severity", "Unknown")}
+Description: {props.get("description", "No description available")}
+Instructions: {props.get("instruction", "No specific instructions provided")}
+"""
+```
+
+### Tools
+```python
+@mcp.tool()
+async def get_alerts(state: str) -> str:
+    """Get weather alerts for a US state.
+    Args: state: Two-letter US state code (e.g. CA, NY)"""
+    url = f"{NWS_API_BASE}/alerts/active/area/{state}"
+    data = await make_nws_request(url)
+    if not data or "features" not in data:
+        return "Unable to fetch alerts or no alerts found."
+    if not data["features"]:
+        return "No active alerts for this state."
+    alerts = [format_alert(feature) for feature in data["features"]]
+    return "\n---\n".join(alerts)
+
+@mcp.tool()
+async def get_forecast(latitude: float, longitude: float) -> str:
+    """Get weather forecast for a location.
+    Args:
+        latitude: Latitude of the location
+        longitude: Longitude of the location"""
+    points_url = f"{NWS_API_BASE}/points/{latitude},{longitude}"
+    points_data = await make_nws_request(points_url)
+    if not points_data:
+        return "Unable to fetch forecast data for this location."
+    forecast_url = points_data["properties"]["forecast"]
+    forecast_data = await make_nws_request(forecast_url)
+    if not forecast_data:
+        return "Unable to fetch detailed forecast."
+    periods = forecast_data["properties"]["periods"]
+    forecasts = []
+    for period in periods[:5]:
+        forecast = f"""
+{period["name"]}:
+Temperature: {period["temperature"]}°{period["temperatureUnit"]}
+Wind: {period["windSpeed"]} {period["windDirection"]}
+Forecast: {period["detailedForecast"]}
+"""
+        forecasts.append(forecast)
+    return "\n---\n".join(forecasts)
+
+def main():
+    mcp.run(transport="stdio")
+
+if __name__ == "__main__":
+    main()
+```
+
+Run: `uv run weather.py`
+
+### Claude Desktop Config (Python)
+```json
+{
+  "mcpServers": {
+    "weather": {
+      "command": "uv",
+      "args": ["--directory", "/ABSOLUTE/PATH/weather", "run", "weather.py"]
+    }
+  }
+}
+```
+
+## 8.3 TypeScript
+
+### Setup
+```bash
+mkdir weather && cd weather
+npm init -y
+npm install @modelcontextprotocol/sdk zod@3
+npm install -D @types/node typescript
+mkdir src && touch src/index.ts
+```
+
+package.json: add `"type": "module"`, build script.
+tsconfig.json: target ES2022, module Node16, strict.
+
+### Core Code
+```typescript
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { z } from "zod";
+
+const server = new McpServer({ name: "weather", version: "1.0.0" });
+
+server.registerTool("get_alerts", {
+  description: "Get weather alerts for a state",
+  inputSchema: { state: z.string().length(2).describe("Two-letter state code (e.g. CA, NY)") }
+}, async ({ state }) => {
+  // ... fetch + format alerts
+  return { content: [{ type: "text", text: alertsText }] };
+});
+
+server.registerTool("get_forecast", {
+  description: "Get weather forecast for a location",
+  inputSchema: {
+    latitude: z.number().min(-90).max(90).describe("Latitude"),
+    longitude: z.number().min(-180).max(180).describe("Longitude")
+  }
+}, async ({ latitude, longitude }) => {
+  // ... fetch + format forecast
+  return { content: [{ type: "text", text: forecastText }] };
+});
+
+async function main() {
+  const transport = new StdioServerTransport();
+  await server.connect(transport);
+  console.error("Weather MCP Server running on stdio");
+}
+main();
+```
+
+Build: `npm run build`
+
+### Claude Desktop Config (TypeScript)
+```json
+{
+  "mcpServers": {
+    "weather": {
+      "command": "node",
+      "args": ["/ABSOLUTE/PATH/weather/build/index.js"]
+    }
+  }
+}
+```
+
+## 8.4 Java (Spring AI)
+
+Dependencies: `spring-ai-starter-mcp-server`, `spring-web`
+Java 17+, Spring Boot 3.3.x+
+
+```java
+@Service
+public class WeatherService {
+    private final RestClient restClient;
+    public WeatherService() {
+        this.restClient = RestClient.builder()
+            .baseUrl("https://api.weather.gov")
+            .defaultHeader("Accept", "application/geo+json")
+            .defaultHeader("User-Agent", "WeatherApiClient/1.0 (your@email.com)")
+            .build();
+    }
+
+    @Tool(description = "Get weather forecast for a specific latitude/longitude")
+    public String getWeatherForecastByLocation(double latitude, double longitude) { ... }
+
+    @Tool(description = "Get weather alerts for a US state")
+    public String getAlerts(@ToolParam(description = "Two-letter US state code (e.g. CA, NY)") String state) { ... }
+}
+
+@SpringBootApplication
+public class McpServerApplication {
+    public static void main(String[] args) { SpringApplication.run(McpServerApplication.class, args); }
+    @Bean
+    public ToolCallbackProvider weatherTools(WeatherService weatherService) {
+        return MethodToolCallbackProvider.builder().toolObjects(weatherService).build();
+    }
+}
+```
+
+Build: `./mvnw clean install`
+Run in Claude: `java -Dspring.ai.mcp.server.stdio=true -jar /ABSOLUTE/PATH/target/mcp-weather-stdio-server-0.0.1-SNAPSHOT.jar`
+
+## 8.5 Kotlin
+
+SDK: `io.modelcontextprotocol:kotlin-sdk:0.9.0`
+```kotlin
+val server = Server(Implementation(name = "weather", version = "1.0.0"),
+    ServerOptions(capabilities = ServerCapabilities(tools = ServerCapabilities.Tools(listChanged = true))))
+
+server.addTool(name = "get_alerts",
+    description = "Get weather alerts for a US state...",
+    inputSchema = ToolSchema(properties = buildJsonObject { ... }, required = listOf("state"))
+) { request -> ... }
+
+server.addTool(name = "get_forecast",
+    description = "Get weather forecast for a location...",
+    inputSchema = ToolSchema(properties = buildJsonObject { ... }, required = listOf("latitude", "longitude"))
+) { request -> ... }
+
+val transport = StdioServerTransport(System.`in`.asInput(), System.out.asSink().buffered())
+runBlocking { val session = server.createSession(transport); ... }
+```
+Claude config: `java -jar /ABSOLUTE/PATH/build/libs/weather-0.1.0-all.jar`
+
+## 8.6 C# (.NET)
+
+```bash
+dotnet new console -n weather && cd weather
+dotnet add package ModelContextProtocol --prerelease
+dotnet add package Microsoft.Extensions.Hosting
+```
+
+```csharp
+var builder = Host.CreateEmptyApplicationBuilder(settings: null);
+builder.Services.AddMcpServer().WithStdioServerTransport().WithToolsFromAssembly();
+builder.Services.AddSingleton(_ => {
+    var client = new HttpClient() { BaseAddress = new Uri("https://api.weather.gov") };
+    client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("weather-tool", "1.0"));
+    return client;
+});
+
+[McpServerToolType]
+public static class WeatherTools {
+    [McpServerTool, Description("Get weather alerts for a US state code.")]
+    public static async Task<string> GetAlerts(HttpClient client,
+        [Description("The US state code to get alerts for.")] string state) { ... }
+
+    [McpServerTool, Description("Get weather forecast for a location.")]
+    public static async Task<string> GetForecast(HttpClient client,
+        [Description("Latitude of the location.")] double latitude,
+        [Description("Longitude of the location.")] double longitude) { ... }
+}
+```
+Claude config: `dotnet run --project /ABSOLUTE/PATH --no-build`
+
+## 8.7 Ruby
+
+```ruby
+require "mcp"
+require "net/http"
+require "json"
+
+class GetAlerts < MCP::Tool
+  tool_name "get_alerts"
+  description "Get weather alerts for a US state"
+  input_schema(properties: { state: { type: "string", description: "Two-letter US state code (e.g. CA, NY)" } }, required: ["state"])
+  def self.call(state:) ... end
+end
+
+server = MCP::Server.new(name: "weather", version: "1.0.0", tools: [GetAlerts, GetForecast])
+transport = MCP::Server::Transports::StdioTransport.new(server)
+transport.open
+```
+Claude config: `bundle exec ruby weather.rb` with `cwd: "/ABSOLUTE/PATH/weather"`
+
+## 8.8 Rust
+
+```toml
+[dependencies]
+rmcp = { version = "0.3", features = ["server", "macros", "transport-io"] }
+tokio = { version = "1.46", features = ["full"] }
+reqwest = { version = "0.12", features = ["json"] }
+```
+
+```rust
+#[tool_router]
+impl Weather {
+    #[tool(description = "Get weather alerts for a US state.")]
+    async fn get_alerts(&self, Parameters(MCPAlertRequest { state }): Parameters<MCPAlertRequest>) -> String { ... }
+
+    #[tool(description = "Get weather forecast for a location.")]
+    async fn get_forecast(&self, Parameters(MCPForecastRequest { latitude, longitude }): Parameters<MCPForecastRequest>) -> String { ... }
+}
+
+#[tool_handler]
+impl ServerHandler for Weather {
+    fn get_info(&self) -> ServerInfo {
+        ServerInfo { capabilities: ServerCapabilities::builder().enable_tools().build(), ..Default::default() }
+    }
+}
+
+#[tokio::main]
+async fn main() -> Result<()> {
+    let transport = (tokio::io::stdin(), tokio::io::stdout());
+    let service = Weather::new().serve(transport).await?;
+    service.waiting().await?;
+    Ok(())
+}
+```
+Build: `cargo build --release`
+Claude config: `/ABSOLUTE/PATH/target/release/weather` (Windows: `.exe`)
+
+## 8.9 Go
+
+```go
+server := mcp.NewServer(&mcp.Implementation{Name: "weather", Version: "1.0.0"}, nil)
+mcp.AddTool(server, &mcp.Tool{Name: "get_forecast", Description: "Get weather forecast for a location"}, getForecast)
+mcp.AddTool(server, &mcp.Tool{Name: "get_alerts", Description: "Get weather alerts for a US state"}, getAlerts)
+if err := server.Run(context.Background(), &mcp.StdioTransport{}); err != nil { log.Fatal(err) }
+```
+Claude config: `/ABSOLUTE/PATH/weather/weather` (Windows: `.exe`)
+
+## 8.10 Testing with Claude Desktop
+
+1. Look for "Add files, connectors, and more" (+) icon in chat input
+2. Hover over "Connectors" menu → should see "weather" server listed
+3. Test: "What's the weather in Sacramento?" or "What are the active weather alerts in Texas?"
+
+**Troubleshooting:**
+- Server not showing: Check `claude_desktop_config.json` syntax, absolute paths, restart Claude completely
+- Tool calls failing silently: Check logs at `~/Library/Logs/Claude` (macOS) or `%APPDATA%\Claude\logs` (Windows)
+- NWS API errors: US locations only, may need delay between requests
+
+## 8.11 Under the Hood
+1. Client sends question to Claude
+2. Claude analyzes available tools, decides which to use
+3. Client executes chosen tool through MCP server
+4. Results → Claude
+5. Claude formulates natural language response
+6. Response displayed
+
+---
+
+---
+@UBL build-client
+# 9. BUILD AN MCP CLIENT (FULL TUTORIAL)
+LEXICO: #build-client #mcp-client-python #mcp-client-typescript
+
+## 6.1 Python Client Pattern
+
+```python
+from mcp import ClientSession, StdioServerParameters
+from mcp.client.stdio import stdio_client
+
+server_params = StdioServerParameters(command="python", args=["server.py"])
+transport = await exit_stack.enter_async_context(stdio_client(server_params))
+session = await exit_stack.enter_async_context(ClientSession(*transport))
+await session.initialize()
+
+# List tools
+response = await session.list_tools()
+tools = response.tools
+
+# Process query with Claude
+response = anthropic.messages.create(
+    model="claude-sonnet-4-20250514",
+    max_tokens=1000,
+    messages=[{"role": "user", "content": query}],
+    tools=available_tools
+)
+# Handle tool_use content blocks → session.call_tool(name, args)
+```
+
+## 6.2 Flow
+1. Client gets `tools/list` from server
+2. Query + tool descriptions → Claude
+3. Claude decides tools to use
+4. Client executes via server
+5. Results → Claude
+6. Natural language response
+
+---
+
+---
+@UBL client-best-practices
+# 10. CLIENT BEST PRACTICES
+LEXICO: #progressive-discovery #programmatic-tool-calling #code-mode #tool-search
+
+## 7.1 Progressive Tool Discovery
+
+Problem: Loading ALL tool definitions into context window wastes tokens (hundreds of tools = ~150K tokens).
+
+Solution: Three-layer approach:
+1. **Catalog**: Expose `search_tools` meta-tool → returns name + one-line description
+2. **Inspect**: `get_tool_details({name})` → returns full schema for single tool
+3. **Execute**: Call tool with full knowledge
+
+Search strategies: Keyword (BM25/regex), Embedding (vector similarity), Subagent (small model selects), Hybrid.
+
+Dynamic Server Management: Maintain registry of servers + descriptions. Connect only when needed. Disconnect when task complete.
+
+Guidelines:
+- Offer multiple detail levels (name-only, name+description, full schema)
+- Cache tool definitions host-side
+- Re-index on `list_changed` notifications
+- Group tools by server
+
+## 7.2 Programmatic Tool Calling (Code Mode)
+
+Instead of direct tool calls (each result passes through model context), model writes CODE that calls tools in a sandbox. Only final result enters context.
+
+```
+Model → writes script → Sandbox (executes, calls tools via host broker) → console.log output → Model
+```
+
+Sandbox options: Deno/isolated-vm (JS), Monty (Python), pctx (TS), Wasmtime (any via Wasm)
+
+Security considerations:
+- Per-call authorization (same as direct calls)
+- Cross-server data flow: tool results are untrusted input
+- Network isolation for sandbox
+- No credential exposure to generated code
+- Resource limits (timeout, memory)
+
+Error handling: MCP tool errors are `isError: true` response (not transport failure). Convert to thrown exceptions in wrappers.
+
+## 7.3 Combining Both
+Progressive discovery + programmatic tool calling: model discovers tools, loads schemas, writes single script calling multiple tools. Minimizes both definition tokens AND result tokens.
+
+---
+
+---
+@UBL sdks
+# 11. SDKs
+LEXICO: #mcp-sdks #sdk-tiers #typescript-sdk #python-sdk
+
+| SDK | Tier | Repository |
+|-----|------|-----------|
+| TypeScript | Tier 1 | `modelcontextprotocol/typescript-sdk` |
+| Python | Tier 1 | `modelcontextprotocol/python-sdk` |
+| C# | Tier 1 | `modelcontextprotocol/csharp-sdk` |
+| Go | Tier 1 | `modelcontextprotocol/go-sdk` |
+| Java | Tier 2 | `modelcontextprotocol/java-sdk` |
+| Rust | Tier 2 | `modelcontextprotocol/rust-sdk` |
+| Swift | Tier 3 | `modelcontextprotocol/swift-sdk` |
+| Ruby | Tier 3 | `modelcontextprotocol/ruby-sdk` |
+| PHP | Tier 3 | `modelcontextprotocol/php-sdk` |
+| Kotlin | TBD | `modelcontextprotocol/kotlin-sdk` |
+
+Tier definitions: see `/community/sdk-tiers`
+
+---
+
+---
+@UBL authorization
+# 12. AUTHORIZATION (Complete)
+LEXICO: #mcp-authorization #oauth #token-validation #keycloak
+
+## 9.1 When to Use
+Authorization is OPTIONAL but strongly recommended when:
+- Server accesses user-specific data
+- Need audit trail
+- APIs require user consent
+- Enterprise environments
+- Rate limiting per user
+
+For STDIO servers: can use env-based credentials or embedded library credentials instead of OAuth flows.
+
+## 9.2 OAuth 2.1 Flow (6 Steps)
+
+1. **Initial Handshake**: Server returns `401 Unauthorized` + `WWW-Authenticate: Bearer realm="mcp", resource_metadata="https://server/.well-known/oauth-protected-resource"`
+
+2. **Protected Resource Metadata (PRM) Discovery**: Client fetches PRM document (RFC 9728):
+```json
+{
+  "resource": "https://your-server.com/mcp",
+  "authorization_servers": ["https://auth.your-server.com"],
+  "scopes_supported": ["mcp:tools", "mcp:resources"]
+}
+```
+
+3. **Authorization Server Discovery**: Client fetches OIDC Discovery or OAuth 2.0 Auth Server Metadata (RFC 8414):
+```json
+{
+  "issuer": "https://auth.your-server.com",
+  "authorization_endpoint": "https://auth.your-server.com/authorize",
+  "token_endpoint": "https://auth.your-server.com/token",
+  "registration_endpoint": "https://auth.your-server.com/register"
+}
+```
+
+4. **Client Registration**: Pre-registered OR Dynamic Client Registration (DCR, RFC 7591). Client sends name, redirect_uris, grant_types.
+
+5. **User Authorization**: Browser → /authorize → login → consent → redirect with auth code. Client exchanges code for tokens (access_token + refresh_token, PKCE).
+
+6. **Authenticated Requests**: `Authorization: Bearer eyJ...`
+
+## 9.3 Token Validation
+- Use token introspection (RFC 7662) or JWT validation libraries
+- NEVER implement validation from scratch
+- Validate audience (`aud` claim matches server URL)
+- Use short-lived tokens
+- Store tokens encrypted
+- Enforce HTTPS in production
+- Least-privilege scopes
+- NEVER log tokens/credentials
+
+## 9.4 Common Pitfalls
+- Self-implemented token validation
+- Long-lived tokens
+- Unvalidated audience
+- Generic/wildcard scopes
+- Logging credentials
+- Reusing server client secret for end-user flows
+- Unauthenticated DCR
+- Session ID as auth (MUST NOT use sessions for authentication)
+- Generic audiences (like "api")
+
+---
+
+---
+@UBL security
+# 13. SECURITY BEST PRACTICES
+LEXICO: #mcp-security #confused-deputy #session-hijacking #ssrf #scope-minimization
+
+## 10.1 Confused Deputy Problem
+
+Attack: MCP proxy server + static client ID + DCR + consent cookies → attacker skips consent.
+
+Mitigation: Per-client consent BEFORE third-party auth flow. Consent UI MUST:
+- Identify client by name
+- Display scopes and redirect_uri
+- Implement CSRF protection
+- Prevent clickjacking (frame-ancestors CSP)
+
+OAuth `state` parameter: Cryptographically random, single-use, short expiry. Set ONLY after consent approved.
+
+## 10.2 Token Passthrough (FORBIDDEN)
+
+MCP servers MUST NOT accept tokens not explicitly issued FOR the MCP server. Risks: security control circumvention, audit trail loss, trust boundary violation, future compatibility issues.
+
+## 10.3 Server-Side Request Forgery (SSRF)
+
+Attack: Malicious MCP server populates OAuth metadata URLs with internal addresses (169.254.169.254, 192.168.x.x, localhost).
+
+Mitigations:
+- Enforce HTTPS (except localhost dev)
+- Block private IP ranges (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 127.0.0.0/8, 169.254.0.0/16)
+- Validate redirect targets
+- Use egress proxies (Smokescreen)
+- DNS rebinding awareness (TOCTOU)
+
+## 10.4 Session Hijacking
+
+Two vectors:
+1. Prompt Injection: Attacker sends malicious event with known session ID → server polls queue → client receives malicious payload
+2. Impersonation: Attacker steals session ID → makes calls as user
+
+Mitigations:
+- Verify ALL inbound requests with authorization
+- NEVER use sessions for authentication
+- Secure random session IDs (UUID via CSPRNG)
+- Bind session to user ID: `<user_id>:<session_id>`
+- Rotate/expire sessions
+
+## 10.5 Local MCP Server Compromise
+
+Risks: Arbitrary code execution, data exfiltration, privilege escalation.
+
+Mitigations for clients:
+- Display exact command before execution (no truncation)
+- Require explicit user approval
+- Highlight dangerous patterns (sudo, rm -rf, network ops)
+- Sandbox with minimal default privileges
+- Platform-appropriate sandboxing (containers, chroot, app sandboxes)
+
+Mitigations for server authors:
+- Use stdio transport (limits access to MCP client only)
+- If HTTP: require auth token, use unix domain sockets or IPC
+
+## 10.6 Scope Minimization
+
+- Minimal initial scopes (e.g., `mcp:tools-basic`)
+- Incremental elevation via targeted `WWW-Authenticate` `scope="..."` challenges
+- Down-scoping tolerance
+- DON'T publish all scopes in `scopes_supported`
+- DON'T use wildcard/omnibus scopes
+- DON'T bundle unrelated privileges
+- Treat claimed scopes as insufficient without server-side authorization
+
+---
+
+---
+@UBL debugging
+# 14. DEBUGGING
+LEXICO: #mcp-debugging #inspector #logging #claude-desktop-debugging
+
+## 11.1 Debugging Tools
+1. **MCP Inspector**: Interactive testing UI (stdio + Streamable HTTP). First stop for debugging.
+2. **Server Logging**: stderr (stdio) or `notifications/message` (all transports)
+3. **Client Dev Tools**: Logs, Chrome DevTools (Claude Desktop), Network panel
+
+## 11.2 Logging Implementation
+
+Server-side (stdio): All stderr captured by host. NEVER log to stdout.
+```python
+await ctx.session.send_log_message(level="info", data="Server started successfully")
+```
+```typescript
+await server.sendLoggingMessage({ level: "info", data: "Server started successfully" });
+```
+
+8 RFC 5424 severity levels: debug, info, notice, warning, error, critical, alert, emergency.
+Client adjusts minimum level via `logging/setLevel`.
+
+## 11.3 Common Issues
+- **Working directory**: Use absolute paths in config (client may start from `/`)
+- **Environment variables**: Inherited set is limited; use `env` key in config
+- **Server initialization**: Path issues, JSON syntax, missing fields
+- **Connection problems**: Check logs, verify process, test standalone with Inspector, check version/capability negotiation. Error `-32602` = invalid params, often from server sending sampling/elicitation to client without capability declared.
+
+## 11.4 Claude Desktop Debugging
+- Log paths: macOS `~/Library/Logs/Claude`, Windows `%APPDATA%\Claude\logs`
+- `mcp.log` = general MCP logging
+- `mcp-server-SERVERNAME.log` = per-server stderr
+- Chrome DevTools: create `developer_settings.json` with `{"allowDevTools": true}`, then Cmd+Opt+I / Ctrl+Alt+I
+- Two DevTools windows: main content + app title bar
+
+## 11.5 Debugging Workflow
+1. Initial dev: Inspector for basic testing
+2. Integration: Test in target client, monitor logs
+3. Quick iteration: Inspector during dev
+4. Config changes: Restart client
+5. Server code changes: Restart client (fully quit, not just close window)
+
+---
+
+---
+@UBL example-clients
+# 15. EXAMPLE CLIENTS (Notable)
+LEXICO: #example-clients #claude-desktop #claude-code #opencode #vs-code-copilot
+
+Over 100+ clients listed. Key ones:
+
+| Client | Features |
+|--------|----------|
+| **Claude Desktop** | Resources, Prompts, Tools, Roots, Apps, DCR |
+| **Claude Code** | Resources, Prompts, Tools, Roots, Elicitation, Instructions, Discovery, DCR |
+| **Claude.ai** | Resources, Prompts, Tools, Apps, CIMD, DCR |
+| **VS Code Copilot** | Resources, Prompts, Tools, Discovery, Sampling, Roots, Elicitation, Instructions, Apps, CIMD, DCR, Tasks |
+| **Cursor** | Prompts, Tools, Roots, Elicitation, DCR |
+| **Windsurf** | Tools, Discovery |
+| **Cline** | Resources, Tools, Discovery |
+| **Continue** | Resources, Prompts, Tools, Apps |
+| **ChatGPT** | Tools, Apps, DCR |
+| **Gemini CLI** | Prompts, Tools, Instructions, DCR |
+| **opencode** | Resources, Prompts, Tools |
+| **goose** | Apps, DCR, Discovery, Elicitation, Instructions, Prompts, Resources, Roots, Sampling, Tools |
+| **JetBrains AI Assistant** | Tools |
+| **JetBrains Junie** | Tools |
+| **Zed** | Prompts, Tools |
+| **Kilo Code** | Resources, Tools, Discovery |
+| **Roo Code** | Resources, Tools |
+
+Full list at: https://modelcontextprotocol.io/clients
+
+---
+
+---
+@UBL example-servers
+# 16. EXAMPLE SERVERS
+LEXICO: #example-servers #reference-servers #everything #filesystem #memory
+
+## Reference Servers
+- **Everything**: Reference/test server with prompts, resources, tools
+- **Fetch**: Web content fetching for LLMs
+- **Filesystem**: Secure file ops with configurable access
+- **Git**: Read, search, manipulate Git repos
+- **Memory**: Knowledge graph-based persistent memory
+- **Sequential Thinking**: Dynamic problem-solving thought sequences
+- **Time**: Time and timezone conversion
+
+Usage: `npx -y @modelcontextprotocol/server-memory` or `uvx mcp-server-git`
+
+Archived servers (historical): https://github.com/modelcontextprotocol/servers-archived
+
+---
+
+---
+@UBL extensions
+# 17. EXTENSIONS
+LEXICO: #mcp-extensions #ext-auth #ext-apps #oauth-client-credentials
+
+Official extensions:
+- **ext-auth**: OAuth Client Credentials (`io.modelcontextprotocol/oauth-client-credentials`), Enterprise-Managed Authorization
+- **ext-apps**: MCP Apps — interactive UI in chat (forms, charts, dashboards)
+
+Extension ID format: `{vendor-prefix}/{extension-name}`
+
+Extension lifecycle: Propose (SEP Extensions Track) → Implement (reference in SDK) → Review (Core Maintainers) → Publish (PR) → Adopt
+
+---
+
+---
+@UBL seps
+# 18. SEPs (Key Ones)
+LEXICO: #mcp-seps #sep-986 #sep-1303 #sep-1686 #sep-2133 #sep-1865
+
+| SEP | Title | Status |
+|-----|-------|--------|
+| SEP-986 | Tool Names Format | Final |
+| SEP-1303 | Input Validation as Tool Errors | Final |
+| SEP-1686 | Tasks | Final |
+| SEP-1330 | Elicitation Schema Improvements | Final |
+| SEP-2133 | Extensions Framework | Final |
+| SEP-1865 | MCP Apps (UI) | Final |
+| SEP-1699 | SSE Polling via Disconnect | Final |
+| SEP-1730 | SDKs Tiering System | Final |
+| SEP-1850 | PR-Based SEP Workflow | Final |
+| SEP-2243 | HTTP Header Standardization | Final |
+| SEP-2260 | Server Requests Associated with Client Request | Final |
+| SEP-1613 | JSON Schema 2020-12 as Default | Final |
+| SEP-414 | OpenTelemetry Trace Context | Final |
+| SEP-973 | Additional Metadata for Implementations | Final |
+| SEP-985 | Align OAuth with RFC 9728 | Final |
+| SEP-990 | Enterprise IdP Policy Controls | Final |
+| SEP-991 | URL-based Client Registration | Final |
+| SEP-1024 | Client Security Requirements for Local Server | Final |
+| SEP-1036 | URL Mode Elicitation | Final |
+| SEP-1046 | OAuth Client Credentials Flow | Final |
+| SEP-1302 | Working Groups & Interest Groups | Final |
+| SEP-1319 | Decouple Request Payload from RPC Methods | Final |
+| SEP-1577 | Sampling With Tools | Final |
+| SEP-2148 | Contributor Ladder | Final |
+| SEP-2207 | OIDC Refresh Token Guidance | Final |
+
+---
+
+---
+@UBL registry
+# 19. MCP REGISTRY
+LEXICO: #mcp-registry #server-json #namespace #publishing
+
+Centralized metadata repository for public MCP servers.
+
+Server descriptor format (`server.json`):
+```json
+{
+  "name": "io.github.user/server-name",
+  "description": "...",
+  "packageType": "npm",
+  "command": "npx",
+  "args": ["-y", "server-name"]
+}
+```
+
+Namespace: `io.github.username/server` or `com.example/server` (verified via DNS or GitHub ownership).
+
+Ecosystem: Registry → Aggregators (marketplaces) → Host Apps → MCP Servers + Package Registries (npm, PyPI, Docker)
+
+Publishing: GitHub Actions automation, versioning support, moderation policy.
+
+---
+
+---
+@UBL neocortex-implications
+# 20. IMPLICAÇÕES PARA NEOCORTEX
+LEXICO: #neocortex-mcp-gap-analysis #capability-negotiation #notifications #output-schema
+
+## 17.1 Alinhamento Atual
+
+| Área NeoCortex | Spec MCP | Status |
+|---------------|----------|--------|
+| HookRegistry (NC-HK-FR-001) | PreToolUse/PostToolUse events | Alinhado com notificações MCP |
+| ToolGuard (NC-CORE-FR-125) | Tool Safety principles | Alinhado |
+| server.py `create_mcp_server()` | Initialize lifecycle | Precisa capability negotiation |
+| Transport stdio | Spec stdio transport | Correto |
+| Tool registration via FastMCP | `tools/list` + `tools/call` | Correto |
+| Logging | `notifications/message` + stderr | Parcial (stderr OK, sem log notifications) |
+
+## 17.2 O Que Falta
+
+1. **Capability negotiation** no initialize — server.py não declara capabilities
+2. **`notifications/tools/list_changed`** — não implementado
+3. **Logging via `notifications/message`** — não implementado
+4. **Progress tracking** para tools long-running — não implementado
+5. **Elicitation** para pedir confirmação T0 — não implementado (usamos STDOUT/STDERR workaround)
+6. **`outputSchema`** nas definições de tools — não implementado
+7. **Tasks (experimental)** — não implementado
+8. **Pagination** para resources/tools lists grandes — não implementado
+9. **Completion** para argumentos de prompts/resources — não implementado
+10. **Ping** keepalive — não implementado
+
+## 17.3 Recomendações de Segurança (Aplicáveis ao NeoCortex)
+
+- **Session ID**: Usar UUIDs criptograficamente seguros, NUNCA usar para autenticação
+- **Tool sandboxing**: Implementar restrições de filesystem/network para tools executadas pelo server
+- **Scope minimization**: Expor apenas tools necessárias via capability negotiation
+- **Token validation**: Se implementar OAuth, usar bibliotecas padrão (nunca implementar do zero)
+- **Input sanitization**: Validar inputs de tools antes de executar (SEP-1303)
+- **Error handling**: Usar `isError: true` em tool responses, não transport failures
+
+## 17.4 Próximos Passos Práticos
+
+1. Adicionar capability negotiation no `initialize` handler
+2. Implementar `notifications/tools/list_changed` quando hooks alteram registry
+3. Adicionar `outputSchema` nas tools registradas
+4. Implementar logging via `notifications/message` (stderr + notifications)
+5. Criar sistema de elicitation para confirmação T0 (substituir stdout prompts)
+6. Implementar progress tracking para tools > 5s
+7. Ativar MCP SSE :8766 com Streamable HTTP (substituir stdio-only atual)
+
+---
+
+---
+@UBL references
+# 21. REFERÊNCIAS
+LEXICO: #mcp-references #official-docs #sdk-repos
+
+| Fonte | URL |
+|-------|-----|
+| MCP Docs Index (llms.txt) | https://modelcontextprotocol.io/llms.txt |
+| Architecture | https://modelcontextprotocol.io/docs/learn/architecture |
+| Server Concepts | https://modelcontextprotocol.io/docs/learn/server-concepts |
+| Client Concepts | https://modelcontextprotocol.io/docs/learn/client-concepts |
+| Versioning | https://modelcontextprotocol.io/docs/learn/versioning |
+| Connect Local Servers | https://modelcontextprotocol.io/docs/develop/connect-local-servers |
+| Connect Remote Servers | https://modelcontextprotocol.io/docs/develop/connect-remote-servers |
+| Build with Agent Skills | https://modelcontextprotocol.io/docs/develop/build-with-agent-skills |
+| Build Server | https://modelcontextprotocol.io/docs/develop/build-server |
+| Build Client | https://modelcontextprotocol.io/docs/develop/build-client |
+| Client Best Practices | https://modelcontextprotocol.io/docs/develop/clients/client-best-practices |
+| SDKs | https://modelcontextprotocol.io/docs/sdk |
+| Authorization | https://modelcontextprotocol.io/docs/tutorials/security/authorization |
+| Security Best Practices | https://modelcontextprotocol.io/docs/tutorials/security/security_best_practices |
+| Debugging | https://modelcontextprotocol.io/docs/tools/debugging |
+| Inspector | https://modelcontextprotocol.io/docs/tools/inspector |
+| Example Clients | https://modelcontextprotocol.io/clients |
+| Example Servers | https://modelcontextprotocol.io/examples |
+| Specification (latest) | https://modelcontextprotocol.io/specification/2025-11-25/ |
+| Registry | https://modelcontextprotocol.io/registry |
+| Extensions | https://modelcontextprotocol.io/extensions |
+| SEPs | https://modelcontextprotocol.io/seps |
+| TypeScript SDK | https://github.com/modelcontextprotocol/typescript-sdk |
+| Python SDK | https://github.com/modelcontextprotocol/python-sdk |
+| Schema TS | https://github.com/modelcontextprotocol/specification/blob/main/schema/2025-11-25/schema.ts |

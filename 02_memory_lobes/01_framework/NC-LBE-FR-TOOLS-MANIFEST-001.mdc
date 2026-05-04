@@ -1,0 +1,191 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-FR-TOOLS-MANIFEST-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-TOOLS-MANIFEST-001-v1 ja esta no contexto desta sessao, SALTE. -->
+title: NC-LBE-FR-TOOLS-MANIFEST-001
+version: v1.0
+created: 2026-04-18
+created_by: T0-Antigravity
+tags: mcp-tools, manifest, tools-index, api-reference, 43-tools
+status: active
+module: mcp-infrastructure
+temperature: 0
+status: archived
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-TOOLS-MANIFEST-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-TOOLS-MANIFEST-001-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+## What
+Módulo: NC LBE FR TOOLS MANIFEST 001
+
+## Why
+Criado em 2026-04-26 — arquivo do ecossistema NeoCortex
+
+## Where
+02_memory_lobes/01_framework
+
+---
+
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-TOOLS-MANIFEST-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-TOOLS-MANIFEST-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL Tools-Manifest
+LEXICO: #tools-manifest #43-tools #mcp #api-reference
+# 1. NC-LBE-FR-TOOLS-MANIFEST-001 — Manifesto das 43 MCP Tools
+
+> **Última verificação:** 2026-04-18 | **Tools carregadas:** 43 (confirmado via refresh)
+> **Servidor MCP:** NeoCortex Core — stdio / :8765
+> **Padrão de docstring:** 1 linha + Tópicos de Actions (compactado 2026-04-18)
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-TOOLS-MANIFEST-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-TOOLS-MANIFEST-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL Tools-Manifest
+LEXICO: #index #categories #tools-catalog
+## Índice por Categoria
+
+### 🧠 Inteligência e Raciocínio
+| Tool | Nome MCP | Actions Principais |
+|------|----------|--------------------|
+| NC-TOOL-FR-000 | `neocortex_brain` | think, plan, orchestrate |
+| NC-TOOL-FR-042 | `neocortex_local_llm` | ollama.ask, llm.route, llm.audit |
+| **NC-TOOL-FR-043** | **`neocortex_litellm`** | gateway.health, route.call, workers.spawn |
+
+### 💾 Memória e Contexto
+| Tool | Nome MCP | Actions Principais |
+|------|----------|--------------------|
+| NC-TOOL-FR-009 | `neocortex_lobes` | list_active, get_content, activate, boot.load_active |
+| NC-TOOL-FR-010 | `neocortex_cortex` | get_full, get_section, get_aliases, get_workflows |
+| NC-TOOL-FR-014 | `neocortex_memory` | lobe.*, cortex.*, manifest.*, search.advanced |
+| NC-TOOL-FR-030 | `neocortex_context` | context.budget_status, context.compress, session.summarize |
+| NC-TOOL-FR-031 | `neocortex_savepoint` | list_active, rollback, discard, get_status |
+
+### 🔍 Busca e Conhecimento
+| Tool | Nome MCP | Actions Principais |
+|------|----------|--------------------|
+| NC-TOOL-FR-015 | `neocortex_search` | query (FTS5), módulo, status, tags |
+| NC-TOOL-FR-016 | `neocortex_knowledge` | knowledge.search, get_documents, get_boot_context |
+| NC-TOOL-FR-017 | `neocortex_manifest` | generate, update, query, list, generate_all |
+| NC-TOOL-FR-028 | `neocortex_project_manifest` | generate, get_boot_context, get_nc_index |
+
+### ⚙️ Orquestração e Agentes
+| Tool | Nome MCP | Actions Principais |
+|------|----------|--------------------|
+| NC-TOOL-FR-002 | `neocortex_agent` | spawn, heartbeat, consume, list_ephemeral |
+| NC-TOOL-FR-023 | `neocortex_orchestration` | agent.spawn, task.execute, dispatch.create |
+| NC-TOOL-FR-033 | `neocortex_subserver` | spawn, stop, list_active, send_task |
+| NC-TOOL-FR-034 | `neocortex_task` | execute, list_queued, get_result, cancel |
+| NC-TOOL-FR-036 | `neocortex_picoclaw` | task.send, task.status, gateway.health |
+| NC-TOOL-FR-037 | `neocortex_peers` | discover, sync_state, resolve_conflict |
+
+### 🏛️ Governança e Compliance
+| Tool | Nome MCP | Actions Principais |
+|------|----------|--------------------|
+| NC-TOOL-FR-024 | `neocortex_governance` | policy.check, audit.replay, compliance.report, ssot.diff |
+| NC-TOOL-FR-038 | `neocortex_handoff` | handoff.create, handoff.validate, handoff.list, handoff.orphan |
+| NC-TOOL-FR-039 | `neocortex_tickets` | ticket.create, ticket.list, ticket.close, roadmap.mark_done |
+| NC-TOOL-FR-040 | `neocortex_governance_ops` | bootup.sync, catalog.refresh, yaml.sanitize, naming.audit |
+| NC-TOOL-FR-041 | `neocortex_constitution` | constitution.pre_check (STF), stj_check, tj_check, audit_all |
+
+### 🔐 Segurança
+| Tool | Nome MCP | Actions Principais |
+|------|----------|--------------------|
+| NC-TOOL-FR-018 | `neocortex_security` | validate_access, audit_changes, encrypt_sensitive |
+| NC-TOOL-FR-020 | `neocortex_dry_run` | preview, check |
+
+### 🔄 Sessão e Checkpoint
+| Tool | Nome MCP | Actions Principais |
+|------|----------|--------------------|
+| NC-TOOL-FR-004 | `neocortex_checkpoint` | get_current, set_current, complete_task, persist |
+| NC-TOOL-FR-008 | `neocortex_regression` | check, add_entry, list_all, stats |
+| NC-TOOL-FR-022 | `neocortex_session` | checkpoint.get_current, regression.check, savepoint.rollback, session.end |
+
+### 📊 Observabilidade e Métricas
+| Tool | Nome MCP | Actions Principais |
+|------|----------|--------------------|
+| NC-TOOL-FR-013 | `neocortex_report` | generate_daily_summary, generate_cost_report, generate_agent_report |
+| NC-TOOL-FR-029 | `neocortex_health` | server.status, metrics.live, log.tail, log.errors |
+| NC-TOOL-FR-035 | `neocortex_ledger` | get_metrics, get_atomic_locks, get_dependency_graph |
+
+### ⚡ Sistema e Configuração
+| Tool | Nome MCP | Actions Principais |
+|------|----------|--------------------|
+| NC-TOOL-FR-003 | `neocortex_config` | get_config, set_model, list_models, set_constraint |
+| NC-TOOL-FR-006 | `neocortex_pulse` | status, force, start, stop |
+| NC-TOOL-FR-025 | `neocortex_system` | config.get, config.reload, system.diagnostics, pulse.status |
+
+### 🔁 Hooks e Eventos
+| Tool | Nome MCP | Actions Principais |
+|------|----------|--------------------|
+| NC-TOOL-FR-019 | `neocortex_hooks` | hook.register, hook.trigger, hook.list, hook.stats |
+| NC-TOOL-FR-026 | `neocortex_push_notification` | push.send, push.status |
+
+### 🗃️ Inicialização e Export
+| Tool | Nome MCP | Actions Principais |
+|------|----------|--------------------|
+| NC-TOOL-FR-001 | `neocortex_init` | scan_project, generate_cortex, generate_lobe |
+| NC-TOOL-FR-021 | `neocortex_export` | to_markdown, to_json, to_graph, export_lobes |
+| NC-TOOL-FR-027 | `neocortex_intelligence` | brain.think, brain.plan, brain.critique, brain.feedback |
+| NC-TOOL-FR-032 | `neocortex_benchmark` | run_drift, run_titanomachy, get_last_report |
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-TOOLS-MANIFEST-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-TOOLS-MANIFEST-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL Tools-Manifest
+LEXICO: #usage #uniform-pattern #routing
+## Como Usar (Padrão Uniforme)
+
+Todas as tools seguem o mesmo padrão:
+```python
+result = neocortex_NOME(action="action.name", param1="value", ...)
+# Retorna sempre: {"success": bool, "action": str, ...dados...}
+```
+
+**Roteamento por Complexidade** (via `neocortex_litellm` ou `neocortex_local_llm`):
+```
+OPERACIONAL → qwen-1.5b  (Fórum — braçal, gratuito, replicável)
+TECNICO     → deepseek-v4-flash (TJ — orquestração técnica)
+RACIOCINIO  → deepseek-v4-pro (STF/STJ — análise profunda)
+SOBERANO    → T0 Antigravity (decisão humana ou T0 direto)
+```
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-TOOLS-MANIFEST-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-TOOLS-MANIFEST-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL Tools-Manifest
+LEXICO: #health-check #diagnostics #gateway
+## Health Check Rápido
+
+```python
+# Verificar gateway LiteLLM
+neocortex_litellm(action="gateway.health")
+# → {"gateway_online": true, "models_available": [...]}
+
+# Verificar todas as portas do stack
+neocortex_health(action="metrics.live")
+# → {"ports": {"4000": "UP", "11434": "UP", "8765": "UP"}}
+
+# Verificar pulse scheduler
+neocortex_system(action="pulse.status")
+```
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-TOOLS-MANIFEST-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-TOOLS-MANIFEST-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL Tools-Manifest
+LEXICO: #references #code-location #register-tool
+## Referências de Código
+
+Todas as tools em: `01_neocortex_framework/neocortex/mcp/tools/`
+Padrão de registro: cada tool tem `register_tool(mcp)` chamada no `server.py`

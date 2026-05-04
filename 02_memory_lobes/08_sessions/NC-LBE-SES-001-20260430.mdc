@@ -1,0 +1,68 @@
+---
+lobe_id: NC-LBE-SES-001-20260430
+domain: 08_sessions
+type: SESSION_MEMORY
+created: 2026-04-30T15:00:00
+updated: 2026-04-30T18:30:00
+status: COMPLETED
+lifecycle: PERMANENT
+temperature: 35
+---
+
+
+
+
+
+@UBL session-20260430
+LEXICO: #session #memory
+# 1. Session 2026-04-30 — Memory Lobe
+
+
+
+
+
+@UBL sess-001
+LEXICO: #session #consolidation
+## SESS-001 (14:00-15:00)
+T0 Antigravity (DeepSeek-v4-pro) executou 28 turns de consolidacao e auditoria no NeoCortex.
+Fase 1 de unificacao concluida. Fase 2 planejada com 49 tickets.
+
+### State After Session 001
+- ULQ: 67 symbols resolved, 17/17 @ paths valid
+- Gateway: NC-DS-210 applied (hooks unified), awaiting MCP restart
+- PulseScheduler: REINICIADO (was down since April 28)
+- Root: 0 loose files, 18 clean directories
+- Audit 3L score: 72.7% (CAMADA 1:36.8% CAMADA 2:87.6% CAMADA 3:93.8%)
+- 9 MCP hooks registered
+- 197 tickets YAML criados
+
+
+
+
+
+@UBL sess-002
+LEXICO: #session #fixes
+## SESS-002 (16:50-18:30)
+Correcao de headers truncados, checkpoints de boot, migracao de transporte MCP.
+
+### Fixes Applied
+- 10 arquivos com headers YAML corrompidos/trucados restaurados
+- 4 compile_fail resolvidos (FR-101, 105, 107, 116)
+- server.py: 8 checkpoints de boot (01-08 + BOOT_COMPLETE)
+- Transporte: SSE -> streamable-http (endpoint /mcp)
+- Antigravity + OpenCode MCP configs atualizadas
+
+### State After Session 002
+- MCP Transport: streamable-http on :8765/mcp
+- Tools: 21/21 loaded, 0 failures
+- Antigravity: CONNECTED (POST/GET /mcp 200 OK)
+- OpenCode: Config updated, pending MCP reload
+- py_compile: ALL clean
+- ruff: ALL clean
+- Boot checkpoints: 8/8 OK
+
+### Next Steps
+1. OpenCode: reload MCP servers (config ja atualizada)
+2. Executar NC-DS-250 (Cache Hit Monitor) — quick win
+3. Continuar Fase 2 unification (NC-DS-211, 216, 217, 222)
+4. ~50 NC-CORE-FR com headers @Tag truncados (cosmetico)

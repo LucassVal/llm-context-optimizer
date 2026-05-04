@@ -1,0 +1,15 @@
+{
+  "category": "08_integration",
+  "tags": [
+    "mcp",
+    "editor",
+    "config",
+    "oauth",
+    "tools"
+  ],
+  "summary": "Guia exaustivo de integração MCP para o editor OpenCode, cobrindo configuração de servidores locais/remotos, fluxos de autenticação OAuth e gerenciamento de ferramentas.",
+  "priority_score": 8,
+  "file": "NC-LBE-USR-003-opencode-editor-mcp.mdc",
+  "lobe_id": "NC-LBE-USR-003-opencode-editor-mcp",
+  "classified": "2026-04-21T10:37:19"
+}

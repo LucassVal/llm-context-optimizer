@@ -1,0 +1,16 @@
+{
+  "category": "09_documentation",
+  "tags": [
+    "quality",
+    "step0",
+    "r21",
+    "toolchain",
+    "ground-truth",
+    "env"
+  ],
+  "summary": "Lobe de Qualidade para o Ground Truth do ambiente, incluindo versões validadas e verificações.",
+  "priority_score": 8,
+  "file": "NC-LBE-FR-QUALITY-001-env-quality.mdc",
+  "lobe_id": "NC-LBE-FR-QUALITY-001-env-quality",
+  "classified": "2026-04-21T10:36:54"
+}

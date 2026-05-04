@@ -1,0 +1,115 @@
+---
+
+<!-- NC-READ-HASH: NC-AUDIT-001-expanded-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-AUDIT-001-expanded-v1 ja esta no contexto desta sessao, SALTE. -->
+title: NC-AUDIT-001-expanded
+version: v1.0
+created: 2026-04-28
+status: active
+temperature: 0
+status: archived
+---
+
+
+<!-- NC-READ-HASH: NC-AUDIT-001-expanded-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-AUDIT-001-expanded-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+## What
+Módulo: NC AUDIT 001 expanded
+
+## Why
+Criado em 2026-04-28 — arquivo do ecossistema NeoCortex
+
+## Where
+02_memory_lobes/$frontal
+
+---
+
+
+
+<!-- NC-READ-HASH: NC-AUDIT-001-expanded-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-AUDIT-001-expanded-v1 ja esta no contexto desta sessao, SALTE. -->
+# AUDITORIA EXPANDIDA — TODOS OS PONTOS
+
+## 1. ORFÃOS (Arquivos no disco sem SSOT)
+
+| Arquivo | Tipo | Ação |
+|---------|------|------|
+| _fix_aliases.py | script | Arquivar |
+| _fix_orbital_imports.py | script | Arquivar |
+| _mega_test.py | test | Arquivar |
+| _monitor.ps1 | script | Arquivar |
+| _test_mcp.py | test | Arquivar |
+| _test_opencode_mcp.py | test | Arquivar |
+| _update_catalog.py | script | Arquivar |
+
+## 2. MORDAÇAS — QUEM GUARDA CADA CAMADA
+
+| Camada | Guardião | Status |
+|--------|----------|--------|
+| H (HOOK) | Gateway (17 checks) | ⚠️ 8/18 tools wire-up |
+| C (CHECKPOINT) | PulseScheduler (8 checks) | ⚠️ Observa, não bloqueia |
+| S (SCHEDULE) | CICLO 4 (compliance.report) | ✅ 35/40 regras |
+| U (USER) | MCP tools (42 actions) | ✅ 40/40 regras |
+
+## 3. DIFFs — ENTRY/END POINTS + CHECKPOINTS
+
+### Entry Points (onde as regras são chamadas)
+- Gateway.validate_action() → 12/18 tools
+- orbital_dispatch() → 12/16 tools
+- gateway_check() → via UBL bridge
+
+### End Points (onde as regras retornam)
+- CentralWatcher.record_check() → STEP 0 + RCA
+- PulseScheduler._pulse() → CHECKPOINT layer
+- compliance.report → SCHEDULE layer
+
+### Checkpoints por sessão
+- 2118 checkpoints registrados
+- Auto-checkpoints via PulseScheduler (cada 300s)
+- Manuais via checkpoint.set
+
+## 4. SCRIPTS ORFÃOS (fora do SSOT)
+
+| Script | Local | Função |
+|--------|-------|--------|
+| _update_catalog.py | raiz | Atualizar catálogo semântico |
+| _fix_aliases.py | raiz | Corrigir aliases de código |
+| _monitor.ps1 | raiz | Monitor de portas |
+
+## 5. CICLO 2 — O QUE FALTA ANALISAR
+
+### Por tool
+- [ ] 18 tools: ruff status completo
+- [ ] 18 tools: Gateway wire-up status
+- [ ] 18 tools: py_compile status
+- [ ] ~100 actions: testadas vs stubs
+
+### Por regra
+- [ ] 42 regras: enforcement real (não documental)
+- [ ] H=18 C=11 S=35 U=40 → gaps mapeados
+
+### Por lobe
+- [ ] 58 lobes: população vs vazio
+- [ ] 14 domínios: DDD hierarchy
+- [ ] _INDEX.yaml: atualizado
+
+### Por arquivo
+- [ ] Orfãos na raiz
+- [ ] Orfãos em subdiretórios
+- [ ] STUB services (7 identificados)
+
+### Por conexão
+- [ ] 12/18 tools Gateway wire-up
+- [ ] orbital bridge 12/16
+- [ ] CentralWatcher → STEP 0 → RCA pipeline
+
+## 6. PRÓXIMOS PASSOS (CICLO 2 completo)
+
+1. Zerar orfãos (mover para archive)
+2. Wire-up 6 tools restantes no Gateway
+3. PulseScheduler: observer → BLOCK
+4. Atualizar catálogo semântico (43→58)
+5. Popular 2 domínios vazios
+6. Zerar ruff em todos os tools
+7. Testar todas as ~100 actions MCP

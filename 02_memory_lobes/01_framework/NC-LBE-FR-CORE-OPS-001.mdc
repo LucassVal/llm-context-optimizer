@@ -1,0 +1,244 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 ja esta no contexto desta sessao, SALTE. -->
+title: NC-LBE-FR-CORE-OPS-001
+version: v1.0
+created: 2026-04-18
+created_by: T0-Antigravity
+tags: core-services, operations, startup, watchdog, lexico, wal, cryptohub
+status: active
+module: core-infrastructure
+temperature: 0
+status: archived
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+## What
+Módulo: NC LBE FR CORE OPS 001
+
+## Why
+Criado em 2026-04-26 — arquivo do ecossistema NeoCortex
+
+## Where
+02_memory_lobes/01_framework
+
+---
+
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL Core-Ops
+LEXICO: #core-services #operations #infrastructure
+# 1. NC-LBE-FR-CORE-OPS-001 — Core Services e Operações
+
+@UBL Core-Ops
+LEXICO: #service-overview #20-services #nc-svc
+## Visão Geral do Core (NC-SVC-FR-001..020)
+
+O NeoCortex tem **20 serviços core** localizados em:
+`01_neocortex_framework/neocortex/core/services/`
+
+| # | Serviço | Arquivo | Função |
+|---|---------|---------|--------|
+| 001 | LoggingService | NC-SVC-FR-001 | Logger estruturado central |
+| 002 | HealthService | NC-SVC-FR-002 | Health checks de portas/deps |
+| 003 | SavePointStub | NC-SVC-FR-003 | Save points de sessão |
+| 004 | CacheService (HotCache L1) | NC-SVC-FR-004 | Cache em memória, TTL |
+| 005 | EventBus | NC-SVC-FR-005 | Pub/sub interno |
+| 006 | MetricsCollector | NC-SVC-FR-006 | Coleta de métricas runtime |
+| 007 | SearchEngine (FTS5) | NC-SVC-FR-007 | Busca textual nos lobes |
+| 008 | ManifestStore | NC-SVC-FR-008 | Índices leves de lobes/cortex |
+| 009 | LLMBackend | NC-SVC-FR-009 | ABC para backends LLM |
+| 010 | AgentExecutor | NC-SVC-FR-010 | Execução de agentes efêmeros |
+| 011 | PulseScheduler | NC-SVC-FR-011 | Agendamento de tarefas periódicas |
+| 012 | KnowledgeGraph | NC-SVC-FR-012 | Grafo de conhecimento (FTS5) |
+| 013 | VectorEngine | NC-SVC-FR-013 | Embeddings para semântica |
+| 014 | TagNormalizer | NC-SVC-FR-014 | Normalização de tags |
+| 015 | WALService | NC-SVC-FR-015 | Write-Ahead Log auditoria |
+| 016 | WALService (main) | NC-SVC-FR-016 | WAL persistência SQLite |
+| 017 | CryptoHub | NC-SVC-FR-017 | Hash/assinatura de artefatos |
+| 018 | TagNormalizerV2 | NC-SVC-FR-018 | Normalização semântica de tags |
+| 019 | ContextManager | NC-SVC-FR-019 | Gestão de janela de contexto |
+| **020** | **LexicoService** | NC-SVC-FR-020 | **Compressão semântica de tokens** |
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL Core-Ops
+LEXICO: #pulse-scheduler #automation #tasks
+## PulseScheduler — Tarefas Automáticas
+
+O PulseScheduler roda dentro do MCP e executa tarefas periódicas.
+Configurado via `neocortex_system.pulse.schedule_custom`.
+
+### Tarefas Default
+
+| Task Name | Intervalo | Função |
+|-----------|-----------|--------|
+| `context.pruning` | 5 min | Remove interações antigas do hot_context |
+| `lobes.refresh` | 30 min | Re-indexa lobes modificados |
+| `catalog.refresh` | 60 min | Atualiza artifact_catalog.json |
+| `wal.pruning` | 24h | Remove entradas WAL > 30 dias |
+| `metrics.snapshot` | 10 min | Salva snapshot de métricas |
+
+### Tarefas a Adicionar (NC-DS-134)
+
+```python
+# Via MCP após restart:
+neocortex_system(
+    action="pulse.schedule_custom",
+    task_name="litellm.watchdog",
+    schedule_interval=300  # 5 min
+)
+# O watchdog chama neocortex_litellm.gateway.health
+# Se offline → neocortex_litellm.gateway.start (restart automático)
+```
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL Core-Ops
+LEXICO: #litellm #gateway #routing #fallback
+## LiteLLM Gateway — Operação
+
+### Instruções de Inicialização
+
+```powershell
+# Iniciar manualmente
+litellm --config config.yaml --port 4000
+
+# Via script gerenciado
+.\01_neocortex_framework\scripts\NC-SCR-FR-110-litellm-startup.ps1 -Start
+
+# Verificar saúde
+$r = Invoke-RestMethod http://localhost:4000/health -Headers @{Authorization="Bearer sk-my-master-key-123"}
+
+# Ver modelos disponíveis
+$m = Invoke-RestMethod http://localhost:4000/v1/models -Headers @{Authorization="Bearer sk-my-master-key-123"}
+$m.data | Select id
+```
+
+### Tiers de Roteamento
+
+```
+OPERACIONAL → qwen-1.5b   (Ollama :11434 — gratuito, 0ms latência extra)
+TECNICO     → deepseek-v4-flash (API DeepSeek — ~$0.00028/1k output)
+RACIOCINIO  → deepseek-v4-pro (API DeepSeek — ~$0.00087/1k output)
+FALLBACK    → deepseek-v4-flash → qwen-3b → qwen-1.5b (automático se API cair)
+```
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL Core-Ops
+LEXICO: #lexico #compression #token-savings #semantic
+## LEXICO Service — Compressão Semântica
+
+### O que é
+
+O `LexicoService` (`NC-SVC-FR-020`) substitui tokens longos por átomos compactos,
+reduzindo o tamanho dos prompts enviados à API (menos tokens = menos custo).
+
+### Uso Básico
+
+```python
+from neocortex.core.services.NC-SVC-FR-020-lexico-service import get_lexico
+
+lexico = get_lexico()
+
+# Comprimir
+compressed = lexico.encode("NC-TOOL-FR-043-litellm.py em 01_neocortex_framework/neocortex/mcp/tools/")
+# → "$T-043-litellm.py em $TOOLS/"
+
+# Expandir de volta
+original = lexico.decode("$T-043-litellm.py em $TOOLS/")
+
+# Taxa de compressão
+ratio = lexico.ratio("texto longo com paths e símbolos NC-...")
+# → 0.65 (35% de redução)
+
+# Comprimir prompt completo
+result = lexico.encode_prompt(prompt="...", system="...")
+# → {"compressed_chars": N, "savings_pct": 35.0, ...}
+```
+
+### Ledger (Dicionário de Átomos)
+
+Localização: `01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-LED-FR-002-lexico-dictionary.json`
+Átomos atuais: 28 (seed)
+Próximo passo (LEXICO-002): popular via KG-002 com termos do projeto
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL Core-Ops
+LEXICO: #wal #audit-trail #sqlite #pruning
+## WAL Service — Auditoria
+
+O WAL (Write-Ahead Log) registra todas as ações significativas em SQLite.
+Localização do DB: `DIR-DS-003-wal/neocortex_wal.db`
+
+**Pruning automático:** `NC-SVC-FR-016-wal-service.py prune 30` (entradas > 30 dias)
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL Core-Ops
+LEXICO: #startup #boot-order #deployment
+## Startup Order Completa
+
+```
+1. [Windows Scheduler] Ollama serve → :11434
+2. [Windows Scheduler] LiteLLM → :4000 (NC-SCR-FR-110-litellm-startup.ps1 -Register)
+3. [Python] MCP Server → :8765 (server.py — carrega 43 tools)
+4. [Python] Health Wrapper → :8766 (NC-SCR-FR-098-health-wrapper.py)
+5. [PulseScheduler] Inicia automático com o MCP
+6. [DEFER] PicoClaw → :18790
+7. [DEFER] Mission Control → :3000
+```
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL Core-Ops
+LEXICO: #env-vars #configuration #ollama #litellm
+## Variáveis de Ambiente Importantes
+
+```
+OLLAMA_KEEP_ALIVE=-1    → mantém modelo Qwen carregado indefinidamente
+LITELLM_MASTER_KEY=sk-my-master-key-123  → autenticação do gateway
+```
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL Core-Ops
+LEXICO: #references #related-lobes #cross-reference
+## Referências
+
+- LiteLLM config: `config.yaml` (raiz)
+- LexicoService: `NC-SVC-FR-020-lexico-service.py`
+- Ledger: `NC-LED-FR-002-lexico-dictionary.json`
+- PulseScheduler: via `neocortex_system.pulse.*` ou `neocortex_pulse.*`
+- Lobe LiteLLM: `$LITELLM` = `NC-LBE-FR-LITELLM-001.mdc`
+- Lobe Governança: `$GOVERNANCE` = `NC-LBE-FR-GOVERNANCE-001.mdc`
+- Manifesto Tools: `NC-LBE-FR-TOOLS-MANIFEST-001.mdc`

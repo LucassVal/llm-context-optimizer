@@ -6,11 +6,20 @@ tags: ["igpu", "ipex-llm", "ollama", "qwen", "intel-iris-xe", "gpu-split", "2026
 version: "1.0"
 created: "2026-04-18"
 status: "ACTIVE"
-temperature: 30
+temperature: 0
+status: archived
 ---
 
-# Intel iGPU (Iris Xe) via ipex-llm — Setup e Orquestração
 
+
+@UBL igpu-ipex-setup
+LEXICO: #igpu #ipex-llm
+# 1. Intel iGPU (Iris Xe) via ipex-llm — Setup e Orquestração
+
+
+
+@UBL what-why-igpu
+LEXICO: #rationale #igpu
 ## O que é e por que usamos
 
 O **ipex-llm** (Intel Extension for PyTorch LLM) permite rodar modelos LLM na iGPU Intel Iris Xe do laptop.
@@ -21,6 +30,10 @@ No nosso sistema, usamos isso para ter **dois workers locais paralelos sem custo
 | Intel Iris Xe (iGPU) | qwen2.5-coder:1.5b-instruct | :11435 | Trabalho braçal (tier OPERACIONAL) |
 | NVIDIA RTX 3050 (dGPU) | qwen2.5-coder:3b-instruct | :11434 | Tarefas técnicas (tier TECNICO local) |
 
+
+
+@UBL installation-steps
+LEXICO: #install #ipex
 ## Como foi instalado
 
 ```
@@ -39,6 +52,10 @@ No nosso sistema, usamos isso para ter **dois workers locais paralelos sem custo
    init-ollama.bat   ← cria symlinks + copia DLLs SYCL para C:\igpu
 ```
 
+
+
+@UBL post-reboot-activation
+LEXICO: #activation #launcher
 ## Como ativar após reboot
 
 **Script oficial:** `01_neocortex_framework/scripts/NC-SCR-FR-111-ollama-igpu-launcher.bat`
@@ -59,6 +76,10 @@ Ou via MCP (CICLO 0 automatizado):
 neocortex_system(action="pulse.schedule_custom", task_name="igpu-boot", interval=0)
 ```
 
+
+
+@UBL verification
+LEXICO: #verify #health-check
 ## Verificação
 
 ```powershell
@@ -72,6 +93,10 @@ neocortex_llm_router(action="ollama.ask",
 # Deve retornar success: true, done: true
 ```
 
+
+
+@UBL litellm-integration
+LEXICO: #litellm #config
 ## Integração LiteLLM (config.yaml)
 
 ```yaml
@@ -86,6 +111,10 @@ neocortex_llm_router(action="ollama.ask",
     api_base: http://localhost:11434   # ← RTX 3050
 ```
 
+
+
+@UBL file-structure
+LEXICO: #structure #paths
 ## Estrutura de Arquivos
 
 ```
@@ -105,6 +134,10 @@ TURBOQUANT_V42\
   config.yaml                     ← LiteLLM com rotas dGPU + iGPU
 ```
 
+
+
+@UBL orchestration-tier
+LEXICO: #tier #routing
 ## Tier de Orquestração
 
 ```

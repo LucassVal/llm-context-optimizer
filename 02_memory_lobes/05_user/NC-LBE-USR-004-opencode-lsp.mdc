@@ -1,0 +1,119 @@
+---
+name: NC-LBE-USR-004-opencode-lsp
+description: Guia de servidores LSP integrados ao OpenCode — 37 servidores, configuracao, pyright, rust, LSP customizado
+tags: [opencode, lsp, pyright, diagnostics, rust, typescript]
+status: active
+module: integration
+version: 1.0
+created: 2026-05-03
+temperature: 30
+---
+
+<!-- NC-READ-HASH: NC-LBE-USR-004-opencode-lsp-v1 -->
+<!-- DEDUP: Se NC-LBE-USR-004-opencode-lsp-v1 ja esta no contexto, SALTE. -->
+
+
+
+
+
+@UBL lsp-integration
+LEXICO: #lsp #opencode
+# 1. NC-LBE-USR-004 — OpenCode LSP Integration
+
+
+
+
+
+@UBL what
+LEXICO: #section #content
+## What
+Guia completo dos 37 servidores LSP integrados ao OpenCode, com foco nos 6 configurados para o NeoCortex.
+
+
+
+
+
+@UBL why
+LEXICO: #section #content
+## Why
+LSP fornece diagnostico em tempo real (complementa R6: ruff + mypy + py_compile + bandit). Pyright diagnostica .py, yaml-ls valida .yaml, rust-analyzer prepara migracao Rust.
+
+
+
+
+
+@UBL where
+LEXICO: #section #content
+## Where
+`02_memory_lobes/05_user/`
+
+---
+
+
+
+
+
+@UBL lsp-configured
+LEXICO: #lsp #neocortex
+## LSPs configurados no NeoCortex
+
+| LSP | Extensoes | Complementa | Status |
+|---|---|---|---|
+| pyright | .py .pyi | ruff + mypy + bandit (R6) | ✅ |
+| yaml-ls | .yaml .yml | yaml.safe_load (R6) | ✅ |
+| rust-analyzer | .rs | migracao neocortex-mcp-rs | ✅ |
+| typescript | .ts .tsx | openclaude (03_external) | ✅ |
+| eslint | .ts .tsx .vue | qualidade TS | ✅ |
+| oxlint | .ts .vue .astro .svelte | lint rapido | ✅ |
+
+
+
+
+
+@UBL lsp-config-json
+LEXICO: #config #opencode
+## Configuracao (opencode.json)
+```json
+{
+  "lsp": {
+    "pyright": { "env": { "PYTHONPATH": "01_neocortex_framework" } },
+    "yaml_ls": {},
+    "rust": {},
+    "typescript": {},
+    "eslint": {},
+    "oxlint": {}
+  }
+}
+```
+
+
+
+
+
+@UBL lsp-disable
+LEXICO: #disable #config
+## Desabilitar
+```json
+{ "lsp": false }           // global
+{ "lsp": { "typescript": { "disabled": true } } }  // especifico
+```
+
+
+
+
+
+@UBL lsp-custom
+LEXICO: #custom #lsp
+## LSP Customizado
+```json
+{ "lsp": { "custom-lsp": { "command": ["server", "--stdio"], "extensions": [".custom"] } } }
+```
+
+
+
+
+
+@UBL changelog
+LEXICO: #changelog
+## Changelog
+- [2026-05-03] Lobe criado. 6 LSPs configurados para NeoCortex.

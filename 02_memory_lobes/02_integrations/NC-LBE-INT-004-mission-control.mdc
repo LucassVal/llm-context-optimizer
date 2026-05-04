@@ -1,0 +1,499 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-INT-004-mission-control-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-004-mission-control-v1 ja esta no contexto desta sessao, SALTE. -->
+id: NC-LBE-INT-004
+name: mission-control
+status: DOCUMENTED  anlise completa concluda via NC-DS-007
+version: "2.0.1"
+created_at: "2026-04-14T00:16:00-03:00"
+updated_at: "2026-04-14T12:00:00-03:00"
+created_by: antigravity-t0
+updated_by: agente-45132
+tags: [integration, mission-control, orchestration, dashboard, kanban, adapters, security, cost-tracking]
+domain: integration
+layer: lobe
+type: documentation
+hash: auto-generated
+temperature: 0
+status: archived
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-INT-004-mission-control-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-004-mission-control-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+## What
+Adiciona uma aba que redireciona para o Mission Control.
+
+## Why
+Criado em 2026-04-14 — arquivo do ecossistema NeoCortex
+
+## Where
+02_memory_lobes/02_integrations
+
+---
+
+
+
+<!-- NC-READ-HASH: NC-LBE-INT-004-mission-control-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-004-mission-control-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL mission-control-overview
+LEXICO: #mission-control #orchestration #dashboard #integration
+# 1. NC-LBE-INT-004: Mission Control Integration
+
+> **STATUS**: Documentao completa gerada pelo agente 45132 (ticket NC-DS-007).  
+> Repositrio clonado em: `DIR-RES-CC-001-claude-leak-workzone\external-refs\mission-control\`  
+> Baseado na verso 2.0.1 (MIT license).  
+> Este lobe contm 300+ linhas de anlise arquitetural, funcionalidades e plano de integrao com NeoCortex.
+
+@UBL mission-control-identity
+LEXICO: #identity #open-source #tech-stack #sqlite
+# 2. IDENTIDADE
+
+**Mission Control**  um dashboard open-source de orquestrao de agentes IA, desenvolvido pela Builderz Labs. Fornece uma interface nica para gerenciamento de frotas de agentes, despacho de tarefas, rastreamento de custos e coordenao de workflows multi-agente  auto-hospedado, zero dependncias externas, powered by SQLite.
+
+- **Repositrio**: https://github.com/builderz-labs/mission-control
+- **Licena**: MIT (open-source, self-hosted)
+- **Stack tecnolgica**:
+  - **Frontend**: Next.js 16 (App Router), React 19, TypeScript 5.7, Tailwind CSS 3.4
+  - **Backend**: Next.js API routes, SQLite (better-sqlite3, WAL mode), Zustand state management
+  - **UI/UX**: Recharts (grficos), React Flow (fluxos), XTerm (terminal)
+  - **Autenticao**: scrypt hashing, session tokens, RBAC (viewer/operator/admin), Google Sign-In opcional
+  - **Real-time**: WebSocket + Server-Sent Events (SSE) com smart polling
+  - **Testes**: Vitest (282 unitrios) + Playwright (295 E2E)
+- **Porta padro**: `:3000` (dashboard), `:18789` (gateway OpenClaw)
+- **Verso atual**: 2.0.1 (20260414)
+- **Releases**: Tags semnticas no GitHub; imagens Docker multiarch publicadas no GHCR (`ghcr.io/builderz-labs/mission-control:latest`)
+
+@UBL mission-control-internals
+LEXICO: #architecture #api-routes #adapters #discovery
+# 3. COMO FUNCIONA
+
+### Arquitetura Interna
+
+```
+mission-control/
+ src/
+    proxy.ts                    # Auth gate + CSRF + network access control
+    app/                        # Next.js App Router
+       page.tsx                # SPA shell  roteia todos os painis
+       login/page.tsx          # Pgina de login
+       api/                    # 101 rotas REST API
+    components/                 # 32 painis de features
+    lib/                        # Lgica central
+       db.ts                   # SQLite (better-sqlite3, WAL mode)
+       auth.ts                 # Session + API key auth, RBAC
+       migrations.ts           # 39 migraes de schema
+       scheduler.ts            # Agendador de tarefas em background
+       skill-sync.ts           # Sincronizao bidirecional disk  DB
+       skill-registry.ts       # Cliente de registry + scanner de segurana
+       agent-evals.ts          # Framework de avaliao de 4 camadas
+       security-events.ts      # Logger de eventos de segurana + trust scoring
+       adapters/               # Adaptadores para frameworks
+    store/index.ts              # Zustand state management
+ .data/                          # Dados runtime (SQLite DB, logs de tokens)
+```
+
+**Gateway & API**: Mission Control pode operar com ou sem um gateway OpenClaw. Quando presente, o gateway fornece eventos em tempo real (WebSocket) e acesso a ferramentas MCP. A comunicao com agentes ocorre via REST API (`/api/*`) e eventos via WebSocket/SSE.
+
+**Descoberta de Agentes**: O sistema varre diretrios locais padro em busca de definies de agentes:
+
+- `~/.agents/`  diretrios de agentes de alto nvel ou arquivos `.md`
+- `~/.codex/agents/`  definies de agentes Codex
+- `~/.claude/agents/`  definies de agentes Claude Code
+- `~/.hermes/skills/`  definies de skills Hermes
+
+A deteco  feita pela presena de arquivos marcadores: `soul.md`, `AGENT.md`, `identity.md`, `config.json`, ou `agent.json`. Arquivos markdown planos (formato Claude Code) tambm so suportados.
+
+**Generic Adapter**: Adaptador frameworkagnstico que permite registrar qualquer agente, independentemente do framework subjacente. Implementado em `src/lib/adapters/generic.ts`, oferece aes `register`, `heartbeat`, `report`, `assignments`, `disconnect`. Qualquer agente pode se registrar via `POST /api/adapters` com `{ framework: 'generic', action: 'register', payload: {...} }`.
+
+@UBL mission-control-features
+LEXICO: #features #kanban #agents #cost-tracking #security #webhooks
+# 4. FUNCIONALIDADES DETALHADAS
+
+### Kanban (6 colunas)
+
+O painel de tarefas segue um fluxo Kanban com seis colunas, permitindo draganddrop, nveis de prioridade, atribuies, comentrios encadeados e spawning inline de subagentes.
+
+| Coluna | Descrio | Gatilhos |
+|--------|-----------|----------|
+| **Inbox** | Tarefas recmcriadas, ainda no atribudas | Criao manual, webhook, cron |
+| **Assigned** | Tarefas atribudas a um agente, aguardando incio | Autodispatch ou atribuio manual |
+| **In Progress** | Agente est executando a tarefa | Agente reporta `started` |
+| **Review** | Tarefa concluda, aguardando reviso humana | Agente reporta `completed` |
+| **Quality Review** | Reviso de qualidade (Aegis)  bloqueia concluso | Revisor aprova ou rejeita |
+| **Done** | Tarefa finalizada e aprovada | Quality Review aprovada |
+
+Suporte a mltiplos projetos com prefixos de ticket por projeto.
+
+### Agent Management (heartbeats, SOUL system)
+
+**SOUL.md**: Arquivo markdown que define a personalidade e capacidades do agente, injetado nos prompts de dispatch. Pode ser armazenado no workspace do agente (`soul.md`) e sincronizado com a coluna `soul_content` do banco. Templates de SOUL so suportados (`OPENCLAW_SOUL_TEMPLATES_DIR`).
+
+**Heartbeats**: Agentes enviam pulsos peridicos via `POST /api/agents/[id]/heartbeat`. A ausncia prolongada altera o status para `offline`. A API de registro  idempotente (5 registros por minuto por IP).
+
+**Configurao**: Suporte a `dispatchModel`, `openclawId`, `capabilities`, `framework`. Os agentes podem ser registrados por trs mtodos:
+
+1. **API SelfRegistration** (recomendado para agentes autnomos)
+2. **Criao Manual** (UI ou API com role `operator`)
+3. **Config Sync** (sincronizao a partir de `openclaw.json` ou descoberta local)
+
+### Cost Tracking (p50/p95/p99, Recharts)
+
+**Coleta de uso de tokens**: A tabela `token_usage` armazena `model`, `session_id`, `input_tokens`, `output_tokens`, `cost_usd`, `agent_name`, `task_id`. Dados so coletados de registros do banco, cache JSON e derivao de sesses do gateway.
+
+**Clculo de custos**: `src/lib/token-pricing.ts` aplica preos por modelo (com flags de subscription de providers). O painel de custos exibe breakdown por modelo, tendncias temporais e distribuio por agente.
+
+**Percentis (p50/p95/p99)**: A funo `percentileNearestRank` em `src/app/api/tasks/regression/route.ts` calcula percentis de latncia para anlise de desempenho.
+
+**Dashboards Recharts**: Componentes `token-dashboard-panel.tsx`, `cost-tracker-panel.tsx`, `agent-cost-panel.tsx` fornecem visualizaes interativas de sries temporais, breakdown por modelo e distribuies.
+
+### Security Audit (postura 0100, secrets detection, MCP tool auditing)
+
+**Posture Scoring (0100)**: `src/lib/security-scan.ts` avalia cinco categorias (Credentials, Network, OpenClaw, Runtime, OS) com pesos por severidade (`critical:4`, `high:3`, `medium:2`, `low:1`). Classificao final:
+
+- 90: "hardened"
+- 70: "secure"
+- 40: "needsattention"
+- <40: "atrisk"
+
+**Secrets Detection**: Varredura de padres de credenciais (API keys, passwords, tokens) em skills e contedo. Lista de senhas inseguras conhecidas (`admin`, `password`, `changemeonfirstlogin`, etc.) gera alertas.
+
+**MCP Tool Auditing**: Tabela `mcp_call_log` armazena `payload_hash`, `signature`, `public_key` para integridade de auditoria. Assinaturas Ed25519 garantem norepdio. O scanner de segurana verifica a porcentagem de registros assinados.
+
+**Hook Profiles**: Perfis de segurana configurveis (`minimal`/`standard`/`strict`) permitem ajustar a rigorosidade por deployment.
+
+### Skills Hub (ClawdHub, skills.sh, scanner de segurana)
+
+**Registries Suportadas**: ClawdHub, skills.sh, Awesome OpenClaw. Buscas so proxyadas serverside com timeout e failover.
+
+**Instalao Segura**: Downloads de `SKILL.md` com verificao SHA256. Scanner de segurana aplica 12 regras (injeo de prompt, execuo de shell, exfiltrao de dados, credential harvesting, SSRF) e bloqueia instalao se qualquer issue `critical` for detectada.
+
+**Skill Roots**: Cinco diretrios de destino configurveis:
+
+- `useragents`: `~/.agents/skills`
+- `usercodex`: `~/.codex/skills`
+- `projectagents`: `./.agents/skills`
+- `projectcodex`: `./.codex/skills`
+- `openclaw`: `~/.openclaw/skills`
+
+Sincronizao bidirecional automtica entre disco e banco de dados.
+
+### Framework Adapters (OpenClaw, CrewAI, LangGraph, AutoGen, Claude SDK, generic)
+
+**Interface do Adaptador** (`src/lib/adapters/adapter.ts`): Mtodos `register`, `heartbeat`, `reportTask`, `getAssignments`, `disconnect`. Todos os adaptadores emitem eventos para o `eventBus`.
+
+**Adaptadores Disponveis**:
+
+1. **OpenClawAdapter**: Integrao nativa com OpenClaw.
+2. **CrewAIAdapter**: Suporte ao framework CrewAI.
+3. **LangGraphAdapter**: Integrao com workflows LangGraph.
+4. **AutoGenAdapter**: Coordenao multiagente AutoGen.
+5. **ClaudeSdkAdapter**: Integrao com Claude API SDK.
+6. **GenericAdapter**: Adaptador universal para qualquer sistema de agentes.
+
+**Endpoint nico**: `POST /api/adapters` aceita `{ framework, action, payload }`, normalizando a interao com qualquer framework.
+
+### Natural Language Tasks ("every 9am"  cron)
+
+**Schedule Parser** (`src/lib/scheduleparser.ts`): Converte expresses lingusticas em expresses cron.
+
+| Expresso | Cron Gerado | Detalhes |
+|-----------|-------------|----------|
+| "every 5 minutes" | `*/5 * * * *` | Step de 5 minutos |
+| "daily" / "every day" | `0 9 * * *` | 9 AM dirio (padro) |
+| "every morning at 9am" | `0 9 * * *` | Hora fixa |
+| "weekly on Monday" | `0 9 * * 1` | Segundafeira s 9h |
+| "every Tuesday at 14:30" | `30 14 * * 2` | Tera s 14:30 |
+| "hourly" | `0 * * * *` | Minuto 0 de cada hora |
+
+**Verificao de Due**: Funo `isCronDue(cronExpr, nowMs, lastSpawnedAtMs)` previne duplicatas e lida com steps, ranges e valores separados por vrgula.
+
+**TemplateClone Pattern**: A tarefa original serve como template; child tasks so geradas na data apropriada.
+
+### Webhooks (HMACSHA256, exponential backoff, circuit breaker)
+
+**Assinatura HMACSHA256**: `verifyWebhookSignature` com comparao constanttime. Header `XMCSignature: sha256={signature}`.
+
+**Exponential Backoff**: Agenda de retry `[30, 300, 1800, 7200, 28800]` segundos (30s, 5m, 30m, 2h, 8h) com jitter 20%.
+
+**Circuit Breaker**: Coluna `consecutive_failures` na tabela `webhooks`. Ao atingir `MAX_RETRIES` (default 5), o webhook  automaticamente desabilitado (`enabled = 0`).
+
+**Mapeamento de Eventos**: Dicionrio `EVENT_MAP` traduz eventos do `eventBus` para tipos de webhook (`activity.{type}`, `notification.{type}`, `security.{action}`).
+
+**Histrico de Delivery**: Interface visual com status de cada entrega, tentativas e payloads.
+
+@UBL mission-control-neocortex
+LEXICO: #neocortex-integration #generic-adapter #webhooks #hud
+# 5. INTEGRAO COM NEOCORTEX (DETALHADA)
+
+### Como o generic adapter conecta ao NeoCortex
+
+NeoCortex pode utilizar o **GenericAdapter** para registrar seus agentes (DeepSeek, OpenCode, etc.) diretamente no Mission Control. O fluxo:
+
+1. **Registro**: Agente NeoCortex envia `POST /api/adapters` com `framework: 'generic'` e `action: 'register'`.
+   ```json
+   {
+     "framework": "generic",
+     "action": "register",
+     "payload": {
+       "agentId": "neocortex-agent-001",
+       "name": "neocortex-deepseek",
+       "role": "coder",
+       "capabilities": ["mcp-tools", "code-generation", "debugging"],
+       "metadata": { "neocortex_version": "v42", "port": 45132 }
+     }
+   }
+   ```
+2. **Heartbeats**: O agente mantm pulsos peridicos via `action: 'heartbeat'`.
+3. **Task Reporting**: Ao executar tarefas, reporta status via `action: 'report'`.
+4. **Assignments**: Consulta `action: 'assignments'` para obter tarefas da fila.
+
+O adapter normaliza essas chamadas e as propaga ao `eventBus`, tornando o agente visvel no dashboard.
+
+### Como AuditHook (NCHKFR002) alimenta o activity feed do Mission Control
+
+O **AuditHook** do NeoCortex pode ser configurado para enviar eventos de auditoria para o Mission Control via webhooks.
+
+**Configurao**:
+
+1. Criar um webhook no Mission Control (`POST /api/webhooks`) com URL do endpoint NeoCortex (ex: `http://localhost:8765/api/auditevents`).
+2. Definir secret para HMACSHA256.
+3. Mapear eventos NeoCortex para tipos de atividade Mission Control.
+
+**Fluxo**:
+```
+NeoCortex AuditHook  Evento de auditoria  Webhook HTTP  Mission Control `/api/webhooks/incoming`
+ Valida assinatura HMAC  Transforma payload  EventBus  Activity Feed
+```
+
+**Payload de Exemplo**:
+```json
+{
+  "event_type": "mcp_tool_call",
+  "agent_id": "deepseek-45132",
+  "tool_name": "bash",
+  "timestamp": "2026-04-14T12:00:00Z",
+  "details": { "command": "ls -la", "exit_code": 0 }
+}
+```
+
+### neocortex_visual_server.py: processo nico (:3000 + :8765 + core)
+
+O servidor visual do NeoCortex (`neocortex_visual_server.py`) pode ser estendido para:
+
+1. **Expor endpoints compatveis com Mission Control**:
+   - `/api/agents/register` (proxy para generic adapter)
+   - `/api/tasks` (para criar tarefas a partir do NeoCortex)
+   - `/api/activities` (feed de eventos)
+
+2. **Implementar adapter interface** para registrar agentes NeoCortex diretamente no Mission Control.
+
+3. **Forward visualizations as webhook payloads**: Grficos de custo, logs de execuo, mtricas de performance podem ser enviados como webhooks para enriquecer o dashboard.
+
+**Arquitetura Proposta**:
+```
+NeoCortex Core (MCP tools)  PicoClaw (:18790)  OpenCode (:45132/:32879)
+         
+neocortex_visual_server.py (:3000 + :8765)
+          (HTTP/WebSocket)
+Mission Control (:3000)  GenericAdapter  Agent Registration
+```
+
+### Configurao de variveis de ambiente necessrias
+
+Para integrar Mission Control com NeoCortex, as seguintes variveis devem ser definidas no ambiente do Mission Control (ou no `.env`):
+
+```env
+# Conexo com gateway NeoCortex (se aplicvel)
+OPENCLAW_GATEWAY_HOST=127.0.0.1
+OPENCLAW_GATEWAY_PORT=18790
+NEXT_PUBLIC_GATEWAY_HOST=
+NEXT_PUBLIC_GATEWAY_PORT=18790
+
+# Diretrios de descoberta de agentes (NeoCortex pode colocar definies aqui)
+OPENCLAW_HOME=C:\Users\Lucas Valrio\Desktop\TURBOQUANT_V42\.openclaw
+MC_CLAUDE_HOME=C:\Users\Lucas Valrio\.claude
+
+# Dados persistentes
+MISSION_CONTROL_DATA_DIR=C:\Users\Lucas Valrio\Desktop\TURBOQUANT_V42\.data\mission-control
+
+# Segurana
+MC_ALLOWED_HOSTS=localhost,127.0.0.1,::1,neocortex.local
+API_KEY=geradoautomaticamente
+```
+
+### Exemplo de chamada API: POST /tasks, GET /agents, etc.
+
+**Criar tarefa a partir do NeoCortex**:
+```bash
+curl -X POST "http://localhost:3000/api/tasks" \
+  -H "Authorization: Bearer $MC_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Implementar integrao Mission Control",
+    "description": "Conectar NeoCortex ao generic adapter e configurar webhooks.",
+    "assigned_to": "neocortex-deepseek",
+    "priority": "high",
+    "project": "NC-DS-007",
+    "tags": ["integration", "mission-control", "neocortex"]
+  }'
+```
+
+**Listar agentes registrados**:
+```bash
+curl -H "Authorization: Bearer $MC_API_KEY" \
+  "http://localhost:3000/api/agents"
+```
+
+**Consultar fila de tarefas para um agente**:
+```bash
+curl -H "Authorization: Bearer $MC_API_KEY" \
+  "http://localhost:3000/api/tasks/queue?agent=neocortex-deepseek"
+```
+
+**Enviar evento de auditoria via webhook** (simulado):
+```bash
+curl -X POST "http://localhost:3000/api/webhooks/incoming" \
+  -H "X-MC-Signature: sha256=..." \
+  -H "Content-Type: application/json" \
+  -d '{
+    "event": "activity.mcp_tool_call",
+    "data": {
+      "agent": "deepseek-45132",
+      "tool": "bash",
+      "timestamp": "2026-04-14T12:00:00Z"
+    }
+  }'
+```
+
+### Como adicionar aba Mission Control no neocortex_hud.py (launcher vs WebView)
+
+**Opo 1: Launcher**  Adicionar um boto no HUD que abre o Mission Control em uma nova aba do navegador (URL `http://localhost:3000`). Simples e no requer integrao profunda.
+
+**Opo 2: WebView embutida**  Incorporar o dashboard Mission Control como um widget dentro do HUD usando um componente WebView (por exemplo, `tkinterweb`, `cefpython`, `webview`). Requer tratamento de autenticao (cookies/API key) e comunicao entre frames.
+
+**Recomendao**: Iniciar com **Launcher** e evoluir para WebView aps estabilizao da integrao.
+
+**Cdigo de exemplo para `neocortex_hud.py`**:
+```python
+def add_mission_control_tab():
+    """Adiciona uma aba que redireciona para o Mission Control."""
+    import webbrowser
+    tab = ttk.Frame(notebook)
+    notebook.add(tab, text="Mission Control")
+    label = ttk.Label(tab, text="Controle de orquestrao de agentes")
+    label.pack(pady=10)
+    button = ttk.Button(tab, text="Abrir Dashboard",
+                       command=lambda: webbrowser.open("http://localhost:3000"))
+    button.pack(pady=5)
+    # Opcional: embed WebView via cefpython
+    # from cefpython3 import cefpython as cef
+    # cef.Initialize()
+    # browser = cef.CreateBrowserSync(url="http://localhost:3000",
+    #                                 window_info=...)
+```
+
+@UBL mission-control-gaps
+LEXICO: #gaps #risks #maturity #duplication
+# 6. GAPS E RISCOS
+
+### O que Mission Control no substitui no NeoCortex
+
+- **Lgica de Domnio Especfica**: Mission Control  um orquestrador genrico; no contm conhecimento de domnio do NeoCortex (ex: ferramentas MCP customizadas, fluxos de trabalho especficos para trading, code generation).
+- **Execuo de Ferramentas MCP**: Mission Control monitora chamadas de ferramentas, mas no as executa  isso permanece com os agentes NeoCortex + PicoClaw.
+- **Gerenciamento de Memria de Longo Prazo**: Mission Control oferece um memory browser, mas a memria persistente estruturada do NeoCortex (lobes, chunks) fica fora do seu escopo.
+- **Autenticao e Autorizao Granular**: RBAC do Mission Control  baseado em roles simples (viewer/operator/admin); o NeoCortex pode exigir controle mais fino por agente/ferramenta.
+
+### Risco de duplicar responsabilidades (Kanban vs DIRDS001tickets/)
+
+**DIRDS001tickets/**  um diretrio de tickets do projeto NeoCortex, enquanto o Kanban do Mission Control gerencia tarefas de agentes. H risco de duplicao se ambos forem usados para o mesmo propsito.
+
+**Mitigao**:
+- Usar **Mission Control** apenas para tarefas de **agentes** (execuo autnoma, workflows multiagente).
+- Manter **DIRDS001tickets/** para tickets de **desenvolvimento do sistema** (bugs, features, refactor).
+- Estabelecer uma ponte via webhooks: criao de ticket no DIRDS001 gera tarefa no Mission Control (e viceversa).
+
+### Maturidade e breaking changes
+
+Mission Control est em **alpha** (conforme o README). APIs, schemas de banco e formatos de configurao podem mudar entre releases.
+
+**Riscos**:
+- Updates podem quebrar integraes baseadas em endpoints especficos.
+- Migraes de banco podem requerer interveno manual.
+- Alteraes no adapter interface podem impactar o generic adapter.
+
+**Estratgia**:
+- Fixar verso especfica (tag) no clone.
+- Monitorar changelog (`CHANGELOG.md`) e releases no GitHub.
+- Manter testes de integrao que validem os fluxos crticos.
+
+@UBL mission-control-roadmap
+LEXICO: #integration-roadmap #tickets #phases
+# 7. ROADMAP DE INTEGRAO
+
+### Ordem de implementao sugerida
+
+**Fase 1: Registro Bsico (Week 1)**
+1. Configurar Mission Control localmente (porta :3000).
+2. Implementar cliente generic adapter no NeoCortex (funo `register_with_mission_control`).
+3. Registrar agentes NeoCortex existentes (DeepSeek, OpenCode) via API.
+4. Verificar aparecimento no dashboard.
+
+**Fase 2: Atividade e Auditoria (Week 2)**
+5. Configurar webhook no Mission Control para receber eventos do AuditHook.
+6. Estender `neocortex_visual_server.py` para emitir eventos de auditoria no formato esperado.
+7. Validar fluxo de activity feed.
+
+**Fase 3: Gesto de Tarefas (Week 3)**
+8. Criar tarefas via API a partir de tickets do DIRDS001tickets/.
+9. Implementar polling de `tasks/queue` pelos agentes NeoCortex.
+10. Adicionar boto Mission Control no `neocortex_hud.py`.
+
+**Fase 4: Monitoramento Avanado (Week 4)**
+11. Integrar mtricas de custo (token usage) do NeoCortex ao painel de custos.
+12. Configurar security audit para escanear skills do NeoCortex.
+13. Habilitar natural language scheduling para tarefas recorrentes.
+
+### Tickets a criar no DIRDS001tickets/ para realizar a integrao
+
+| Ticket | Ttulo | Descrio |
+|--------|--------|-----------|
+| **NCINT001** | Integrar Mission Control Generic Adapter | Cliente para registro de agentes NeoCortex no Mission Control via API `/api/adapters`. |
+| **NCINT002** | Webhook Bridge: AuditHook  Mission Control | Configurar AuditHook para enviar eventos ao webhook do Mission Control (HMACSHA256). |
+| **NCINT003** | Mission Control Tab no HUD | Adicionar aba no `neocortex_hud.py` com launcher/WebView para o dashboard. |
+| **NCINT004** | Sincronizao de Tarefas: DIRDS001  Mission Control | Script que cria tarefas no Mission Control a partir de novos tickets no diretrio de tickets. |
+| **NCINT005** | Token Usage Reporting | Reportar uso de tokens dos agentes NeoCortex  tabela `token_usage` do Mission Control. |
+| **NCINT006** | Skills Security Scanning | Integrar scanner de skills do Mission Control ao pipeline de deploy de skills do NeoCortex. |
+| **NCINT007** | Natural Language Scheduling Interface | Adicionar comando `schedule` no NeoCortex que cria tarefas recorrentes via natural language. |
+
+**Critrios de Aceitao**:
+- Agentes NeoCortex aparecem no dashboard Mission Control com status `online`.
+- Eventos de auditoria aparecem no activity feed em tempo real.
+- Tarefas criadas no Mission Control so atribudas e executadas por agentes NeoCortex.
+- Painis de custo mostram token usage dos agentes NeoCortex.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-INT-004-mission-control-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-004-mission-control-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL mission-control-references
+LEXICO: #references #documentation
+# 8. REFERNCIAS
+
+- [Mission Control README](DIR-RES-CC-001-claude-leak-workzone/external-refs/mission-control/README.md)
+- [Mission Control OpenAPI spec](DIR-RES-CC-001-claude-leak-workzone/external-refs/mission-control/openapi.json)
+- [Agent Setup Guide](DIR-RES-CC-001-claude-leak-workzone/external-refs/mission-control/docs/agent-setup.md)
+- [CLI Agent Control](DIR-RES-CC-001-claude-leak-workzone/external-refs/mission-control/docs/cli-agent-control.md)
+- [Security Hardening](DIR-RES-CC-001-claude-leak-workzone/external-refs/mission-control/docs/SECURITY-HARDENING.md)
+- [NeoCortex Core Architecture](02_memory_lobes/NC-LBE-INT-000-neocortex-core.mdc)
+- [HookRegistry (NCHKFR001/002)](01_frameworks/NC-HK-FR-001-hook-registry.md)
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-INT-004-mission-control-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-004-mission-control-v1 ja esta no contexto desta sessao, SALTE. -->
+*Documentao gerada pelo agente 45132 em 20260414 como parte do ticket NCDS007. Atualizar este lobe quando a integrao for implementada.*

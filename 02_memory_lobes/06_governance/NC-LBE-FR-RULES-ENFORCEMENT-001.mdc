@@ -1,0 +1,95 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-FR-RULES-ENFORCEMENT-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-RULES-ENFORCEMENT-001-v1 ja esta no contexto desta sessao, SALTE. -->
+title: NC-LBE-FR-RULES-ENFORCEMENT-001
+version: v1.0
+created: 2026-04-28
+tags: rules, enforcement, instant, session, scheduled, status
+status: active
+priority: L0
+temperature: 0
+status: archived
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-RULES-ENFORCEMENT-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-RULES-ENFORCEMENT-001-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+## What
+Módulo: NC LBE FR RULES ENFORCEMENT 001
+
+## Why
+Criado em 2026-04-28 — arquivo do ecossistema NeoCortex
+
+## Where
+02_memory_lobes/$frontal
+
+---
+
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-RULES-ENFORCEMENT-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-RULES-ENFORCEMENT-001-v1 ja esta no contexto desta sessao, SALTE. -->
+# MAPEAMENTO DE ENFORCEMENT DAS 26 REGRAS
+
+| # | Regra | Tipo | Onde | Status | Bloqueia? |
+|---|-------|------|------|--------|-----------|
+| R01 | Nomenclatura NC- | INSTANT | ToolGuard.check_naming() → 5 tools | ⚠️ WARNING | Não |
+| R02 | SSOT Update | SESSION | bootup.sync (manual) | ⚠️ MANUAL | Não |
+| R03 | Ticket Reference | INSTANT | ticket.create (manual) | ⚠️ MANUAL | Não |
+| R04 | Atomic Locks | INSTANT | LockGuard.check_write() → Gateway | ✅ ENFORCED | Sim |
+| R05 | NUNCA Deletar | INSTANT | ❌ NÃO IMPLEMENTADO | ❌ NONE | Não |
+| R06 | Write Zones | INSTANT | Gateway validate_action() | ⚠️ PARCIAL | Não |
+| R07 | ConfigProvider | INSTANT | ❌ NÃO IMPLEMENTADO | ❌ NONE | Não |
+| R08 | Git Ignore | SESSION | ❌ NÃO IMPLEMENTADO | ❌ NONE | Não |
+| R09 | Modo Mentor | INSTANT | STEP 0 → ToolGuard | ⚠️ WARNING | Não |
+| R10 | Logger por Módulo | INSTANT | Ruff check | ⚠️ WARNING | Não |
+| R11 | STEP +1 Rollback | INSTANT | savepoint.rollback (manual) | ⚠️ MANUAL | Não |
+| R12 | Handoffs Formais | INSTANT | handoff.create (manual) | ⚠️ MANUAL | Não |
+| R13 | Audit Trail (WAL) | INSTANT | NC-SVC-FR-016 | ✅ ENFORCED | Sim |
+| R14 | Lobe Isolation | INSTANT | LockGuard block_cross_write | ⚠️ PARCIAL | Não |
+| R15 | T0 Nunca Executa | INSTANT | ❌ NÃO IMPLEMENTADO | ❌ NONE | Não |
+| R16 | Boot Context | SESSION | @BOOT (manual) | ⚠️ MANUAL | Não |
+| R17 | PolicyLoader | SESSION | cf.pre_check (parcial) | ⚠️ PARCIAL | Não |
+| R18 | Manifestos Lobo | SCHEDULED | manifest.list (manual) | ⚠️ MANUAL | Não |
+| R19 | Ciclo de Vida Ticket | INSTANT | state-machine (parcial) | ⚠️ PARCIAL | Não |
+| R20 | Checklist Fim Sessão | SESSION | bootup.sync (manual) | ⚠️ MANUAL | Não |
+| R21 | Zero Suposições | INSTANT | ❌ NÃO IMPLEMENTADO | ❌ NONE | Não |
+| R22 | Classification L0-L3 | INSTANT | Constitution lobe | ⚠️ DOC ONLY | Não |
+| R23 | Extend Dont Create | INSTANT | ❌ NÃO IMPLEMENTADO | ❌ NONE | Não |
+| R24 | SSOT Registration | INSTANT | ❌ NÃO IMPLEMENTADO | ❌ NONE | Não |
+| R25 | Gateway Wire-up | INSTANT | ❌ NÃO IMPLEMENTADO | ❌ NONE | Não |
+| R26 | Orbital Pattern | INSTANT | ❌ NÃO IMPLEMENTADO | ❌ NONE | Não |
+
+@UBL enforcement-summary
+# 1. RESUMO
+LEXICO: #enforcement #summary #enforced #warning #manual #parcial #none
+
+| Status | Qtd | 
+|--------|-----|
+| ✅ ENFORCED (bloqueia) | 2 (R04, R13) |
+| ⚠️ WARNING (avisa) | 4 (R01, R09, R10, R22) |
+| ⚠️ MANUAL (depende de ação humana) | 7 (R02, R03, R11, R12, R16, R18, R20) |
+| ⚠️ PARCIAL (implementado mas não universal) | 5 (R06, R14, R17, R19, R25) |
+| ❌ NONE (zero enforcement) | 8 (R05, R07, R08, R15, R21, R23, R24, R26) |
+
+@UBL enforcement-types
+# 2. TIPOS DE ENFORCEMENT
+LEXICO: #enforcement-types #instant #session #scheduled #gateway #toolguard
+
+**INSTANT (15 regras):** Bloqueiam no ato da ação. Via Gateway/ToolGuard.
+**SESSION (5 regras):** Executam no início/fim de sessão. Via CICLO 0/3.
+**SCHEDULED (1 regra):** Executam periodicamente. Via PulseScheduler.
+
+@UBL enforcement-next-steps
+# 3. PRÓXIMOS PASSOS (ordem de impacto)
+LEXICO: #next-steps #enforcement #r05 #r21 #r23 #r24 #r15 #priority
+
+1. R05 (INSTANT): Wrapper no bash — bloquear Remove-Item/del
+2. R21 (INSTANT): Gateway — validar antes de tool call  
+3. R23 (INSTANT): Gateway — detectar novos arquivos não-orbital
+4. R24 (INSTANT): Gateway — exigir registro SSOT
+5. R15 (INSTANT): Gateway — role check T0 vs T1/T2
+6. R07,R08 (SESSION): hooks de pre-commit
+7. R02,R20 (SESSION): auto-trigger no CICLO 3

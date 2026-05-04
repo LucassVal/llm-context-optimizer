@@ -1,0 +1,12 @@
+{
+  "category": "09_documentation",
+  "tags": [
+    "mdc",
+    "context-compaction"
+  ],
+  "summary": "Documentação sobre o protocolo de compactação e economia de contexto para NeoCortex.",
+  "priority_score": 8,
+  "file": "NC-LBE-FR-QUALITY-002-context-compaction.mdc",
+  "lobe_id": "NC-LBE-FR-QUALITY-002-context-compaction",
+  "classified": "2026-04-21T10:36:55"
+}

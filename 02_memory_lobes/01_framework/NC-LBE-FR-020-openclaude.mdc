@@ -1,0 +1,177 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-FR-020-openclaude-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-020-openclaude-v1 ja esta no contexto desta sessao, SALTE. -->
+lobe_id: NC-LBE-FR-020-openclaude
+domain: 02_memory_lobes
+type: legacy
+created: 2024-01-01
+status: active
+temperature: 30
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-020-openclaude-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-020-openclaude-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+
+
+
+
+@UBL what
+LEXICO: #section #content
+## What
+Módulo: NC LBE FR 020 openclaude
+
+
+
+
+
+@UBL why
+LEXICO: #section #content
+## Why
+Criado em 2026-04-27 — arquivo do ecossistema NeoCortex
+
+
+
+
+
+@UBL where
+LEXICO: #section #content
+## Where
+02_memory_lobes/NC-LBE-FR-020-openclaude.mdc
+
+---
+
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-020-openclaude-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-020-openclaude-v1 ja esta no contexto desta sessao, SALTE. -->
+
+
+
+
+@UBL openclaude-ssot
+LEXICO: #openclaude #ssot
+# 1. NC-LBE-FR-020-openclaude.mdc
+
+> [!IMPORTANT]
+> **FONTE DE CONHECIMENTO SEMÂNTICA 100% — OPENCLAUDE REPOSITORY SSOT**
+> Este arquivo contém a especificação técnica exaustiva do OpenClaude, mapeada diretamente dos documentos e código-fonte. Não contém logs de interação ou metadados de sistema.
+
+
+
+
+
+@UBL architecture-core
+LEXICO: #architecture #execution
+## 1. Arquitetura e Fluxo de Execução (Core)
+
+### 1.1 Query Engine & Loop de Estados (`src/query.ts`)
+- **Fase 1: Bootstrap**: Inicialização de `SystemContext` (Git, CWD, OS).
+- **Fase 2: Prefetch**: Carregamento paralelo de `MemoryPrefetch`, `SkillDiscovery` e `MdmSettings`.
+- **Fase 3: Iteração (Thinking/Acting)**:
+  - **Compactação Proativa/Reativa**: Gatilhos em `CAPPED_DEFAULT_MAX_TOKENS`. Recuperação automática de erros 413/429 via `recoverFromOverflow`.
+  - **Tool Pipelining**: Execução de ferramentas em paralelo com a geração de tokens do modelo (`Streaming Tool Execution`).
+  - **Continuation Nudges**: Detecção de padrões de texto que indicam necessidade de continuidade sem chamada de ferramenta.
+
+### 1.2 Protocolo de Comunicação (gRPC/Headless)
+- **Modo Headless**: Operação via gRPC (`src/grpc/server.ts`) em porta padrão `50051`.
+- **Bidirectional Streaming**: Fluxo contínuo de eventos de pensamento, execução e controle.
+- **Action Confirmation**: Bloqueio preventivo para operações de escrita (`bash`, `write`) aguardando confirmação explícita.
+
+
+
+
+
+@UBL config-env-vars
+LEXICO: #config #env
+## 2. Configurações e Variáveis de Ambiente
+
+### 2.1 Fornecedores de API (Providers)
+| Fornecedor | Variável Crítica | URL Base Padrão | Notas |
+| :--- | :--- | :--- | :--- |
+| **Anthropic** | `ANTHROPIC_API_KEY` | `api.anthropic.com` | Nativo, suporte a todas as betas. |
+| **OpenAI** | `CLAUDE_CODE_USE_OPENAI=1` | `api.openai.com` | Via `OPENAI_API_KEY` e `OPENAI_MODEL`. |
+| **DeepSeek** | `CLAUDE_CODE_USE_OPENAI=1` | `api.deepseek.com/v1` | Recomendado: `deepseek-v4-pro` ou `flash`. |
+| **Ollama** | `CLAUDE_CODE_USE_OPENAI=1` | `localhost:11434/v1` | Local, sem necessidade de API Key. |
+| **Codex** | `CLAUDE_CODE_USE_OPENAI=1` | - | `OPENAI_MODEL=codexplan`. Requer OAuth ou `~/.codex/auth.json`. |
+
+### 2.2 Controle de Runtime
+- `CLAUDE_CODE_ENABLE_HOOK_CHAINS=1`: Ativa o motor de recuperação por eventos.
+- `CLAUDE_CODE_HOOK_CHAINS_CONFIG_PATH`: Caminho customizado para regras de Hook Chains.
+- `OPENCLAUDE_LOG_TOKEN_USAGE=verbose`: Emite métricas de tokens por request via stderr (JSON).
+- `CLAUDE_CODE_EXTRA_BODY`: JSON de parâmetros extras injetados em todas as chamadas de API.
+- `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC`: Desativa MCP registry prefetch e telemetria externa.
+
+
+
+
+
+@UBL hook-chains
+LEXICO: #hooks #auto-healing
+## 3. Hook Chains (Auto-Cura)
+
+### 3.1 Mecanismo de Eventos
+- **Eventos Gatilho**: `PostToolUseFailure`, `TaskCompleted`.
+- **Ações Disponíveis**:
+  - `spawn_fallback_agent`: Lança novo agente para recuperar falha (ex: `sonnet` como backup).
+  - `notify_team`: Notificação via mesh (recipientes `*`).
+  - `warm_remote_capacity`: Pré-aquecimento de sessões remotas via bridge.
+
+### 3.2 Segurança e Guardas
+- **Depth guard**: Limite de profundidade de cadeia (default `2`, max `10`).
+- **Cooldown**: Tempo de espera por regra (default `30s`).
+- **Dedup Window**: Supressão de ações idênticas em curto intervalo.
+
+
+
+
+
+@UBL tooling-management
+LEXICO: #tools #dedup
+## 4. Gestão de Ferramentas (Tooling)
+- **Deduplicação de MCP**: Validação de assinaturas de ferramentas para evitar duplicidade entre plugins e configuração manual.
+- **Microcompact**: Truncamento inteligente de IDs de ferramentas em gRPC para otimização de banda/contexto.
+- **Result Budgeting**: Limite rígido de 32k caracteres (`maxResultSizeChars`) para saídas de ferramentas.
+
+
+
+
+
+@UBL diagnostics-hardening
+LEXICO: #diagnostics #hardening
+## 5. Diagnóstico e Hardening
+- `bun run doctor:runtime`: Valida conectividade, chaves de API e sanidade do binário `ripgrep`.
+- `bun run hardening:strict`: Checklist completo de tipos, lint e testes de fumaça.
+- `mcp doctor`: Valida transportes stdio/sse de servidores MCP configurados.
+
+
+
+
+
+@UBL prompting-patterns
+LEXICO: #prompts #system
+## 6. Padrões de Prompting (System Prompts)
+Hierarquia de montagem do prompt efetivo:
+1. **Override**: Substituição global (ex: loops).
+2. **Coordinator**: Contexto de orquestração de subagentes.
+3. **Agent/Plan**: Instruções específicas da tarefa (Plan, Explore).
+4. **Autonomous Identity**: O núcleo fixo do Claude Code / OpenClaude.
+
+
+
+
+@UBL ecosystem-partnerships
+LEXICO: #ecosystem #bankr
+## 7. Ecossistema e Parcerias (Bankr.bot / Farcaster)
+
+### 7.1 Integração Bankr.bot
+- **Papel**: Provedor de agentes financeiros (Cripto-Banking/Trading) e patrocinador oficial.
+- **Domínio**: Operações de Swap, Buy, Sell e Limit Orders em redes como Solana.
+- **Interface**: Suporte a Mini-apps Farcaster e Telegram WebApps (`telegram-web-app.js`).
+- **Discovery**: O OpenClaude pode atuar como CLI para orquestrar agentes Bankr em ambientes de trading algorítmico.
+
+### 7.2 Social Intelligence (Farcaster/Frames)
+- **Beticas**: Suporte a Frames v2 (fc:miniapp) para interação rica dentro de redes sociais descentralizadas.
+- **Modelos Sociais**: Otimização de prompts para respostas curtas e acionáveis em threads.

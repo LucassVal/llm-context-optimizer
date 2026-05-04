@@ -1,0 +1,242 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 ja esta no contexto desta sessao, SALTE. -->
+name: NC-LBE-FR-QUALITY-001-env-quality
+description: Lobe de Qualidade  Ground Truth toolchain, STEP-0 v2, R21 checklist, script NC-SCR-FR-013 v2
+module: framework
+status: active
+tags: [quality, step0, r21, toolchain, ground-truth, env]
+last_updated: 2026-04-13
+temperature: 0
+status: archived
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+## What
+Módulo: NC LBE FR QUALITY 001 env quality
+
+## Why
+Criado em 2026-04-13 — arquivo do ecossistema NeoCortex
+
+## Where
+02_memory_lobes/01_framework
+
+---
+
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL Quality-Env
+LEXICO: #quality #ground-truth #step0 #toolchain
+# 1. Lobe de Qualidade — NC-LBE-FR-QUALITY-001
+
+> **Propsito:** Persistir o _ground truth_ de ambiente e as regras de qualidade que TODOS os agentes
+> devem seguir antes de qualquer implementao. Cravar as rotinas de verificao no sistema.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL Quality-Env
+LEXICO: #environment #versions #dependencies
+## 1. Ground Truth de Ambiente (2026-04-13)
+
+| Componente | Verso Validada | Verificao |
+|---|---|---|
+| Python | 3.12.10 | `python --version` |
+| Ruff | 0.15.10 | `python -m ruff --version` |
+| Pytest | 9.0.3 | `python -m pytest --version` |
+| Bandit | 1.9.4 | `python -m bandit --version` |
+| Pyright | 1.1.408 | `python -m pyright --version` |
+
+**18 Dependncias Validadas:**
+```python
+# Verificar todas de uma vez:
+python -c "import mcp, fastmcp, rich, ruamel, cachetools, platformdirs, notifypy, diskcache, duckdb, msgspec, psutil, yaml, colorama"
+```
+
+| Lib | Pacote pip |
+|---|---|
+| mcp | mcp |
+| fastmcp | fastmcp |
+| ruamel | ruamel.yaml |
+| rich | rich |
+| cachetools | cachetools |
+| platformdirs | platformdirs |
+| notifypy | notify-py |
+| diskcache | diskcache |
+| duckdb | duckdb |
+| msgspec | msgspec |
+| psutil | psutil |
+| yaml | pyyaml |
+| colorama | colorama |
+| ruff | ruff |
+| pytest | pytest |
+| bandit | bandit |
+| pyright | pyright |
+| pre-commit | pre-commit |
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL Quality-Env
+LEXICO: #step0 #protocol #pre-flight #validation
+## 2. STEP-0 v2.0 — Protocolo Obrigatório (copiar nos prompts)
+
+```markdown
+## STEP-0 OBRIGATÓRIO — Verifique antes de qualquer ação
+
+### A) Python e Ruff
+python --version
+python -m ruff --version
+
+### B) Dependncias crticas (18)
+python -c "
+import importlib, sys
+libs = ['mcp','fastmcp','ruamel','rich','cachetools','platformdirs',
+        'notifypy','diskcache','duckdb','msgspec','psutil','yaml','colorama']
+falhas = []
+for lib in libs:
+    try: importlib.import_module(lib)
+    except ImportError: falhas.append(lib)
+if falhas:
+    print(f'FALHA: {falhas}')
+    sys.exit(1)
+print('OK: todas dependencias presentes')
+"
+
+### C) Compilar arquivo antes de entregar
+python -m py_compile <arquivo.py>
+
+### D) Lint
+python -m ruff check <arquivo.py> --fix
+```
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL Quality-Env
+LEXICO: #r21 #zero-assumptions #verification #checklist
+## 3. R21 — Zero Suposições (Regra Crítica)
+
+**NUNCA afirme que:**
+- Uma lib est instalada sem verificar `python -c "import X"`
+- Um arquivo existe sem verificar `Test-Path` ou `os.path.exists()`
+- Um mdulo importa sem verificar com `py_compile`
+- Um servio est ativo sem verificar `netstat` ou `curl`
+
+**Checklist R21 antes de qualquer entrega:**
+```
+[ ] python --version executado nesta sesso?
+[ ] ruff --version executado nesta sesso?
+[ ] Dependncias verificadas via importlib?
+[ ] py_compile rodado no arquivo entregue?
+[ ] ruff check rodado (0 erros)?
+```
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL Quality-Env
+LEXICO: #validate-script #nc-scr-fr-013 #zones #fixes
+## 4. Script NC-SCR-FR-013 v2 — Modos Disponíveis
+
+```powershell
+# Validação básica (zona A = core)
+python 01_neocortex_framework/scripts/NC-SCR-FR-013-validate-file.py --zone A
+
+# Mapa de arquivos ausentes
+python 01_neocortex_framework/scripts/NC-SCR-FR-013-validate-file.py --missing-map
+
+# Substituir print() por logger em massa
+python 01_neocortex_framework/scripts/NC-SCR-FR-013-validate-file.py --r11-fix
+
+# Remover redefinies register_tool
+python 01_neocortex_framework/scripts/NC-SCR-FR-013-validate-file.py --f811-fix
+
+# Todas as zonas
+python 01_neocortex_framework/scripts/NC-SCR-FR-013-validate-file.py --zone A --zone B --zone C
+```
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL Quality-Env
+LEXICO: #regression #lessons-learned #error-log
+## 5. Regression Buffer de Qualidade
+
+| ID | Erro | Lição |
+|---|---|---|
+| QUAL-001 | Lib `ruamel` assumida instalada sem verificar  ImportError em runtime | Sempre `python -c "import ruamel"` antes |
+| QUAL-002 | `print()` em produo (R11)  19 violaes em Zona B | Usar `logger = logging.getLogger(__name__)` |
+| QUAL-003 | `register_tool` redefinido (F811) em `knowledge.py` | Remover imports duplicados antes de entregar |
+| QUAL-004 | Arquivo criado sem NC- prefix e sem changelog no @SSOT (R01/R02) | Consultar NC-NAM-FR-001 antes de criar |
+| QUAL-005 | **PS1: `cd path com espaco`** sem aspas  PowerShell split no espao | Usar `Set-Location "path com espaco"` com aspas |
+| QUAL-006 | **PS1: here-string `"@` indentado**  parser falha silenciosamente | `"@` DEVE estar na coluna 0, sem nenhum espao antes |
+| QUAL-007 | **PS1: `@NOME:` em double-quoted string**  interpretado como drive var | Usar single-quote `'...'` para qualquer string com `@` ou `[` |
+| QUAL-008 | **R21 violado pelo T0**  `.ps1` entregue sem syntax check  3 bugs sucessivos | Rodar `Parser::ParseFile()` antes de QUALQUER entrega de .ps1 |
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL Quality-Env
+LEXICO: #powershell #syntax-check #parser #ps1-validation
+## 6. Validação Obrigatória para .ps1 (R21 aplicado a PowerShell)
+
+Antes de ENTREGAR qualquer `.ps1`, rodar:
+
+```powershell
+$erros = $null
+$null = [System.Management.Automation.Language.Parser]::ParseFile(
+    'ARQUIVO.ps1', [ref]$null, [ref]$erros)
+if ($erros) { $erros | ForEach-Object { "ERR: $_" } } else { 'Syntax OK' }
+```
+
+Armadilhas PowerShell (memorizar):
+- `@NOME:` em double-quoted string = drive var  usar single-quote
+- `[` `]` em double-quoted string = array index  usar single-quote
+- `"@` de here-string deve estar na COLUNA 0 sem espao
+- `Set-Location "path com espaco"`  sempre com aspas
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL Quality-Env
+LEXICO: #mcp-server #status #offline #workaround
+## 7. MCP Server Status
+
+**STATUS: OFFLINE** — O servidor MCP (`server.py`) não está integrado de forma automática nos agentes.
+
+**Enquanto MCP estiver offline:**
+- Leitura de lobes: via `view_file` direto nos `.mdc`
+- Registro de estado: via escrita manual em YAML de audit-log
+- Validao de ambiente: via STEP-0 v2 injetado nos prompts
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL Quality-Env
+LEXICO: #changelog #audit #history
+## Changelog
+- [2026-04-13] Lobe criado — T0 Antigravity. Ground truth 18 deps validadas, STEP-0 v2 documentado, R21 formalizado, script NC-SCR-FR-013 v2 mapeado, 4 regresses registradas.
+- [2026-04-13] QUAL-005008: bugs PS1 NC-SCR-FR-014 (3 iteraes sem syntax check). Adicionado STEP-0 para .ps1 com Parser::ParseFile. R21 violado pelo T0 registrado.

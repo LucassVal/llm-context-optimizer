@@ -1,0 +1,13 @@
+{
+  "category": "08_integration",
+  "tags": [
+    "antigravity",
+    "mcp",
+    "editor"
+  ],
+  "summary": "Documentação detalhada da integração do editor Antigravity com servidores MCP, incluindo configuração e autenticação.",
+  "priority_score": 9,
+  "file": "NC-LBE-USR-002-antigravity-editor-mcp.mdc",
+  "lobe_id": "NC-LBE-USR-002-antigravity-editor-mcp",
+  "classified": "2026-04-21T10:37:17"
+}

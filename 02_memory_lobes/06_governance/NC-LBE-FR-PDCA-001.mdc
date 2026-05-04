@@ -1,0 +1,82 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-FR-PDCA-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-PDCA-001-v1 ja esta no contexto desta sessao, SALTE. -->
+lobe_id: NC-LBE-FR-PDCA-001
+domain: 06_governance
+type: CYCLE_DOCUMENTATION
+created: 2026-04-28
+status: ACTIVE
+lifecycle: PERMANENT
+temperature: 0
+status: archived
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-PDCA-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-PDCA-001-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+## What
+Módulo: NC LBE FR PDCA 001
+
+## Why
+Criado em 2026-04-28 — arquivo do ecossistema NeoCortex
+
+## Where
+02_memory_lobes/$frontal
+
+---
+
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-PDCA-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-PDCA-001-v1 ja esta no contexto desta sessao, SALTE. -->
+# PDCA — Plan-Do-Check-Act (Ciclo Deming)
+
+@UBL pdca-ciclo-init
+# 1. CICLO 0: INIT (Complete)
+LEXICO: #pdca #ciclo0 #init #mcp-sse #super-tools #gateway #audit
+- **Plan**: Estabelecer MCP SSE, 18 Super Tools, Gateway 17 checks
+- **Do**: server.py funcional, 18 tools, Gateway via importlib
+- **Check**: audit.full score 72.3%, compliance 100%
+- **Act**: Corrigir v1/ removal, reparar 3 tools quebrados, criar BashGuard
+
+@UBL pdca-ciclo-baseline
+# 2. CICLO 1: BASELINE (Complete)
+LEXICO: #pdca #ciclo1 #baseline #ssot #lobes #semantic #federative #rules
+- **Plan**: Fundamentos: SSOT, Lobes, Semântica, Federativo, Regras
+- **Do**: Naming convention, Catalogo semantico, Federative Pact v2, Rules Matrix
+- **Check**: 60 lobes, 14 dominios, 42 regras
+- **Act**: Mover 4 lobes para dominios canonicos, criar Constitution
+
+@UBL pdca-ciclo-automation
+# 3. CICLO 2: AUTOMATION (In Progress)
+LEXICO: #pdca #ciclo2 #automation #rca-engine #submission-pipeline #orbital-bridge
+- **Plan**: RCA Engine, Submission Pipeline, Full Audit, Orbital Bridge
+- **Do**: FR-146+147+148+149 criados e wire-up
+- **Check**: Techniques 10/15 implementadas, session stats vazias
+- **Act**: Ativar hot_context, popular dominios vazios, distribuir checkpoints
+
+@UBL pdca-ciclo-consolidation
+# 4. CICLO 3: CONSOLIDATION (Planned)
+LEXICO: #pdca #ciclo3 #consolidation #gateway #pulse-scheduler #idempotency #pre-commit
+- **Plan**: 18/18 Gateway, PulseScheduler BLOCK, Idempotency guard
+- **Do**: Wire 10 tools, upgrade PulseScheduler, deduplication
+- **Check**: audit.full > 90%, 0 ruff, 15/15 techniques
+- **Act**: Pre-commit hooks, auto-archive handoffs
+
+@UBL pdca-ciclo-maintenance
+# 5. CICLO 4: MAINTENANCE (Planned)
+LEXICO: #pdca #ciclo4 #maintenance #drift-control #mutation-board #replication #kaizen
+- **Plan**: Drift Control, Mutation Board governance, Replication scaling
+- **Do**: Monitoramento continuo, children lifecycle
+- **Check**: drift.status < 5%, mutations aprovadas por T0
+- **Act**: Kaizen log diário, OKR reviews semanais
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-PDCA-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-PDCA-001-v1 ja esta no contexto desta sessao, SALTE. -->
+*Ciclo PDCA formalizado — cada CICLO é um PDCA completo*
+*Última atualização: 2026-04-28*

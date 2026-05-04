@@ -1,0 +1,88 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-FR-DEEPSEEK-V4-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-DEEPSEEK-V4-001-v1 ja esta no contexto desta sessao, SALTE. -->
+domain: "infrastructure"
+layer: "integrations"
+type: "technical_documentation"
+tags: ["deepseek", "v4", "r1", "thinking_mode", "api"]
+model_mapping:
+  pro: "deepseek-v4-pro"
+  flash: "deepseek-v4-flash"
+temperature: 0
+status: archived
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-DEEPSEEK-V4-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-DEEPSEEK-V4-001-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+## What
+Módulo: NC LBE FR DEEPSEEK V4 001
+
+## Why
+Criado em 2026-04-26 — arquivo do ecossistema NeoCortex
+
+## Where
+02_memory_lobes/$occipital
+
+---
+
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-DEEPSEEK-V4-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-DEEPSEEK-V4-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL DeepSeek-V4
+LEXICO: #deepseek #v4 #r1 #thinking-mode #api
+# 1. NC-LBE-FR-DEEPSEEK-V4-001 — DeepSeek v4/R1 Technical Spec
+
+@UBL DeepSeek-V4
+LEXICO: #models #overview #pro #flash #specs
+## 1. Model Overview (2026 Update)
+DeepSeek v4 introduces a unified reasoning architecture (R1) with native Chain-of-Thought (CoT).
+
+| Model | ID | Best For | Specs |
+|-------|----|----------|-------|
+| **DeepSeek V4 Pro** | `deepseek-v4-pro` | High-reasoning, Architecture, Planning | Thinking enabled by default |
+| **DeepSeek V4 Flash**| `deepseek-v4-flash`| Fast execution, implementation, UTs | Low latency |
+
+@UBL DeepSeek-V4
+LEXICO: #cot #reasoning #effort-levels #payload
+## 2. Thinking Mode (Chain-of-Thought)
+Thinking mode allows the model to "reason" before answering.
+
+### Request Payload
+```json
+{
+  "model": "deepseek-v4-pro",
+  "messages": [...],
+  "thinking": {
+    "type": "enabled"
+  },
+  "reasoning_effort": "high"
+}
+```
+
+### Effort Levels
+- `high`: Deep reasoning for complex tasks (Architecture/Security).
+- `max`: Exhaustive reasoning (Optimization/Adversarial).
+
+### Extracting Reasoning Content
+The API returns the thinking process in a separate field:
+- **Python**: `response.choices[0].message.reasoning_content`
+- **Output**: The user sees the `content`, while the agent can use `reasoning_content` for internal consistency.
+
+@UBL DeepSeek-V4
+LEXICO: #multi-round #context-window #128k #messages
+## 3. Multi-Round Chat
+Standardized `messages` array history. Max context window is 128k (standard) / 8k output.
+
+@UBL DeepSeek-V4
+LEXICO: #integration #profiles #routing #auto
+## 4. NeoCortex Integration Patterns
+- **Profile PRO**: Always use `deepseek-v4-pro` with `thinking: enabled`.
+- **Profile FLASH**: Use `deepseek-v4-flash`.
+- **Profile AUTO**: Router decides based on domain (e.g., `01_architecture` -> PRO).
+
+> [!IMPORTANT]
+> `deepseek-chat` and `deepseek-reasoner` are legacy. DO NOT USE in new implementations.

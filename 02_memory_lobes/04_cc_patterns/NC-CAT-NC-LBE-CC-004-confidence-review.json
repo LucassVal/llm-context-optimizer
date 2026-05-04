@@ -1,0 +1,13 @@
+{
+  "category": "05_machine_learning",
+  "tags": [
+    "codereview",
+    "claude_code",
+    "confidence_review"
+  ],
+  "summary": "Documentar padroes de revisao com confiana (codereview plugin) do Claude Code e mapear para implementacao NeoCortex (ConfidenceReviewService).",
+  "priority_score": 8,
+  "file": "NC-LBE-CC-004-confidence-review.mdc",
+  "lobe_id": "NC-LBE-CC-004-confidence-review",
+  "classified": "2026-04-21T10:37:08"
+}

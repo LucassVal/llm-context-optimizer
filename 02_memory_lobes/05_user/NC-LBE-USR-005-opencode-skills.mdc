@@ -1,0 +1,122 @@
+---
+name: NC-LBE-USR-005-opencode-skills
+description: Guia de Agent Skills do OpenCode — SKILL.md, frontmatter, permissoes, skills NeoCortex (nc-validate, nc-lint, nc-audit, nc-handoff, nc-boot-sync, nc-ssot-update)
+tags: [opencode, skills, agents, reusable, SKILL.md]
+status: active
+module: integration
+version: 1.0
+created: 2026-05-03
+temperature: 30
+---
+
+<!-- NC-READ-HASH: NC-LBE-USR-005-opencode-skills-v1 -->
+<!-- DEDUP: Se NC-LBE-USR-005-opencode-skills-v1 ja esta no contexto, SALTE. -->
+
+
+
+
+
+@UBL agent-skills
+LEXICO: #skills #opencode
+# 1. NC-LBE-USR-005 — OpenCode Agent Skills
+
+
+
+
+
+@UBL what
+LEXICO: #section #content
+## What
+Skills sao comportamentos reutilizaveis carregados sob demanda via `skill()`. Local: `.opencode/skills/<name>/SKILL.md`.
+
+
+
+
+
+@UBL why
+LEXICO: #section #content
+## Why
+Encapsulam workflows repetitivos (validate, lint, audit, handoff) em prompts que o agente carrega quando necessario.
+
+
+
+
+
+@UBL where
+LEXICO: #section #content
+## Where
+`02_memory_lobes/05_user/`
+
+---
+
+
+
+
+
+@UBL neocortex-skills
+LEXICO: #skills #neocortex
+## Skills NeoCortex (.opencode/skills/)
+
+| Skill | Regra | Pipeline |
+|---|---|---|
+| **nc-validate** | R6 | ruff + mypy + py_compile + bandit + yaml + mdc + json + @LOCKS + secret |
+| **nc-lint** | R6 | ruff check + ruff format + mypy (rapido) |
+| **nc-audit** | R17 | Auditoria 3 camadas FR-173 + compliance report |
+| **nc-handoff** | R12 | Gera NC-DS-*-handoff-*.yaml |
+| **nc-boot-sync** | R16 | Sincroniza @BOOT + catalog refresh |
+| **nc-ssot-update** | R02 | Atualiza @SSOT com changelog |
+
+
+
+
+
+@UBL skills-pipeline
+LEXICO: #pipeline #workflow
+## Pipeline (ordem fixa)
+```
+nc-lint → nc-validate → nc-ssot-update → nc-handoff → nc-boot-sync
+```
+
+
+
+
+
+@UBL skill-format
+LEXICO: #format #skill-md
+## Formato SKILL.md
+```yaml
+---
+name: nc-validate        # [a-z0-9]+(-[a-z0-9]+)*
+description: Pipeline R6  # 1-1024 chars
+compatibility: opencode
+---
+```
+
+
+
+
+
+@UBL skill-permissions
+LEXICO: #permissions #config
+## Permissoes
+```json
+{ "permission": { "skill": { "*": "allow", "internal-*": "deny" } } }
+```
+
+
+
+
+
+@UBL custom-tools-section
+LEXICO: #tools #typescript
+## Custom Tools (.opencode/tools/)
+Wrappers TypeScript que chamam Python: nc-lint.ts, nc-audit.ts, nc-handoff.ts, nc-sync.ts, nc-validate.ts
+
+
+
+
+
+@UBL changelog
+LEXICO: #changelog
+## Changelog
+- [2026-05-03] Lobe criado. 6 skills + 5 custom tools configurados.

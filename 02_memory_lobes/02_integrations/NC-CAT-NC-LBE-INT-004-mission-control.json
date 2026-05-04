@@ -1,0 +1,12 @@
+{
+  "category": "08_integration",
+  "tags": [
+    "integration",
+    "mission-control"
+  ],
+  "summary": "Documentação completa gerada pelo agente 45132 (ticket NC-DS-007) para o lobe de integração mission-control.",
+  "priority_score": 9,
+  "file": "NC-LBE-INT-004-mission-control.mdc",
+  "lobe_id": "NC-LBE-INT-004-mission-control",
+  "classified": "2026-04-21T10:37:01"
+}

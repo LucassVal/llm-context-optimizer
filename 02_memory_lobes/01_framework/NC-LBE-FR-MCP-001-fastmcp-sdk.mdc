@@ -1,0 +1,219 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 ja esta no contexto desta sessao, SALTE. -->
+name: NC-LBE-FR-MCP-001-fastmcp-sdk
+description: Documentação exaustiva do FastMCP Python SDK para integração de ferramentas, recursos e prompts no NeoCortex.
+tags: [mcp, fastmcp, python-sdk, tools, resources, prompts, transport, security]
+status: active
+module: framework
+last_updated: 2026-04-17
+temperature: 0
+status: archived
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+## What
+Calcula o ROI de uma operação.
+
+## Why
+Criado em 2026-04-17 — arquivo do ecossistema NeoCortex
+
+## Where
+02_memory_lobes/01_framework
+
+---
+
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL FastMCP-SDK
+LEXICO: #mcp #fastmcp #sdk-ground-truth
+# 1. Lobe FastMCP Python SDK — NC-LBE-FR-MCP-001
+
+> **Propósito:** Servir como o Ground Truth definitivo para a implementação e extensão de funcionalidades MCP (Model Context Protocol) usando o framework FastMCP. Contém todos os padrões de código, configurações e regras de segurança exigidos pelo NeoCortex.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL FastMCP-SDK
+LEXICO: #install #setup #configuration
+## 1. Instalação e Configuração
+
+### 1.1 Comandos de Setup
+- **Padrão:** `pip install fastmcp` ou `uv add fastmcp`
+- **Com Background Tasks:** `pip install "fastmcp[tasks]"` (necessário para logs e progresso assíncrono)
+
+### 1.2 Verificação
+- `fastmcp --help`: CLI para desenvolvimento e inspeção.
+- `fastmcp dev server.py`: Inicia com hot-reloading.
+- `fastmcp run server.py`: Execução em produção.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL FastMCP-SDK
+LEXICO: #tools #mcp-tool #type-hints
+## 2. Ferramentas (@mcp.tool)
+
+As ferramentas são o canal principal para o LLM interagir com o sistema.
+
+### 2.1 Padrão de Implementação
+```python
+from mcp.server import FastMCP
+
+mcp = FastMCP("NeoCortex")
+
+@mcp.tool()
+def calculate_roi(investment: float, return_val: float) -> str:
+    """Calcula o ROI de uma operação."""
+    roi = (return_val - investment) / investment
+    return f"ROI: {roi:.2%}"
+```
+
+### 2.2 Regras de Ouro para Tools
+- **Type Hints:** Obrigatórios para todos os parâmetros. O FastMCP usa isso para gerar o JSON Schema.
+- **Docstrings:** Devem ser descritivas. O LLM as usa para decidir quando chamar a ferramenta.
+- **Metadados:** Use `@mcp.tool(name="custom_name", description="...")` para sobrescrever o padrão.
+- **Async:** Suporta `async def` para operações I/O intensivas (recomendado).
+
+### 2.3 Tipos de Retorno
+- Simples: `str`, `int`, `float`, `bool`.
+- Estruturados: Pydantic models (convertidos automaticamente para JSON).
+- Multi-modais: `Image`, `Text`, `EmbeddedResource`.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL FastMCP-SDK
+LEXICO: #resources #uri-templates #read-only
+## 3. Recursos (@mcp.resource)
+
+Recursos expõem dados estáticos ou dinâmicos de forma "leitura-apenas".
+
+### 3.1 URI Templates (RFC 6570)
+```python
+@mcp.resource("config://{name}")
+def get_config_resource(name: str) -> str:
+    """Retorna a configuração solicitada."""
+    return f"Conteúdo da config {name}"
+```
+
+### 3.2 Tipos de Recurso
+- **Texto:** Retorna strings.
+- **Binário:** Retorna bytes (ex: imagens, PDFs).
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL FastMCP-SDK
+LEXICO: #prompts #templates #llm-guidance
+## 4. Prompts (@mcp.prompt)
+
+Templates de prompt reutilizáveis para guiar o LLM em tarefas específicas.
+
+```python
+@mcp.prompt()
+def analyze_code_pattern(language: str, code: str):
+    return [
+        {"role": "user", "content": f"Analise este código em {language}: \n{code}"}
+    ]
+```
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL FastMCP-SDK
+LEXICO: #transport #stdio #sse #server
+## 5. Transportes e Servidor
+
+### 5.1 Stdio (Padrão)
+`mcp.run()` ou `mcp.run(transport="stdio")`
+- Usado para IDEs (Claude Desktop, OpenCode) via pipe.
+
+### 5.2 HTTP / SSE
+`mcp.run(transport="http", host="0.0.0.0", port=8000)`
+- Ativa endpoint de Server-Sent Events.
+- Permite múltiplos clientes simultâneos via rede.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL FastMCP-SDK
+LEXICO: #context #async #progress #sampling
+## 6. O Objeto Context (Avançado)
+
+Permite interações ricas durante a execução de uma tool.
+
+```python
+@mcp.tool()
+async def long_running_task(ctx: Context):
+    ctx.info("Iniciando tarefa...")
+    ctx.report_progress(0, 100)
+    # ... processamento ...
+    ctx.report_progress(100, 100)
+    # Pedir ao LLM para gerar algo (Sampling)
+    response = await ctx.request_sampling(
+        prompt="Gere um resumo do que fizemos até agora."
+    )
+    return response.content
+```
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL FastMCP-SDK
+LEXICO: #security #best-practices #r21 #validation
+## 7. Segurança e Melhores Práticas (R21 aplicada)
+
+1. **Validação de Inputs:** Nunca confie nos dados passados pelo LLM. Use Pydantic ou validações manuais.
+2. **Isolamento:** Rode o servidor MCP com o mínimo de privilégios necessários.
+3. **Erros:** Lance exceções específicas (`ValueError`, `FileNotFoundError`) para que o LLM entenda o problema.
+4. **Sampling:** Restrinja o que o LLM pode fazer via sampling para evitar loops ou custos excessivos.
+5. **Autenticação (HTTP):** Use `mcp.run(auth_token="...")` para proteger endpoints SSE.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL FastMCP-SDK
+LEXICO: #testing #testclient #unit-tests
+## 8. Testes
+Use o `TestClient` para validar a lógica sem rodar o servidor:
+```python
+from mcp.server.test_client import TestClient
+
+def test_tool():
+    client = TestClient(mcp)
+    response = client.call_tool("calculate_roi", {"investment": 100, "return_val": 150})
+    assert "ROI: 50.00%" in response
+```
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL FastMCP-SDK
+LEXICO: #changelog #audit #history
+## Changelog
+- [2026-04-17] Lobe criado por T0 Antigravity conforme exigência do usuário. Adicionados dados exaustivos do Python SDK (Tools, Resources, Prompts, Context, Transport e Security).

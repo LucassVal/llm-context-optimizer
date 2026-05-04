@@ -1,0 +1,10 @@
+{
+  "checkpoint": "06_agent_smoke_test",
+  "timestamp": "2026-05-04T13:42:57Z",
+  "status": "OK",
+  "summary": "nc-courier (Qwen 1.5B) invoked via OpenCode Task tool. Successfully validated LEXICO JSON (12 keys, valid). Agents operational.",
+  "agents_tested": ["nc-courier"],
+  "pending": ["nc-engineer", "nc-guardian", "nc-auditor"],
+  "mcp_sse": "offline",
+  "hooks": "wireado (6P/4O/1E) mas sem MCP SSE ativo"
+}

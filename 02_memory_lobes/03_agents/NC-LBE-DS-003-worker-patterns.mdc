@@ -1,0 +1,322 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 ja esta no contexto desta sessao, SALTE. -->
+description: "Worker Patterns  Protocolos, REG-001 a 013, estado atual sesso 2026-04-12, regras 100k"
+lobe_name: "$WORKER_PATTERNS"
+lobe_id: "NC-LBE-DS-003"
+status: active
+module: industrialization
+domain: multi_agent_execution
+updated: "2026-04-12T23:22:00"
+temperature: 0
+status: archived
+---
+
+@UBL $WORKER_PATTERNS
+LEXICO: #worker #patterns #protocol #REG #agent
+
+
+<!-- NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+
+@UBL 3Ws
+LEXICO: #3W #what #why #where
+
+## What
+Módulo: NC LBE DS 003 worker patterns
+
+## Why
+Criado em 2026-04-12 — arquivo do ecossistema NeoCortex
+
+## Where
+02_memory_lobes/03_agents
+
+---
+
+
+
+
+<!-- NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 ja esta no contexto desta sessao, SALTE. -->
+
+@UBL WorkerPatterns
+LEXICO: #worker #patterns #execucao #nworkers
+
+# 1. $WORKER_PATTERNS  Padres de Execuo N-Workers
+# Atualizado sesso 2026-04-12  18 tickets DONE, fila zerada
+
+---
+
+
+
+
+<!-- NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 ja esta no contexto desta sessao, SALTE. -->
+
+@UBL RegraCritica100k
+LEXICO: #regra #critica #contexto #100k #janela
+
+##  REGRA CRTICA  JANELA DE CONTEXTO 100k
+
+**Quando contexto se aproximar de 100k tokens:**
+- NO inicie nova sesso/janela automaticamente
+- NO faa compactao implcita que perde estado
+- FAA: salve checkpoint no lobe antes de compactar
+- FAA: pea explicitamente ao T0 para continuar na mesma janela
+- FAA: leia este lobe + NC-BOOT-FR-001 ao inicio de cada sesso para restaurar contexto
+
+**Sintoma de perda de contexto:** worker executa prompt de reviso T0 em vez da task  REG-013.
+
+---
+
+
+
+
+<!-- NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 ja esta no contexto desta sessao, SALTE. -->
+
+@UBL EstadoAtualSistema
+LEXICO: #estado #atual #fila #entregaveis #2026-04-12
+
+## Estado Atual do Sistema (2026-04-12T23:22)
+
+### Fila: AVAILABLE=0 | DONE=18 | ACTIVE=0
+
+### Entregveis em Disco (verificados)
+```
+SERVICES (NC-SVC-FR-*)
+  NC-SVC-FR-001-logging-service.py     158L 
+  NC-SVC-FR-002-health-service.py      151L 
+  NC-SVC-FR-003-savepoint-stub.py      137L 
+  NC-SVC-FR-004-cache-service.py       180L 
+  NC-SVC-FR-005-event-bus.py           162L  (NC-DS-021)
+  NC-SVC-FR-006-metrics-collector.py   322L  (NC-DS-022)
+  NC-SVC-FR-007-state-machine.py       137L  (NC-DS-023)
+  NC-SVC-FR-008-config-validator.py    540L 
+
+UTILS (NC-UTL-FR-*)
+  NC-UTL-FR-001-yaml-safe-parser.py    199L 
+  NC-UTL-FR-002-hash-utils.py           94L  (criado T0)
+  NC-UTL-FR-003-path-resolver.py       446L  (NC-DS-026)
+
+CORE
+  neocortex/core/logging_config.py      70L  (criado T0)
+
+SCRIPTS (NC-SCR-FR-*)
+  NC-SCR-FR-001-populate-lobes-ssot.py 328L 
+  NC-SCR-FR-003-manifest-factory.py    508L 
+  NC-SCR-FR-005-auto-approve.py        215L 
+  NC-SCR-FR-006-ticket-validator.py    192L 
+  NC-SCR-FR-007-queue-monitor.py       273L 
+  NC-SCR-FR-008-queue-repair.py        117L 
+  NC-SCR-FR-009-sanitize-all-yamls.py  130L 
+  NC-SCR-FR-010-sync-ticket-status.py   46L 
+  NC-SCR-FR-011-sanitize-handoffs.py   138L 
+
+DOCS/ANLISES
+  NC-GOV-FR-001-nworker-protocol.md    
+  NC-ANA-CC-004-competitive-intel.md   
+  NC-ANA-CC-005-plugins-deep.md        
+  NC-ANA-CC-005-kairos-deep.md         
+  NC-STR-CC-001-master-strategy.md     435L (em progresso  Agent 1)
+```
+
+### Em andamento (23:22)
+- **Agent 1** (porta ~20504): NC-STR-CC-001 master strategy (435L, gerando handoff NC-DS-035)
+- **Agent 2** (porta ~52452): verificando NC-DS-012 (boot manifest) e NC-DS-016 (lobe CC-001)
+
+---
+
+
+
+
+<!-- NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 ja esta no contexto desta sessao, SALTE. -->
+
+@UBL IdentidadePortBased
+LEXICO: #identidade #port #hash #claim #worker
+
+## Identidade Port-Based
+
+```
+MY_PORT = port do processo OpenCode (ex: 44949)
+MY_HASH = hashlib.sha256(open(prompt_path).read().encode()).hexdigest()[:6]
+MY_CLAIM = f"worker-{MY_PORT}-{MY_HASH}"
+```
+
+---
+
+
+
+
+<!-- NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 ja esta no contexto desta sessao, SALTE. -->
+
+@UBL RegressionBuffer
+LEXICO: #regression #buffer #REG-001 #REG-013 #erros
+
+## Regression Buffer  REG-001 a 013
+
+| REG | Erro | Lio |
+|---|---|---|
+| REG-001 | files_modified com @LOCK  REJECTED | Nunca incluir server.py, sub_server.py, NC-NAM-FR-001 |
+| REG-002 | Loop infinito (MAX retry ignorado) | MAX 3 tentativas HARD STOP |
+| REG-003 | False DONE sem entrega real | lines_added=0  ESCALATED obrigatrio |
+| REG-004 | Handoff 0L submetido | S submeter handoff com entrega real verificvel |
+| REG-005 | PS heredoc para criar arquivos | Usar Python ou write_to_file diretamente |
+| REG-006 | SSOT no atualizado ao fim | Atualizar @SSOT logo aps criar arquivo |
+| REG-007 | fix_queue sem limpar claimed_by | Reset DEVE limpar: claimed_bynull, queue.lock, active-zones |
+| REG-008 | PASSO 1 sem filtro completed_at | Filtro DUPLO: status=AVAILABLE E completed_at=null |
+| REG-009 | Aprovao sem atualizar fila | Aprovao handoff = statusDONE na MESMA operao |
+| REG-010 | Worker no limpa active-zones ao sair | F6 DEVE: remover active-zones + deletar queue.lock |
+| REG-011 | Fila YAML no escala N>3 workers | YAML = TOCTOU. SQLite (MCP-WQUEUE)  a soluo definitiva |
+| REG-012 | Desync ticket YAML vs fila ao rejeitar | Reset de task = atualizar AMBOS: ticket.status + fila.status |
+| REG-013 | Worker executa prompt T0 em vez da task | Janela com contexto sujo de sesso anterior. Usar porta nova + lobe fresh |
+
+---
+
+
+
+
+<!-- NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 ja esta no contexto desta sessao, SALTE. -->
+
+@UBL ProtocoloDispatch
+LEXICO: #protocolo #dispatch #individual #agent #task
+
+## Protocolo de Dispatch Individual (padro atual pr-MCP)
+
+**Regra:** 1 agent = 1 task = 1 prompt direto (NO usar fila compartilhada)
+
+```
+T0  Agent N: "Execute task XYZ descrita em DIR-DS-001-tickets/NC-DS-XXX.yaml
+               NO use a fila. Gere handoff NC-DS-XXX-handoff-{timestamp}.yaml"
+```
+
+**Por qu:** Fila YAML com N>3 workers causa race conditions (REG-011). Dispatch individual  seguro at MCP-WQUEUE estar pronto.
+
+---
+
+
+
+
+<!-- NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 ja esta no contexto desta sessao, SALTE. -->
+
+@UBL ProtocoloRevisaoT0
+LEXICO: #protocolo #revisao #T0 #batch_approve #handoff
+
+## Protocolo de Reviso T0 (batch_approve)
+
+```python
+# batch_approve l campos alternativos de lines  NUNCA apenas lines_added
+LINE_FIELDS = ["lines_added", "lines_of_code", "total_lines_of_code", "lines_count", "handoff_lines"]
+# threshold: >= 50L  APPROVED, < 10L  REJECTED, entre 10-49L  MANUAL (T0 review)
+```
+
+**Workflow:**
+1. Worker gera handoff com `status: PENDING_REVIEW`
+2. T0 roda `batch_approve.py`
+3. Aprovados  fila `status: DONE`
+4. Rejeitados  fila `status: AVAILABLE` (ticket volta)
+
+---
+
+
+
+
+<!-- NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 ja esta no contexto desta sessao, SALTE. -->
+
+@UBL ProximosTickets
+LEXICO: #proximos #tickets #NC-DS-029 #pre-MCP
+
+## Prximos Tickets (pr-MCP)  NC-DS-029+
+
+Aguardando NC-STR-CC-001 do Agent 1 para lista definitiva. Prvia:
+
+| Ticket | Descrio | Dependncia |
+|---|---|---|
+| NC-DS-029 | Ralph-Wiggum  Worker Persistente em loop | Nenhuma |
+| NC-DS-030 | Buddy Light  Session stats (NC-SVC-FR-009) | NC-SVC-FR-006  |
+| NC-DS-031 | Hookify-like  Hooks YAML+Python | Nenhuma |
+| NC-DS-032 | Config por projeto `.nc/` | Nenhuma |
+| NC-DS-033 | Template NC-TOOL-FR-* | Nenhuma |
+| NC-DS-034 | Auto-review confidence score | batch_approve  |
+
+---
+
+
+
+
+<!-- NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 ja esta no contexto desta sessao, SALTE. -->
+
+@UBL ScriptsManutencaoT0
+LEXICO: #scripts #manutencao #T0 #queue #repair
+
+## Scripts de Manuteno T0
+
+| Script | Propsito | Quando usar |
+|---|---|---|
+| `NC-SCR-FR-008-queue-repair.py` | Limpa fila corrompida | Antes de reativar workers |
+| `NC-SCR-FR-009-sanitize-all-yamls.py` | Limpa claimed_by sujos, states rfos | Aps caos de N-workers |
+| `NC-SCR-FR-010-sync-ticket-status.py` | Sincroniza ticket YAML com fila | Aps auditoria DELIVERABLES |
+| `NC-SCR-FR-011-sanitize-handoffs.py` | Remove duplicatas de audit-logs | Aps batch de workers |
+| `batch_approve.py` | Aprova handoffs em massa | Aps sesso de workers |
+
+---
+
+
+
+
+<!-- NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 ja esta no contexto desta sessao, SALTE. -->
+
+@UBL ArquiteturaSQLiteHibrida
+LEXICO: #arquitetura #sqlite #hibrida #MCP-WQUEUE #roadmap
+
+## Arquitetura SQLite Hbrida (MCP-WQUEUE  roadmap)
+
+| Camada | Hoje | Futuro |
+|---|---|---|
+| Fila (status, claims) | YAML NC-CFG-DS-004 | SQLite task_queue.db (ACID) |
+| A2A Gateway | Dispatch manual T0 | Gateway :8766 com registry |
+| Handoffs (auditoria) | YAML NC-DS-*-handoff | YAML mantido (imutvel) |
+
+**Fase atual:** Dispatch individual at SQLite estar pronto.
+**Ticket:** MCP-WQUEUE (NC-TOOL-FR-030)  BLOQUEADO at NC-DS-029+ concludos.
+
+---
+
+
+
+
+<!-- NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 ja esta no contexto desta sessao, SALTE. -->
+
+@UBL AnaliseCCLeak
+LEXICO: #analise #CC #leak #estrategia #insights
+
+## Anlise CC Leak (insights estratgicos)
+
+**Fonte:** NC-STR-CC-001-master-strategy.md (Agent 1, 435L)
+
+| Item | Status NeoCortex | Plano |
+|---|---|---|
+| Hookify (PreToolUse hooks) |  No existe | NC-DS-031 pr-MCP |
+| KAIROS  PulseDaemon event-driven |  Parcial (pulse fixo) | NC-DS-039 ps-MCP |
+| Plugin marketplace NC-TOOL-FR-* |  No existe | NC-DS-033 pr-MCP |
+| A2A Gateway (Bridge adaptado) |  No existe | NC-SVC-FR-011 ps-MCP |
+| Auto-review confidence >80 |  batch_approve bsico | NC-DS-034 pr-MCP |
+| Ralph-Wiggum (loop worker) |  No existe | NC-DS-029 pr-MCP |
+| Buddy Light (session stats) |  Metrics collector existe | NC-DS-030 pr-MCP |
+
+**Renomeaes aplicadas (sem risco IP):**
+- KAIROS  PulseDaemon / TickEngine
+- Buddy  SessionMate
+- Ralph-Wiggum  PersistentWorker
+- hookify  MentorHooks / GuardHooks
+- Bridge  A2AGateway

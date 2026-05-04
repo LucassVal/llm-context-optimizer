@@ -1,0 +1,14 @@
+{
+  "category": "05_machine_learning",
+  "tags": [
+    "mcp-tools",
+    "manifest",
+    "tools-index",
+    "api-reference"
+  ],
+  "summary": "Manifesto das 43 MCP Tools: Uma visão geral dos principais recursos e ferramentas disponíveis para o desenvolvimento de sistemas.",
+  "priority_score": 8,
+  "file": "NC-LBE-FR-TOOLS-MANIFEST-001.mdc",
+  "lobe_id": "NC-LBE-FR-TOOLS-MANIFEST-001",
+  "classified": "2026-04-21T10:36:56"
+}

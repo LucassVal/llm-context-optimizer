@@ -1,0 +1,89 @@
+---
+lobe_id: NC-LBE-SES-002-20260430
+domain: 08_sessions
+type: SESSION_MEMORY
+created: 2026-04-30T19:30:00
+status: COMPLETED
+lifecycle: PERMANENT
+temperature: 35
+---
+
+
+
+
+
+@UBL session-20260430-mcp
+LEXICO: #session #mcp-corrections
+# 1. Session 2026-04-30 — SESS-002 — MCP Corrections
+
+
+
+
+
+@UBL deliveries
+LEXICO: #deliveries #fixes
+## Deliveries
+- 10 headers YAML truncados/corrompidos restaurados
+- 4 compile_fail corrigidos (FR-101, 105, 107, 116 — docstrings duplicadas)
+- 8 boot checkpoints no server.py (01_fastmcp_create → 08_server_running + BOOT_COMPLETE)
+- Transporte MCP migrado: sse → streamable-http (:8765/mcp)
+- DuckDB lock resolvido: NEOCORTEX_METRICS_MODE=memory para stdio (multi-process)
+- OpenCode mcp.json: formato corrigido (type:local, command:[], environment:{})
+- Antigravity mcp_config.json: :8765/sse → :8765/mcp, transport: streamable-http
+- Launcher .bat atualizado (NC-SCR-FR-104-neocortex-launcher.bat)
+
+
+
+
+
+@UBL files-modified
+LEXICO: #files #modified
+## Files Modified
+- 01_neocortex_framework/neocortex/core/NC-CORE-FR-101, 105, 107, 116 (docstrings)
+- 01_neocortex_framework/neocortex/mcp/server.py (checkpoints + transport)
+- 01_neocortex_framework/neocortex/mcp/tools/pulse.py (docstrings)
+- 01_neocortex_framework/neocortex/repositories/__init__.py, base.py, file_system_repository.py (headers)
+- 01_neocortex_framework/neocortex/schemas/__init__.py (header)
+- 01_neocortex_framework/neocortex/infra/metrics_store.py (NEOCORTEX_METRICS_MODE=memory)
+- 01_neocortex_framework/scripts/NC-SCR-FR-104-neocortex-launcher.bat
+- %APPDATA%/Code/User/mcp.json (OpenCode stdio config)
+- ~/.gemini/antigravity/mcp_config.json (Antigravity HTTP config)
+
+
+
+
+
+@UBL system-state
+LEXICO: #state #health
+## System State
+- MCP HTTP: streamable-http :8765/mcp (Antigravity)
+- MCP Stdio: local subprocess (OpenCode)
+- Tools: 21/21 loaded, 0 failures
+- Boot checkpoints: 8/8 OK
+- py_compile: ALL clean
+- ruff: ALL clean
+- PulseScheduler: RUNNING (300s)
+- Governance: MDC rules injected
+
+
+
+
+
+@UBL startup-sequence
+LEXICO: #startup #boot
+## Startup Sequence
+1. Rode NC-SCR-FR-104-neocortex-launcher.bat → HTTP server :8765
+2. Abra OpenCode → stdio MCP auto-inicia via mcp.json
+3. Antigravity já conecta via mcp_config.json
+
+
+
+
+
+@UBL pending
+LEXICO: #pending #next-steps
+## Pending
+- OpenCode MCP stdio ainda pode dar DISABLE (testar após reload)
+- ~50 NC-CORE-FR com headers @Tag truncados (cosmético)
+- NC-DS-250 Cache Hit Monitor
+- Fase 2: NC-DS-211, 216, 217, 222

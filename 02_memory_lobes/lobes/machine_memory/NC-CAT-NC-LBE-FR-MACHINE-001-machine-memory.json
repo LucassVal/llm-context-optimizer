@@ -1,0 +1,15 @@
+{
+  "category": "05_machine_learning",
+  "tags": [
+    "machine-learning",
+    "qwen",
+    "feedback",
+    "inference",
+    "patterns"
+  ],
+  "summary": "Centraliza histórico de inferências, patterns aprendidos e auto-feedback dos agentes locais (Qwen 1.5b/3b).",
+  "priority_score": 8,
+  "file": "NC-LBE-FR-MACHINE-001-machine-memory.mdc",
+  "lobe_id": "NC-LBE-FR-MACHINE-001-machine-memory",
+  "classified": "2026-04-21T10:37:20"
+}

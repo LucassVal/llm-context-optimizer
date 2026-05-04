@@ -1,71 +1,66 @@
-<!-- NC-READ-HASH: NC-BOOT-FR-001-v5 -->
-<!-- DEDUP: Se NC-BOOT-FR-001-v5 j est no teu contexto desta sesso, SALTE este bloco inteiro. -->
+<!-- NC-READ-HASH: NC-BOOT-FR-001-v7 -->
+<!-- DEDUP: Se NC-BOOT-FR-001-v7 ja esta no contexto desta sessao, SALTE. -->
 
 # NC-BOOT-FR-001  NeoCortex: Boot Universal Completo
 
-> **LEIA ESTE ARQUIVO PRIMEIRO  e apenas este.** Ele contm TUDO.  
-> Qualquer IA (Antigravity, OpenCode, Cursor, Claude, DeepSeek) comea aqui.  
-> Última atualização: 2026-04-18 | **v5**  SPRINT-ACELERADO-MCP | GPU Split ativo
+> **LEIA ESTE ARQUIVO PRIMEIRO — e apenas este.** Ele contem TUDO.  
+> Qualquer IA (Antigravity, OpenCode, Cursor, Claude, DeepSeek) comeca aqui.  
+> Ultima atualizacao: 2026-05-04 | **v7** — GOVERNANCA & MULTI-AGENTE | LEXICO v4.1 ativo | NC- 67.9%
 
 ---
 
 ## 1. IDENTIDADE DO SISTEMA
 
-**Projeto:** NeoCortex MCP Framework  
+**Projeto:** NeoCortex MCP Framework v5.0  
 **GitHub:** https://github.com/LucassVal/llm-context-optimizer  
-**Raiz:** `C:\Users\Lucas Valrio\Desktop\TURBOQUANT_V42\`  
+**Raiz:** `C:\Users\Lucas Valerio\Desktop\TURBOQUANT_V42\`  
 **Framework:** `01_neocortex_framework\`  
-**Objetivo:** Servidor MCP local que reduz custo de API substituindo tokens de cloud por memria persistente (lobos) + orquestrao multi-agente via PicoClaw + integrao visual via Mission Control e Pixel Agents.  
-**Dono:** Lucas Valrio  
-**Fase atual:** FASE 4 (MIGRAÇÃO RUST & SOTA). MCP-ATIVO — Python MVP 100% OK. Implementado: Zero-Trust, mmap IPC, LanceDB Indexing e Thermal Decay. Pronto para migração infra para Rust via `neocortex-mcp-rs`. Socket TCP :8765 blindado. 17 tools nativas auditadas.
+**Objetivo:** Framework MCP industrial com governanca de IA, orquestracao multi-agente, memoria persistente (lobos) e resolvedor semantico de paths (LEXICO).  
+**Dono:** Lucas Valerio  
+**Fase atual:** GOVERNANCA & MULTI-AGENTE. MCP ativo via stdio local. 155 servicos no LEXICO v4.1, 4 agentes OpenCode configurados, 250 simbolos ULQ. Ollama :11434 com Qwen 1.5B/3B. NC- 67.9% em ascensao.
+
+**Versoes dos componentes:**
+| Componente | Versao |
+|-----------|--------|
+| Package | 4.2.0 |
+| LEXICO | v4.1 |
+| SSOT (NC-NAM-FR-001) | v1.3 |
+| Architecture Blueprint | v3.0 |
+| Governance Rules | v1.3 |
+| Boot Manifest | v7 |
 
 ---
 
-## 2. ARQUITETURA COMPLETA DE PORTAS (Mapa Maduro v4)
+## 2. ARQUITETURA ATUAL (v7 — 2026-05-04)
 
 ```
- COMANDO (entram ordens no core) 
+  T0 (DeepSeek V4 Pro via OpenCode)
+   │
+   ├─ Ollama :11434 (LOCAL iGPU)
+   │   ├─ Qwen 2.5 Coder 1.5B → nc-courier (T1, rotinas) + nc-guardian (T3, validacao)
+   │   └─ Qwen 2.5 Coder 3B  → nc-engineer (T2, micro-tarefas em sandbox)
+   │
+   ├─ MCP stdio local (neocortex.mcp.server)
+   │   └─ 155 serviços no LEXICO v4.1 (#TOOLGUARD, #GATEWAY, etc.)
+   │
+   └─ Agentes OpenCode (.opencode/agents/)
+      ├─ nc-courier  → Qwen 1.5B (T1), rotinas mecanicas, ciclos, dados. Nunca decide.
+      ├─ nc-engineer → Qwen 3B (T2), micro-tarefas em sandbox. T0 aprova.
+      ├─ nc-guardian → Qwen 1.5B (T3), validacao read-only. @LOCKS + naming + secrets.
+      └─ nc-auditor  → DeepSeek Flash (TA), auditoria pesada. Reporta ao T0.
 
-  Antigravity (T0)            Mission Control
-  IDE via MCP stdio/SSE        :3000 HTTP/WS (React app)
-                                   
-        
-                    
- NEOCORTEX CORE (Domnio DDD) 
-  Lobes  HookRegistry  Checkpoint  SSOT  TaskQueue  ProjectConfig
-
-                                              
-      despacha tasks              emite eventos (HookRegistry)
-                                             
-PicoClaw (:18790)                       bridge JSONL
-gateway A2A                                   
-                                             
-                                      Pixel Agents (:8767)
-OpenCode (:45132 / :32879)             visualizao pixel-art
-DeepSeek T1 executor                   (obs. passivo)
-
- OBSERVABILIDADE 
-  Mission Control activity feed  SSE/WS  HookRegistry (AuditHook)
-  neocortex_hud.py              polling local  server.py
+  RESOLUÇÃO DE PATHS (ADR-008)
+   SSOT → referencia #TOOLGUARD → LEXICO v4.1 resolve → path real
+   NENHUM código, ticket ou documento hardcoda paths.
 ```
-
-### Papis por componente
-
-| Componente | Papel DDD | Porta | Direo |
-|---|---|---|---|
-| **Antigravity** | Adaptador primrio | MCP stdio |  Core (comanda) |
-| **Mission Control** | Adaptador primrio | :3000 |  Core (comanda + observa) |
-| **LiteLLM Gateway** | Proxy LLM unificado | :4000 | Todos os modelos (DeepSeek + Ollama) |
-| **PicoClaw** | Adaptador secundrio (driven) | :18790 | Core  Agentes |
-| **OpenCode** | Runtime dos agentes T1 | :45132/:32879 | Executa tasks do PicoClaw |
 | **DeepSeek** | LLM executor | via :4000 | LiteLLM roteia |
 | **Ollama (Qwen)** | Worker pool braçal | :11434 | LiteLLM roteia |
 | **Pixel Agents** | Adaptador secundrio (observer) | :8767 | Core  Visual |
 | **neocortex_hud.py** | Dashboard local | GUI Tkinter | Read-only monitor |
 
 ### Regra de ouro
-> T0 (Antigravity) **pensa e decide**. OpenCode/DeepSeek **executam**. PicoClaw **despacha**. Nunca inverter.  
-> O Core **no sabe** que Mission Control ou Pixel Agents existem  DDD hexagonal.
+> T0 (OpenCode) **pensa e decide**. Agentes (nc-courier, nc-engineer, nc-guardian, nc-auditor) **executam**. OpenCode **orquestra** nativamente. Hierarquia completa: **Constitution §4** (`@UBL agent-rules`).
+> O Core **não sabe** que Mission Control ou Pixel Agents existem — DDD hexagonal.
 
 ### Mapeamento de Portas NeoCortex (Orquestrador Unitário)
 
@@ -162,21 +157,20 @@ python 01_neocortex_framework\scripts\NC-SCR-FR-001-populate-lobes-ssot.py --dry
 | `@SOP` | `DIR-DOC-FR-001-docs-main/NC-SOP-FR-001-session-startup.md` | SOP de sesso |
 | `@POPULATE` | `scripts/NC-SCR-FR-001-populate-lobes-ssot.py` | Popula lobos |
 | `@APPENDIX` | `DIR-DOC-FR-001-docs-main/NC-APP-FR-001-technical-appendix.md` | Tools, libs, LLMs |
-| `@ULQ` | `DIR-DOC-FR-001-docs-main/NC-DOC-FR-001-ubiquitous-language-dictionary.md` | Dicionrio @$% |
-| `@PROMPT` | `NC-PROMPT-FR-001-master-context.md` (raiz) | Contexto master v8 |
+| `@ULQ` | `DIR-DOC-FR-001-docs-main/NC-DOC-FR-001-ubiquitous-language-dictionary.md` | Dicionário @$% |
+| `@CHANGELOG` | `DIR-DOC-FR-001-docs-main/NC-CHG-FR-001-changelog.yaml` | Changelog + Kaizen unificado |
+| `@MAPS` | `DIR-DOC-FR-001-docs-main/NC-MAP-FR-001-structural-maps.yaml` | 6 mapas estruturais |
+| `@PROMPT` | `DIR-DS-000-agent-config/NC-PROMPT-DS-001-deepseek-subordinate.md` | T1 Master context |
 
 ---
 
-## 6. FRENTES OPERACIONAIS ATIVAS (2026-04-20)
+## 6. FRENTES OPERACIONAIS ATIVAS (2026-05-04)
 
 ** FRENTE ATIVA:** Correes Crticas NeoCortex (Orquestrao T0)
 
-1. **Tester  Correo testes VectorEngine (async/API)**
-   - Handoff: NC-DS-048  COMPLETED
-   - Resultado: Aplicação massiva de metadados de frontmatter (domain, layer, type, tags, hash) em todos os arquivos complementares (Testes, Templates, Scripts base, configurações raiz) conforme especificado no ticket.
-
 1. **Outros  Tarefas diversas**
-   - Handoff: NC-DS-121  COMPLETED
+   - Handoff: NC-DS-223  COMPLETED
+   - Resultado: {'what': 'requirements.txt atualizado com 14 dependencias reais (ground truth do STEP 0).', 'why': '
 
 **Prximo passo:** Executar testes corrigidos (`pytest tests/test_vector_engine.py -v --asyncio-mode=auto`)
 
@@ -212,8 +206,9 @@ python 01_neocortex_framework\scripts\NC-SCR-FR-001-populate-lobes-ssot.py --dry
 | LEXICO-002 | `NC-SCR-FR-135` | ✅ DONE | 1041 termos classificados em 6 regiões cerebrais via keyword + LLM (Qwen 1.5b) |
 | Orphan Scripts | `NC-SCR-FR-136..144` | ✅ DONE | 9 renomeados + 25 arquivados em DIR-ARC-FR-001 |
 | Manifests Dirs | `_INDEX.mdc` x14 | ✅ DONE | 14 dirs indexados (CFG, REF, TEST, DS-001..004, templates, docs, etc.) |
-| **SOTA Industrialization** | **PHASE-4-MVP** | ✅ **DONE** | **Python Core Industrializado: Zero-Trust, mmap IPC, LanceDB, Thermal Decay.** |
-| .gitignore | — | ✅ DONE | +10 entradas: node_modules, *.archived, logs, reports/ |
+| **DDD Memory Indust.** | `NC-DS-202` | ✅ **DONE** | **Arquitetura DDD Canônica: _INDEX.yaml + Junctions para 8 domínios cerebrais.** |
+| **DeepSeek v4/R1** | `deepseek-v4` | ✅ **DONE** | **Payloads industrializados: Thinking Mode (Enabled/Effort) + Multi-Round Chat.** |
+| .gitignore | — | ✅ DONE | +10 entradas: node_modules, *.archived, logs, reports, **02_memory_lobes/$lobe/** |
 
 **Distribuição semântica atual (FTS5 — 1041 termos):**
 ```
@@ -249,8 +244,25 @@ FASE PR-MCP [ATUAL]:
    ORCH-302 — DONE (NC-DS-096, neocortex_task SSE polling)
    SAVE-005 — WIRED (dry-run preview middleware)
 
-CRITÉRIO DE ENCERRAMENTO DA FASE PR-MCP:
+CRITRIO DE ENCERRAMENTO DA FASE PR-MCP:
   Antigravity chama tool MCP → Core recebe → PicoClaw despacha → OpenCode executa → resultado retorna
+
+## 9. DDD MEMORY ARCHITECTURE (2026-04-27)
+
+Estrutura de diretórios em `02_memory_lobes/` organizada por domínios canônicos e vinculada via **Directory Junctions** aos domínios cerebrais ($).
+
+| Lobe Canônico | Domínio DDD | Brain Link ($) | DeepSeek Capabilities |
+|---|---|---|---|
+| ARCHITECTURE-001 | `01_architecture` | `$occipital/` | chat, reasoner, thinking |
+| SECURITY-001 | `02_security` | `$hipocampo/` | chat, reasoner |
+| DEVELOPMENT-001 | `03_development` | `$parietal/` | chat, reasoner, thinking |
+| PROFILES-001 | `04_profiles` | `$parietal/` | chat |
+| WHITELABEL-001 | `05_whitelabel` | `$temporal/` | chat |
+| FRONTAL-001 | `06_governance` | `$frontal/` | reasoner, thinking |
+| TEMPORAL-001 | `07_lexicon` | `$temporal/` | chat, reasoner |
+| HIPOCAMPO-001 | `08_sessions` | `$hipocampo/` | chat, reasoner |
+
+> **Nota:** Todos os links são gerados automaticamente pelo script `@POPULATE` baseado no `_INDEX.yaml`.
   = Loop completo Antigravity ↔ Core ↔ PicoClaw ↔ OpenCode via MCP
 
 PRÓXIMOS PASSOS:
@@ -388,3 +400,14 @@ PRÓXIMOS PASSOS:
  @BOOT atualizado (frentes + tickets + status)    OBRIGATRIO
  Nenhum *.db / *.wal / __pycache__ commitado
 ```
+
+
+## STEP 0 ENFORCEMENT (added 2026-04-29)
+Gateway now reads this manifest on first action (R16).
+SSOT files listed here MUST be consulted before any action.
+RAC+3W+KISS+R117 enforced via NC-RULE-009.
+
+| Semantic Router (FR-165) | Central index + Domain Routers (8 domains, 763 items) | R118 |
+| NC-ARC-FR-002-architecture-blueprint.yaml | DDD Architecture + Orbitals + Semantic Router | DDD |
+| NC-LBE-FR-CONSTITUTION-001.mdc | AI Constitution (Shared Kernel, 13 sections) | R82 |
+| NC-LBE-FR-RULES-MULTILAYER-001.mdc | 123 Rules + 4 Mordacas (H/C/S/U) v3.2 | R01-R120 |

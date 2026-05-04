@@ -1,0 +1,254 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 ja esta no contexto desta sessao, SALTE. -->
+title: NC-LBE-FR-GOVERNANCE-001
+version: v1.0
+created: 2026-04-18
+created_by: T0-Antigravity
+tags: governance, ssot, rules, cycles, locks, compliance, audit
+status: active
+module: governance
+temperature: 0
+status: archived
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+## What
+Módulo: NC LBE FR GOVERNANCE 001
+
+## Why
+Criado em 2026-04-18 — arquivo do ecossistema NeoCortex
+
+## Where
+02_memory_lobes/$frontal
+
+---
+
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 ja esta no contexto desta sessao, SALTE. -->
+# NC-LBE-FR-GOVERNANCE-001 — Framework de Governança NeoCortex
+
+## Resumo Executivo
+
+O NeoCortex opera com um sistema de **governança multicamada** que garante
+rastreabilidade, conformidade e reprodutibilidade de todas as ações de IA.
+Toda IA que interagir com este sistema DEVE ler este lobe antes de agir.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL master-law
+# 1. A Lei Mestra (Hierarquia)
+LEXICO: #master-law #hierarchy #ssot #roadmap #locks #boot #ulq
+
+```
+NC-WF-001 (lei mestra — .agents/workflows/NC-WF-001-workspace-routine.md)
+│
+├── @SSOT   → NC-NAM-FR-001  (naming convention, mapa de artefatos)
+├── @ROADMAP → NC-TODO-FR-001 (todos os tickets e fases)
+├── @LOCKS  → NC-SEC-FR-001  (arquivos IMUTÁVEIS — NUNCA modificar)
+├── @BOOT   → NC-BOOT-FR-001 (estado real do sistema, ports, lobes)
+└── @ULQ    → NC-DOC-FR-001  (dicionário ubíquo @/$/%  símbolos)
+```
+
+**Regra Absoluta:** Se não há ticket → não há trabalho. Se há trabalho → deve haver handoff.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL operational-cycles
+# 2. Os 4 Ciclos Operacionais
+LEXICO: #operational-cycles #ciclo-0-4 #mcp-verification #session #execution #maintenance
+
+| Ciclo | Nome | Frequência | Objetivo |
+|-------|------|-----------|---------|
+| **CICLO 0** | Verificação MCP | A cada sessão | Confirmar stack rodando (portas + health) |
+| **CICLO 1** | Início de Sessão | A cada sessão | Baseline: catálogo, tickets, YAMLs |
+| **CICLO 2** | Durante Sessão | Por ticket | Executar com handoff obrigatório |
+| **CICLO 3** | Fim de Sessão | A cada sessão | Consolidar: catálogo, bootup, WAL pruning |
+| **CICLO 4** | Limpeza Semanal | Semanal | Arquivar, auditar, popular lobes |
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL atomic-locks
+# 3. Atomic Locks — Arquivos SAGRADOS
+LEXICO: #atomic-locks #sacred-files #immutable #server-py #ssot #config
+
+Nunca modificar diretamente. Qualquer mudança requer autorização T0 explícita.
+
+```yaml
+locked_files:
+  - 01_neocortex_framework/neocortex/mcp/server.py
+  - 01_neocortex_framework/neocortex/mcp/sub_server.py
+  - 01_neocortex_framework/neocortex/neocortex_config.yaml
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md
+```
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL write-zones
+# 4. Zonas de Escrita por Role
+LEXICO: #write-zones #roles #t0 #t1 #courier #machine-memory #r06
+
+| Role | Pode escrever em |
+|------|-----------------|
+| T0 (Antigravity) | Qualquer zona exceto @LOCKS |
+| T1 (DeepSeek/Qwen) | `05_examples/`, `DIR-DS-001-tickets/`, `DIR-DS-002-audit-logs/` |
+| Courier (Qwen 1.5b) | `DIR-DS-001-tickets/`, `DIR-DS-002-audit-logs/` apenas |
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL ticket-lifecycle
+# 5. Ciclo de Vida do Ticket (CRÍTICO)
+LEXICO: #ticket-lifecycle #open #in-progress #done #failed #escalated #handoff
+
+```
+CRIADO → OPEN → IN_PROGRESS → DONE (com handoff APPROVED)
+                             ↓ falha
+                           FAILED (com handoff FAILED)
+                             ↓ bloqueio
+                          ESCALATED (handoff ESCALATED → T0 decide)
+```
+
+**Handoff obrigatório:** `DIR-DS-002-audit-logs/NC-DS-{ID}-handoff-{YYYYMMDDTHHMMSS}.yaml`
+
+Campos mandatórios no handoff:
+- `ticket_id`, `status`, `agent`, `summary`
+- `files_created`, `files_modified`
+- `locks_clean: true` (confirma que @LOCKS não foi violado)
+- `ssot_updated: true/false` (confirma se SSOT foi atualizado)
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL naming-convention
+# 6. Naming Convention NC- (R01 — CRÍTICO)
+LEXICO: #naming-convention #nc-prefix #r01 #tool #svc #lbe #scr #ds #led #boot
+
+**Formato:** `NC-<TIPO>-<SIGLA>-<NUM>-<desc>.<ext>`
+
+| Tipo | Descrição | Exemplos |
+|------|-----------|---------|
+| `TOOL` | MCP Tool Python | NC-TOOL-FR-043-litellm.py |
+| `SVC`  | Serviço Core    | NC-SVC-FR-020-lexico-service.py |
+| `LBE`  | Lobe de Memória | NC-LBE-FR-LITELLM-001.mdc |
+| `SCR`  | Script         | NC-SCR-FR-110-litellm-startup.ps1 |
+| `DS`   | Ticket/Dataset  | NC-DS-131-ticket.yaml |
+| `LED`  | Ledger/Dict    | NC-LED-FR-002-lexico-dictionary.json |
+| `BOOT` | Boot/Config    | NC-BOOT-FR-001-system-manifest.md |
+| `GOV`  | Governança YAML | NC-GOV-FR-003-ia-governance-rules.yaml |
+| `CFG`  | Configuração   | NC-CFG-FR-002-rules-policy.yaml |
+| `TPL`  | Template       | NC-TPL-FR-001-template-central-index.yaml |
+| `TODo` | Roadmap        | NC-TODO-FR-001-project-roadmap-consolidated.md |
+
+**NUNCA** criar arquivo sem prefixo NC-. Sem exceções.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL compact-encoding
+# 7. Compact Encoding — Símbolos @/$/%
+LEXICO: #compact-encoding #symbols #ssot #roadmap #locks #boot #ulq #brain-regions
+
+| Símbolo | Referência |
+|---------|-----------|
+| `@SSOT` | NC-NAM-FR-001-naming-convention.md |
+| `@ROADMAP` | NC-TODO-FR-001-project-roadmap-consolidated.md |
+| `@LOCKS` | NC-SEC-FR-001-atomic-locks.yaml |
+| `@BOOT` | NC-BOOT-FR-001-system-manifest.md |
+| `@ULQ` | NC-DOC-FR-001-ubiquitous-language-dictionary.md |
+| `$ARCH` | NC-LBE-FR-ARCHITECTURE-001.mdc |
+| `$SEC` | NC-LBE-FR-SECURITY-001.mdc |
+| `$LITELLM` | NC-LBE-FR-LITELLM-001.mdc |
+| `$GOVERNANCE` | NC-LBE-FR-GOVERNANCE-001.mdc (este lobe) |
+| `%DONE` | Ticket concluído com handoff APPROVED |
+| `%NOW` | Urgente — prioridade máxima |
+| `%NEXT` | Próximo na fila |
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL health-watchdog
+# 8. Health Watchdog — Stack Mínimo
+LEXICO: #health-watchdog #stack-minimo #mcp-core #litellm #ollama #pulse-scheduler #ports
+
+O NeoCortex precisa dos seguintes serviços ativos para funcionar:
+
+| Serviço | Porta | Watchdog | Criticidade |
+|---------|-------|----------|------------|
+| MCP Core | :8765 | PulseScheduler | CRÍTICO |
+| LiteLLM Gateway | :4000 | PulseScheduler (litellm.watchdog) | ALTO |
+| Ollama | :11434 | PulseScheduler (ollama.watchdog) | ALTO |
+| Health Wrapper | :8766 | PulseScheduler | MÉDIO |
+| PicoClaw | :18790 | Deferido (sprint pós-acelerado) | BAIXO |
+| Mission Control | :3000 | Deferido | BAIXO |
+
+**Health check via MCP (sem MC):**
+```
+neocortex_health.metrics.live  → verifica todas as portas críticas
+neocortex_litellm.gateway.health → verifica :4000 especificamente
+neocortex_system.pulse.status  → verifica PulseScheduler
+```
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL ia-governance-rules
+# 9. 20 Regras de Governança de IA (Resumo)
+LEXICO: #ia-governance #20-regras #r01-r21 #critical #alto #enforcement
+
+| R# | Nome | Crítica |
+|----|------|---------|
+| R01 | Naming NC- | ✅ CRÍTICO |
+| R02 | SSOT Update após criar arquivo | ✅ CRÍTICO |
+| R03 | Roadmap @ROADMAP com ticket | ✅ CRÍTICO |
+| R04 | Atomic Locks imutáveis | ✅ CRÍTICO |
+| R05 | Sem deleção — arquivar | ✅ CRÍTICO |
+| R06 | Zonas de escrita por role | ✅ CRÍTICO |
+| R09 | Logger por módulo (não print) | 🟡 ALTO |
+| R10 | Sem hardcode de paths | 🟡 ALTO |
+| R17 | T2/T3 = braçal. T0 = orquestra | 🟡 ALTO |
+| R18 | Validar @LOCKS antes de escrever | ✅ CRÍTICO |
+| R19 | Um ticket por sessão | 🟡 ALTO |
+| R20 | Checklist fim de sessão | 🟡 ALTO |
+| R21 | Zero suposições (verificar ambiente real) | ✅ CRÍTICO |
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 ja esta no contexto desta sessao, SALTE. -->
+## Referências
+
+- Workflow: `.agents/workflows/NC-WF-001-workspace-routine.md`
+- SSOT: `01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md`
+- Roadmap: `01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md`
+- Locks: `01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml`
+- Boot: `DIR-BOOT-FR-001-bootup-main/NC-BOOT-FR-001-system-manifest.md`

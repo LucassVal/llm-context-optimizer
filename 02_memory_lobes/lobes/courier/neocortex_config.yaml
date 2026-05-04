@@ -1,0 +1,21 @@
+# Courier-specific configuration
+llm:
+  provider: ollama
+  model: qwen2.5-coder:1.5b-instruct
+  base_url: "http://localhost:11434"
+  temperature: 0.7
+  max_tokens: 4096
+
+# Agent-specific settings (if supported)
+agent:
+  role: courier
+  auto_start: true
+  idle_timeout: 0  # No timeout (24/7)
+
+# Security: allowed tools (if needed)
+security:
+  allowed_tools:
+    - neocortex_lobes.search
+    - neocortex_manifest.query
+    - neocortex_ledger.get_metrics
+    - neocortex_task.execute

@@ -1,0 +1,12 @@
+{
+  "category": "05_machine_learning",
+  "tags": [
+    "machine learning",
+    "user consciousness"
+  ],
+  "summary": "Este lobe define o perfil cognitivo do usuário no contexto de todos os agentes, utilizando técnicas de aprendizado de máquina para inferir e gerenciar comportamentos.",
+  "priority_score": 8,
+  "file": "NC-LBE-USR-001-user-consciousness.mdc",
+  "lobe_id": "NC-LBE-USR-001-user-consciousness",
+  "classified": "2026-04-21T10:37:16"
+}

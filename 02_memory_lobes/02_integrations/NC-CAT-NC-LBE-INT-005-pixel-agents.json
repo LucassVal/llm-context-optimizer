@@ -1,0 +1,17 @@
+{
+  "category": "08_integration",
+  "tags": [
+    "integration",
+    "pixel-agents",
+    "vscode",
+    "bridge",
+    "jsonl",
+    "opencode",
+    "neocortex"
+  ],
+  "summary": "Documentação completa gerada pelo agente 32879 (NC-DS-008) para a integração de agentes de IA em VS Code usando OpenCodeJSONL.",
+  "priority_score": 5,
+  "file": "NC-LBE-INT-005-pixel-agents.mdc",
+  "lobe_id": "NC-LBE-INT-005-pixel-agents",
+  "classified": "2026-04-21T10:37:03"
+}

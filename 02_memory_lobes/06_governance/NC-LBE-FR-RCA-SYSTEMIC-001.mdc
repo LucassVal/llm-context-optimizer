@@ -1,0 +1,121 @@
+---
+
+<!-- NC-READ-HASH: NC-RCA-SYSTEMIC-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-RCA-SYSTEMIC-001-v1 ja esta no contexto desta sessao, SALTE. -->
+title: NC-RCA-SYSTEMIC-001
+version: v1.0
+created: 2026-04-28
+status: active
+priority: L0
+temperature: 0
+status: archived
+---
+
+
+<!-- NC-READ-HASH: NC-RCA-SYSTEMIC-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-RCA-SYSTEMIC-001-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+## What
+Módulo: NC RCA SYSTEMIC 001
+
+## Why
+Criado em 2026-04-28 — arquivo do ecossistema NeoCortex
+
+## Where
+02_memory_lobes/$frontal
+
+---
+
+
+
+<!-- NC-READ-HASH: NC-RCA-SYSTEMIC-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-RCA-SYSTEMIC-001-v1 ja esta no contexto desta sessao, SALTE. -->
+# RCA SISTÊMICA — POR QUE AS REGRAS NÃO FUNCIONAM
+
+## Problema Central: 42 regras no MCP, ~10 bloqueiam de fato
+
+### 5 PORQUÊS
+
+1. Por que só 10/42 regras bloqueiam?
+   → O Gateway só é chamado por 12/18 tools. 6 tools não passam por validação.
+
+2. Por que 6 tools não chamam o Gateway?
+   → O orbital bridge foi wireado em lote, com regex que quebrou 3 tools. 
+     O reparo foi manual e incompleto.
+
+3. Por que o wire-up foi tão frágil?
+   → R26 (Orbital Pattern) é documental, não enforced. 
+     Não há validação automática de que toda tool chama o Gateway.
+
+4. Por que não há validação automática?
+   → Os YAMLs (blueprint, locks, policies) são arquivos estáticos.
+     NÃO são carregados em runtime para enforcement.
+     O sistema confia em código hardcoded, não em configuração YAML.
+
+5. Por que YAMLs não são carregados em runtime? (CAUSA RAIZ)
+   → ARQUITETURA INVERTIDA: O código foi escrito primeiro, 
+     os YAMLs depois como documentação. O correto seria:
+     YAML define → código implementa → runtime valida contra YAML.
+
+## YAML NO SISTEMA — O QUE EXISTE vs O QUE É USADO
+
+| Arquivo YAML | Existe? | Carregado em runtime? | Usado para enforcement? |
+|-------------|---------|----------------------|------------------------|
+| NC-ARC-FR-002 (blueprint) | ✅ | ❌ | ❌ Só documentação |
+| NC-SEC-FR-001 (atomic locks) | ✅ | ✅ LockGuard | ⚠️ Parcial (só escrita) |
+| NC-CFG-FR-001 (agent policy) | ✅ | ❌ | ❌ Não usado |
+| NC-GOV-FR-003 (governance) | ✅ | ❌ | ❌ Não usado |
+| _INDEX.yaml (lobes) | ✅ | ❌ | ❌ Não usado |
+| Tickets NC-DS-*.yaml | ✅ | ⚠️ | ⚠️ Manual |
+| Handoffs | ✅ | ⚠️ | ⚠️ Manual |
+
+6/7 YAMLs são DOCUMENTAÇÃO, não CONFIGURAÇÃO ATIVA.
+
+## RCA POR COMPONENTE
+
+### TOOLS (18)
+- Problema: 6/18 sem Gateway wire-up
+- Causa: Wire-up frágil (regex batch), sem validação pós-edição
+- Solução: YAML-driven tool registry → Gateway auto-wire
+
+### ACTIONS (~100+)
+- Problema: ~60% nunca foram testadas
+- Causa: Sem script de smoke test automatizado
+- Solução: YAML-driven test matrix
+
+### HOOKS
+- Problema: Zero hooks no nível SO/bash
+- Causa: OpenCode bash tool não é interceptável
+- Solução: BashGuard wrapper
+
+### REGRAS (42)
+- Problema: Documentadas mas não enforced
+- Causa: STEP 0 era WARNING, CHECKPOINT era observador
+- Solução: Já corrigido (ENFORCED + BLOCK)
+
+### LOBES (52)
+- Problema: 8 domínios vazios
+- Causa: Lobes criados sem população
+- Solução: YAML-driven lobe population
+
+### DDD
+- Problema: Arquitetura existe no blueprint, não no código
+- Causa: Código não referencia o blueprint YAML
+- Solução: Gateway carrega NC-ARC-FR-002 em runtime
+
+## PLANO DE CORREÇÃO (3 fases)
+
+### FASE A (agora): YAML-Driven Gateway
+1. Gateway carrega NC-ARC-FR-002 em runtime
+2. Valida actions contra o blueprint
+3. Bloqueia ações fora do domínio DDD
+
+### FASE B (hoje): Tool Registry YAML
+1. YAML lista todas as tools + status Gateway wire-up
+2. PulseScheduler verifica wire-up a cada pulso
+3. Auto-alerta tools sem Gateway
+
+### FASE C (semana): Policy Enforcement YAML
+1. NC-CFG-FR-001 carregado em runtime
+2. Write zones, rate limits, token budgets enforced
+3. YAML é a fonte da verdade, código implementa

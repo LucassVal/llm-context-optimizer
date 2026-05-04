@@ -1,0 +1,12 @@
+{
+  "category": "05_machine_learning",
+  "tags": [
+    "NC-LBE-DS-003",
+    "worker-patterns"
+  ],
+  "summary": "Documentação sobre padrões de execução para sistemas industriais, com regras específicas para lidar com grandes quantidades de tokens.",
+  "priority_score": 8,
+  "file": "NC-LBE-DS-003-worker-patterns.mdc",
+  "lobe_id": "NC-LBE-DS-003-worker-patterns",
+  "classified": "2026-04-21T10:37:04"
+}

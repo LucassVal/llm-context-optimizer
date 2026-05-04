@@ -1,0 +1,56 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-FR-QUALITY-002-context-compaction-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-QUALITY-002-context-compaction-v1 ja esta no contexto desta sessao, SALTE. -->
+description: "Protocolo de Compactao de Contexto e Checkpoints de Sesso (< 100k Tokens)"
+globs: "**/*.md", "**/*.mdc"
+temperature: 0
+status: archived
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-QUALITY-002-context-compaction-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-QUALITY-002-context-compaction-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+## What
+Módulo: NC LBE FR QUALITY 002 context compaction
+
+## Why
+Criado em 2026-04-14 — arquivo do ecossistema NeoCortex
+
+## Where
+02_memory_lobes/01_framework
+
+---
+
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-QUALITY-002-context-compaction-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-QUALITY-002-context-compaction-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL Context-Compaction
+LEXICO: #context #compaction #token-economy #checkpoint
+# 1. LOBE: Protocolo de Compactação e Economia de Contexto
+
+Este lobo padroniza o limite operacional de 100k tokens para sessões ativas do NeoCortex, validado matematicamente como ponto ideal entre retenção de memória e custo de Hit Cache.
+
+@UBL Context-Compaction
+LEXICO: #cap-100k #token-limit #end-of-cycle
+## 1. Regra de Teto (Cap 100k)
+Toda interação orquestrada (Interface Humano-OpenCode ou A2A via PicoClaw) **DEVE** acionar rotinas de compactação ao se aproximar de 100.000 tokens de contexto.
+1. **Sintoma:** Lentido no justificada ou excesso de rolagem histrica irrisria.
+2. **Ao:** Iniciar *End of Cycle* -> Atualizar o Master Context -> Fechar janela -> Abrir nova aba.
+
+@UBL Context-Compaction
+LEXICO: #checkpoints #durable-storage #t0-synthesis
+## 2. Checkpoints de Contexto
+A compactação é feita descarregando eventos em discos duráveis (Lobos e Prompts de Estado):
+- O agente T0 far a sntese final.
+- O resultado consolida em `NC-PROMPT-FR-001` (na seo de STATUS).
+- Conhecimento perene vira um `.mdc` em `01_neocortex_framework/lobes/`.
+
+@UBL Context-Compaction
+LEXICO: #auto-populate #nc-scr-fr-001 #semantic-indexing
+## 3. Auto-Povoamento (Auto-Populate)
+Antes de matar a janela de chat superlotada, o agente deve garantir que:
+- O script `NC-SCR-FR-001-populate-lobes-ssot.py` seja invocado. Ele extrai as nuances geradas e indexa os embeddings para a busca semntica nas prximas conversas curtas.
+- Em resumo: O que o chat efmero perde de histria literal, o Cortex ganha em semntica indexada para Retrieval de US$ 0.014/1M.

@@ -1,0 +1,17 @@
+{
+  "category": "07_governance",
+  "tags": [
+    "governance",
+    "ssot",
+    "rules",
+    "cycles",
+    "locks",
+    "compliance",
+    "audit"
+  ],
+  "summary": "O NC-LBE-FR-GOVERNANCE-001 é um framework de governança NeoCortex que garante rastreabilidade, conformidade e reprodutibilidade de todas as ações de IA.",
+  "priority_score": 8,
+  "file": "NC-LBE-FR-GOVERNANCE-001.mdc",
+  "lobe_id": "NC-LBE-FR-GOVERNANCE-001",
+  "classified": "2026-04-21T10:36:50"
+}

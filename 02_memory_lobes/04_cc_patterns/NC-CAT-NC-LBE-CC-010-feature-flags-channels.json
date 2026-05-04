@@ -1,0 +1,13 @@
+{
+  "category": "09_documentation",
+  "tags": [
+    "feature_flags",
+    "channels",
+    "growthbook"
+  ],
+  "summary": "Documentação detalhada sobre feature flags e canais no software framework.",
+  "priority_score": 8,
+  "file": "NC-LBE-CC-010-feature-flags-channels.mdc",
+  "lobe_id": "NC-LBE-CC-010-feature-flags-channels",
+  "classified": "2026-04-21T10:37:15"
+}

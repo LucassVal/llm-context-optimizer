@@ -1,0 +1,376 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 ja esta no contexto desta sessao, SALTE. -->
+alwaysApply: false
+description: "Sistema de reviso com confiana (codereview plugin) do Claude Code. Mapeamento para NeoCortex: ConfidenceReviewService. Score 0100, mltiplos validadores, thresholds >80 autoaprovado/<50 rejeitado/5080 manual, validadores: naming NC*, py_compile, @LOCKS check, SSOT update."
+temperature: 0
+status: archived
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+## What
+Avalia um arquivo handoff YAML e retorna score agregado + deciso.
+
+## Why
+Criado em 2026-04-16 — arquivo do ecossistema NeoCortex
+
+## Where
+02_memory_lobes/04_cc_patterns
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL confidence-review-overview
+LEXICO: #confidence-review #codereview #scoring #thresholds #autoapproval
+# $CONFIDENCE_REVIEW  Codereview Plugin do Claude Code  NeoCortex
+
+<!-- NC-LBE-CC-004 | v1.0 | 20260413T00:05:00 | Criado por Analista de Documentao NeoCortex -->
+<!-- PROPSITO: Documentar padro de reviso com confiana (codereview plugin) do Claude Code e mapear para implementao NeoCortex (ConfidenceReviewService). -->
+<!-- ISOLAMENTO: Readonly  no produz cdigo ativo, apenas insights de arquitetura. -->
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL visao-geral-codereview
+LEXICO: #codereview-plugin #parallel-agents #confidence-thresholds #pr-review
+## 1. VISO GERAL DO CODEREVIEW PLUGIN NO CLAUDE CODE
+
+### 1.1 Conceito Central
+- **Codereview plugin**  um plugin oficial do Claude Code que realiza **reviso automatizada de Pull Requests** com **scoring de confiana** (0100).
+- **Filosofia:** Mltiplos agentes especializados avaliam aspectos diferentes em **paralelo**; scores so agregados; issues com confiana <80 so filtradas (falsos positivos).
+- **Integrao com git blame**  considera histrico de mudanas e code ownership.
+
+### 1.2 Arquitetura de Validao
+
+```
+codereview/
+ .claudeplugin/plugin.json          # metadados
+ commands/codereview.md             # comando principal
+ agents/                             # agentes especializados (opcional)
+ README.md (258 linhas)  detalha algoritmo de confiana
+```
+
+### 1.3 Fluxo de Reviso
+
+1. **Entrada:** Diff do git (arquivos modificados) + guidelines CLAUDE.md + histrico (git blame).
+2. **Disparo de agentes paralelos:** 4 agentes independentes:
+   - **Guidelines agent (x2)**  conformidade com guidelines de cdigo.
+   - **Bug hunter agent**  padres de bug, falhas silenciosas.
+   - **Context historical agent**  anlise de histrico (git blame).
+3. **Cada agente retorna:**
+   - Lista de issues (com descrio, severidade, linha).
+   - **Confidence score** (0100) para cada issue.
+4. **Aggregation:**
+   - Issues com confidence **<80 so descartadas** (falsos positivos).
+   - Issues restantes so consolidadas em um relatrio.
+5. **Output:** Relatrio de reviso com issues priorizadas e scores.
+
+### 1.4 Thresholds de Confiana
+
+| Score | Deciso | Ao |
+|---|---|---|
+| **>80** | Alta confiana | Issue includa no relatrio, considerada vlida |
+| **5080** | Confiana mdia | Issue marcada para reviso manual (humanintheloop) |
+| **<50** | Baixa confiana | Issue descartada (rudo, falso positivo) |
+
+**Aplicao ao handoff:** Score agregado do handoff determina aprovao automtica:
+- **>80**  autoaprovado
+- **<50**  rejeitado
+- **5080**  reviso manual (T0 decide)
+
+### 1.5 Agentes Especializados (exemplo do prreviewtoolkit)
+
+O plugin **prreviewtoolkit** (relacionado) usa 6 agentes:
+1. **commentanalyzer**  preciso de comentrios.
+2. **prtestanalyzer**  qualidade e cobertura de testes.
+3. **silentfailurehunter**  tratamento de erros e falhas silenciosas.
+4. **typedesignanalyzer**  design de tipos e invariantes (score 110).
+5. **codereviewer**  conformidade com guidelines.
+6. **codesimplifier**  simplificao de cdigo (aps reviso).
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL mapeamento-neocortex
+LEXICO: #neocortex-mapping #confidencereviewservice #validators #batch-approve-replacement
+## 2. MAPEAMENTO PARA NEOCORTEX
+
+### 2.1 Deciso Arquitetural
+- **codereview  ConfidenceReviewService**
+- **ConfidenceReviewService:** Servio NeoCortex que valida **handoffs** usando mltiplos validadores paralelos, cada um retornando um score 0100.
+- **Objetivo:** Substituir `batch_approve.py` (aprovador binrio) por um sistema granular que **filtra falsos positivos** e aprova automaticamente com alta confiana.
+
+### 2.2 Justificativa
+- **batch_approve.py atual**  binrio (50L aprova, <10L rejeita, entre 1049L manual)  no considera qualidade, naming, locks, SSOT.
+- **NeoCortex tem critrios rgidos** (naming NC*, atomic locks, barreiras B1B6, SSOT) que podem ser automatizados como validadores.
+- **Confiana agregada** permite autoaprovao segura (>80) e rejeio de entregas claramente ruins (<50).
+
+### 2.3 Componentes NeoCortex Equivalentes
+
+| Componente Claude Code | Equivalente NeoCortex | Status |
+|---|---|---|
+| codereview plugin | `NCREVFR001confidencereview.py` | **A criar** (NCDS034) |
+| Agentes paralelos | Validadores (naming, locks, py_compile, SSOT, ) | **A criar** |
+| Confidence score 0100 | Score por validador (0100) | **Novo modelo** |
+| Thresholds (>80, 5080, <50) | Mesmos thresholds | **Aplicar** |
+| Git blame integration | SSOT + histrico de mudanas | **Usar NCNAMFR001** |
+| batch_approve.py | Substitudo por ConfidenceReviewService | **Deprecate** |
+
+### 2.4 Validadores Propostos
+
+| Validador | Descrio | Score Base | Critrios |
+|---|---|---|---|
+| **Naming NC*** | Verifica se arquivos criados/modificados seguem conveno NC* | 0100 | Regex `^NC[A-Z]{3,5}[A-Z]{2}[0-9]{3}.*` |
+| **Atomic Locks** | Verifica se arquivos @LOCKS foram modificados | 0100 | Lista de arquivos protegidos (server.py, sub_server.py, NCNAMFR001) |
+| **PyCompile** | Sintaxe Python vlida (se arquivo .py) | 0100 | `python -m py_compile` sem erros |
+| **SSOT Update** | Verifica se SSOT foi atualizado aps criao de arquivo | 0100 | Presena de `@SSOT` ou atualizao em NCNAMFR001 |
+| **Barreiras B1B6** | Conformidade com barreiras de qualidade (NCLBEDS003) | 0100 | Checklist de barreiras (ex.: lines_added>0, handoff vlido) |
+| **YAML Validity** | YAMLs so vlidos (sintaxe) | 0100 | `yaml.safe_load` sem exceo |
+| **Handoff Completeness** | Campos obrigatrios presentes (ticket_id, status, lines_added, files_created) | 0100 | Checklist de campos |
+
+Cada validador retorna:
+- **score** (0100)
+- **comments** (lista de strings explicando dedues)
+- **weight** (opcional  importncia relativa)
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL service-structure
+LEXICO: #review-service #api #review-result #aggregation #decision-thresholds
+## 3. ESTRUTURA DO CONFIDENCE REVIEW SERVICE (NCREVFR001confidencereview.py)
+
+### 3.1 Interface Principal
+
+```python
+class ConfidenceReviewService:
+    def __init__(self, config_path: str = None):
+        self.validators = self._load_validators()
+        self.threshold_auto = 80   # >80  autoapprove
+        self.threshold_reject = 50 # <50  reject
+    
+    def review_handoff(self, handoff_path: str) -> ReviewResult:
+        """
+        Avalia um arquivo handoff YAML e retorna score agregado + deciso.
+        """
+        handoff = load_yaml(handoff_path)
+        scores = []
+        comments = []
+        
+        for validator in self.validators:
+            score, validator_comments = validator.validate(handoff)
+            scores.append(score)
+            comments.extend(validator_comments)
+        
+        aggregate_score = self._aggregate(scores)  # mdia ponderada
+        decision = self._decide(aggregate_score)
+        
+        return ReviewResult(
+            score=aggregate_score,
+            decision=decision,
+            comments=comments,
+            per_validator_scores=scores
+        )
+    
+    def _decide(self, score: float) -> str:
+        if score >= self.threshold_auto:
+            return "APPROVED"
+        elif score < self.threshold_reject:
+            return "REJECTED"
+        else:
+            return "MANUAL_REVIEW"
+```
+
+### 3.2 Formato do ReviewResult
+
+```yaml
+score: 85.4
+decision: "APPROVED"
+comments:
+  - "Naming: todos os arquivos seguem NC* (score 100)"
+  - "Atomic locks: nenhum arquivo @LOCKS modificado (score 100)"
+  - "PyCompile: 1 arquivo .py com sintaxe vlida (score 100)"
+  - "SSOT: atualizado para 2 novos arquivos (score 90)"
+  - "Barreiras: todas as barreiras B1B6 passaram (score 95)"
+per_validator_scores:
+  naming: 100
+  atomic_locks: 100
+  py_compile: 100
+  ssot_update: 90
+  barriers: 95
+  yaml_validity: 100
+  handoff_completeness: 100
+```
+
+### 3.3 Integrao com Sistema Existente
+
+- **Substitui `batch_approve.py`**  chamada no final do worker ou em script separado.
+- **EventBus (NCSVCFR005)**  emitir evento `handoff_reviewed` com score e deciso.
+- **Metrics Collector (NCSVCFR006)**  mtricas de scores mdios, taxa de autoaprovao.
+- **Fila YAML**  deciso `APPROVED` atualiza status do ticket para `DONE`; `REJECTED` volta para `AVAILABLE`.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL thresholds-decisions
+LEXICO: #thresholds #auto-approve #manual-review #reject #configurable-limits
+## 4. THRESHOLDS E DECISES
+
+### 4.1 Limites Configurveis
+
+```yaml
+# neocortex_config.yaml (seo confidence_review)
+confidence_review:
+  threshold_auto: 80      # 80  autoapprove
+  threshold_reject: 50    # <50  reject
+  weights:                # pesos opcionais por validador
+    naming: 1.5
+    atomic_locks: 2.0     # locks tm peso maior
+    py_compile: 1.0
+    ssot_update: 1.2
+    barriers: 1.3
+    yaml_validity: 1.0
+    handoff_completeness: 1.0
+  auto_update_ssot: true  # se SSOT validador falhar, atualiza automaticamente?
+```
+
+### 4.2 Fluxo de Deciso
+
+```
+1. Handoff gerado (status: PENDING_REVIEW)
+2. ConfidenceReviewService avalia  score 0100
+3. Deciso:
+   - Score 80  status: APPROVED, ticket: DONE
+   - Score <50  status: REJECTED, ticket: AVAILABLE (retorna  fila)
+   - Score 5079  status: MANUAL_REVIEW, aguarda T0
+4. Notificao (opcional)  EventBus, log, dashboard
+```
+
+### 4.3 Exemplos
+
+| Score | Deciso | Cenrio tpico |
+|---|---|---|
+| 92 | APPROVED | Todos os validadores passaram com alta pontuao |
+| 65 | MANUAL_REVIEW | SSOT no atualizado (score 40), mas resto ok |
+| 30 | REJECTED | Arquivo @LOCKS modificado (score 0) + naming incorreto |
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL validators-detail
+LEXICO: #validators #naming-check #atomic-locks #pycompile #ssot #barriers #yaml
+## 5. VALIDADORES EM DETALHE
+
+### 5.1 Naming Validator (NC*)
+
+- **Regex:** `^NC[AZ]{3,5}[AZ]{2}[09]{3}[az]+(\.[az]+)?$`
+- **Campos:** prefixo (NC), categoria (LBE, DS, SVC, ), subcategoria (FR, CC, ), nmero (001), descrio (lowercasehyphen), extenso.
+- **Score:** 100 se todos os arquivos seguem padro; 0 se algum violar; proporcional se parcial.
+
+### 5.2 Atomic Locks Validator
+
+- **Lista de arquivos @LOCKS:** `server.py`, `sub_server.py`, `NCNAMFR001namingregistry.yaml`, `NCTODOFR001roadmap.yaml`.
+- **Verificao:** diff entre antes/depois (se disponvel) ou presena do arquivo em `files_modified`.
+- **Score:** 100 se nenhum @LOCKS modificado; 0 se algum modificado.
+
+### 5.3 PyCompile Validator
+
+- **Aplicase apenas a arquivos `.py`**.
+- **Comando:** `python -m py_compile file.py`
+- **Score:** 100 se compila sem erro; 0 se erro de sintaxe.
+
+### 5.4 SSOT Update Validator
+
+- **Fonte SSOT:** `NCNAMFR001namingregistry.yaml`.
+- **Verifica:** se arquivos criados (`files_created`) esto registrados no SSOT.
+- **Score:** proporcional ao percentual de arquivos registrados (ex.: 2/3  66).
+
+### 5.5 Barreiras Validator
+
+- **Barreiras B1B6** definidas em `NCLBEDS003workerpatterns.mdc`.
+- **Checklist:**
+  - B1: lines_added > 0 (handoff no vazio)
+  - B2: handoff contm ticket_id, status, files_created
+  - B3: arquivos no esto em forbidden zones
+  - B4: no h referncias a server.py/sub_server.py
+  - B5: handoff no duplicado (timestamp nico)
+  - B6: ticket existe na fila YAML
+- **Score:** proporcional ao nmero de barreiras passadas.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL implementation-ncds034
+LEXICO: #ticket-implementation #ncds034 #component-list #dev-flow #dependencies
+## 6. IMPLEMENTAO NO TICKET NCDS034
+
+### 6.1 Componentes a Criar
+
+| Arquivo | Localizao | Descrio |
+|---|---|---|
+| `NCREVFR001confidencereview.py` | `neocortex/core/review/` | Servio principal + agregao |
+| `NCREVFR002namingvalidator.py` | `neocortex/core/review/validators/` | Validador de naming NC* |
+| `NCREVFR003atomiclocksvalidator.py` | `neocortex/core/review/validators/` | Validador de @LOCKS |
+| `NCREVFR004pycompilevalidator.py` | `neocortex/core/review/validators/` | Validador de sintaxe Python |
+| `NCREVFR005ssotvalidator.py` | `neocortex/core/review/validators/` | Validador de SSOT update |
+| `NCREVFR006barriersvalidator.py` | `neocortex/core/review/validators/` | Validador de barreiras B1B6 |
+| `NCREVFR007yamlvalidator.py` | `neocortex/core/review/validators/` | Validador de YAML syntax |
+| `NCCFGFR006confidencereview.yaml` | `neocortex/core/config/` | Configuraes thresholds/weights |
+
+### 6.2 Fluxo de Desenvolvimento
+
+1. **Anlise do codereview plugin**  extrair algoritmo de agregao, thresholds.
+2. **Criao dos validadores**  cada validador independente, testvel.
+3. **Servio de agregao**  combina scores, aplica weights, decide.
+4. **Integrao com batch_approve**  substituir chamada atual por ConfidenceReviewService.
+5. **Testes**  handoffs de exemplo com diferentes scores, verificar decises.
+
+### 6.3 Dependncias
+
+- **Nenhuma crtica**  no toca em @LOCKS, pode ser desenvolvido paralelamente.
+- **Recomendvel:** Integrar com EventBus e Metrics Collector para observabilidade.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL conclusion
+LEXICO: #conclusion #next-steps #ncds034 #batch-approve #thresholds-config
+## 7. CONCLUSO
+
+O **sistema de reviso com confiana do Claude Code (codereview plugin)** oferece um modelo sofisticado para validao automatizada, filtrando falsos positivos e permitindo autoaprovao segura. A adaptao para **ConfidenceReviewService** do NeoCortex preenche uma lacuna crtica no fluxo de governana  substituindo a aprovao binria por uma avaliao granular baseada em mltiplos critrios (naming, locks, SSOT, etc.).
+
+**Prximos passos:**
+1. **Ticket NCDS034**  implementar `NCREVFR001confidencereview.py` e validadores.
+2. **Integrao com batch_approve**  modificar script existente para usar novo servio.
+3. **Configurao thresholds**  adicionar seo `confidence_review` ao config global.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 ja esta no contexto desta sessao, SALTE. -->
+**Referncias:**
+- NCANACC005pluginsdeep.md (anlise dos plugins codereview e prreviewtoolkit)
+- NCSTRCC001masterstrategy.md (gap analysis  autoreview com confiana)
+- NCLBECC001claudeleakmaster.mdc (viso geral do leak)
+

@@ -1,0 +1,75 @@
+audit_score: 77.7
+catalog_refreshed: '2026-04-28T17:43:25.317318'
+domains:
+- $cerebelo
+- $frontal
+- $occipital
+- 01_architecture
+- 01_framework
+- 02_integrations
+- 02_memory_lobes
+- 03_agents
+- 04_cc_patterns
+- 05_machine_memory
+- 05_user
+- 06_governance
+- 09_framework
+- lobes/machine_memory
+- .
+- test_junction
+engines: FR-150 to FR-165
+lobes:
+- brain_tag: $OCCIPITAL
+  deepseek_capabilities:
+  - chat
+  - reasoner
+  - thinking
+  domain_dir: 01_architecture
+  filename: NC-LBE-FR-ARCHITECTURE-001.mdc
+- brain_tag: $HIPOCAMPO
+  deepseek_capabilities:
+  - chat
+  - reasoner
+  domain_dir: 02_security
+  filename: NC-LBE-FR-SECURITY-001.mdc
+- brain_tag: $PARIETAL
+  deepseek_capabilities:
+  - chat
+  - reasoner
+  - thinking
+  domain_dir: 03_development
+  filename: NC-LBE-FR-DEVELOPMENT-001.mdc
+- brain_tag: $PARIETAL
+  deepseek_capabilities:
+  - chat
+  domain_dir: 04_profiles
+  filename: NC-LBE-FR-PROFILES-001.mdc
+- brain_tag: $TEMPORAL
+  deepseek_capabilities:
+  - chat
+  domain_dir: 05_whitelabel
+  filename: NC-LBE-FR-WHITELABEL-001.mdc
+- brain_tag: $FRONTAL
+  deepseek_capabilities:
+  - reasoner
+  - thinking
+  domain_dir: 06_governance
+  filename: NC-LBE-CEREBRAL-FRONTAL-001.mdc
+- brain_tag: $TEMPORAL
+  deepseek_capabilities:
+  - chat
+  - reasoner
+  domain_dir: 07_lexicon
+  filename: NC-LBE-CEREBRAL-TEMPORAL-001.mdc
+- brain_tag: $HIPOCAMPO
+  deepseek_capabilities:
+  - chat
+  - reasoner
+  domain_dir: 08_sessions
+  filename: NC-LBE-CEREBRAL-HIPOCAMPO-001.mdc
+rules_implemented: 69
+rules_total: 115
+systems_active: CW+Pulse+Memory+GW+Handoff
+total_domains: 17
+total_lobes: 75
+version: 20260428-2319

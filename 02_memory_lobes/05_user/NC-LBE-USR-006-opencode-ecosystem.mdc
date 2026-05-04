@@ -1,0 +1,146 @@
+---
+name: NC-LBE-USR-006-opencode-ecosystem
+description: Catalogo do ecossistema OpenCode — plugins, projetos, agentes, servidor HTTP :4096, SDK @opencode-ai/sdk. Decisoes de implementacao para NeoCortex.
+tags: [opencode, ecosystem, plugins, sdk, server, agents, projects]
+status: active
+module: integration
+version: 1.0
+created: 2026-05-03
+temperature: 30
+---
+
+<!-- NC-READ-HASH: NC-LBE-USR-006-opencode-ecosystem-v1 -->
+<!-- DEDUP: Se NC-LBE-USR-006-opencode-ecosystem-v1 ja esta no contexto, SALTE. -->
+
+
+
+
+
+@UBL opencode-ecosystem
+LEXICO: #ecosystem #sdk
+# 1. NC-LBE-USR-006 — OpenCode Ecosystem & SDK
+
+
+
+
+
+@UBL what
+LEXICO: #section #content
+## What
+Catalogo completo do ecossistema OpenCode: 25+ plugins, 15+ projetos, 3 agentes comunitarios, API Server REST :4096, SDK JS/TS.
+
+
+
+
+
+@UBL why
+LEXICO: #section #content
+## Why
+Base de decisao sobre o que integrar ao NeoCortex. Evita reinventar a roda.
+
+
+
+
+
+@UBL where
+LEXICO: #section #content
+## Where
+`02_memory_lobes/05_user/`
+
+---
+
+
+
+
+
+@UBL plugins-decisions
+LEXICO: #plugins #decisions
+## 1. Plugins — O que implementar
+
+| Plugin | Decisao | Motivo |
+|---|---|---|
+| **opencode-background-agents** | ✅ SIM | Agentes NC persistentes em background |
+| **opencode-dynamic-context-pruning** | ✅ SIM | Otimizar tokens (R17 economia) |
+| **opencode-notify** | ✅ SIM | Alertas nativos de conclusao/erro |
+| **opencode-workspace** | ⏳ FUTURO | Orquestracao multi-agente (fase Rust) |
+| **opencode-supermemory** | ⏳ FUTURO | Se lobos nao bastarem |
+| **opencode-vibeguard** | ⏳ FUTURO | Complementa secret.scan |
+| **opencode-shell-strategy** | ⏳ FUTURO | Evita TTY travamento |
+| **opencode-daytona** | ❌ NAO | Ja temos DIR-ARC para isolamento |
+| **opencode-scheduler** | ❌ NAO | PulseScheduler + CICLO 4 ja fazem |
+| **oh-my-opencode** | ❌ NAO | Redundante com agentes proprios |
+
+
+
+
+
+@UBL opencode-server
+LEXICO: #server #api
+## 2. OpenCode Server (:4096)
+
+API REST completa para controle programatico:
+- `POST /session` — criar sessao
+- `POST /session/:id/message` — enviar prompt
+- `GET /session/:id/message` — listar mensagens
+- `GET /mcp` — status MCP servers
+- `POST /mcp` — adicionar MCP dinamicamente
+- `GET /event` — SSE event stream
+- `GET /find?pattern=` — busca em arquivos
+
+### Uso no NeoCortex
+- nc-guardian → validar via `/session/:id/message`
+- nc-auditor → auditar via `/session` + `/find`
+- nc-courier → executar via `/session/:id/shell`
+- Monitoramento → `/event` SSE stream
+
+
+
+
+
+@UBL sdk-opencode
+LEXICO: #sdk #typescript
+## 3. SDK (@opencode-ai/sdk)
+
+```typescript
+import { createOpencode } from "@opencode-ai/sdk"
+const { client } = await createOpencode({ port: 4096 })
+```
+
+APIs: session, message, find, file, config, provider, global, tui, agent, event, mcp, lsp
+
+
+
+
+
+@UBL community-agents
+LEXICO: #agents #community
+## 4. Agentes da Comunidade
+
+| Agente | Descricao | Interesse |
+|---|---|---|
+| **opencode-agents** | Configs, prompts, plugins | 🔴 Referencia |
+| **Agentic** | Agentes modulares para dev | 🟡 Inspiracao |
+
+
+
+
+
+@UBL projects-catalog
+LEXICO: #projects #ecosystem
+## 5. Projetos
+
+| Projeto | Descricao |
+|---|---|
+| ocx | Gerenciador de extensoes com perfis isolados |
+| OpenChamber | App Web/Desktop + Extensao VS Code |
+| OpenCode-Obsidian | Plugin Obsidian |
+| CodeNomad | App Desktop, Web, Mobile |
+
+
+
+
+
+@UBL changelog
+LEXICO: #changelog
+## Changelog
+- [2026-05-03] Lobe criado com catalogo completo + decisoes de implementacao.

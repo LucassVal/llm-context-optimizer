@@ -1,0 +1,13 @@
+{
+  "category": "05_machine_learning",
+  "tags": [
+    "nc",
+    "claude",
+    "configuration"
+  ],
+  "summary": "Documentação sobre a configuração do projeto para o framework NC-LBE-CC-006, adaptada para o formato .nc/ no NeoCortex.",
+  "priority_score": 8,
+  "file": "NC-LBE-CC-006-project-config.mdc",
+  "lobe_id": "NC-LBE-CC-006-project-config",
+  "classified": "2026-04-21T10:37:10"
+}

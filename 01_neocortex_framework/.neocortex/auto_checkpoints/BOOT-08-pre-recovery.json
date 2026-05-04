@@ -1,0 +1,19 @@
+{
+  "checkpoint": "08_pre_recovery",
+  "summary": "MCP online (8765). Resources+Prompts OK. HOOKS PERDIDOS por git checkout sem savepoint. Tools 20 OK. 21 gaps identificados. Iniciando recuperacao.",
+  "state": {
+    "tools": 20,
+    "hooks": "PERDIDOS (estavam em staging, nao commitados)",
+    "prompts": 3,
+    "server_py_lines": 616,
+    "mcp_server": "ONLINE :8765",
+    "resources": 4,
+    "tickets_open": [
+      "NC-DS-250..258",
+      "NC-DS-170",
+      "NC-DS-255"
+    ]
+  },
+  "timestamp": "2026-05-04T19:21:17Z",
+  "status": "DEGRADED"
+}

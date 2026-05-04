@@ -1,0 +1,314 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
+title: NC-LBE-FR-CONSTITUTION-001
+version: v1.0
+created: 2026-04-28
+created_by: T0
+tags: constitution, shared-kernel, DDD, global-rules, T0-T1-gateway, governance
+status: active
+module: constitution
+temperature: 0
+lobe_type: SHARED_KERNEL
+priority: ABSOLUTE
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+## What
+Módulo: NC LBE FR CONSTITUTION 001
+
+## Why
+Criado em 2026-04-28 — arquivo do ecossistema NeoCortex
+
+## Where
+02_memory_lobes/$frontal
+
+---
+
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
+# NC-LBE-FR-CONSTITUTION-001 — Constituição do NeoCortex (Shared Kernel)
+
+> **DDD Shared Kernel:** Este lobe é o ponto único de verdade para TODAS as regras globais.
+> Todo agente (T0, T1, T2), toda tool MCP, todo script DEVE consultar este lobe antes de agir.
+> Se uma regra não está aqui, ela não existe.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL prime-directives
+# 1. PRIME DIRECTIVES (IMUTÁVEIS — NUNCA ALTERAR)
+LEXICO: #prime-directives #immutable #step-0 #wal #atomic-locks #p0
+
+| ID | Regra | Enforcement |
+|----|-------|-------------|
+| **P0-01** | STEP 0 obrigatório antes de qualquer ação | ToolGuard.step_zero() |
+| **P0-02** | Atomic Locks imutáveis | ToolGuard.validate_write() |
+| **P0-03** | WAL (Audit Trail) sempre ativo | NC-SVC-FR-016 |
+| **P0-04** | Naming NC- obrigatório | ToolGuard.check_naming() |
+| **P0-05** | Handoff obrigatório para mudanças | handoff.create |
+| **P0-06** | Compliance >80% mantido | compliance.report |
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL governance-rules
+# 2. REGRAS DE GOVERNANÇA (R01-R21)
+LEXICO: #governance #rules-r01-r21 #naming #ssot #tickets #handoff
+
+R01: Nomenclatura NC- — todo arquivo segue NC-<TIPO>-<SIGLA>-<NUM>-<desc>.ext
+R02: SSOT Update — arquivo criado/modificado → atualizar @SSOT com changelog
+R03: Ticket Reference — toda implementação referencia ticket em @ROADMAP
+R04: Atomic Locks — arquivos em @LOCKS são IMUTÁVEIS
+R05: NUNCA Deletar — apenas arquivar em DIR-ARC-FR-001
+R06: Write Zones — cada role tem zona de escrita definida
+R07: ConfigProvider — nunca hardcodar paths
+R08: Git Ignore — nunca commitar *.db, *.wal, __pycache__
+R09: Modo Mentor — STEP 0 executado ANTES de tool call
+R10: Logger por Módulo — logger = logging.getLogger(__name__)
+R11: STEP +1 Rollback — reverter ao Save Point se falhar
+R12: STEP -1 Save Point — snapshot antes de escrita
+R13: Audit Trail (WAL) — toda escrita registrada
+R14: Lobe Isolation — agente não escreve em lobo de outro
+R15: T0 Nunca Executa Trabalho Braçal
+R16: Boot Context — sessão inicia carregando @BOOT
+R17: PolicyLoader — políticas carregadas em runtime
+R18: Manifestos de Lobo — cada lobo tem manifesto
+R19: Ciclo de Vida do Ticket — OPEN→EXECUTING→DONE
+R20: Checklist Fim de Sessão — SSOT+changelog+populate+boot
+R21: Zero Suposições — verificar, nunca presumir
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL security-rules
+# 3. REGRAS DE SEGURANÇA (ATOMIC LOCKS)
+LEXICO: #security #atomic-locks #lock-guard #immutable-files #lock01-lock06
+
+LOCK-01: server.py e sub_server.py IMUTÁVEIS
+LOCK-02: NC-NAM-FR-001 (SSOT) IMUTÁVEL
+LOCK-03: neocortex_config.yaml IMUTÁVEL
+LOCK-04: NC-SEC-FR-001 (self-reference) IMUTÁVEL
+LOCK-05: DENY by default (access_granted = False)
+LOCK-06: LockGuard valida paths ANTES de qualquer escrita
+
+Categorias protegidas:
+  config_files: neocortex_config.yaml, .agents/rules/**
+  cortex_files: NC-LED-FR-001-framework-ledger.json
+  ssot_docs: NC-NAM-FR-001, NC-TODO-FR-001, NC-SEC-FR-001
+  mcp_server: server.py, sub_server.py, __init__.py, config.py
+  cross_lobe_isolation: agentes não cruzam lobos
+  backups: DIR-BAK-FR-001/**, DIR-ARC-FR-001/**
+  root_files: .gitignore, start_*.bat, start_*.ps1
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL agent-rules
+# 4. REGRAS DOS AGENTES (HIERARQUIA + R126)
+LEXICO: #agents #hierarchy #t0 #ta #t1 #t2 #t3 #structural-boundary #r126
+
+## HIERARQUIA DE AGENTES (v2.0 — 2026-05-04)
+
+| Tier | Agente | Modelo | Função | Modifica Código? |
+|------|--------|--------|--------|-----------------|
+| **T0** | OpenCode (eu) | DeepSeek V4 Pro | Arquitetura, @LOCKS, MCP core, framework, implementações estruturais | **SIM — TUDO** |
+| **TA** | nc-auditor | DeepSeek Flash | Auditoria pesada, deep research, cross-audit, compliance. Reporta ao T0. | **NÃO — só relatórios** |
+| **T2** | nc-engineer | Qwen 3B | Micro-tarefas em sandbox. 1 arquivo, 3-10 linhas, não-estrutural. | **SIM — sandbox only** |
+| **T1** | nc-courier | Qwen 1.5B | Rotinas mecânicas, ciclos, checks, dados, docs. NUNCA decide. | **SIM — dados/docs only** |
+| **T3** | nc-guardian | Qwen 1.5B | Validação, naming checks, lock audits. Read-only. | **NÃO — read-only** |
+
+## R126 — STRUCTURAL BOUNDARY (REGRA ABSOLUTA)
+
+**Arquivos T0-ONLY (nenhum agente pode modificar):**
+- `neocortex/mcp/server.py` — MCP server core
+- `neocortex/mcp/sub_server.py` — sub-server
+- `neocortex/core/*` — todos os serviços core
+- `neocortex/mcp/__init__.py` — init do módulo MCP
+- `01_neocortex_framework/neocortex_config.yaml` — config global
+- Qualquer arquivo listado em @LOCKS (NC-SEC-FR-001-atomic-locks.yaml)
+
+**O que T1/T2/TA PODEM modificar:**
+- `02_memory_lobes/*.mdc` — lobes de conhecimento
+- `DIR-DS-001-tickets/*.yaml` — tickets
+- `DIR-DS-002-audit-logs/*.yaml` — handoffs e relatórios
+- `DIR-DOC-FR-001-docs-main/*` — documentação
+- `scripts/*.py` (não-core) — scripts utilitários
+- `neocortex/mcp/tools/*.py` — **SOMENTE com aprovação T0** e em sandbox
+
+**VIOLAÇÃO de R126 = ação rejeitada sem revisão. Sem exceções.**
+
+AGENT-01: T0 pensa, decide e constrói o estrutural. NUNCA delega @LOCKS.
+AGENT-02: TA (Flash) audita, pesquisa, cruza dados. Reporta. NÃO modifica código.
+AGENT-03: T2 (Qwen 3B) executa micro-tarefas em sandbox. 1 arquivo por vez.
+AGENT-04: T1 (Qwen 1.5B) executa rotinas mecânicas. Nunca decide.
+AGENT-05: T3 (Qwen 1.5B) valida. Read-only. NUNCA escreve em produção.
+AGENT-06: Todo agente passa pelo STEP 0 (mentor_step_0) antes de agir.
+AGENT-07: Agentes usam ConstitutionGateway.validate_action() antes de qualquer escrita.
+AGENT-08: Handoffs YAML são o protocolo de comunicação entre tiers.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL operational-cycles
+# 5. CICLOS OPERACIONAIS
+LEXICO: #operational-cycles #ciclo-0-4 #mcp-health #baseline #execution #consolidation
+
+CICLO-0: Verificação MCP — portas + health (a cada sessão)
+CICLO-1: Baseline — catálogo + tickets + YAMLs (início de sessão)
+CICLO-2: Execução — handoff obrigatório por ticket
+CICLO-3: Consolidação — catálogo + bootup + WAL pruning (fim de sessão)
+CICLO-4: Limpeza Semanal — arquivar + auditar + popular lobes
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL compact-encoding
+# 6. COMPACT ENCODING (@/$/%)
+LEXICO: #compact-encoding #symbols #ssot #ulq #brain-regions #actions
+
+Símbolos SSOT:
+  @SSOT → NC-NAM-FR-001 | @ROADMAP → NC-TODO-FR-001
+  @LOCKS → NC-SEC-FR-001 | @POLICY → NC-CFG-FR-001
+  @BOOT → NC-BOOT-FR-001 | @ULQ → NC-DOC-FR-001
+  @POPULATE → NC-SCR-FR-001 | @APPENDIX → NC-APP-FR-001
+  @SOP → NC-SOP-FR-001 | @ADR → NC-ARC-FR-001
+
+Regiões cerebrais ($):
+  $FRONTAL → planejamento, decisão | $TEMPORAL → léxico, KG
+  $PARIETAL → integração, MCP | $OCCIPITAL → padrões, arquitetura
+  $CEREBELO → controle motor | $HIPOCAMPO → memória episódica
+
+Ações (%):
+  %DONE → concluído | %NOW → urgente | %NEXT → próximo
+  %IN_PROGRESS → em execução | %BLOCKED → bloqueado
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL toolguard-pipeline
+# 7. TOOLGUARD PIPELINE (6 etapas)
+LEXICO: #toolguard #pipeline #step-0 #lock-guard #naming #savepoint #audit
+
+1. PRE-VALIDATE: STEP 0 — regression.check()
+2. LOCK-GUARD: LockGuard.check_write(path, role)
+3. NAMING: validate NC- prefix + @ULQ type/sigla
+4. SAVEPOINT: savepoint.create() before write
+5. CRYPTO-SIGN: CryptoHub.sign() governance actions
+6. AUDIT: WAL log entry + handoff
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL ddd-architecture
+# 8. DDD ARCHITECTURE (6 camadas)
+LEXICO: #ddd #architecture #layers #stf #stj #brain #memory #system #orchestration #governance
+
+STF (brain)        → Inteligência Soberana: pensar, planejar
+STJ (llm_router)   → Roteamento LLM: LiteLLM + Ollama
+TJ (memory/state)  → Memória + Estado + Contexto
+FÓRUM (system/sec) → Sistema + Segurança + Health + Métricas
+EXECUTIVO (orch)   → Orquestração via PicoClaw
+LEGISLATIVO (gov)  → Governança: regras, tickets, handoffs
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL evolution-rules
+# 9. EVOLUTION RULES (DNA/RNA)
+LEXICO: #evolution #dna #rna #epi-genome #replication #mutation #biosafety
+
+DNA (imutável): Atomic Locks, STEP 0, WAL, ToolGuard
+RNA (estado): modo, ciclo de vida, objetivo, capacidades
+Epi-genoma (constantes): portas, limites, thresholds
+
+Replicação: max 5 forks/hora, sandbox BSL-1 obrigatório, SHA-256
+Mutação: review board T0+Guardian+Engineer, drift threshold 0.68
+Biosafety: BSL-1 (local) → BSL-4 (teórico)
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL compliance-targets
+# 10. COMPLIANCE TARGETS
+LEXICO: #compliance #targets #ruff #py-compile #ssot #score-minimum
+
+Score mínimo: 80% | Alvo: 92%
+Ruff: 0 erros em tools modificados
+py_compile: 100% pass
+Stubs: 0 ações "indisponível"
+SSOT: 100% arquivos registrados
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
+**Hash:** CONSTITUTION-v1.0-20260428
+**Tipo:** SHARED_KERNEL (DDD)
+**Prioridade:** ABSOLUTA — carregar antes de qualquer ação
+_"Este lobe é a Constituição. Tudo passa por aqui."_
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL classification-system
+# 11. SISTEMA DE CLASSIFICAÇÃO (R22-R25) — VINCULANTE NO STEP 0
+LEXICO: #classification #r22-r25 #l0-l3 #binding #step-0 #extend-dont-create
+
+### Níveis de Classificação
+| Nível | Nome | Violação | Exemplo |
+|-------|------|----------|---------|
+| **L0** | PRIME DIRECTIVE | Sistema FALHA | STEP 0, Atomic Locks, WAL, Kernel 0 único |
+| **L1** | BINDING | Ação BLOQUEADA | NC- naming, Write Zones, Gateway wire-up, Extend Dont Create |
+| **L2** | STANDARD | WARNING + Log | Logger, ConfigProvider, Ruff pré-commit |
+| **L3** | GUIDANCE | Log informativo | Templates, Convenções |
+
+### Novas Regras Vinculantes
+**R22 — Classification Levels:** Todo artefato classificado L0-L3. STEP 0 valida.
+**R23 — Extend, Don't Create (L1):** MCP tools DEVEM ser estendidas, NÃO duplicadas.
+  - `governance` ganha CPC/Legislativo. `security` ganha CPP. `system` ganha Regulatory.
+**R24 — SSOT Registration Mandatory (L1):** Artefato criado → registrado no @SSOT no mesmo commit.
+**R25 — Gateway Wire-up Mandatory (L1):** Toda tool com ação de escrita chama `gateway_check()`.
+
+### Regras Não-Escritas Formalizadas
+| Regra | Nível |
+|-------|-------|
+| No orphan files — registrar ou arquivar | L2 |
+| No duplicate tools — 38→17 Super Tools | L1 |
+| Ruff + py_compile pré-commit | L2 |
+| Handoff obrigatório para mudanças | L1 |
+| Kernel 0 é único — sem duplicação de lógica | L0 |
+| Constitution acima de tudo | L0 |
+<!-- AMENDMENT PROPOSAL EMD-20260428154457-4b9075 -->
+<!-- Status: proposto | Category: GOVERNANCE -->
+<!-- Teste de mutação: aumentar timeout do Gateway de 5s para 10s -->
+<!-- Proposed change: proposta via evolution tool -->

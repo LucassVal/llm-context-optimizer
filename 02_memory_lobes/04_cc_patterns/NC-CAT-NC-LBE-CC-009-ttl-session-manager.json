@@ -1,0 +1,12 @@
+{
+  "category": "09_documentation",
+  "tags": [
+    "mdc",
+    "session-manager"
+  ],
+  "summary": "Documentação detalhada sobre o TTL e sessão manager do software framework.",
+  "priority_score": 8,
+  "file": "NC-LBE-CC-009-ttl-session-manager.mdc",
+  "lobe_id": "NC-LBE-CC-009-ttl-session-manager",
+  "classified": "2026-04-21T10:37:14"
+}

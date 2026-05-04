@@ -1,0 +1,182 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-FR-RULES-EXPANDED-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-RULES-EXPANDED-001-v1 ja esta no contexto desta sessao, SALTE. -->
+lobe_id: NC-LBE-FR-RULES-EXPANDED-001
+domain: 06_governance
+type: RULES_REGISTRY
+created: 2026-04-28
+status: ACTIVE
+lifecycle: PERMANENT
+rules_count: 70
+temperature: 0
+status: archived
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-RULES-EXPANDED-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-RULES-EXPANDED-001-v1 ja esta no contexto desta sessao, SALTE. -->
+# 70 Conceitos Aplicados — Regras com 3 W's + 4 Mordacas
+
+<!-- 3 W's Auto-Injection -->
+## What
+Registro canônico de 70 conceitos de governança aplicados ao ecossistema NeoCortex MCP. Cada conceito é uma regra com enforcement layer (H/C/S/U), status de implementação e mapeamento jurídico.
+
+## Why
+Para garantir que cada conceito de engenharia, gestão e IA seja formalizado como regra executável no sistema — não apenas documentação. Sem isso, os conceitos permanecem teóricos e o LLM não tem como aplicá-los em runtime.
+
+## Where
+`02_memory_lobes/06_governance/` — Domínio de governança, junto à Constitution, Rules Multilayer e RCA.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-RULES-EXPANDED-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-RULES-EXPANDED-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL bloco-fundamentais
+# 1. Bloco 1: 12 Conceitos Fundamentais (R42-R53)
+LEXICO: #fundamentais #r42-r53 #3ws #rca #eisenhower #pareto #pdca #dry #kiss
+
+| ID | Conceito | Mordaca | Juridico | Status | Modulo |
+|----|----------|---------|----------|--------|--------|
+| R42 | 3 W's (What/Why/Where) | H+S | Auto de Infração | ✅ | FR-151 + inject script |
+| R43 | 5 Porquês (RCA) | H+C+S | Inquérito Policial (CPP) | ✅ | FR-147 |
+| R44 | 4 Porquês Estratégico | H+C | Repercussão Geral (STF) | ✅ | FR-147 |
+| R45 | Eisenhower Matrix | C+U | Pauta de Julgamento | ✅ | FR-151/152 |
+| R46 | Pareto 80/20 | C+S | Foco Fiscalizatório | ✅ | FR-151/153 |
+| R47 | OKRs | C+S | Metas Executivo | ✅ | FR-151 + lobe |
+| R48 | PDCA | S+U | Ciclo Orçamentário | ✅ | NC-LBE-FR-PDCA-001 |
+| R49 | Idempotência | H+C | Coisa Julgada (CPC) | ✅ | FR-151 |
+| R50 | DRY (Don't Repeat Yourself) | H | Súmula Vinculante (STF) | ✅ | FR-139 orbital_bridge |
+| R51 | Fail-Fast | H+C | Prisão Flagrante (CPP) | ✅ | FR-148 pipeline gate |
+| R52 | Kaizen | S+U | Diário Oficial | ✅ | NC-LBE-FR-KAIZEN-001 |
+| R53 | KISS (Keep It Simple) | H | Art. 5º CF (Simplicidade) | ✅ | FR-129 gateway._load() |
+
+@UBL bloco-corporativos
+# 2. Bloco 2: 10 Conceitos Corporativos (R54-R63)
+LEXICO: #corporativos #r54-r63 #bsc #swot #kpi #roi #compliance #agile #lean
+
+| ID | Conceito | Mordaca | Juridico | Status | Onde Implementar |
+|----|----------|---------|----------|--------|------------------|
+| R54 | BSC (Balanced Scorecard) | C+S | Painel de Controle (TCU) | ❌ | NC-CORE-FR-154-bsc-engine.py |
+| R55 | SWOT Analysis | C+S | Análise de Risco (CGU) | ❌ | NC-CORE-FR-155-swot-engine.py |
+| R56 | KPIs (Key Performance Indicators) | C+S | Indicadores de Desempenho | ❌ | PulseScheduler metrics |
+| R57 | ROI (Return on Investment) | C+U | Custo-Benefício (Fazenda) | ❌ | Token budget analyzer |
+| R58 | Compliance | H+C | Conformidade Legal (TCU) | ⚠️ | 93.8% → expandir 100% |
+| R59 | Due Diligence | H+C | Validação de Terceiros (BACEN) | ❌ | FR-125 ToolGuard STEP 0 |
+| R60 | Stakeholder Mapping | H+U | Privilégios por Hierarquia | ⚠️ | FR-140 hierarchy-protocol |
+| R61 | Agile | S+U | Iteração Contínua (MP) | ⚠️ | CICLO 0-4 |
+| R62 | Lean | C+U | Redução de Desperdício | ❌ | Context pruner |
+| R63 | Six Sigma | C+S | Metodologia DMAIC (Qualidade) | ❌ | Error rate tracker |
+
+@UBL bloco-sistemas
+# 3. Bloco 3: 9 Conceitos de Sistemas (R64-R72)
+LEXICO: #sistemas #r64-r72 #circuit-breaker #bulkhead #cqrs #event-sourcing #health-check
+
+| ID | Conceito | Mordaca | Juridico | Status | Onde Implementar |
+|----|----------|---------|----------|--------|------------------|
+| R64 | Circuit Breaker | H+C | Interrupção de Emergência (ANEEL) | ✅ | FR-107 |
+| R65 | Bulkhead | H+C | Isolamento de Sistemas (BACEN) | ❌ | MCP server isolation |
+| R66 | CQRS | H+S | Separação Query/Command (CPC) | ❌ | GET / SSE split |
+| R67 | Event Sourcing | H+C | Registro Imutável (Cartório) | ✅ | DIR-DS-003-wal |
+| R68 | Strangler Fig | S+U | Migração Progressiva (Transição) | ❌ | Tool migration plan |
+| R69 | Feature Toggle | H+U | Testes A/B (Experimental) | ❌ | Tool enable/disable |
+| R70 | Health Check | H+C | Vigilância Sanitária (ANVISA) | ✅ | neocortex_health |
+| R71 | Graceful Degradation | H+C | Estado de Calamidade (Defesa Civil) | ❌ | Fallback tools |
+| R72 | Backpressure | H+C | Controle de Fluxo (Detran) | ❌ | Rate limiter |
+
+@UBL bloco-ia
+# 4. Bloco 4: 10 Conceitos de Governança de IA (R73-R82)
+LEXICO: #ia #r73-r82 #ai-alignment #xai #hitl #bias #red-teaming #ai-constitution
+
+| ID | Conceito | Mordaca | Juridico | Status | Onde Implementar |
+|----|----------|---------|----------|--------|------------------|
+| R73 | AI Alignment | H | Restrição Hardcoded (CF/88) | ⚠️ | ToolGuard locks |
+| R74 | Model Cards | S+U | Manifesto do Servidor (ANPD) | ❌ | NC-LBE-FR-MODEL-CARD-001 |
+| R75 | Explainability (XAI) | H | Fundamentação Judicial (CPC Art.489) | ❌ | Gateway error detail |
+| R76 | HITL | H+C+U | Aprovação Humana (Chefia) | ❌ | Suspended state |
+| R77 | Bias Detection | C+S | Monitoramento de Vieses (MPF) | ❌ | Bias scanner |
+| R78 | Red Teaming | C+S | Agente Isolado de Teste (ABIN) | ❌ | NC-CORE-FR-156-red-team.py |
+| R79 | AI Auditing | C+S | Auditoria Automatizada (TCU) | ❌ | Audit trail scanner |
+| R80 | Federated Learning | S | Compartilhamento Anônimo (LGPD) | ❌ | Metrics sharing |
+| R81 | Differential Privacy | H+C | Ofuscação de Dados (LGPD Art.7) | ❌ | Data sanitizer |
+| R82 | AI Constitution | H+C+S+U | Constituição (STF Kernel 0) | ✅ | FR-129 + CONSTITUTION lobe |
+
+@UBL bloco-avancados
+# 5. Bloco 5: 29 Conceitos Avançados (R83-R111)
+LEXICO: #avancados #r83-r111 #alcoa #mape-k #self-healing #anti-fragile #drift #regulatory
+
+| ID | Conceito | Mordaca | Status |
+|----|----------|---------|--------|
+| R83 | Integridade de Dados (ALCOA++) | H+C | ❌ |
+| R84 | Agile Governance | H+S | ⚠️ YAML-driven |
+| R85 | CDR (Corporate Digital Responsibility) | H+C | ❌ |
+| R86 | DTO (Digital Twin of Org) | C+S | ❌ |
+| R87 | Shackleton Governance | H+C | ❌ |
+| R88 | Predictive Risk Management | C+S | ❌ |
+| R89 | MRM (Model Risk Management) | H+C | ❌ |
+| R90 | Performance Rights | S+U | ❌ |
+| R91 | SIEM | H+C | ❌ |
+| R92 | Cognitive Load Theory | H+U | ❌ |
+| R93 | Board-level AI Governance Committee | H+C+U | ❌ |
+| R94 | MAPE-K | C+S | ❌ |
+| R95 | Self-Healing Systems | H+C | ❌ |
+| R96 | Anti-Fragile Design | H+C+S | ❌ |
+| R97 | Drift Observability | C+S | ✅ FR-137 vigilant-cycle |
+| R98 | Database Replication | H+C | ❌ |
+| R99 | API-driven AI Governance | H | ⚠️ Gateway YAML |
+| R100 | Continuous Assurance | H+S | ❌ |
+| R101 | Digital SRE | C+S | ❌ |
+| R102 | Intelligent Error Detection | C+S | ❌ |
+| R103 | Microreboot | H+C | ❌ |
+| R104 | SUPREME-1 v3.0 | H+C | ❌ |
+| R105 | EU AI Act Art 3(23) | H+C | ❌ |
+| R106 | NIST AI Agent Standards | H+C | ❌ |
+| R107 | Singapore Model AI Governance | H+C | ❌ |
+| R108 | Compliance Surface | C+S | ❌ |
+| R109 | RDI (Reality Drift Index) | C+S | ❌ |
+| R110 | Regulatory Trigger Mapping | H+C | ❌ |
+| R111 | Layered Translation Method | H+C+S+U | ❌ |
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-RULES-EXPANDED-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-RULES-EXPANDED-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL resumo-mordaca
+# 6. Resumo por Mordaca
+LEXICO: #mordaca #hook #checkpoint #schedule #user #coverage
+
+| Mordaca | Bloco 1 | Bloco 2 | Bloco 3 | Bloco 4 | Bloco 5 | Total |
+|---------|---------|---------|---------|---------|---------|-------|
+| H (HOOK) | 9 | 5 | 7 | 6 | 17 | 44 |
+| C (CHECKPOINT) | 7 | 7 | 6 | 8 | 18 | 46 |
+| S (SCHEDULE) | 7 | 7 | 2 | 5 | 12 | 33 |
+| U (USER) | 4 | 5 | 3 | 3 | 3 | 18 |
+
+@UBL resumo-status
+# 7. Resumo por Status
+LEXICO: #status #implementado #parcial #pendente #coverage-percent
+
+| Status | Count | % |
+|--------|-------|---|
+| ✅ Implementado | 14 | 20% |
+| ⚠️ Parcial | 7 | 10% |
+| ❌ Pendente | 49 | 70% |
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-RULES-EXPANDED-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-RULES-EXPANDED-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL proximos-passos
+# 8. Próximos Passos (Ordem de Ataque)
+LEXICO: #next-steps #priority #corporativos #sistemas #ia #avancados #enforcement
+
+1. **R54-R63 (Corporativos):** BSC + SWOT + KPIs + ROI — 4 motores de baixo risco (2h)
+2. **R64-R72 (Sistemas):** Bulkhead + CQRS + Backpressure — 3 middlewares de infra (3h)
+3. **R73-R82 (IA):** Model Cards + XAI + HITL — 3 gateways de segurança (3h)
+4. **R83-R111 (Avançados):** 29 regras — priorizar as 10 com mordaça H (3h)
+
+*Total estimado: 11h para 49 conceitos restantes.*
+*Prioridade: mordaça H > C > S > U (quanto mais enforcement, mais urgente)*

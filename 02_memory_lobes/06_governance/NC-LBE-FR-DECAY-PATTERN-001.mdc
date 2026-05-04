@@ -1,0 +1,69 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-FR-DECAY-PATTERN-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-DECAY-PATTERN-001-v1 ja esta no contexto desta sessao, SALTE. -->
+lobe_id: NC-LBE-FR-DECAY-PATTERN-001
+domain: 06_governance
+type: ACCESS_PATTERN
+created: 2026-04-29
+status: ACTIVE
+temperature: 0
+status: archived
+---
+
+@UBL $DECAY_PATTERN
+LEXICO: #decay #access #pattern #search #regression
+
+<!-- NC-READ-HASH: NC-LBE-FR-DECAY-PATTERN-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-DECAY-PATTERN-001-v1 ja esta no contexto desta sessao, SALTE. -->
+
+@UBL DecayAwareAccess
+LEXICO: #decay #access #pattern #search #3niveis
+
+# 1. Decay-Aware Access Pattern — Padrão de Busca em 3 Níveis
+
+@UBL RegraR21
+LEXICO: #R21 #regression #enforced #access
+
+## Regra R21 (Regression Enforced)
+
+Toda consulta semântica DEVE seguir este ciclo. O Regression buffer
+registra cada passo. Se um passo falha, o próximo é tentado.
+Só retorna FAIL após os 3 passos falharem.
+
+@UBL Ciclo
+LEXICO: #ciclo #ULQ #TAG #INDEX #PREP
+
+## Ciclo
+
+```
+1. ULQ (NC-DOC-FR-001)
+   ├── encontrou? → retorna definição + regra
+   └── não? → decay += 1, vai p/ passo 2
+
+2. TAG INDEX (NC-ULQ-TAG-INDEX.json)
+   ├── encontrou? → retorna path + NC-ID
+   └── não? → decay += 1, vai p/ passo 3
+
+3. PREP (regex scan no código)
+   ├── encontrou? → retorna match + registra como @Untagged
+   └── não? → registra STALE, retorna None
+```
+
+@UBL Decay
+LEXICO: #decay #stale #removed #arquivado
+
+## Decay
+
+- 7 dias sem acesso → STALE (warning)
+- 30 dias sem acesso → REMOVED (do índice ativo, mantido no histórico)
+- Tags com 0 hits em 30 dias → arquivadas
+
+@UBL Enforcement
+LEXICO: #enforcement #regression #guardian #STEP0
+
+## Enforcement
+
+- Regression buffer (R21): cada busca que pula passo registra violação
+- Semantic Guardian (R119): audita decay a cada 300s
+- STEP 0: carrega este padrão no boot

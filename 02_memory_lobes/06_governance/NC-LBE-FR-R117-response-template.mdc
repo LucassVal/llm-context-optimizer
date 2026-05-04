@@ -1,0 +1,139 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-FR-R117-response-template-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-R117-response-template-v1 ja esta no contexto desta sessao, SALTE. -->
+rule_id: R117
+domain: 06_governance
+type: RESPONSE_TEMPLATE
+created: 2026-04-29
+status: ACTIVE
+enforcement: H+C+S+U
+temperature: 0
+status: archived
+---
+
+@UBL $R117_TEMPLATE
+LEXICO: #R117 #ssot #header #template #response
+
+<!-- NC-READ-HASH: NC-LBE-FR-R117-response-template-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-R117-response-template-v1 ja esta no contexto desta sessao, SALTE. -->
+
+@UBL R117Header
+LEXICO: #R117 #ssot #header #obrigatorio
+
+# 1. R117 — Relatório de Estado Obrigatório (SSOT Header)
+
+@UBL What
+LEXICO: #R117 #what #resposta #header #YAML
+
+## What
+Toda resposta do sistema DEVE incluir um cabeçalho YAML de estado que replica
+o status REAL do NeoCortex no momento da resposta. O CentralWatcher valida
+que o formato está presente antes de liberar a resposta ao T0.
+
+@UBL Why
+LEXICO: #R117 #why #visibilidade #auditavel
+
+## Why
+Sem este relatório, o T0 não tem visibilidade do estado do sistema entre interações.
+É o "Diário Oficial" de cada resposta — rastreável, auditável, imutável.
+
+@UBL Where
+LEXICO: #R117 #where #centralwatcher #pipeline
+
+## Where
+Injetado pelo CentralWatcher no pipeline de resposta MCP.
+
+@UBL TemplateObrigatorio
+LEXICO: #template #YAML #ssot #governanca #semantica
+
+## Template Obrigatório
+
+```yaml
+---
+
+<!-- NC-READ-HASH: NC-LBE-FR-R117-response-template-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-R117-response-template-v1 ja esta no contexto desta sessao, SALTE. -->
+ssot:
+  timestamp: "2026-04-29T00:15:00"
+  session: "SESS-20260429-001500"
+  audit_score: 77.7
+  ruff: "100%"
+  mypy: "PASS"
+  pyright: "PASS"
+
+governanca:
+  regras_ativas:
+    H: 35  # hooks em runtime
+    C: 13  # checkpoints a cada 300s
+    S: 93  # schedule semanal
+    U: 115 # user (T0) disponível
+  regras_passivas:
+    documentadas: 115
+    com_codigo_real: 48
+    pendentes_implementacao: 67
+  mordacas:
+    operantes: [H, C, S, U]
+    supervisor: "T0 (Lucas) via OpenCode"
+
+tres_poderes:
+  executivo:
+    engines: [FR-154, FR-155, FR-157, FR-160]
+    agencias: [ANVISA, ANEEL, TCU, CGU, BACEN]
+    status: "OPERANTE"
+  legislativo:
+    normas: [CF/88, LGPD, EU_AI_Act, NIST]
+    codigos: [CPC, CPP, CDC]
+    status: "MAPEADO"
+  judiciario:
+    cortes: [STF, STJ, TJ, FORUM]
+    engines: [FR-129, FR-135, FR-137, FR-138, FR-140]
+    status: "OPERANTE"
+
+federacao:
+  pacto: "ATIVO (FR-131)"
+  orbitais: 6
+  hierarchy: "FR-140 (parents/children/diagonal)"
+  instances: 0
+
+semantica:
+  lobes: 70
+  dominios: 16
+  catalogo: "NC-LEXICO-LATEST.json"
+  status: "SINCRONIZADO"
+
+integridade:
+  yaml: "94.5%"
+  mdc: "58.6%"
+  secrets: 0
+  dead_code: 0
+
+ciclos:
+  ciclo_0: "INIT"
+  ciclo_1: "BASELINE"
+  ciclo_2: "AUTOMATION (ativo)"
+  ciclo_3: "CONSOLIDATION (ativo)"
+  ciclo_4: "MAINTENANCE"
+
+tickets:
+  total: 167
+  abertos: 93
+  fechados_hoje: 4
+  criados_hoje: 6
+
+ultima_acao: "implementacao R117"
+---
+
+<!-- NC-READ-HASH: NC-LBE-FR-R117-response-template-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-R117-response-template-v1 ja esta no contexto desta sessao, SALTE. -->
+```
+
+@UBL Enforcement
+LEXICO: #enforcement #HOOK #CHECKPOINT #SCHEDULE #USER
+
+## Enforcement
+
+H (HOOK): CentralWatcher valida presença do header antes de liberar resposta
+C (CHECKPOINT): PulseScheduler audita formato a cada 300s
+S (SCHEDULE): CICLO 4 valida consistência dos dados com SSOT
+U (USER): T0 pode solicitar `ssot.report` a qualquer momento

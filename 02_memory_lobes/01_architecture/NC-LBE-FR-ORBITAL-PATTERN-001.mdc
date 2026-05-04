@@ -1,0 +1,195 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 ja esta no contexto desta sessao, SALTE. -->
+title: NC-LBE-FR-ORBITAL-PATTERN-001
+version: v1.0
+created: 2026-04-28
+tags: architecture, orbital, ddd, federative, bidirectional, modular
+status: active
+module: architecture
+temperature: 0
+lobe_type: ARCHITECTURE_PATTERN
+priority: L0 (PRIME DIRECTIVE)
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+## What
+Módulo: NC LBE FR ORBITAL PATTERN 001
+
+## Why
+Criado em 2026-04-28 — arquivo do ecossistema NeoCortex
+
+## Where
+02_memory_lobes/$occipital
+
+---
+
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL Orbital-Pattern
+LEXICO: #architecture #orbital #ddd #federative #modular
+# 1. NC-LBE-FR-ORBITAL-PATTERN-001 — Padrão Orbital Universal
+
+> **R26 (L1 BINDING):** TODO componente do NeoCortex segue o padrão orbital.
+> Módulos são entidades independentes que se conectam via interfaces bem definidas.
+> NUNCA injetar código no corpo de outro módulo.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL Orbital-Pattern
+LEXICO: #principle #shared-kernel #bidirectional #parent-child
+## 1. PRINCÍPIO FUNDAMENTAL
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                   SHARED KERNEL (Constituição)               │
+│         R01-R26 | Gateway | STEP 0 | Atomic Locks           │
+└──────────────────────────┬──────────────────────────────────┘
+                           │
+     ┌─────────────────────┼─────────────────────┐
+     ▼                     ▼                     ▼
+┌─────────┐          ┌─────────┐          ┌─────────┐
+│ PARENT A │◄────────►│ PARENT B │◄────────►│ PARENT C │
+│ (domain) │  bidirectional  │ (domain) │          │ (domain) │
+│    │     │                 │    │     │          │    │     │
+│    ├── Child A1            │    ├── Child B1       │    ├── Child C1
+│    ├── Child A2            │    └── Child B2       │    └── Child C2
+│    └── Child A3            │                       │
+└─────────┘          └─────────┘          └─────────┘
+```
+
+**Regras:**
+1. Parent é especializado (domínio único)
+2. Children herdam do parent MAS NÃO do sibling
+3. Parents conectam-se BIDIRECIONALMENTE a outros parents
+4. Shared Kernel é o único ponto central (Constituição)
+5. NENHUM componente modifica o código interno de outro
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL Orbital-Pattern
+LEXICO: #connections #vertical #horizontal #diagonal
+## 2. TIPOS DE CONEXÃO
+
+### Vertical (Parent → Child)
+- Parent SPAWNA child
+- Child HERDA políticas do parent
+- Child REPORTa ao parent (upstream)
+- Parent REVISA mutações do child
+
+### Horizontal (Parent ↔ Parent)
+- Comunicação via WAL (audit trail compartilhado)
+- Peer review (validação cruzada)
+- NUNCA compartilham chaves/credenciais
+
+### Diagonal (Child A → Parent B)
+- Via handoff formal (YAML)
+- SÓ se autorizado pelo Parent A
+- Rastreável no WAL
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL Orbital-Pattern
+LEXICO: #implementation #importlib #no-code-injection
+## 3. REGRAS DE IMPLEMENTAÇÃO (R26 binding)
+
+### ✅ CORRETO (Orbital Pattern)
+```python
+# Tool importa módulo orbital — sem modificar código do tool
+import importlib.util
+spec = importlib.util.spec_from_file_location("orbital_module", path)
+mod = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(mod)
+result = mod.do_something()
+```
+
+### ❌ ERRADO (Code Injection)
+```python
+# NUNCA injetar elif/código no corpo de outro módulo
+elif action == "nova_acao":  # ← Isso quebra o tool!
+    ...
+```
+
+### Regra de Ouro
+> Se você precisa modificar um arquivo existente para adicionar funcionalidade,
+> você está violando R26. Crie um módulo orbital e faça o tool importá-lo.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL Orbital-Pattern
+LEXICO: #mapping #orbitals #domains #topology
+## 4. MAPEAMENTO DOS ORBITAIS ATUAIS
+
+| Orbital (Parent) | Domínio | Children | Conecta-se a |
+|------------------|---------|----------|-------------|
+| NC-CORE-FR-129 (Gateway) | Kernel 0 | - | Todos |
+| NC-CORE-FR-130 (Genome) | DNA/RNA | Children via fork | Gateway, Pact |
+| NC-CORE-FR-131 (Pact) | Federação | União/Estados/Municípios | Gateway, Genome |
+| NC-CORE-FR-132 (CPC) | Processo Civil | Petições, Sentenças | Gateway, CPP |
+| NC-CORE-FR-133 (Regulatory) | Agências | ANATEL/ANVISA/CADE | Gateway, System |
+| NC-CORE-FR-134 (Legislative) | Leis | Plebiscito/Congresso/MP | Gateway, Constitution |
+| NC-CORE-FR-135 (CPP) | Processo Penal | Crimes, Prisão | Gateway, CPC |
+| NC-CORE-FR-136 (Amendment) | Emendas | Propostas, Votações | Legislative, Constitution |
+| NC-CORE-FR-137 (Vigilant) | CICLO 0 | Turns, Patterns | Amendment, Gateway |
+| NC-CORE-FR-138 (Organs) | Órgãos | MP/DP/TCU/Notary | CPC, CPP |
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL Orbital-Pattern
+LEXICO: #anti-patterns #forbidden #code-injection
+## 5. ANTI-PADRÕES (O que NUNCA fazer)
+
+1. ❌ Injetar elif/if em tool existente
+2. ❌ Modificar __init__.py de outro módulo
+3. ❌ Hardcodar import de orbital no corpo do tool (use importlib)
+4. ❌ Criar arquivo sem registro no SSOT
+5. ❌ Orbital que depende de estado interno de outro orbital
+6. ❌ Conexão parent↔parent sem WAL
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL Orbital-Pattern
+LEXICO: #checklist #new-orbital #compliance #quality
+## 6. CHECKLIST DE NOVO ORBITAL
+
+- [ ] Arquivo NC-CORE-FR-XXX ou NC-LBE-FR-XXX
+- [ ] Registrado no SSOT (R24)
+- [ ] Classificado L0-L3 (R22)
+- [ ] Importado via importlib (NUNCA hardcoded)
+- [ ] Não modifica código de outros módulos (R26)
+- [ ] Conecta-se via interfaces bem definidas
+- [ ] Ruff + py_compile passando
+- [ ] Handoff criado (R12)
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 ja esta no contexto desta sessao, SALTE. -->
+**Hash:** ORBITAL-PATTERN-v1.0-20260428
+**Priority:** L0 (PRIME DIRECTIVE)
+_"Não injete. Orbite."_

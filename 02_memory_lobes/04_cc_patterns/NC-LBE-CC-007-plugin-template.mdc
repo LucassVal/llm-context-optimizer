@@ -1,0 +1,432 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 ja esta no contexto desta sessao, SALTE. -->
+description: "Plugin Template  padro plugin-dev do Claude Code adaptado para NCTOOLFRTEMPLATE/ no NeoCortex. Scaffolding completo para novas tools."
+lobe_name: "$PLUGIN_TEMPLATE"
+lobe_id: "NC-LBE-CC-007"
+status: active
+module: industrialization
+domain: competitive_intel
+updated: "2026-04-12T23:55:00"
+temperature: 0
+status: archived
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+## What
+NCHK001example.py  Example hook for NCTOOLFRXXX.
+
+## Why
+tion
+
+## Where
+02_memory_lobes/04_cc_patterns
+
+---
+
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL plugin-template-overview
+LEXICO: #plugin-template #scaffolding #nctoolfr #autodiscovery
+# 1. $PLUGIN_TEMPLATE  Plugindev  NCTOOLFRTEMPLATE
+
+<!-- Sublobe da srie CCleak: anlise do padro de desenvolvimento de plugins. -->
+
+---
+
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL plugindev-in-claude-code
+LEXICO: #claude-code #plugindev #plugin-json #autodiscovery
+## 2. O QUE  O PLUGINDEV NO CLAUDE CODE?
+
+**Localizao:** Plugin oficial `plugindev` (freecode).  
+**Objetivo:** Scaffolding para criao de novos plugins com estrutura padronizada.  
+**Componentes tpicos (CC):**
+```
+plugindev/
+ plugin.json              # Metadados (name, version, author)
+ commands/                # Comandos Markdown
+    plugindev.md       # Comando principal
+    plugindevnew.md   # Subcomando
+ hooks/                   # Scripts Python (opcional)
+    pretooluse.py
+ README.md               # Documentao
+ examples/               # Exemplos de uso
+```
+
+**Sintaxe de comando CC:** `/<plugin>[:subcomando]`  
+**Exemplos:** `/plugindev`, `/plugindev:new`, `/securityguidance:check`.  
+**Autodiscovery:** Plugins so detectados via `--plugindir` ou diretrios padro (`~/.claude/plugins/`, `./.claude/plugins/`).  
+
+**Fluxo de criao:**
+1. Executa `/plugindev:new MyPlugin`
+2. Gera estrutura acima com placeholders.
+3. Desenvolvedor edita `commands/`, `hooks/`, `README.md`.
+4. Plugin pronto para uso local ou publicao no marketplace.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL naming-decision-neocortex
+LEXICO: #naming-convention #nctoolfr #nc-prefix #command-syntax
+## 3. DECISO DE NOMENCLATURA NEOCORTEX
+
+**`plugindev` (CC)**  **`NCTOOLFRTEMPLATE/` (NeoCortex)**  
+**Justificativa:** Alinhar com conveno `NCTOOLFR*` e diretrio de templates.  
+**Arquivo mapping:** `NCSCRFR012newtool.py` (a ser criado em **NCDS033**).  
+**Domnio:** `01_neocortex_framework/DIRTMPFR001templatesmain/`.  
+
+**Sintaxe de comando NeoCortex:** `/nc<comando>`  
+**Exemplos:** `/ncnewtool`, `/nclisttools`, `/ncenabletool`.  
+**Diferena chave:** Prefixo `nc` para evitar coliso com comandos nativos do OpenCode.  
+
+**Estrutura do template:**
+```
+NCTOOLFRTEMPLATE/
+ NCCFGFR001plugin.json      # Metadados (renomeado)
+ commands/
+    NCCMD001main.md         # Comando principal
+ hooks/
+    NCHK001example.py       # Hook exemplo
+ README.md
+ templates/                     # Arquivos auxiliares
+     NCTMP001tool.py.template
+```
+
+**Princpio:** Template gera tool com prefixo `NCTOOLFR` + nmero sequencial (ex: `NCTOOLFR050mytool`).
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL template-components
+LEXICO: #template-detail #plugin-json #commands #hooks #readme
+## 4. COMPONENTES DETALHADOS DO TEMPLATE
+
+### 1. NCCFGFR001plugin.json (Metadados)
+```json
+{
+  "name": "NCTOOLFRXXXshortname",
+  "version": "1.0.0",
+  "author": "Developer Name",
+  "description": "Brief description of the tool's purpose.",
+  "license": "MIT",
+  "neocortex_min_version": "1.0.0",
+  "commands": [
+    {
+      "name": "ncshortname",
+      "description": "Main command",
+      "file": "commands/NCCMD001main.md"
+    }
+  ],
+  "hooks": [
+    {
+      "event": "pre_tool_use",
+      "script": "hooks/NCHK001example.py",
+      "matchers": ["Edit", "Write"]
+    }
+  ]
+}
+```
+
+### 2. commands/NCCMD001main.md (Comando Principal)
+````markdown
+# ncshortname
+
+**Description:** Oneline description.
+
+**Usage:** `/ncshortname [options]`
+
+**Options:**
+- `--help`  Show this help.
+- `--verbose`  Enable verbose logging.
+
+**Examples:**
+```
+/ncshortname --verbose
+```
+
+**Implementation notes:**
+- This command will be executed by the NeoCortex MCP server.
+- The prompt below is sent to the LLM.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 ja esta no contexto desta sessao, SALTE. -->
+## Prompt
+
+You are a NeoCortex tool. Your task is to [...]
+
+(Full prompt goes here.)
+````
+
+### 3. hooks/NCHK001example.py (Hook Exemplo)
+```python
+"""
+NCHK001example.py  Example hook for NCTOOLFRXXX.
+"""
+
+import sys
+import json
+
+def main():
+    # Hook receives context via stdin (JSON)
+    context = json.loads(sys.stdin.read())
+    tool_name = context.get("tool_name")
+    # Decision: allow, warn, or block
+    print(json.dumps({
+        "action": "allow",
+        "message": f"Tool {tool_name} allowed by hook."
+    }))
+
+if __name__ == "__main__":
+    main()
+```
+
+### 4. README.md (Documentao)
+````markdown
+# NCTOOLFRXXXshortname
+
+**Tool ID:** `NCTOOLFRXXX`  
+**Command:** `/ncshortname`
+
+## Purpose
+
+Brief description of what this tool does.
+
+## Installation
+
+1. Copy this directory to `neocortex/plugins/` (or `.nc/plugins/` for projectlocal).
+2. Restart NeoCortex MCP server (or run `ncrefreshplugins`).
+
+## Usage
+
+```
+/ncshortname --help
+```
+
+## Hooks
+
+This tool includes a sample hook that runs before `Edit`/`Write` tools.
+
+## Configuration
+
+Add to `neocortex_config.yaml`:
+
+```yaml
+tools:
+  NCTOOLFRXXXshortname:
+    enabled: true
+```
+````
+
+### 5. templates/NCTMP001tool.py.template (Opcional)
+```python
+"""
+NCTOOLFRXXXshortname  Generated tool.
+"""
+
+from neocortex.mcp.tools.base import BaseTool
+
+class ShortNameTool(BaseTool):
+    name = "ncshortname"
+    description = "Brief description."
+
+    async def execute(self, args: dict) -> dict:
+        # Implementation
+        return {"success": True}
+```
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL scaffolding-script
+LEXICO: #new-tool-script #ncscrf012 #scaffolding #placeholders
+## 5. NCSCRFR012NEWTOOL.PY (SCAFFOLDING)
+
+**Localizao:** `01_neocortex_framework/scripts/NCSCRFR012newtool.py`  
+**Responsabilidade:** Copiar template, substituir placeholders, gerar tool pronta.
+
+**Usage:**
+```bash
+python scripts/NCSCRFR012newtool.py --name "My Tool" --slug "mytool" --output-dir tools/
+```
+
+**Fluxo:**
+1. L `NCTOOLFRTEMPLATE/`.
+2. Substitui placeholders:
+   - `{{TOOL_ID}}`  `NCTOOLFRXXX` (prximo nmero livre)
+   - `{{SHORT_NAME}}`  `mytool`
+   - `{{FRIENDLY_NAME}}`  `My Tool`
+   - `{{DESCRIPTION}}`  descrio fornecida
+   - `{{AUTHOR}}`  extrado de git config
+3. Cria diretrio `NCTOOLFRXXXmytool/` com arquivos renomeados.
+4. Atualiza `NCNAMFR001namingregistry.yaml` com nova tool.
+
+**Placeholders completos:**
+- `{{TOOL_ID}}`  ID completo (ex: `NCTOOLFR050`)
+- `{{SHORT_NAME}}`  slug (ex: `mytool`)
+- `{{FRIENDLY_NAME}}`  nome amigvel (ex: `My Tool`)
+- `{{DESCRIPTION}}`  descrio
+- `{{AUTHOR}}`  autor
+- `{{VERSION}}`  verso inicial (`1.0.0`)
+- `{{DATE}}`  data atual (ISO)
+- `{{YEAR}}`  ano atual
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL autodiscovery-loading
+LEXICO: #autodiscovery #plugin-scan #search-paths #ncrefreshplugins
+## 6. AUTODISCOVERY E CARREGAMENTO
+
+**Diretrios de busca (ordem de precedncia):**
+1. `./.nc/plugins/`  projeto local
+2. `~/.config/neocortex/plugins/`  usurio global
+3. `NEOCORTEX_HOME/plugins/`  instalao global
+4. `01_neocortex_framework/neocortex/plugins/`  desenvolvimento
+
+**Mecanismo:**
+- Servidor MCP varre diretrios em startup.
+- Para cada subdiretrio que contm `NCCFGFR001plugin.json`, registra comandos.
+- Hooks so registrados no `HookRegistry` (NCHKFR001).
+
+**Atualizao a quente:** Comando `/ncrefreshplugins` fora rescan.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL ticket-mapping-ncds033
+LEXICO: #ticket-mapping #ncds033 #write-zone #implementation-plan
+## 7. MAPEAMENTO PARA NCDS033 (TICKET)
+
+**Ticket:** NCDS033  Template NCTOOLFR* (Plugin System Interno)  
+**Write zone:** `01_neocortex_framework/DIRTMPFR001templatesmain/NCTOOLFRTEMPLATE/`  
+**Script:** `01_neocortex_framework/scripts/NCSCRFR012newtool.py`  
+**Estimativa:** 300 linhas (total template + script)  conforme plano mestre NCSTRCC001.  
+**Dependncias:** Nenhuma (independente).  
+
+**Contedo do ticket:**
+1. Criar diretrio `NCTOOLFRTEMPLATE/` com 1012 arquivos (estrutura acima).
+2. Implementar `NCSCRFR012newtool.py` com substituio de placeholders.
+3. Atualizar `NCNAMFR001namingregistry.yaml` com faixa `NCTOOLFR*`.
+4. Documentar processo em `docs/plugindevelopment.md`.
+
+**Cronograma:** Implementao aps NCDS032 (Project Config).
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL command-pattern
+LEXICO: #command-naming #nc-prefix #slash-commands #namespace
+## 8. PADRO DE COMANDOS: `/nc<comando>`
+
+**Regras:**
+- Todos os comandos de plugins NeoCortex comeam com `/nc`.
+- Subcomandos usam `` (hfen) ou `:` (doispontos)? **Deciso:** usar `` para consistncia com CLI tradicional.
+  - Ex: `/ncmytoolsubcommand`
+- Comandos globais do NeoCortex (no de plugin) tambm usam `/nc`:
+  - `/ncrefreshplugins`
+  - `/nclisttools`
+  - `/ncenabletool`
+
+**Vantagem:** Namespace isolado, sem coliso com comandos nativos do OpenCode (`/commit`, `/push`, etc.).
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL integration-other-systems
+LEXICO: #integration #hook-registry #project-config #metrics-collector #session-mate
+## 9. INTEGRAO COM OUTROS SISTEMAS
+
+### Hook Registry (NCHKFR001)
+- Hooks de plugins so registrados automaticamente no startup.
+- Precedncia: plugin local > plugin global > hooks builtin.
+
+### Project Config (NCCFGFR004)
+- Plugins podem ser instalados em `.nc/plugins/` para isolamento por projeto.
+- Configuraes do plugin em `.nc/config.yaml` sob chave `tools: NCTOOLFRXXX*`.
+
+### Metrics Collector (NCSVCFR006)
+- Tool calls de plugins so registradas como `tool_name: ncshortname`.
+
+### SessionMate (NCSVCFR009)
+- Tasks executadas via plugins contam para stats de sesso.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL warnings-future-improvements
+LEXICO: #warnings #versioning #dependencies #sandboxing #roadmap
+## 10. ADVERTNCIAS E MELHORIAS FUTURAS
+
+**Limitaes iniciais:**
+1. **Versionamento:** Plugins no suportam versionamento semntico automtico.
+2. **Dependncias:** Plugins no podem declarar dependncias de outros plugins.
+3. **Sandboxing:** Plugins executam no mesmo processo do servidor MCP (risco de crash).
+
+**Roadmap:**
+- **Fase 2:** Marketplace interno (lista de plugins aprovados).
+- **Fase 3:** Sandbox via subprocess para plugins no confiveis.
+- **Fase 4:** Sistema de dependncias e updates automticos.
+
+**Recomendao:** Comear simples, validar padro com 23 plugins de exemplo.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL cross-lobe-links
+LEXICO: #cross-reference #linked-lobes #master-strategy
+## 11. LINKS PARA OUTROS LOBES
+
+- **NCLBECC001claudeleakmaster.mdc**  viso geral do leak.
+- **NCLBECC006projectconfig.mdc**  configurao por projeto (plugins locais).
+- **NCSTRCC001masterstrategy.md**  plano mestre expandido (seo D.5).
+- **NCANACC004competitiveintel.md**  anlise competitiva (item 1.1).
+- **NCANACC005pluginsdeep.md**  anlise profunda dos plugins CC.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL next-actions
+LEXICO: #next-steps #implementation #ncds033 #scaffolding #nctoolfr999demo
+## 12. PRXIMAS AES
+
+1. **Criar ticket NCDS033** (se ainda no existir) com base neste sublobe.
+2. **Criar diretrio `NCTOOLFRTEMPLATE/`** com todos arquivos listados.
+3. **Implementar `NCSCRFR012newtool.py`** com scaffolding completo.
+4. **Testar gerao** de um plugin exemplo (`NCTOOLFR999demo`).
+5. **Integrar autodiscovery** no servidor MCP (futuro).
+
+**Status:** Anlise concluda, template detalhado pronto para implementao.  
+**Confiana:** Alta (padro bem documentado no CC).

@@ -1,0 +1,400 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-CC-006-project-config-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-006-project-config-v1 ja esta no contexto desta sessao, SALTE. -->
+description: "Projectlevel configuration  padro .claude/ do Claude Code adaptado para .nc/ no NeoCortex. Precedncia local > global, merge seguro de configs."
+lobe_name: "$PROJECT_CONFIG"
+lobe_id: "NC-LBE-CC-006"
+status: active
+module: industrialization
+domain: competitive_intel
+updated: "2026-04-12T23:50:00"
+temperature: 0
+status: archived
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-006-project-config-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-006-project-config-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+## What
+Merge recursivo com proteo de campos @LOCKS.
+
+## Why
+Criado em 2026-04-16 — arquivo do ecossistema NeoCortex
+
+## Where
+02_memory_lobes/04_cc_patterns
+
+---
+
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-006-project-config-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-006-project-config-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL project-config-overview
+LEXICO: #project-config #local-override #nc-directory #precedence
+# 1. $PROJECT_CONFIG  .claude/  .nc/ Local Override
+
+<!-- Sublobe da srie CCleak: anlise do padro de configurao por projeto. -->
+
+---
+
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-006-project-config-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-006-project-config-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL claude-dotdir
+LEXICO: #claude-code #project-config #isolation #autodiscovery
+## 2. O QUE  O `.claude/` NO CLAUDE CODE?
+
+**Localizao:** Diretrio na raiz do projeto (`./.claude/`).  
+**Contedo tpico (exemplos em `examples/settings/`):**
+```
+.claude/
+ config.yaml              # Configuraes locais (plugins, hooks)
+ hooks/                   # Hooks Markdown+YAML por projeto
+    security-guidance.md
+    pre-tool-use.yaml
+ plugins/                 # Plugins locais (autodiscovery)
+    my-custom-plugin/
+ commands/                # Comandos CLI locais
+    my-command.md
+ policies/                # Polticas de ratelimit, budget
+     token-budget.yaml
+```
+
+**Objetivos:**
+1. **Isolamento por repositrio**  configuraes no vazam entre projetos.
+2. **Override granular**  ajustar comportamentos por projeto sem modificar global.
+3. **Colaborao**  commit do `.claude/` no git permite time sharing.
+4. **Extensibilidade**  plugins/hooks locais para workflows especficos.
+
+**Precedncia:** Configuraes locais (`./.claude/`) **sobrescrevem** configuraes globais (`~/.config/claude/` ou equivalentes).
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-006-project-config-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-006-project-config-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL naming-decision-nc-dir
+LEXICO: #naming-convention #dotnc #project-loader #nccfgfr004
+## 3. DECISO DE NOMENCLATURA NEOCORTEX
+
+**`.claude/` (CC)**  **`.nc/` (NeoCortex)**  
+**Justificativa:** Mantm coerncia com prefixo `NC*` e sigla do framework.  
+**Arquivo mapping:** `NCCFGFR004projectloader.py` (a ser criado em **NCDS032**).  
+**Domnio:** `neocortex/core/config/`  extenso do `get_config()`.
+
+**Estrutura proposta:**
+```
+.nc/
+ config.yaml              # Configuraes locais (merge com global)
+ hooks/                   # Hooks YAML+Python locais
+    ssot-guard.yaml
+    pre-write-check.py
+ plugins/                 # Plugins locais (NCTOOLFR*)
+    NCTOOLFR999localtool/
+ policies/                # Polticas locais (rate limit, budget)
+    max-tokens.yaml
+ commands/                # Comandos CLI locais (Markdown)
+     nclocalcommand.md
+```
+
+**Princpio:** Tudo dentro de `.nc/`  **opcional**. Se diretrio no existir, usase apenas configurao global.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-006-project-config-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-006-project-config-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL precedence-local-over-global
+LEXICO: #merge-rules #recursive-merge #yaml-config #priority
+## 4. PRECEDNCIA: LOCAL > GLOBAL
+
+**Regra de merge:** Configuraes locais tm prioridade **sobre** globais, mas **no** as anulam completamente  merge recursivo.
+
+**Exemplo:**
+
+`neocortex_config.yaml` (global):
+```yaml
+logging:
+  level: INFO
+  file: /var/log/neocortex.log
+
+metrics:
+  enabled: true
+  port: 9090
+
+hooks:
+  enabled: false
+```
+
+`.nc/config.yaml` (local):
+```yaml
+logging:
+  level: DEBUG
+
+hooks:
+  enabled: true
+  directory: .nc/hooks/
+```
+
+**Resultado do merge:**
+```yaml
+logging:
+  level: DEBUG           #  local sobrescreve INFO
+  file: /var/log/neocortex.log  #  global mantido
+
+metrics:
+  enabled: true
+  port: 9090
+
+hooks:
+  enabled: true          #  local sobrescreve false
+  directory: .nc/hooks/  #  local adiciona campo
+```
+
+**Algoritmo:** Merge recursivo de dicionrios, com prioridade para dicionrio local. Listas **no** so mergeadas; lista local substitui a global inteira.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-006-project-config-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-006-project-config-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL merge-without-breaking-locks
+LEXICO: #atomic-locks #protected-fields #merge-safety #locked-paths
+## 5. COMO MESCLAR SEM QUEBRAR @LOCKS
+
+**Problema:** Configuraes locais podem desabilitar atomic locks inadvertidamente.  
+**Soluo:** Campos protegidos por `@LOCKS` **nunca** podem ser sobrescritos localmente.
+
+**Lista de campos bloqueados (exemplos):**
+```yaml
+# NO pode ser alterado localmente
+atomic_locks:
+  enabled: true          #  imutvel
+  protected_files:       #  imutvel
+    - server.py
+    - sub_server.py
+    - NC-NAM-FR-001-naming-registry.yaml
+
+mentor_mode:
+  enabled: true          #  imutvel
+```
+
+**Implementao no `ProjectConfigLoader`:**
+```python
+def merge_configs(global_cfg: dict, local_cfg: dict) -> dict:
+    """Merge recursivo com proteo de campos @LOCKS."""
+    LOCKED_PATHS = [
+        "atomic_locks.enabled",
+        "atomic_locks.protected_files",
+        "mentor_mode.enabled",
+        # ... outros campos crticos
+    ]
+    result = deepcopy(global_cfg)
+    _merge_dicts(result, local_cfg, locked_paths=LOCKED_PATHS)
+    return result
+```
+
+**Comportamento:** Se local tentar sobrescrever campo bloqueado, **warning**  logado e valor global  preservado.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-006-project-config-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-006-project-config-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL project-loader-sketch
+LEXICO: #project-loader #nccfgfr004 #get-config #hierarchical-search
+## 6. NCCFGFR004PROJECTLOADER.PY (ESBOO)
+
+**Localizao:** `01_neocortex_framework/neocortex/core/config/NCCFGFR004projectloader.py`  
+**Responsabilidade:** Buscar `.nc/` na hierarquia de diretrios, fazer merge seguro, expor configurao final.
+
+**API principal:**
+```python
+class ProjectConfigLoader:
+    def __init__(self, global_config: dict):
+        self.global_config = global_config
+        self.local_config = self._find_and_load_local_config()
+
+    def _find_and_load_local_config(self) -> dict:
+        """Sobe a rvore de diretrios buscando .nc/config.yaml."""
+        cwd = Path.cwd()
+        while cwd != cwd.parent:
+            nc_dir = cwd / ".nc"
+            if nc_dir.is_dir():
+                config_file = nc_dir / "config.yaml"
+                if config_file.is_file():
+                    return self._load_yaml(config_file)
+            cwd = cwd.parent
+        return {}
+
+    def get_merged_config(self) -> dict:
+        """Retorna configurao final (global + local merge)."""
+        return merge_configs(self.global_config, self.local_config)
+
+    def get_hooks_dir(self) -> Optional[Path]:
+        """Retorna caminho para .nc/hooks/ se existir."""
+        # ... implementao
+
+    def get_plugins_dir(self) -> Optional[Path]:
+        """Retorna caminho para .nc/plugins/ se existir."""
+        # ... implementao
+```
+
+**Integrao com `get_config()` existente:**
+```python
+# Em neocortex/core/config/__init__.py
+from .NC_CFG_FR_004_project_loader import ProjectConfigLoader
+
+def get_config() -> dict:
+    global _cached_config
+    if _cached_config is None:
+        global_raw = _load_global_config()
+        loader = ProjectConfigLoader(global_raw)
+        _cached_config = loader.get_merged_config()
+    return _cached_config
+```
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-006-project-config-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-006-project-config-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL example-local-config
+LEXICO: #example #dotnc-config #yaml-sample #locks-ignored
+## 7. EXEMPLO DE `.nc/config.yaml` (COMPLETO)
+
+```yaml
+# .nc/config.yaml
+# Configuraes locais para projeto "turboquant"
+
+logging:
+  level: DEBUG
+  file: logs/neocortex.log  # relativo ao projeto
+
+metrics:
+  enabled: true
+  port: 9091                 # porta diferente da global
+
+hooks:
+  enabled: true
+  directory: .nc/hooks/
+  pre_tool_use:
+    - matcher: "Edit"
+      script: .nc/hooks/check-ssot.py
+    - matcher: "Write"
+      script: .nc/hooks/validate-naming.py
+
+plugins:
+  enabled: true
+  auto_discovery: true
+  directory: .nc/plugins/
+
+policies:
+  max_tokens_per_task: 50000
+  max_tasks_per_session: 10
+
+session_mate:
+  enable_avatars: true
+  enable_achievements: false
+
+# Campos @LOCKS (sero ignorados no merge)
+atomic_locks:
+  enabled: false   #  IGNORADO, mantm true global
+```
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-006-project-config-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-006-project-config-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL integration-other-systems
+LEXICO: #integration #hook-registry #plugin-loader #session-mate #metrics
+## 8. INTEGRAO COM OUTROS SISTEMAS
+
+### Hook Registry (NCHKFR001)
+- Busca hooks em `.nc/hooks/` alm do diretrio global.
+- Precedncia: local > global (mesma regra de config).
+
+### Plugin Loader (NCTOOLFRTEMPLATE)
+- Autodiscovery em `.nc/plugins/`.
+- Plugins locais tm prefixo `NCTOOLFR9XX*` (reservado).
+
+### SessionMate (NCSVCFR009)
+- L `session_mate.enable_avatars` do config merged.
+
+### Metrics Collector (NCSVCFR006)
+- Usa `metrics.port` local se definido.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-006-project-config-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-006-project-config-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL ticket-mapping-ncds032
+LEXICO: #ticket-mapping #ncds032 #write-zone #implementation-plan
+## 9. MAPEAMENTO PARA NCDS032 (TICKET)
+
+**Ticket:** NCDS032  Configurao por projeto (`.nc/`)  
+**Write zone:** `01_neocortex_framework/neocortex/core/config/NCCFGFR004projectloader.py`  
+**Estimativa:** 120 linhas (conforme plano mestre NCSTRCC001).  
+**Dependncias:** NCCFGFR001 (config global), NCUTLFR001 (YAML parser).  
+
+**Contedo do arquivo:**
+1. Classe `ProjectConfigLoader` com mtodos de descoberta e merge.
+2. Funo `merge_configs()` com proteo de campos @LOCKS.
+3. Integrao transparente com `get_config()`.
+4. Testes unitrios em `tests/test_project_loader.py`.
+
+**Cronograma:** Implementao aps NCDS030 (SessionMate).
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-006-project-config-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-006-project-config-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL warnings-limitations
+LEXICO: #warnings #security #performance #versioning #compatibility
+## 10. ADVERTNCIAS E LIMITAES
+
+1. **Segurana:** Configuraes locais no podem desabilitar atomic locks ou mentor mode.
+2. **Performance:** Busca hierrquica em cada chamada `get_config()`  cache adequado necessrio.
+3. **Compatibilidade:** Plugins globais podem no funcionar com config local  testar.
+4. **Versionamento:** Esquema de versionamento do config (ex: `version: 1.0`) para migraes futuras.
+
+**Recomendao:** Inicialmente suportar apenas `config.yaml`; hooks/ e plugins/ em fases posteriores.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-006-project-config-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-006-project-config-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL cross-lobe-links
+LEXICO: #cross-reference #linked-lobes #master-strategy
+## 11. LINKS PARA OUTROS LOBES
+
+- **NCLBECC001claudeleakmaster.mdc**  viso geral do leak.
+- **NCLBECC005sessionmate.mdc**  SessionMate (usurio de config local).
+- **NCSTRCC001masterstrategy.md**  plano mestre expandido (seo D.4).
+- **NCANACC004competitiveintel.md**  anlise competitiva (item 1.8).
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-006-project-config-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-006-project-config-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL next-actions
+LEXICO: #next-steps #implementation #ncds032 #get-config #testing
+## 12. PRXIMAS AES
+
+1. **Criar ticket NCDS032** (se ainda no existir) com base neste sublobe.
+2. **Implementar `NCCFGFR004projectloader.py`** seguindo esboo acima.
+3. **Atualizar `get_config()`** para usar o loader.
+4. **Testar merge** com campos @LOCKS e precedncia local>global.
+5. **Documentar** estrutura `.nc/` em `docs/projectconfig.md`.
+
+**Status:** Anlise concluda, design pronto para implementao.  
+**Confiana:** Alta (padro bem estabelecido no CC).

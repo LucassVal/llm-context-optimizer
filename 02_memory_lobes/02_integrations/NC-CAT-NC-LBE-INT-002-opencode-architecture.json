@@ -1,0 +1,18 @@
+{
+  "category": "09_documentation",
+  "tags": [
+    "opencode",
+    "ide",
+    "rest-api",
+    "mcp",
+    "sessions",
+    "headless",
+    "tui",
+    "deepseek"
+  ],
+  "summary": "Documentação arquitetural completa do OpenCode para integração com NeoCortex.",
+  "priority_score": 9,
+  "file": "NC-LBE-INT-002-opencode-architecture.mdc",
+  "lobe_id": "NC-LBE-INT-002-opencode-architecture",
+  "classified": "2026-04-21T10:36:59"
+}

@@ -1,42 +1,40 @@
-"""---
-domain: "orchestration"
-layer: "core"
-type: "service"
-tags: ["init"]
-hash: "auto-generated"
----
-Dynamic import of NC-TOOL-FR-* modules.
 """
-
+@Service: mcp | domain: "orchestration" | layer: "core" | type: "tool-loader"
+NC-TOOL-FR-000-init — MCP Tools Auto-Loader v2.0
+Maps short names to NC-SUPER tool modules for importlib dynamic loading.
+Replaces fossil v1.0 that referenced deleted NC-TOOL-FR-001..020 files.
+"""
 import importlib
 import sys
 from pathlib import Path
 
-# Mapping from short names to filename stems (without .py)
 _TOOL_MAPPING = {
-    "cortex": "NC-TOOL-FR-001-cortex",
-    "ledger": "NC-TOOL-FR-008-ledger",
-    "regression": "NC-TOOL-FR-012-regression",
-    "checkpoint": "NC-TOOL-FR-004-checkpoint",
-    "config": "NC-TOOL-FR-005-config",
-    "init": "NC-TOOL-FR-007-init",
-    "export": "NC-TOOL-FR-006-export",
-    "lobes": "NC-TOOL-FR-009-lobes",
-    "manifest": "NC-TOOL-FR-019-project-manifest",
-    "kg": "NC-TOOL-FR-020-knowledge",
-    "agent": "NC-TOOL-FR-002-agent",
-    "benchmark": "NC-TOOL-FR-003-benchmark",
-    "peers": "NC-TOOL-FR-010-peers",
-    "security": "NC-TOOL-FR-015-security",
-    "pulse": "NC-TOOL-FR-011-pulse",
-    "search": "NC-TOOL-FR-014-search",
+    "governance":     "NC-SUPER-001-governance",
+    "orchestration":  "NC-SUPER-002-orchestration",
+    "memory":         "NC-SUPER-003-memory",
+    "state":          "NC-SUPER-004-state",
+    "llm_router":     "NC-SUPER-005-llm-router",
+    "system":         "NC-SUPER-006-system",
+    "brain":          "NC-SUPER-007-brain",
+    "context":        "NC-SUPER-008-context",
+    "security":       "NC-SUPER-009-security",
+    "benchmark":      "NC-SUPER-010-benchmark",
+    "notification":   "NC-SUPER-011-notification",
+    "akl":            "NC-SUPER-012-akl",
+    "health":         "NC-SUPER-013-health",
+    "ledger":         "NC-SUPER-014-ledger",
+    "memory_auto":    "NC-SUPER-015-memory-auto",
+    "picoclaw":       "NC-SUPER-016-picoclaw",
+    "replication":    "NC-SUPER-019-replication",
+    "evolution":      "NC-SUPER-020-evolution",
+    "openclaude":     "NC_TOOL_FR_020_openclaude_bridge",
+    "vscode":         "NC_TOOL_FR_021_vscode_bridge",
+    "pulse":          "NC-MCP-FR-001-pulse",
 }
 
-# Import each module and expose it under its short name
 for short_name, stem in _TOOL_MAPPING.items():
     try:
         module = importlib.import_module(f".{stem}", package="neocortex.mcp.tools")
         globals()[short_name] = module
     except ModuleNotFoundError:
-        # If module not found, leave it undefined (will cause ImportError if used)
         pass

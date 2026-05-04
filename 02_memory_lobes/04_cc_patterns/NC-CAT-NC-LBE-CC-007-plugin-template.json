@@ -1,0 +1,13 @@
+{
+  "category": "05_machine_learning",
+  "tags": [
+    "plugindev",
+    "claude_code",
+    "nctoolfrtemplate"
+  ],
+  "summary": "Scaffolding para criacao de novos plugins com estrutura padronizada para o framework NCTOOLFRTEMPLATE/ no NeoCortex.",
+  "priority_score": 8,
+  "file": "NC-LBE-CC-007-plugin-template.mdc",
+  "lobe_id": "NC-LBE-CC-007-plugin-template",
+  "classified": "2026-04-21T10:37:12"
+}

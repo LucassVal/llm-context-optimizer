@@ -1,0 +1,14 @@
+{
+  "category": "09_documentation",
+  "tags": [
+    "hooks",
+    "reactive",
+    "claude code",
+    "neo cortex"
+  ],
+  "summary": "Documentação detalhada sobre padroes de hooks reativos do Claude Code (hookify/securityguidance) e mapeamento para implementação NeoCortex.",
+  "priority_score": 8,
+  "file": "NC-LBE-CC-002-hooks-system.mdc",
+  "lobe_id": "NC-LBE-CC-002-hooks-system",
+  "classified": "2026-04-21T10:37:05"
+}

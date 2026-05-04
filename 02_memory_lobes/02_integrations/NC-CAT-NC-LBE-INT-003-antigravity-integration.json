@@ -1,0 +1,18 @@
+{
+  "category": "09_documentation",
+  "tags": [
+    "antigravity",
+    "t0",
+    "orchestration",
+    "mcp",
+    "picoclaw",
+    "opencode",
+    "neocortex",
+    "deepseek"
+  ],
+  "summary": "Documentação do papel de T0 (Antigravity) como orquestrador central do NeoCortex, sua hierarquia de agentes, as 34 ferramentas MCP disponíveis, protocolos de delegao e integração com PicoClaw e OpenCode.",
+  "priority_score": 8,
+  "file": "NC-LBE-INT-003-antigravity-integration.mdc",
+  "lobe_id": "NC-LBE-INT-003-antigravity-integration",
+  "classified": "2026-04-21T10:37:00"
+}

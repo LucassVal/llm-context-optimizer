@@ -1,0 +1,104 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-FR-MACHINE-MEMORY-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MACHINE-MEMORY-001-v1 ja esta no contexto desta sessao, SALTE. -->
+lobe_id: NC-LBE-FR-MACHINE-MEMORY-001
+domain: 05_machine_memory
+type: ARTIFACT_REGISTRY
+created: 2026-04-28
+status: ACTIVE
+lifecycle: PERMANENT
+temperature: 30
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-MACHINE-MEMORY-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MACHINE-MEMORY-001-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+
+
+
+
+@UBL what
+LEXICO: #section #content
+## What
+Módulo: NC LBE FR MACHINE MEMORY 001
+
+
+
+
+
+@UBL why
+LEXICO: #section #content
+## Why
+Criado em 2026-04-28 — arquivo do ecossistema NeoCortex
+
+
+
+
+
+@UBL where
+LEXICO: #section #content
+## Where
+02_memory_lobes/05_machine_memory
+
+---
+
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-MACHINE-MEMORY-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MACHINE-MEMORY-001-v1 ja esta no contexto desta sessao, SALTE. -->
+
+
+
+
+@UBL machine-memory-domain
+LEXICO: #machine-memory #runtime
+# 1. Domínio: 05_machine_memory — Memória de Máquina
+
+
+
+
+
+@UBL content-artifacts
+LEXICO: #artifacts #runtime
+## Conteúdo
+Este domínio armazena artefatos de runtime:
+- **Hot Context**: `.neocortex/hot_context/hot-context.md` — contexto ativo da sessão
+- **Pulse Heartbeat**: `.neocortex/pulse_heartbeat.json` — batimentos do PulseScheduler
+- **Idempotency Log**: `.neocortex/state/NC-STATE-IDEMPOTENCY_LOG.jsonl` — deduplication
+- **Checkpoint Store**: `.neocortex/state/NC-STATE-CHECKPOINTS.yaml` — savepoints
+- **Regression Buffer**: `.neocortex/buffer/regression.yaml` — rollback snapshots
+- **Lexicon**: `.neocortex/lexico/NC-LEXICO-LATEST.json` — catálogo semântico
+
+
+
+
+
+@UBL current-status
+LEXICO: #status #health
+## Status Atual
+- Hot Context: ❌ Inexistente (contexto está se perdendo entre sessões)
+- Pulse Heartbeat: ✅ Ativo
+- Idempotency Log: ✅ Novo (FR-151)
+- Checkpoints: ⚠️ 5 registrados, todos no `00-cortex` (deveriam ser distribuídos)
+- Regression Buffer: ✅ Ativo
+- Lexicon: ✅ 43/60 lobes catalogados
+
+
+
+
+
+@UBL next-actions
+LEXICO: #actions #todo
+## Próximas Ações
+1. Ativar hot_context writer no bootup do server
+2. Distribuir checkpoints por domínios canônicos
+3. Sync lexicon 43→60 (17 lobes não catalogados)
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-MACHINE-MEMORY-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MACHINE-MEMORY-001-v1 ja esta no contexto desta sessao, SALTE. -->
+*Populado em 2026-04-28 para resolver domínio vazio*

@@ -1,21 +1,13 @@
-"""
-benchmark_service.py — ALIAS SHIM (DEPRECATED)
-Replaced by NC-CORE-FR-104-benchmark-service.py
-Preserved for backward compatibility with existing importers.
-DO NOT add new imports here. Use NC-CORE-FR-104-benchmark-service.py directly.
-"""
-# NC-DS-122: backward-compat shim
-import importlib.util as _util
-import sys as _sys
-from pathlib import Path as _Path
-
-_NC_FILE = _Path(__file__).parent / "NC-CORE-FR-104-benchmark-service.py"
-_spec = _util.spec_from_file_location(__name__ + "_impl", _NC_FILE)
-_mod = _util.module_from_spec(_spec)
-_mod.__package__ = __package__
+# Strangler wrapper → NC-CORE-FR-104-benchmark-service.py (T0-fixed 2026-05-04)
+import importlib.util, sys
+from pathlib import Path
+_path = Path(__file__).parent / "NC-CORE-FR-104-benchmark-service.py"
+_name = "neocortex.core.benchmark_service"
+_spec = importlib.util.spec_from_file_location(_name, str(_path))
+_mod = importlib.util.module_from_spec(_spec)
+_mod.__package__ = "neocortex.core"
+sys.modules[_name] = _mod
 _spec.loader.exec_module(_mod)
-# Re-export all public symbols into this namespace
-_sys.modules[__name__].__dict__.update(
-    {k: v for k, v in _mod.__dict__.items() if not k.startswith("_")}
-)
-del _util, _sys, _Path, _NC_FILE, _spec, _mod
+for _attr in dir(_mod):
+    if not _attr.startswith('_'):
+        globals()[_attr] = getattr(_mod, _attr)

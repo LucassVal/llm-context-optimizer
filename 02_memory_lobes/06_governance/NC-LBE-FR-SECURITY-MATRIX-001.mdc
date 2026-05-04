@@ -1,0 +1,226 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 ja esta no contexto desta sessao, SALTE. -->
+title: NC-LBE-FR-SECURITY-MATRIX-001
+version: v1.0
+created: 2026-04-28
+tags: security, power, credentials, hierarchy, federation, governance
+status: active
+module: security-matrix
+temperature: 0
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+## What
+Módulo: NC LBE FR SECURITY MATRIX 001
+
+## Why
+Criado em 2026-04-28 — arquivo do ecossistema NeoCortex
+
+## Where
+02_memory_lobes/$frontal
+
+---
+
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 ja esta no contexto desta sessao, SALTE. -->
+# NC-LBE-FR-SECURITY-MATRIX-001 — Matriz de Poder e Segurança
+
+> **Arquitetura Federada:** Kernel 0 detém o poder real (chaves, senhas, constituição).
+> Pais têm dados e podem spawnar. Filhos herdam regras mas nunca credenciais.
+> Comunicação é bidirecional: downstream (regras) + upstream (feedback).
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL power-hierarchy
+# 1. HIERARQUIA DE PODER (Vertical)
+LEXICO: #power-hierarchy #kernel-0 #parent #orbital #child #federated #vertical
+
+```
+KERNEL 0 (ROOT) — "O Cofre"
+  │  Chaves mestras: CryptoHub master key
+  │  Constituição: NC-LBE-FR-CONSTITUTION-001
+  │  Atomic Locks: imutáveis
+  │  Poder: ABSOLUTO — pode revogar qualquer filho
+  │
+  ├── PARENT (PRODUCTION) — "A Fábrica"
+  │     │  Dados: lobos completos, WAL, ledger
+  │     │  Chaves: operacionais (derivadas, não master)
+  │     │  Poder: spawnar, revisar mutações, aprovar promoção
+  │     │
+  │     ├── ORBITAL (DOMÍNIO) — "O Departamento"
+  │     │     │  DDD Bounded Context
+  │     │     │  Gateway validate_action()
+  │     │     │  Ferramentas específicas do domínio
+  │     │     │
+  │     │     ├── CHILD (SANDBOX) — "O Laboratório"
+  │     │     │     │  DNA herdado, RNA novo
+  │     │     │     │  BSL isolamento
+  │     │     │     │  ZERO credenciais
+  │     │     │     │  Pode propor mutações (upstream)
+  │     │     │     │
+  │     │     │     └── SUB-CHILD — "O Experimento"
+  │     │     │           │  Herda do child
+  │     │     │           │  WAL próprio
+  │     │     │           │  TTL curto (auto-destrói)
+  │     │     │
+  │     │     └── CHILD (STAGING) — "O Teste"
+  │     │           │  BSL-2 (rede restrita)
+  │     │           │  Dados de teste
+  │     │           │  Pode ser promovido
+  │     │
+  │     └── PEER (INSTÂNCIA-B) — "A Filial"
+  │           │  Mesmo nível do Parent
+  │           │  WAL independente
+  │           │  Sync bidirecional
+  │
+  └── BACKUP (ARCHIVE) — "O Cofre Histórico"
+        │  Snapshots de produção
+        │  Somente leitura
+        │  TTL de retenção
+```
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL credential-flow
+# 2. FLUXO DE CREDENCIAIS (Quem tem o quê)
+LEXICO: #credentials #cryptohub #master-key #derived-key #zero-keys #wal
+
+| Nível | CryptoHub | Atomic Locks | Dados | WAL | Pode Spawnar |
+|-------|-----------|-------------|-------|-----|-------------|
+| Kernel 0 | Master Key | Define | Todos | Root | Sim (root) |
+| Parent | Derived Key | Herda | Completos | Próprio | Sim (limitado) |
+| Orbital | No keys | Herda | Domínio | Compartilhado | Não |
+| Child | ZERO keys | Herda | Sandbox | Próprio | Não (sub-child) |
+| Sub-child | ZERO keys | Herda | Mínimo | Próprio | Não |
+| Backup | No keys | Herda | Snapshot | Somente leitura | Não |
+
+**Regra absoluta:** Credenciais NUNCA fluem downstream além do Parent.
+**Regra absoluta:** Kernel 0 é o único que pode revogar chaves.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL bidirectional-comms
+# 3. COMUNICAÇÃO BIDIRECIONAL
+LEXICO: #communication #bidirectional #downstream #upstream #dna #policies #mutations
+
+```
+DOWNSTREAM (Kernel → Parent → Child):
+  DNA (imutável)           → herdado por todos
+  Políticas (@LOCKS)        → herdado por todos
+  Constituição              → herdado por todos
+  Gateway validate_action() → herdado por todos
+  Chaves operacionais       → SOMENTE até Parent
+
+UPSTREAM (Child → Parent → Kernel):
+  Mutações propostas        → revisão pelo Parent
+  Feedback de execução      → WAL do Parent
+  Erros/regressões          → Regression Buffer
+  Métricas de performance   → MetricsStore
+  Alerta de violação        → notificação ao Kernel 0
+```
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL horizontal-vertical-matrix
+# 4. MATRIZ HORIZONTAL x VERTICAL (Segurança)
+LEXICO: #matrix #horizontal #vertical #security #backup #production #governance
+
+|  | VERTICAL (Parent→Child) | HORIZONTAL (Peer↔Peer) |
+|--|------------------------|------------------------|
+| **SEGURANÇA** | DNA herdado, chaves NÃO | WAL sync, sem compartilhar chaves |
+| **BACKUP** | Parent faz snapshot do child | Snapshot cruzado entre peers |
+| **PRODUÇÃO** | Parent = produção, Child = sandbox | Peers = produção paralela |
+| **REVISÃO** | Parent revisa mutações do child | Peer review entre instâncias |
+| **GOVERNANÇA** | ToolGuard em todos os níveis | Consenso entre peers |
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL instance-lifecycle
+# 5. CICLO DE VIDA DA INSTÂNCIA
+LEXICO: #lifecycle #instance #newborn #staging #production #archived #decommissioned
+
+```
+NEWBORN (BSL-1) → 5 min TTL
+  │  Passou nos testes?
+  ▼
+STAGING (BSL-2) → 30 min TTL
+  │  Parent aprovou?
+  ▼
+PRODUCTION (BSL-0) → TTL ∞
+  │  Pode spawnar children
+  │  Pode propor mutações ao Kernel
+  ▼
+ARCHIVED → Somente leitura
+  │
+  ▼
+DECOMMISSIONED → WAL preservado, dados removidos
+```
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL security-gaps
+# 6. GAPS IDENTIFICADOS (O que falta implementar)
+LEXICO: #gaps #security #backup #production #review #ddd-gateway #governance
+
+### Segurança
+- [ ] Chaves derivadas: Parent gera chave filha do master (HD wallet style)
+- [ ] Revogação remota: Kernel 0 pode revogar chave de qualquer filho
+- [ ] Audit de acesso: quem acessou o quê e quando (WAL cross-instance)
+
+### Backup
+- [ ] Snapshot automático antes de fork
+- [ ] Restore de child a partir de snapshot
+- [ ] Cross-instance backup (peer salva backup do peer)
+
+### Produção
+- [ ] Promoção automática: child passa testes → staging → produção
+- [ ] Health check contínuo em todos os níveis
+- [ ] Auto-rollback se produção falhar
+
+### Revisão
+- [ ] Mutation Review Board (T0 + Guardian + Engineer)
+- [ ] Parent notification quando child propõe mutação
+- [ ] Diff review: parent vê exatamente o que child mudou
+
+### DDD Gateway
+- [ ] validate_action() em TODOS os níveis (hoje só no T0)
+- [ ] Gateway herdado: child NÃO pode desabilitar
+- [ ] Gateway reporting: child reporta violações ao parent
+
+### Governança
+- [ ] Compliance check no child antes da promoção
+- [ ] Regression buffer compartilhado: child herda erros do parent
+- [ ] Constitution enforcement: child não pode modificar artigos imutáveis
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 ja esta no contexto desta sessao, SALTE. -->
+**Hash:** SECURITY-MATRIX-v1.0-20260428
+_"Kernel 0 tem as chaves. Parent tem os dados. Child tem as regras. Ninguém tem tudo."_

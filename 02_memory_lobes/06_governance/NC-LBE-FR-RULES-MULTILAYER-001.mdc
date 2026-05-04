@@ -1,0 +1,445 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-FR-RULES-MULTILAYER-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-RULES-MULTILAYER-001-v1 ja esta no contexto desta sessao, SALTE. -->
+title: NC-LBE-FR-RULES-MULTILAYER-001
+version: v3.0
+created: 2026-04-28
+updated: 2026-04-28 18:30
+status: active
+priority: L0
+rules_total: 111
+temperature: 0
+status: archived
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-RULES-MULTILAYER-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-RULES-MULTILAYER-001-v1 ja esta no contexto desta sessao, SALTE. -->
+# 4 MORDAÇAS DE GOVERNANÇA — 111 REGRAS (R01-R111)
+
+Cada regra deve ser coberta por 4 camadas cumulativas:
+  H = HOOK       (instantâneo, Gateway validate_action 17 checks)
+  C = CHECKPOINT (PulseScheduler orbital a cada 300s)
+  S = SCHEDULE   (CICLO 4 semanal via compliance.report)
+  U = USER       (manual, MCP tool neocortex_governance)
+
+@UBL matriz-bloco-originais
+# 1. MATRIZ — Bloco 1: Regras Originais (R01-R41)
+LEXICO: #matriz #bloco1 #r01-r41 #originais #gateway #hook #checkpoint
+### Checks REAIS no Gateway (NÃO aspiracionais)
+
+| # | Regra | H | C | S | U | Check REAL no código |
+|---|-------|---|---|---|---|----------------------|
+| R01 | Nomenclatura NC- | ✅ | ✅ | ✅ | ✅ | `_re.match(r'^NC-')` no target_path |
+| R02 | SSOT Update | ❌ | ✅ | ✅ | ✅ | PulseScheduler ssot_check |
+| R03 | Ticket Reference | ❌ | ❌ | ✅ | ✅ | SCHEDULE apenas |
+| R04 | Atomic Locks | ✅ | ✅ | ✅ | ✅ | `self._lock_guard.validate_write()` |
+| R05 | NUNCA Deletar | ✅ | ❌ | ✅ | ✅ | `_re.search(r'rm|del|Remove-Item')` + BashGuard |
+| R06 | Write Zones | ✅ | ❌ | ✅ | ✅ | LockGuard dentro de validate_write() |
+| R07 | ConfigProvider | ✅ | ❌ | ✅ | ✅ | Hardcoded path regex check |
+| R08 | Git Ignore | ✅ | ❌ | ✅ | ✅ | Extensão proibida check (.db/.wal/.pyc) |
+| R09 | Modo Mentor | ✅ | ✅ | ✅ | ✅ | STEP 0 — regression buffer + mentoria |
+| R10 | Logger | ❌ | ✅ | ✅ | ✅ | PulseScheduler _check_logger_usage() |
+| R11 | STEP +1 Rollback | ✅ | ❌ | ✅ | ✅ | Ref a savepoint no handoff |
+| R12 | Handoffs | ✅ | ❌ | ✅ | ✅ | Auto-cria NC-DS-SUB-handoff.yaml |
+| R13 | Audit Trail (WAL) | ✅ | ✅ | ✅ | ✅ | WAL write + PulseScheduler check |
+| R14 | Lobe Isolation | ✅ | ❌ | ✅ | ✅ | LockGuard no path do lobe |
+| R15 | T0 Nunca Executa | ✅ | ❌ | ✅ | ✅ | `agent_role != "T0"` block |
+| R16 | Boot Context | ❌ | ❌ | ❌ | ✅ | USER apenas (bootup.sync) |
+| R17 | PolicyLoader | ❌ | ✅ | ✅ | ✅ | PulseScheduler _check_policy_health() |
+| R18 | Manifestos Lobo | ❌ | ❌ | ✅ | ✅ | SCHEDULE apenas |
+| R19 | Ciclo de Vida Ticket | ❌ | ❌ | ✅ | ✅ | SCHEDULE apenas |
+| R20 | Checklist Fim Sessão | ❌ | ❌ | ❌ | ✅ | USER apenas |
+| R21 | Zero Suposições | ✅ | ✅ | ✅ | ✅ | STEP 0 — verify everything |
+| R22 | Classification L0-L3 | ✅ | ❌ | ✅ | ✅ | Locked paths + role check |
+| R23 | Extend Dont Create | ✅ | ❌ | ✅ | ✅ | NC- prefix no nome do arquivo |
+| R24 | SSOT Registration | ✅ | ❌ | ✅ | ✅ | Check contra NC-NAM-FR-001 |
+| R25 | Gateway Wire-up | ❌ | ❌ | ✅ | ✅ | SCHEDULE apenas |
+| R26 | Orbital Pattern | ❌ | ❌ | ✅ | ✅ | SCHEDULE apenas |
+| R27-R35 | Evolução (9 regras) | ✅ | ❌ | ❌ | ✅ | Gate:evo check + U:genome.fork |
+| R36-R40 | Mutação (5 regras) | ✅ | ❌ | ❌ | ✅ | Gate:mut check + U:mutation.propose |
+| R41 | RCA (5 Porquês) | ✅ | ✅ | ✅ | ✅ | RCA Engine auto-trigger via Watcher |
+
+@UBL matriz-bloco-fundamentais
+# 2. MATRIZ — Bloco 2: Fundamentais (R42-R53)
+LEXICO: #matriz #bloco2 #r42-r53 #fundamentais #3ws #rca #pdca #dry #fail-fast
+
+| # | Regra | H | C | S | U | Check REAL |
+|---|-------|---|---|---|---|------------|
+| R42 | 3 W's | ✅ | ❌ | ✅ | ✅ | `_check_per_action` — verifica ## What/Why/Where |
+| R43 | 5 Porquês | ✅ | ✅ | ✅ | ✅ | RCA Engine via CentralWatcher |
+| R44 | 4 Porquês Estratégico | ✅ | ❌ | ✅ | ✅ | RCA Engine modo estratégico |
+| R45 | Eisenhower | ❌ | ❌ | ✅ | ✅ | FR-151 EisenhowerEngine (MCP action) |
+| R46 | Pareto 80/20 | ❌ | ❌ | ✅ | ✅ | FR-153 ParetoReal (MCP action) |
+| R47 | OKRs | ❌ | ❌ | ✅ | ✅ | Lobe + FR-151 OKREngine |
+| R48 | PDCA | ❌ | ❌ | ✅ | ✅ | Lobe NC-LBE-FR-PDCA-001 |
+| R49 | Idempotência | ✅ | ❌ | ✅ | ✅ | `_check_per_action` — hash dedup |
+| R50 | DRY | ✅ | ❌ | ✅ | ✅ | `orbital_dispatch` chama `gateway_check` antes |
+| R51 | Fail-Fast | ✅ | ✅ | ✅ | ✅ | Pipeline gate + ruff check |
+| R52 | Kaizen | ❌ | ❌ | ✅ | ✅ | Lobe NC-LBE-FR-KAIZEN-001 |
+| R53 | KISS | ✅ | ❌ | ✅ | ✅ | Gateway `_load()` helper unificado |
+
+@UBL matriz-bloco-corporativos
+# 3. MATRIZ — Bloco 3: Corporativos (R54-R63)
+LEXICO: #matriz #bloco3 #r54-r63 #corporativos #bsc #swot #kpi #roi #compliance
+
+| # | Regra | H | C | S | U | Check REAL |
+|---|-------|---|---|---|---|------------|
+| R54 | BSC | ❌ | ❌ | ✅ | ✅ | FR-157 BalancedScorecard (MCP action) |
+| R55 | SWOT | ❌ | ❌ | ✅ | ✅ | FR-157 SWOTAnalyzer (MCP action) |
+| R56 | KPIs | ❌ | ❌ | ✅ | ✅ | FR-154 KPIEngine (MCP + auto-governance) |
+| R57 | ROI | ❌ | ❌ | ✅ | ✅ | FR-154 ROIEngine (MCP action) |
+| R58 | Compliance | ❌ | ❌ | ✅ | ✅ | FR-154 ComplianceEngine + Pulse auto-governance |
+| R59 | Due Diligence | ❌ | ❌ | ❌ | ✅ | NÃO implementado |
+| R60 | Stakeholder Map | ❌ | ❌ | ❌ | ✅ | FR-140 hierarchy-protocol (parcial) |
+| R61 | Agile | ❌ | ❌ | ✅ | ✅ | CICLO 0-4 documentado |
+| R62 | Lean | ❌ | ❌ | ❌ | ✅ | NÃO implementado |
+| R63 | Six Sigma | ❌ | ❌ | ❌ | ✅ | NÃO implementado |
+
+@UBL matriz-bloco-sistemas
+# 4. MATRIZ — Bloco 4: Sistemas (R64-R72)
+LEXICO: #matriz #bloco4 #r64-r72 #sistemas #circuit-breaker #bulkhead #cqrs #backpressure
+
+| # | Regra | H | C | S | U | Check REAL |
+|---|-------|---|---|---|---|------------|
+| R64 | Circuit Breaker | ✅ | ✅ | ✅ | ✅ | FR-107 + Gateway _check_circuit_breaker() |
+| R65 | Bulkhead | ✅ | ❌ | ❌ | ✅ | FR-155 + Gateway _check_bulkhead() |
+| R66 | CQRS | ❌ | ❌ | ❌ | ✅ | FR-155 CQRSRouter (MCP action apenas) |
+| R67 | Event Sourcing | ❌ | ✅ | ❌ | ✅ | WAL DB + PulseScheduler _check_wal_integrity() |
+| R68 | Strangler Fig | ❌ | ❌ | ❌ | ✅ | NÃO implementado |
+| R69 | Feature Toggle | ❌ | ❌ | ❌ | ✅ | FR-155 FeatureToggle (MCP action apenas) |
+| R70 | Health Check | ✅ | ✅ | ✅ | ✅ | neocortex_health + SSE endpoint |
+| R71 | Graceful Degradation | ❌ | ❌ | ❌ | ✅ | FR-155 classe existe mas não wired |
+| R72 | Backpressure | ✅ | ✅ | ❌ | ✅ | FR-155 + Gateway _check_backpressure() |
+
+@UBL matriz-bloco-ia
+# 5. MATRIZ — Bloco 5: IA (R73-R82)
+LEXICO: #matriz #bloco5 #r73-r82 #ia #ai-alignment #xai #hitl #bias #ai-constitution
+
+| # | Regra | H | C | S | U | Check REAL |
+|---|-------|---|---|---|---|------------|
+| R73 | AI Alignment | ✅ | ❌ | ✅ | ✅ | Gateway _check_alignment() — block bypass |
+| R74 | Model Cards | ❌ | ❌ | ✅ | ✅ | FR-156 ModelCards (MCP action) |
+| R75 | XAI | ✅ | ❌ | ✅ | ✅ | Gateway _check_xai_hitl() — explica toda violação |
+| R76 | HITL | ✅ | ❌ | ❌ | ✅ | Gateway _check_xai_hitl() — approve inline |
+| R77 | Bias Detection | ❌ | ✅ | ❌ | ✅ | PulseScheduler _check_bias() — 300s |
+| R78 | Red Teaming | ❌ | ❌ | ✅ | ✅ | FR-156 RedTeam (MCP action) |
+| R79 | AI Auditing | ❌ | ❌ | ✅ | ✅ | FR-156 AIAuditor (MCP action) |
+| R80 | Federated Learning | ❌ | ❌ | ❌ | ❌ | NÃO implementado |
+| R81 | Differential Privacy | ❌ | ❌ | ✅ | ✅ | NÃO wired em runtime |
+| R82 | AI Constitution | ✅ | ❌ | ✅ | ✅ | ConstitutionGateway — porteira principal |
+
+@UBL matriz-bloco-avancados
+# 6. MATRIZ — Bloco 6: Avançados (R83-R111) — FR-160 + FR-161
+LEXICO: #matriz #bloco6 #r83-r111 #avancados #alcoa #mape-k #self-healing #regulatory
+
+| # | Regra | H | C | S | U | Check REAL |
+|---|-------|---|---|---|---|------------|
+| R83 | ALCOA++ | ❌ | ❌ | ❌ | ✅ | FR-160 check_alcoa() |
+| R84 | Agile Governance | ❌ | ❌ | ✅ | ✅ | YAML-driven Gateway |
+| R87 | Shackleton | ❌ | ❌ | ❌ | ✅ | FR-160 check_shackleton() |
+| R88 | Predictive Risk | ❌ | ❌ | ✅ | ✅ | FR-160 check_predictive_risk() |
+| R91 | SIEM | ❌ | ❌ | ❌ | ✅ | FR-160 check_siem() |
+| R92 | Cognitive Load | ❌ | ❌ | ❌ | ✅ | FR-160 |
+| R94 | MAPE-K | ❌ | ❌ | ✅ | ✅ | FR-160 — PulseScheduler |
+| R95 | Self-Healing | ❌ | ❌ | ❌ | ✅ | FR-160 (pending impl) |
+| R96 | Anti-Fragile | ❌ | ❌ | ✅ | ✅ | FR-123 regression |
+| R97 | Drift Observability | ❌ | ✅ | ✅ | ✅ | FR-137 vigilant-cycle |
+| R98 | DB Replication | ❌ | ❌ | ❌ | ✅ | FR-160 (pending) |
+| R99 | API-driven Gov | ❌ | ❌ | ✅ | ✅ | Gateway YAML |
+| R100 | Continuous Assurance | ❌ | ❌ | ✅ | ✅ | Pipeline CI/CD |
+| R101 | Digital SRE | ❌ | ❌ | ❌ | ✅ | FR-160 (pending) |
+| R102 | Intelligent Error | ❌ | ❌ | ✅ | ✅ | FR-147 RCAEngine |
+| R103 | Microreboot | ❌ | ❌ | ❌ | ✅ | FR-160 (pending) |
+| R104 | SUPREME-1 v3.0 | ❌ | ❌ | ✅ | ✅ | FR-159 + FR-161 |
+| R105 | EU AI Act | ❌ | ❌ | ❌ | ✅ | FR-161 |
+| R106 | NIST Standards | ❌ | ❌ | ❌ | ✅ | FR-161 |
+| R107 | Singapore AI | ❌ | ❌ | ❌ | ✅ | FR-161 |
+| R108 | Compliance Surface | ❌ | ❌ | ✅ | ✅ | FR-161 |
+| R109 | RDI | ❌ | ❌ | ✅ | ✅ | FR-161 |
+| R110 | Regulatory Trigger | ❌ | ❌ | ❌ | ✅ | FR-161 |
+| R111 | Layered Translation | ❌ | ❌ | ✅ | ✅ | FR-161 |
+
+@UBL matriz-bloco-integridade
+# 7. MATRIZ — Bloco 7: Integridade do Sistema (R112-R115)
+LEXICO: #matriz #bloco7 #r112-r115 #integridade #yaml-validate #mdc-header #secret-scan #dead-code
+
+| # | Regra | H | C | S | U | Check REAL |
+|---|-------|---|---|---|---|------------|
+| # | Regra | H | C | S | U | Check REAL | Juridico |
+|---|-------|---|---|---|---|------------|----------|
+| R112 | YAML Validate | ✅ | ✅ | ✅ | ✅ | FR-158 — sintaxe de todos .yaml | Vigilância Sanitária (ANVISA) |
+| R113 | MDC Header Validate | ❌ | ✅ | ✅ | ✅ | FR-158 — cabeçalho de todos .mdc | Fiscalização do CRECI |
+| R114 | Secret Scan | ✅ | ✅ | ✅ | ✅ | FR-158 — tokens/senhas expostas | Polícia Federal |
+| R115 | Dead Code Audit | ❌ | ❌ | ✅ | ✅ | FR-158 — órfãos não referenciados | Limpeza Urbana |
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-RULES-MULTILAYER-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-RULES-MULTILAYER-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL super-rules
+# 8. SUPER RULES — Tabela de Ativação (TUDO que roda e quando)
+LEXICO: #super-rules #activation #auto-checks #manual-checks #pulse-scheduler #gateway
+
+### Checks Automáticos (roda SEM pedir)
+
+| Check | Ativado por | Frequência | O que verifica | Engine |
+|-------|------------|------------|---------------|--------|
+| **ruff** | Arquivo .py salvo | instantâneo | Lint + formatting em 80 arquivos | ruff via audit / PulseScheduler |
+| **mypy** | Arquivo .py salvo | instantâneo | Type checking em 80 arquivos | mypy via audit |
+| **pyright** | Arquivo .py salvo | instantâneo | Type checking (2ª opinião) em 80 arquivos | pyright via audit |
+| **3 W's** | Arquivo NC- criado | instantâneo | Verifica ## What/## Why/## Where | Gateway + Pipeline |
+| **naming** | Arquivo NC- criado | instantâneo | Verifica padrão NC-{TIPO}-{SIGLA}-{NNN} | Gateway R01 |
+| **atomic locks** | Path protegido acessado | instantâneo | Bloqueia escrita em paths protegidos | LockGuard R04 |
+| **bash guard** | Comando shell detectado | instantâneo | Bloqueia rm/del/Remove-Item | BashGuard R05 |
+| **yaml validate** | Arquivo .yaml/.yml salvo | instantâneo + 300s | Valida sintaxe YAML em 52 arquivos | FR-158 YAMLValidator |
+| **mdc header** | Arquivo .mdc salvo | instantâneo + 300s | Valida cabeçalho YAML em 70 lobes | FR-158 MDCValidator |
+| **secret scan** | Qualquer arquivo salvo | instantâneo + 300s | Detecta tokens/senhas expostas | FR-158 SecretScanner |
+| **dead code** | 300s (pulse) | 300s | Encontra órfãos não referenciados | FR-158 DeadCodeScanner |
+| **compliance gaps** | 300s (pulse) | 300s | Detecta + corrige gaps automaticamente | FR-154 ComplianceEngine |
+| **KPI report** | 300s (pulse) | 300s | Health score + grade | FR-154 KPIEngine |
+| **RCA 5 Porquês** | Violação detectada | instantâneo | Análise de causa raiz | FR-147 RCAEngine |
+| **handoff** | Submissão/Pulse | instantâneo + 300s | Cria audit trail | Pipeline STEP 3 |
+| **catalog refresh** | Submissão/Pulse | instantâneo + 300s | Atualiza catálogo semântico | Pipeline STEP 5 |
+| **roadmap sync** | Submissão/Pulse | instantâneo + 300s | Sincroniza roadmap | Pipeline STEP 6 |
+| **GW validate** | Toda ação MCP | instantâneo | 15 checks + 30 per-action | ConstitutionGateway |
+
+### Checks Manuais (T0 ativa via MCP)
+
+| Action MCP | O que faz |
+|------------|-----------|
+| `audit.full` | Scan completo: 18 seções (ruff+mypy+pyright+yaml+mdc+secrets+deadcode+...) |
+| `submit` | Pipeline: ruff+3W+handoff+RCA+catalog+roadmap |
+| `kpi.report` | KPIs + health score |
+| `roi.analyze` | Custo-benefício de tokens |
+| `compliance.gaps` / `compliance.fix` | Gaps de compliance |
+| `bsc.report` / `swot.analyze` | Balanced Scorecard + SWOT |
+| `resiliency.audit` | Bulkhead + CQRS + FeatureToggle + Backpressure |
+| `model_cards.generate` | Manifestos de servidores MCP |
+| `hitl.list` / `hitl.approve` | Human-in-the-Loop |
+| `red_team.assault` | Testes adversariais |
+| `ai.audit` | Auditoria de logs |
+| `yaml.validate` / `mdc.validate` | Validação de sintaxe YAML/MDC |
+| `secret.scan` / `deadcode.scan` | Scan de segurança + órfãos |
+| `integrity.full` | Os 4 checks de integridade juntos |
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-RULES-MULTILAYER-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-RULES-MULTILAYER-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL score-camada
+# 9. SCORE POR CAMADA (111 regras)
+LEXICO: #score #camada #hook #checkpoint #schedule #user #coverage-delta
+
+| Camada | Cobertura | Delta v2.0 | Delta P1-P3 |
+|--------|-----------|------------|-------------|
+| H (HOOK) | 76/111 (68.5%) | +58 (era 18/40 = 45%) | +10 (FR-155+156) |
+| C (CHECKPOINT) | 35/111 (31.5%) | +24 (era 11/40 = 27.5%) | +2 (FR-156) |
+| S (SCHEDULE) | 93/111 (83.8%) | +58 (era 35/40 = 87.5%) | = |
+| U (USER) | 110/111 (99.1%) | +70 (era 40/40 = 100%) | = |
+
+@UBL score-regra
+# 10. SCORE POR REGRA (111 regras)
+LEXICO: #score #regra #blindagem-total #forte #moderado #manual #coverage
+
+- 4/4 🔒 (blindagem total): R01, R04, R09, R13, R21, R41, R43, R49, R51, R58, R64, R67, R70, R82 = 14 regras
+- 3/4 🛡️ (forte): R02, R03, R05, R06, R07, R08, R11, R12, R14, R15, R22, R23, R24, R37, R42, R44, R45, R46, R50, R53, R56, R59, R72, R73, R75, R76, R77, R79, R81, R83, R84, R85, R88, R91, R94, R95, R96, R97, R99, R100, R102, R103, R109, R111 = 44 regras
+- 2/4 ⚠️ (moderado): R16, R17, R18, R19, R20, R25, R26, R27-R36, R38-R40, R47, R48, R52, R54, R55, R57, R60-R63, R65, R66, R68, R69, R71, R74, R78, R80, R86-R87, R89-R90, R92-R93, R98, R101, R104-R108, R110 = 52 regras
+- 1/4 🔓 (manual): R20 = 1 regra
+
+@UBL status-bloco
+# 11. STATUS POR BLOCO (111 regras)
+LEXICO: #status #bloco #originais #fundamentais #corporativos #sistemas #ia #avancados
+
+| Bloco | Regras | ✅ | ⚠️ | ❌ | % Pronto |
+|-------|--------|----|----|----|----------|
+| Originais | R01-R41 | 41 | 0 | 0 | 100% |
+| Fundamentais | R42-R53 | 12 | 0 | 0 | 100% |
+| Corporativos | R54-R63 | 3 | 1 | 6 | 35% |
+| Sistemas | R64-R72 | 6 | 0 | 3 | 67% |
+| IA | R73-R82 | 7 | 1 | 2 | 75% |
+| Avançados | R83-R111 | 0 | 0 | 29 | 0% |
+| **TOTAL** | **111** | **69** | **2** | **40** | **64%** |
+
+@UBL atualizacao-gateway
+# 12. ATUALIZAÇÃO P1-P3: Ligação Gateway ↔ Ferramentas
+LEXICO: #gateway #p1-p3 #ferramentas #lobes #tickets #savepoint #handoff #config
+
+| Prioridade | Ferramentas | Regras Ligadas via _check_per_action | Status |
+|------------|-------------|--------------------------------------|--------|
+| **P1** | lobes, tickets, savepoint, handoff, agent | R03,R04,R05,R06,R11,R12,R14,R19,R27,R28,R30,R31,R39,R42,R45,R49 | ✅ Gateway v3.0 |
+| **P2** | config, pulse, brain | R07,R41,R44,R48,R52,R69,R84,R88 | ✅ Gateway v3.0 |
+| **P3** | search, export, health | R60,R70,R77,R81,R83,R91 | ✅ Gateway v3.0 |
+| **Corp** | kpi, roi, compliance | R56,R57,R58 | ✅ Gateway v3.0 + FR-154 |
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-RULES-MULTILAYER-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-RULES-MULTILAYER-001-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL mordaca-supervision
+# 13. 3 W's + 3 Whos — Quem Supervisiona Cada Mordaca
+LEXICO: #mordaca #supervision #what-why-where-who #t0 #central-watcher #pulse-scheduler
+
+### What: O que cada mordaca faz
+| Mordaca | O que Faz | Juridico | Quando Dispara |
+|---------|-----------|----------|----------------|
+| **H (HOOK)** | Bloqueia ação inválida ANTES de executar | Prisão em Flagrante (CPP) | Toda chamada MCP → Gateway |
+| **C (CHECKPOINT)** | Audita estado do sistema PERIODICAMENTE | Fiscalização (TCU) | PulseScheduler a cada 300s |
+| **S (SCHEDULE)** | Consolida compliance SEMANALMENTE | Relatório (CGU) | CICLO 4 via compliance.report |
+| **U (USER)** | Executa ação MANUALMENTE via chat | Ordem Judicial (Juiz) | T0 via MCP tool no OpenCode |
+
+### Why: Por que cada mordaca existe
+| Mordaca | Por que Existe |
+|---------|----------------|
+| **H** | Sem HOOK, violações passam direto. O Gateway é a porteira — NADA entra sem validação. |
+| **C** | Sem CHECKPOINT, erros silenciosos acumulam. O PulseScheduler é o vigia noturno. |
+| **S** | Sem SCHEDULE, o sistema degrada sem ninguém perceber. O CICLO 4 é a manutenção preventiva. |
+| **U** | Sem USER, não há controle humano. T0 é o juiz supremo — aprova, rejeita, arquiva. |
+
+### Where: Onde cada mordaca atua (v3.1 — 12 engines)
+
+| Mordaca | Modulo | Path | Operante |
+|---------|--------|------|----------|
+| **H** | ConstitutionGateway | `NC-CORE-FR-129` | ✅ 15 checks + 30 per-action |
+| **H** | gateway_bridge | `gateway_bridge.py` | ✅ 16/18 tools |
+| **H** | LockGuard | `NC-CORE-FR-014` | ✅ Atomic Locks |
+| **H** | BashGuard | `NC-CORE-FR-144` | ✅ 11 padrões |
+| **C** | PulseScheduler | `NC-CORE-FR-142` | ✅ 9 checks + auto-gov |
+| **C** | CentralWatcher | `NC-CORE-FR-146` | ✅ record_check |
+| **C** | RCAEngine | `NC-CORE-FR-147` | ✅ 5 Porquês |
+| **S** | SubmissionPipeline | `NC-CORE-FR-148` | ✅ FAIL-FAST + YAML + Secrets |
+| **S** | ComplianceEngine | `NC-CORE-FR-154` | ✅ auto-fix gaps |
+| **S** | KPIEngine | `NC-CORE-FR-154` | ✅ health score |
+| **S** | SystemIntegrity | `NC-CORE-FR-158` | ✅ YAML + MDC + Secrets + DeadCode |
+| **S** | AdvancedResilience | `NC-CORE-FR-160` | ✅ 13 conceitos |
+| **S** | RegulatoryCompliance | `NC-CORE-FR-161` | ✅ 8 padrões |
+| **U** | Governance + 21 tools | `NC-SUPER-*.py` | ✅ Todas actions MCP |
+
+### Who: Quem supervisiona cada mordaca
+
+| Mordaca | Supervisor Primario | Como | Supervisor Secundario | Como |
+|---------|--------------------|------|----------------------|------|
+| **H (HOOK)** | CentralWatcher (auto) | Registra todo check no ledger | **T0 (Lucas)** | `audit.replay` via chat |
+| **H (HOOK)** | RCA Engine (auto) | 5 Porquês em violação | **T0 (Lucas)** | `rca.analyze` via chat |
+| **C (CHECKPOINT)** | PulseScheduler (auto) | 8 checkpoints a cada 5min | **T0 (Lucas)** | `pulse.status` via chat |
+| **C (CHECKPOINT)** | Regression Buffer (auto) | Loga anomalias detectadas | **T0 (Lucas)** | `regression.check` via chat |
+| **S (SCHEDULE)** | Submission Pipeline (auto) | ruff+RCA+handoff+catalog | **T0 (Lucas)** | `submit` via chat |
+| **S (SCHEDULE)** | Compliance Scheduler (auto) | CICLO 4 semanal | **T0 (Lucas)** | `compliance.report` via chat |
+| **U (USER)** | **T0 (Lucas)** via OpenCode | Todas as actions MCP | N/A | Controle humano supremo |
+
+### Como T0 supervisiona (via chat OpenCode)
+
+```
+> neocortex_governance --action audit.full           # Scan 18 seções
+> neocortex_governance --action kpi.report           # Health score + grade
+> neocortex_governance --action compliance.gaps      # Ver gaps
+> neocortex_governance --action compliance.fix       # Corrigir automático
+> neocortex_governance --action bsc.report           # Balanced Scorecard
+> neocortex_governance --action swot.analyze         # Análise SWOT
+> neocortex_governance --action resiliency.audit     # Bulkhead + CQRS + Backpressure
+> neocortex_governance --action resilience.advanced  # 13 conceitos avançados
+> neocortex_governance --action regulatory.check     # 8 padrões regulatórios
+> neocortex_governance --action yaml.validate        # Validar YAML
+> neocortex_governance --action secret.scan          # Scan de secrets
+> neocortex_governance --action submit               # Pipeline completo
+> neocortex_governance --action rca.analyze          # 5 Porquês
+> neocortex_governance --action rule.list            # 115 regras
+```
+
+### Pipeline AUTOMÁTICO — Roda SEM Você Pedir
+
+```
+PulseScheduler (300s):  1.Auto-checkpoint  2.Hot-context  3.Heartbeat
+  4.Compliance(R02,R13,R20)  5.Naming(R01,R24)  6.SSOT(R02)
+  7.Evolution(R27-R35)  8.Mutation(R36-R40)  9.AUTO-GOVERNANCE(R56,R58)
+
+Gateway (toda ação):  1.validate_action  2.fallback(15 checks)
+  3.per_action(30+ rules)  4.CentralWatcher registra TUDO
+
+Pipeline (submit ou auto-trigger):
+  1.RUFF(FAIL-FAST)  2.SEMANTIC(3W)  3.HANDOFF  4.RCA  5.CATALOG  6.ROADMAP
+```
+
+### Triggers por Evento
+
+| Evento | Dispara | Regras | Engine | Auto? |
+|--------|---------|--------|--------|-------|
+| Arquivo .py salvo | ruff+3W+naming | R01,R42,R51 | Gateway | ✅ |
+| Ação MCP | validate_action | R01-R82 | Gateway | ✅ |
+| Pulse 300s | compliance+KPI | R56,R58,R12 | PulseScheduler | ✅ |
+| Violação | RCA 5 Porquês | R41,R43,R09 | RCAEngine | ✅ |
+| Deleção `rm/del` | BashGuard | R05 | BashGuard | ✅ |
+| Lock violado | LockGuard | R04,R06,R14 | LockGuard | ✅ |
+| `submit` | pipeline full | R41,R42,R51,R12 | Pipeline | ✅ |
+| `audit.full` | scan 17 seções | R01-R111 | FullAudit | ❌ manual |
+| `genome.fork` | replicação | R27-R35 | Replicator | ✅ |
+| `mutation.propose` | evolução | R36-R40 | MutationBoard | ✅ |
+
+### Entidades Vigilantes (HONESTAS — sem mentira)
+
+| Entidade | Ativada por | Checa | Cobertura REAL |
+|----------|------------|-------|----------------|
+| ConstitutionGateway | Toda ação MCP | 15 checks + 30 per-action | H: 18/111 (16%) |
+| PulseScheduler | Timer 300s | 9 checkpoints + auto-gov | C: 9/111 (8%) |
+| CentralWatcher | Toda validação | Watch + record 100% | Observabilidade |
+| RCAEngine | Toda violação | 5 Porquês automático | Análise |
+| BashGuard | Comando shell | 11 padrões bloqueados | Bloqueio |
+| LockGuard | Path protegido | Atomic Locks + Zones | Bloqueio |
+| **T0 (Lucas)** | Via chat | Aprovação suprema | U: 111/111 |
+
+### SCORE REAL (sem mentira) — v3.1 com 7 Critical Hooks
+
+| Mordaca | Regras com código REAL | Delta |
+|---------|------------------------|-------|
+| H (HOOK ativo) | 24/115 (21%) — Gateway + BashGuard + LockGuard + 7 critical | +6 |
+| C (CHECKPOINT ativo) | 13/115 (11%) — PulseScheduler 12 checks + Bias | +3 |
+| S (SCHEDULE ativo) | 35/115 (30%) — CICLO 4 + pipeline | = |
+| U (USER ativo) | 115/115 (100%) — T0 via MCP | = |
+
+> **7 regras com H/C REAL adicionadas hoje:**
+> R64(🔌CircuitBreaker) R65(🧱Bulkhead) R72(🔄Backpressure) R73(🎯Alignment) R75(📝XAI) R76(👤HITL) → H
+> R77(🔍BiasDetection) → C
+
+> **O resto da matriz (H, C, S) é ASPIRACIONAL — documentado, mas sem código que execute.**
+> **Só U (USER) tem 100% porque T0 pode executar qualquer ação manualmente.**
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-RULES-MULTILAYER-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-RULES-MULTILAYER-001-v1 ja esta no contexto desta sessao, SALTE. -->
+**v3.1 FINAL (2026-04-28 21:00) — 115 Regras | Audit 80.0% | 7 Blocos**
+
+```
+Regras: 115 (R01-R115) | Implementadas: 69/115 (60%)
+Blocos: 7 (Original + Fundamentais + Corporativos + Sistemas + IA + Avançados + Integridade)
+Audit: 80.0% (72/94) | RUFF: 100% | MYPY: PASS | PYRIGHT: PASS
+MCP: 21 tools | GW: 16/18 | Lobes: 70 | Domínios: 16
+Pipeline: ruff + 3W + YAML + MDC + Secrets + handoff + RCA + catalog + roadmap + deadcode
+Motores: FR-129 + FR-139 + FR-142 + FR-146 a FR-158 (9 core modules)
+Auto-Gov: PulseScheduler roda compliance+KPI+ruff+mypy a cada 300s
+```
+
+**SSOT Atualizado:** NC-NAM-FR-001 (changelog) ✅ | NC-TODO-FR-001 (roadmap v16.0) ✅
+**Catálogo:** NC-LEXICO-LATEST.json (70 lobes, 16 domínios) ✅ | _INDEX.yaml ✅
+
+@UBL matriz-bloco-semantic
+# 14. MATRIZ — Bloco 8: Semantic Architecture (R116-R123)
+LEXICO: #matriz #bloco8 #r116-r123 #semantic #memory-auto #ssot-header #domain-routers #guardian
+
+| # | Regra | H | C | S | U | Check REAL |
+|---|-------|---|---|---|---|------------|
+| R116 | Memory Auto-Record | H | C | S | U | Gateway _auto_turn_record() — salva toda acao |
+| R117 | SSOT Header | H | C | S | U | CentralWatcher validate_ssot_header() |
+| R118 | Domain Routers | H | ❌ | S | U | FR-166 — 2-level semantic index (8 domains, 763 items) |
+
+
+| R119 | Semantic Guardian | H | C | S | U | FR-167 — vigia da saude semantica (300s) |
+| R120 | Semantic Boot | H | C | S | U | FR-170 — sequencia ULQ->TAGS->PREP + auto-registry + decay |
+| R121 | ULQ Cross-Reference | H | ❌ | S | U | FR-169 — detecta duplicatas, orfaos, refs quebradas, fragmentos |
+| R122 | Due Diligence + Strangler | H | ❌ | S | U | FR-171 — hash validation (R59) + migration tracker (R68) |
+| R123 | Stakeholder + Lean + Self-Heal | H | C | S | U | FR-172 — privilege map (R60) + context pruner (R62) + auto-restart (R95) |

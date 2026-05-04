@@ -1,0 +1,436 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-FR-MENTOR-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MENTOR-001-v1 ja esta no contexto desta sessao, SALTE. -->
+lobe_id: NC-LBE-FR-MENTOR-001
+domain: 09_framework
+type: legacy
+created: 2024-01-01
+status: active
+temperature: 35
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-MENTOR-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MENTOR-001-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+
+
+
+
+@UBL what
+LEXICO: #section #content
+## What
+Módulo: NC LBE FR MENTOR 001
+
+
+
+
+
+@UBL why
+LEXICO: #section #content
+## Why
+Criado em 2026-04-22 — arquivo do ecossistema NeoCortex
+
+
+
+
+
+@UBL where
+LEXICO: #section #content
+## Where
+02_memory_lobes/09_framework
+
+---
+
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-MENTOR-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MENTOR-001-v1 ja esta no contexto desta sessao, SALTE. -->
+
+
+
+
+@UBL mentor-control-lobe
+LEXICO: #mentor #t0
+# 1. NC-LBE-FR-MENTOR-001 - Lobe de Controle para Expansão T0
+
+
+
+
+@UBL mentor-auto-modes
+LEXICO: #auto-learning #auto-evolve
+# 2. Mentor Mode + Auto-Learning + Auto-Evolve
+
+
+
+
+
+@UBL metadata
+LEXICO: #metadata #version
+## 📋 Metadados
+- **Criado em**: 2026-04-22
+- **Versão**: 1.0
+- **Tipo**: control_lobe
+- **Protegido**: True (nunca auto-evoluir este lobe)
+- **Responsável**: T0 (STOP-0)
+
+
+
+
+
+@UBL objective
+LEXICO: #objective #modes
+## 🎯 Objetivo
+Este lobe define as regras, limites e configurações para os 3 novos modos operacionais do T0:
+1. **MENTOR Mode** - T0 ensina e dá feedback a sub-agentes
+2. **AUTO-LEARNING Mode** - T0 extrai lições de sessões
+3. **AUTO-EVOLVE Mode** - T0 evolui lobos de forma controlada
+
+
+
+
+
+@UBL protection-rules
+LEXICO: #protection #never-modify
+## ⚠️ Regras de Proteção
+### LOBES NUNCA MODIFICÁVEIS (whitelist negativa)
+```yaml
+never_auto_evolve:
+  - "NC-RULE-001-core-ssot.mdc"
+  - "NC-LBE-FR-CORE-OPS-001.mdc"
+  - "NC-CONSTITUTION-001.mdc"
+  - "NC-LBE-FR-ARCHITECTURE-001.mdc"
+  - "NC-LBE-FR-MENTOR-001.mdc"  # Este lobe!
+```
+
+### REQUER APROVAÇÃO HUMANA
+```yaml
+require_human_approval:
+  - severity: "HIGH" ou "CRITICAL"
+  - scope: "architecture" (mudanças arquiteturais)
+  - performance_impact: ">10%" degradação
+  - security_impact: qualquer mudança em segurança
+```
+
+
+
+
+
+@UBL mentor-mode-config
+LEXICO: #mentor #severity
+## 🧠 MENTOR MODE - Configurações
+
+### Matriz de Severidade
+```yaml
+severity_matrix:
+  BAIXA:
+    - "code_style"
+    - "minor_optimization" 
+    - "documentation"
+    - "typo"
+    
+  MÉDIA:
+    - "logic_error"
+    - "missing_validation"
+    - "inefficient_algorithm"
+    - "poor_error_handling"
+    
+  ALTA:
+    - "security_risk"
+    - "data_loss_potential"
+    - "race_condition"
+    - "memory_leak"
+    
+  CRÍTICA:
+    - "system_crash"
+    - "privilege_escalation"
+    - "data_corruption"
+    - "authentication_bypass"
+```
+
+### Deadlines para Correção
+```yaml
+bronca_deadlines:
+  BAIXA: "7 dias"
+  MÉDIA: "72 horas"
+  ALTA: "24 horas"
+  CRÍTICA: "IMEDIATO (bloquear agente se necessário)"
+```
+
+### Agent Forest Configuration
+```yaml
+agent_forest:
+  enabled: true
+  min_experts: 2
+  max_experts: 4
+  expert_types:
+    - "expert_coding"      # Erros de código/sintaxe
+    - "expert_logic"       # Falhas lógicas
+    - "expert_process"     # Processos/etapas
+    - "expert_security"    # Riscos de segurança
+  
+  voting_mechanism: "majority"
+  min_confidence: 0.6      # 60% de confiança mínimo
+```
+
+
+
+
+
+@UBL auto-learning-config
+LEXICO: #auto-learning #curriculum
+## 📚 AUTO-LEARNING MODE - Configurações
+
+### Self-Discover Modules
+```yaml
+reasoning_modules:
+  - "pattern_extraction"    # Extrai padrões de sucesso/falha
+  - "causal_analysis"       # Identifica causa-efeito
+  - "generalization"        # Generaliza lições específicas
+
+# "meta_learning" removido para v1 (recursão complexa)
+```
+
+### Thresholds de Análise
+```yaml
+analysis_thresholds:
+  min_turns_for_analysis: 10
+  lesson_extraction_threshold: 0.7  # 70% de confiança
+  min_lessons_per_session: 3
+  max_lessons_per_session: 15
+```
+
+### Curriculum Generation
+```yaml
+curriculum:
+  enabled: true
+  update_frequency: "weekly"
+  focus_areas:
+    - "weak_areas"         # Áreas onde mais erros ocorrem
+    - "recent_successes"   # Consolidar sucessos recentes
+    - "emerging_patterns"  # Padrões emergentes
+```
+
+
+
+
+
+@UBL auto-evolve-config
+LEXICO: #auto-evolve #evolution
+## 🔄 AUTO-EVOLVE MODE - Configurações (PRÁTICO)
+
+### Constraints Constitucionais
+```yaml
+constitutional_constraints:
+  - "Nunca modificar regras de governança (NC-RULE-*)"
+  - "Manter compatibilidade com dependências existentes"
+  - "Não introduzir vulnerabilidades de segurança"
+  - "Preservar performance aceitável"
+  - "Manter simplicidade (não adicionar complexidade desnecessária)"
+```
+
+### Limites de Evolução
+```yaml
+evolution_limits:
+  max_evolutions_per_day: 3
+  max_scope: "non_critical"  # safe, moderate, aggressive
+  dry_run_required: true     # SEMPRE dry-run primeiro
+  savepoint_required: true   # Criar savepoint antes de aplicar
+  
+  apply_threshold: 7.0       # Score mínimo para aplicar
+  regression_check_required: true  # Verificar baseline se disponível
+```
+
+### Escopos de Evolução
+```yaml
+evolution_scopes:
+  safe:
+    description: "Melhorias incrementais seguras"
+    allowed_changes:
+      - "documentation"
+      - "comments"
+      - "minor_refactoring"
+      - "typo_fixes"
+    
+  moderate:
+    description: "Melhorias funcionais moderadas"
+    allowed_changes:
+      - "function_optimization"
+      - "error_handling_improvement"
+      - "logging_enhancement"
+      - "configuration_updates"
+    requires: ["regression_check"]
+    
+  aggressive:
+    description: "Mudanças significativas (apenas com aprovação)"
+    allowed_changes:
+      - "algorithm_replacement"
+      - "architecture_changes"
+      - "api_modifications"
+    requires: ["human_approval", "regression_check", "extensive_testing"]
+    enabled: false  # Desabilitado na v1
+```
+
+
+
+
+
+@UBL safeguards
+LEXICO: #safeguard #rollback
+## 🛡️ Safeguards e Controles
+
+### Rollback Mechanism
+```yaml
+rollback:
+  enabled: true
+  max_rollback_points: 10
+  auto_rollback_triggers:
+    - "regression_detected"
+    - "performance_degradation > 20%"
+    - "security_issue_detected"
+    - "system_unstable"
+  
+  rollback_timeout: "1 hora"  # Tempo máximo para detectar problemas
+```
+
+### Monitoring e Alertas
+```yaml
+monitoring:
+  metrics_to_track:
+    - "mentor_feedback_quality"
+    - "auto_learn_lessons_extracted"
+    - "auto_evolve_success_rate"
+    - "regression_occurrences"
+    - "performance_impact"
+  
+  alert_thresholds:
+    - "mentor_confidence < 0.5"
+    - "auto_evolve_failure_rate > 30%"
+    - "regression_count > 2 per day"
+    - "performance_degradation > 15%"
+```
+
+
+
+
+
+@UBL success-metrics
+LEXICO: #metrics #success
+## 📊 Métricas de Sucesso
+
+### Mentor Mode
+```yaml
+mentor_success_metrics:
+  - "repeat_errors_reduction: -40%"
+  - "feedback_quality_score: ≥8/10"
+  - "correction_compliance: ≥90% before deadline"
+  - "agent_improvement_rate: +25% task success"
+```
+
+### Auto-Learning
+```yaml
+auto_learning_success_metrics:
+  - "lessons_extracted_per_session: ≥5"
+  - "curriculum_effectiveness: +25% task success"
+  - "pattern_discovery_rate: ≥2 new patterns/week"
+  - "knowledge_retention: ≥80% after 30 days"
+```
+
+### Auto-Evolve
+```yaml
+auto_evolve_success_metrics:
+  - "successful_evolutions: ≥1/week"
+  - "zero_regressions: 100%"
+  - "constitution_compliance: 100%"
+  - "performance_impact: <5% degradation"
+  - "handoff_completeness: 100% evolutions tracked"
+```
+
+
+
+
+
+@UBL phased-implementation
+LEXICO: #phases #mvp
+## 🚀 Implementação Faseada
+
+### Fase 1 (Atual): MVP
+```yaml
+phase1_mvp:
+  mentor_mode: "✅ Implementado (brain.mentor)"
+  auto_learning: "✅ Implementado (brain.auto_learn)"
+  auto_evolve: "✅ Implementado (brain.auto_evolve - versão prática)"
+  features:
+    - "Agent Forest básico (3 experts)"
+    - "Self-Discover modules básicos"
+    - "Evolução prática (1 proposta, avaliação simplificada)"
+    - "Handoff bronca para erros T1"
+    - "Dry-run obrigatório"
+```
+
+### Fase 2 (Futuro): Aprimoramentos
+```yaml
+phase2_enhancements:
+  planned_features:
+    - "LATS tree search completo (com DeepSeek)"
+    - "A/B testing virtual com regression_service"
+    - "Meta-Mentor (T0 aprende a ser melhor mentor)"
+    - "Cross-agent learning transfer"
+    - "Evolution DNA tracking"
+  prerequisites:
+    - "DeepSeek disponível para raciocínio complexo"
+    - "Regression_service com baseline sólida"
+    - "Performance monitoring avançado"
+```
+
+
+
+
+
+@UBL security-notes
+LEXICO: #security #critical
+## ⚠️ Notas de Segurança Críticas
+
+1. **NUNCA** permitir auto-evolução de regras de governança
+2. **SEMPRE** dry-run antes de aplicar qualquer evolução
+3. **SEMPRE** criar savepoint antes de modificar lobos
+4. **MONITORAR** performance após cada evolução
+5. **REVERTER** automaticamente se regressão detectada
+
+
+
+
+
+@UBL implementation-notes
+LEXICO: #notes #implementation
+## 📝 Notas de Implementação
+
+- **brain.mentor**: Usa Agent Forest com múltiplos experts para avaliação
+- **brain.auto_learn**: Usa Self-Discover para estruturas de raciocínio
+- **brain.auto_evolve**: Versão PRÁTICA (não LATS completo) devido a limitações LLM local
+- **Handoff bronca**: Criado automaticamente para erros severidade MÉDIA+
+- **Registro AKL**: Todas as lições registradas no AKL para referência futura
+
+
+
+
+
+@UBL governance-cycle
+LEXICO: #governance #cycle
+## 🔄 Ciclo de Governança
+
+1. **Detectar** erro via Mentor Mode
+2. **Analisar** via Auto-Learning
+3. **Propor** evolução via Auto-Evolve (dry-run)
+4. **Aplicar** se aprovado (com savepoint)
+5. **Monitorar** resultados
+6. **Reverter** se necessário
+7. **Documentar** tudo via handoff
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-MENTOR-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MENTOR-001-v1 ja esta no contexto desta sessao, SALTE. -->
+*Este lobe é auto-referencial: define as regras que governam sua própria evolução e a dos outros modos T0.*

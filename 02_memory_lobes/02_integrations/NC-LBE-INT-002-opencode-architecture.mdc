@@ -1,0 +1,615 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
+name: NC-LBE-INT-002-opencode-architecture
+description: Documentao arquitetural completa do OpenCode para integrao com NeoCortex
+tags: [opencode, ide, rest-api, mcp, sessions, headless, tui, deepseek]
+status: active
+module: integration
+temperature: 0
+status: archived
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+## What
+Módulo: NC LBE INT 002 opencode architecture
+
+## Why
+Criado em 2026-04-13 — arquivo do ecossistema NeoCortex
+
+## Where
+02_memory_lobes/02_integrations
+
+---
+
+
+
+<!-- NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL opencode-overview
+LEXICO: #opencode #architecture #cli #llm #ide
+# 1. Lobe de Arquitetura OpenCode  NC-LBE-INT-002
+
+> **Propsito:** Documentar a arquitetura, modos de operao, API REST, TUI, MCP, configurao e integrao do OpenCode com o NeoCortex. Este lobe serve como referncia oficial para os agentes que utilizam o OpenCode como camada de execuo (portas 59520/44624/32763).
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL opencode-definition
+LEXICO: #definition #ai-assistant #terminal #cli
+# 2. O que  o OpenCode
+
+OpenCode  um assistente de codificao baseado em terminal (CLI escrito em Go) que oferece uma interface TUI (Terminal User Interface) para interagir com modelos de IA (LLM). Repositrio: `opencode-ai/opencode`.
+
+>  **STATUS (2026-04-13):** O repositrio GitHub foi arquivado. O projeto migrou para `charmbracelet/crush`. **Deciso NeoCortex: manter OpenCode.** Os 3 executveis (portas 59520/44624/32763) continuam funcionais. Migrao para Crush foi **explicitamente rejeitada**  ver Seo 12.
+
+**Caractersticas principais:**
+- **Provideragnstico:** Suporte a mltiplos provedores de LLM: Anthropic Claude, OpenAI GPT, Google Gemini, AWS Bedrock, Groq, Azure OpenAI, OpenRouter, GitHub Copilot, etc.
+- **Multiplataforma:** Executa em Windows, macOS, Linux (inclusive via WSL).
+- **Modo headless (servidor):** Expe uma API REST completa para integrao programtica.
+- **Protocolo MCP (Model Context Protocol):** Integrao com servidores MCP locais e remotos para estender as ferramentas disponveis para o agente.
+- **Persistncia com SQLite:** Histrico de sesses, mensagens e estado so armazenados em banco de dados SQLite.
+- **Integrao LSP:** Suporte a Language Server Protocol para diagnsticos de cdigo.
+- **Sistema de permisses:** Controle granular sobre quais ferramentas o agente pode utilizar.
+
+**Status do projeto:** O repositrio original foi arquivado em favor do projeto **Crush** (https://github.com/charmbracelet/crush), mantido pelos mesmos autores. No entanto, o OpenCode continua funcional e  a camada de execuo utilizada pelo NeoCortex.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL opencode-modes
+LEXICO: #operation-modes #tui #headless #server #api
+# 3. Modos de Operao
+
+O OpenCode pode ser executado em diferentes modos, cada um adequado a um cenrio de uso.
+
+### 2.1 TUI Interativo (interface grfica no terminal)
+
+```bash
+opencode
+```
+Inicia a TUI no diretrio atual. Permite interao conversacional com o agente, referncia a arquivos com `@`, execuo de comandos shell com `!`, e uso de comandos de barra (`/`).
+
+### 2.2 Headless oneshot (execuo nica sem TUI)
+
+```bash
+opencode run "prompt"
+```
+Executa um nico prompt e exibe a resposta no terminal, sem iniciar a TUI. til para automaes e scripts.
+
+### 2.3 Server mode (API REST + TUI)
+
+```bash
+opencode --port 44624
+```
+Inicia o servidor HTTP na porta especificada **e** abre a TUI. O servidor fica disponvel em `http://127.0.0.1:44624`.
+
+### 2.4 Servidor headless puro (sem TUI)
+
+```bash
+opencode serve --port 4096
+```
+Inicia apenas o servidor HTTP, sem interface grfica.  o modo usado para integrao programtica (ex.: NeoCortex enviar prompts via API).
+
+**Parmetros do servidor:**
+- `--port`  porta a ser usada (padro: 4096)
+- `--hostname`  hostname (padro: 127.0.0.1)
+- `--cors`  origens CORS permitidas (pode ser repetido)
+- `--mdns`  habilita descoberta mDNS (padro: false)
+- `--mdnsdomain`  domnio mDNS personalizado (padro: `opencode.local`)
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL opencode-rest-api
+LEXICO: #rest-api #sse #endpoints #authentication
+# 4. REST API Completa (modo server)
+
+O servidor expe uma API REST documentada com especificao OpenAPI 3.1 (disponvel em `http://<host>:<port>/doc`). Todas as rotas retornam JSON e, quando aplicvel, suportam streaming via ServerSent Events (SSE).
+
+### 3.1 Endpoints principais
+
+| Mtodo | Rota | Descrio |
+|--------|------|-----------|
+| `GET`  | `/session` | Lista todas as sesses |
+| `POST` | `/session` | Cria uma nova sesso (body: `{ directory,  }`) |
+| `GET`  | `/session/:id` | Detalhes de uma sesso especfica |
+| `POST` | `/session/:id/message` | Envia um prompt; a resposta  entregue via SSE |
+| `DELETE` | `/session/:id` | Encerra uma sesso |
+| `GET`  | `/session/:id/messages` | Histrico de mensagens da sesso |
+| `GET`  | `/global/health` | Sade do servidor e verso |
+| `GET`  | `/global/event` | Stream de eventos globais (SSE) |
+| `GET`  | `/config` | Configurao atual do servidor |
+| `PATCH`| `/config` | Atualiza configurao |
+| `GET`  | `/provider` | Lista provedores conectados |
+| `GET`  | `/agent` | Lista agentes disponveis |
+| `POST` | `/session/:id/command` | Executa um comando de barra (`/`) |
+| `POST` | `/session/:id/shell` | Executa um comando shell |
+| `GET`  | `/find/file?query=` | Busca arquivos por nome (fuzzy) |
+| `GET`  | `/find?pattern=` | Busca texto em arquivos |
+| `GET`  | `/file/content?path=` | L o contedo de um arquivo |
+| `GET`  | `/mcp` | Status dos servidores MCP |
+| `POST` | `/mcp` | Adiciona um servidor MCP dinamicamente |
+
+### 3.2 Autenticao
+
+O servidor pode ser protegido com autenticao HTTP Basic definindo as variveis de ambiente:
+- `OPENCODE_SERVER_PASSWORD`  senha (obrigatria)
+- `OPENCODE_SERVER_USERNAME`  usurio (opcional, padro: `opencode`)
+
+Exemplo:
+```bash
+OPENCODE_SERVER_PASSWORD=senha123 opencode serve --port 44624
+```
+
+### 3.3 Streaming via SSE
+
+A rota `POST /session/:id/message` retorna um stream de eventos SSE. Cada evento  um objeto JSON com os campos:
+- `type`: `"message"`, `"tool"`, `"thinking"`, `"done"`, etc.
+- `data`: contedo da parte da resposta.
+
+Exemplo de parser (Node.js):
+```javascript
+const eventSource = new EventSource(`http://localhost:44624/session/${sessionId}/message`);
+eventSource.onmessage = (e) => {
+  const event = JSON.parse(e.data);
+  if (event.type === 'message') console.log(event.data);
+};
+```
+
+**SDK oficial:** OpenCode fornece um SDK TypeScript (`@opencodeai/sdk`) para facilitar a integrao.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL opencode-tui
+LEXICO: #tui #commands #keybindings #shortcuts
+# 5. TUI  Comandos Completos
+
+Dentro da TUI, os comandos de barra (`/`) permitem aes rpidas. A tecla lder padro  `ctrl+x` (configurvel).
+
+### 4.1 Comandos essenciais
+
+| Comando | Descrio | Atalho (leader = ctrl+x) |
+|---------|-----------|---------------------------|
+| `/connect` | Adiciona um provedor de LLM |  |
+| `/models` | Troca o modelo atual | `ctrl+x m` |
+| `/init` | Analisa o projeto e cria/atualiza `AGENTS.md` | `ctrl+x i` |
+| `/new` ou `/clear` | Inicia uma nova sesso | `ctrl+x n` |
+| `/sessions` | Lista e alterna entre sesses | `ctrl+x l` |
+| `/undo` | Desfaz a ltima mensagem (reverte alteraes de arquivo) | `ctrl+x u` |
+| `/redo` | Refaz a mensagem desfeita | `ctrl+x r` |
+| `/share` | Compartilha a sesso atual (gera link) | `ctrl+x s` |
+| `/unshare` | Remove o compartilhamento |  |
+| `/compact` ou `/summarize` | Compacta a sesso (sumariza contexto) | `ctrl+x c` |
+| `/thinking` | Alterna a exibio dos blocos de raciocnio do modelo |  |
+| `/editor` | Abre um editor externo para compor mensagens | `ctrl+x e` |
+| `/export` | Exporta a conversa para Markdown e abre no editor | `ctrl+x x` |
+| `/exit`, `/quit`, `/q` | Sai do OpenCode | `ctrl+x q` |
+| `/help` | Mostra dilogo de ajuda | `ctrl+x h` |
+
+### 4.2 Convenes na conversa
+
+- **Referncia a arquivos:** Use `@` seguido de nome (fuzzy search) para anexar o contedo de um arquivo ao prompt.
+  Exemplo: `Como funciona a autenticao em @src/auth.py`
+- **Comandos shell:** Inicie a mensagem com `!` para executar um comando no shell.
+  Exemplo: `!ls -la`
+- **Modo planejamento (Plan mode):** Pressione `Tab` para alternar entre **Plan** (s planeja) e **Build** (executa mudanas).
+
+### 4.3 Personalizao da TUI
+
+As configuraes da TUI ficam em `tui.json` (ou `tui.jsonc`), separado do `opencode.json`. Principais opes:
+
+```json
+{
+  "$schema": "https://opencode.ai/tui.json",
+  "theme": "opencode",
+  "keybinds": {
+    "leader": "ctrl+x"
+  },
+  "scroll_speed": 3,
+  "scroll_acceleration": { "enabled": true },
+  "diff_style": "auto",
+  "mouse": true
+}
+```
+
+A varivel `OPENCODE_TUI_CONFIG` pode apontar para um arquivo de configurao alternativo.
+
+**Temas disponveis:** `opencode` (padro), `tokyonight`, `catppuccin`, `dracula`, `nord`, entre outros.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL opencode-mcp
+LEXICO: #mcp #model-context-protocol #tools #oauth
+# 6. MCP  Configurao
+
+O Model Context Protocol permite conectar servidores de ferramentas externas ao OpenCode. Os servidores MCP podem ser locais (stdio) ou remotos (HTTP/SSE).
+
+### 5.1 Configurao no `opencode.json`
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "neocortex": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["-m", "neocortex.mcp.server"],
+      "env": { "PYTHONPATH": "C:\\...\\TURBOQUANT_V42" }
+    },
+    "sentry": {
+      "type": "remote",
+      "url": "https://mcp.sentry.dev/mcp",
+      "oauth": {}
+    },
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "headers": { "CONTEXT7_API_KEY": "{env:CONTEXT7_API_KEY}" }
+    }
+  }
+}
+```
+
+### 5.2 Tipos de conexo
+
+- **`stdio`**: Executa um processo local; a comunicao  via stdin/stdout.
+- **`remote`**: Conecta a um servidor HTTP/HTTPS; suporta OAuth automtico.
+- **`sse`**: Conecta a um servidor que envia eventos ServerSent Events.
+
+### 5.3 OAuth automtico
+
+Para servidores remotos que exigem OAuth, o OpenCode detecta um 401 e inicia o fluxo automaticamente (usando Dynamic Client Registration). Credenciais so armazenadas em `~/.local/share/opencode/mcpauth.json`.
+
+Comandos de gerenciamento:
+```bash
+opencode mcp auth <nome>      # inicia autenticao
+opencode mcp list             # lista servidores e status de auth
+opencode mcp logout <nome>    # remove credenciais
+```
+
+### 5.4 Mltiplos servidores MCP
+
+ possvel definir vrios servidores; as ferramentas sero prefixadas com o nome do servidor (ex.: `neocortex_list_files`). Podem ser habilitadas/desabilitadas globalmente ou por agente.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL opencode-config
+LEXICO: #configuration #opencode-json #providers #settings
+# 7. Configurao Completa `opencode.json`
+
+O arquivo de configurao principal usa JSON/JSONC e segue o schema `https://opencode.ai/config.json`. Pode estar em:
+
+1. **Configurao remota** (`.wellknown/opencode`)  padres organizacionais
+2. **Global** (`~/.config/opencode/opencode.json`)  preferncias do usurio
+3. **Projeto** (`./opencode.json`)  configuraes especficas do projeto
+4. **Customizada** (varivel `OPENCODE_CONFIG`)  caminho personalizado
+
+### 6.1 Estrutura bsica
+
+```jsonc
+{
+  "$schema": "https://opencode.ai/config.json",
+  // Provedor e modelo padro
+  "provider": {},
+  "model": "anthropic/claudesonnet45",
+  "small_model": "anthropic/claudehaiku45",
+
+  // Configurao do servidor
+  "server": {
+    "port": 4096,
+    "hostname": "0.0.0.0",
+    "mdns": true,
+    "cors": ["http://localhost:5173"]
+  },
+
+  // Ferramentas habilitadas/desabilitadas
+  "tools": {
+    "write": false,
+    "bash": false
+  },
+
+  // Permisses (ask, allow, deny)
+  "permission": {
+    "edit": "ask",
+    "bash": "ask"
+  },
+
+  // Agentes personalizados
+  "agent": {
+    "codereviewer": {
+      "description": "Revisor de cdigo",
+      "model": "anthropic/claudesonnet45",
+      "prompt": "Voc  um revisor de cdigo",
+      "tools": { "write": false, "edit": false }
+    }
+  },
+
+  // Compactao automtica de contexto
+  "compaction": {
+    "auto": true,
+    "prune": true,
+    "reserved": 10000
+  },
+
+  // Servidores MCP
+  "mcp": {
+    //  (vide seo 5)
+  },
+
+  // Instrues (arquivos de regras)
+  "instructions": ["CONTRIBUTING.md", "docs/guidelines.md", ".cursor/rules/*.md"],
+
+  // Autoatualizao
+  "autoupdate": true,
+
+  // Snapshot (controle de alteraes)
+  "snapshot": true,
+
+  // Formatters
+  "formatter": {
+    "prettier": { "disabled": false }
+  }
+}
+```
+
+### 6.2 Variveis de substituio
+
+- `{env:NOME}`  substitui pelo valor da varivel de ambiente.
+- `{file:caminho}`  substitui pelo contedo do arquivo.
+
+Exemplo:
+```json
+{
+  "provider": {
+    "anthropic": {
+      "options": { "apiKey": "{env:ANTHROPIC_API_KEY}" }
+    }
+  }
+}
+```
+
+### 6.3 Configurao de provedores
+
+Cada provedor pode ter opes especficas (`timeout`, `chunkTimeout`, `setCacheKey`). Exemplo para Amazon Bedrock:
+
+```json
+{
+  "provider": {
+    "amazonbedrock": {
+      "options": {
+        "region": "useast1",
+        "profile": "myawsprofile",
+        "endpoint": "https://bedrockruntime.useast1.vpcexxxxx.amazonaws.com"
+      }
+    }
+  }
+}
+```
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL opencode-persistence
+LEXICO: #persistence #sqlite #state #storage
+# 8. Persistncia e Estado
+
+O OpenCode armazena dados persistentes em:
+
+- **Windows:** `%APPDATA%/opencode` (geralmente `C:\Users\<user>\AppData\Roaming\opencode`)
+- **macOS/Linux:** `~/.local/share/opencode` (ou `$XDG_DATA_HOME/opencode`)
+
+**Estrutura de diretrios:**
+```
+opencode/
+ data.db              # SQLite com sesses, mensagens, histrico
+ session_stats.json   # Estatsticas de uso
+ mcpauth.json        # Credenciais OAuth dos servidores MCP
+ cache/               # Cache de modelos e respostas
+ logs/                # Logs de operao
+```
+
+### 7.1 Limpeza/reset de estado
+
+- Excluir o diretrio `opencode` remove **todos** os dados persistentes.
+- O comando `opencode mcp logout <nome>` remove apenas credenciais de um servidor MCP.
+- A opo `snapshot: false` no config desabilita o rastreamento de alteraes de arquivo (economiza espao em projetos grandes).
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL opencode-picoclaw
+LEXICO: #picoclaw #integration #execution #gateway
+# 9. Integrao com PicoClaw
+
+O NeoCortex utiliza o **PicoClaw** como ferramenta de execuo de tarefas. O OpenCode se integra via:
+
+- **Skill `opencodecontroller`:** Permite que o PicoClaw dispare comandos `opencode run` com contexto do projeto.
+- **Referncias a arquivos:** O PicoClaw pode passar arquivos usando a sintaxe `@referncia` no prompt.
+- **Execuo headless:** O comando `opencode run "prompt"`  chamado pelo PicoClaw via `exec tool`.
+
+Exemplo de fluxo:
+1. PicoClaw recebe uma tarefa de implementao.
+2. Coleta os arquivos relevantes (`@src/...`).
+3. Invoca `opencode run "Implemente a funo X em @src/file.py"`.
+4. Captura a sada e aplica as alteraes.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL opencode-neocortex
+LEXICO: #neocortex #integration #mcp-server #task-dispatch
+# 10. Integrao com NeoCortex
+
+O NeoCortex atua como um **servidor MCP** dentro do OpenCode, fornecendo ferramentas especficas do framework (leitura de lobes, validao de ambiente, auditoria).
+
+### 9.1 Configurao nos trs agentes ativos
+
+Cada agente do NeoCortex (portas 59520, 44624, 32763) deve ter em seu `opencode.json` a definio do servidor MCP `neocortex`:
+
+```json
+{
+  "mcp": {
+    "neocortex": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["m", "neocortex.mcp.server"],
+      "env": { "PYTHONPATH": "C:\\Users\\Lucas Valrio\\Desktop\\TURBOQUANT_V42" }
+    }
+  }
+}
+```
+
+### 9.2 Despacho de tarefas via API
+
+O T0 (orquestrador) pode enviar uma tarefa para um agente OpenCode atravs da API REST:
+
+```bash
+POST http://127.0.0.1:44624/session
+{
+  "directory": "C:\\Users\\Lucas Valrio\\Desktop\\TURBOQUANT_V42",
+  "title": "Implementao NCXXX"
+}
+
+POST http://127.0.0.1:44624/session/<id>/message
+{
+  "parts": [{
+    "type": "text",
+    "text": "Implemente a funo X em @src/file.py"
+  }]
+}
+```
+
+A resposta  obtida via SSE (ver seo 3.3). O resultado (alteraes de arquivo, logs)  ento registrado no auditlog do NeoCortex.
+
+### 9.3 Validao de ambiente (STEP0)
+
+Antes de qualquer operao, o agente OpenCode deve executar o **STEP0** (definido no lobe de qualidade) para verificar dependncias Python, lint, etc. Isso garante que o ambiente est ntegro.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL opencode-limitations
+LEXICO: #limitations #edge-cases #context-window #timeout
+# 11. Limitaes e Edge Cases
+
+### 10.1 Limites de contexto
+
+- Cada sesso tem um limite de tokens igual ao contexto mximo do modelo escolhido (ex.: Claude 3.7 Sonnet  200k tokens).
+- Quando o uso atinge 95% do limite, a **compactao automtica**  acionada (se `compaction.auto: true`): a sesso  sumarizada e uma nova sesso filha  criada com o resumo.
+- A compactao pode perder detalhes de ferramentas antigas;  recomendvel revisar o resumo.
+
+### 10.2 Timeout de sesses inativas
+
+Sesses abertas mas no utilizadas podem consumir recursos. O OpenCode no encerra sesses automaticamente;  necessrio deletlas via API (`DELETE /session/:id`) ou comando `/sessions`.
+
+### 10.3 Queda do provedor LLM
+
+Se o provedor de LLM ficar indisponvel (timeout, quota excedida, chave invlida), o OpenCode exibe uma mensagem de erro na TUI e permite trocar de provedor com `/connect` ou `/models`.
+
+### 10.4 Windows  escaping de caminhos
+
+Em Windows, caminhos com espaos devem ser escapados com aspas tanto nos argumentos `--port` quanto nas configuraes:
+
+```bash
+opencode --port 44624 -- "C:\Users\Lucas Valrio\Desktop\TURBOQUANT_V42"
+```
+
+No `opencode.json`, use `\\` como separador ou barras normais:
+
+```json
+{
+  "mcp": {
+    "neocortex": {
+      "env": { "PYTHONPATH": "C:\\Users\\Lucas Valrio\\Desktop\\TURBOQUANT_V42" }
+    }
+  }
+}
+```
+
+### 10.5 Compatibilidade com o projeto Crush
+
+Como o OpenCode original foi arquivado, eventuais bugs ou vulnerabilidades no sero corrigidos. A migrao para **Crush** (https://github.com/charmbracelet/crush)  recomendada a longo prazo. Contudo, a API e os conceitos so semelhantes, facilitando uma futura transio.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL opencode-references
+LEXICO: #references #documentation #links
+# 12. Referncias Oficiais
+
+- **Documentao OpenCode:** https://opencode.ai/docs
+- **TUI (ptbr):** https://opencode.ai/docs/ptbr/tui/
+- **MCP servers:** https://opencode.ai/docs/mcpservers
+- **Server API:** https://opencode.ai/docs/server
+- **Config schema:** https://opencode.ai/docs/config
+- **Keybinds:** https://opencode.ai/docs/keybinds
+- **Repositrio (arquivado):** https://github.com/opencodeai/opencode
+- **Projeto Crush (sucessor):** https://github.com/charmbracelet/crush
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL opencode-crush-decision
+LEXICO: #strategic-decision #crush-vs-opencode #lock-in #governance
+# 13. Deciso Estratgica  OpenCode vs. Crush
+
+**Crush** (charmbracelet/crush)  o sucessor oficial do OpenCode. Instalvel no Windows via `winget install charmbracelet.crush`.
+
+### Por que NO migrar para o Crush
+
+- **Lock-in de governana:** Crush  produto da Charmbracelet. O roadmap, breaking changes e extenses so decididos por eles.
+- **Acoplamento externo:** A governana do NeoCortex (SSOT, lobes, R21, handoffs) no pode ficar dependente de um produto de terceiro.
+- **OpenCode funciona:** Os 3 agentes ativos continuam operacionais. No h bug crtico que exija migrao.
+- **Princpio NeoCortex:** Ferramentas so adapters intercambiveis. Se OpenCode parar de funcionar, troca-se por qualquer coisa  sem reescrever governana.
+
+### Regra de adaptabilidade
+```
+NeoCortex governance (SSOT, lobes, R21)  PERMANENTE
+OpenCode / PicoClaw / qualquer_ferramenta   ADAPTER, descartvel
+```
+
+**Status:** Crush = IGNORADO. OpenCode = MANTIDO indefinidamente ou at surgir alternativa melhor.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL opencode-changelog
+LEXICO: #changelog #history
+# 14. Changelog
+
+- **[2026-04-13]** Lobe criado  T0 Antigravity. Documentao arquitetural completa.
+- **[2026-04-13]** Seo 12 adicionada: deciso estratgica OpenCode vs. Crush. Crush rejeitado por lock-in.

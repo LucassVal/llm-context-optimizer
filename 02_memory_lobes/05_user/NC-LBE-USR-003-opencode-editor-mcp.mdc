@@ -1,0 +1,390 @@
+---
+<!-- NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v2 -->
+<!-- DEDUP: Se NC-LBE-USR-003-opencode-editor-mcp-v2 ja esta no contexto desta sessao, SALTE. -->
+name: NC-LBE-USR-003-opencode-editor-mcp
+description: SSOT OpenCode — integracao completa: MCP + LSP + Skills + Custom Tools + Agents. Guia exaustivo v2.0.
+tags: [opencode, mcp, lsp, skills, agents, custom-tools, editor, config]
+status: active
+module: integration
+temperature: 0
+version: 2.0
+updated: 2026-05-03
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+
+
+
+
+@UBL what
+LEXICO: #section #content
+## What
+Módulo: NC LBE USR 003 opencode editor mcp
+
+
+
+
+
+@UBL why
+LEXICO: #section #content
+## Why
+Criado em 2026-04-17 — arquivo do ecossistema NeoCortex
+
+
+
+
+
+@UBL where
+LEXICO: #section #content
+## Where
+02_memory_lobes/05_user
+
+---
+
+
+
+<!-- NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 ja esta no contexto desta sessao, SALTE. -->
+
+
+
+
+@UBL opencode-mcp-integration
+LEXICO: #opencode #mcp
+# 1. Guia de Integração MCP OpenCode — NC-LBE-USR-003
+
+> **Propósito:** Documentar o uso do Model Context Protocol (MCP) no OpenCode como cliente, cobrindo configuração de servidores locais/remotos, fluxos de autenticação OAuth e gerenciamento de ferramentas.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 ja esta no contexto desta sessao, SALTE. -->
+
+
+
+
+@UBL mcp-servers
+LEXICO: #servers #local-remote
+## 🚀 1. Servidores MCP no OpenCode
+
+O OpenCode suporta a adição de ferramentas MCP locais e remotas. Uma vez adicionadas, as ferramentas estão automaticamente disponíveis para o LLM.
+
+> [!WARNING]
+> **Consumo de Contexto:** Servidores MCP adicionam ao contexto da sessão. Use com cautela para não exceder limites de tokens rapidamente (especialmente servidores como o do GitHub).
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 ja esta no contexto desta sessao, SALTE. -->
+
+
+
+
+@UBL opencode-config
+LEXICO: #config #opencode-jsonc
+## ⚙️ 2. Configuração (`opencode.jsonc`)
+
+Você pode definir servidores MCP na seção `mcp` do seu arquivo de configuração.
+
+### 2.1 Estrutura Básica
+```jsonc
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "meu-servidor-mcp": {
+      "enabled": true,
+      // ... outras opções
+    }
+  }
+}
+```
+
+### 2.2 Servidores Locais (`type": "local"`)
+Usado para processos que rodam na sua máquina (stdio).
+
+```jsonc
+{
+  "mcp": {
+    "meu-servidor-local": {
+      "type": "local",
+      "command": ["npx", "-y", "comando-mcp"],
+      "enabled": true,
+      "environment": {
+        "VAR_ENV": "valor"
+      }
+    }
+  }
+}
+```
+
+**Opções Locais:**
+- `type`: "local" (Obrigatório).
+- `command`: Array de strings com o comando e argumentos.
+- `environment`: Objeto com variáveis de ambiente.
+- `timeout`: Tempo limite em ms (padrão: 5000).
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 ja esta no contexto desta sessao, SALTE. -->
+### 2.3 Servidores Remotos (`type": "remote"`)
+Conectam-se via URL (HTTP/SSE).
+
+```jsonc
+{
+  "mcp": {
+    "meu-servidor-remoto": {
+      "type": "remote",
+      "url": "https://servidor.com/mcp",
+      "enabled": true,
+      "headers": {
+        "Authorization": "Bearer CHAVE_API"
+      }
+    }
+  }
+}
+```
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 ja esta no contexto desta sessao, SALTE. -->
+
+
+
+
+@UBL auth-oauth
+LEXICO: #oauth #auth
+## 🔐 3. Autenticação & OAuth
+
+O OpenCode gerencia automaticamente o OAuth para servidores remotos (RFC 7591).
+
+### 3.1 Fluxo Automático
+Ao detectar uma resposta 401, o OpenCode inicia o fluxo OAuth no navegador. Os tokens são armazenados em `~/.local/share/opencode/mcp-auth.json`.
+
+### 3.2 Configuração Pré-registrada
+Se você já possui as credenciais:
+```jsonc
+"oauth": {
+  "clientId": "{env:ID_CLIENTE}",
+  "clientSecret": "{env:SEGREDO_CLIENTE}",
+  "scope": "tools:read tools:execute"
+}
+```
+
+### 3.3 Comandos de Gerenciamento (Terminal)
+- `opencode mcp auth <server-name>`: Iniciar autenticação manual.
+- `opencode mcp list`: Listar servidores e status de auth.
+- `opencode mcp logout <server-name>`: Remover credenciais armazenadas.
+- `opencode mcp debug <server-name>`: Diagnosticar problemas de conexão/OAuth.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 ja esta no contexto desta sessao, SALTE. -->
+
+
+
+
+@UBL tool-management
+LEXICO: #tools #permissions
+## 🛠️ 4. Gerenciamento de Ferramentas
+
+### 4.1 Global vs. Por Agente
+As ferramentas MCP são prefixadas com o nome do servidor: `nome-servidor_nome-ferramenta`.
+
+```jsonc
+{
+  "mcp": { "meu-mcp": { "enabled": true } },
+  "tools": { "meu-mcp*": false }, // Desativa globalmente
+  "agent": {
+    "revisor": {
+      "tools": { "meu-mcp*": true } // Habilita apenas para este agente
+    }
+  }
+}
+```
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 ja esta no contexto desta sessao, SALTE. -->
+
+
+
+
+@UBL server-examples
+LEXICO: #examples #servers
+## 📚 5. Exemplos de Servidores
+
+| Servidor | Configuração MCP | Uso no Prompt |
+| :--- | :--- | :--- |
+| **Sentry** | `"type": "remote", "url": "https://mcp.sentry.dev/mcp", "oauth": {}` | "Show me the latest unresolved issues. use sentry" |
+| **Context7** | `"url": "https://mcp.context7.com/mcp", "headers": { "KEY": "{env:KEY}" }` | "Search docs for X. use context7" |
+| **GitHub Grep** | `"type": "remote", "url": "https://mcp.grep.app"` | "Search code examples for Y. use the gh_grep tool" |
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 ja esta no contexto desta sessao, SALTE. -->
+---
+
+<!-- NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v2 -->
+
+
+
+
+@UBL lsp-servers
+LEXICO: #lsp #diagnostics
+## 🔧 6. Servidores LSP (Language Server Protocol)
+
+OpenCode integra 37 servidores LSP nativos. Ativacao automatica por extensao de arquivo.
+Configuracao em `@SSOT → opencode.json` secao `lsp`.
+
+### 6.1 LSPs configurados no NeoCortex
+| LSP | Extensoes | Status | Complementa |
+|---|---|---|---|
+| **pyright** | `.py` `.pyi` | ✅ ativo | ruff + mypy + bandit (R6) |
+| **yaml-ls** | `.yaml` `.yml` | ✅ ativo | yaml.safe_load (R6) |
+| **rust-analyzer** | `.rs` | ✅ ativo | migracao futura neocortex-mcp-rs |
+| **typescript** | `.ts` `.tsx` | ✅ ativo | openclaude (03_external) |
+| **eslint** | `.ts` `.tsx` | ✅ ativo | qualidade TS |
+| **oxlint** | `.ts` `.vue` | ✅ ativo | lint rapido alternativo |
+
+Configuracao em `opencode.json`:
+```json
+{ "lsp": { "pyright": { "env": { "PYTHONPATH": "@FW" } }, "yaml_ls": {}, "rust": {}, "typescript": {}, "eslint": {}, "oxlint": {} } }
+```
+
+---
+
+<!-- NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v2 -->
+
+
+
+
+@UBL agent-skills
+LEXICO: #skills #prompts
+## 🎯 7. Agent Skills (SKILL.md)
+
+Skills sao instrucoes reutilizaveis carregadas sob demanda via `skill()` tool.
+Local: `.opencode/skills/<name>/SKILL.md`
+
+### 7.1 Skills NeoCortex ativas
+| Skill | Descricao | MCP Tools usadas |
+|---|---|---|
+| `nc-validate` | Pipeline R6 completo (ruff+mypy+bandit+yaml+mdc+json+@LOCKS+secret) | neocortex_governance (yaml.validate, mdc.validate, secret.scan, naming.check, lock.validate, ssot.diff) |
+| `nc-lint` | Rapido: ruff + mypy + pyright em .py | ruff check/format + mypy |
+| `nc-audit` | Auditoria 3 camadas FR-173 | neocortex_governance (compliance.report, audit.full) + neocortex_state (regression.check, checkpoint.list) + neocortex_health (server.health) |
+| `nc-handoff` | Gera handoff YAML NC-DS-*-handoff-*.yaml | neocortex_governance (handoff.create) |
+| `nc-boot-sync` | Sincroniza @BOOT + catalog refresh | neocortex_governance (bootup.sync, catalog.refresh) |
+| `nc-ssot-update` | Atualiza @SSOT com changelog | neocortex_governance (ssot.diff, naming.check) |
+
+### 7.2 Pipeline de skills (ordem fixa)
+```
+nc-lint → nc-validate → nc-ssot-update → nc-handoff → nc-boot-sync
+```
+
+---
+
+<!-- NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v2 -->
+
+
+
+
+@UBL custom-tools
+LEXICO: #tools #typescript
+## 🛠️ 8. Custom Tools (TypeScript)
+
+Ferramentas nativas TypeScript em `.opencode/tools/*.ts`.
+Chamam scripts Python existentes do NeoCortex.
+
+| Tool | Descricao | Chama |
+|---|---|---|
+| `nc-lint.ts` | ruff check + mypy via Bun.$ | ruff check --fix |
+| `nc-audit.ts` | Auditoria 3 camadas | NC-CORE-FR-173-mcp-audit-3-levels.py |
+| `nc-handoff.ts` | Gera handoff YAML via Bun.write | DIR-DS-002-audit-logs/ |
+| `nc-sync.ts` | Bootup sync + catalog refresh | NC-SCR-FR-066 + NC-SCR-FR-064 |
+| `nc-validate.ts` | Validacao multi-tipo (py+yaml+mdc+json) | ruff + py_compile + yaml.safe_load |
+
+---
+
+<!-- NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v2 -->
+
+
+
+
+@UBL opencode-agents
+LEXICO: #agents #subagents
+## 🤖 9. Agentes OpenCode
+
+Agentes especializados configurados em `.opencode/agents/*.md`.
+
+### 9.1 Agentes NeoCortex
+| Agente | Modo | Descricao |
+|---|---|---|
+| **build** (built-in) | primary | Desenvolvimento completo, todas tools |
+| **plan** (built-in) | primary | Analise/planejamento sem edicoes |
+| **nc-guardian** | subagent | Validacao NC- — naming, locks, zones, secrets |
+| **nc-auditor** | subagent | Auditoria FULL — 3 camadas + compliance + regression |
+| **nc-courier** | subagent | Execucao braçal (T1) — scripts, renomeios, populate |
+
+### 9.2 Configuracao em opencode.json
+```json
+{ "agent": { "nc-guardian": { "mode": "subagent", "prompt": "{file:./.opencode/agents/nc-guardian.md}", "tools": { "neocortex_security": true, "neocortex_governance": true } } } }
+```
+
+---
+
+<!-- NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v2 -->
+
+
+
+
+@UBL integration-architecture
+LEXICO: #architecture #workflow
+## 📊 10. Arquitetura de Integracao
+
+```
+OpenCode (TUI)
+├── MCP stdio ← neocortex.mcp.server (21 tools)
+│   ├── neocortex_governance (audit, compliance, handoff, bootup, naming, ssot)
+│   ├── neocortex_memory (lobe, knowledge, search)
+│   ├── neocortex_state (checkpoint, regression, savepoint, session)
+│   └── ... (17+ tools)
+├── LSP (6 servidores) → diagnostico em tempo real
+├── Skills (6) → prompts reutilizaveis
+├── Custom Tools (5) → chamadas diretas Python
+└── Agents (2 built-in + 3 NC) → especializacao
+```
+
+### 10.1 Fluxo completo de trabalho
+1. **Plan** (agente plan) → analisa requisitos, consulta @ROADMAP
+2. **Build** (agente build) → implementa usando MCP tools + skills
+3. **nc-validate** → pipeline R6 a cada arquivo salvo
+4. **nc-ssot-update** → atualiza @SSOT com changelog
+5. **nc-handoff** → gera handoff YAML obrigatorio
+6. **nc-boot-sync** → sincroniza @BOOT ao fim do sprint
+
+---
+
+<!-- NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v2 -->
+
+
+
+
+@UBL changelog
+LEXICO: #changelog
+## 🔄 Changelog
+- **[2026-05-03]** v2.0 — Adicionadas secoes 6 (LSP), 7 (Skills), 8 (Custom Tools), 9 (Agents), 10 (Arquitetura). Atualizados paths via @ULQ.
+- **[2026-04-17]** v1.0 — Lobe criado conforme documentacao exaustiva do usuario (NC-DS-118).

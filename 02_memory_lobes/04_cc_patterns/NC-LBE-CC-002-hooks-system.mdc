@@ -1,0 +1,366 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 ja esta no contexto desta sessao, SALTE. -->
+alwaysApply: false
+description: "Sistema de hooks reativos do Claude Code (hookify/securityguidance). Mapeamento para NeoCortex: MentorHooks/GuardHooks. Estrutura hooks.json + Python, eventos tool_called/file_written/bash_executed, regras YAML para @LOCKS e SSOT."
+temperature: 0
+status: archived
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+## What
+Módulo: NC LBE CC 002 hooks system
+
+## Why
+Criado em 2026-04-16 — arquivo do ecossistema NeoCortex
+
+## Where
+02_memory_lobes/04_cc_patterns
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL hooks-system-overview
+LEXICO: #hooks-system #hookify #reactive-hooks #claude-code-pattern
+# $HOOKS_SYSTEM  Hookifylike do Claude Code  NeoCortex
+
+<!-- NC-LBE-CC-002 | v1.0 | 20260412T23:50:00 | Criado por Analista de Documentao NeoCortex -->
+<!-- PROPSITO: Documentar padro de hooks reativos do Claude Code (PreToolUse, PostToolUse, Stop) e mapear para implementao NeoCortex (MentorHooks/GuardHooks). -->
+<!-- ISOLAMENTO: Readonly  no produz cdigo ativo, apenas insights de arquitetura. -->
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL visao-geral-hookify
+LEXICO: #hookify-overview #pretooluse #posttooluse #event-flow #architecture
+## 1. VISO GERAL DO HOOKIFY NO CLAUDE CODE
+
+### 1.1 Conceito Central
+- **Hookify**  um plugin oficial do Claude Code que adiciona **hooks reativos** (PreToolUse, PostToolUse, Stop) a ferramentas especficas.
+- **Securityguidance**  um plugin que usa **PreToolUse** para analisar edies de arquivo em busca de padres de risco (command injection, XSS, hardcoded secrets).
+- **Filosofia:** Governana leve via Markdown+YAML + scripts Python externos, ativao imediata sem restart.
+
+### 1.2 Arquitetura do Hook
+
+```
+.claudeplugin/               # raiz do plugin
+ plugin.json              # metadados (name, version, description)
+ hooks/
+    hooks.json           # configurao dos hooks (eventos, matchers, aes)
+    security_reminder_hook.py  # script Python executado no hook
+ commands/                # comandos CLI (opcional)
+```
+
+**hooks.json (exemplo do securityguidance):**
+```json
+{
+  "hooks": [
+    {
+      "event": "PreToolUse",
+      "matcher": { "type": "Edit|Write|MultiEdit" },
+      "script": "security_reminder_hook.py",
+      "action": "warn",
+      "description": "Analisa edies de arquivo para padres de risco"
+    }
+  ]
+}
+```
+
+### 1.3 Fluxo de Execuo
+
+1. **Evento disparado**  usurio chama uma tool (Edit, Write, MultiEdit, Bash, etc.)
+2. **Matcher avalia**  hooks.json filtra por tipo de tool, caminho de arquivo, etc.
+3. **Script Python executado**  recebe contexto via stdin/env:
+   - `CONTENT`: contedo do arquivo editado
+   - `FILE_PATH`: caminho do arquivo
+   - `TOOL_NAME`: nome da tool (Edit, Write, )
+   - `USER_ID`: identificador da sesso
+4. **Script analisa**  procura padres de risco, violaes de poltica.
+5. **Ao tomada**:
+   - `warn`: emite alerta (log, mensagem para usurio) mas permite a execuo.
+   - `block`: bloqueia a tool, retorna erro.
+   - `log`: apenas registra no log de debug (`/tmp/securitywarningslog.txt`).
+
+### 1.4 Eventos Suportados (Claude Code)
+
+| Evento | Gatilho | Uso tpico |
+|---|---|---|
+| **PreToolUse** | Antes da tool ser executada | Validao de segurana, anlise de risco, injeo de contexto |
+| **PostToolUse** | Aps a tool ser executada | Log de auditoria, atualizao de SSOT, notificao |
+| **Stop** | Quando a sesso  encerrada | Flush de mtricas, cleanup de recursos, rollback de transaes |
+
+### 1.5 Contexto Passado ao Script
+
+**Variveis de ambiente:**
+- `HOOK_EVENT`: PreToolUse, PostToolUse, Stop
+- `HOOK_MATCHER`: tipo de tool (Edit, Write, MultiEdit, Bash, )
+- `HOOK_ACTION`: warn, block, log
+- `HOOK_TIMESTAMP`: timestamp do evento
+
+**Entrada padro (stdin):** JSON com detalhes da tool. Exemplo para `Edit`:
+```json
+{
+  "tool": "Edit",
+  "filePath": "/home/user/project/src/server.py",
+  "oldString": "function foo() {}",
+  "newString": "function bar() {}",
+  "user": "worker44949a1b2c3"
+}
+```
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL mapeamento-neocortex
+LEXICO: #neocortex-mapping #mentorhooks #guardhooks #event-mapping
+## 2. MAPEAMENTO PARA NEOCORTEX
+
+### 2.1 Deciso Arquitetural
+- **hookify  MentorHooks / GuardHooks**
+- **MentorHooks:** hooks executados **antes** da ao (equivalente a PreToolUse)  validao proativa, injeo de contexto, alertas de segurana.
+- **GuardHooks:** hooks executados **aps** a ao (equivalente a PostToolUse)  auditoria, atualizao de SSOT, notificao de mudanas.
+
+### 2.2 Justificativa
+- **NeoCortex j possui Mentor Mode**  filtro prexecuo que injeta contexto e regras antes do LLM. MentorHooks estendem esse conceito para **qualquer tool** (no apenas LLM).
+- **Atomic locks (@LOCKS)** so **proativos**  impedem a escrita antes de acontecer. GuardHooks complementam com **reatividade**  detectam violaes aps a escrita e corrigem/alertam.
+- **SSOT ubquo** precisa de hooks para **atualizao automtica** quando arquivos so criados/renomeados.
+
+### 2.3 Componentes NeoCortex Equivalentes
+
+| Componente Claude Code | Equivalente NeoCortex | Status |
+|---|---|---|
+| hooks.json (config) | `NCHKFR001hookregistry.py` (YAML/JSON) | **A criar** (NCDS031) |
+| security_reminder_hook.py | `NCHKFR002securityguard.py` | **A criar** (NCDS031) |
+| .claudeplugin/ | `.nc/hooks/` (diretrio por projeto) | **A criar** (NCDS032) |
+| PreToolUse event | `tool_called` (MentorHooks) | **Novo evento** |
+| PostToolUse event | `file_written`, `bash_executed` (GuardHooks) | **Novos eventos** |
+
+### 2.4 Eventos NeoCortex Propostos
+
+| Evento | Descrio | Gatilho |
+|---|---|---|
+| `tool_called` | Antes de qualquer tool ser executada | Qualquer chamada de tool (Edit, Write, Bash, ) |
+| `file_written` | Aps arquivo ser escrito/alterado | Sucesso de Edit, Write, MultiEdit |
+| `bash_executed` | Aps comando Bash ser executado | Sucesso de Bash tool |
+| `session_started` | Quando nova sesso worker  iniciada | Worker conectase ao gateway |
+| `session_ended` | Quando sesso worker termina | Worker encerra (normal ou erro) |
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL hook-registry-structure
+LEXICO: #hook-registry #nchkfr001 #yaml-rules #python-scripts #mentor-mode
+## 3. ESTRUTURA DO HOOK REGISTRY (NCHKFR001hookregistry.py)
+
+### 3.1 Formato YAML de Regras
+
+```yaml
+hooks:
+  - event: tool_called
+    matcher:
+      tool_type: Edit|Write|MultiEdit
+      file_pattern: "**/server.py|**/sub_server.py"
+    script: .nc/hooks/lockguard.py
+    action: block
+    description: "Bloqueia edio de arquivos @LOCKS"
+
+  - event: file_written
+    matcher:
+      file_pattern: "**/*.mdc|**/*.md"
+    script: .nc/hooks/ssotupdate.py
+    action: log
+    description: "Atualiza SSOT aps escrita de lobe/doc"
+
+  - event: bash_executed
+    matcher:
+      command_pattern: "rm \-rf|mkfs|dd"
+    script: .nc/hooks/destructivecommandalert.py
+    action: warn
+    description: "Alerta para comandos destrutivos"
+```
+
+### 3.2 Script Python de Hook (exemplo lockguard.py)
+
+```python
+#!/usr/bin/env python3
+import sys
+import json
+import os
+
+context = json.loads(sys.stdin.read())
+file_path = context.get("filePath", "")
+
+# Lista de arquivos @LOCKS (pode vir de SSOT)
+LOCK_FILES = ["server.py", "sub_server.py", "NCNAMFR001namingregistry.yaml"]
+
+if any(lock_file in file_path for lock_file in LOCK_FILES):
+    print(json.dumps({
+        "block": True,
+        "reason": f"Arquivo {file_path} est protegido por @LOCKS",
+        "suggestion": "Use atomic lock override se necessrio"
+    }))
+    sys.exit(1)
+
+print(json.dumps({"block": False}))
+```
+
+### 3.3 Integrao com Mentor Mode
+
+- **MentorHooks** rodam **antes** do Mentor Mode? No  so complementares:
+  - Mentor Mode opera no **nvel do prompt LLM** (injetando contexto).
+  - MentorHooks operam no **nvel da tool** (validando a ao concreta).
+- **Ordem ideal:** MentorHooks (tool validation)  Mentor Mode (context injection)  LLM  Tool execution  GuardHooks (audit).
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL guard-examples
+LEXICO: #lock-guards #ssot-guards #naming-guards #yaml-examples
+## 4. EXEMPLOS DE REGRAS YAML PARA GUARDS DE @LOCKS E SSOT
+
+### 4.1 Guard de @LOCKS (bloqueio reativo)
+
+```yaml
+# .nc/hooks/lockguard.yaml
+hooks:
+  - event: tool_called
+    matcher:
+      tool_type: Edit|Write|MultiEdit|Delete
+      file_pattern: "**/server.py|**/sub_server.py|**/NCNAMFR001*"
+    script: hooks/lockguard.py
+    action: block
+    priority: 1000  # alta prioridade
+    metadata:
+      lock_type: atomic
+      override_env: "NC_ATOMIC_OVERRIDE"
+```
+
+### 4.2 Guard de SSOT (atualizao automtica)
+
+```yaml
+# .nc/hooks/ssotguard.yaml
+hooks:
+  - event: file_written
+    matcher:
+      file_pattern: "**/NCLBE*.mdc|**/NCDS*.yaml|**/NCTOOLFR*.py"
+    script: hooks/ssotupdate.py
+    action: log
+    priority: 500
+    metadata:
+      ssot_table: "NCNAMFR001namingregistry.yaml"
+      auto_update: true
+```
+
+### 4.3 Guard de Naming Convention (NC*)
+
+```yaml
+# .nc/hooks/namingguard.yaml
+hooks:
+  - event: file_written
+    matcher:
+      file_pattern: "**/*.py|**/*.yaml|**/*.md"
+    script: hooks/namingvalidator.py
+    action: warn
+    priority: 300
+    metadata:
+      pattern: "^NC[A-Z]{3,5}[A-Z]{2}[0-9]{3}.*"
+      error_message: "Nome de arquivo no segue conveno NC*"
+```
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL implementation-ncds031
+LEXICO: #ticket-implementation #ncds031 #component-list #activation-flow #integration
+## 5. IMPLEMENTAO NO TICKET NCDS031
+
+### 5.1 Componentes a Criar
+
+| Arquivo | Localizao | Descrio |
+|---|---|---|
+| `NCHKFR001hookregistry.py` | `neocortex/core/hooks/` | Registry principal: carrega regras YAML, dispara eventos, executa scripts |
+| `NCHKFR002examplehook.py` | `neocortex/core/hooks/examples/` | Script de exemplo (lock guard) |
+| `NCHKFR003hookloader.py` | `neocortex/core/config/` | Carrega hooks de `.nc/hooks/` e diretrio global |
+| `.nc/hooks/lockguard.yaml` | `examples/.nc/hooks/` | Exemplo de regra para @LOCKS |
+| `.nc/hooks/ssotupdate.yaml` | `examples/.nc/hooks/` | Exemplo de regra para SSOT |
+
+### 5.2 Fluxo de Ativao
+
+1. **Worker inicia**  carrega configurao global (`neocortex_config.yaml`).
+2. **Hook loader** procura `.nc/hooks/` na raiz do projeto (se existir).
+3. **Regras YAML** so lidas e compiladas para objetos Hook.
+4. **Registry** registra callbacks para cada evento (tool_called, file_written, ).
+5. **Durante execuo**  antes/depois de cada tool, registry chama hooks correspondentes.
+6. **Scripts Python** recebem contexto via stdin/env; retornam `block`, `warn` ou `log`.
+
+### 5.3 Integrao com Sistema Existente
+
+- **EventBus (NCSVCFR005)**  hooks podem emitir eventos para outros servios (mtricas, logging).
+- **Metrics Collector (NCSVCFR006)**  contagem de hooks acionados, bloqueios, alertas.
+- **Atomic Locks**  hooks de @LOCKS complementam bloqueio proativo com validao reativa.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL security-performance
+LEXICO: #security #performance #sync-hooks #fallback #priorities
+## 6. CONSIDERAES DE SEGURANA E PERFORMANCE
+
+### 6.1 Segurana
+- **Scripts Python executados com permisses do usurio**  no elevar privilgios.
+- **Validar entrada** (context JSON) para evitar injection.
+- **Lista de scripts permitidos**  apenas scripts em `.nc/hooks/` assinados por hash.
+
+### 6.2 Performance
+- **Hooks sncronos**  bloqueiam a tool at o script retornar. Timeout padro (ex.: 2s).
+- **Prioridades**  hooks de alta prioridade (ex.: @LOCKS) rodam primeiro.
+- **Cache de matchers**  compilar regex/glob uma vez, reutilizar.
+
+### 6.3 Fallback
+- **Se script falhar**  log de erro, mas permite a tool (configurvel).
+- **Se registry no carregar**  sistema funciona sem hooks (graceful degradation).
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL conclusion
+LEXICO: #conclusion #next-steps #ncds031 #ncds032 #mentor-mode
+## 7. CONCLUSO
+
+O **sistema de hooks do Claude Code (hookify)** oferece uma **governana leve e reativa** que complementa perfeitamente as defesas proativas do NeoCortex (atomic locks, mentor mode). A adaptao para **MentorHooks/GuardHooks** com registry YAML+Python preserva a flexibilidade do modelo original enquanto se integra  arquitetura existente.
+
+**Prximos passos:**
+1. **Ticket NCDS031**  implementar `NCHKFR001hookregistry.py` e exemplos.
+2. **Ticket NCDS032**  adicionar suporte a `.nc/hooks/` (configurao por projeto).
+3. **Integrao com Mentor Mode**  adicionar evento `tool_called` ao pipeline de execuo.
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 ja esta no contexto desta sessao, SALTE. -->
+**Referncias:**
+- NCANACC005pluginsdeep.md (anlise dos plugins securityguidance e hookify)
+- NCSTRCC001masterstrategy.md (gap analysis  hooks reativos)
+- NCLBECC001claudeleakmaster.mdc (viso geral do leak)
+

@@ -1,0 +1,97 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-FR-CLAUDE-COMPARISON-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CLAUDE-COMPARISON-001-v1 ja esta no contexto desta sessao, SALTE. -->
+lobe_id: NC-LBE-FR-CLAUDE-COMPARISON-001
+domain: 06_governance
+type: ARCHITECTURE_COMPARISON
+created: 2026-04-29
+status: ACTIVE
+temperature: 0
+status: archived
+---
+
+@UBL $CLAUDE_COMPARISON
+LEXICO: #claude #comparison #architecture #governance
+
+<!-- NC-READ-HASH: NC-LBE-FR-CLAUDE-COMPARISON-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CLAUDE-COMPARISON-001-v1 ja esta no contexto desta sessao, SALTE. -->
+
+@UBL ClaudeVsNeoCortex
+LEXICO: #claude #code #neocortex #comparison #architecture
+
+# 1. Claude Code vs NeoCortex — Comparative Architecture
+
+@UBL Stack
+LEXICO: #stack #typescript #python #mcp #protocolo
+
+## Stack
+
+| Camada | Claude Code | NeoCortex |
+|--------|-------------|-----------|
+| **Linguagem** | TypeScript (Node.js) | Python 3.12 |
+| **MCP** | Cliente MCP (consome servers) | Servidor MCP (provê tools) |
+| **Interface** | CLI terminal + VS Code | OpenCode chat + SSE :8766 |
+| **Protocolo** | MCP stdio + WebSocket | MCP SSE (Server-Sent Events) |
+| **Agentes** | Sub-agentes (spawn de child processes) | 18 Super Tools + Gateway hooks |
+| **Regras** | .claude/ + CLAUDE.md (Markdown rules) | MULTILAYER 123 rules + 4 mordacas (H/C/S/U) |
+| **Conhecimento** | File system + CLAUDE.md | 76 lobes (02_memory_lobes/) + ULQ |
+| **Hooks** | PreToolUse, PostToolUse, Notification | Gateway _check_critical_hooks (35 H hooks) |
+| **Ciclos** | Conversation turns | CICLOS 0-4 (Init→Baseline→Automation→Consolidation→Maintenance) |
+| **Checkpoints** | Não nativo | 217 auto-checkpoints (PulseScheduler 300s) |
+| **Sandbox** | Bash sandbox + permission system | BSL 1-4 + LockGuard + BashGuard |
+
+@UBL Governance
+LEXICO: #governance #validacao #bloqueio #auditoria #compliance
+
+## Governance
+
+| Função | Claude Code | NeoCortex |
+|--------|-------------|-----------|
+| **Validação** | Permission prompt (user approves) | Gateway validate_action() (automático) |
+| **Bloqueio** | Tool denial | 35 H hooks + CircuitBreaker |
+| **Auditoria** | Session logs | CentralWatcher (235 checks) + WAL |
+| **RCA** | Não nativo | RCA Engine (5 Porquês) |
+| **Compliance** | Não nativo | ComplianceEngine (99.5%) |
+| **Approval** | Human-in-the-loop (default) | HITL + T0 supremo |
+| **Registro** | Turn-based history | Memory-auto (2 sessions, 37 turns) |
+
+@UBL NeoCortexVantagens
+LEXICO: #neocortex #vantagens #mordacas #semantic #regression
+
+## O que NeoCortex TEM que Claude NÃO tem
+
+- **4 Mordacas (H/C/S/U)** — defense in depth
+- **Semantic Router** — resolve módulos via catálogo
+- **Domain Routers** — 8 domínios DDD (763 itens)
+- **Regression Buffer** — aprendizado com erros
+- **STEP 0** — mentoria + verificação prévia
+- **Kaizen auto-update** — log de micro-melhorias
+- **ALCOA++** — integridade de dados
+- **Semantic Boot** — ULQ→TAGS→PREP
+- **Due Diligence** — hash validation de módulos
+- **Self-Healing** — auto-restart MCP
+
+@UBL ClaudeVantagens
+LEXICO: #claude #vantagens #permission #subagents #cli
+
+## O que Claude Code TEM que NeoCortex PODE aprender
+
+- **Permission system granular** — user approves per-tool
+- **.claude/ directory** — project-level config portátil
+- **Sub-agentes** — spawn de child processes isolados
+- **CLI-first** — terminal como interface primária
+- **Markdown-based rules** — regras em linguagem natural
+- **Tool chaining** — output de uma tool como input de outra
+
+@UBL Integracao
+LEXICO: #integracao #mcp #server #client
+
+## Como Integrar
+
+NeoCortex como MCP server → Claude Code como MCP client:
+```
+Claude Code (TS) → MCP stdio → NeoCortex (Python) → 18 Super Tools
+                                               → Gateway
+                                               → PulseScheduler
+```

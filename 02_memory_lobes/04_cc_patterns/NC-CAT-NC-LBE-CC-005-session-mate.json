@@ -1,0 +1,13 @@
+{
+  "category": "04_cc_patterns",
+  "tags": [
+    "buddy_pattern",
+    "claude_code",
+    "stats"
+  ],
+  "summary": "SessionMate Buddy pattern do Claude Code transformado em stats de sesso leve com gamificao.",
+  "priority_score": 8,
+  "file": "NC-LBE-CC-005-session-mate.mdc",
+  "lobe_id": "NC-LBE-CC-005-session-mate",
+  "classified": "2026-04-21T10:37:09"
+}

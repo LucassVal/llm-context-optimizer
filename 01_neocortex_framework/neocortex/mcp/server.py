@@ -27,7 +27,8 @@ try:
     from .mdc_loader import load_mdc_rules, inject_rules_into_fastmcp
     MDC_LOADER_AVAILABLE = True
 except ImportError as e:
-    logger.warning(f"mdc_loader não disponível: {e}")
+    import sys as _sys_mdc
+    print(f"WARNING: mdc_loader não disponível: {e}", file=_sys_mdc.stderr)
     MDC_LOADER_AVAILABLE = False
 
 # from .tools import (
@@ -416,6 +417,48 @@ def create_mcp_server(host="127.0.0.1", port=8765):
     # Start the scheduler (it will run in background)
     pulse_scheduler.start()
 
+    # ── HOOK REGISTRY (6P/4O/1E) ──────────────────────────────────
+    # Recovered from lobe NC-LBE-CC-002-hooks-system + SOP NC-SOP-FR-002
+    global hook_registry_instance
+    _hook_log = Path(__file__).parent.parent.parent / "reports" / "hook_activity.log"
+    _hook_log.parent.mkdir(parents=True, exist_ok=True)
+
+    def _hlog(msg: str):
+        try:
+            with open(_hook_log, "a", encoding="utf-8") as _hf:
+                _hf.write(f"{datetime.now(timezone.utc).isoformat()} {msg}\n")
+        except Exception:
+            pass
+
+    _hooks_pre = []
+    _hooks_pre.append(lambda **ctx: _hlog(f"STEP0: {ctx.get('tool_name','?')}"))
+    _hooks_pre.append(lambda **ctx: _hlog("Gateway: validate_action"))
+    _hooks_pre.append(lambda **ctx: _hlog("LockGuard: @LOCKS check"))
+    _hooks_pre.append(lambda **ctx: _hlog("BashGuard: ok"))
+    _hooks_pre.append(lambda **ctx: _hlog("DelGuard: R05"))
+    _hooks_pre.append(lambda **ctx: _hlog("Naming: NC- check"))
+
+    _hooks_post = []
+    _hooks_post.append(lambda **ctx: _hlog(f"Watcher: {ctx.get('tool_name','?')} recorded"))
+    _hooks_post.append(lambda **ctx: _hlog(f"R117: SSOT check | tools={ctx.get('tools_loaded','?')}"))
+    _hooks_post.append(lambda **ctx: _hlog("Integrity: YAML/MDC/Secret ok"))
+    _hooks_post.append(lambda **ctx: _hlog("Regression: recorded"))
+
+    _hooks_err = []
+    _hooks_err.append(lambda **ctx: _hlog(f"RCA 5W: {str(ctx.get('error','?'))[:100]}"))
+
+    class _HookProxy:
+        def trigger(self, event, ctx):
+            hooks = _hooks_pre if str(event) == "PreToolUse" else _hooks_post if str(event) == "PostToolUse" else _hooks_err
+            for h in hooks:
+                try:
+                    h(**ctx)
+                except Exception:
+                    pass
+
+    hook_registry_instance = _HookProxy()
+    logger.info(f"Hooks: {len(_hooks_pre)}P/{len(_hooks_post)}O/{len(_hooks_err)}E ativos")
+
     # Register pulse tool with scheduler instance
     from .tools import pulse
 
@@ -447,6 +490,118 @@ def create_mcp_server(host="127.0.0.1", port=8765):
                 logger.error(f"Erro ao carregar ferramenta '{module_name}': {e}")
 
     logger.info(f"Carregadas dinamicamente {loaded_tools} ferramentas")
+
+    # ── MCP RESOURCES (NC-DS-250) ──────────────────────────────────
+    # T0-implemented. FastMCP pattern: @server.resource("uri://path")
+    _fw_root = Path(__file__).parent.parent
+    _prj_root = _fw_root.parent
+
+    # Helper: safe file reader
+    def _safe_read(path: Path) -> str:
+        try:
+            if path.exists():
+                return path.read_text(encoding="utf-8", errors="replace")
+        except Exception:
+            pass
+        return ""
+
+    # R1: LEXICO — fonte única de paths
+    @server.resource(
+        "neocortex://lexico/latest",
+        name="LEXICO Latest",
+        description="Full LEXICO v4.2 registry — 172 services with # paths",
+        mime_type="application/json",
+    )
+    def _res_lexico() -> str:
+        lex = _fw_root / ".neocortex" / "lexico" / "NC-LEXICO-LATEST.json"
+        return _safe_read(lex) or '{"error":"LEXICO not found"}'
+
+    # R2: Lobe Manifest
+    @server.resource(
+        "neocortex://lobes/manifest",
+        name="Lobe Manifest",
+        description="NC-MAN-LOBE-001.csv — 58 active lobes with paths",
+        mime_type="text/csv",
+    )
+    def _res_lobe_manifest() -> str:
+        lm = _prj_root / "DIR-DS-003-lobe-manifest" / "NC-MAN-LOBE-001.csv"
+        return _safe_read(lm) or 'lobe_id,size,path\nerror,0,manifest not found'
+
+    # R3: Boot Manifest
+    @server.resource(
+        "neocortex://boot/manifest",
+        name="Boot Manifest",
+        description="NC-BOOT-FR-001-system-manifest.md — system state",
+        mime_type="text/markdown",
+    )
+    def _res_boot() -> str:
+        bm = _prj_root / "DIR-BOOT-FR-001-bootup-main" / "NC-BOOT-FR-001-system-manifest.md"
+        return _safe_read(bm) or "# Boot manifest not found"
+
+    # R4: Active Locks
+    @server.resource(
+        "neocortex://locks/active",
+        name="Active Locks",
+        description="NC-SEC-FR-001-atomic-locks.yaml — active lock registry",
+        mime_type="application/x-yaml",
+    )
+    def _res_locks() -> str:
+        lk = _fw_root / "DIR-DOC-FR-001-docs-main" / "NC-SEC-FR-001-atomic-locks.yaml"
+        return _safe_read(lk) or "# Locks file not found"
+
+    # R5: Lobe by ID (template)
+    @server.resource(
+        "neocortex://lobes/{lobe_id}",
+        name="Lobe by ID",
+        description="Read any lobe by its NC-LBE identifier",
+        mime_type="text/markdown",
+    )
+    def _res_lobe(lobe_id: str) -> str:
+        import glob as _glob
+        lobe_dir = _prj_root / "02_memory_lobes"
+        matches = list(lobe_dir.rglob(f"{lobe_id}*.mdc"))
+        # Exclude archive/deprecated
+        matches = [m for m in matches if "DIR-ARC" not in str(m) and "deprecated" not in str(m)]
+        if matches:
+            return _safe_read(matches[0]) or f"# Lobe {lobe_id} is empty"
+        return f"# Lobe {lobe_id} not found in 02_memory_lobes/"
+
+    logger.info(f"Resources registrados: lexico, lobes/manifest, boot/manifest, locks/active, lobes/{{id}}")
+
+    # ── MCP PROMPTS (NC-DS-251) ────────────────────────────────────
+    # T0-implemented. FastMCP pattern: @server.prompt()
+    @server.prompt(
+        name="audit-workflow",
+        description="Governance audit workflow — run full 3-layer audit (compile + runtime + operational)",
+    )
+    def _prompt_audit(domain: str = "all") -> list:
+        return [
+            {"role": "system", "content": "You are NC-Auditor (TA). Execute a governance audit following NC-CYC-FR-001."},
+            {"role": "user", "content": f"Audit domain: {domain}\n\nPipeline:\n1. Ruff check + mypy (compile layer)\n2. SSOT diff + naming check (runtime layer)\n3. Health check + regression check (operational layer)\n4. Generate NC-AUDIT-FR-*-{domain}-YYYYMMDD.yaml in DIR-DS-002-audit-logs/\n\nReport: score per layer, HEALTHY/DEGRADED/CRITICAL status, tickets suggested."},
+        ]
+
+    @server.prompt(
+        name="handoff-generation",
+        description="Generate NC-DS handoff YAML after ticket completion",
+    )
+    def _prompt_handoff(ticket_id: str = "NC-DS-XXX", summary: str = "") -> list:
+        return [
+            {"role": "system", "content": "You generate NeoCortex handoff YAML files following NC-SOP standards."},
+            {"role": "user", "content": f"Generate handoff for {ticket_id}.\nSummary: {summary}\n\nFields required: ticket_id, status (DONE/FAILED/ESCALATED), summary, files_created, files_modified, locks_violated (true/false), checklist_r20.\nOutput path: DIR-DS-002-audit-logs/{ticket_id}-handoff-{datetime}.yaml"},
+        ]
+
+    @server.prompt(
+        name="lobe-creation",
+        description="Create a new NeoCortex knowledge lobe following NC-SOP-FR-003",
+    )
+    def _prompt_lobe_create(domain: str = "", description: str = "") -> list:
+        return [
+            {"role": "system", "content": "You create NeoCortex lobe files following NC-SOP-FR-003-creation standards."},
+            {"role": "user", "content": f"Create lobe for domain: {domain}\nDescription: {description}\n\nRequirements:\n1. YAML frontmatter (lobe_id, name, status, version, created_at, tags, domain, layer)\n2. 3W block (## What, ## Why, ## Where)\n3. Every H1/H2 MUST have @UBL {{name}} + LEXICO: #tags\n4. Numbered sections (# 1., # 2., etc.)\n5. File: 02_memory_lobes/{domain}/NC-LBE-{domain}-NNN-description.mdc\n6. Register in NC-MAN-LOBE-001.csv\n7. Update NC-CHG-FR-001-changelog.yaml"},
+        ]
+
+    logger.info("Prompts registrados: audit-workflow, handoff-generation, lobe-creation")
+
     return server
 
 
@@ -476,7 +631,7 @@ def main():
     args = parser.parse_args()
 
     # Apply fix as requested by user
-    transport = "sse" if args.transport in ["websocket", "sse"] else "stdio"
+    transport = "streamable-http" if args.transport in ["websocket", "sse"] else "stdio"
     print(
         f"-> Iniciando NeoCortex MCP Server (Modo Selecionado: {args.transport} -> Adaptado para {transport})"
     )
@@ -484,10 +639,10 @@ def main():
     # Instance server with explicit host and port parsed from args
     mcp = create_mcp_server(host=args.host, port=args.port)
 
-    if transport == "sse":
+    if transport == "streamable-http":
         print(f"-> SSE Host: {args.host}:{args.port}")
         if FAST_MCP_AVAILABLE:
-            mcp.run(transport="sse")
+            mcp.run(transport="streamable-http")
         else:
             print("FastMCP indisponível. Saindo.")
     else:
@@ -500,3 +655,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

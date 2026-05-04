@@ -1,0 +1,24 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-FR-SESSION-003-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-SESSION-003-v1 ja esta no contexto desta sessao, SALTE. -->
+lobe_id: NC-LBE-FR-SESSION-003
+domain: 08_sessions
+type: SESSION_RECORD
+created: 2026-04-29
+status: closed
+temperature: 35
+---
+
+@UBL $SESSION_003
+LEXICO: #session #record #audit #status
+
+<!-- NC-READ-HASH: NC-LBE-FR-SESSION-003-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-SESSION-003-v1 ja esta no contexto desta sessao, SALTE. -->
+
+@UBL SessionRecord
+LEXICO: #session #rules #lobes #engines #delivered
+
+# 1. Session
+
+Rules: 127 | Lobes: 76 | Engines: 20 | Delivered: Master Map + Neural Map + FR-169-172

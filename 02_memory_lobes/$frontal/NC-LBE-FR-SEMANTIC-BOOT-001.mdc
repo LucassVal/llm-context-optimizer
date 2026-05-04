@@ -1,0 +1,103 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-FR-SEMANTIC-BOOT-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-SEMANTIC-BOOT-001-v1 ja esta no contexto desta sessao, SALTE. -->
+lobe_id: NC-LBE-FR-SEMANTIC-BOOT-001
+domain: 06_governance
+type: SEMANTIC_BOOT_SEQUENCE
+created: 2026-04-29
+status: ACTIVE
+lifecycle: PERMANENT
+temperature: 0
+status: archived
+---
+
+@UBL $SEMANTIC_BOOT
+LEXICO: #semantic #boot #ULQ #TAGS #PREP
+
+<!-- NC-READ-HASH: NC-LBE-FR-SEMANTIC-BOOT-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-SEMANTIC-BOOT-001-v1 ja esta no contexto desta sessao, SALTE. -->
+
+@UBL SemanticBootSequence
+LEXICO: #semantic #boot #sequence #reading #order
+
+# 1. Semantic Boot Sequence — Standard Reading Order
+
+@UBL PorQueOrdem
+LEXICO: #ordem #leitura #tokens #ULQ #TAGS
+
+## Por que esta ordem?
+
+A IA gasta tokens escaneando arquivos às cegas. Se ela souber EXATAMENTE a ordem de leitura, cada passo reduz o espaço de busca:
+- ULQ → reduz "o que é?" a 1 lookup
+- TAGS → reduz "onde está?" a 1 index
+- PREP → reduz "o que fazer?" ao conjunto relevante
+
+@UBL Sequencia
+LEXICO: #sequencia #ULQ #TAGS #PREP #sempre
+
+## Sequência (SEMPRE seguir esta ordem)
+
+### 1. ULQ (Ubiquitous Language Dictionary)
+```
+Arquivo: NC-DOC-FR-001-ubiquitous-language-dictionary.md
+Função: Dicionário canônico. Toda consulta semântica começa aqui.
+Retorna: Definição do termo + domínio + regra associada
+```
+
+### 2. TAGS (ULQ Tag Index)
+```
+Arquivo: NC-LEXICO-LATEST.json + Domain Routers (FR-166)
+Função: Índice de @Tags. "Quais arquivos têm @KPI_Engine?"
+Retorna: Lista de arquivos com a tag + seus paths + NC-IDs
+```
+
+### 3. PREP (Preparation)
+```
+Função: Com ULQ (significado) + TAGS (localização), planejar ação.
+- Se @Engine → carregar módulo e executar
+- Se @Guard → validar ação antes de prosseguir
+- Se @Tool → expor via MCP
+```
+
+@UBL DecayMechanism
+LEXICO: #decay #stale #30dias #indice
+
+## Decay Mechanism
+
+Tags não referenciadas por 7 dias são marcadas como `STALE`.
+Após 30 dias, são removidas do índice (mantidas no histórico).
+
+@UBL AutoRegistration
+LEXICO: #auto #registration #tags #LEXICO #domain
+
+## Auto-Registration
+
+Toda vez que um arquivo .py/.mdc/.yaml é criado:
+1. Extrair @Tags do header
+2. Registrar no NC-LEXICO-LATEST.json
+3. Adicionar ao Domain Router do domínio correto
+4. Log no Kaizen
+
+@UBL LocalizacaoPadrao
+LEXICO: #localizacao #indice #semantico #lexico
+
+## Localização Padrão
+
+Todos os arquivos de índice semântico em:
+```
+01_neocortex_framework/.neocortex/lexico/
+  ├── NC-LEXICO-LATEST.json     ← catálogo principal
+  ├── NC-ULQ-TAG-INDEX.json     ← índice de @tags
+  └── NC-DECAY-LOG.json         ← log de decay
+```
+
+@UBL IntegracaoCiclos
+LEXICO: #integracao #CICLOS #boot #decay #consolidacao
+
+## Integração com CICLOS
+
+- CICLO 1: Boot Sequence carrega ULQ + TAGS no startup
+- CICLO 2: Auto-registration detecta novos arquivos
+- CICLO 3: Decay verifica tags stale (semanal)
+- CICLO 4: Consolidação do índice (mensal)

@@ -1,0 +1,255 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-CC-009-ttl-session-manager-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-009-ttl-session-manager-v1 ja esta no contexto desta sessao, SALTE. -->
+description: "TTL & Session Manager  sessionTimers, tokenRefresh, validateBridgeId"
+lobe_name: "$TTL_SESSION_MANAGER"
+lobe_id: "NC-LBE-CC-009"
+status: active
+module: industrialization
+domain: multi_agent_execution
+updated: "2026-04-12T23:22:00"
+temperature: 0
+status: archived
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-009-ttl-session-manager-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-009-ttl-session-manager-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+## What
+Args:
+
+## Why
+Criado em 2026-04-12 — arquivo do ecossistema NeoCortex
+
+## Where
+02_memory_lobes/04_cc_patterns
+
+---
+
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-009-ttl-session-manager-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-009-ttl-session-manager-v1 ja esta no contexto desta sessao, SALTE. -->
+@UBL ttl-session-overview
+LEXICO: #ttl-manager #session-timers #token-refresh #bridge-id #exit-code-42
+# $TTL_SESSION_MANAGER  Gesto de TTL e Sesses
+
+@UBL cc-components
+LEXICO: #claude-code #sessiontimers #tokenrefresh #sessioningress #permanent-error
+## 1. Componentes Identificados no Claude Code
+
+### 1.1 sessionTimers
+- **Localizao:** `bridgeMain.ts:1181`
+- **Propsito:** Armazena timers de timeout de sesso (se `sessionTimeoutMs > 0`)
+- **Estrutura:** `Map<string, NodeJS.Timeout>` (ID da sesso  timer)
+- **Comportamento:** Ao expirar, dispara callback de cleanup (provavelmente `BridgeHeadlessPermanentError`)
+
+### 1.2 tokenRefresh
+- **Localizao:** `bridgeMain.ts:53`
+- **Propsito:** Refresh proativo de token JWT (5 minutos antes da expirao)
+- **Valor:** `5min` (300 segundos)
+- **Mecanismo:** Timer peridico que verifica expirao e renova token automaticamente
+
+### 1.3 sessionIngressTokens
+- **Localizao:** `bridgeMain.ts` (inferido)
+- **Propsito:** Tokens de ingresso para sesses remotas (autenticao)
+- **TTL associado:** `SESSION_LEASE_TTL` (5 horas)
+
+### 1.4 BridgeHeadlessPermanentError
+- **Localizao:** `bridgeMain.ts:2798`
+- **Propsito:** Erro fatal que indica problema permanente (daemon worker no deve ser respawnado)
+- **Cdigo de sada:** `EXIT_CODE_PERMANENT = 42`
+- **Uso:** Quando sesso expira ou bridge encontra erro irrecupervel
+
+### 1.5 validateBridgeId()
+- **Localizao:** `bridgeMain.ts:2361`
+- **Propsito:** Validao de formato de ID de bridge/sesso
+- **Lgica:** Verifica checksum, formato (UUID ou padro especfico)
+- **Retorno:** `boolean` (vlido/invlido)
+
+@UBL naming-decision
+LEXICO: #naming #ttlmanager #idvalidator #ncsvcfr011 #ncutlfr004
+## 2. Deciso NeoCortex:  TTLManager + IDValidator
+
+**Componentes a criar:**
+1. **NCSVCFR011ttlmanager.py**  gerencia TTLs granularmente com callbacks de expirao
+2. **NCUTLFR004idvalidator.py**  valida IDs de tickets, sesses, agents
+
+**Integrao com PulseDaemon (NCDS035):**
+- TTLManager usa PulseDaemon para disparar eventos de expirao
+- PulseDaemon registra hooks para `session_timeout`, `token_refresh`
+
+@UBL ttls-table
+LEXICO: #ttl-table #session-lease #token-refresh #feature-flag-cache #heartbeat #justification
+## 3. Tabela de TTLs NeoCortex (com justificativa)
+
+| Entidade | TTL (segundos) | Justificativa (fonte CC) | Uso no NeoCortex |
+|---|---|---|---|
+| **Sesso de worker** | 18000 (~5h) | `SESSION_LEASE_TTL` (`bridgeMain.ts:60`) | Lease de sesso no A2A Gateway |
+| **Refresh de token (antes da expirao)** | 300 (5min) | `tokenRefresh` (`bridgeMain.ts:53`) | Refresh proativo de tokens JWT |
+| **Cache de feature flags** | 3600 (1h) | `checkGate_CACHED_OR_BLOCKING` (Growthbook) | FeatureFlagService cache |
+| **Heartbeat workergateway** | 60 (1min) | Inferido de `bridgeMain.ts` heartbeat loop | Deteco de workers mortos |
+| **Timeout de sesso remota** | configurvel (ex.: 1800) | `DEFAULT_SESSION_TIMEOUT_MS` (`bridgeMain.ts:1181`) | Sesses bridge remotas |
+| **Cache genrico (HotCache)** | 300 (5min) | `cache_default_ttl` (config atual) | HotCache padro |
+| **Estado do Buddy** | 86400 (24h) | Persistncia diria (reset  0h) | SessionBuddy stats |
+
+**Notas:**
+- TTLs de sesso devem ser **renovveis** (touch) enquanto worker est ativo
+- Refresh proativo deve ocorrer **antes da expirao** (ex.: 5min antes)
+- Cache de feature flags com TTL de 1h **reduz roundtrip** para Growthbook
+
+@UBL proactive-refresh
+LEXICO: #proactive-refresh #5min-before #token-renewal #ttlmanager-pattern
+## 4. Padro Refresh Proativo (5min antes)
+
+Implementao no TTLManager:
+
+```python
+class TTLManager:
+    def set_ttl(self, key: str, ttl: float, callback: Callable[[], None],
+                refresh_before: float = 300):
+        """
+        Args:
+            key: Identificador da entidade
+            ttl: Timetolive total em segundos
+            callback: Funo chamada na expirao
+            refresh_before: Segundos antes da expirao para refresh proativo
+        """
+        expire_at = time.time() + ttl
+        refresh_at = expire_at - refresh_before
+        
+        # Agenda refresh proativo
+        self._schedule(refresh_at, self._refresh_callback, key)
+        # Agenda expirao final
+        self._schedule(expire_at, callback, key)
+```
+
+**Fluxo para tokens:**
+1. Token expira em 60 minutos
+2. TTLManager agenda refresh em 55 minutos (5min antes)
+3. Callback de refresh renova token e redefine TTL
+4. Se refresh falhar, expirao final limpa sesso
+
+@UBL permanent-error
+LEXICO: #permanent-error #exit-code-42 #bridgeheadless #ncerrfr001
+## 5. BridgeHeadlessPermanentError (EXIT_CODE_PERMANENT = 42)
+
+**Adaptao NeoCortex:**
+- Criar `NCERRFR001permanenterror.py`
+- Definir `EXIT_CODE_PERMANENT = 42`
+- Usar quando:
+  - Sesso expirar (timeout)
+  - Bridge encontrar erro irrecupervel (config invlida, trust no aceito)
+  - Worker persistente detectar condio de parada permanente
+
+**Exemplo:**
+```python
+from neocortex.core.errors import PermanentError
+
+def session_timeout_callback(session_id: str):
+    logger.error(f"Session {session_id} expired permanently")
+    raise PermanentError(
+        message=f"Session {session_id} expired",
+        exit_code=EXIT_CODE_PERMANENT
+    )
+```
+
+@UBL id-validator
+LEXICO: #id-validator #ticket-id #session-id #agent-id #bridge-id #checksum
+## 6. validateBridgeId()  IDValidator NeoCortex
+
+**Funes a implementar:**
+```python
+def validate_ticket_id(ticket_id: str) -> bool:
+    """Valida formato NCDSNNN (ex.: NCDS035)."""
+    
+def validate_session_id(session_id: str) -> bool:
+    """Valida UUID ou hash (ex.: worker100472196eb)."""
+    
+def validate_agent_id(agent_id: str) -> bool:
+    """Valida agent* (ex.: agent1)."""
+    
+def validate_bridge_id(bridge_id: str) -> bool:
+    """Valida formato especfico de bridge (checksum)."""
+```
+
+**Lgica de checksum (extrada do CC):**
+- ID contm parte numrica e checksum (ex.: `bridge1234a1b2`)
+- Checksum calculado via hash simples (SHA256 truncado)
+- Garante integridade de IDs transmitidos
+
+@UBL pulse-daemon-integration
+LEXICO: #integration #pulse-daemon #session-timeout #callback #fire-event
+## 7. Integrao com PulseDaemon
+
+```python
+from neocortex.core.services.pulse_daemon import get_pulse_daemon
+from neocortex.core.services.ttl_manager import get_ttl_manager
+
+daemon = get_pulse_daemon()
+ttl = get_ttl_manager()
+
+# Registra hook para session timeout
+daemon.register_hook('session_timeout', lambda data: ttl.cancel(data['session_id']))
+
+# Configura TTL de sesso com refresh proativo
+ttl.set_ttl(
+    key=f"session:{session_id}",
+    ttl=18000,
+    callback=lambda: daemon.fire('session_timeout', {'session_id': session_id}),
+    refresh_before=300
+)
+```
+
+@UBL yaml-config-example
+LEXICO: #yaml-config #ttl-settings #exit-codes #id-formats #regex
+## 8. Exemplo de Configurao YAML
+
+```yaml
+# neocortex_config.yaml
+ttl_settings:
+  session_lease_ttl: 18000
+  token_refresh_before: 300
+  feature_flag_cache_ttl: 3600
+  heartbeat_interval: 60
+  default_session_timeout_ms: 1800000  # 30min
+  
+exit_codes:
+  permanent: 42
+  temporary: 1
+  success: 0
+
+id_formats:
+  ticket: "^NC\\-DS\\-\\d{3}$"
+  session: "^worker\\-\\d+\\-[a-f0-9]{6}$"
+  agent: "^agent\\-\\d+$"
+  bridge: "^bridge\\-[a-zA-Z0-9]{8}\\-[a-f0-9]{4}$"
+```
+
+@UBL implementation-roadmap
+LEXICO: #roadmap #ncds036 #ncds038 #ncerrfr001 #integration
+## 9. Roadmap de Implementao
+
+1. **NCDS036**  Criar `NCSVCFR011ttlmanager.py` (150 linhas)
+2. **NCDS038**  Criar `NCUTLFR004idvalidator.py` (80 linhas)
+3. **NCERRFR001permanenterror.py** (50 linhas)  opcional, mas recomendado
+4. Integrar com PulseDaemon (NCDS035) e FeatureFlagService (NCDS037)
+
+**Ordem:** 36  38  integrao.
+
+@UBL references
+LEXICO: #references #bridge-main #master-strategy #kairos-deep #source-files
+## 10. Referncias
+
+- `bridgeMain.ts` (linhas 44, 53, 60, 1181, 2361, 2798)
+- `NCSTRCC001masterstrategy.md` (B.2, B.3, B.4)
+- `NCANACC005kairosdeep.md` (TTL Management)
+- `checkGate_CACHED_OR_BLOCKING`  cache de 1h
+
+---
+
+<!-- NC-READ-HASH: NC-LBE-CC-009-ttl-session-manager-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-009-ttl-session-manager-v1 ja esta no contexto desta sessao, SALTE. -->
+*Lobe gerado por worker{PORT}{HASH} em {TIMESTAMP}*

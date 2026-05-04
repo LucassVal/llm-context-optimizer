@@ -1,0 +1,109 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-FR-RCA-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-RCA-001-v1 ja esta no contexto desta sessao, SALTE. -->
+title: NC-LBE-FR-RCA-001
+version: v1.0
+created: 2026-04-28
+status: active
+temperature: 0
+status: archived
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-RCA-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-RCA-001-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+## What
+Módulo: NC LBE FR RCA 001
+
+## Why
+Criado em 2026-04-28 — arquivo do ecossistema NeoCortex
+
+## Where
+02_memory_lobes/$frontal
+
+---
+
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-RCA-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-RCA-001-v1 ja esta no contexto desta sessao, SALTE. -->
+# RCA — ANÁLISE DE CAUSA RAIZ (5 PORQUÊS)
+
+@UBL rca-failure-deletion
+# 1. FALHA 1: 14 arquivos deletados sem arquivamento (R05)
+LEXICO: #rca #falha1 #r05 #deletion #bash-guard #enforcement
+
+1. Por que? Usei Remove-Item sem passar pelo Gateway.
+2. Por que? O bash tool do OpenCode não tem hook de validação.
+3. Por que? O BashGuard foi criado mas não estava wireado.
+4. Por que? Priorizei código sobre enforcement.
+5. Por que? (CAUSA RAIZ) Não há bloqueio automático no nível do SO — 
+   o Gateway só atua nas MCP tools, não nos comandos bash.
+
+Ação: BashGuard (NC-CORE-FR-144) agora wireado no Gateway. 
+Falta: hook no nível do OpenCode/bash tool.
+
+@UBL rca-failure-batch-edit
+# 2. FALHA 2: 3 tools quebrados por batch edit (R09, R26)
+LEXICO: #rca #falha2 #r09 #r26 #batch-edit #step-0 #orbital-pattern
+
+1. Por que? Editei 3 arquivos simultaneamente sem validação.
+2. Por que? Usei regex batch em vez de edição cirúrgica.
+3. Por que? Pressa para implementar orbital bridge.
+4. Por que? Não segui o STEP 0 (regression check) antes da edição.
+5. Por que? (CAUSA RAIZ) STEP 0 é WARNING, não ENFORCED — 
+   não bloqueia ações de risco.
+
+Ação: R09 agora é ENFORCED (bloqueia). 
+R26 (Orbital Pattern) agora tem HOOK no Gateway.
+
+@UBL rca-failure-compliance-drop
+# 3. FALHA 3: Compliance caiu de 93.8% para 81.2%
+LEXICO: #rca #falha3 #compliance #regression #v1-removal #checks
+
+1. Por que? Removi o diretório v1/ sem verificar impacto.
+2. Por que? Compliance checks referenciavam v1/ para R13 e R15.
+3. Por que? Checks de compliance eram frágeis (dependiam de diretórios).
+4. Por que? Não havia teste de regressão nos checks.
+5. Por que? (CAUSA RAIZ) Compliance checks não são versionados nem testados
+   antes de mudanças estruturais.
+
+Ação: Compliance checks refatorados (41→41 checks, 100%).
+Falta: Teste de regressão para mudanças em checks.
+
+@UBL strategic-porques
+# 4. 4 PORQUÊS ESTRATÉGICOS
+LEXICO: #estrategico #4-porques #missao #alinhamento #melhoria #desempenho
+
+1. Por que o NeoCortex existe? (Missão)
+   → Governança automatizada para agentes de IA.
+
+2. Por que fizemos esta sessão? (Alinhamento)
+   → Eliminar stubs, wire-up enforcement, criar 4 mordaças.
+
+3. Por que mudar o processo agora? (Melhoria)
+   → Falhas de hoje provam que documentação sem enforcement = ilusão.
+
+4. Por que as regras não estavam sendo cumpridas? (Desempenho)
+   → STEP 0 era WARNING, não ENFORCED. Gateway não era universal. 
+     CHECKPOINT só observava, não bloqueava.
+
+@UBL licoes-aprendidas
+# 5. LIÇÕES APRENDIDAS
+LEXICO: #lessons-learned #enforcement #batch-edit #compliance #step-0 #watcher
+
+1. Documentação SEM enforcement = FALSO POSITIVO
+2. Batch edit SEM validação = FERRAMENTA QUEBRADA
+3. Compliance checks DEVEM ser testados antes de mudanças
+4. STEP 0 DEVE bloquear, não só avisar
+5. Vigia Central É necessário para unificar monitoramento
+
+@UBL regression-buffer-rules
+# 6. REGRAS ADICIONADAS AO REGRESSION BUFFER
+LEXICO: #regression #buffer #step-0-missing #r05-violation #compliance-fragile
+
+- "STEP-0-MISSING: batch edit quebrou 3 tools sem validação prévia"
+- "R05-VIOLATION: 14 arquivos deletados sem arquivamento"
+- "COMPLIANCE-FRAGILE: remoção de v1/ quebrou 3 checks"

@@ -1,0 +1,13 @@
+{
+  "category": "09_documentation",
+  "tags": [
+    "python-sdk",
+    "fastmcp",
+    "framework"
+  ],
+  "summary": "Documentação exaustiva do FastMCP Python SDK para integração de ferramentas, recursos e prompts no NeoCortex.",
+  "priority_score": 8,
+  "file": "NC-LBE-FR-MCP-001-fastmcp-sdk.mdc",
+  "lobe_id": "NC-LBE-FR-MCP-001-fastmcp-sdk",
+  "classified": "2026-04-21T10:36:53"
+}

@@ -1,0 +1,261 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
+title: NC-LBE-FR-EVOLUTION-001
+version: v1.0
+created: 2026-04-27
+created_by: T0
+tags: evolution, auto-replication, genome, DNA, RNA, mutation, governance, BUM, HyperAgents
+status: active
+module: evolution
+temperature: 0
+---
+
+@UBL $EVOLUTION
+LEXICO: #evolution #replication #mutation #genome #governance
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+
+@UBL 3Ws
+LEXICO: #3W #what #why #where
+
+## What
+Módulo: NC LBE FR EVOLUTION 001
+
+## Why
+Criado em 2026-04-27 — arquivo do ecossistema NeoCortex
+
+## Where
+02_memory_lobes/$frontal
+
+---
+
+
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
+
+@UBL EvolutionSistema
+LEXICO: #evolution #sistema #evolutivo #governado
+
+# 1. NC-LBE-FR-EVOLUTION-001 — Sistema Evolutivo Governado
+
+@UBL Fundamentacao
+LEXICO: #fundamentacao #HyperAgents #BUM #DGM #mutation
+
+## Fundamentação
+
+**HyperAgents (Meta, 2026):** Framework DGM-Hyperagents (ICLR 2026) permite agentes se auto-iterarem reescrevendo código. Princípio: Darwinian Gödel Machine (DGM) — algoritmos abertos para construir biblioteca crescente de agentes de IA de alta qualidade.
+
+**Native Self-Evolution:** Agentes desenvolvem capacidade intrínseca de meta-evolução. Qwen3-30B: +20% performance, modelo 14B supera Gemini-2.5-Flash.
+
+**AgentFactory:** Paradigma de auto-evolução que preserva soluções como código Python executável (não texto). Subagentes portáteis acumulam capacidades com feedback de execução.
+
+**BUM (Biological Universe Makers):** Ecossistema de agentes auto-replicantes. Cada "cérebro" = repositório Git que constrói aplicação ("universo"). Replicação por fork, comunicação via filesystem. Inspiração biológica: DNA (imutável), RNA (estado), epi-genoma (constantes físicas).
+
+**Layered Mutability (Stanford/arXiv 2026):** Framework de 5 camadas para agentes auto-modificadores. Principal descoberta: "compositional drift" — atualizações localmente razoáveis acumulam trajetória nunca autorizada. Identity hysteresis ratio = 0.68.
+
+**Digital Darwinism (Springer 2026):** Quatro instrumentos de governança: limiares de replicação (R0), registro público de vulnerabilidades, níveis de biossegurança digital (BSL-1 a BSL-4), sandboxes regulatórios adaptativos.
+
+---
+
+
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
+
+@UBL ReplicacaoControlada
+LEXICO: #replicacao #controlada #fork #DNA #RNA
+
+## 1. REPLICAÇÃO CONTROLADA (Ideias 1-10)
+
+1. **Fork Governado por Políticas:** Cada replicação herda obrigatoriamente NC-SEC-FR-001 (Atomic Locks) e NC-CFG-FR-001 (Políticas). Filho não nasce sem regras de segurança do pai.
+
+2. **DNA Imutável:** Cada instância carrega DNA.json com identidade estrutural (pastas, arquivos, dependências). Versionado, nunca modificado pela própria instância, apenas pelo "parent".
+
+3. **RNA de Estado (Runtime):** RNA.json registra estado de execução: modo (dev/prod), ciclo de vida, objetivo atual, capacidades desenvolvidas. Mutável pelo próprio agente.
+
+4. **Propagação de Políticas (Epi-genoma):** Constantes físicas (limites de tokens, portas padrão, chaves de API) propagadas para todos os "filhos" como epi-genoma imutável localmente.
+
+5. **Registro de Linhagem (Audit Trail de Replicação):** Cada replicação gera registro imutável no WAL: parent_id, child_id, timestamp, DNA_hash. Rastreabilidade total da árvore genealógica.
+
+6. **Taxa de Replicação Controlada (R0):** Limite máximo de replicações por unidade de tempo (5 forks/hora). Excedido → bloqueio + alerta de "outbreak".
+
+7. **Sandbox de Replicação:** Todo "filho" inicia em sandbox isolado (diretório temporário, sem rede externa). Deve passar testes de conformidade antes de promoção a "produção".
+
+8. **Certificado de Integridade (SHA-256):** Após replicação, hash SHA-256 de todos os arquivos essenciais. Divergências → DELTA → ratificação do parent.
+
+9. **Replicação Seletiva:** Replicação parcial: apenas camadas específicas (Fundação + Governança, sem Backend). Cria "especialistas" enxutos.
+
+10. **Fusão Controlada (Merge):** "Filho" que completou ciclo de vida (apoptosis) pode ser fundido ao "parent" se: (a) testes passarem, (b) ToolGuard validar, (c) STEP 0 sem regressões.
+
+---
+
+
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
+
+@UBL EvolucaoMutacaoControlada
+LEXICO: #evolucao #mutacao #controlada #MCP #AgentFactory
+
+## 2. EVOLUÇÃO E MUTAÇÃO CONTROLADA (Ideias 11-20)
+
+11. **Mutação por MCP Tools:** Agente propõe "mutações" (novas ferramentas MCP, novos Lobos) testadas em sandbox antes de incorporação ao genoma.
+
+12. **Biblioteca de Subagentes Executáveis (AgentFactory):** Soluções bem-sucedidas preservadas como código Python executável, refinadas com feedback de execução.
+
+13. **Seleção Natural por Performance:** Subagentes com melhor performance (menor custo, maior precisão) promovidos; piores arquivados (AKL). Ranking de fitness.
+
+14. **Cruzamento (Crossover):** Dois subagentes complementares "cruzados" para gerar terceiro com o melhor de ambos. ToolGuard valida resultado.
+
+15. **Meta-Evolução (HyperAgents):** Sistema otimiza a própria lógica de "como melhorar". Agente especial (T0-Meta) analisa histórico de evoluções e ajusta parâmetros de mutação.
+
+16. **Registro de Mutações (Mutation Log):** mutation_id, parent_version, change_description, performance_delta, approved_by. Histórico completo da evolução.
+
+17. **Reversão de Mutação (Rollback Evolutivo):** Mutação com degradação (MetricsStore) → reversão automática via SavePoint (STEP -1).
+
+18. **Isolamento Reprodutivo:** Grupos de agentes em domínios diferentes (saúde vs. finanças) evoluem separadamente, desenvolvendo "espécies" especializadas.
+
+19. **Vacina de Regressão:** Mutação que causa erro → Regression Buffer atualizado com "vacina" — padrão que impede mesma mutação novamente.
+
+20. **Observatório de Evolução (HUD de Evolução):** Painel visual: árvore genealógica de replicações, fitness de cada instância, mutações ativas.
+
+---
+
+
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
+
+@UBL GovernancaEvolucao
+LEXICO: #governanca #evolucao #constituicao #sandbox #BSL
+
+## 3. GOVERNANÇA DA EVOLUÇÃO (Ideias 21-30)
+
+21. **Constituição Imutável (Genome):** "Prime Directives" NUNCA alteráveis por mutação: Atomic Locks, STEP 0, WAL, ToolGuard. Núcleo duro da governança.
+
+22. **Sandbox Regulatório Adaptativo:** Mutação testada em sandbox com cenários de stress: injeção de prompt, bypass de segurança.
+
+23. **Registro Público de Vulnerabilidades:** Histórico de todas as vulnerabilidades encontradas em mutações passadas. Acessível a todos os agentes.
+
+24. **Níveis de Biossegurança Digital (BSL-1 a BSL-4):** BSL-1 (sandbox local), BSL-2 (rede restrita), BSL-3 (air-gapped), BSL-4 (simulação teórica).
+
+25. **Conselho de Revisão de Mutação (Mutation Review Board):** BSL-3+: conselho T0 + Guardian + Engineer revisa e aprova por consenso.
+
+26. **Drift Control (Kitchen Loop):** Medição contínua de qualidade com gates de pausa automáticos. Qualidade abaixo do limiar → mutações pausadas.
+
+27. **Compositional Drift Detection (Layered Mutability):** Monitoramento ativo do "identity hysteresis ratio" — mutações acumuladas desviando identidade original.
+
+28. **Ethical Inheritance:** "Pai" transmite "ethical genome" ao "filho". Validado pelo Guardian antes de cada replicação.
+
+29. **Replication-Rate Threshold (R0):** Limite máximo modelado no R0 epidemiológico. Excedido → bloqueio + alerta "outbreak".
+
+30. **Adaptive Regulatory Sandbox:** Sandbox se adapta com base no histórico: muitas falhas de um tipo → sandbox mais rigoroso para aquele tipo.
+
+---
+
+
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
+
+@UBL RegrasAdicionais
+LEXICO: #regras #R201 #R250 #replicacao #mutacao #plugins
+
+## 4. REGRAS ADICIONAIS (R201-R250)
+
+### Replicação (R201-R220)
+R201-R220: Herança de políticas, R0 threshold, sandbox BSL, SHA-256, lineage tracking, TTL.
+
+### Mutação (R221-R240)
+R221-R240: Mutation board, drift control, ethical genome, fitness ranking, auto-rollback.
+
+### Ecossistema de Plugins (R241-R250)
+R241: Distribuível como plugin OpenCode via npm.
+R242: Compatível com Universal Plugin Marketplace (Claude, Codex, Gemini, OpenCode, Cursor).
+R243: Expõe todas as 40+ ferramentas MCP via manifesto.
+R244: Instalação via opencode.json.
+R245: Atualização automática via opencode-plugin-auto-update.
+R246: Inclui AGENTS.md como fonte única de verdade.
+R247: Inclui CLAUDE.md como symlink para AGENTS.md.
+R248: Testado em todas as plataformas antes do release.
+R249: Inclui manifesto de compatibilidade (compatibility.json).
+R250: Segue convenção NC- para todos os artefatos.
+
+---
+
+
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
+
+@UBL GenomaNeoCortex
+LEXICO: #genoma #neocortex #immutable #directives #mutation
+
+## 5. GENOMA DO NEOCORTEX
+
+```yaml
+genome:
+  version: "1.0"
+  immutable_directives:
+    - "STEP 0 NUNCA pode ser desabilitado"
+    - "Atomic Locks NUNCA podem ser removidos"
+    - "WAL NUNCA pode ser desligado"
+    - "ToolGuard pipeline NUNCA pode ser bypassed"
+  mutable_genes:
+    - "Templates de projeto"
+    - "Subagentes"
+    - "Lobos de conhecimento"
+    - "Políticas de uso"
+  replication:
+    max_rate: 5_per_hour
+    sandbox_required: true
+    integrity_check: "SHA-256"
+  mutation:
+    review_board: ["T0", "Guardian", "Engineer"]
+    biosafety_levels: ["BSL-1", "BSL-2", "BSL-3", "BSL-4"]
+    drift_threshold: 0.68
+```
+
+---
+
+
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
+
+@UBL PosicionamentoNeoCortex
+LEXICO: #posicionamento #neocortex #organismo #digital
+
+## 6. POSICIONAMENTO DO NEOCORTEX
+
+| Camada | Inspiração | Implementação |
+|--------|-----------|---------------|
+| Genoma Imutável | BUM (DNA.json) + Genetic Prompt Engineering | NC-SEC-FR-001 + NC-CFG-FR-001 |
+| Auto-Evolução | HyperAgents + AgentFactory + Native Self-Evolution | Subagentes Python executáveis |
+| Replicação Controlada | BUM (fork) + Digital Darwinism (R0) | Fork com herança + sandbox |
+| Governança da Evolução | Layered Mutability + Kitchen Loop | ToolGuard 6 etapas + Drift Control |
+| Registro Imutável | WAL + Digital Darwinism Registry | Audit Trail + SHA-256 |
+
+O NeoCortex não é apenas um framework. É um **organismo digital governado**, capaz de se replicar, evoluir e se integrar a um ecossistema global de plugins — tudo sob o rigor do ToolGuard, STEP 0 e WAL.
+
+---
+
+
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
+**Versão:** NC-LBE-FR-EVOLUTION-001 v1.0 | **Hash:** EVOLUTION-LOBE-v1.0-20260427
