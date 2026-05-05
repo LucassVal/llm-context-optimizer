@@ -1,0 +1,208 @@
+# NC-CHG-FR-001 — Changelog Unificado + Kaizen v1.0
+# generated_at: 2026-04-30T11:15:00 | generated_by: T0 Antigravity
+# objective: Unificar changelog historico + kaizen em SSOT unico
+# replaces: NC-NAM-FR-001 changelog section + NC-LBE-FR-KAIZEN-001 lobe
+# ssot: true | ulq: "@CHANGELOG"
+
+metadata:
+  version: 1.0
+  status: ACTIVE
+  replaces:
+    - "NC-NAM-FR-001-naming-convention.md § Changelog (legacy, ~100 entries)"
+    - "02_memory_lobes/06_governance/NC-LBE-FR-KAIZEN-001.mdc (kaizen lobe)"
+
+entries:
+  - date: "2026-05-05"
+    type: "GOVERNANCE"
+    kaizen: true
+    what: "27 Regras de Governanca integradas. Rules Multilayer v4.0 (133 regras R01-R133). R127 Murphy + R128 Pareto + R129 ITIL + R130 Postel + R131 Premature + R132 COBIT + R133 BSC adicionadas. Constitution S4 cross-ref. Roadmap v5.0. 3 novos tickets (NC-DS-259..261). YAGNI reclassificado (nao e 'nao fazer' — e 'nao fazer AGORA')."
+    why: "Governanca expandida alem das 111 regras originais. 25 das 27 regras cobertas (15 implementadas, 5 parciais, 3 tickets novos, 2 culturais). Ciclo 6 planejado."
+    files: ["NC-LBE-FR-RULES-MULTILAYER-001 v4.0", "NC-TODO-FR-001-roadmap.yaml v5.0", "NC-DS-259..261 tickets"]
+  - date: "2026-05-05"
+    type: "MILESTONE"
+    kaizen: true
+    what: "MCP compliance 29->71%. 12/13 tasks done. P0(5/5)+P1(2/3)+P2(3/3)+P3(2/2). server.py 793L. Hooks universais em todas tools. isError protocol. UUID session. Ping tool. Gateway wire-up. Resources+Prompts. Auth token. FALTA: outputSchema (FastMCP kwarg nao suportado)."
+    why: "Sessao intensiva de compliance MCP. R126 fixado na Constitution. 57 lobes com @UBL.  eliminado. hooks recuperados apos perda por git checkout."
+    files: ["server.py (502->793L)", "NC-LBE-INT-006-mcp-specification.mdc v2.0", "Constitution §4 R126", "58 lobes @UBL", "NC-MAN-LOBE-001.csv"]
+  - date: "2026-05-04"
+    type: "SOP"
+    kaizen: true
+    what: "NC-SOP-FR-003-lobe-creation.md criado — rotina padrao de 10 passos para criacao de QUALQUER novo lobo. Define formato obrigatorio (YAML frontmatter + 3W + @UBL/LEXICO em todo H1/H2 + numeracao + nomenclatura), rotina de criacao (CSV → arquivo → frontmatter → 3W → @UBL/LEXICO → numerar → CSV → CHANGELOG → validar → @LOCKS), e rotina de localizacao (@UBL / CSV / LEXICO / grep). Inclui exemplo completo e checklist STOP-0."
+    why: "Padronizar a criacao de lobos — antes nao havia procedimento documentado. Lobos eram criados com formatos inconsistentes, sem @UBL, sem registro no CSV. Este SOP fecha a lacuna de governanca na criacao de memoria semantica."
+    files: ["01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SOP-FR-003-lobe-creation.md"]
+
+  - date: "2026-05-04"
+    type: "STANDARD"
+    kaizen: true
+    what: "PADRAO UBL+LEXICO aplicado a 57 lobes ativos. Toda secao H1/H2 agora tem @UBL {nome} + LEXICO: #tags. Facil localizacao por bookmark semantico. MCP lobe (NC-LBE-INT-006) expandido para 21 secoes completas com todas as 17 paginas da documentacao oficial (nao condensado)."
+    why: "Usuario exigiu profundidade total nos lobes — 'cansado de ser raso'. Padrao estabelecido: toda secao recebe @UBL para bookmarking e LEXICO para resolucao de paths. Aplica-se a todos os lobes passados e futuros."
+    files: ["02_memory_lobes/ (57 arquivos .mdc)", "NC-LBE-INT-006-mcp-specification.mdc v2.0 (21 secoes)"]
+
+  - date: "2026-05-04"
+    type: "MILESTONE"
+    kaizen: true
+    what: "AGENT SMOKE TEST PASS — nc-courier (Qwen 1.5B) invocado via OpenCode Task tool. Validou LEXICO JSON (12 keys). Agentes multi-modelo operacionais. Boot sync (secoes 6/9 atualizadas) + artifact catalog (723 .py, 820 .yaml). Checkpoint 06 salvo. MCP SSE offline; hooks wireados (6P/4O/1E) mas sem runtime."
+    why: "Primeiro teste real dos agentes OpenCode multi-modelo. Confirma que Qwen 1.5B local responde via Task tool. Proximo: testar nc-engineer (3B), nc-guardian, nc-auditor."
+    files: ["BOOT-06-agent-smoke-test.json", "NC-BOOT-FR-001-system-manifest.md", "artifact_catalog.json", "artifact_catalog.md", "NC-CHG-FR-001-changelog.yaml"]
+
+  - date: "2026-05-04"
+    type: "CLEANUP"
+    kaizen: true
+    what: "NC-DS-122 CLOSED — 24 arquivos legacy de neocortex/core/ arquivados em DIR-ARC. 0 imports ativos restantes. NC- compliance sobe de 60.8% para 63.9%."
+    why: "Os novos NC-CORE-FR-* ja existiam lado a lado. Os velhos eram codigo morto (R05: arquivar). LEXICO v4.1 ja referencia os novos via #."
+    files: ["DIR-ARC-FR-001-archive-main/core-renamed-legacy-20260504/ (24 arquivos)", "NC-DS-122 (DONE)"]
+
+  - date: "2026-05-04"
+    type: "CLEANUP"
+    kaizen: true
+    what: "60 arquivos limpos na sessao. NC- 60.8→70.0% (+9.2%). 8 wrappers Strangler Fig mantidos para compatibilidade com @LOCKS server.py. LEXICO v4.1, boot manifest v7, ADR-008 ativo."
+    why: "Sessao de governanca intensiva: auditoria completa de 162 fantasmas, 186 dead links arquivados, 47+13 arquivos renomeados/migrados."
+    files: ["NC-LEXICO-LATEST.json v4.1 (155 #)", "NC-NAM-FR-001 (ADR-008)", "NC-BOOT-FR-001 v7", "opencode.json (4 agentes)", ".opencode/agents/ (STEP-0+Regression)"]
+
+  - date: "2026-05-04"
+    type: "RULE"
+    kaizen: true
+    what: "R125 — Path sem acento. Documentado o problema de acentos em paths Windows (ADR-002 expandido)."
+    why: "Falhas silenciosas em rename/import quando path contem acento. Causa raiz: Python e PowerShell perdem o arquivo."
+    files: ["NC-ARC-FR-001-decision-log.md (ADR-002 + R125)"]
+
+  - date: "2026-05-04"
+    type: "GOVERNANCE"
+    kaizen: true
+    what: "REATIVAÇÃO das 4 mordaças. H (HookRegistry) wireado em server.py — 7 hooks auto-registrados no startup. C (PulseScheduler 300s) ja ativo. S e U pendentes."
+    why: "Hooks existiam mas nao eram carregados no server.py (R09). HookRegistry agora importado via importlib e hooks registrados automaticamente no startup do MCP."
+    files: ["neocortex/mcp/server.py (L411-424)", "NC-HK-FR-001-hook-registry.py"]
+
+  # ─── 2026-05-04 — AUDITORIA COMPLETA + LEXICO v4.1 + MULTI-AGENTE (T0 OpenCode) ───
+  - date: "2026-05-04"
+    type: "ARCHITECTURE"
+    kaizen: true
+    what: "LEXICO v4.1 — 155 servicos mapeados com # (69 core + 86 scripts). SSOT agora referencia LEXICO como resolvedor canonico de paths (ADR-008)."
+    why: "Tabela SSOT plana tinha 186 links quebrados. Em vez de corrigir 1 por 1, o LEXICO se tornou a fonte unica de paths. Codigo referencia #TOOLGUARD, nao path fixo."
+    files: ["NC-LEXICO-LATEST.json (v4.1)", "NC-NAM-FR-001-naming-convention.md (ADR-008)"]
+
+  - date: "2026-05-04"
+    type: "CONFIG"
+    kaizen: true
+    what: "Multi-agente configurado no OpenCode: 4 agentes (nc-courier Qwen 1.5B, nc-engineer Qwen 3B, nc-guardian Qwen 1.5B, nc-auditor DeepSeek V4 Pro) com STEP-0 + Regression + regras por tier."
+    why: "Sem STEP-0 e Regression Buffer, LLMs locais repetem erros. Cada agente agora tem rotina obrigatoria de validacao pre-execucao."
+    files: ["opencode.json", ".opencode/agents/nc-courier.md", ".opencode/agents/nc-engineer.md", ".opencode/agents/nc-guardian.md", ".opencode/agents/nc-auditor.md"]
+
+  - date: "2026-05-04"
+    type: "AUDIT"
+    kaizen: true
+    what: "SSOT cross-audit: 262 fisicos vs 286 SSOT. 162 fantasmas classificados e documentados, 186 dead links arquivados via ADR-008. Gitignore corrigido (.neocortex/* com excecoes)."
+    why: "O auditor de SSOT tinha falsos positivos — comparava paths antigos. Classificacao manual revelou que maioria dos 'mortos' eram arquivos arquivados ou renomeados."
+    files: ["ssot_audit_report.json", ".gitignore", "NC-NAM-FR-001-lobes-registry.md", "NC-DOC-FR-001-ubiquitous-language-dictionary.md"]
+
+  - date: "2026-05-04"
+    type: "INFRA"
+    kaizen: true
+    what: "34 secoes da documentacao OpenCode armazenadas no knowledge store. Ollama :11434 integrado como provider no OpenCode. .nc/config.yaml criado. Conflito opencode.json vs .jsonc resolvido."
+    why: "Centralizar o conhecimento do OpenCode para que agentes consultem sem precisar de web fetch."
+    files: [".neocortex/knowledge/ (43 arquivos)", ".nc/config.yaml", "opencode.json", "~/.config/opencode/opencode.json"]
+
+  # ─── 2026-05-03 — CORREÇÃO DE CONFIGURAÇÃO (Antigravity T0) ───
+  - date: "2026-05-03"
+    type: "FIX"
+    kaizen: true
+    what: "Correção de opencode.json: Adicionados 'command' e 'extensions' para 6 servidores LSP + ajuste de MCP stdio"
+    why: "OpenCode falhava ao iniciar devido a falta de parâmetros obrigatórios para LSPs customizados. Paths absolutos e ROOT desalinhados corrigidos."
+    files: ["opencode.json", "NC-DS-256-fix-opencode-lsp-config.yaml"]
+
+  # ─── 2026-04-30 — CICLOS 1+2 DE CONSOLIDACAO + AUDITORIA (T0 Antigravity) ───
+
+  - date: "2026-04-30"
+    type: "ARCHITECTURE"
+    kaizen: true
+    what: "ULQ estabelecido como CAMADA 0 — dicionario universal de 68 simbolos"
+    why: "Unificar buscas e mapeamentos. Antes cada arquivo referenciava paths diferentes."
+    files: ["NC-DOC-FR-001-ubiquitous-language-dictionary.md (remapped @PROMPT + @VISION)"]
+    
+  - date: "2026-04-30"
+    type: "CONSOLIDATION"
+    kaizen: true
+    what: "82→19 arquivos (-77%): rules unificadas, roadmaps consolidados, configs merged"
+    why: "R01-R17 duplicadas em 5 lugares. 20 roadmaps para 2 propositos. 48 prompts/configs redundantes."
+    files: ["NC-AUDIT-FR-001-consolidation-plan.yaml", "NC-RULE-010 (novo)", "NC-CFG-DS-001-agent-session.yaml (merged)", "NC-CFG-FR-001-multi-agent-policies.yaml (merged)"]
+
+  - date: "2026-04-30"
+    type: "AUDIT"
+    kaizen: true
+    what: "Auditoria MCP completa: __init__.py fossil reescrito, 26 NC-ORPHAN arquivados, 7 renames"
+    why: "21 tools operantes mas __init__.py referenciava 16 arquivos fantasmas. SUPER nao era TIPO aprovado."
+    files: ["NC-AUDIT-FR-002-mcp-tools-orphans-audit.yaml", "__init__.py (rewritten)", "NC-NAM-FR-001 (SUPER added)", "pyproject.toml (UP038 removed)"]
+
+  - date: "2026-04-30"
+    type: "MAPS"
+    kaizen: true
+    what: "6 mapas estruturais criados: organograma, fluxo de dados, 6 orbitais, rotinas de pensamento, pipeline, pastas"
+    why: "Nenhum mapa visual/ASCII existia. Estrutura dispersa em 6+ arquivos diferentes."
+    files: ["NC-MAP-FR-001-structural-maps.yaml", "NC-RULE-001 (R00b thinking routines added)"]
+
+  - date: "2026-04-30"
+    type: "SECURITY"
+    kaizen: true
+    what: "5 arquivos organicos adicionados ao @LOCKS: LEXICO, TAG_INDEX, catalog, ULQ, MAPS"
+    why: "Arquivos que evoluem com o sistema e corromper = perda de orientacao semantica."
+    files: ["NC-SEC-FR-001-atomic-locks.yaml (organic_files section)"]
+
+  - date: "2026-04-30"
+    type: "VERIFICATION"
+    kaizen: true
+    what: "Pipeline de verificacao por tipo de arquivo padronizado + audit.full 19 secoes + secao 19 multi-formato"
+    why: "6 tipos de arquivo sem verificador automatizado (.json, .md, .ps1, .jsonl, .bat, .sh)."
+    files: ["NC-CORE-FR-149-full-system-audit.py (secão 19 + _audit_formats)", "NC-AUDIT-FR-001 (pipeline matrix)"]
+
+  - date: "2026-04-30"
+    type: "REFACTOR"
+    kaizen: true
+    what: "NC-NAM-FR-001 split: changelog extraido para NC-CHG-FR-001. NC-NAM agora e apenas naming convention."
+    why: "815 linhas fazendo 3 coisas diferentes. Kaizen e changelog eram duplicados."
+    files: ["NC-CHG-FR-001-changelog.yaml (novo)", "NC-NAM-FR-001 (trimmed)"]
+
+  # ─── 2026-04-28 — FASE 0-6 (registros historicos do NC-NAM legado) ───
+  - date: "2026-04-28"
+    type: "MILESTONE"
+    kaizen: false
+    what: "Fase 6: Sub-servers — cada child ganha MCP server proprio. Genome fork + BSL sandbox."
+    files: ["NC-CORE-FR-130-genome-replicator.py", "NC-CORE-FR-131-federative-pact.py"]
+
+  - date: "2026-04-28"
+    type: "MILESTONE"
+    kaizen: false
+    what: "MVP 1.0 roadmap registrado. 20 engines documentados (FR-150 a FR-172)."
+    
+  - date: "2026-04-28"
+    type: "MILESTONE"
+    kaizen: false
+    what: "115→123 regras (R116-R123: Semantic Architecture). 4 mordacas H/C/S/U mapeadas."
+    files: ["NC-LBE-FR-RULES-MULTILAYER-001.mdc v3.1"]
+
+# ─── LEGACY CHANGELOG ───
+legacy:
+  description: "Entradas anteriores a 2026-04-30 estao em NC-NAM-FR-001-naming-convention.md § Changelog (~100 entradas, 2026-04-11 a 2026-04-28)"
+  path: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
+  status: "ARCHIVED — nao mais atualizado. Novas entradas vao aqui."
+
+# ─── KAIZEN INTEGRACAO ───
+kaizen:
+  description: "Micro-melhorias continuas. Toda entrada com kaizen=true registra aprendizado."
+  last_kaizen: "2026-05-04T03:30"
+  total_kaizen_entries:
+  - date: "2026-05-05"
+    type: "GOVERNANCE"
+    kaizen: true
+    what: "27 Regras de Governanca integradas. Rules Multilayer v4.0 (133 regras R01-R133). R127 Murphy + R128 Pareto + R129 ITIL + R130 Postel + R131 Premature + R132 COBIT + R133 BSC adicionadas. Constitution S4 cross-ref. Roadmap v5.0. 3 novos tickets (NC-DS-259..261). YAGNI reclassificado (nao e 'nao fazer' — e 'nao fazer AGORA')."
+    why: "Governanca expandida alem das 111 regras originais. 25 das 27 regras cobertas (15 implementadas, 5 parciais, 3 tickets novos, 2 culturais). Ciclo 6 planejado."
+    files: ["NC-LBE-FR-RULES-MULTILAYER-001 v4.0", "NC-TODO-FR-001-roadmap.yaml v5.0", "NC-DS-259..261 tickets"]
+  - date: "2026-05-05"
+    type: "MILESTONE"
+    kaizen: true
+    what: "MCP compliance 29->71%. 12/13 tasks done. P0(5/5)+P1(2/3)+P2(3/3)+P3(2/2). server.py 793L. Hooks universais em todas tools. isError protocol. UUID session. Ping tool. Gateway wire-up. Resources+Prompts. Auth token. FALTA: outputSchema (FastMCP kwarg nao suportado)."
+    why: "Sessao intensiva de compliance MCP. R126 fixado na Constitution. 57 lobes com @UBL.  eliminado. hooks recuperados apos perda por git checkout."
+    files: ["server.py (502->793L)", "NC-LBE-INT-006-mcp-specification.mdc v2.0", "Constitution §4 R126", "58 lobes @UBL", "NC-MAN-LOBE-001.csv"] 12
+  pattern: "Plan → Do → Check → Act → Register here"
+  session_summary: "Sessao 2026-05-04: NC- 44.8→71.5% (+26.7%). 67 arquivos limpos. LEXICO v4.2 (174 #). 4 agentes. ADR-008. Boot v7. 13 tickets fechados. Zonas ativas 100% NC-."
+
+

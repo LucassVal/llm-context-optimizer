@@ -1,0 +1,127 @@
+# NeoCortex Roadmap — v5.0
+# frozen: false
+# version: 5.0
+# last_updated: 2026-05-05
+# updated_by: T0-OpenCode (sessao MCP compliance + governanca 27 regras)
+# replaces: v3.0 (obsoleto — PicoClaw/LiteLLM/Ciclos 1-5 antigos)
+
+metadata:
+  title: "NeoCortex Development Roadmap v5.0"
+  status: ACTIVE
+  version: 5.0
+  last_updated: 2026-05-05
+  mcp_compliance: "71% (era 29%)"
+  rules_total: 133
+  server_py_lines: 809
+  active_tickets: 14
+
+phases:
+  # ── COMPLETED ─────────────────────────────────────────────────
+  - phase: CICLO_1_5
+    title: "Fundacao + MCP Core + Governanca"
+    status: COMPLETED
+    completed_at: 2026-05-04
+    summary: "MCP server online :8765. 5 Resources. 3 Prompts. 21 Tools. isError protocol. UUID session. Hooks 6P/4O/1E. 58 lobes @UBL. 133 rules v4.0. Constitution §4 R126. $cerebelo eliminado."
+    tickets_done:
+      - "NC-DS-250 Resources"
+      - "NC-DS-251 Prompts"
+      - "NC-DS-256 Error Protocol"
+      - "NC-DS-257 Logging"
+      - "NC-DS-252 Auth token"
+      - "NC-DS-254 Notifications"
+      - "NC-DS-258 Utility Primitives"
+      - "R126 Structural Boundary"
+      - "R124 Session UUID"
+      - "R125 Path sem acentos"
+
+  # ── CURRENT ──────────────────────────────────────────────────
+  - phase: CICLO_6
+    title: "MCP Compliance Final + Governanca 27 Regras"
+    status: IN_PROGRESS
+    started_at: 2026-05-05
+    summary: "Fechar os 2 gaps MCP restantes + implementar 3 regras criticas de governanca. Compliance 71% -> 82%."
+    tickets_active:
+      - id: NC-DS-259
+        title: "R127 MURPHY — health_check testa hook_registry"
+        status: OPEN
+        priority: P0
+        effort: 30min
+        impact: "Elimina Risco 1 (hook_registry fragil)"
+      - id: NC-DS-253
+        title: "outputSchema TypedDict nas 20 tools"
+        status: IN_PROGRESS
+        priority: P1
+        effort: 2-3h
+        impact: "Compliance 71% -> 82%. Bloqueador: FastMCP kwarg."
+      - id: NC-DS-260
+        title: "R129 ITIL — pre-commit hook bloqueia checkout sem savepoint"
+        status: OPEN
+        priority: P1
+        effort: 1h
+        impact: "Evita desastre de perda de staging"
+      - id: NC-DS-261
+        title: "R130 POSTEL — validacao input/output nos hooks"
+        status: OPEN
+        priority: P1
+        effort: 1h
+        impact: "Seguranca de inputs"
+      - id: NC-DS-255
+        title: "Semantic Response Cache"
+        status: OPEN
+        priority: P2
+        effort: 2h
+        impact: "Feature futura, adiada por YAGNI"
+
+  # ── NEXT ─────────────────────────────────────────────────────
+  - phase: CICLO_7
+    title: "Estabilizacao + Limpeza Tecnica"
+    status: PLANNED
+    summary: "Reduzir debito tecnico. Substituir Strangler wrappers. Lobificar legacy. Pre-commit hooks."
+    tickets_planned:
+      - id: NC-DS-STRANGLER
+        title: "Substituir 17 Strangler wrappers -> imports diretos"
+        priority: P1
+        effort: 3-4h
+        note: "Single point of failure. Risco de regressao."
+      - id: NC-DS-LOBIFY
+        title: "Lobificar 02_memory_lobes/lobes/ (legacy agent workspace)"
+        priority: P2
+        effort: 1h
+      - id: NC-DS-AUTOSTART
+        title: "Auto-start MCP no boot do OpenCode"
+        priority: P2
+        effort: 1h
+        note: "mcp.json criado, falta validar"
+
+  # ── FUTURE ────────────────────────────────────────────────────
+  - phase: CICLO_8
+    title: "Governanca Avancada + KPIs"
+    status: PLANNED
+    summary: "Premature (R131) + COBIT (R132) + BSC (R133). Elicitation nativa. MCP Apps."
+    tickets_planned:
+      - id: NC-DS-R131
+        title: "R131 PREMATURE — profiling antes de otimizar"
+        priority: P3
+      - id: NC-DS-R132
+        title: "R132 COBIT — alinhamento estrategico"
+        priority: P3
+      - id: NC-DS-R133
+        title: "R133 BSC — scorecard KPIs"
+        priority: P3
+      - id: NC-DS-ELICIT
+        title: "Elicitation nativa (substituir stdout hack)"
+        priority: P3
+
+  # ── REFERENCE ─────────────────────────────────────────────────
+  - phase: REFERENCE
+    title: "Documentos SSOT de Governanca"
+    status: ACTIVE
+    references:
+      - "Constitution: NC-LBE-FR-CONSTITUTION-001 §4 (R126)"
+      - "Rules Multilayer: NC-LBE-FR-RULES-MULTILAYER-001 v4.0 (133 regras)"
+      - "Atomic Locks: NC-SEC-FR-001-atomic-locks.yaml"
+      - "LEXICO: NC-LEXICO-LATEST.json (172 servicos)"
+      - "Lobe Manifest: NC-MAN-LOBE-001.csv (58 lobes)"
+      - "CHANGELOG: NC-CHG-FR-001-changelog.yaml"
+      - "SOP Lobes: NC-SOP-FR-003-lobe-creation.md"
+      - "MCP Spec: NC-LBE-INT-006-mcp-specification.mdc v2.0"
