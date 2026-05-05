@@ -1,0 +1,105 @@
+---
+lobe_id: NC-MAP-001
+name: map-agent-hierarchy
+status: ACTIVE
+version: "1.0"
+created_at: "2026-05-05"
+created_by: T0
+domain: maps
+layer: governance
+tags: [map, agents, hierarchy, ddd, parent-child, tiers]
+---
+
+# NC-MAP-001 — Mapa de Hierarquia de Agentes + DDD Parent-Child
+
+## DDD SHARED KERNEL (Constitution §4)
+
+```
+CONSTITUTION (Shared Kernel — regras imutáveis)
+│
+├── TIER 0 — T0 (DeepSeek V4 Pro)
+│   ├── OpenCode chat interface
+│   ├── Arquitetura, @LOCKS, MCP core, framework
+│   └── Implementações estruturais (P0/P1)
+│
+├── TIER A — TA (DeepSeek Flash) — nc-auditor
+│   ├── Auditoria pesada 3 camadas
+│   ├── Deep research + cross-audit
+│   ├── Compliance reports → T0
+│   └── NUNCA modifica código
+│
+├── TIER 2 — T2 (Qwen 3B) — nc-engineer
+│   ├── Micro-tarefas em sandbox
+│   ├── 1 arquivo, 3-10 linhas
+│   ├── NÃO estrutural
+│   └── Propõe mudanças → T0 aprova
+│
+├── TIER 1 — T1 (Qwen 1.5B) — nc-courier
+│   ├── Rotinas mecânicas (ciclos, dados, docs)
+│   ├── Handoffs + boot sync + catalog
+│   └── NUNCA decide
+│
+└── TIER 3 — T3 (Qwen 1.5B) — nc-guardian
+    ├── Validação read-only
+    ├── @LOCKS + naming + secrets
+    └── NUNCA escreve em produção
+```
+
+## DDD PARENT-CHILD (Sistema completo)
+
+```
+CONSTITUTION (Shared Kernel)
+│
+├── 00-mapas/                    ← Mapas de arquitetura (ESTE)
+│
+├── ULQ-TAG-INDEX (@→path)       ← Resolvedor de símbolos
+│   ├── @ → SSOT files
+│   ├── $ → Brain regions
+│   ├── # → LEXICO services
+│   └── % → Actions/status
+│
+├── LEXICO (#→service)           ← Catálogo de serviços (113)
+│
+├── MANIFEST (lobe catalog)      ← 57 lobes ativos
+│
+├── BOOT (system state)          ← Estado runtime do sistema
+│
+├── RULES-MULTILAYER (133 regras) ← 4 mordaças H/C/S/U
+│
+├── 01-framework/neocortex/      ← Código fonte (507 files)
+│   ├── core/ (79 NC-CORE-FR-*)
+│   │   ├── Gateway + CPC + LockGuard
+│   │   ├── 18 services
+│   │   ├── 9 legal components
+│   │   ├── 8 semantic
+│   │   └── 19 Strangler bridges
+│   ├── mcp/ (server.py + tools/)
+│   ├── infra/ (metrics, hot_cache, llm/)
+│   └── repositories/
+│
+├── 02-lobes/                    ← Conhecimento (10 domínios)
+│   ├── 01_architecture/
+│   ├── 01_framework/
+│   ├── 02_integrations/
+│   ├── 03_agents/
+│   ├── 04_cc_patterns/
+│   ├── 05_machine_memory/
+│   ├── 05_user/
+│   ├── 06_governance/
+│   ├── 08_sessions/
+│   └── 09_framework/
+│
+├── 08-tickets/                  ← 217 tickets YAML
+├── 09-audit-logs/               ← Handoffs
+├── 15-docs/                     ← Documentação SSOT
+└── 99-archive/                  ← R05 — nunca deletar
+```
+
+## REGRAS DE COMUNICAÇÃO (R126)
+
+- T0 ↔ TA: T0 solicita auditoria, TA reporta
+- T0 ↔ T2: T0 aprova/rejeita propostas do T2
+- T0 ↔ T1: T0 ordena, T1 executa
+- T2 → T1: T2 pode delegar tarefas simples ao T1
+- TA/T1/T2/T3: NUNCA modificam @LOCKS files
+- Todo agente: STEP 0 obrigatório antes de agir

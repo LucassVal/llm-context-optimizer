@@ -1,0 +1,93 @@
+---
+lobe_id: NC-MAP-002
+name: map-directory-structure
+status: ACTIVE
+version: "1.0"
+created_at: "2026-05-05"
+created_by: T0
+domain: maps
+layer: governance
+tags: [map, directories, structure, paths, numbering]
+---
+
+# NC-MAP-002 — Mapa de Estrutura de Diretórios
+
+## RAIZ (TURBOQUANT_V42/)
+
+```
+00-mapas/           ← Mapas de arquitetura (NC-MAP-001..005)
+01_neocortex_framework/  ← Framework + código fonte
+│   ├── neocortex/       ← Python package (PROTECTED)
+│   │   ├── core/        ← 79 NC-CORE-FR-* + 19 Strangler bridges
+│   │   ├── mcp/         ← MCP server + tools
+│   │   ├── infra/       ← Infra services
+│   │   └── repositories/
+│   ├── 32-scripts/      ← 132 scripts utilitários
+│   ├── 33-tests/        ← 7 testes
+│   ├── 31-data/         ← LanceDB (3100+ files)
+│   ├── 20-config/       ← Configurações legacy
+│   ├── 21-core-central/ ← Core central legacy
+│   ├── 23-docs/         ← Documentação técnica
+│   ├── 90-archive-internal/ ← Archive interno
+│   └── 91-backup/       ← Backups
+│
+02_memory_lobes/    ← Lobes de conhecimento (10 domínios)
+│   ├── 01_architecture/  (3 lobes)
+│   ├── 01_framework/     (13 lobes)
+│   ├── 02_integrations/  (9 lobes)
+│   ├── 03_agents/        (2 lobes)
+│   ├── 04_cc_patterns/   (18 lobes)
+│   ├── 05_machine_memory/(2 lobes)
+│   ├── 05_user/          (9 lobes)
+│   ├── 06_governance/    (20 lobes)
+│   ├── 08_sessions/      (3 lobes)
+│   └── 09_framework/     (1 lobe)
+│
+03_external_integrations/ ← Projetos externos (OpenClaude)
+04_user_docs/       ← Documentação de usuário
+05_examples/        ← Exemplos
+06-boot/            ← Boot manifest + snapshots
+07-agent-config/    ← Configs de agentes + prompts
+08-tickets/         ← 217 tickets YAML
+09-audit-logs/      ← Handoffs + WAL logs
+10-lobe-manifest/   ← NC-MAN-LOBE-001.csv
+11-wal/             ← WAL database + crypto
+13-reports/         ← Relatórios
+14-memory/          ← Memória de sessões
+15-docs/            ← Documentação SSOT (ex-DIR-DOC)
+98-research/        ← Research workzone (ex-DIR-RES-CC)
+99-archive/         ← Archive R05 (ex-DIR-ARC)
+│   ├── brain-regions-legacy/ ← $frontal, $occipital
+│   ├── ssot-consolidation/   ← Manifestos antigos
+│   └── deprecated-picoclaw/  ← PicoClaw/LiteLLM
+│
+mcp.json            ← Auto-start MCP
+pyproject.toml      ← Python project config
+requirements.txt    ← Dependencies
+.env                ← API keys
+```
+
+## NUMERAÇÃO (DDD Hierarchical)
+
+| Range | Propósito |
+|-------|----------|
+| 00 | Mapas de arquitetura |
+| 01 | Framework + código fonte |
+| 02 | Lobes de conhecimento |
+| 03 | Integrações externas |
+| 04 | Documentação de usuário |
+| 05 | Exemplos |
+| 06 | Boot + estado do sistema |
+| 07 | Configuração de agentes |
+| 08 | Tickets |
+| 09 | Audit logs |
+| 10 | Manifesto de lobes |
+| 11 | WAL |
+| 12 | (reservado) |
+| 13 | Relatórios |
+| 14 | Memória |
+| 15 | Documentação SSOT |
+| 20-33 | Framework interno |
+| 90-91 | Archive/backup interno |
+| 98 | Research |
+| 99 | Archive geral |

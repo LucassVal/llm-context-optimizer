@@ -177,3 +177,5 @@ NC-SCR-FR-014-end-of-cycle|0B|scripts/NC-SCR-FR-014-end-of-cycle.ps1
 NC-SCR-FR-017-visual-server|0B|scripts/NC-SCR-FR-017-visual-server.py
 NC-SCR-PIC-001-picoclaw-watchdog|0B|scripts/NC-SCR-PIC-001-picoclaw-watchdog.bat
 NC-LBE-FR-LEGAL-001|0B|02_memory_lobes\06_governance\NC-LBE-FR-LEGAL-001-legal-framework.mdc
+NC-MAP-001|0B|00-mapas/NC-MAP-001-agent-hierarchy.mdc
+NC-MAP-002|0B|00-mapas/NC-MAP-002-directory-structure.mdc
