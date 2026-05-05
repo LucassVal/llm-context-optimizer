@@ -70,12 +70,6 @@ def register_tool(mcp) -> None:
         Actions: status
         """
         ts = datetime.now().isoformat(timespec="seconds")
-        try:
-            from neocortex.core.utils.gateway_bridge import gateway_check
-            _ok, _report = gateway_check(action, root)
-            if not _ok: return _report
-        except Exception: pass
-
         if _scheduler is None:
             return {"success": False, "error": "PulseScheduler não inicializado", "timestamp": ts}
         running = _scheduler.is_running() if hasattr(_scheduler, "is_running") else True
