@@ -1,5 +1,5 @@
 ticket_id: NC-DS-255
-status: OPEN
+status: DONE
 priority: HIGH
 title: Semantic Response Cache com Embedding Similarity — eliminar chamadas a API
 front: 'CICLO 5: API EFICIENCIA'
