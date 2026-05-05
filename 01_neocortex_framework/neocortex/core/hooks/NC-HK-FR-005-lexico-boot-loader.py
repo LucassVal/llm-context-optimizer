@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+"""---
+NC-HK-FR-005-lexico-boot-loader.py
+---
+"""
+
+"""---
+NC-HK-FR-005-lexico-boot-loader.py
+---
+"""
+
 """
 NC-HK-FR-005-lexico-boot-loader.py
 LEXICO-005 — Boot Loader para hooks lexicais.

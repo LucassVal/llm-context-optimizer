@@ -1,3 +1,9 @@
+"""---
+@Module NC-HK-FR-002-simple-hook mcp _genealogy:   injected_at: '2026-04-16T00:24:02.15
+---
+"""
+
+
 from __future__ import annotations
 
 """---

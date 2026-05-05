@@ -1,18 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:24:02.159278'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-parent_ssot: NC-HK-FR-002-simple-hook
-related_ssot:
-  - NC-HK-FR-001-hook-registry
-tags:
-  - neocortex-other
-  - level-0
-  - python
----"""
+@Module  mcp _genealogy:   injected_at: '2026-04-16T00:24:02.15
+---
+"""
+
+
 """
 neocortex/core/hooks/__init__.py
 Exporta HookRegistry e hooks pr-fabricados.

@@ -1,16 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:24:02.151220'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-tags:
-  - neocortex-other
-  - level-0
-  - nc-prefix
-  - python
----"""
+@Module NC-HK-FR-001-hook-registry mcp _genealogy:   injected_at: '2026-04-16T00:24:02.15
+---
+"""
+
+
 """
 NC-HK-FR-001-hook-registry.py
 FR-HK-001  HookRegistry: Sistema de hooks reativos ps-ao para NeoCortex.

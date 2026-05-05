@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+"""---
+NC-HK-FR-004-lexico-step0-hook.py
+---
+"""
+
+"""---
+NC-HK-FR-004-lexico-step0-hook.py
+---
+"""
+
 """
 NC-HK-FR-004-lexico-step0-hook.py
 LEXICO-004 — Hook STEP-0: lexico.search antes de qualquer edição de serviço.

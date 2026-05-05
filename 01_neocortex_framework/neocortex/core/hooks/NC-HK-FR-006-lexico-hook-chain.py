@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+"""---
+NC-HK-FR-006-lexico-hook-chain.py
+---
+"""
+
+"""---
+NC-HK-FR-006-lexico-hook-chain.py
+---
+"""
+
 """
 NC-HK-FR-006-lexico-hook-chain.py
 LEXICO-006 — Sistema de Cadeia de Hooks Lexicais.

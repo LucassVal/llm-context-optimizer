@@ -1,3 +1,13 @@
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC CFG HK 001 hooks
+# Why:  Criado em 2026-04-20 — arquivo do ecossistema NeoCortex
+# Where: neocortex/core/hooks
+
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC CFG HK 001 hooks
+# Why:  Criado em 2026-04-20 — arquivo do ecossistema NeoCortex
+# Where: neocortex/core/hooks
+
 # NC-CFG-HK-001-hooks.yaml
 # Declaração YAML dos hooks ativos — carregado pelo HookRegistry.load_yaml()
 # Uso: registry.load_yaml(Path("...NC-CFG-HK-001-hooks.yaml"))

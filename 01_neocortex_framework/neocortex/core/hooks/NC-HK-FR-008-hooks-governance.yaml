@@ -1,0 +1,17 @@
+# NC-HK-FR-008-hooks-governance.yaml
+# T0: Conecta scripts de governanca aos hooks MCP existentes.
+# Formato: HookRegistry.load_yaml() — cada hook precisa de name, event, script, enabled.
+# Scripts precisam exportar hook_handler(context) -> bool.
+
+hooks:
+  - name: governance-validator
+    event: PreToolUse
+    script: "../../scripts/NC-SCR-FR-004-governance-validator.py"
+    enabled: false  # desabilitado ate ter hook_handler()
+    note: "aguardando wrapper hook_handler() no script"
+
+  - name: guardian-pulse
+    event: PostToolUse
+    script: "../../scripts/NC-SCR-FR-115-guardian-daemon.py"
+    enabled: false  # desabilitado ate ter hook_handler()
+    note: "aguardando wrapper hook_handler() no script"

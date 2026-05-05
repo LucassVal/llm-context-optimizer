@@ -536,6 +536,22 @@ def create_mcp_server(host="127.0.0.1", port=8765):
     hook_registry_instance = _HookProxy()
     logger.info(f"Hooks: {len(_hooks_pre)}P/{len(_hooks_post)}O/{len(_hooks_err)}E ativos")
 
+    # ── HOOK REGISTRY YAML (NC-HK-FR-008) ──────────────────────────
+    _hr_yaml = None
+    try:
+        from ..core.hooks.NC_HK_FR_001_hook_registry import HookRegistry
+        _hr_yaml = HookRegistry()
+        _yaml_path = Path(__file__).parent.parent / "core" / "hooks" / "NC-HK-FR-008-hooks-governance.yaml"
+        if _yaml_path.exists():
+            count = _hr_yaml.load_yaml(_yaml_path)
+            logger.info(f"HookRegistry YAML: {count} script hooks carregados de {_yaml_path.name}")
+        else:
+            logger.info(f"HookRegistry YAML: {_yaml_path.name} não encontrado — pulando")
+    except ImportError:
+        logger.info("HookRegistry: módulo não disponível")
+    except Exception as e:
+        logger.warning(f"HookRegistry: erro ao carregar — {e}")
+
     # ── PING + NOTIFICATIONS (NC-DS-254 + NC-DS-258) ──────────────
     if FAST_MCP_AVAILABLE:
         def _ping_impl() -> dict:

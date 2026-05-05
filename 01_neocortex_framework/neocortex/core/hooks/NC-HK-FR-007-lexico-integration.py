@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+"""---
+NC-HK-FR-007-lexico-integration.py
+---
+"""
+
+"""---
+NC-HK-FR-007-lexico-integration.py
+---
+"""
+
 """
 NC-HK-FR-007-lexico-integration.py
 LEXICO-007 — Integração simplificada do sistema de hooks lexicais.
