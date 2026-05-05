@@ -38,7 +38,7 @@ neocortex_context action=context.budget_status  # token budget
 ```
 
 ### Relatorio
-Salvar como `DIR-DS-002-audit-logs/NC-AUDIT-FR-*-governance-ssot-audit-{date}.yaml`
+Salvar como `09-audit-logs/NC-AUDIT-FR-*-governance-ssot-audit-{date}.yaml`
 
 ## When to use me
 - CICLO 4 semanal (compliance.report)
@@ -50,3 +50,4 @@ Salvar como `DIR-DS-002-audit-logs/NC-AUDIT-FR-*-governance-ssot-audit-{date}.ya
 - Hook: CICLO 4 — `neocortex_governance action=compliance.report` roda automaticamente
 - PulseScheduler (C): checkpoint a cada 300s
 - SCHEDULE (S): execucao semanal via PulseOrbital
+
