@@ -191,7 +191,7 @@ LEXICO: #protocolo #dispatch #individual #agent #task
 **Regra:** 1 agent = 1 task = 1 prompt direto (NO usar fila compartilhada)
 
 ```
-T0  Agent N: "Execute task XYZ descrita em DIR-DS-001-tickets/NC-DS-XXX.yaml
+T0  Agent N: "Execute task XYZ descrita em 08-tickets/NC-DS-XXX.yaml
                NO use a fila. Gere handoff NC-DS-XXX-handoff-{timestamp}.yaml"
 ```
 
@@ -320,3 +320,4 @@ LEXICO: #analise #CC #leak #estrategia #insights
 - Ralph-Wiggum  PersistentWorker
 - hookify  MentorHooks / GuardHooks
 - Bridge  A2AGateway
+

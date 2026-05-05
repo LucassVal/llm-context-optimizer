@@ -313,7 +313,7 @@ Chamam scripts Python existentes do NeoCortex.
 |---|---|---|
 | `nc-lint.ts` | ruff check + mypy via Bun.$ | ruff check --fix |
 | `nc-audit.ts` | Auditoria 3 camadas | NC-CORE-FR-173-mcp-audit-3-levels.py |
-| `nc-handoff.ts` | Gera handoff YAML via Bun.write | DIR-DS-002-audit-logs/ |
+| `nc-handoff.ts` | Gera handoff YAML via Bun.write | 09-audit-logs/ |
 | `nc-sync.ts` | Bootup sync + catalog refresh | NC-SCR-FR-066 + NC-SCR-FR-064 |
 | `nc-validate.ts` | Validacao multi-tipo (py+yaml+mdc+json) | ruff + py_compile + yaml.safe_load |
 
@@ -388,3 +388,4 @@ LEXICO: #changelog
 ## 🔄 Changelog
 - **[2026-05-03]** v2.0 — Adicionadas secoes 6 (LSP), 7 (Skills), 8 (Custom Tools), 9 (Agents), 10 (Arquitetura). Atualizados paths via @ULQ.
 - **[2026-04-17]** v1.0 — Lobe criado conforme documentacao exaustiva do usuario (NC-DS-118).
+

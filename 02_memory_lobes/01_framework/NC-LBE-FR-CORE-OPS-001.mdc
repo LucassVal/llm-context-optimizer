@@ -175,7 +175,7 @@ result = lexico.encode_prompt(prompt="...", system="...")
 
 ### Ledger (Dicionário de Átomos)
 
-Localização: `01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-LED-FR-002-lexico-dictionary.json`
+Localização: `01_neocortex_framework/15-docs/NC-LED-FR-002-lexico-dictionary.json`
 Átomos atuais: 28 (seed)
 Próximo passo (LEXICO-002): popular via KG-002 com termos do projeto
 
@@ -242,3 +242,4 @@ LEXICO: #references #related-lobes #cross-reference
 - Lobe LiteLLM: `$LITELLM` = `NC-LBE-FR-LITELLM-001.mdc`
 - Lobe Governança: `$GOVERNANCE` = `NC-LBE-FR-GOVERNANCE-001.mdc`
 - Manifesto Tools: `NC-LBE-FR-TOOLS-MANIFEST-001.mdc`
+

@@ -162,7 +162,7 @@ dispatch  poll  receber handoff.yaml  validar  %DONE
 LEXICO: #communication-protocol #handoff #step0 #r20
 # 6. Protocolo de Comunicao T0  Agentes
 
-- **Formato de handoff:** YAML em `DIR-DS-002-audit-logs/`
+- **Formato de handoff:** YAML em `09-audit-logs/`
 - **STEP-0 que T0 exige:** py_compile, ruff, import_smoke para arquivos .py
 - **STEP-0 que T0 executa:** Parser::ParseFile para arquivos .ps1 (validao sinttica PowerShell)
 - **Checklist R20 que T0 valida ao receber handoff:**
@@ -267,7 +267,7 @@ LEXICO: #prompt-engineering #nc-prompt #ssot #template
 - Sem handoff template
 - Suposies sobre estado do sistema
 
-**Templates disponveis em:** `DIR-DS-000-agent-config/`
+**Templates disponveis em:** `07-agent-config/`
 
 ---
 

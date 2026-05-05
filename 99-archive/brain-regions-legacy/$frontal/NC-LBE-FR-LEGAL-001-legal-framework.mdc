@@ -168,7 +168,7 @@ LEXICO: #legal-references #cross-ref #governance #ssot
 | Ciclo Vigilante | PulseScheduler (FR-122), CICLO 4 |
 | Órgãos Judiciais | Constitution §4 (hierarchy), R126 (structural boundary) |
 | Protocolo Hierarquia | Agent Rules (Constitution §4), R126 |
-| Secretarias | DIR-DS-001-tickets, DIR-DS-002-audit-logs, BOOT checkpoints |
+| Secretarias | 08-tickets, 09-audit-logs, BOOT checkpoints |
 
 ---
 
@@ -187,3 +187,4 @@ LEXICO: #legal-status #implementation #gaps
 | Órgãos Judiciais | ✅ | ✅ (este) | ✅ | ✅ | ❌ |
 | Protocolo Hierarquia | ✅ | ✅ (este) | ✅ | ✅ | ✅ Agent rules |
 | Secretarias | ✅ | ✅ (este) | ✅ | ✅ | ❌ |
+

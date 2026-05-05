@@ -144,9 +144,9 @@ LEXICO: #agents #hierarchy #t0 #ta #t1 #t2 #t3 #structural-boundary #r126
 
 **O que T1/T2/TA PODEM modificar:**
 - `02_memory_lobes/*.mdc` — lobes de conhecimento
-- `DIR-DS-001-tickets/*.yaml` — tickets
-- `DIR-DS-002-audit-logs/*.yaml` — handoffs e relatórios
-- `DIR-DOC-FR-001-docs-main/*` — documentação
+- `08-tickets/*.yaml` — tickets
+- `09-audit-logs/*.yaml` — handoffs e relatórios
+- `15-docs/*` — documentação
 - `scripts/*.py` (não-core) — scripts utilitários
 - `neocortex/mcp/tools/*.py` — **SOMENTE com aprovação T0** e em sandbox
 
@@ -317,3 +317,4 @@ LEXICO: #classification #r22-r25 #l0-l3 #binding #step-0 #extend-dont-create
 <!-- Status: proposto | Category: GOVERNANCE -->
 <!-- Teste de mutação: aumentar timeout do Gateway de 5s para 10s -->
 <!-- Proposed change: proposta via evolution tool -->
+
