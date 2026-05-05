@@ -161,6 +161,11 @@ AGENT-06: Todo agente passa pelo STEP 0 (mentor_step_0) antes de agir.
 AGENT-07: Agentes usam ConstitutionGateway.validate_action() antes de qualquer escrita.
 AGENT-08: Handoffs YAML são o protocolo de comunicação entre tiers.
 
+## REFERÊNCIAS CRUZADAS
+- **Rules Multilayer**: `@UBL matriz-bloco-originais` em NC-LBE-FR-RULES-MULTILAYER-001 (129 regras, 4 mordaças)
+- **Atomic Locks**: NC-SEC-FR-001-atomic-locks.yaml
+- **LEXICO**: NC-LEXICO-LATEST.json (172 serviços, #RULES-MULTILAYER)
+
 ---
 
 

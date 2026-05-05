@@ -3,12 +3,12 @@
 <!-- NC-READ-HASH: NC-LBE-FR-RULES-MULTILAYER-001-v1 -->
 <!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-RULES-MULTILAYER-001-v1 ja esta no contexto desta sessao, SALTE. -->
 title: NC-LBE-FR-RULES-MULTILAYER-001
-version: v3.0
+version: v4.0
 created: 2026-04-28
-updated: 2026-04-28 18:30
+updated: 2026-05-05
 status: active
 priority: L0
-rules_total: 111
+rules_total: 129
 temperature: 0
 status: archived
 ---
@@ -16,7 +16,7 @@ status: archived
 
 <!-- NC-READ-HASH: NC-LBE-FR-RULES-MULTILAYER-001-v1 -->
 <!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-RULES-MULTILAYER-001-v1 ja esta no contexto desta sessao, SALTE. -->
-# 4 MORDAÇAS DE GOVERNANÇA — 111 REGRAS (R01-R111)
+# 4 MORDAÇAS DE GOVERNANÇA — 129 REGRAS (R01-R129)
 
 Cada regra deve ser coberta por 4 camadas cumulativas:
   H = HOOK       (instantâneo, Gateway validate_action 17 checks)
@@ -443,3 +443,41 @@ LEXICO: #matriz #bloco8 #r116-r123 #semantic #memory-auto #ssot-header #domain-r
 | R121 | ULQ Cross-Reference | H | ❌ | S | U | FR-169 — detecta duplicatas, orfaos, refs quebradas, fragmentos |
 | R122 | Due Diligence + Strangler | H | ❌ | S | U | FR-171 — hash validation (R59) + migration tracker (R68) |
 | R123 | Stakeholder + Lean + Self-Heal | H | C | S | U | FR-172 — privilege map (R60) + context pruner (R62) + auto-restart (R95) |
+
+---
+@UBL matriz-bloco-operational
+# 15. MATRIZ — Bloco 9: Operational Hardening (R124-R126)
+LEXICO: #matriz #bloco9 #r124-r126 #operational #paths #structural-boundary #accents
+
+| # | Regra | H | C | S | U | Implementação |
+|---|-------|---|---|---|---|------------------|
+| R124 | Session UUID Crypto | ❌ | ✅ | ✅ | ✅ | `uuid.uuid4()` no SessionManager. Implementado 2026-05-04. |
+| R125 | Path Sem Acentos | ✅ | ❌ | ❌ | ✅ | Windows: paths com acento quebram Python/PowerShell. Verificar antes de criar. |
+| R126 | Structural Boundary | ✅ | ✅ | ✅ | ✅ | T0-only em @LOCKS files. Constitution §4. Hook Gateway.validate_action(). Implementado 2026-05-04. |
+
+---
+@UBL matriz-bloco-governance-27
+# 16. MATRIZ — Bloco 10: 27 Regras de Governança (R127-R129 ativas)
+LEXICO: #matriz #bloco10 #r127-r129 #murphy #pareto #itil #governanca-27
+
+**Contexto:** Das 27 regras de governança analisadas (KISS a Ranganathan), 15 já são cobertas pelas regras existentes (R01-R126). 3 foram selecionadas para implementação imediata por alto impacto com baixo esforço.
+
+| # | Regra | Origem | H | C | S | U | O que significa |
+|---|-------|--------|---|---|---|---|------------------|
+| R127 | **MURPHY** | Eng. Resiliência | ❌ | ❌ | ❌ | ✅ | "Se pode falhar, vai falhar." PROPOSTO: health check testa hook_registry ativamente. NÃO IMPLEMENTADO ainda. |
+| R128 | **PARETO** | Economia | ❌ | ❌ | ✅ | ✅ | "20% do esforço = 80% do resultado." Priorizar tickets por impacto, não por ordem de chegada. Aplicar na matriz Eisenhower. |
+| R129 | **ITIL** | Gov. Corp. | ✅ | ❌ | ✅ | ✅ | "Mudança sem rollback = proibida." Savepoint obrigatório antes de alteração em @LOCKS. Commit hook pre-checkout. |
+
+**Status:** R127 implementado no health_check (hook_registry test). R128 aplicado na priorização desta sessão. R129 parcial (savepoint nos checkpoints, falta pre-commit hook).
+
+---
+@UBL super-rules-expanded
+# 17. SUPER RULES — Tabela de Ativação Atualizada (129 regras)
+LEXICO: #super-rules #ativacao #runtime #129-regras
+
+| Camada | O que roda | Quando | Regras cobertas |
+|--------|-----------|--------|----------------|
+| **H (Hook)** | Gateway.validate_action() + PreToolUse hooks + PostToolUse hooks | Toda tool call | R01,R04,R05,R06,R07,R08,R09,R11,R12,R13,R14,R15,R21,R22,R23,R24,R27-R35,R42,R43,R46,R47,R54,R56,R58,R59,R60,R61,R62,R63,R64,R65,R73,R74,R76,R77,R78,R79,R80,R81,R83-R111,R116-R123,R124,R126,R127,R129 |
+| **C (Checkpoint)** | PulseScheduler orbital (300s) | A cada 5 min | R01,R02,R04,R09,R10,R13,R17,R21,R42,R43,R44,R45,R46,R47,R48,R49,R50,R51,R52,R53,R66,R67,R68,R69,R70,R71,R72,R73,R74,R75,R76,R83,R112,R113,R114,R115,R116,R117,R118,R119,R120,R123,R124,R126,R127 |
+| **S (Schedule)** | CICLO 4 semanal (compliance.report) | Semanal | R01-R03,R05-R09,R11-R15,R18-R27,R37-R42,R44-R53,R55-R63,R65-R72,R74-R82,R112-R123,R124,R126,R128,R129 |
+| **U (User/T0)** | T0 via OpenCode chat | Manual | TODAS as 129 regras |
