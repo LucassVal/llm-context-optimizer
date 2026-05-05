@@ -140,6 +140,22 @@ def register_tool(mcp) -> None:
                 return {"success": False, "action": action, "error": "Tier SOBERANO não delega — T0 executa diretamente"}
             if not prompt:
                 return {"success": False, "action": action, "error": "prompt obrigatório para route.call"}
+
+            cache_prompt = f"{system}\n---\n{prompt}" if system else prompt
+            try:
+                import importlib.util as _iu
+                _cache_path = Path(__file__).parent.parent.parent / "core" / "NC-CORE-FR-174-response-cache.py"
+                _spec = _iu.spec_from_file_location("response_cache", str(_cache_path))
+                _mod = _iu.module_from_spec(_spec)
+                _spec.loader.exec_module(_mod)
+                cache = _mod.get_response_cache()
+                cached = cache.query(cache_prompt, tool_name="llm_router")
+                if cached is not None:
+                    cached["_cache_source"] = "semantic"
+                    return cached
+            except Exception:
+                pass
+
             messages = []
             if system:
                 messages.append({"role": "system", "content": system})
@@ -151,8 +167,21 @@ def register_tool(mcp) -> None:
                         "error": result.get("error"), "http_status": result.get("status")}
             content_out = result["data"].get("choices", [{}])[0].get("message", {}).get("content", "")
             usage = result["data"].get("usage", {})
-            return {"success": True, "action": action, "model": target_model, "tier": complexity,
-                    "content": content_out, "tokens_used": usage.get("total_tokens", 0)}
+            response = {"success": True, "action": action, "model": target_model, "tier": complexity,
+                        "content": content_out, "tokens_used": usage.get("total_tokens", 0)}
+
+            try:
+                import importlib.util as _iu2
+                _cache_path2 = Path(__file__).parent.parent.parent / "core" / "NC-CORE-FR-174-response-cache.py"
+                _spec2 = _iu2.spec_from_file_location("response_cache_w", str(_cache_path2))
+                _mod2 = _iu2.module_from_spec(_spec2)
+                _spec2.loader.exec_module(_mod2)
+                cache2 = _mod2.get_response_cache()
+                cache2.store(cache_prompt, response, tool_name="llm_router")
+            except Exception:
+                pass
+
+            return response
 
         elif action == "ollama.ask":
             if not prompt:

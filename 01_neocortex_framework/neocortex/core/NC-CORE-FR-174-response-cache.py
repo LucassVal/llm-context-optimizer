@@ -90,7 +90,15 @@ class ResponseCache:
             pa.field("created_at", pa.float64()),
             pa.field("vector", pa.list_(pa.float32(), dims)),
         ])
-        self._table = self._db.create_table(self._table_name, schema=schema, mode="overwrite")
+        existing = self._db.table_names()
+        if self._table_name in existing:
+            self._table = self._db.open_table(self._table_name)
+            logger.debug(f"ResponseCache: opened existing table '{self._table_name}'")
+        else:
+            self._table = self._db.create_table(
+                self._table_name, schema=schema, mode="create"
+            )
+            logger.info(f"ResponseCache: created table '{self._table_name}' dims={dims}")
 
     def _prune_expired(self):
         if self._table is None or self._ttl is None:
