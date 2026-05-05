@@ -1,698 +1,2357 @@
 {
-  "version": "4.5",
-  "generated_at": "2026-05-05T00:00:00Z",
-  "source": "T0 Python scan + R21 verified",
-  "total_engines": 0,
-  "total_tools": 0,
-  "total_services": 114,
-  "brain_regions": {},
-  "rules_blocos": {},
-  "engines": [],
+  "version": "4.6",
+  "generated_at": "2026-05-05T20:30:47.968505+00:00",
+  "source": "disk-scan-regenerated",
+  "total_services": 30,
+  "total_tools": 19,
+  "total_engines": 110,
+  "total_scripts": 0,
+  "total_other": 99,
+  "total_files": 258,
+  "category_counts": {
+    "other": 99,
+    "agents": 1,
+    "cli": 1,
+    "engines": 90,
+    "hooks": 8,
+    "services": 20,
+    "utilities": 7,
+    "llm_backends": 6,
+    "infrastructure": 5,
+    "mcp_core": 1,
+    "super_tools": 17,
+    "tools": 1,
+    "repositories": 2
+  },
   "services": [
     {
-      "symbol": "#",
-      "name": "NC-CORE-FR-014-lock-guard",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-014-lock-guard.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-016-kg-service",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-016-kg-service.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-017-policy-loader",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-017-policy-loader.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-022-save-point-service",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-022-save-point-service.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-101-agent-policy-enforcer",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-101-agent-policy-enforcer.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-102-agent-service",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-102-agent-service.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-103-akl-service",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-103-akl-service.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-104-benchmark-service",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-104-benchmark-service.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-105-cascade-consolidator",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-105-cascade-consolidator.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-106-checkpoint-service",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-106-checkpoint-service.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-107-circuit-breaker",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-107-circuit-breaker.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-108-config-service",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-108-config-service.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-109-consolidation-service",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-109-consolidation-service.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-110-cortex-service",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-110-cortex-service.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-111-export-service",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-111-export-service.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-112-file-utils",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-112-file-utils.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-113-init-service",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-113-init-service.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-114-kg-service",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-114-kg-service.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-115-ledger-service",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-115-ledger-service.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-116-lexico-service",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-116-lexico-service.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-117-lobe-service",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-117-lobe-service.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-118-manifest-service",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-118-manifest-service.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-119-peers-service",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-119-peers-service.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-120-profile-manager",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-120-profile-manager.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-121-profile-service",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-121-profile-service.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-122-pulse-scheduler",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-122-pulse-scheduler.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-123-regression-service",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-123-regression-service.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-124-security-service",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-124-security-service.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-125-tool-guard",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-125-tool-guard.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-126-search-service",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-126-search-service.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-127-knowledge-service",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-127-knowledge-service.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-128-session-memory-writer",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-128-session-memory-writer.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-129-sandbox",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-129-sandbox.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-129-shared-kernel-gateway",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-129-shared-kernel-gateway.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-130-genome-replicator",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-130-genome-replicator.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-131-federative-pact",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-131-federative-pact.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-132-civil-procedure-code",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-132-civil-procedure-code.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-133-regulatory-agencies",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-133-regulatory-agencies.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-134-legislative-process",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-134-legislative-process.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-135-criminal-procedure-code",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-135-criminal-procedure-code.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-137-vigilant-cycle",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-137-vigilant-cycle.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-138-judicial-organs",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-138-judicial-organs.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-139-orbital-bridge",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-139-orbital-bridge.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-140-hierarchy-protocol",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-140-hierarchy-protocol.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-141-secretariats",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-141-secretariats.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-142-pulse-scheduler-orbital",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-142-pulse-scheduler-orbital.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-143-deletion-guard",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-143-deletion-guard.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-144-bash-guard",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-144-bash-guard.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-145-lightweight-instances",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-145-lightweight-instances.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-145-subserver-spawner",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-145-subserver-spawner.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-146-central-watcher",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-146-central-watcher.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-147-root-cause-engine",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-147-root-cause-engine.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-148-submission-pipeline",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-148-submission-pipeline.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-149-full-system-audit",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-149-full-system-audit.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-150-techniques-audit",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-150-techniques-audit.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-151-missing-techniques",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-151-missing-techniques.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-152-eisenhower-real",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-152-eisenhower-real.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-153-pareto-real",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-153-pareto-real.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-154-corporate-engines",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-154-corporate-engines.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-155-resiliency-engine",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-155-resiliency-engine.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-156-ai-governance",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-156-ai-governance.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-157-bsc-swot",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-157-bsc-swot.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-158-system-integrity",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-158-system-integrity.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-159-crypto-integrity",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-159-crypto-integrity.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-160-advanced-resilience",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-160-advanced-resilience.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-161-regulatory-compliance",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-161-regulatory-compliance.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-162-strangler-fig",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-162-strangler-fig.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-163-ssot-reporter",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-163-ssot-reporter.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-164-claim-validator",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-164-claim-validator.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-165-semantic-router",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-165-semantic-router.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-166-domain-routers",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-166-domain-routers.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-167-semantic-guardian",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-167-semantic-guardian.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-168-semantic-audit",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-168-semantic-audit.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-169-ulq-registry",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-169-ulq-registry.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-170-semantic-boot",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-170-semantic-boot.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-171-due-diligence-strangler",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-171-due-diligence-strangler.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-172-p1-engines",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-172-p1-engines.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-CORE-FR-173-mcp-audit-3-levels",
-      "path": "01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-173-mcp-audit-3-levels.py",
-      "desc": "Core service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-SUPER-001-governance",
-      "path": "01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-001-governance.py",
-      "desc": "MCP tool"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-SUPER-002-orchestration",
-      "path": "01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-002-orchestration.py",
-      "desc": "MCP tool"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-SUPER-003-memory",
-      "path": "01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-003-memory.py",
-      "desc": "MCP tool"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-SUPER-004-state",
-      "path": "01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-004-state.py",
-      "desc": "MCP tool"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-SUPER-005-llm-router",
-      "path": "01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-005-llm-router.py",
-      "desc": "MCP tool"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-SUPER-006-system",
-      "path": "01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-006-system.py",
-      "desc": "MCP tool"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-SUPER-007-brain",
-      "path": "01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-007-brain.py",
-      "desc": "MCP tool"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-SUPER-008-context",
-      "path": "01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-008-context.py",
-      "desc": "MCP tool"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-SUPER-009-security",
-      "path": "01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-009-security.py",
-      "desc": "MCP tool"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-SUPER-010-benchmark",
-      "path": "01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-010-benchmark.py",
-      "desc": "MCP tool"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-SUPER-011-notification",
-      "path": "01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-011-notification.py",
-      "desc": "MCP tool"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-SUPER-012-akl",
-      "path": "01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-012-akl.py",
-      "desc": "MCP tool"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-SUPER-013-health",
-      "path": "01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-013-health.py",
-      "desc": "MCP tool"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-SUPER-014-ledger",
-      "path": "01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-014-ledger.py",
-      "desc": "MCP tool"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-SUPER-015-memory-auto",
-      "path": "01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-015-memory-auto.py",
-      "desc": "MCP tool"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-SUPER-019-replication",
-      "path": "01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-019-replication.py",
-      "desc": "MCP tool"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-SUPER-020-evolution",
-      "path": "01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-020-evolution.py",
-      "desc": "MCP tool"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-MCP-FR-001-pulse",
-      "path": "01_neocortex_framework\\neocortex\\mcp\\tools\\NC-MCP-FR-001-pulse.py",
-      "desc": "MCP infra"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-TOOL-FR-020-openclaude-bridge",
-      "path": "01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-020-openclaude-bridge.py",
-      "desc": "Bridge tool"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-TOOL-FR-021-vscode-bridge",
-      "path": "01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-021-vscode-bridge.py",
-      "desc": "Bridge tool"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-INFRA-FR-001-metrics-store",
-      "path": "01_neocortex_framework\\neocortex\\infra\\NC-INFRA-FR-001-metrics-store.py",
-      "desc": "Infra service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-INFRA-FR-006-hot-cache",
-      "path": "01_neocortex_framework\\neocortex\\infra\\NC-INFRA-FR-006-hot-cache.py",
-      "desc": "Infra service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-INFRA-FR-007-profiler",
-      "path": "01_neocortex_framework\\neocortex\\infra\\NC-INFRA-FR-007-profiler.py",
-      "desc": "Infra service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-INFRA-FR-008-task-queue",
-      "path": "01_neocortex_framework\\neocortex\\infra\\NC-INFRA-FR-008-task-queue.py",
-      "desc": "Infra service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-INFRA-FR-009-vector-store",
-      "path": "01_neocortex_framework\\neocortex\\infra\\NC-INFRA-FR-009-vector-store.py",
-      "desc": "Infra service"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-REP-FR-001-file-system-repository",
-      "path": "01_neocortex_framework\\neocortex\\repositories\\NC-REP-FR-001-file-system-repository.py",
-      "desc": "Repository"
-    },
-    {
-      "symbol": "#",
-      "name": "NC-REP-FR-002-base",
-      "path": "01_neocortex_framework\\neocortex\\repositories\\NC-REP-FR-002-base.py",
-      "desc": "Repository"
-    },
-    {
-      "symbol": "#",
-      "name": "SCRIPTS-SYSTEM",
-      "path": "01_neocortex_framework/scripts/",
-      "desc": "109 NC-SCR scripts"
-    },
-    {
-      "symbol": "#",
-      "name": "HOOKS-CORE",
-      "path": "01_neocortex_framework/neocortex/core/hooks/",
-      "desc": "7 NC-HK hooks"
-    },
-    {
-      "symbol": "#",
-      "name": "LLM-BACKENDS",
-      "path": "01_neocortex_framework/neocortex/infra/llm/",
-      "desc": "5 NC-LLM backends"
-    },
-    {
-      "symbol": "#",
-      "name": "SERVICES-AUX",
-      "path": "01_neocortex_framework/neocortex/core/services/",
-      "desc": "3 NC-SVC aux"
-    },
-    {
-      "symbol": "#",
-      "name": "ADAPTERS",
-      "path": "01_neocortex_framework/neocortex/core/adapters/",
-      "desc": "1 NC-ADP adapter"
-    },
-    {
-      "symbol": "#",
-      "name": "AGENTS-CLI",
-      "path": "01_neocortex_framework/neocortex/agent/",
-      "desc": "2 NC-AGENT/CLI"
-    },
-    {
-      "symbol": "#",
-      "name": "STRANGLER-WRAPPERS",
-      "path": "01_neocortex_framework/neocortex/core/",
-      "desc": "19 Strangler wrappers"
-    },
-    {
-      "symbol": "#",
-      "name": "TESTS-MCP",
-      "path": "01_neocortex_framework/DIR-TEST-FR-001-tests-main/",
-      "desc": "8 NC-TEST tests"
-    },
-    {
-      "symbol": "#",
-      "name": "00-MAPAS",
-      "path": "00-mapas/",
-      "desc": "Mapas de arquitetura"
+      "id": "NC-AGENT-FR-001",
+      "name": "NC-AGENT-FR-001-executor.py",
+      "desc": "executor",
+      "path": "neocortex/agent/NC-AGENT-FR-001-executor.py",
+      "hash": "bff079732820",
+      "size": 15091,
+      "category": "agents"
+    },
+    {
+      "id": "NC-CLI-FR-001",
+      "name": "NC-CLI-FR-001-main.py",
+      "desc": "main",
+      "path": "neocortex/cli/NC-CLI-FR-001-main.py",
+      "hash": "400e1cc2dd8e",
+      "size": 5406,
+      "category": "cli"
+    },
+    {
+      "id": "NC-HK-FR-001",
+      "name": "NC-HK-FR-001-hook-registry.py",
+      "desc": "hook-registry",
+      "path": "neocortex/core/hooks/NC-HK-FR-001-hook-registry.py",
+      "hash": "a58850842ac2",
+      "size": 10695,
+      "category": "hooks"
+    },
+    {
+      "id": "NC-HK-FR-002",
+      "name": "NC-HK-FR-002-simple-hook.py",
+      "desc": "simple-hook",
+      "path": "neocortex/core/hooks/NC-HK-FR-002-simple-hook.py",
+      "hash": "52d87ea2b0bf",
+      "size": 7380,
+      "category": "hooks"
+    },
+    {
+      "id": "NC-HK-FR-003",
+      "name": "NC-HK-FR-003-mission-control-hook.py",
+      "desc": "mission-control-hook",
+      "path": "neocortex/core/hooks/NC-HK-FR-003-mission-control-hook.py",
+      "hash": "3a86e0c6271a",
+      "size": 9036,
+      "category": "hooks"
+    },
+    {
+      "id": "NC-HK-FR-004",
+      "name": "NC-HK-FR-004-conversation-hook.py",
+      "desc": "conversation-hook",
+      "path": "neocortex/core/hooks/NC-HK-FR-004-conversation-hook.py",
+      "hash": "699ab27bb66f",
+      "size": 11765,
+      "category": "hooks"
+    },
+    {
+      "id": "NC-HK-FR-005",
+      "name": "NC-HK-FR-005-lexico-boot-loader.py",
+      "desc": "lexico-boot-loader",
+      "path": "neocortex/core/hooks/NC-HK-FR-005-lexico-boot-loader.py",
+      "hash": "3b44bca460ae",
+      "size": 18308,
+      "category": "hooks"
+    },
+    {
+      "id": "NC-HK-FR-006",
+      "name": "NC-HK-FR-006-lexico-hook-chain.py",
+      "desc": "lexico-hook-chain",
+      "path": "neocortex/core/hooks/NC-HK-FR-006-lexico-hook-chain.py",
+      "hash": "c43fcfb1eb30",
+      "size": 31950,
+      "category": "hooks"
+    },
+    {
+      "id": "NC-HK-FR-007",
+      "name": "NC-HK-FR-007-lexico-integration.py",
+      "desc": "lexico-integration",
+      "path": "neocortex/core/hooks/NC-HK-FR-007-lexico-integration.py",
+      "hash": "f585300923bc",
+      "size": 3503,
+      "category": "hooks"
+    },
+    {
+      "id": "NC-HK-FR-009",
+      "name": "NC-HK-FR-009-lexico-step0-hook.py",
+      "desc": "lexico-step0-hook",
+      "path": "neocortex/core/hooks/NC-HK-FR-009-lexico-step0-hook.py",
+      "hash": "f6b100d73d63",
+      "size": 6788,
+      "category": "hooks"
+    },
+    {
+      "id": "NC-SVC-FR-001",
+      "name": "NC-SVC-FR-001-logging-service.py",
+      "desc": "logging-service",
+      "path": "neocortex/core/services/NC-SVC-FR-001-logging-service.py",
+      "hash": "dba0ba8f2f27",
+      "size": 5284,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-002",
+      "name": "NC-SVC-FR-002-health-service.py",
+      "desc": "health-service",
+      "path": "neocortex/core/services/NC-SVC-FR-002-health-service.py",
+      "hash": "7f3a13cc8fd6",
+      "size": 6175,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-003",
+      "name": "NC-SVC-FR-003-savepoint-stub.py",
+      "desc": "savepoint-stub",
+      "path": "neocortex/core/services/NC-SVC-FR-003-savepoint-stub.py",
+      "hash": "7f5b1b62d5b8",
+      "size": 10900,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-004",
+      "name": "NC-SVC-FR-004-cache-service.py",
+      "desc": "cache-service",
+      "path": "neocortex/core/services/NC-SVC-FR-004-cache-service.py",
+      "hash": "9ceb1e80608c",
+      "size": 5813,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-005",
+      "name": "NC-SVC-FR-005-event-bus.py",
+      "desc": "event-bus",
+      "path": "neocortex/core/services/NC-SVC-FR-005-event-bus.py",
+      "hash": "c09a07432e7e",
+      "size": 6078,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-006",
+      "name": "NC-SVC-FR-006-metrics-collector.py",
+      "desc": "metrics-collector",
+      "path": "neocortex/core/services/NC-SVC-FR-006-metrics-collector.py",
+      "hash": "19868dd59760",
+      "size": 10487,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-007",
+      "name": "NC-SVC-FR-007-state-machine.py",
+      "desc": "state-machine",
+      "path": "neocortex/core/services/NC-SVC-FR-007-state-machine.py",
+      "hash": "8cae23f6b004",
+      "size": 7784,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-008",
+      "name": "NC-SVC-FR-008-config-validator.py",
+      "desc": "config-validator",
+      "path": "neocortex/core/services/NC-SVC-FR-008-config-validator.py",
+      "hash": "20682b680202",
+      "size": 20029,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-009",
+      "name": "NC-SVC-FR-009-session-buddy.py",
+      "desc": "session-buddy",
+      "path": "neocortex/core/services/NC-SVC-FR-009-session-buddy.py",
+      "hash": "910639b11fb5",
+      "size": 16069,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-010",
+      "name": "NC-SVC-FR-010-kairos-service.py",
+      "desc": "kairos-service",
+      "path": "neocortex/core/services/NC-SVC-FR-010-kairos-service.py",
+      "hash": "c7c107f96594",
+      "size": 9049,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-011",
+      "name": "NC-SVC-FR-011-ttl-manager.py",
+      "desc": "ttl-manager",
+      "path": "neocortex/core/services/NC-SVC-FR-011-ttl-manager.py",
+      "hash": "05891dbe9ba7",
+      "size": 13999,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-012",
+      "name": "NC-SVC-FR-012-channel-notifier.py",
+      "desc": "channel-notifier",
+      "path": "neocortex/core/services/NC-SVC-FR-012-channel-notifier.py",
+      "hash": "21343c5d98c0",
+      "size": 6754,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-014",
+      "name": "NC-SVC-FR-014-dry-run-preview.py",
+      "desc": "dry-run-preview",
+      "path": "neocortex/core/services/NC-SVC-FR-014-dry-run-preview.py",
+      "hash": "1d733f3e502b",
+      "size": 6070,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-015",
+      "name": "NC-SVC-FR-015-task-broker.py",
+      "desc": "task-broker",
+      "path": "neocortex/core/services/NC-SVC-FR-015-task-broker.py",
+      "hash": "f4ca3a2e3844",
+      "size": 12140,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-016",
+      "name": "NC-SVC-FR-016-wal-service.py",
+      "desc": "wal-service",
+      "path": "neocortex/core/services/NC-SVC-FR-016-wal-service.py",
+      "hash": "587ced47f292",
+      "size": 15129,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-017",
+      "name": "NC-SVC-FR-017-crypto-hub.py",
+      "desc": "crypto-hub",
+      "path": "neocortex/core/services/NC-SVC-FR-017-crypto-hub.py",
+      "hash": "a075b3a51ae3",
+      "size": 14794,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-018",
+      "name": "NC-SVC-FR-018-tag-normalizer.py",
+      "desc": "tag-normalizer",
+      "path": "neocortex/core/services/NC-SVC-FR-018-tag-normalizer.py",
+      "hash": "862441787d07",
+      "size": 14551,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-020",
+      "name": "NC-SVC-FR-020-lexico-service.py",
+      "desc": "lexico-service",
+      "path": "neocortex/core/services/NC-SVC-FR-020-lexico-service.py",
+      "hash": "cf1ecf05a403",
+      "size": 20178,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-021",
+      "name": "NC-SVC-FR-021-session-memory-writer.py",
+      "desc": "session-memory-writer",
+      "path": "neocortex/core/services/NC-SVC-FR-021-session-memory-writer.py",
+      "hash": "c8b66558e891",
+      "size": 6480,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-025",
+      "name": "NC-SVC-FR-025-savepoint-wal-bridge.py",
+      "desc": "savepoint-wal-bridge",
+      "path": "neocortex/core/services/NC-SVC-FR-025-savepoint-wal-bridge.py",
+      "hash": "2c17a09e9eb8",
+      "size": 11700,
+      "category": "services"
     }
   ],
-  "total_symbols": 105
+  "tools": [
+    {
+      "id": "NC-MCP-FR-001",
+      "name": "NC-MCP-FR-001-pulse.py",
+      "desc": "pulse",
+      "path": "neocortex/mcp/tools/NC-MCP-FR-001-pulse.py",
+      "hash": "36797612cad3",
+      "size": 3730,
+      "category": "mcp_core"
+    },
+    {
+      "id": "NC-SUPER-001",
+      "name": "NC-SUPER-001-governance.py",
+      "desc": "governance",
+      "path": "neocortex/mcp/tools/NC-SUPER-001-governance.py",
+      "hash": "30383e977d5d",
+      "size": 55017,
+      "category": "super_tools"
+    },
+    {
+      "id": "NC-SUPER-002",
+      "name": "NC-SUPER-002-orchestration.py",
+      "desc": "orchestration",
+      "path": "neocortex/mcp/tools/NC-SUPER-002-orchestration.py",
+      "hash": "ab65269586f1",
+      "size": 14823,
+      "category": "super_tools"
+    },
+    {
+      "id": "NC-SUPER-003",
+      "name": "NC-SUPER-003-memory.py",
+      "desc": "memory",
+      "path": "neocortex/mcp/tools/NC-SUPER-003-memory.py",
+      "hash": "53c2f903c29b",
+      "size": 27514,
+      "category": "super_tools"
+    },
+    {
+      "id": "NC-SUPER-004",
+      "name": "NC-SUPER-004-state.py",
+      "desc": "state",
+      "path": "neocortex/mcp/tools/NC-SUPER-004-state.py",
+      "hash": "2087d421a889",
+      "size": 21960,
+      "category": "super_tools"
+    },
+    {
+      "id": "NC-SUPER-005",
+      "name": "NC-SUPER-005-llm-router.py",
+      "desc": "llm-router",
+      "path": "neocortex/mcp/tools/NC-SUPER-005-llm-router.py",
+      "hash": "dad8ba372504",
+      "size": 5195,
+      "category": "super_tools"
+    },
+    {
+      "id": "NC-SUPER-006",
+      "name": "NC-SUPER-006-system.py",
+      "desc": "system",
+      "path": "neocortex/mcp/tools/NC-SUPER-006-system.py",
+      "hash": "479998be0ded",
+      "size": 23066,
+      "category": "super_tools"
+    },
+    {
+      "id": "NC-SUPER-007",
+      "name": "NC-SUPER-007-brain.py",
+      "desc": "brain",
+      "path": "neocortex/mcp/tools/NC-SUPER-007-brain.py",
+      "hash": "d86a8e4a708d",
+      "size": 26870,
+      "category": "super_tools"
+    },
+    {
+      "id": "NC-SUPER-008",
+      "name": "NC-SUPER-008-context.py",
+      "desc": "context",
+      "path": "neocortex/mcp/tools/NC-SUPER-008-context.py",
+      "hash": "ce4342bf4e2d",
+      "size": 13759,
+      "category": "super_tools"
+    },
+    {
+      "id": "NC-SUPER-009",
+      "name": "NC-SUPER-009-security.py",
+      "desc": "security",
+      "path": "neocortex/mcp/tools/NC-SUPER-009-security.py",
+      "hash": "87931f5708bd",
+      "size": 14305,
+      "category": "super_tools"
+    },
+    {
+      "id": "NC-SUPER-010",
+      "name": "NC-SUPER-010-benchmark.py",
+      "desc": "benchmark",
+      "path": "neocortex/mcp/tools/NC-SUPER-010-benchmark.py",
+      "hash": "4536ae0b7bf8",
+      "size": 7515,
+      "category": "super_tools"
+    },
+    {
+      "id": "NC-SUPER-011",
+      "name": "NC-SUPER-011-notification.py",
+      "desc": "notification",
+      "path": "neocortex/mcp/tools/NC-SUPER-011-notification.py",
+      "hash": "9f3ef8bd3289",
+      "size": 6594,
+      "category": "super_tools"
+    },
+    {
+      "id": "NC-SUPER-012",
+      "name": "NC-SUPER-012-akl.py",
+      "desc": "akl",
+      "path": "neocortex/mcp/tools/NC-SUPER-012-akl.py",
+      "hash": "508067cd074d",
+      "size": 10840,
+      "category": "super_tools"
+    },
+    {
+      "id": "NC-SUPER-013",
+      "name": "NC-SUPER-013-health.py",
+      "desc": "health",
+      "path": "neocortex/mcp/tools/NC-SUPER-013-health.py",
+      "hash": "af9a95298d4f",
+      "size": 21093,
+      "category": "super_tools"
+    },
+    {
+      "id": "NC-SUPER-014",
+      "name": "NC-SUPER-014-ledger.py",
+      "desc": "ledger",
+      "path": "neocortex/mcp/tools/NC-SUPER-014-ledger.py",
+      "hash": "bb02dffba6d4",
+      "size": 6847,
+      "category": "super_tools"
+    },
+    {
+      "id": "NC-SUPER-015",
+      "name": "NC-SUPER-015-memory-auto.py",
+      "desc": "memory-auto",
+      "path": "neocortex/mcp/tools/NC-SUPER-015-memory-auto.py",
+      "hash": "a7872f9b72e0",
+      "size": 12712,
+      "category": "super_tools"
+    },
+    {
+      "id": "NC-SUPER-019",
+      "name": "NC-SUPER-019-replication.py",
+      "desc": "replication",
+      "path": "neocortex/mcp/tools/NC-SUPER-019-replication.py",
+      "hash": "0cec8c02d95f",
+      "size": 4816,
+      "category": "super_tools"
+    },
+    {
+      "id": "NC-SUPER-020",
+      "name": "NC-SUPER-020-evolution.py",
+      "desc": "evolution",
+      "path": "neocortex/mcp/tools/NC-SUPER-020-evolution.py",
+      "hash": "8508507c8d62",
+      "size": 6308,
+      "category": "super_tools"
+    },
+    {
+      "id": "NC-TOOL-FR-021",
+      "name": "NC-TOOL-FR-021-vscode-bridge.py",
+      "desc": "vscode-bridge",
+      "path": "neocortex/mcp/tools/NC-TOOL-FR-021-vscode-bridge.py",
+      "hash": "59b08d81d0f9",
+      "size": 5872,
+      "category": "tools"
+    }
+  ],
+  "engines": [
+    {
+      "id": "NC-ADP-FR-001",
+      "name": "NC-ADP-FR-001-mission-control.py",
+      "desc": "mission-control",
+      "path": "neocortex/core/adapters/NC-ADP-FR-001-mission-control.py",
+      "hash": "6c2465dc103e",
+      "size": 15604,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CFG-FR-002",
+      "name": "NC-CFG-FR-002-feature-flags.py",
+      "desc": "feature-flags",
+      "path": "neocortex/core/config/NC-CFG-FR-002-feature-flags.py",
+      "hash": "3e040506685a",
+      "size": 5146,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CFG-FR-004",
+      "name": "NC-CFG-FR-004-project-config.py",
+      "desc": "project-config",
+      "path": "neocortex/core/config/NC-CFG-FR-004-project-config.py",
+      "hash": "fc4637b19899",
+      "size": 10405,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CFG-FR-004",
+      "name": "NC-CFG-FR-004-project-loader.py",
+      "desc": "project-loader",
+      "path": "neocortex/core/config/NC-CFG-FR-004-project-loader.py",
+      "hash": "e0220cb67216",
+      "size": 9145,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CFG-FR-001",
+      "name": "NC-CFG-FR-001-logging-config.py",
+      "desc": "logging-config",
+      "path": "neocortex/core/NC-CFG-FR-001-logging-config.py",
+      "hash": "77371ecc9cc8",
+      "size": 1423,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-014",
+      "name": "NC-CORE-FR-014-lock-guard.py",
+      "desc": "lock-guard",
+      "path": "neocortex/core/NC-CORE-FR-014-lock-guard.py",
+      "hash": "672aaa998149",
+      "size": 11026,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-016",
+      "name": "NC-CORE-FR-016-kg-service.py",
+      "desc": "kg-service",
+      "path": "neocortex/core/NC-CORE-FR-016-kg-service.py",
+      "hash": "ce2927625c40",
+      "size": 12602,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-017",
+      "name": "NC-CORE-FR-017-policy-loader.py",
+      "desc": "policy-loader",
+      "path": "neocortex/core/NC-CORE-FR-017-policy-loader.py",
+      "hash": "c68afad23140",
+      "size": 7784,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-022",
+      "name": "NC-CORE-FR-022-save-point-service.py",
+      "desc": "save-point-service",
+      "path": "neocortex/core/NC-CORE-FR-022-save-point-service.py",
+      "hash": "0d045247c3c2",
+      "size": 11109,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-101",
+      "name": "NC-CORE-FR-101-agent-policy-enforcer.py",
+      "desc": "agent-policy-enforcer",
+      "path": "neocortex/core/NC-CORE-FR-101-agent-policy-enforcer.py",
+      "hash": "308b5b501822",
+      "size": 9323,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-102",
+      "name": "NC-CORE-FR-102-agent-service.py",
+      "desc": "agent-service",
+      "path": "neocortex/core/NC-CORE-FR-102-agent-service.py",
+      "hash": "195bfd8b2534",
+      "size": 8199,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-103",
+      "name": "NC-CORE-FR-103-akl-service.py",
+      "desc": "akl-service",
+      "path": "neocortex/core/NC-CORE-FR-103-akl-service.py",
+      "hash": "c0662c97fb1e",
+      "size": 13265,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-104",
+      "name": "NC-CORE-FR-104-benchmark-service.py",
+      "desc": "benchmark-service",
+      "path": "neocortex/core/NC-CORE-FR-104-benchmark-service.py",
+      "hash": "b5b2dca94cd6",
+      "size": 6005,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-105",
+      "name": "NC-CORE-FR-105-cascade-consolidator.py",
+      "desc": "cascade-consolidator",
+      "path": "neocortex/core/NC-CORE-FR-105-cascade-consolidator.py",
+      "hash": "7a845cad5d61",
+      "size": 11568,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-106",
+      "name": "NC-CORE-FR-106-checkpoint-service.py",
+      "desc": "checkpoint-service",
+      "path": "neocortex/core/NC-CORE-FR-106-checkpoint-service.py",
+      "hash": "92f7b448b4ef",
+      "size": 13550,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-107",
+      "name": "NC-CORE-FR-107-circuit-breaker.py",
+      "desc": "circuit-breaker",
+      "path": "neocortex/core/NC-CORE-FR-107-circuit-breaker.py",
+      "hash": "f93d3178fa6a",
+      "size": 11309,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-108",
+      "name": "NC-CORE-FR-108-config-service.py",
+      "desc": "config-service",
+      "path": "neocortex/core/NC-CORE-FR-108-config-service.py",
+      "hash": "674b9bc2f7a5",
+      "size": 12622,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-109",
+      "name": "NC-CORE-FR-109-consolidation-service.py",
+      "desc": "consolidation-service",
+      "path": "neocortex/core/NC-CORE-FR-109-consolidation-service.py",
+      "hash": "4de534a9fc56",
+      "size": 11492,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-110",
+      "name": "NC-CORE-FR-110-cortex-service.py",
+      "desc": "cortex-service",
+      "path": "neocortex/core/NC-CORE-FR-110-cortex-service.py",
+      "hash": "60a24b9cf09c",
+      "size": 8952,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-111",
+      "name": "NC-CORE-FR-111-export-service.py",
+      "desc": "export-service",
+      "path": "neocortex/core/NC-CORE-FR-111-export-service.py",
+      "hash": "79130c2c2bab",
+      "size": 19444,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-112",
+      "name": "NC-CORE-FR-112-file-utils.py",
+      "desc": "file-utils",
+      "path": "neocortex/core/NC-CORE-FR-112-file-utils.py",
+      "hash": "00e4ee39d80b",
+      "size": 5092,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-113",
+      "name": "NC-CORE-FR-113-init-service.py",
+      "desc": "init-service",
+      "path": "neocortex/core/NC-CORE-FR-113-init-service.py",
+      "hash": "b5ad7af49b38",
+      "size": 16953,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-114",
+      "name": "NC-CORE-FR-114-kg-service.py",
+      "desc": "kg-service",
+      "path": "neocortex/core/NC-CORE-FR-114-kg-service.py",
+      "hash": "020822deb1fc",
+      "size": 12604,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-115",
+      "name": "NC-CORE-FR-115-ledger-service.py",
+      "desc": "ledger-service",
+      "path": "neocortex/core/NC-CORE-FR-115-ledger-service.py",
+      "hash": "1cfc9a549b2b",
+      "size": 14994,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-116",
+      "name": "NC-CORE-FR-116-lexico-service.py",
+      "desc": "lexico-service",
+      "path": "neocortex/core/NC-CORE-FR-116-lexico-service.py",
+      "hash": "7f2e756c3663",
+      "size": 13147,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-117",
+      "name": "NC-CORE-FR-117-lobe-service.py",
+      "desc": "lobe-service",
+      "path": "neocortex/core/NC-CORE-FR-117-lobe-service.py",
+      "hash": "3990968e68cd",
+      "size": 25372,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-118",
+      "name": "NC-CORE-FR-118-manifest-service.py",
+      "desc": "manifest-service",
+      "path": "neocortex/core/NC-CORE-FR-118-manifest-service.py",
+      "hash": "e9f5f67f4e5d",
+      "size": 38221,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-119",
+      "name": "NC-CORE-FR-119-peers-service.py",
+      "desc": "peers-service",
+      "path": "neocortex/core/NC-CORE-FR-119-peers-service.py",
+      "hash": "dc0576c9924b",
+      "size": 8882,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-120",
+      "name": "NC-CORE-FR-120-profile-manager.py",
+      "desc": "profile-manager",
+      "path": "neocortex/core/NC-CORE-FR-120-profile-manager.py",
+      "hash": "5bb81e470f13",
+      "size": 14756,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-121",
+      "name": "NC-CORE-FR-121-profile-service.py",
+      "desc": "profile-service",
+      "path": "neocortex/core/NC-CORE-FR-121-profile-service.py",
+      "hash": "113ed52a54ef",
+      "size": 15697,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-122",
+      "name": "NC-CORE-FR-122-pulse-scheduler.py",
+      "desc": "pulse-scheduler",
+      "path": "neocortex/core/NC-CORE-FR-122-pulse-scheduler.py",
+      "hash": "82bb90ca2dff",
+      "size": 14815,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-123",
+      "name": "NC-CORE-FR-123-regression-service.py",
+      "desc": "regression-service",
+      "path": "neocortex/core/NC-CORE-FR-123-regression-service.py",
+      "hash": "53e048ded28c",
+      "size": 11829,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-124",
+      "name": "NC-CORE-FR-124-security-service.py",
+      "desc": "security-service",
+      "path": "neocortex/core/NC-CORE-FR-124-security-service.py",
+      "hash": "665d81c8e4aa",
+      "size": 12315,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-125",
+      "name": "NC-CORE-FR-125-tool-guard.py",
+      "desc": "tool-guard",
+      "path": "neocortex/core/NC-CORE-FR-125-tool-guard.py",
+      "hash": "052d1ef69057",
+      "size": 8628,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-126",
+      "name": "NC-CORE-FR-126-search-service.py",
+      "desc": "search-service",
+      "path": "neocortex/core/NC-CORE-FR-126-search-service.py",
+      "hash": "45c5ac1f25da",
+      "size": 3017,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-127",
+      "name": "NC-CORE-FR-127-knowledge-service.py",
+      "desc": "knowledge-service",
+      "path": "neocortex/core/NC-CORE-FR-127-knowledge-service.py",
+      "hash": "fbe4439c2eb4",
+      "size": 2817,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-128",
+      "name": "NC-CORE-FR-128-session-memory-writer.py",
+      "desc": "session-memory-writer",
+      "path": "neocortex/core/NC-CORE-FR-128-session-memory-writer.py",
+      "hash": "090b87eccebe",
+      "size": 3681,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-129",
+      "name": "NC-CORE-FR-129-sandbox.py",
+      "desc": "sandbox",
+      "path": "neocortex/core/NC-CORE-FR-129-sandbox.py",
+      "hash": "f05f58f28088",
+      "size": 51599,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-129",
+      "name": "NC-CORE-FR-129-shared-kernel-gateway.py",
+      "desc": "shared-kernel-gateway",
+      "path": "neocortex/core/NC-CORE-FR-129-shared-kernel-gateway.py",
+      "hash": "fc315404271b",
+      "size": 50263,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-130",
+      "name": "NC-CORE-FR-130-genome-replicator.py",
+      "desc": "genome-replicator",
+      "path": "neocortex/core/NC-CORE-FR-130-genome-replicator.py",
+      "hash": "7aef1a52f229",
+      "size": 12700,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-131",
+      "name": "NC-CORE-FR-131-federative-pact.py",
+      "desc": "federative-pact",
+      "path": "neocortex/core/NC-CORE-FR-131-federative-pact.py",
+      "hash": "19a164c48e50",
+      "size": 10117,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-132",
+      "name": "NC-CORE-FR-132-civil-procedure-code.py",
+      "desc": "civil-procedure-code",
+      "path": "neocortex/core/NC-CORE-FR-132-civil-procedure-code.py",
+      "hash": "391002aa930f",
+      "size": 16140,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-133",
+      "name": "NC-CORE-FR-133-regulatory-agencies.py",
+      "desc": "regulatory-agencies",
+      "path": "neocortex/core/NC-CORE-FR-133-regulatory-agencies.py",
+      "hash": "0fdaa9c32f33",
+      "size": 8430,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-134",
+      "name": "NC-CORE-FR-134-legislative-process.py",
+      "desc": "legislative-process",
+      "path": "neocortex/core/NC-CORE-FR-134-legislative-process.py",
+      "hash": "2c1ab147f4be",
+      "size": 10196,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-135",
+      "name": "NC-CORE-FR-135-criminal-procedure-code.py",
+      "desc": "criminal-procedure-code",
+      "path": "neocortex/core/NC-CORE-FR-135-criminal-procedure-code.py",
+      "hash": "9afcb7465668",
+      "size": 11484,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-137",
+      "name": "NC-CORE-FR-137-vigilant-cycle.py",
+      "desc": "vigilant-cycle",
+      "path": "neocortex/core/NC-CORE-FR-137-vigilant-cycle.py",
+      "hash": "cb2ae93ec43a",
+      "size": 9683,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-138",
+      "name": "NC-CORE-FR-138-judicial-organs.py",
+      "desc": "judicial-organs",
+      "path": "neocortex/core/NC-CORE-FR-138-judicial-organs.py",
+      "hash": "947547bb4bf4",
+      "size": 11044,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-139",
+      "name": "NC-CORE-FR-139-orbital-bridge.py",
+      "desc": "orbital-bridge",
+      "path": "neocortex/core/NC-CORE-FR-139-orbital-bridge.py",
+      "hash": "e71523e12a22",
+      "size": 5650,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-140",
+      "name": "NC-CORE-FR-140-hierarchy-protocol.py",
+      "desc": "hierarchy-protocol",
+      "path": "neocortex/core/NC-CORE-FR-140-hierarchy-protocol.py",
+      "hash": "160986778f1b",
+      "size": 8718,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-141",
+      "name": "NC-CORE-FR-141-secretariats.py",
+      "desc": "secretariats",
+      "path": "neocortex/core/NC-CORE-FR-141-secretariats.py",
+      "hash": "7774ea5f5c82",
+      "size": 2745,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-142",
+      "name": "NC-CORE-FR-142-pulse-scheduler-orbital.py",
+      "desc": "pulse-scheduler-orbital",
+      "path": "neocortex/core/NC-CORE-FR-142-pulse-scheduler-orbital.py",
+      "hash": "a07b1be8e3d6",
+      "size": 26254,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-143",
+      "name": "NC-CORE-FR-143-deletion-guard.py",
+      "desc": "deletion-guard",
+      "path": "neocortex/core/NC-CORE-FR-143-deletion-guard.py",
+      "hash": "74eb17fb8de6",
+      "size": 1846,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-144",
+      "name": "NC-CORE-FR-144-bash-guard.py",
+      "desc": "bash-guard",
+      "path": "neocortex/core/NC-CORE-FR-144-bash-guard.py",
+      "hash": "3c38e86a1832",
+      "size": 3914,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-145",
+      "name": "NC-CORE-FR-145-lightweight-instances.py",
+      "desc": "lightweight-instances",
+      "path": "neocortex/core/NC-CORE-FR-145-lightweight-instances.py",
+      "hash": "be252831bad8",
+      "size": 3486,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-145",
+      "name": "NC-CORE-FR-145-subserver-spawner.py",
+      "desc": "subserver-spawner",
+      "path": "neocortex/core/NC-CORE-FR-145-subserver-spawner.py",
+      "hash": "7a7b56d98a64",
+      "size": 4256,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-146",
+      "name": "NC-CORE-FR-146-central-watcher.py",
+      "desc": "central-watcher",
+      "path": "neocortex/core/NC-CORE-FR-146-central-watcher.py",
+      "hash": "c186698f8ccd",
+      "size": 10787,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-147",
+      "name": "NC-CORE-FR-147-root-cause-engine.py",
+      "desc": "root-cause-engine",
+      "path": "neocortex/core/NC-CORE-FR-147-root-cause-engine.py",
+      "hash": "5a791c67d852",
+      "size": 6223,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-148",
+      "name": "NC-CORE-FR-148-submission-pipeline.py",
+      "desc": "submission-pipeline",
+      "path": "neocortex/core/NC-CORE-FR-148-submission-pipeline.py",
+      "hash": "14d04e0fa65f",
+      "size": 13736,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-149",
+      "name": "NC-CORE-FR-149-full-system-audit.py",
+      "desc": "full-system-audit",
+      "path": "neocortex/core/NC-CORE-FR-149-full-system-audit.py",
+      "hash": "a6a39172d616",
+      "size": 30169,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-150",
+      "name": "NC-CORE-FR-150-techniques-audit.py",
+      "desc": "techniques-audit",
+      "path": "neocortex/core/NC-CORE-FR-150-techniques-audit.py",
+      "hash": "04e7f1bd3541",
+      "size": 6260,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-151",
+      "name": "NC-CORE-FR-151-missing-techniques.py",
+      "desc": "missing-techniques",
+      "path": "neocortex/core/NC-CORE-FR-151-missing-techniques.py",
+      "hash": "9697f17fbf75",
+      "size": 15607,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-152",
+      "name": "NC-CORE-FR-152-eisenhower-real.py",
+      "desc": "eisenhower-real",
+      "path": "neocortex/core/NC-CORE-FR-152-eisenhower-real.py",
+      "hash": "8f58c42afec2",
+      "size": 5958,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-153",
+      "name": "NC-CORE-FR-153-pareto-real.py",
+      "desc": "pareto-real",
+      "path": "neocortex/core/NC-CORE-FR-153-pareto-real.py",
+      "hash": "2fbe29b68860",
+      "size": 4671,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-154",
+      "name": "NC-CORE-FR-154-corporate-engines.py",
+      "desc": "corporate-engines",
+      "path": "neocortex/core/NC-CORE-FR-154-corporate-engines.py",
+      "hash": "6a0501103b5c",
+      "size": 15897,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-155",
+      "name": "NC-CORE-FR-155-resiliency-engine.py",
+      "desc": "resiliency-engine",
+      "path": "neocortex/core/NC-CORE-FR-155-resiliency-engine.py",
+      "hash": "65c4a6d1ba7a",
+      "size": 11603,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-156",
+      "name": "NC-CORE-FR-156-ai-governance.py",
+      "desc": "ai-governance",
+      "path": "neocortex/core/NC-CORE-FR-156-ai-governance.py",
+      "hash": "19cbf07e4842",
+      "size": 13909,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-157",
+      "name": "NC-CORE-FR-157-bsc-swot.py",
+      "desc": "bsc-swot",
+      "path": "neocortex/core/NC-CORE-FR-157-bsc-swot.py",
+      "hash": "b56c7868252d",
+      "size": 8144,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-158",
+      "name": "NC-CORE-FR-158-system-integrity.py",
+      "desc": "system-integrity",
+      "path": "neocortex/core/NC-CORE-FR-158-system-integrity.py",
+      "hash": "78a049f6a289",
+      "size": 12655,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-159",
+      "name": "NC-CORE-FR-159-crypto-integrity.py",
+      "desc": "crypto-integrity",
+      "path": "neocortex/core/NC-CORE-FR-159-crypto-integrity.py",
+      "hash": "9ae65bc57627",
+      "size": 3789,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-160",
+      "name": "NC-CORE-FR-160-advanced-resilience.py",
+      "desc": "advanced-resilience",
+      "path": "neocortex/core/NC-CORE-FR-160-advanced-resilience.py",
+      "hash": "7040ed11f650",
+      "size": 5603,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-161",
+      "name": "NC-CORE-FR-161-regulatory-compliance.py",
+      "desc": "regulatory-compliance",
+      "path": "neocortex/core/NC-CORE-FR-161-regulatory-compliance.py",
+      "hash": "74a165122b09",
+      "size": 4631,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-162",
+      "name": "NC-CORE-FR-162-strangler-fig.py",
+      "desc": "strangler-fig",
+      "path": "neocortex/core/NC-CORE-FR-162-strangler-fig.py",
+      "hash": "017aa95bee59",
+      "size": 2137,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-163",
+      "name": "NC-CORE-FR-163-ssot-reporter.py",
+      "desc": "ssot-reporter",
+      "path": "neocortex/core/NC-CORE-FR-163-ssot-reporter.py",
+      "hash": "f813977636f5",
+      "size": 6958,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-164",
+      "name": "NC-CORE-FR-164-claim-validator.py",
+      "desc": "claim-validator",
+      "path": "neocortex/core/NC-CORE-FR-164-claim-validator.py",
+      "hash": "b2346021caa7",
+      "size": 7781,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-165",
+      "name": "NC-CORE-FR-165-semantic-router.py",
+      "desc": "semantic-router",
+      "path": "neocortex/core/NC-CORE-FR-165-semantic-router.py",
+      "hash": "78f9f25c4515",
+      "size": 13503,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-166",
+      "name": "NC-CORE-FR-166-domain-routers.py",
+      "desc": "domain-routers",
+      "path": "neocortex/core/NC-CORE-FR-166-domain-routers.py",
+      "hash": "7196a6fa8fac",
+      "size": 5169,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-167",
+      "name": "NC-CORE-FR-167-semantic-guardian.py",
+      "desc": "semantic-guardian",
+      "path": "neocortex/core/NC-CORE-FR-167-semantic-guardian.py",
+      "hash": "6fe49c2a6383",
+      "size": 6130,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-168",
+      "name": "NC-CORE-FR-168-semantic-audit.py",
+      "desc": "semantic-audit",
+      "path": "neocortex/core/NC-CORE-FR-168-semantic-audit.py",
+      "hash": "649682ac3dcf",
+      "size": 4317,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-169",
+      "name": "NC-CORE-FR-169-ulq-registry.py",
+      "desc": "ulq-registry",
+      "path": "neocortex/core/NC-CORE-FR-169-ulq-registry.py",
+      "hash": "b8d995d06460",
+      "size": 6719,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-170",
+      "name": "NC-CORE-FR-170-semantic-boot.py",
+      "desc": "semantic-boot",
+      "path": "neocortex/core/NC-CORE-FR-170-semantic-boot.py",
+      "hash": "5a726718cb81",
+      "size": 8399,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-171",
+      "name": "NC-CORE-FR-171-due-diligence-strangler.py",
+      "desc": "due-diligence-strangler",
+      "path": "neocortex/core/NC-CORE-FR-171-due-diligence-strangler.py",
+      "hash": "99b73fd58d52",
+      "size": 5068,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-172",
+      "name": "NC-CORE-FR-172-p1-engines.py",
+      "desc": "p1-engines",
+      "path": "neocortex/core/NC-CORE-FR-172-p1-engines.py",
+      "hash": "11e5ec678fd2",
+      "size": 5682,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-173",
+      "name": "NC-CORE-FR-173-mcp-audit-3-levels.py",
+      "desc": "mcp-audit-3-levels",
+      "path": "neocortex/core/NC-CORE-FR-173-mcp-audit-3-levels.py",
+      "hash": "405d97127c1e",
+      "size": 28206,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-174",
+      "name": "NC-CORE-FR-174-response-cache.py",
+      "desc": "response-cache",
+      "path": "neocortex/core/NC-CORE-FR-174-response-cache.py",
+      "hash": "4232e1cc6a24",
+      "size": 7615,
+      "category": "engines"
+    },
+    {
+      "id": "NC-REV-FR-001",
+      "name": "NC-REV-FR-001-confidence-review.py",
+      "desc": "confidence-review",
+      "path": "neocortex/core/review/NC-REV-FR-001-confidence-review.py",
+      "hash": "2383cc1e2ad4",
+      "size": 4706,
+      "category": "engines"
+    },
+    {
+      "id": "NC-VAL-FR-005",
+      "name": "NC-VAL-FR-005-async-thread-validator.py",
+      "desc": "async-thread-validator",
+      "path": "neocortex/core/review/NC-VAL-FR-005-async-thread-validator.py",
+      "hash": "65f929e7e4c2",
+      "size": 10009,
+      "category": "engines"
+    },
+    {
+      "id": "NC-VAL-FR-001",
+      "name": "NC-VAL-FR-001-naming-validator.py",
+      "desc": "naming-validator",
+      "path": "neocortex/core/review/validators/NC-VAL-FR-001-naming-validator.py",
+      "hash": "a468e48998da",
+      "size": 1876,
+      "category": "engines"
+    },
+    {
+      "id": "NC-VAL-FR-002",
+      "name": "NC-VAL-FR-002-compile-validator.py",
+      "desc": "compile-validator",
+      "path": "neocortex/core/review/validators/NC-VAL-FR-002-compile-validator.py",
+      "hash": "0e12d3e5a48f",
+      "size": 2921,
+      "category": "engines"
+    },
+    {
+      "id": "NC-VAL-FR-003",
+      "name": "NC-VAL-FR-003-locks-validator.py",
+      "desc": "locks-validator",
+      "path": "neocortex/core/review/validators/NC-VAL-FR-003-locks-validator.py",
+      "hash": "48872310a5d4",
+      "size": 3782,
+      "category": "engines"
+    },
+    {
+      "id": "NC-UTL-FR-001",
+      "name": "NC-UTL-FR-001-yaml-safe-parser.py",
+      "desc": "yaml-safe-parser",
+      "path": "neocortex/core/utils/NC-UTL-FR-001-yaml-safe-parser.py",
+      "hash": "06d78e19f642",
+      "size": 5770,
+      "category": "utilities"
+    },
+    {
+      "id": "NC-UTL-FR-002",
+      "name": "NC-UTL-FR-002-hash-utils.py",
+      "desc": "hash-utils",
+      "path": "neocortex/core/utils/NC-UTL-FR-002-hash-utils.py",
+      "hash": "54dcc4094f51",
+      "size": 3190,
+      "category": "utilities"
+    },
+    {
+      "id": "NC-UTL-FR-003",
+      "name": "NC-UTL-FR-003-path-resolver.py",
+      "desc": "path-resolver",
+      "path": "neocortex/core/utils/NC-UTL-FR-003-path-resolver.py",
+      "hash": "45da66994ad4",
+      "size": 6124,
+      "category": "utilities"
+    },
+    {
+      "id": "NC-UTL-FR-004",
+      "name": "NC-UTL-FR-004-gateway-bridge.py",
+      "desc": "gateway-bridge",
+      "path": "neocortex/core/utils/NC-UTL-FR-004-gateway-bridge.py",
+      "hash": "64e891d3f499",
+      "size": 1595,
+      "category": "utilities"
+    },
+    {
+      "id": "NC-UTL-FR-004",
+      "name": "NC-UTL-FR-004-id-validator.py",
+      "desc": "id-validator",
+      "path": "neocortex/core/utils/NC-UTL-FR-004-id-validator.py",
+      "hash": "35cd48a6b4b9",
+      "size": 3542,
+      "category": "utilities"
+    },
+    {
+      "id": "NC-UTL-FR-005",
+      "name": "NC-UTL-FR-005-yaml-inheritance.py",
+      "desc": "yaml-inheritance",
+      "path": "neocortex/core/utils/NC-UTL-FR-005-yaml-inheritance.py",
+      "hash": "4f8105a9a062",
+      "size": 9752,
+      "category": "utilities"
+    },
+    {
+      "id": "NC-UTL-FR-006",
+      "name": "NC-UTL-FR-006-gateway-bridge.py",
+      "desc": "gateway-bridge",
+      "path": "neocortex/core/utils/NC-UTL-FR-006-gateway-bridge.py",
+      "hash": "b1fe4898a858",
+      "size": 1258,
+      "category": "utilities"
+    },
+    {
+      "id": "NC-WKR-FR-001",
+      "name": "NC-WKR-FR-001-persistent-worker.py",
+      "desc": "persistent-worker",
+      "path": "neocortex/core/workers/NC-WKR-FR-001-persistent-worker.py",
+      "hash": "eeeab580dd88",
+      "size": 13258,
+      "category": "engines"
+    },
+    {
+      "id": "NC-LLM-FR-001",
+      "name": "NC-LLM-FR-001-deepseek-backend.py",
+      "desc": "deepseek-backend",
+      "path": "neocortex/infra/llm/NC-LLM-FR-001-deepseek-backend.py",
+      "hash": "b6254896c6b6",
+      "size": 13025,
+      "category": "llm_backends"
+    },
+    {
+      "id": "NC-LLM-FR-002",
+      "name": "NC-LLM-FR-002-ollama-backend.py",
+      "desc": "ollama-backend",
+      "path": "neocortex/infra/llm/NC-LLM-FR-002-ollama-backend.py",
+      "hash": "6a5fa53a5451",
+      "size": 7817,
+      "category": "llm_backends"
+    },
+    {
+      "id": "NC-LLM-FR-003",
+      "name": "NC-LLM-FR-003-openai-backend.py",
+      "desc": "openai-backend",
+      "path": "neocortex/infra/llm/NC-LLM-FR-003-openai-backend.py",
+      "hash": "b5ccc8736de6",
+      "size": 8145,
+      "category": "llm_backends"
+    },
+    {
+      "id": "NC-LLM-FR-004",
+      "name": "NC-LLM-FR-004-backend.py",
+      "desc": "backend",
+      "path": "neocortex/infra/llm/NC-LLM-FR-004-backend.py",
+      "hash": "294a91ee244c",
+      "size": 5952,
+      "category": "llm_backends"
+    },
+    {
+      "id": "NC-LLM-FR-005",
+      "name": "NC-LLM-FR-005-factory.py",
+      "desc": "factory",
+      "path": "neocortex/infra/llm/NC-LLM-FR-005-factory.py",
+      "hash": "03ede2fee22a",
+      "size": 7521,
+      "category": "llm_backends"
+    },
+    {
+      "id": "NC-SVC-FR-026",
+      "name": "NC-SVC-FR-026-profile-router.py",
+      "desc": "profile-router",
+      "path": "neocortex/infra/llm/NC-SVC-FR-026-profile-router.py",
+      "hash": "57b7f263bff3",
+      "size": 3707,
+      "category": "llm_backends"
+    },
+    {
+      "id": "NC-INFRA-FR-001",
+      "name": "NC-INFRA-FR-001-metrics-store.py",
+      "desc": "metrics-store",
+      "path": "neocortex/infra/NC-INFRA-FR-001-metrics-store.py",
+      "hash": "60e48fb00ae2",
+      "size": 39463,
+      "category": "infrastructure"
+    },
+    {
+      "id": "NC-INFRA-FR-006",
+      "name": "NC-INFRA-FR-006-hot-cache.py",
+      "desc": "hot-cache",
+      "path": "neocortex/infra/NC-INFRA-FR-006-hot-cache.py",
+      "hash": "09fa6166cfb1",
+      "size": 17276,
+      "category": "infrastructure"
+    },
+    {
+      "id": "NC-INFRA-FR-007",
+      "name": "NC-INFRA-FR-007-profiler.py",
+      "desc": "profiler",
+      "path": "neocortex/infra/NC-INFRA-FR-007-profiler.py",
+      "hash": "a483ed73b75c",
+      "size": 25300,
+      "category": "infrastructure"
+    },
+    {
+      "id": "NC-INFRA-FR-008",
+      "name": "NC-INFRA-FR-008-task-queue.py",
+      "desc": "task-queue",
+      "path": "neocortex/infra/NC-INFRA-FR-008-task-queue.py",
+      "hash": "117cd2f7c9d0",
+      "size": 23145,
+      "category": "infrastructure"
+    },
+    {
+      "id": "NC-INFRA-FR-009",
+      "name": "NC-INFRA-FR-009-vector-store.py",
+      "desc": "vector-store",
+      "path": "neocortex/infra/NC-INFRA-FR-009-vector-store.py",
+      "hash": "e5b274b41565",
+      "size": 7447,
+      "category": "infrastructure"
+    },
+    {
+      "id": "NC-REP-FR-001",
+      "name": "NC-REP-FR-001-file-system-repository.py",
+      "desc": "file-system-repository",
+      "path": "neocortex/repositories/NC-REP-FR-001-file-system-repository.py",
+      "hash": "fe8b4ced842c",
+      "size": 15749,
+      "category": "repositories"
+    },
+    {
+      "id": "NC-REP-FR-002",
+      "name": "NC-REP-FR-002-base.py",
+      "desc": "base",
+      "path": "neocortex/repositories/NC-REP-FR-002-base.py",
+      "hash": "ff922fdba230",
+      "size": 3901,
+      "category": "repositories"
+    }
+  ],
+  "scripts": [],
+  "other": [
+    {
+      "id": "NC-CORE-FR-099",
+      "name": "NC-CORE-FR-099-update-ledger.py",
+      "desc": "update-ledger",
+      "path": "21-core-central/NC-CORE-FR-099-update-ledger.py",
+      "hash": "df2915b908ef",
+      "size": 1936,
+      "category": "other"
+    },
+    {
+      "id": "NC-SEC-FR-001",
+      "name": "NC-SEC-FR-001-security-utils.py",
+      "desc": "security-utils",
+      "path": "21-core-central/NC-SEC-FR-001-security-utils.py",
+      "hash": "4533662d549c",
+      "size": 12312,
+      "category": "other"
+    },
+    {
+      "id": "NC-TEST-FR-002",
+      "name": "NC-TEST-FR-002-security-integration.py",
+      "desc": "security-integration",
+      "path": "21-core-central/NC-TEST-FR-002-security-integration.py",
+      "hash": "3cca085efb65",
+      "size": 3392,
+      "category": "other"
+    },
+    {
+      "id": "NC-SVC-FR-102",
+      "name": "NC-SVC-FR-102-deepseek-gateway.py",
+      "desc": "deepseek-gateway",
+      "path": "26-mcp-legacy/NC-SVC-FR-102-deepseek-gateway.py",
+      "hash": "34a45db5e6e3",
+      "size": 8353,
+      "category": "other"
+    },
+    {
+      "id": "NC-PRF-FR-003",
+      "name": "NC-PRF-FR-003-profile-loader.py",
+      "desc": "profile-loader",
+      "path": "27-profiles/NC-PRF-FR-003-profile-loader.py",
+      "hash": "a386619346da",
+      "size": 20732,
+      "category": "other"
+    },
+    {
+      "id": "NC-PRF-FR-004",
+      "name": "NC-PRF-FR-004-profile-manager.py",
+      "desc": "profile-manager",
+      "path": "27-profiles/NC-PRF-FR-004-profile-manager.py",
+      "hash": "35e97e14ae62",
+      "size": 14868,
+      "category": "other"
+    },
+    {
+      "id": "NC-TEST-FR-001",
+      "name": "NC-TEST-FR-001-fire-test.py",
+      "desc": "fire-test",
+      "path": "29-tests/NC-TEST-FR-001-fire-test.py",
+      "hash": "6a19fff6b6d0",
+      "size": 10753,
+      "category": "other"
+    },
+    {
+      "id": "NC-TEST-FR-003",
+      "name": "NC-TEST-FR-003-config-reload.py",
+      "desc": "config-reload",
+      "path": "29-tests/NC-TEST-FR-003-config-reload.py",
+      "hash": "95fa184b6a32",
+      "size": 1881,
+      "category": "other"
+    },
+    {
+      "id": "NC-TEST-FR-004",
+      "name": "NC-TEST-FR-004-mcp-responsive.py",
+      "desc": "mcp-responsive",
+      "path": "29-tests/NC-TEST-FR-004-mcp-responsive.py",
+      "hash": "8186349a64f4",
+      "size": 2035,
+      "category": "other"
+    },
+    {
+      "id": "NC-TEST-FR-005",
+      "name": "NC-TEST-FR-005-modular-server.py",
+      "desc": "modular-server",
+      "path": "29-tests/NC-TEST-FR-005-modular-server.py",
+      "hash": "bed4d45b2318",
+      "size": 2385,
+      "category": "other"
+    },
+    {
+      "id": "NC-TEST-FR-006",
+      "name": "NC-TEST-FR-006-sanity.py",
+      "desc": "sanity",
+      "path": "29-tests/NC-TEST-FR-006-sanity.py",
+      "hash": "65a9fae6ffd0",
+      "size": 11541,
+      "category": "other"
+    },
+    {
+      "id": "NC-TEST-FR-007",
+      "name": "NC-TEST-FR-007-task.py",
+      "desc": "task",
+      "path": "29-tests/NC-TEST-FR-007-task.py",
+      "hash": "2bae9fdd3002",
+      "size": 1082,
+      "category": "other"
+    },
+    {
+      "id": "NC-TEST-FR-008",
+      "name": "NC-TEST-FR-008-tools.py",
+      "desc": "tools",
+      "path": "29-tests/NC-TEST-FR-008-tools.py",
+      "hash": "ebc1d7676dc7",
+      "size": 1807,
+      "category": "other"
+    },
+    {
+      "id": "NC-HK-FR-001",
+      "name": "NC-HK-FR-001-example.py",
+      "desc": "example",
+      "path": "30-templates/NC-TOOL-FR-TEMPLATE/hooks/NC-HK-FR-001-example.py",
+      "hash": "dbb0d279bdb5",
+      "size": 888,
+      "category": "other"
+    },
+    {
+      "id": "NC-AUD-SSO-001",
+      "name": "NC-AUD-SSO-001-ssot-audit-system.py",
+      "desc": "ssot-audit-system",
+      "path": "32-scripts/NC-AUD-SSO-001-ssot-audit-system.py",
+      "hash": "0816eede4add",
+      "size": 22397,
+      "category": "other"
+    },
+    {
+      "id": "NC-BOOT-FR-002",
+      "name": "NC-BOOT-FR-002-memory-hook.py",
+      "desc": "memory-hook",
+      "path": "32-scripts/NC-BOOT-FR-002-memory-hook.py",
+      "hash": "c941528c8803",
+      "size": 875,
+      "category": "other"
+    },
+    {
+      "id": "NC-HLP-VAL-001",
+      "name": "NC-HLP-VAL-001-naming-validator.py",
+      "desc": "naming-validator",
+      "path": "32-scripts/NC-HLP-VAL-001-naming-validator.py",
+      "hash": "fff5956520c5",
+      "size": 12838,
+      "category": "other"
+    },
+    {
+      "id": "NC-MOD-FR-001",
+      "name": "NC-MOD-FR-001-fix_shims.py",
+      "desc": "fix_shims",
+      "path": "32-scripts/NC-MOD-FR-001-fix_shims.py",
+      "hash": "f672523af6e0",
+      "size": 1413,
+      "category": "other"
+    },
+    {
+      "id": "NC-MOD-FR-002",
+      "name": "NC-MOD-FR-002-fix_trailing_whitespace.py",
+      "desc": "fix_trailing_whitespace",
+      "path": "32-scripts/NC-MOD-FR-002-fix_trailing_whitespace.py",
+      "hash": "69a563177e10",
+      "size": 1185,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-ACT-22160444",
+      "name": "NC-SCR-ACT-22160444-mcp-activation.py",
+      "desc": "mcp-activation",
+      "path": "32-scripts/NC-SCR-ACT-22160444-mcp-activation.py",
+      "hash": "94f8dd2d0b1a",
+      "size": 5539,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-ANL-22160444",
+      "name": "NC-SCR-ANL-22160444-analysis-tool.py",
+      "desc": "analysis-tool",
+      "path": "32-scripts/NC-SCR-ANL-22160444-analysis-tool.py",
+      "hash": "ab0d5d51eadb",
+      "size": 5492,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-EXM-22160444",
+      "name": "NC-SCR-EXM-22160444-example-tools.py",
+      "desc": "example-tools",
+      "path": "32-scripts/NC-SCR-EXM-22160444-example-tools.py",
+      "hash": "920c07426e5d",
+      "size": 7791,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-001",
+      "name": "NC-SCR-FR-001-populate-lobes-ssot.py",
+      "desc": "populate-lobes-ssot",
+      "path": "32-scripts/NC-SCR-FR-001-populate-lobes-ssot.py",
+      "hash": "9bbbe60927f6",
+      "size": 18462,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-002",
+      "name": "NC-SCR-FR-002-tool-manifest-generator.py",
+      "desc": "tool-manifest-generator",
+      "path": "32-scripts/NC-SCR-FR-002-tool-manifest-generator.py",
+      "hash": "c7da59180877",
+      "size": 19714,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-003",
+      "name": "NC-SCR-FR-003-manifest-factory.py",
+      "desc": "manifest-factory",
+      "path": "32-scripts/NC-SCR-FR-003-manifest-factory.py",
+      "hash": "b8e1744e11ad",
+      "size": 21137,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-004",
+      "name": "NC-SCR-FR-004-governance-validator.py",
+      "desc": "governance-validator",
+      "path": "32-scripts/NC-SCR-FR-004-governance-validator.py",
+      "hash": "a3c0ab990ae9",
+      "size": 6338,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-005",
+      "name": "NC-SCR-FR-005-auto-approve.py",
+      "desc": "auto-approve",
+      "path": "32-scripts/NC-SCR-FR-005-auto-approve.py",
+      "hash": "cb6b810d764b",
+      "size": 8725,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-006",
+      "name": "NC-SCR-FR-006-ticket-validator.py",
+      "desc": "ticket-validator",
+      "path": "32-scripts/NC-SCR-FR-006-ticket-validator.py",
+      "hash": "0a2222b769bb",
+      "size": 7187,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-007",
+      "name": "NC-SCR-FR-007-queue-monitor.py",
+      "desc": "queue-monitor",
+      "path": "32-scripts/NC-SCR-FR-007-queue-monitor.py",
+      "hash": "c0f0e68da7ee",
+      "size": 9697,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-008",
+      "name": "NC-SCR-FR-008-queue-repair.py",
+      "desc": "queue-repair",
+      "path": "32-scripts/NC-SCR-FR-008-queue-repair.py",
+      "hash": "09ea696f3760",
+      "size": 6203,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-009",
+      "name": "NC-SCR-FR-009-sanitize-all-yamls.py",
+      "desc": "sanitize-all-yamls",
+      "path": "32-scripts/NC-SCR-FR-009-sanitize-all-yamls.py",
+      "hash": "7772b9bb05d0",
+      "size": 10089,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-010",
+      "name": "NC-SCR-FR-010-sync-ticket-status.py",
+      "desc": "sync-ticket-status",
+      "path": "32-scripts/NC-SCR-FR-010-sync-ticket-status.py",
+      "hash": "0e1f1b8e1db9",
+      "size": 2666,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-011",
+      "name": "NC-SCR-FR-011-sanitize-handoffs.py",
+      "desc": "sanitize-handoffs",
+      "path": "32-scripts/NC-SCR-FR-011-sanitize-handoffs.py",
+      "hash": "aa0140e976c9",
+      "size": 5914,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-012",
+      "name": "NC-SCR-FR-012-new-tool.py",
+      "desc": "new-tool",
+      "path": "32-scripts/NC-SCR-FR-012-new-tool.py",
+      "hash": "0f1c68b05fb0",
+      "size": 6420,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-013",
+      "name": "NC-SCR-FR-013-validate-file.py",
+      "desc": "validate-file",
+      "path": "32-scripts/NC-SCR-FR-013-validate-file.py",
+      "hash": "44d49e6ef832",
+      "size": 13863,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-017",
+      "name": "NC-SCR-FR-017-visual-server.py",
+      "desc": "visual-server",
+      "path": "32-scripts/NC-SCR-FR-017-visual-server.py",
+      "hash": "2efdf3c70460",
+      "size": 16110,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-020",
+      "name": "NC-SCR-FR-020-yaml-injector.py",
+      "desc": "yaml-injector",
+      "path": "32-scripts/NC-SCR-FR-020-yaml-injector.py",
+      "hash": "ba5ea5a23f70",
+      "size": 5167,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-021",
+      "name": "NC-SCR-FR-021-lexicon-extractor.py",
+      "desc": "lexicon-extractor",
+      "path": "32-scripts/NC-SCR-FR-021-lexicon-extractor.py",
+      "hash": "c7700a8f62d8",
+      "size": 7255,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-022",
+      "name": "NC-SCR-FR-022-coverage-auditor.py",
+      "desc": "coverage-auditor",
+      "path": "32-scripts/NC-SCR-FR-022-coverage-auditor.py",
+      "hash": "8976af030650",
+      "size": 12919,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-023",
+      "name": "NC-SCR-FR-023-ssot-auditor.py",
+      "desc": "ssot-auditor",
+      "path": "32-scripts/NC-SCR-FR-023-ssot-auditor.py",
+      "hash": "133411c343ed",
+      "size": 6277,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-024",
+      "name": "NC-SCR-FR-024-structural-auditor.py",
+      "desc": "structural-auditor",
+      "path": "32-scripts/NC-SCR-FR-024-structural-auditor.py",
+      "hash": "371d8f03a91c",
+      "size": 10114,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-051",
+      "name": "NC-SCR-FR-051-knowledge-graph-builder.py",
+      "desc": "knowledge-graph-builder",
+      "path": "32-scripts/NC-SCR-FR-051-knowledge-graph-builder.py",
+      "hash": "a71550a6cb22",
+      "size": 10355,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-060",
+      "name": "NC-SCR-FR-060-courier-saneamento.py",
+      "desc": "courier-saneamento",
+      "path": "32-scripts/NC-SCR-FR-060-courier-saneamento.py",
+      "hash": "3ec920572189",
+      "size": 10716,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-061",
+      "name": "NC-SCR-FR-061-courier-discrepancy-fix.py",
+      "desc": "courier-discrepancy-fix",
+      "path": "32-scripts/NC-SCR-FR-061-courier-discrepancy-fix.py",
+      "hash": "2a637a7bf9e5",
+      "size": 15879,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-062",
+      "name": "NC-SCR-FR-062-engineer-encoding-fix.py",
+      "desc": "engineer-encoding-fix",
+      "path": "32-scripts/NC-SCR-FR-062-engineer-encoding-fix.py",
+      "hash": "e3b4c097f074",
+      "size": 14232,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-063",
+      "name": "NC-SCR-FR-063-tester-vector-fix.py",
+      "desc": "tester-vector-fix",
+      "path": "32-scripts/NC-SCR-FR-063-tester-vector-fix.py",
+      "hash": "020b7342cae4",
+      "size": 18420,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-064",
+      "name": "NC-SCR-FR-064-artifact-catalog.py",
+      "desc": "artifact-catalog",
+      "path": "32-scripts/NC-SCR-FR-064-artifact-catalog.py",
+      "hash": "fe9d1adc8297",
+      "size": 12142,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-065",
+      "name": "NC-SCR-FR-065-rename-impact-analyzer.py",
+      "desc": "rename-impact-analyzer",
+      "path": "32-scripts/NC-SCR-FR-065-rename-impact-analyzer.py",
+      "hash": "f6aa1eb89411",
+      "size": 15298,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-066",
+      "name": "NC-SCR-FR-066-bootup-sync.py",
+      "desc": "bootup-sync",
+      "path": "32-scripts/NC-SCR-FR-066-bootup-sync.py",
+      "hash": "b12a69ecfac4",
+      "size": 19842,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-075",
+      "name": "NC-SCR-FR-075-genealogy-injector.py",
+      "desc": "genealogy-injector",
+      "path": "32-scripts/NC-SCR-FR-075-genealogy-injector.py",
+      "hash": "b034a6e4ed75",
+      "size": 24900,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-080",
+      "name": "NC-SCR-FR-080-governance-auditor.py",
+      "desc": "governance-auditor",
+      "path": "32-scripts/NC-SCR-FR-080-governance-auditor.py",
+      "hash": "2aae1b83a7ba",
+      "size": 38137,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-081",
+      "name": "NC-SCR-FR-081-config-migrator.py",
+      "desc": "config-migrator",
+      "path": "32-scripts/NC-SCR-FR-081-config-migrator.py",
+      "hash": "7775e0fd2b64",
+      "size": 16972,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-090",
+      "name": "NC-SCR-FR-090-lead-scraper.py",
+      "desc": "lead-scraper",
+      "path": "32-scripts/NC-SCR-FR-090-lead-scraper.py",
+      "hash": "8b453db09f11",
+      "size": 4145,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-098",
+      "name": "NC-SCR-FR-098-health-wrapper.py",
+      "desc": "health-wrapper",
+      "path": "32-scripts/NC-SCR-FR-098-health-wrapper.py",
+      "hash": "4b4ac6b4e6ae",
+      "size": 11907,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-101",
+      "name": "NC-SCR-FR-101-tools-smoke-test.py",
+      "desc": "tools-smoke-test",
+      "path": "32-scripts/NC-SCR-FR-101-tools-smoke-test.py",
+      "hash": "c7ac42d81405",
+      "size": 8878,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-103",
+      "name": "NC-SCR-FR-103-mc-startup-hook.py",
+      "desc": "mc-startup-hook",
+      "path": "32-scripts/NC-SCR-FR-103-mc-startup-hook.py",
+      "hash": "95239e1a9080",
+      "size": 11287,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-106",
+      "name": "NC-SCR-FR-106-launcher.py",
+      "desc": "launcher",
+      "path": "32-scripts/NC-SCR-FR-106-launcher.py",
+      "hash": "37883beca4bd",
+      "size": 8439,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-112",
+      "name": "NC-SCR-FR-112-generate-lobe-manifests.py",
+      "desc": "generate-lobe-manifests",
+      "path": "32-scripts/NC-SCR-FR-112-generate-lobe-manifests.py",
+      "hash": "8e8332006ae9",
+      "size": 1943,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-113",
+      "name": "NC-SCR-FR-113-kg-populate-lobes.py",
+      "desc": "kg-populate-lobes",
+      "path": "32-scripts/NC-SCR-FR-113-kg-populate-lobes.py",
+      "hash": "7a197b189de4",
+      "size": 2541,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-114",
+      "name": "NC-SCR-FR-114-auto-categorize-lobes.py",
+      "desc": "auto-categorize-lobes",
+      "path": "32-scripts/NC-SCR-FR-114-auto-categorize-lobes.py",
+      "hash": "22544c207554",
+      "size": 8665,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-115",
+      "name": "NC-SCR-FR-115-guardian-daemon.py",
+      "desc": "guardian-daemon",
+      "path": "32-scripts/NC-SCR-FR-115-guardian-daemon.py",
+      "hash": "ade3a1bc1284",
+      "size": 30473,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-120",
+      "name": "NC-SCR-FR-120-batch-rename-fix.py",
+      "desc": "batch-rename-fix",
+      "path": "32-scripts/NC-SCR-FR-120-batch-rename-fix.py",
+      "hash": "eab0202f4be6",
+      "size": 17599,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-121",
+      "name": "NC-SCR-FR-121-update-references.py",
+      "desc": "update-references",
+      "path": "32-scripts/NC-SCR-FR-121-update-references.py",
+      "hash": "43a3703fd9da",
+      "size": 9059,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-122",
+      "name": "NC-SCR-FR-122-white-label-anonymizer.py",
+      "desc": "white-label-anonymizer",
+      "path": "32-scripts/NC-SCR-FR-122-white-label-anonymizer.py",
+      "hash": "864bf387b83f",
+      "size": 8748,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-134",
+      "name": "NC-SCR-FR-134-smoke-test-tools.py",
+      "desc": "smoke-test-tools",
+      "path": "32-scripts/NC-SCR-FR-134-smoke-test-tools.py",
+      "hash": "5706cf64b3d3",
+      "size": 8635,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-135",
+      "name": "NC-SCR-FR-135-lexico-semantic-scope.py",
+      "desc": "lexico-semantic-scope",
+      "path": "32-scripts/NC-SCR-FR-135-lexico-semantic-scope.py",
+      "hash": "9870afa94925",
+      "size": 9283,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-136",
+      "name": "NC-SCR-FR-136-approve-handoffs.py",
+      "desc": "approve-handoffs",
+      "path": "32-scripts/NC-SCR-FR-136-approve-handoffs.py",
+      "hash": "e17b62dc8b35",
+      "size": 3814,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-137",
+      "name": "NC-SCR-FR-137-audit-reader.py",
+      "desc": "audit-reader",
+      "path": "32-scripts/NC-SCR-FR-137-audit-reader.py",
+      "hash": "344954c8f8b2",
+      "size": 1445,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-138",
+      "name": "NC-SCR-FR-138-batch-approve-handoffs.py",
+      "desc": "batch-approve-handoffs",
+      "path": "32-scripts/NC-SCR-FR-138-batch-approve-handoffs.py",
+      "hash": "c25e2bfc622d",
+      "size": 4838,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-139",
+      "name": "NC-SCR-FR-139-create-session-checkpoint.py",
+      "desc": "create-session-checkpoint",
+      "path": "32-scripts/NC-SCR-FR-139-create-session-checkpoint.py",
+      "hash": "da74a81e6c6d",
+      "size": 1481,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-140",
+      "name": "NC-SCR-FR-140-inspect-config.py",
+      "desc": "inspect-config",
+      "path": "32-scripts/NC-SCR-FR-140-inspect-config.py",
+      "hash": "40b91650c4cd",
+      "size": 1191,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-141",
+      "name": "NC-SCR-FR-141-neocortex-hud.py",
+      "desc": "neocortex-hud",
+      "path": "32-scripts/NC-SCR-FR-141-neocortex-hud.py",
+      "hash": "4f1f461571f7",
+      "size": 45991,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-142",
+      "name": "NC-SCR-FR-142-audit-handoffs-t0.py",
+      "desc": "audit-handoffs-t0",
+      "path": "32-scripts/NC-SCR-FR-142-audit-handoffs-t0.py",
+      "hash": "a846dd8b73ce",
+      "size": 4639,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-143",
+      "name": "NC-SCR-FR-143-extract-tools-robust.py",
+      "desc": "extract-tools-robust",
+      "path": "32-scripts/NC-SCR-FR-143-extract-tools-robust.py",
+      "hash": "ffd11f01939f",
+      "size": 3621,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-144",
+      "name": "NC-SCR-FR-144-update-ledger-tools.py",
+      "desc": "update-ledger-tools",
+      "path": "32-scripts/NC-SCR-FR-144-update-ledger-tools.py",
+      "hash": "4bee77ce819a",
+      "size": 3043,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-145",
+      "name": "NC-SCR-FR-145-tool-autoloader.py",
+      "desc": "tool-autoloader",
+      "path": "32-scripts/NC-SCR-FR-145-tool-autoloader.py",
+      "hash": "1cfc0798e7b3",
+      "size": 7649,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-146",
+      "name": "NC-SCR-FR-146-hook-boot-loader.py",
+      "desc": "hook-boot-loader",
+      "path": "32-scripts/NC-SCR-FR-146-hook-boot-loader.py",
+      "hash": "4a7a70fa30cb",
+      "size": 7954,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-147",
+      "name": "NC-SCR-FR-147-nc-ds-122-executor.py",
+      "desc": "nc-ds-122-executor",
+      "path": "32-scripts/NC-SCR-FR-147-nc-ds-122-executor.py",
+      "hash": "5230840b5f49",
+      "size": 7379,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-148",
+      "name": "NC-SCR-FR-148-organize-lobes.py",
+      "desc": "organize-lobes",
+      "path": "32-scripts/NC-SCR-FR-148-organize-lobes.py",
+      "hash": "e3878519a8a7",
+      "size": 7605,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-149",
+      "name": "NC-SCR-FR-149-update-lobe-registry.py",
+      "desc": "update-lobe-registry",
+      "path": "32-scripts/NC-SCR-FR-149-update-lobe-registry.py",
+      "hash": "08ad270ff232",
+      "size": 4009,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-150",
+      "name": "NC-SCR-FR-150-smoke-test.py",
+      "desc": "smoke-test",
+      "path": "32-scripts/NC-SCR-FR-150-smoke-test.py",
+      "hash": "9356ab124b07",
+      "size": 14003,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-151",
+      "name": "NC-SCR-FR-151-compliance-audit.py",
+      "desc": "compliance-audit",
+      "path": "32-scripts/NC-SCR-FR-151-compliance-audit.py",
+      "hash": "64dab62222f6",
+      "size": 12891,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-153",
+      "name": "NC-SCR-FR-153-lancedb-compaction.py",
+      "desc": "lancedb-compaction",
+      "path": "32-scripts/NC-SCR-FR-153-lancedb-compaction.py",
+      "hash": "0a9111bdd02e",
+      "size": 3253,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-160",
+      "name": "NC-SCR-FR-160-audit-compliance.py",
+      "desc": "audit-compliance",
+      "path": "32-scripts/NC-SCR-FR-160-audit-compliance.py",
+      "hash": "fa408724b79a",
+      "size": 12972,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-161",
+      "name": "NC-SCR-FR-161-fix-antigravity-config.py",
+      "desc": "fix-antigravity-config",
+      "path": "32-scripts/NC-SCR-FR-161-fix-antigravity-config.py",
+      "hash": "826fa32035bc",
+      "size": 8335,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-162",
+      "name": "NC-SCR-FR-162-tray-monitor.py",
+      "desc": "tray-monitor",
+      "path": "32-scripts/NC-SCR-FR-162-tray-monitor.py",
+      "hash": "868acc67b9a9",
+      "size": 3170,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-180",
+      "name": "NC-SCR-FR-180-populate-lexico.py",
+      "desc": "populate-lexico",
+      "path": "32-scripts/NC-SCR-FR-180-populate-lexico.py",
+      "hash": "d29df7f61a9a",
+      "size": 3415,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-200",
+      "name": "NC-SCR-FR-200-test-resolve.py",
+      "desc": "test-resolve",
+      "path": "32-scripts/NC-SCR-FR-200-test-resolve.py",
+      "hash": "fa3eaaf4b52b",
+      "size": 1300,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-201",
+      "name": "NC-SCR-FR-201-run-audit-3l.py",
+      "desc": "run-audit-3l",
+      "path": "32-scripts/NC-SCR-FR-201-run-audit-3l.py",
+      "hash": "756921e8d8d8",
+      "size": 1879,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-245",
+      "name": "NC-SCR-FR-245-create-tickets.py",
+      "desc": "create-tickets",
+      "path": "32-scripts/NC-SCR-FR-245-create-tickets.py",
+      "hash": "a92086dc0825",
+      "size": 7918,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-250",
+      "name": "NC-SCR-FR-250-create-api-tickets.py",
+      "desc": "create-api-tickets",
+      "path": "32-scripts/NC-SCR-FR-250-create-api-tickets.py",
+      "hash": "8c7292d17b29",
+      "size": 6203,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-265",
+      "name": "NC-SCR-FR-265-inject-protocol.py",
+      "desc": "inject-protocol",
+      "path": "32-scripts/NC-SCR-FR-265-inject-protocol.py",
+      "hash": "413471e93462",
+      "size": 2924,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-FR-inject-three-ws.py",
+      "name": "NC-SCR-FR-inject-three-ws.py",
+      "desc": "NC-SCR-FR-inject-three-ws",
+      "path": "32-scripts/NC-SCR-FR-inject-three-ws.py",
+      "hash": "7d385897dcaa",
+      "size": 6163,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-INT-22160444",
+      "name": "NC-SCR-INT-22160444-integration-tool.py",
+      "desc": "integration-tool",
+      "path": "32-scripts/NC-SCR-INT-22160444-integration-tool.py",
+      "hash": "9b5970115992",
+      "size": 13972,
+      "category": "other"
+    },
+    {
+      "id": "NC-SCR-SET-22160444",
+      "name": "NC-SCR-SET-22160444-setup-script.py",
+      "desc": "setup-script",
+      "path": "32-scripts/NC-SCR-SET-22160444-setup-script.py",
+      "hash": "6586d406f553",
+      "size": 10867,
+      "category": "other"
+    },
+    {
+      "id": "NC-SVC-CHK-22160444",
+      "name": "NC-SVC-CHK-22160444-checkpoint-system.py",
+      "desc": "checkpoint-system",
+      "path": "32-scripts/NC-SVC-CHK-22160444-checkpoint-system.py",
+      "hash": "20c9c62d0a5b",
+      "size": 5731,
+      "category": "other"
+    },
+    {
+      "id": "NC-MCP-FR-001",
+      "name": "NC-MCP-FR-001-mcp-server.py",
+      "desc": "mcp-server",
+      "path": "90-archive-internal/mcp_server_legacy/NC-MCP-FR-001-mcp-server.py",
+      "hash": "9d0d49f53ea5",
+      "size": 64665,
+      "category": "other"
+    },
+    {
+      "id": "NC-CORE-FR-136",
+      "name": "NC-CORE-FR-136-auto-amendment-engine.py",
+      "desc": "auto-amendment-engine",
+      "path": "90-archive-internal/NC-CORE-FR-136-auto-amendment-engine.py",
+      "hash": "fc2b75641fe0",
+      "size": 8833,
+      "category": "other"
+    },
+    {
+      "id": "NC-CFG-FR-002",
+      "name": "NC-CFG-FR-002-config.py",
+      "desc": "config",
+      "path": "neocortex/NC-CFG-FR-002-config.py",
+      "hash": "347ba8337b4f",
+      "size": 23098,
+      "category": "other"
+    }
+  ]
 }
