@@ -27,3 +27,4 @@ SEMPRE que criar ou modificar arquivo. R02: sem update = tarefa incompleta.
 ## Integration
 - Hook: `lexico_post_tokenization` (PostToolUse) dispara sugestao de update
 - Pipeline: criar arquivo → nc-validate → nc-ssot-update → nc-handoff → nc-boot-sync
+

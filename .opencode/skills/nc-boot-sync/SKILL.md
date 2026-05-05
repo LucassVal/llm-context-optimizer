@@ -32,3 +32,4 @@ neocortex_governance action=catalog.refresh
 ## Integration
 - Pipeline: nc-handoff → nc-boot-sync (ordem fixa)
 - CICLO 3: executado automaticamente no encerramento de sessao
+

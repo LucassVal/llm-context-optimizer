@@ -1,18 +1,29 @@
-# NC-NAM-FR-001 - Convenções de Nomenclatura, Mapa e Changelog do Projeto NeoCortex
+# NC-NAM-FR-001 - Convenções de Nomenclatura + Registro .py
 
-> **Documento Unificado Oficial:** Este artefato consolida a Arquitetura do Projeto (Project Map), o Catálogo Geral de Nomenclaturas e Prefixos, e o Histórico Central (Changelog) da plataforma NeoCortex.
-> **Data Refência:** 2026-04-11
-> **Versão/Hash:** NC-NAM-FR-001-v1.3-20260503-9f8e2b1
+> **Data:** 2026-05-05 | **Versão:** v2.0 | **LEXICO:** v4.5 (114 serviços)
+> **ADR-008 ativo:** Paths resolvidos via `#LEXICO` e `@UBL` (ULQ-TAG-INDEX v2.0)
+> **DDD:** Constitution (Shared Kernel) → ULQ-TAG-INDEX → LEXICO → MANIFEST
 
-### ⚠️ ADR-008: SSOT agora referencia `#` do LEXICO (2026-05-04)
+## REGISTRO .py (306 arquivos — 2026-05-05)
 
-**A tabela de arquivos abaixo é HISTÓRICA.** A partir de 2026-05-04, o resolvedor canônico de paths é o **NC-LEXICO-LATEST.json v4.0** (69 serviços `#`, 250 símbolos totais).
+| Categoria | Path | Qtd | LEXICO |
+|-----------|------|-----|--------|
+| NC-CORE-FR-* | `01_neocortex_framework/neocortex/core/` | 78 | #CORE |
+| NC-SUPER-* | `01_neocortex_framework/neocortex/mcp/tools/` | 19 | #TOOLS |
+| NC-MCP/TOOL-FR-* | `01_neocortex_framework/neocortex/mcp/tools/` | 3 | #TOOLS |
+| NC-INFRA-FR-* | `01_neocortex_framework/neocortex/infra/` | 5 | #INFRA |
+| NC-REP-FR-* | `01_neocortex_framework/neocortex/repositories/` | 2 | #REPOS |
+| NC-LLM-FR-* | `01_neocortex_framework/neocortex/infra/llm/` | 6 | #LLM |
+| NC-SVC-FR-* | `01_neocortex_framework/neocortex/core/services/` | 21 | #SERVICES |
+| NC-HK-FR-* | `01_neocortex_framework/neocortex/core/hooks/` | 7 | #HOOKS |
+| NC-UTL-FR-* | `01_neocortex_framework/neocortex/core/utils/` | 9 | #UTILS |
+| NC-SCR-FR-* | `01_neocortex_framework/32-scripts/` | 87 | #SCRIPTS |
+| NC-TEST-FR-* | `01_neocortex_framework/33-tests/` | 7 | #TESTS |
+| Strangler wrappers | `01_neocortex_framework/neocortex/core/` | 19 | #STRANGLER |
+| NC-*-FR-* (outros) | Diversos | 23 | #OTHER |
+| `__init__.py` + configs | Diversos | 20 | — |
 
-- **Antes:** `neocortex/core/NC-CORE-FR-125-tool-guard.py` (quebra se renomear)
-- **Agora:** `#TOOLGUARD` → LEXICO resolve → path real
-- **SSOT mantém:** relações hierárquicas, naming convention, changelog, guia operacional
-- **LEXICO mantém:** paths exatos, domínios, decay config, search pipeline
-- **186 links "mortos"** na tabela abaixo são históricos — os paths mudaram mas os arquivos existem (com `#` no LEXICO ou em DIR-ARC)
+**Total: 306 .py files catalogados. 114 serviços no LEXICO v4.5.**
 
 ---
 

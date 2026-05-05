@@ -1,1 +1,5 @@
 {"operation_id": "gw-20260505035615", "agent": "T0", "role": "T0", "action": "health_check", "target": "", "allowed": true, "violations": [], "timestamp": "2026-05-05T03:56:15.114952"}
+{"operation_id": "gw-20260505035701", "agent": "T0", "role": "T0", "action": "ping", "target": "", "allowed": true, "violations": [], "timestamp": "2026-05-05T03:57:01.456990"}
+{"operation_id": "gw-20260505043646", "agent": "T0", "role": "T0", "action": "neocortex_state", "target": "", "allowed": true, "violations": [], "timestamp": "2026-05-05T04:36:46.527978"}
+{"operation_id": "gw-20260505043646", "agent": "T0", "role": "T0", "action": "health_check", "target": "", "allowed": true, "violations": [], "timestamp": "2026-05-05T04:36:46.642324"}
+{"operation_id": "gw-20260505043646", "agent": "T0", "role": "T0", "action": "neocortex_governance", "target": "", "allowed": true, "violations": [], "timestamp": "2026-05-05T04:36:46.754680"}
