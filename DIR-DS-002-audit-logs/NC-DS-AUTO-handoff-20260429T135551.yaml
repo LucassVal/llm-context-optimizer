@@ -1,9 +1,0 @@
-{
-  "timestamp": "2026-04-29T13:56:01.300641",
-  "type": "auto_governance",
-  "ruff_errors": 22,
-  "mypy": "PASS",
-  "yaml_valid": 52,
-  "secrets": 0,
-  "status": "NEEDS_FIX"
-}
