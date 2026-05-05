@@ -1,7 +1,10 @@
 # Strangler Fig wrapper - re-exports from NC-UTL-FR-006-gateway-bridge.py
 # Keep for backward compatibility. Migrate imports to NC- name.
 # R09: importlib for hyphenated module names.
-import importlib.util, sys, pathlib
+import importlib.util
+import pathlib
+import sys
+
 _nc = pathlib.Path(__file__).parent / "NC-UTL-FR-006-gateway-bridge.py"
 _spec = importlib.util.spec_from_file_location("gateway_bridge", str(_nc))
 _mod = importlib.util.module_from_spec(_spec)

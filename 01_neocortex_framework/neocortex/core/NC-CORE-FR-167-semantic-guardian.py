@@ -7,17 +7,16 @@ import json
 import os
 import pathlib
 from datetime import datetime
-from typing import Dict
 
 
 class SemanticGuardian:
     """Vigia da saude semantica — lobes, catalog, memory, routers."""
 
-    def __init__(self, root: pathlib.Path = None):
+    def __init__(self, root: pathlib.Path | None = None):
         self.root = root or pathlib.Path(os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3]))
         self._last_check = None
 
-    def full_health_check(self) -> Dict:
+    def full_health_check(self) -> dict:
         self._last_check = datetime.now()
         return {
             "lobe_health": self.check_lobe_health(),
@@ -28,7 +27,7 @@ class SemanticGuardian:
             "timestamp": self._last_check.isoformat(),
         }
 
-    def check_lobe_health(self) -> Dict:
+    def check_lobe_health(self) -> dict:
         """Verifica integridade dos lobes."""
         lobes_dir = self.root / "02_memory_lobes"
         lobes = list(lobes_dir.rglob("*.mdc"))
@@ -62,7 +61,7 @@ class SemanticGuardian:
             "status": "HEALTHY" if not empty_lobes and not issues else "NEEDS_ATTENTION",
         }
 
-    def check_catalog_sync(self) -> Dict:
+    def check_catalog_sync(self) -> dict:
         """Verifica se catalogo = disco."""
         cat_file = self.root / "01_neocortex_framework" / ".neocortex" / "lexico" / "NC-LEXICO-LATEST.json"
         catalog_lobes = 0
@@ -78,7 +77,7 @@ class SemanticGuardian:
             "status": "SYNCED" if synced else "DRIFT DETECTED",
         }
 
-    def check_memory_health(self) -> Dict:
+    def check_memory_health(self) -> dict:
         """Verifica saude da memoria de sessoes."""
         mem_dir = self.root / ".neocortex" / "memory" / "sessions"
         sessions = list(mem_dir.glob("*.jsonl")) if mem_dir.exists() else []
@@ -105,7 +104,7 @@ class SemanticGuardian:
             "status": "ACTIVE" if sessions else "NO_SESSIONS",
         }
 
-    def check_router_health(self) -> Dict:
+    def check_router_health(self) -> dict:
         """Verifica se domain routers estao funcionando."""
         router_file = self.root / "01_neocortex_framework" / "neocortex" / "core" / "NC-CORE-FR-166-domain-routers.py"
         if not router_file.exists():
@@ -127,7 +126,7 @@ class SemanticGuardian:
         except Exception as e:
             return {"available": True, "error": str(e), "status": "ERROR"}
 
-    def check_encoding_health(self) -> Dict:
+    def check_encoding_health(self) -> dict:
         """Detecta corrupcao de encoding (acentos, UTF-8)."""
         fw = self.root / "01_neocortex_framework" / "neocortex"
         issues = []

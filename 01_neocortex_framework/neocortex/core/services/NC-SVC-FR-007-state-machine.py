@@ -21,7 +21,6 @@ import threading
 import time
 from collections import deque
 from pathlib import Path
-from typing import Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -69,7 +68,7 @@ class AgentStateMachine:
     }
 
     # Singleton registry per agent_id
-    _instances: Dict[str, "AgentStateMachine"] = {}
+    _instances: dict[str, "AgentStateMachine"] = {}
     _instances_lock = threading.Lock()
 
     def __init__(self, agent_id: str = "", initial_state: str = IDLE):
@@ -145,11 +144,11 @@ class AgentStateMachine:
         """Return current state."""
         return self._state
 
-    def get_allowed_transitions(self) -> List[str]:
+    def get_allowed_transitions(self) -> list[str]:
         """Lista de estados alcanveis do estado atual."""
         return self.ALLOWED_TRANSITIONS.get(self._state, [])[:]
 
-    def get_history(self) -> List[Dict[str, str]]:
+    def get_history(self) -> list[dict[str, str]]:
         """
         Return full transition history.
 
@@ -183,7 +182,7 @@ class AgentStateMachine:
                 pass
 
     def _record_transition(
-        self, state: str, reason: str = "", from_state: Optional[str] = None
+        self, state: str, reason: str = "", from_state: str | None = None
     ) -> None:
         """Internal helper to record a transition in history."""
         entry = {

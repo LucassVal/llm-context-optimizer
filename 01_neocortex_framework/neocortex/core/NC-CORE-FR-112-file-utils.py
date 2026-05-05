@@ -14,7 +14,7 @@ Funes auxiliares para leitura/escrita de arquivos do framework.
 import json
 import logging
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from ..config import get_config
 
@@ -104,7 +104,7 @@ def write_cortex(content: str) -> bool:
         return False
 
 
-def read_ledger() -> Dict[str, Any]:
+def read_ledger() -> dict[str, Any]:
     """L e parseia o ledger JSON."""
     try:
         with open(_ledger_path(), encoding="utf-8") as f:
@@ -113,7 +113,7 @@ def read_ledger() -> Dict[str, Any]:
         return {}
 
 
-def write_ledger(data: Dict[str, Any]) -> bool:
+def write_ledger(data: dict[str, Any]) -> bool:
     """Escreve dados no ledger JSON."""
     try:
         with open(_ledger_path(), "w", encoding="utf-8") as f:
@@ -124,7 +124,7 @@ def write_ledger(data: Dict[str, Any]) -> bool:
         return False
 
 
-def find_lobes() -> List[str]:
+def find_lobes() -> list[str]:
     """Encontra todos os arquivos lobe (.mdc) no diretrio de regras."""
     lobes_dir = _get_config().core_central / ".agents" / "rules"
     if not lobes_dir.exists():
@@ -133,7 +133,7 @@ def find_lobes() -> List[str]:
     return [f.name for f in lobes_dir.glob("*.mdc") if f.name != "00-cortex.mdc"]
 
 
-def get_lobe_content(lobe_name: str) -> Optional[str]:
+def get_lobe_content(lobe_name: str) -> str | None:
     """Obtm o contedo de um lobe especfico."""
     lobe_path = _get_config().core_central / ".agents" / "rules" / lobe_name
     if not lobe_path.exists():
@@ -162,7 +162,7 @@ def path_exists(relative_path: str) -> bool:
     return (_project_root() / relative_path).exists()
 
 
-def read_json_file(filepath: Path) -> Dict[str, Any]:
+def read_json_file(filepath: Path) -> dict[str, Any]:
     """L um arquivo JSON genrico."""
     try:
         with open(filepath, encoding="utf-8") as f:
@@ -171,7 +171,7 @@ def read_json_file(filepath: Path) -> Dict[str, Any]:
         return {}
 
 
-def write_json_file(filepath: Path, data: Dict[str, Any]) -> bool:
+def write_json_file(filepath: Path, data: dict[str, Any]) -> bool:
     """Escreve dados em um arquivo JSON."""
     try:
         with open(filepath, "w", encoding="utf-8") as f:

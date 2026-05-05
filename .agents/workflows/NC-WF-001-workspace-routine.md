@@ -63,6 +63,12 @@ Ticket sem handoff  = INCOMPLETO    → não iniciar nova tarefa antes de fechar
 Violar atomic_lock  = BLOQUEIO T0   → abortar imediatamente, notificar T0.
 ```
 
+**LENTE ANALÍTICA OBRIGATÓRIA:**
+- **RCA (5 Porquês):** Nunca trate sintoma; resolva a causa raiz.
+- **3W:** Documente Quem fez, O que fez e Por que fez (valor).
+- **SWOT:** Antes de grandes refatorações, avalie Forças/Fraquezas/Oportunidades/Ameaças.
+- **KISS:** Mantenha simples e direto. YAGNI (You aren't gonna need it) para código futuro especulativo.
+
 ---
 
 ## 🗺️ MAPA DE GOVERNANÇA

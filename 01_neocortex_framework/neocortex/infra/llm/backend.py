@@ -1,7 +1,10 @@
 # Strangler Fig wrapper - re-exports from NC-LLM-FR-004-backend.py
 # Keep for backward compatibility. Migrate imports to NC- name.
 # R09: importlib for hyphenated module names.
-import importlib.util, sys, pathlib
+import importlib.util
+import pathlib
+import sys
+
 _nc = pathlib.Path(__file__).parent / "NC-LLM-FR-004-backend.py"
 _spec = importlib.util.spec_from_file_location("backend", str(_nc))
 _mod = importlib.util.module_from_spec(_spec)

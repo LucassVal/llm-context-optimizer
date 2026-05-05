@@ -6,7 +6,7 @@
 
 import logging
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -14,11 +14,11 @@ logger = logging.getLogger(__name__)
 class SearchService:
     """Real search service — searches lobes, docs, and code on disk."""
 
-    def __init__(self, root: Optional[Path] = None):
+    def __init__(self, root: Path | None = None):
         import os as _os
         self.root = root or Path(_os.environ.get("NC_ROOT", Path(__file__).parents[3]))
 
-    def search_advanced(self, query: str, limit: int = 10) -> Dict[str, Any]:
+    def search_advanced(self, query: str, limit: int = 10) -> dict[str, Any]:
         """Advanced search across lobes, docs, and code."""
         results = []
         patterns = query.lower().split()
@@ -67,16 +67,16 @@ class SearchService:
             "total_found": len(results),
         }
 
-    def search_knowledge(self, query: str, limit: int = 10) -> Dict[str, Any]:
+    def search_knowledge(self, query: str, limit: int = 10) -> dict[str, Any]:
         """Knowledge search — same as advanced with knowledge tag filter."""
         return self.search_advanced(query, limit)
 
 
 # Singleton
-_search_service_instance: Optional[SearchService] = None
+_search_service_instance: SearchService | None = None
 
 
-def get_search_service(root: Optional[Path] = None) -> SearchService:
+def get_search_service(root: Path | None = None) -> SearchService:
     global _search_service_instance
     if _search_service_instance is None:
         _search_service_instance = SearchService(root)

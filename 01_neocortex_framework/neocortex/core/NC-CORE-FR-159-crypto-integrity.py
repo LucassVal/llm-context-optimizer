@@ -9,13 +9,12 @@ import json
 import os
 import pathlib
 from datetime import datetime
-from typing import Dict
 
 
 class CryptoIntegrity:
     """Central de integridade criptográfica do NeoCortex."""
 
-    def __init__(self, root: pathlib.Path = None):
+    def __init__(self, root: pathlib.Path | None = None):
         self.root = root or pathlib.Path(os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3]))
 
     def hash_file(self, filepath: str) -> str:
@@ -30,7 +29,7 @@ class CryptoIntegrity:
         """Verifica se arquivo não foi corrompido."""
         return self.hash_file(filepath) == expected_hash
 
-    def scan_encoding_issues(self) -> Dict:
+    def scan_encoding_issues(self) -> dict:
         """Varre arquivos .py procurando corrupção de encoding (acentos, UTF-8)."""
         issues = []
         scanned = 0
@@ -69,7 +68,7 @@ class CryptoIntegrity:
             "timestamp": datetime.now().isoformat(),
         }
 
-    def generate_manifest_hash(self) -> Dict:
+    def generate_manifest_hash(self) -> dict:
         """Gera manifesto criptográfico de todos os arquivos core."""
         manifest = {}
         fw = self.root / "01_neocortex_framework" / "neocortex"

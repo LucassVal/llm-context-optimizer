@@ -13,7 +13,7 @@ using repository interfaces for storage abstraction.
 """
 
 import re
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from ..repositories import CortexRepository
 
@@ -21,7 +21,7 @@ from ..repositories import CortexRepository
 class CortexService:
     """Service for cortex-related business logic."""
 
-    def __init__(self, repository: Optional[CortexRepository] = None):
+    def __init__(self, repository: CortexRepository | None = None):
         """
         Initialize cortex service.
 
@@ -36,7 +36,7 @@ class CortexService:
         else:
             self.repository = repository
 
-    def read(self) -> Dict[str, Any]:
+    def read(self) -> dict[str, Any]:
         """
         Read the current cortex state.
         Alias for get_full_cortex for MCP tool compatibility.
@@ -46,7 +46,7 @@ class CortexService:
         """
         return self.get_full_cortex()
 
-    def get_full_cortex(self) -> Dict[str, Any]:
+    def get_full_cortex(self) -> dict[str, Any]:
         """
         Get full cortex content with metadata.
 
@@ -69,7 +69,7 @@ class CortexService:
             "workflows": workflows,
         }
 
-    def get_cortex_section(self, section: str) -> Dict[str, Any]:
+    def get_cortex_section(self, section: str) -> dict[str, Any]:
         """
         Get a specific section from cortex.
 
@@ -120,7 +120,7 @@ class CortexService:
             "error": f"Section '{section}' not found in cortex",
         }
 
-    def get_aliases(self) -> Dict[str, str]:
+    def get_aliases(self) -> dict[str, str]:
         """
         Get all aliases from cortex.
 
@@ -129,7 +129,7 @@ class CortexService:
         """
         return self.repository.get_aliases()
 
-    def get_workflows(self) -> List[Dict[str, Any]]:
+    def get_workflows(self) -> list[dict[str, Any]]:
         """
         Get all workflows from cortex.
 
@@ -138,7 +138,7 @@ class CortexService:
         """
         return self.repository.get_workflows()
 
-    def validate_alias(self, alias: str) -> Dict[str, Any]:
+    def validate_alias(self, alias: str) -> dict[str, Any]:
         """
         Validate if an alias exists and is correctly defined.
 
@@ -185,7 +185,7 @@ class CortexService:
             "error": f"Alias '{alias}' not found in cortex",
         }
 
-    def search_cortex(self, query: str, case_sensitive: bool = False) -> Dict[str, Any]:
+    def search_cortex(self, query: str, case_sensitive: bool = False) -> dict[str, Any]:
         """
         Search for text in cortex content.
 
@@ -228,7 +228,7 @@ class CortexService:
             "results": results,
         }
 
-    def update_cortex(self, content: str) -> Dict[str, Any]:
+    def update_cortex(self, content: str) -> dict[str, Any]:
         """
         Update cortex content with validation.
 
@@ -275,7 +275,7 @@ class CortexService:
 _default_cortex_service = None
 
 
-def get_cortex_service(repository: Optional[CortexRepository] = None) -> CortexService:
+def get_cortex_service(repository: CortexRepository | None = None) -> CortexService:
     """
     Get cortex service instance (singleton pattern).
 

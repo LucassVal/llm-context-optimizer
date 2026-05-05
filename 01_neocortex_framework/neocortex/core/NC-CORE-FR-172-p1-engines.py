@@ -11,18 +11,17 @@ import subprocess
 import sys
 import time
 from datetime import datetime
-from typing import Dict
 
 
 # R60 — Stakeholder Map
 class StakeholderMap:
     """Mapeia privilegios por hierarquia nos tools."""
 
-    def __init__(self, root: pathlib.Path = None):
+    def __init__(self, root: pathlib.Path | None = None):
         self.root = root or pathlib.Path(os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3]))
         self._roles = {"T0": "supreme_judge", "T1": "senior_agent", "T2": "junior_agent", "T3": "observer"}
 
-    def get_privileges(self, agent_role: str) -> Dict:
+    def get_privileges(self, agent_role: str) -> dict:
         role = self._roles.get(agent_role, "unknown")
         privs = {
             "supreme_judge": {"read": "all", "write": "all", "delete": "supervised", "config": "all", "approve": "all"},
@@ -32,7 +31,7 @@ class StakeholderMap:
         }
         return {"role": role, "privileges": privs.get(role, privs["observer"]), "agent": agent_role}
 
-    def audit_tools(self) -> Dict:
+    def audit_tools(self) -> dict:
         """Verifica quais tools cada role pode acessar."""
         tools_dir = self.root / "01_neocortex_framework" / "neocortex" / "mcp" / "tools"
         tools = [t.stem for t in sorted(tools_dir.glob("NC-SUPER-*.py"))] if tools_dir.exists() else []
@@ -50,10 +49,10 @@ class LeanContextPruner:
     MAX_CONTEXT_CHARS = 50000
     MAX_RESPONSE_CHARS = 2500
 
-    def __init__(self, root: pathlib.Path = None):
+    def __init__(self, root: pathlib.Path | None = None):
         self.root = root or pathlib.Path(os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3]))
 
-    def check_hot_context(self) -> Dict:
+    def check_hot_context(self) -> dict:
         """Verifica se hot context esta dentro do limite."""
         hc = self.root / ".neocortex" / "hot_context" / "hot-context.md"
         if not hc.exists():
@@ -70,7 +69,7 @@ class LeanContextPruner:
             return text[:self.MAX_RESPONSE_CHARS - 100] + "... [truncated by LeanContextPruner R62]"
         return text
 
-    def audit_verbosity(self) -> Dict:
+    def audit_verbosity(self) -> dict:
         """Audita verbosidade dos arquivos."""
         fw = self.root / "01_neocortex_framework" / "neocortex"
         verbose_files = []
@@ -88,11 +87,11 @@ class LeanContextPruner:
 class SelfHealingMCP:
     """Auto-restart MCP container on 500 errors."""
 
-    def __init__(self, root: pathlib.Path = None):
+    def __init__(self, root: pathlib.Path | None = None):
         self.root = root or pathlib.Path(os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3]))
         self._failures = {}
 
-    def check_mcp_health(self) -> Dict:
+    def check_mcp_health(self) -> dict:
         """Verifica se MCP esta respondendo."""
         try:
             import socket
@@ -102,7 +101,7 @@ class SelfHealingMCP:
         except Exception:
             return {"status": "DOWN", "port": 8766, "action": "RESTART_NEEDED"}
 
-    def auto_heal(self) -> Dict:
+    def auto_heal(self) -> dict:
         """Tenta auto-recuperacao se MCP down."""
         health = self.check_mcp_health()
         if health["status"] == "HEALTHY":

@@ -16,18 +16,19 @@ import concurrent.futures
 import importlib.util
 import logging
 import threading
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from datetime import datetime
-from enum import Enum
+from enum import StrEnum
 from pathlib import Path
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any
 
 from ruamel.yaml import YAML
 
 logger = logging.getLogger(__name__)
 
 
-class HookEvent(str, Enum):
+class HookEvent(StrEnum):
     PRE_TOOL_USE = "PreToolUse"
     POST_TOOL_USE = "PostToolUse"
     TOOL_ERROR = "ToolError"
@@ -42,7 +43,7 @@ class HookDefinition:
     handler: Callable  # funo Python
     timeout_seconds: float = 2.0
     enabled: bool = True
-    metadata: Dict = field(default_factory=dict)
+    metadata: dict = field(default_factory=dict)
 
 
 class HookRegistry:
@@ -57,7 +58,7 @@ class HookRegistry:
     """
 
     def __init__(self):
-        self._hooks: Dict[str, HookDefinition] = {}
+        self._hooks: dict[str, HookDefinition] = {}
         self._lock = threading.Lock()
         self._executor = concurrent.futures.ThreadPoolExecutor()
         self._yaml = YAML()
@@ -93,7 +94,7 @@ class HookRegistry:
                 logger.info(f"Hook removido: {name}")
             return existed
 
-    def trigger(self, event: HookEvent, context: Dict[str, Any]) -> List[Dict]:
+    def trigger(self, event: HookEvent, context: dict[str, Any]) -> list[dict]:
         """Dispara todos os hooks do evento. Timeout por hook: 2s.
 
         Returns:
@@ -117,7 +118,7 @@ class HookRegistry:
         self._publish_hook_triggered(event, context, results)
         return results
 
-    def _execute_hook(self, hook: HookDefinition, context: Dict[str, Any]) -> Dict:
+    def _execute_hook(self, hook: HookDefinition, context: dict[str, Any]) -> dict:
         """Executa um hook individual com timeout."""
         import time
 
@@ -186,7 +187,7 @@ class HookRegistry:
         logger.info(f"Carregados {count} hooks de {path}")
         return count
 
-    def _load_handler_from_script(self, script_path: Path) -> Optional[Callable]:
+    def _load_handler_from_script(self, script_path: Path) -> Callable | None:
         """Carrega uma funo de um script Python usando importlib."""
         if not script_path.exists():
             logger.error(f"Script no encontrado: {script_path}")
@@ -207,7 +208,7 @@ class HookRegistry:
             logger.error(f"Erro ao carregar script {script_path}: {e}")
             return None
 
-    def list_hooks(self, event: Optional[HookEvent] = None) -> List[str]:
+    def list_hooks(self, event: HookEvent | None = None) -> list[str]:
         """Lista nomes de hooks registrados (filtrado por evento se fornecido)."""
         with self._lock:
             if event is None:
@@ -215,7 +216,7 @@ class HookRegistry:
             return [name for name, hook in self._hooks.items() if hook.event == event]
 
     def _publish_hook_triggered(
-        self, event: HookEvent, context: Dict[str, Any], results: List[Dict]
+        self, event: HookEvent, context: dict[str, Any], results: list[dict]
     ) -> None:
         """Publica evento HOOK_TRIGGERED no EventBus."""
         try:
@@ -280,7 +281,7 @@ class HookRegistry:
         )
 
 
-_hook_registry: Optional[HookRegistry] = None
+_hook_registry: HookRegistry | None = None
 
 
 def get_hook_registry() -> HookRegistry:

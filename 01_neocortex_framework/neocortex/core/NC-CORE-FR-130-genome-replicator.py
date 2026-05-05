@@ -11,7 +11,7 @@ import shutil
 import time
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -19,13 +19,13 @@ logger = logging.getLogger(__name__)
 class GenomeReplicator:
     """DNA/RNA replication system — fork with inheritance + sandbox."""
 
-    def __init__(self, root: Optional[Path] = None):
+    def __init__(self, root: Path | None = None):
         import os as _os
         self.root = root or Path(_os.environ.get("NC_ROOT", Path(__file__).parents[3]))
 
     # ── DNA (Imutável pelo child) ─────────────────────────────
 
-    def create_dna(self, instance_name: str = "") -> Dict[str, Any]:
+    def create_dna(self, instance_name: str = "") -> dict[str, Any]:
         """Generate DNA.json — structural identity. Imutável para o child."""
         dna = {
             "genome_version": "1.0",
@@ -59,7 +59,7 @@ class GenomeReplicator:
         }
         return dna
 
-    def save_dna(self, dna: Dict[str, Any], target_dir: Path) -> Path:
+    def save_dna(self, dna: dict[str, Any], target_dir: Path) -> Path:
         """Save DNA.json — includes SHA-256 checksum."""
         dna_file = target_dir / "DNA.json"
         content = json.dumps(dna, indent=2, ensure_ascii=False)
@@ -71,7 +71,7 @@ class GenomeReplicator:
 
     # ── RNA (Mutável pelo próprio agente) ──────────────────────
 
-    def create_rna(self) -> Dict[str, Any]:
+    def create_rna(self) -> dict[str, Any]:
         """Generate RNA.json — runtime state. Mutável pelo child."""
         return {
             "mode": "sandbox_bsl1",
@@ -84,7 +84,7 @@ class GenomeReplicator:
             "ttl_seconds": 300,  # 5 minutos no sandbox
         }
 
-    def save_rna(self, rna: Dict[str, Any], target_dir: Path) -> Path:
+    def save_rna(self, rna: dict[str, Any], target_dir: Path) -> Path:
         """Save RNA.json."""
         rna_file = target_dir / "RNA.json"
         rna_file.write_text(json.dumps(rna, indent=2, ensure_ascii=False), encoding="utf-8")
@@ -97,7 +97,7 @@ class GenomeReplicator:
         child_name: str = "",
         bsl_level: int = 1,
         inherit_policies: bool = True,
-    ) -> Tuple[bool, Dict[str, Any]]:
+    ) -> tuple[bool, dict[str, Any]]:
         """
         Create a child instance via fork.
 
@@ -192,7 +192,7 @@ class GenomeReplicator:
             # Firewall rule placeholder
             logger.info(f"[Genome] BSL-{bsl_level} air-gapped sandbox: {child_dir}")
 
-    def _verify_integrity(self, child_dir: Path, dna: Dict[str, Any]) -> bool:
+    def _verify_integrity(self, child_dir: Path, dna: dict[str, Any]) -> bool:
         """Verify child integrity via SHA-256."""
         try:
             dna_file = child_dir / "DNA.json"
@@ -207,7 +207,7 @@ class GenomeReplicator:
 
     # ── HELPERS ─────────────────────────────────────────────────
 
-    def _get_lineage(self) -> List[str]:
+    def _get_lineage(self) -> list[str]:
         """Get lineage from current instance."""
         lineage = [self._get_instance_id()]
         return lineage
@@ -264,7 +264,7 @@ class GenomeReplicator:
         with open(wal_file, "a", encoding="utf-8") as f:
             f.write(json.dumps(entry, ensure_ascii=False) + "\n")
 
-    def list_children(self) -> List[Dict[str, Any]]:
+    def list_children(self) -> list[dict[str, Any]]:
         """List all children in sandbox."""
         sandbox_dir = self.root / ".neocortex" / "sandbox"
         if not sandbox_dir.exists():
@@ -300,7 +300,7 @@ class GenomeReplicator:
 
 
 # Singleton
-_genome_instance: Optional[GenomeReplicator] = None
+_genome_instance: GenomeReplicator | None = None
 
 
 def get_genome() -> GenomeReplicator:

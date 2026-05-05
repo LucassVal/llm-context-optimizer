@@ -594,10 +594,22 @@ $HIPOCAMPO (mem. episódica) → sessions, savepoints, handoffs, audit
 
 | Registro | Local | Conteúdo |
 |----------|-------|----------|
-| NC-NAM-FR-001-tools-registry.md | `\01_neocortex_framework\DIR-DOC-FR-001-docs-main` | Catálogo de 21 tools MCP |
-| NC-NAM-FR-001-lobes-registry.md | `\01_neocortex_framework\DIR-DOC-FR-001-docs-main` | Registro de 75 lobes |
-| NC-NAM-FR-001-config-registry.md | `\01_neocortex_framework\DIR-DOC-FR-001-docs-main` | Registro de configurações |
-| NC-NAM-FR-001-prompts-registry.md | `\01_neocortex_framework\DIR-DOC-FR-001-docs-main` | Registro de prompts de agente |
+| NC-NAM-FR-001-tools-registry.md | `\01_neocortex_framework\23-docs` | Catálogo de 21 tools MCP |
+| NC-NAM-FR-001-lobes-registry.md | `\01_neocortex_framework\23-docs` | Registro de 75 lobes |
+| NC-NAM-FR-001-config-registry.md | `\01_neocortex_framework\23-docs` | Registro de configurações |
+| NC-NAM-FR-001-prompts-registry.md | `\01_neocortex_framework\23-docs` | Registro de prompts de agente |
+
+---
+
+### 🏛️ HIERARQUIA DE GOVERNANÇA (P0 a P3)
+Organização lógica das cadeias de comando e regras.
+
+| Nível | Identificador | Arquivo / Workflow | Função |
+| :--- | :--- | :--- | :--- |
+| **P0** | **SUPREMO** | `NC-WF-002` / `NC-PRF-FR-001` | Master Governance: Lente Analítica (RCA/3W/SWOT/KISS) + Ciclos |
+| **P1** | **CONSTITUIÇÃO** | `NC-RULE-001` / `NC-RULE-006` | Core SSOT + Zero Suposições (R21). Regras inegociáveis. |
+| **P2** | **DOMÍNIO** | `NC-RULE-002` / `003` / `004` | Regras técnicas: Python/MCP, Memória/Lobos, Filesystem. |
+| **P3** | **OPERAÇÃO** | `NC-BOOT-FR-001` / `@ROADMAP` | Manifesto de Boot, Tickets, Locks e Políticas Ativas. |
 
 ---
 

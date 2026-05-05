@@ -9,13 +9,12 @@ import json
 import os
 import pathlib
 from datetime import datetime
-from typing import Dict
 
 
 class DueDiligence:
     """R59 H: Valida integridade de novos modulos antes de carregar."""
 
-    def __init__(self, root: pathlib.Path = None):
+    def __init__(self, root: pathlib.Path | None = None):
         self.root = root or pathlib.Path(os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3]))
         self._registry_file = self.root / ".neocortex" / "state" / "NC-STATE-DUE-DILIGENCE.json"
         self._registry_file.parent.mkdir(parents=True, exist_ok=True)
@@ -33,7 +32,7 @@ class DueDiligence:
     def _save(self):
         self._registry_file.write_text(json.dumps(self._known_hashes, indent=2), encoding="utf-8")
 
-    def validate_module(self, filepath: str) -> Dict:
+    def validate_module(self, filepath: str) -> dict:
         """Valida integridade de modulo antes de carregar."""
         fp = self.root / filepath if not filepath.startswith(str(self.root)) else pathlib.Path(filepath)
         if not fp.exists():
@@ -56,7 +55,7 @@ class DueDiligence:
         self._save()
         return {"approved": True, "hash": file_hash, "new_registration": True, "rule": "R59"}
 
-    def scan_all(self) -> Dict:
+    def scan_all(self) -> dict:
         """Verifica todos os modulos registrados."""
         fw = self.root / "01_neocortex_framework" / "neocortex"
         verified, modified, new_files = 0, 0, 0
@@ -79,10 +78,10 @@ class DueDiligence:
 class StranglerFigWire:
     """R68 H+S: Wire migration tracker no PulseScheduler."""
 
-    def __init__(self, root: pathlib.Path = None):
+    def __init__(self, root: pathlib.Path | None = None):
         self.root = root or pathlib.Path(os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3]))
 
-    def track_migration(self) -> Dict:
+    def track_migration(self) -> dict:
         """Track progresso de migracao para MCP."""
         tools_dir = self.root / "01_neocortex_framework" / "neocortex" / "mcp" / "tools"
         core_dir = self.root / "01_neocortex_framework" / "neocortex" / "core"

@@ -24,14 +24,14 @@ import os
 import sqlite3
 from dataclasses import asdict, dataclass
 from datetime import datetime, timedelta
-from enum import Enum
+from enum import StrEnum
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
 
-class MetricsBackend(str, Enum):
+class MetricsBackend(StrEnum):
     """Available metrics backends."""
 
     DUCKDB = "duckdb"
@@ -47,10 +47,10 @@ class MetricRecord:
     metric_type: str
     value: float
     timestamp: datetime
-    tags: Dict[str, str]
-    metadata: Dict[str, Any]
+    tags: dict[str, str]
+    metadata: dict[str, Any]
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary."""
         data = asdict(self)
         data["timestamp"] = self.timestamp.isoformat()
@@ -71,7 +71,7 @@ class MetricsStore:
 
     def __init__(
         self,
-        db_path: Optional[Path] = None,
+        db_path: Path | None = None,
         backend: MetricsBackend = MetricsBackend.DUCKDB,
         retention_days: int = 90,
     ):
@@ -383,9 +383,9 @@ class MetricsStore:
         metric_id: str,
         metric_type: str,
         value: float,
-        tags: Optional[Dict[str, str]] = None,
-        metadata: Optional[Dict[str, Any]] = None,
-        timestamp: Optional[datetime] = None,
+        tags: dict[str, str] | None = None,
+        metadata: dict[str, Any] | None = None,
+        timestamp: datetime | None = None,
     ) -> bool:
         """
         Insert a metric record.
@@ -437,7 +437,7 @@ class MetricsStore:
         self,
         date: datetime,
         model: str,
-        agent: Optional[str] = None,
+        agent: str | None = None,
         cache_hit: int = 0,
         cache_miss: int = 0,
         output_tokens: int = 0,
@@ -520,9 +520,9 @@ class MetricsStore:
         self,
         agent_id: str,
         action: str,
-        details: Optional[Dict[str, Any]] = None,
-        metadata: Optional[Dict[str, Any]] = None,
-        timestamp: Optional[datetime] = None,
+        details: dict[str, Any] | None = None,
+        metadata: dict[str, Any] | None = None,
+        timestamp: datetime | None = None,
     ) -> bool:
         """Record an agent activity event."""
         try:
@@ -552,9 +552,9 @@ class MetricsStore:
         self,
         event_type: str,
         status: str,
-        duration_ms: Optional[int] = None,
-        details: Optional[Dict[str, Any]] = None,
-        timestamp: Optional[datetime] = None,
+        duration_ms: int | None = None,
+        details: dict[str, Any] | None = None,
+        timestamp: datetime | None = None,
     ) -> bool:
         """Record a PulseScheduler health event."""
         try:
@@ -586,11 +586,11 @@ class MetricsStore:
     # Query methods for reports
     def get_daily_token_usage(
         self,
-        start_date: Optional[datetime] = None,
-        end_date: Optional[datetime] = None,
-        model: Optional[str] = None,
-        agent: Optional[str] = None,
-    ) -> List[Dict[str, Any]]:
+        start_date: datetime | None = None,
+        end_date: datetime | None = None,
+        model: str | None = None,
+        agent: str | None = None,
+    ) -> list[dict[str, Any]]:
         """Get daily token usage aggregated by date."""
         try:
             query = """
@@ -645,11 +645,11 @@ class MetricsStore:
 
     def get_cost_summary(
         self,
-        start_date: Optional[datetime] = None,
-        end_date: Optional[datetime] = None,
-        provider: Optional[str] = None,
-        model: Optional[str] = None,
-    ) -> List[Dict[str, Any]]:
+        start_date: datetime | None = None,
+        end_date: datetime | None = None,
+        provider: str | None = None,
+        model: str | None = None,
+    ) -> list[dict[str, Any]]:
         """Get cost summary aggregated by date."""
         try:
             query = """
@@ -703,12 +703,12 @@ class MetricsStore:
 
     def get_agent_activity(
         self,
-        agent_id: Optional[str] = None,
-        start_time: Optional[datetime] = None,
-        end_time: Optional[datetime] = None,
-        action: Optional[str] = None,
+        agent_id: str | None = None,
+        start_time: datetime | None = None,
+        end_time: datetime | None = None,
+        action: str | None = None,
         limit: int = 1000,
-    ) -> List[Dict[str, Any]]:
+    ) -> list[dict[str, Any]]:
         """Get agent activity events."""
         try:
             query = "SELECT * FROM agent_activity WHERE 1=1"
@@ -751,11 +751,11 @@ class MetricsStore:
 
     def get_pulse_health(
         self,
-        event_type: Optional[str] = None,
-        start_time: Optional[datetime] = None,
-        end_time: Optional[datetime] = None,
+        event_type: str | None = None,
+        start_time: datetime | None = None,
+        end_time: datetime | None = None,
         limit: int = 1000,
-    ) -> List[Dict[str, Any]]:
+    ) -> list[dict[str, Any]]:
         """Get PulseScheduler health events."""
         try:
             query = "SELECT * FROM pulse_health WHERE 1=1"
@@ -791,14 +791,14 @@ class MetricsStore:
 
     def query_metrics(
         self,
-        metric_id: Optional[str] = None,
-        metric_type: Optional[str] = None,
-        tags: Optional[Dict[str, str]] = None,
-        start_time: Optional[datetime] = None,
-        end_time: Optional[datetime] = None,
+        metric_id: str | None = None,
+        metric_type: str | None = None,
+        tags: dict[str, str] | None = None,
+        start_time: datetime | None = None,
+        end_time: datetime | None = None,
         limit: int = 1000,
         offset: int = 0,
-    ) -> List[MetricRecord]:
+    ) -> list[MetricRecord]:
         """
         Query metrics with filters.
 
@@ -871,9 +871,9 @@ class MetricsStore:
         self,
         metric_id: str,
         aggregation_type: str = "hourly",
-        start_time: Optional[datetime] = None,
-        end_time: Optional[datetime] = None,
-    ) -> Dict[str, Any]:
+        start_time: datetime | None = None,
+        end_time: datetime | None = None,
+    ) -> dict[str, Any]:
         """
         Aggregate metrics over time periods.
 
@@ -1077,7 +1077,7 @@ class MetricsStore:
             logger.error(f"Failed to clean up old metrics: {e}")
             return 0
 
-    def get_stats(self) -> Dict[str, Any]:
+    def get_stats(self) -> dict[str, Any]:
         """Get metrics store statistics."""
         try:
             cursor = self.conn.execute("""
@@ -1132,7 +1132,7 @@ class MetricsStore:
 
 
 def create_metrics_store(
-    db_path: Optional[Path] = None,
+    db_path: Path | None = None,
     backend: MetricsBackend = MetricsBackend.DUCKDB,
     retention_days: int = 90,
 ) -> MetricsStore:

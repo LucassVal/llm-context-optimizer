@@ -24,7 +24,7 @@ import json
 import logging
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 logger = logging.getLogger(__name__)
 TOOL_NAME = "neocortex_security"
@@ -40,7 +40,7 @@ def _root() -> Path:
 
 
 # In-memory hook registry
-_HOOKS: Dict[str, list] = {}
+_HOOKS: dict[str, list] = {}
 
 
 def register_tool(mcp) -> None:
@@ -56,7 +56,7 @@ def register_tool(mcp) -> None:
         event_type: str = "",
         event_details: str = "",
         auth_token: str = "",
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """FÓRUM — Segurança, Locks e Hooks.
         Funde: security (026) + hooks (034).
         Actions: access.validate, lock.check, lock.list,

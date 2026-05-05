@@ -12,7 +12,7 @@ Supports dynamic backend creation and configuration.
 """
 
 import logging
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from .backend import FallbackChain, LLMBackend, LLMProvider
 from .deepseek_backend import DeepSeekBackend
@@ -40,7 +40,7 @@ class LLMBackendFactory:
     _instances = {}  # Cache of backend instances by config hash
 
     @classmethod
-    def create_backend(cls, provider: str, config: Dict[str, Any]) -> LLMBackend:
+    def create_backend(cls, provider: str, config: dict[str, Any]) -> LLMBackend:
         """
         Create a backend instance for the given provider.
 
@@ -101,7 +101,7 @@ class LLMBackendFactory:
         return instance
 
     @classmethod
-    def create_from_config(cls, llm_config: Dict[str, Any]) -> LLMBackend:
+    def create_from_config(cls, llm_config: dict[str, Any]) -> LLMBackend:
         """
         Create backend from NeoCortex LLM configuration.
 
@@ -124,7 +124,7 @@ class LLMBackendFactory:
         return cls.create_backend(provider, llm_config)
 
     @classmethod
-    def create_fallback_chain(cls, chain_config: List[Dict[str, Any]]) -> FallbackChain:
+    def create_fallback_chain(cls, chain_config: list[dict[str, Any]]) -> FallbackChain:
         """
         Create a fallback chain from a list of backend configurations.
 
@@ -157,8 +157,8 @@ class LLMBackendFactory:
     @classmethod
     def create_hybrid_chain(
         cls,
-        local_config: Optional[Dict[str, Any]] = None,
-        cloud_config: Optional[Dict[str, Any]] = None,
+        local_config: dict[str, Any] | None = None,
+        cloud_config: dict[str, Any] | None = None,
     ) -> FallbackChain:
         """
         Create a hybrid chain with local fallback to cloud.
@@ -212,12 +212,12 @@ class LLMBackendFactory:
         logger.info("Cleaned up all LLM backend instances")
 
     @classmethod
-    def get_available_providers(cls) -> List[str]:
+    def get_available_providers(cls) -> list[str]:
         """Get list of available provider names."""
-        return [p.value for p in _BACKEND_REGISTRY.keys()]
+        return [p.value for p in _BACKEND_REGISTRY]
 
     @classmethod
-    def get_backend_stats(cls) -> Dict[str, Any]:
+    def get_backend_stats(cls) -> dict[str, Any]:
         """Get statistics about created backends."""
         stats = {
             "total_instances": len(cls._instances),
@@ -225,7 +225,7 @@ class LLMBackendFactory:
             "instance_keys": list(cls._instances.keys()),
         }
 
-        for key, instance in cls._instances.items():
+        for _key, instance in cls._instances.items():
             provider = instance.provider.value
             stats["instances_by_provider"][provider] = (
                 stats["instances_by_provider"].get(provider, 0) + 1

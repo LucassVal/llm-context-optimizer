@@ -14,7 +14,7 @@ using repository interfaces for storage abstraction.
 
 import json
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from ..repositories import CortexRepository, LedgerRepository, LobeRepository
 
@@ -24,9 +24,9 @@ class ExportService:
 
     def __init__(
         self,
-        ledger_repository: Optional[LedgerRepository] = None,
-        cortex_repository: Optional[CortexRepository] = None,
-        lobe_repository: Optional[LobeRepository] = None,
+        ledger_repository: LedgerRepository | None = None,
+        cortex_repository: CortexRepository | None = None,
+        lobe_repository: LobeRepository | None = None,
     ):
         """
         Initialize export service.
@@ -59,7 +59,7 @@ class ExportService:
 
     def export_to_markdown(
         self, include_lobes: bool = True, include_timeline: bool = True
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Export system state to markdown format.
 
@@ -193,11 +193,11 @@ class ExportService:
             },
         }
 
-    def export(self) -> Dict[str, Any]:
+    def export(self) -> dict[str, Any]:
         """Alias for export_to_json."""
         return self.export_to_json()
 
-    def export_to_json(self, pretty: bool = True) -> Dict[str, Any]:
+    def export_to_json(self, pretty: bool = True) -> dict[str, Any]:
         """
         Export system state to JSON format.
 
@@ -248,7 +248,7 @@ class ExportService:
             },
         }
 
-    def export_to_graph(self, graph_type: str = "dependency") -> Dict[str, Any]:
+    def export_to_graph(self, graph_type: str = "dependency") -> dict[str, Any]:
         """
         Export to graph format (e.g., for visualization).
 
@@ -288,8 +288,8 @@ class ExportService:
         }
 
     def export_lobes_to_markdown(
-        self, lobe_names: Optional[List[str]] = None
-    ) -> Dict[str, Any]:
+        self, lobe_names: list[str] | None = None
+    ) -> dict[str, Any]:
         """
         Export specific lobes to markdown format.
 
@@ -352,8 +352,8 @@ class ExportService:
         }
 
     def _build_dependency_graph(
-        self, ledger: Dict[str, Any], cortex_content: str
-    ) -> Dict[str, Any]:
+        self, ledger: dict[str, Any], cortex_content: str
+    ) -> dict[str, Any]:
         """Build dependency graph from system state."""
         nodes = []
         edges = []
@@ -413,7 +413,7 @@ class ExportService:
             },
         }
 
-    def _build_timeline_graph(self, ledger: Dict[str, Any]) -> Dict[str, Any]:
+    def _build_timeline_graph(self, ledger: dict[str, Any]) -> dict[str, Any]:
         """Build timeline graph from session timeline."""
         nodes = []
         edges = []
@@ -456,8 +456,8 @@ class ExportService:
         }
 
     def _build_knowledge_graph(
-        self, ledger: Dict[str, Any], cortex_content: str
-    ) -> Dict[str, Any]:
+        self, ledger: dict[str, Any], cortex_content: str
+    ) -> dict[str, Any]:
         """Build knowledge graph from cortex content."""
         nodes = []
         edges = []
@@ -539,9 +539,9 @@ _default_export_service = None
 
 
 def get_export_service(
-    ledger_repository: Optional[LedgerRepository] = None,
-    cortex_repository: Optional[CortexRepository] = None,
-    lobe_repository: Optional[LobeRepository] = None,
+    ledger_repository: LedgerRepository | None = None,
+    cortex_repository: CortexRepository | None = None,
+    lobe_repository: LobeRepository | None = None,
 ) -> ExportService:
     """
     Get export service instance (singleton pattern).

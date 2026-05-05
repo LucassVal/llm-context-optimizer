@@ -18,10 +18,11 @@ import logging
 import threading
 import time
 import uuid
+from collections.abc import Callable
 from dataclasses import dataclass
-from enum import Enum
+from enum import StrEnum
 from pathlib import Path
-from typing import Any, Callable, Dict, Optional
+from typing import Any
 
 import yaml
 from filelock import FileLock
@@ -29,7 +30,7 @@ from filelock import FileLock
 logger = logging.getLogger(__name__)
 
 
-class WorkerState(str, Enum):
+class WorkerState(StrEnum):
     IDLE = "IDLE"
     RUNNING = "RUNNING"
     PAUSED = "PAUSED"
@@ -62,15 +63,15 @@ class PersistentWorker:
     def __init__(self, config: WorkerConfig):
         self.config = config
         self.state = WorkerState.IDLE
-        self._thread: Optional[threading.Thread] = None
+        self._thread: threading.Thread | None = None
         self._stop_event = threading.Event()
         self._pause_event = threading.Event()
         self._pause_event.set()  # inicialmente no pausado
         self._state_lock = threading.Lock()
-        self._handlers: Dict[str, Callable] = {}
+        self._handlers: dict[str, Callable] = {}
         self._consecutive_errors = 0
         self._last_heartbeat = time.time()
-        self._current_ticket: Optional[Dict[str, Any]] = None
+        self._current_ticket: dict[str, Any] | None = None
 
     def start(self) -> None:
         """Inicia worker em thread dedicada (no-bloqueante)."""
@@ -178,7 +179,7 @@ class PersistentWorker:
             )
             self._last_heartbeat = now
 
-    def _scan_and_claim(self) -> Optional[Dict[str, Any]]:
+    def _scan_and_claim(self) -> dict[str, Any] | None:
         """Escaneia DIR-DS-001-tickets/ e faz claim atmico do primeiro AVAILABLE."""
         tickets_dir = self.config.tickets_dir
         if not tickets_dir.exists():
@@ -196,7 +197,7 @@ class PersistentWorker:
 
             try:
                 # Ler contedo do YAML
-                with open(yaml_file, "r", encoding="utf-8") as f:
+                with open(yaml_file, encoding="utf-8") as f:
                     ticket = yaml.safe_load(f)
                 if not isinstance(ticket, dict):
                     logger.warning(f"Ticket {yaml_file} no  um dicionrio vlido")
@@ -227,7 +228,7 @@ class PersistentWorker:
 
         return None
 
-    def _execute_ticket(self, ticket: Dict[str, Any]) -> None:
+    def _execute_ticket(self, ticket: dict[str, Any]) -> None:
         """Executa ticket e gera handoff em DIR-DS-002-audit-logs/."""
         ticket_id = ticket.get("ticket_id")
         logger.info(f"Executando ticket {ticket_id}")
@@ -259,12 +260,12 @@ class PersistentWorker:
         # Marcar ticket como concludo
         self._mark_ticket_done(ticket)
 
-    def _default_handler(self, ticket: Dict[str, Any]) -> Dict[str, Any]:
+    def _default_handler(self, ticket: dict[str, Any]) -> dict[str, Any]:
         """Handler padro que apenas loga e retorna ticket."""
         logger.info(f"Handler padro executado para ticket {ticket.get('ticket_id')}")
         return {"processed": True, "ticket": ticket.get("ticket_id")}
 
-    def _generate_handoff(self, ticket: Dict[str, Any], result: Dict[str, Any]) -> None:
+    def _generate_handoff(self, ticket: dict[str, Any], result: dict[str, Any]) -> None:
         """Gera arquivo de handoff no diretrio de audit-logs."""
         handoff_dir = Path("DIR-DS-002-audit-logs")
         handoff_dir.mkdir(exist_ok=True)
@@ -288,7 +289,7 @@ class PersistentWorker:
 
         logger.info(f"Handoff gerado: {handoff_file}")
 
-    def _mark_ticket_done(self, ticket: Dict[str, Any]) -> None:
+    def _mark_ticket_done(self, ticket: dict[str, Any]) -> None:
         """Atualiza status do ticket para DONE."""
         ticket_id = ticket.get("ticket_id")
         tickets_dir = self.config.tickets_dir
@@ -304,7 +305,7 @@ class PersistentWorker:
         lock = FileLock(lock_file)
         try:
             lock.acquire(timeout=5)
-            with open(yaml_file, "r", encoding="utf-8") as f:
+            with open(yaml_file, encoding="utf-8") as f:
                 ticket_data = yaml.safe_load(f)
             ticket_data["status"] = "DONE"
             ticket_data["completed_at"] = time.time()
@@ -323,7 +324,7 @@ class PersistentWorker:
         time.sleep(delay)
 
 
-def create_worker(port: int, tickets_dir: Optional[Path] = None) -> PersistentWorker:
+def create_worker(port: int, tickets_dir: Path | None = None) -> PersistentWorker:
     """Factory: cria worker configurado para a porta dada."""
     if tickets_dir is None:
         tickets_dir = Path("DIR-DS-001-tickets")

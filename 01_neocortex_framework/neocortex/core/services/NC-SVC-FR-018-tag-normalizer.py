@@ -15,7 +15,6 @@ import sys
 import uuid
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, List, Optional
 
 # ---------------------------------------------------------------------------
 # WAL import (importlib para evitar dependência de path relativo no sys.path)
@@ -68,9 +67,9 @@ class SymbolEntry:
 @dataclass
 class ScanResult:
     scanned: int = 0
-    found: List[dict] = field(default_factory=list)      # todos os símbolos encontrados
-    invalid: List[dict] = field(default_factory=list)    # casing errado
-    unknown: List[dict] = field(default_factory=list)    # não existe no dict
+    found: list[dict] = field(default_factory=list)      # todos os símbolos encontrados
+    invalid: list[dict] = field(default_factory=list)    # casing errado
+    unknown: list[dict] = field(default_factory=list)    # não existe no dict
 
     def to_dict(self) -> dict:
         return {
@@ -90,7 +89,7 @@ class ScanResult:
 class NormalizeResult:
     path: str = ""
     changed: int = 0
-    diff: List[dict] = field(default_factory=list)
+    diff: list[dict] = field(default_factory=list)
 
     def to_dict(self) -> dict:
         return {"path": self.path, "changed": self.changed, "diff": self.diff}
@@ -100,7 +99,7 @@ class NormalizeResult:
 class ValidationResult:
     path: str = ""
     valid: bool = True
-    violations: List[dict] = field(default_factory=list)
+    violations: list[dict] = field(default_factory=list)
 
     def to_dict(self) -> dict:
         return {
@@ -125,9 +124,9 @@ class TagNormalizerService:
         print(result.to_dict())
     """
 
-    def __init__(self, dict_path: Optional[Path] = None) -> None:
+    def __init__(self, dict_path: Path | None = None) -> None:
         self._dict_path = Path(dict_path) if dict_path else _DICT_PATH
-        self._symbols: Dict[str, SymbolEntry] = {}
+        self._symbols: dict[str, SymbolEntry] = {}
         self._wal = WALService()
         self._load_dictionary()
 
@@ -171,7 +170,7 @@ class TagNormalizerService:
         target = Path(path)
         result = ScanResult()
 
-        files: List[Path] = []
+        files: list[Path] = []
         if target.is_dir():
             glob = "**/*" if recursive else "*"
             files = [f for f in target.glob(glob) if f.is_file()]
@@ -270,7 +269,7 @@ class TagNormalizerService:
         if changed > 0 and not dry_run:
             session_id = f"svc018-norm-{uuid.uuid4().hex[:8]}"
             before_hash = hashlib.sha256(target.read_bytes()).hexdigest()
-            with self._wal.transaction(session_id, "NC-SVC-FR-018", "NC-DS-090") as txn:
+            with self._wal.transaction(session_id, "NC-SVC-FR-018", "NC-DS-090"):
                 target.write_text("".join(new_lines), encoding="utf-8")
                 after_hash = hashlib.sha256(target.read_bytes()).hexdigest()
                 self._wal.log_operation(

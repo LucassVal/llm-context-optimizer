@@ -17,7 +17,6 @@ import uuid
 import warnings
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, List, Optional
 
 # ---------------------------------------------------------------------------
 # WAL import
@@ -99,7 +98,7 @@ class RotateResult:
 @dataclass
 class ScanConfigResult:
     config_path: str = ""
-    secret_fields: List[dict] = field(default_factory=list)
+    secret_fields: list[dict] = field(default_factory=list)
     total: int = 0
 
     def to_dict(self) -> dict:
@@ -131,11 +130,11 @@ class CryptoHub:
         print(dec.plaintext)  # "minha-api-key"
     """
 
-    def __init__(self, master_key: Optional[str] = None) -> None:
+    def __init__(self, master_key: str | None = None) -> None:
         self._wal = WALService()
-        self._fernet: Optional[object] = None
+        self._fernet: object | None = None
         self._hash_only = False
-        self._token_registry: Dict[str, str] = {}  # token_hash → encrypted_token
+        self._token_registry: dict[str, str] = {}  # token_hash → encrypted_token
 
         raw_key = master_key or os.environ.get(_ENV_KEY)
 
@@ -167,7 +166,7 @@ class CryptoHub:
     # ------------------------------------------------------------------
 
     @staticmethod
-    def _derive_fernet(master_key: str) -> "Fernet":
+    def _derive_fernet(master_key: str) -> Fernet:
         """Deriva chave Fernet via PBKDF2HMAC(SHA256). Nunca loga a chave."""
         kdf = PBKDF2HMAC(
             algorithm=hashes.SHA256(),
@@ -299,7 +298,7 @@ class CryptoHub:
         session_id = f"svc017-rotate-{uuid.uuid4().hex[:8]}"
         self._wal.open_session(session_id, "NC-SVC-FR-017", "NC-DS-091")
 
-        new_registry: Dict[str, str] = {}
+        new_registry: dict[str, str] = {}
         for token_hash, token in self._token_registry.items():
             try:
                 # Decripta com chave antiga

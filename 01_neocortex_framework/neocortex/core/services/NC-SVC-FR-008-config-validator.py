@@ -15,7 +15,7 @@ Provides validation methods for NeoCortex configuration files:
 """
 
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 import yaml
 
@@ -90,8 +90,8 @@ class ConfigValidator:
 
     def __init__(self):
         """Initialize the config validator."""
-        self._errors: List[str] = []
-        self._warnings: List[str] = []
+        self._errors: list[str] = []
+        self._warnings: list[str] = []
 
     def _find_project_root(self, config_path: Path) -> Path:
         """
@@ -115,9 +115,9 @@ class ConfigValidator:
 
     def validate_config(
         self,
-        config_path: Union[str, Path],
-        project_root: Optional[Union[str, Path]] = None,
-    ) -> Dict[str, Any]:
+        config_path: str | Path,
+        project_root: str | Path | None = None,
+    ) -> dict[str, Any]:
         """
         Validate a neocortex_config.yaml file.
 
@@ -155,10 +155,7 @@ class ConfigValidator:
             self._validate_llm_config(config["llm"])
 
         # Determine project root for path resolution
-        if project_root is None:
-            project_root = self._find_project_root(path)
-        else:
-            project_root = Path(project_root)
+        project_root = self._find_project_root(path) if project_root is None else Path(project_root)
 
         # Validate paths configuration
         if "paths" in config:
@@ -200,8 +197,8 @@ class ConfigValidator:
 
     def is_valid(
         self,
-        config_path: Union[str, Path],
-        project_root: Optional[Union[str, Path]] = None,
+        config_path: str | Path,
+        project_root: str | Path | None = None,
     ) -> bool:
         """
         Check if a configuration file is valid.
@@ -219,9 +216,9 @@ class ConfigValidator:
 
     def get_warnings(
         self,
-        config_path: Union[str, Path],
-        project_root: Optional[Union[str, Path]] = None,
-    ) -> List[str]:
+        config_path: str | Path,
+        project_root: str | Path | None = None,
+    ) -> list[str]:
         """
         Get warnings for a configuration file without failing on errors.
 
@@ -245,10 +242,7 @@ class ConfigValidator:
             return [f"Failed to parse YAML file: {path}"]
 
         # Determine project root for path resolution
-        if project_root is None:
-            project_root = self._find_project_root(path)
-        else:
-            project_root = Path(project_root)
+        project_root = self._find_project_root(path) if project_root is None else Path(project_root)
 
         # Collect warnings only (skip errors that would break validation)
         if "llm" in config:
@@ -269,22 +263,22 @@ class ConfigValidator:
 
         return self._warnings
 
-    def _load_yaml(self, path: Path) -> Optional[Dict[str, Any]]:
+    def _load_yaml(self, path: Path) -> dict[str, Any] | None:
         """Load YAML file, return None on error."""
         try:
-            with open(path, "r", encoding="utf-8") as f:
+            with open(path, encoding="utf-8") as f:
                 return yaml.safe_load(f)
-        except (yaml.YAMLError, IOError) as e:
+        except (OSError, yaml.YAMLError) as e:
             self._errors.append(f"YAML parsing error: {e}")
             return None
 
-    def _validate_required_sections(self, config: Dict[str, Any]) -> None:
+    def _validate_required_sections(self, config: dict[str, Any]) -> None:
         """Validate that required sections are present."""
         for section in self.REQUIRED_SECTIONS:
             if section not in config:
                 self._errors.append(f"Missing required section: '{section}'")
 
-    def _validate_llm_config(self, llm_config: Dict[str, Any]) -> None:
+    def _validate_llm_config(self, llm_config: dict[str, Any]) -> None:
         """Validate LLM configuration."""
         # Check required fields
         for field in self.LLM_REQUIRED_FIELDS:
@@ -323,7 +317,7 @@ class ConfigValidator:
                 )
 
     def _validate_paths_config(
-        self, paths_config: Dict[str, Any], base_dir: Path
+        self, paths_config: dict[str, Any], base_dir: Path
     ) -> None:
         """Validate paths configuration."""
         # Check required paths
@@ -349,8 +343,8 @@ class ConfigValidator:
     def _validate_section_types(
         self,
         section_name: str,
-        section_config: Dict[str, Any],
-        field_types: Dict[str, Any],
+        section_config: dict[str, Any],
+        field_types: dict[str, Any],
     ) -> None:
         """Validate field types in a configuration section."""
         for field, expected_type in field_types.items():
@@ -427,7 +421,7 @@ class ConfigValidator:
                     f"LLM agent_backends['{agent_name}'] missing 'model' field"
                 )
 
-    def _collect_llm_warnings(self, llm_config: Dict[str, Any]) -> None:
+    def _collect_llm_warnings(self, llm_config: dict[str, Any]) -> None:
         """Collect warnings from LLM configuration without raising errors."""
         # Temperature range warning
         if "temperature" in llm_config:
@@ -446,7 +440,7 @@ class ConfigValidator:
                 )
 
     def _collect_path_warnings(
-        self, paths_config: Dict[str, Any], base_dir: Path
+        self, paths_config: dict[str, Any], base_dir: Path
     ) -> None:
         """Collect warnings from paths configuration."""
         for path_name, path_value in paths_config.items():
@@ -460,8 +454,8 @@ class ConfigValidator:
     def _collect_type_warnings(
         self,
         section_name: str,
-        section_config: Dict[str, Any],
-        field_types: Dict[str, Any],
+        section_config: dict[str, Any],
+        field_types: dict[str, Any],
     ) -> None:
         """Collect type warnings without raising errors."""
         for field, expected_type in field_types.items():
@@ -481,7 +475,7 @@ class ConfigValidator:
                         f"expected {expected_type.__name__}, got {type(value).__name__}"
                     )
 
-    def _build_result(self, config: Optional[Dict[str, Any]]) -> Dict[str, Any]:
+    def _build_result(self, config: dict[str, Any] | None) -> dict[str, Any]:
         """Build validation result dictionary."""
         return {
             "valid": len(self._errors) == 0,
@@ -493,8 +487,8 @@ class ConfigValidator:
 
 # Convenience functions
 def validate_config(
-    config_path: Union[str, Path], project_root: Optional[Union[str, Path]] = None
-) -> Dict[str, Any]:
+    config_path: str | Path, project_root: str | Path | None = None
+) -> dict[str, Any]:
     """
     Validate a neocortex_config.yaml file.
 
@@ -511,7 +505,7 @@ def validate_config(
 
 
 def is_valid(
-    config_path: Union[str, Path], project_root: Optional[Union[str, Path]] = None
+    config_path: str | Path, project_root: str | Path | None = None
 ) -> bool:
     """
     Check if a configuration file is valid.
@@ -529,8 +523,8 @@ def is_valid(
 
 
 def get_warnings(
-    config_path: Union[str, Path], project_root: Optional[Union[str, Path]] = None
-) -> List[str]:
+    config_path: str | Path, project_root: str | Path | None = None
+) -> list[str]:
     """
     Get warnings for a configuration file.
 

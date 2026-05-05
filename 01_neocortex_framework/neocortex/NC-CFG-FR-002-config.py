@@ -17,7 +17,7 @@ import json
 import logging
 import os
 from pathlib import Path
-from typing import Any, Dict, List, Union
+from typing import Any
 
 import yaml
 
@@ -35,7 +35,7 @@ class Config:
 
     def __new__(cls):
         if cls._instance is None:
-            cls._instance = super(Config, cls).__new__(cls)
+            cls._instance = super().__new__(cls)
             cls._instance._initialized = False
         return cls._instance
 
@@ -76,7 +76,7 @@ class Config:
         # Fallback: current working directory
         return Path.cwd().resolve()
 
-    def _load_configuration(self) -> Dict[str, Any]:
+    def _load_configuration(self) -> dict[str, Any]:
         """
         Load configuration from multiple sources with precedence:
         1. Environment variables
@@ -95,7 +95,7 @@ class Config:
         nc_config_path = self._project_root / ".nc" / "config.yaml"
         if nc_config_path.exists():
             try:
-                with open(nc_config_path, "r", encoding="utf-8") as f:
+                with open(nc_config_path, encoding="utf-8") as f:
                     nc_config = yaml.safe_load(f) or {}
                     config.update(nc_config)
                     logger = logging.getLogger(__name__)
@@ -107,7 +107,7 @@ class Config:
                 logger.warning(f"Failed to load .nc/config.yaml: {e}")
         if yaml_path.exists():
             try:
-                with open(yaml_path, "r", encoding="utf-8") as f:
+                with open(yaml_path, encoding="utf-8") as f:
                     yaml_config = yaml.safe_load(f) or {}
                     config.update(yaml_config)
             except Exception:
@@ -117,7 +117,7 @@ class Config:
         json_path = self._project_root / "neocortex_config.json"
         if json_path.exists():
             try:
-                with open(json_path, "r", encoding="utf-8") as f:
+                with open(json_path, encoding="utf-8") as f:
                     json_config = json.load(f) or {}
                     config.update(json_config)
             except Exception:
@@ -187,7 +187,7 @@ class Config:
 
         return config
 
-    def _apply_env_overrides(self, config: Dict[str, Any]) -> None:
+    def _apply_env_overrides(self, config: dict[str, Any]) -> None:
         """
         Apply environment variable overrides to configuration.
 
@@ -212,7 +212,7 @@ class Config:
                 final_key = keys[-1]
                 current[final_key] = self._parse_env_value(value)
 
-    def _parse_env_value(self, value: str) -> Union[str, int, float, bool, None]:
+    def _parse_env_value(self, value: str) -> str | int | float | bool | None:
         """
         Parse environment variable string value to appropriate type.
         """
@@ -406,7 +406,7 @@ class Config:
 
     # LLM configuration access
     @property
-    def llm_config(self) -> Dict[str, Any]:
+    def llm_config(self) -> dict[str, Any]:
         """Get LLM configuration."""
         return self._config.get("llm", {}).copy()
 
@@ -441,13 +441,13 @@ class Config:
         return int(self.llm_config.get("max_tokens", 4096))
 
     @property
-    def llm_fallback_chain(self) -> List[Dict[str, Any]]:
+    def llm_fallback_chain(self) -> list[dict[str, Any]]:
         """Get configured LLM fallback chain."""
         return self.llm_config.get("fallback_chain", [])
 
     # Cache configuration access
     @property
-    def cache_config(self) -> Dict[str, Any]:
+    def cache_config(self) -> dict[str, Any]:
         """Get cache configuration."""
         return self._config.get("cache", {}).copy()
 
@@ -478,7 +478,7 @@ class Config:
 
     # Scheduler configuration access
     @property
-    def scheduler_config(self) -> Dict[str, Any]:
+    def scheduler_config(self) -> dict[str, Any]:
         """Get scheduler configuration."""
         return self._config.get("scheduler", {}).copy()
 
@@ -519,7 +519,7 @@ class Config:
 
     # Vector store configuration access
     @property
-    def vector_store_config(self) -> Dict[str, Any]:
+    def vector_store_config(self) -> dict[str, Any]:
         """Get vector store configuration."""
         return self._config.get("vector_store", {}).copy()
 
@@ -599,7 +599,7 @@ class Config:
         self._config = self._load_configuration()
         self._init_paths()
 
-    def validate(self) -> Dict[str, Any]:
+    def validate(self) -> dict[str, Any]:
         """
         Validate configuration for critical paths and required settings.
 
@@ -652,7 +652,7 @@ class Config:
             "vector_store_provider": vector_config.get("provider", "not set"),
         }
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """
         Export configuration as dictionary.
 

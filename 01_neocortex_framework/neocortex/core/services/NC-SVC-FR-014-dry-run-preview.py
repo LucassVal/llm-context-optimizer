@@ -18,7 +18,7 @@ import logging
 import threading
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -29,7 +29,7 @@ class DryRunResult:
 
     risk: str  # 'low', 'medium', 'high'
     diff_lines: int
-    affected_files: List[str]
+    affected_files: list[str]
     preview: str
 
 
@@ -85,7 +85,7 @@ class DryRunPreviewService:
         old_lines = []
         if target.exists():
             try:
-                with open(target, "r", encoding="utf-8") as f:
+                with open(target, encoding="utf-8") as f:
                     old_lines = f.read().splitlines(keepends=True)
             except Exception as e:
                 logger.warning(f"[DryRunPreview] No foi possvel ler {target}: {e}")
@@ -127,7 +127,7 @@ class DryRunPreviewService:
         """
         # Verificar locks
         if self._lock_guard is not None:
-            allowed, reason = self._lock_guard.check_write(target_path, agent_role)
+            allowed, _reason = self._lock_guard.check_write(target_path, agent_role)
             if not allowed:
                 logger.info(
                     f"[DryRunPreview] Path bloqueado por LockGuard: {target_path}  risco HIGH"
@@ -163,7 +163,7 @@ class DryRunPreviewService:
         # Podemos adicionar mais lgicas futuramente
         return False
 
-    def get_compliance_status(self) -> Dict[str, Any]:
+    def get_compliance_status(self) -> dict[str, Any]:
         """Retorna status para o HUD Compliance Heartbeat."""
         return {
             "service": "DryRunPreviewService",
@@ -172,7 +172,7 @@ class DryRunPreviewService:
 
 
 #  Singleton
-_instance: Optional[DryRunPreviewService] = None
+_instance: DryRunPreviewService | None = None
 _instance_lock = threading.Lock()
 
 

@@ -29,7 +29,7 @@ import logging
 import re
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 logger = logging.getLogger(__name__)
 TOOL_NAME = "neocortex_governance"
@@ -45,7 +45,7 @@ def _ts() -> str:
 
 
 # ── Compliance (standalone filesystem) ────────────────────────────────────────
-def _compliance_report(root: Path) -> Dict:
+def _compliance_report(root: Path) -> dict:
     fw = root / "01_neocortex_framework"
     docs = fw / "DIR-DOC-FR-001-docs-main"
     tools = fw / "neocortex" / "mcp" / "tools"
@@ -119,7 +119,7 @@ CF_POWERS = {
 TIER_AUTHORITY = {"T0": "PLENA", "T1": "DELEGADA", "T2": "OPERACIONAL", "T3": "RESTRITA"}
 
 
-def _cf_pre_check(action_name: str, role: str) -> Dict:
+def _cf_pre_check(action_name: str, role: str) -> dict:
     blocked = ["delete_all", "drop_database", "rm_rf", "format_disk"]
     is_blocked = any(b in action_name.lower() for b in blocked)
     authority = TIER_AUTHORITY.get(role.upper(), "DESCONHECIDA")
@@ -149,7 +149,7 @@ def register_tool(mcp) -> None:
         session_id: str = "",
         handoff_data: str = "",
         category: str = "",
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """PODER LEGISLATIVO + JUDICIÁRIO + CONSTITUIÇÃO.
         Funde: governance, constitution, governance_ops, tickets, handoff.
         Actions: policy.check, rule.list, compliance.report, violation.log,
@@ -797,10 +797,7 @@ def register_tool(mcp) -> None:
                 spec.loader.exec_module(mod)
                 hitl = mod.get_ai_governance().hitl
                 aid = title or ""
-                if action == "hitl.approve":
-                    r = hitl.approve(aid)
-                else:
-                    r = hitl.reject(aid, description or "")
+                r = hitl.approve(aid) if action == "hitl.approve" else hitl.reject(aid, description or "")
                 return {"success": True, "action": action, "result": r, "timestamp": ts}
             except Exception as e:
                 return {"success": False, "error": str(e), "timestamp": ts}

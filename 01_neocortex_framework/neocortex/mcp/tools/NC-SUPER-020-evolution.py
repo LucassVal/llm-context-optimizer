@@ -6,7 +6,7 @@
 
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 TOOL_NAME = "neocortex_evolution"
 root = Path(__file__).parents[4]
@@ -21,7 +21,7 @@ def register_tool(mcp):
         description: str = "",
         mutation_id: str = "",
         bsl_level: int = 3,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """FASE 6 — Evolução governada com sandbox + user approval.
         Actions:
           sandbox.test     — testar mudança em sandbox (BSL-3 default)

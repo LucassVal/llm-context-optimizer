@@ -7,7 +7,7 @@
 import logging
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -77,7 +77,7 @@ class ToolGuard:
 
     # ── G2 (STEP 0): Regression check ─────────────────────────────
 
-    def step_zero(self, action_name: str) -> Dict[str, Any]:
+    def step_zero(self, action_name: str) -> dict[str, Any]:
         """Execute STEP 0 regression check before tool action."""
         self._init()
         if not self._regression_svc:
@@ -105,7 +105,7 @@ class ToolGuard:
 
     # ── G3 (STEP -1): Auto savepoint before write ──────────────────
 
-    def savepoint_before_write(self, context: str = "") -> Optional[str]:
+    def savepoint_before_write(self, context: str = "") -> str | None:
         """Create savepoint before a write operation."""
         self._init()
         if not self._savepoint_svc:
@@ -122,7 +122,7 @@ class ToolGuard:
 
     # ── G5 (R01): Naming check ────────────────────────────────────
 
-    def check_naming(self, filename: str) -> Dict[str, Any]:
+    def check_naming(self, filename: str) -> dict[str, Any]:
         """Validate NC- naming convention against @ULQ dictionary."""
         if not filename.startswith("NC-"):
             full = f"NC-XXX-XX-000-{filename}"  # allow auto-prefix
@@ -156,7 +156,7 @@ class ToolGuard:
 
     # ── GAP-002: CryptoHub signing ─────────────────────────────────
 
-    def sign_action(self, action: str, agent_role: str = "T0") -> Dict[str, Any]:
+    def sign_action(self, action: str, agent_role: str = "T0") -> dict[str, Any]:
         """Sign governance action via CryptoHub (CRYPTO-01/02)."""
         import importlib.util
         try:
@@ -193,7 +193,7 @@ class ToolGuard:
 
 
 # Singleton
-_tool_guard_instance: Optional[ToolGuard] = None
+_tool_guard_instance: ToolGuard | None = None
 
 
 def get_tool_guard() -> ToolGuard:

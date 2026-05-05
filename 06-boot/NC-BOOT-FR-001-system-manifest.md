@@ -153,19 +153,20 @@ python 01_neocortex_framework\scripts\NC-SCR-FR-001-populate-lobes-ssot.py --dry
 
 | Smbolo | Path | Funo |
 |---|---|---|
-| `@SSOT` | `DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md` | Naming + mapa + changelog |
-| `@ROADMAP` | `DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md` | Roadmap unificado (FR + DS) |
-| `@LOCKS` | `DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml` | Arquivos protegidos DENY |
-| `@POLICY` | `DIR-DOC-FR-001-docs-main/NC-CFG-FR-002-rules-policy.yaml` | Regras machine-readable |
-| `@GOVERNANCE` | `DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.yaml` | 133 regras de governanca (R01-R133, v4.0, 27 regras integradas) |a de IA + auditoria |
-| `@BOOT` | `DIR-BOOT-FR-001-bootup-main/NC-BOOT-FR-001-system-manifest.md` | **Este arquivo** |
-| `@SOP` | `DIR-DOC-FR-001-docs-main/NC-SOP-FR-001-session-startup.md` | SOP de sesso |
-| `@POPULATE` | `scripts/NC-SCR-FR-001-populate-lobes-ssot.py` | Popula lobos |
-| `@APPENDIX` | `DIR-DOC-FR-001-docs-main/NC-APP-FR-001-technical-appendix.md` | Tools, libs, LLMs |
-| `@ULQ` | `DIR-DOC-FR-001-docs-main/NC-DOC-FR-001-ubiquitous-language-dictionary.md` | Dicionário @$% |
-| `@CHANGELOG` | `DIR-DOC-FR-001-docs-main/NC-CHG-FR-001-changelog.yaml` | Changelog + Kaizen unificado |
-| `@MAPS` | `DIR-DOC-FR-001-docs-main/NC-MAP-FR-001-structural-maps.yaml` | 6 mapas estruturais |
-| `@PROMPT` | `DIR-DS-000-agent-config/NC-PROMPT-DS-001-deepseek-subordinate.md` | T1 Master context |
+| `@SSOT` | `01_neocortex_framework/23-docs/NC-NAM-FR-001-naming-convention.md` | Naming + mapa + changelog |
+| `@ROADMAP` | `01_neocortex_framework/23-docs/NC-TODO-FR-001-project-roadmap-consolidated.md` | Roadmap unificado (FR + DS) |
+| `@LOCKS` | `01_neocortex_framework/23-docs/NC-SEC-FR-001-atomic-locks.yaml` | Arquivos protegidos DENY |
+| `@POLICY` | `01_neocortex_framework/23-docs/NC-CFG-FR-002-rules-policy.yaml` | Regras machine-readable |
+| `@GOVERNANCE` | `01_neocortex_framework/23-docs/NC-GOV-FR-003-ia-governance-rules.yaml` | 133 regras de governanca (R01-R133) |
+| `@BOOT` | `06-boot/NC-BOOT-FR-001-system-manifest.md` | **Este arquivo** |
+| `@SOP` | `01_neocortex_framework/23-docs/NC-SOP-FR-001-session-startup.md` | SOP de sesso |
+| `@POPULATE` | `01_neocortex_framework/scripts/NC-SCR-FR-001-populate-lobes-ssot.py` | Popula lobos |
+| `@APPENDIX` | `01_neocortex_framework/23-docs/NC-APP-FR-001-technical-appendix.md` | Tools, libs, LLMs |
+| `@ULQ` | `01_neocortex_framework/23-docs/NC-DOC-FR-001-ubiquitous-language-dictionary.md` | Dicionário @$% |
+| `@CHANGELOG` | `01_neocortex_framework/23-docs/NC-CHG-FR-001-changelog.yaml` | Changelog + Kaizen unificado |
+| `@MAPS` | `01_neocortex_framework/23-docs/NC-MAP-FR-001-structural-maps.yaml` | 6 mapas estruturais |
+| `@PROMPT` | `01_neocortex_framework/DIR-PRF-FR-001-profiles-main/NC-PRF-FR-001-master-governance-prompt.md` | T1 Master context |
+| **@P0** | `.agents/workflows/NC-WF-002-master-governance.md` | **Master Governance (Lente Analítica)** |
 
 ---
 
@@ -175,7 +176,7 @@ python 01_neocortex_framework\scripts\NC-SCR-FR-001-populate-lobes-ssot.py --dry
 
 1. **Outros  Tarefas diversas**
    - Handoff: NC-DS-223  COMPLETED
-   - Resultado: {'what': 'requirements.txt atualizado com 14 dependencias reais (ground truth do STEP 0).', 'why': '
+   - Handoff: NC-DS-262  %DONE (Pivotação DDD e Saneamento de Órfãos. 5 scripts arquivados. Zero imports cross-domain)
 
 **Prximo passo:** Executar testes corrigidos (`pytest tests/test_vector_engine.py -v --asyncio-mode=auto`)
 

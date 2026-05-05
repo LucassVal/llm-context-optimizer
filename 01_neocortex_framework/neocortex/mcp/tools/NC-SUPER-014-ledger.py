@@ -23,7 +23,7 @@ import json
 import logging
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 logger = logging.getLogger(__name__)
 TOOL_NAME = "neocortex_ledger"
@@ -47,7 +47,7 @@ def register_tool(mcp) -> None:
         interaction_type: str = "manual",
         tokens_used: int = 0,
         detail_key: str = "",
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """FÓRUM — Ledger e Agent Identity.
         Actions: ledger.read, ledger.write, ledger.stats, ledger.metrics,
                  agent.register, agent.identity, agent.token_budget

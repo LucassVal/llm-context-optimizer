@@ -8,7 +8,6 @@ import os
 import pathlib
 import re
 from datetime import datetime
-from typing import Dict
 
 import yaml as _yaml
 
@@ -19,10 +18,10 @@ import yaml as _yaml
 class YAMLValidator:
     """Valida sintaxe de TODOS os .yaml/.yml do sistema."""
 
-    def __init__(self, root: pathlib.Path = None):
+    def __init__(self, root: pathlib.Path | None = None):
         self.root = root or pathlib.Path(os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3]))
 
-    def validate_all(self) -> Dict:
+    def validate_all(self) -> dict:
         yaml_files = []
         for d in [self.root / "01_neocortex_framework", self.root / "02_memory_lobes"]:
             if d.exists():
@@ -65,10 +64,10 @@ class MDCValidator:
     REQUIRED_HEADERS = ["lobe_id", "domain", "type", "created", "status"]
     MINIMAL_HEADERS = ["title"]  # Lobes legacy podem ter só título
 
-    def __init__(self, root: pathlib.Path = None):
+    def __init__(self, root: pathlib.Path | None = None):
         self.root = root or pathlib.Path(os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3]))
 
-    def validate_all(self) -> Dict:
+    def validate_all(self) -> dict:
         lobes_dir = self.root / "02_memory_lobes"
         lobes = list(lobes_dir.rglob("*.mdc")) if lobes_dir.exists() else []
 
@@ -131,10 +130,10 @@ class SecretScanner:
         (r'postgres://[^"\'\s]+', "PostgreSQL connection string"),
     ]
 
-    def __init__(self, root: pathlib.Path = None):
+    def __init__(self, root: pathlib.Path | None = None):
         self.root = root or pathlib.Path(os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3]))
 
-    def scan(self) -> Dict:
+    def scan(self) -> dict:
         findings = []
         files_scanned = 0
         EXCLUDE_PATHS = ["config.yaml", "_dev.yaml", ".nc/", "DIR-CFG-", "DIR-BAK-"]
@@ -176,7 +175,7 @@ class SecretScanner:
 class DeadCodeScanner:
     """Encontra arquivos orfaos nao referenciados por nenhum outro."""
 
-    def __init__(self, root: pathlib.Path = None):
+    def __init__(self, root: pathlib.Path | None = None):
         self.root = root or pathlib.Path(os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3]))
         self._gitignore_cache = None
 
@@ -201,7 +200,7 @@ class DeadCodeScanner:
         self._gitignore_cache = ignored
         return ignored
 
-    def scan(self) -> Dict:
+    def scan(self) -> dict:
         fw = self.root / "01_neocortex_framework"
         gitignored = self._get_gitignored()
         all_files = {}
@@ -240,14 +239,14 @@ class DeadCodeScanner:
 # ═══════════════════════════════════════════════════════════════
 
 class SystemIntegrityEngine:
-    def __init__(self, root: pathlib.Path = None):
+    def __init__(self, root: pathlib.Path | None = None):
         self.root = root or pathlib.Path(os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3]))
         self.yaml = YAMLValidator(root=self.root)
         self.mdc = MDCValidator(root=self.root)
         self.secrets = SecretScanner(root=self.root)
         self.deadcode = DeadCodeScanner(root=self.root)
 
-    def full_audit(self) -> Dict:
+    def full_audit(self) -> dict:
         return {
             "yaml_validate": self.yaml.validate_all(),
             "mdc_header": self.mdc.validate_all(),

@@ -20,7 +20,7 @@ implementations (filesystem, database, hub, etc.).
 """
 
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 
 class Repository(ABC):
@@ -42,7 +42,7 @@ class Repository(ABC):
         pass
 
     @abstractmethod
-    def list(self) -> List[str]:
+    def list(self) -> list[str]:
         """List all available identifiers."""
         pass
 
@@ -61,12 +61,12 @@ class CortexRepository(Repository):
         pass
 
     @abstractmethod
-    def get_aliases(self) -> Dict[str, str]:
+    def get_aliases(self) -> dict[str, str]:
         """Extract and return all aliases from cortex."""
         pass
 
     @abstractmethod
-    def get_workflows(self) -> List[Dict[str, Any]]:
+    def get_workflows(self) -> list[dict[str, Any]]:
         """Extract and return all workflows from cortex."""
         pass
 
@@ -75,17 +75,17 @@ class LedgerRepository(Repository):
     """Repository interface for Ledger operations."""
 
     @abstractmethod
-    def read_ledger(self) -> Dict[str, Any]:
+    def read_ledger(self) -> dict[str, Any]:
         """Read the entire ledger content."""
         pass
 
     @abstractmethod
-    def write_ledger(self, data: Dict[str, Any]) -> bool:
+    def write_ledger(self, data: dict[str, Any]) -> bool:
         """Write data to ledger."""
         pass
 
     @abstractmethod
-    def update_ledger_section(self, section: str, data: Dict[str, Any]) -> bool:
+    def update_ledger_section(self, section: str, data: dict[str, Any]) -> bool:
         """Update a specific section of the ledger."""
         pass
 
@@ -95,7 +95,7 @@ class LedgerRepository(Repository):
         pass
 
     @abstractmethod
-    def get_system_constraints(self) -> Dict[str, Any]:
+    def get_system_constraints(self) -> dict[str, Any]:
         """Get system constraints from ledger."""
         pass
 
@@ -104,17 +104,17 @@ class ProfileRepository(Repository):
     """Repository interface for Profile operations."""
 
     @abstractmethod
-    def read_profile(self, profile_id: str) -> Dict[str, Any]:
+    def read_profile(self, profile_id: str) -> dict[str, Any]:
         """Read a specific profile."""
         pass
 
     @abstractmethod
-    def write_profile(self, profile_id: str, data: Dict[str, Any]) -> bool:
+    def write_profile(self, profile_id: str, data: dict[str, Any]) -> bool:
         """Write or update a profile."""
         pass
 
     @abstractmethod
-    def list_profiles(self) -> List[str]:
+    def list_profiles(self) -> list[str]:
         """List all available profile IDs."""
         pass
 
@@ -128,7 +128,7 @@ class LobeRepository(Repository):
     """Repository interface for Lobe operations."""
 
     @abstractmethod
-    def read_lobe(self, lobe_name: str) -> Optional[str]:
+    def read_lobe(self, lobe_name: str) -> str | None:
         """Read a specific lobe content."""
         pass
 
@@ -138,7 +138,7 @@ class LobeRepository(Repository):
         pass
 
     @abstractmethod
-    def list_lobes(self) -> List[str]:
+    def list_lobes(self) -> list[str]:
         """List all available lobe names."""
         pass
 

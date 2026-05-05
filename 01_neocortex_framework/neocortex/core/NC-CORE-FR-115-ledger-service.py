@@ -14,7 +14,7 @@ using repository interfaces for storage abstraction.
 
 import json
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any
 
 from ..repositories import LedgerRepository
 from ..schemas import LEDGER_SCHEMA
@@ -23,7 +23,7 @@ from ..schemas import LEDGER_SCHEMA
 class LedgerService:
     """Service for ledger-related business logic."""
 
-    def __init__(self, repository: Optional[LedgerRepository] = None):
+    def __init__(self, repository: LedgerRepository | None = None):
         """
         Initialize ledger service.
 
@@ -38,11 +38,11 @@ class LedgerService:
         else:
             self.repository = repository
 
-    def read(self) -> Dict[str, Any]:
+    def read(self) -> dict[str, Any]:
         """Alias for get_full_ledger."""
         return self.get_full_ledger()
 
-    def get_full_ledger(self) -> Dict[str, Any]:
+    def get_full_ledger(self) -> dict[str, Any]:
         """
         Get full ledger content.
 
@@ -51,7 +51,7 @@ class LedgerService:
         """
         return self.repository.read_ledger()
 
-    def get_ledger_section(self, section_path: str) -> Dict[str, Any]:
+    def get_ledger_section(self, section_path: str) -> dict[str, Any]:
         """
         Get a specific section from ledger using dot notation.
 
@@ -79,7 +79,7 @@ class LedgerService:
 
         return {"section": section_path, "content": current, "found": True}
 
-    def update_ledger_section(self, section_path: str, data: Any) -> Dict[str, Any]:
+    def update_ledger_section(self, section_path: str, data: Any) -> dict[str, Any]:
         """
         Update a specific section in ledger.
 
@@ -114,8 +114,8 @@ class LedgerService:
             }
 
     def add_changelog_entry(
-        self, change: str, impact: str, metadata: Optional[Dict[str, Any]] = None
-    ) -> Dict[str, Any]:
+        self, change: str, impact: str, metadata: dict[str, Any] | None = None
+    ) -> dict[str, Any]:
         """
         Add an entry to the changelog.
 
@@ -153,7 +153,7 @@ class LedgerService:
         else:
             return {"success": False, "error": "Failed to add changelog entry"}
 
-    def get_system_constraints(self) -> Dict[str, Any]:
+    def get_system_constraints(self) -> dict[str, Any]:
         """
         Get system constraints from ledger.
 
@@ -162,7 +162,7 @@ class LedgerService:
         """
         return self.repository.get_system_constraints()
 
-    def validate_ledger(self) -> Dict[str, Any]:
+    def validate_ledger(self) -> dict[str, Any]:
         """
         Validate ledger structure against schema.
 
@@ -239,7 +239,7 @@ class LedgerService:
             "sections_count": len(ledger),
         }
 
-    def get_session_metrics(self) -> Dict[str, Any]:
+    def get_session_metrics(self) -> dict[str, Any]:
         """
         Get session metrics from ledger.
 
@@ -273,7 +273,7 @@ class LedgerService:
 
     def update_session_metrics(
         self, interaction_type: str = "generic", tokens_used: int = 0
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Update session metrics after an interaction.
 
@@ -349,7 +349,7 @@ class LedgerService:
         else:
             return {"success": False, "error": "Failed to update session metrics"}
 
-    def prune_context(self) -> Dict[str, Any]:
+    def prune_context(self) -> dict[str, Any]:
         """
         Prune hot context to cold storage when limit is exceeded.
 
@@ -431,7 +431,7 @@ class LedgerService:
 _default_ledger_service = None
 
 
-def get_ledger_service(repository: Optional[LedgerRepository] = None) -> LedgerService:
+def get_ledger_service(repository: LedgerRepository | None = None) -> LedgerService:
     """
     Get ledger service instance (singleton pattern).
 

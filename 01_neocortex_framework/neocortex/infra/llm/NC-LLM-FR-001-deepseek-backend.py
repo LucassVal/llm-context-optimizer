@@ -14,7 +14,8 @@ Supports DeepSeek API with streaming and async operations.
 import asyncio
 import json
 import logging
-from typing import Any, AsyncGenerator, Dict, List, Optional
+from collections.abc import AsyncGenerator
+from typing import Any
 
 import aiohttp
 
@@ -30,7 +31,7 @@ class DeepSeekBackend(LLMBackend):
     Requires DeepSeek API key.
     """
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: dict[str, Any]):
         """
         Initialize DeepSeek backend.
 
@@ -43,7 +44,7 @@ class DeepSeekBackend(LLMBackend):
             logger.warning("DeepSeek API key not provided in config")
 
         self.base_url = config.get("base_url", "https://api.deepseek.com")
-        self.session: Optional[aiohttp.ClientSession] = None
+        self.session: aiohttp.ClientSession | None = None
         super().__init__(config)
 
     def _initialize(self) -> None:
@@ -173,7 +174,7 @@ class DeepSeekBackend(LLMBackend):
                                 break
                             try:
                                 chunk = json.loads(data)
-                                if "choices" in chunk and chunk["choices"]:
+                                if chunk.get("choices"):
                                     delta = chunk["choices"][0].get("delta", {})
                                     token = delta.get("content", "")
                                     if token:
@@ -189,9 +190,9 @@ class DeepSeekBackend(LLMBackend):
         """Call DeepSeek chat/completions with thinking mode enabled."""
         if not self.api_key:
             raise RuntimeError("DeepSeek API key not configured")
-        
+
         session = await self._ensure_session()
-        
+
         # Thinking mode requires reasoning_effort and extra_body toggle
         messages = []
         if request.system_prompt:
@@ -226,19 +227,19 @@ class DeepSeekBackend(LLMBackend):
         """Call DeepSeek chat/completions with message history."""
         if not self.api_key:
             raise RuntimeError("DeepSeek API key not configured")
-        
+
         session = await self._ensure_session()
-        
+
         payload = {
             "model": self.model,
             "messages": request.messages, # Assuming request.messages is a list of dicts
             "temperature": request.temperature,
             "stream": False,
         }
-        
+
         if request.max_tokens:
             payload["max_tokens"] = request.max_tokens
-            
+
         try:
             async with session.post(f"{self.base_url}/chat/completions", json=payload) as response:
                 if response.status != 200:
@@ -299,7 +300,7 @@ class DeepSeekBackend(LLMBackend):
                                 break
                             try:
                                 chunk = json.loads(data)
-                                if "choices" in chunk and chunk["choices"]:
+                                if chunk.get("choices"):
                                     delta = chunk["choices"][0].get("delta", {})
                                     token = delta.get("content", "")
                                     if token:
@@ -319,7 +320,7 @@ class DeepSeekBackend(LLMBackend):
         """
         return len(text) // 4
 
-    def get_available_models(self) -> List[str]:
+    def get_available_models(self) -> list[str]:
         """
         Get available DeepSeek models.
 

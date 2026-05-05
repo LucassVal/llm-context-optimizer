@@ -24,11 +24,11 @@ VALIDATOR_WEIGHTS = _rev.VALIDATOR_WEIGHTS
 get_review_service = _rev.get_review_service
 
 __all__ = [
+    "VALIDATOR_WEIGHTS",
     "BaseValidator",
-    "ValidatorResult",
-    "ValidationResult",
     "ConfidenceReviewService",
     "ReviewReport",
-    "VALIDATOR_WEIGHTS",
+    "ValidationResult",
+    "ValidatorResult",
     "get_review_service",
 ]

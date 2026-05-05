@@ -10,13 +10,12 @@ import pathlib
 import re
 from collections import defaultdict
 from datetime import datetime
-from typing import Dict, List, Optional
 
 
 class SemanticBootEngine:
     """Executa a sequencia de boot semantica: ULQ -> TAGS -> PREP."""
 
-    def __init__(self, root: pathlib.Path = None):
+    def __init__(self, root: pathlib.Path | None = None):
         self.root = root or pathlib.Path(os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3]))
         self.lexico_dir = self.root / "01_neocortex_framework" / ".neocortex" / "lexico"
         self.lexico_dir.mkdir(parents=True, exist_ok=True)
@@ -25,7 +24,7 @@ class SemanticBootEngine:
 
     # ── STEP 1: ULQ LOOKUP ────────────────────────────────────
 
-    def ulq_lookup(self, term: str) -> Optional[Dict]:
+    def ulq_lookup(self, term: str) -> dict | None:
         """Consulta ULQ para definicao de um termo."""
         ulq_file = self.root / "01_neocortex_framework" / "DIR-DOC-FR-001-docs-main" / "NC-DOC-FR-001-ubiquitous-language-dictionary.md"
         if not ulq_file.exists():
@@ -41,7 +40,7 @@ class SemanticBootEngine:
 
     # ── STEP 2: TAG INDEX ─────────────────────────────────────
 
-    def build_tag_index(self) -> Dict:
+    def build_tag_index(self) -> dict:
         """Constroi indice de @Tags de todos os arquivos."""
         fw = self.root / "01_neocortex_framework" / "neocortex"
         tag_index = defaultdict(list)
@@ -69,14 +68,14 @@ class SemanticBootEngine:
 
         # Save index
         index_file = self.lexico_dir / "NC-ULQ-TAG-INDEX.json"
-        index_data = {"tags": {k: v for k, v in tag_index.items()}, "total": sum(len(v) for v in tag_index.values()),
+        index_data = {"tags": dict(tag_index.items()), "total": sum(len(v) for v in tag_index.values()),
                        "generated_at": datetime.now().isoformat()}
         index_file.write_text(json.dumps(index_data, indent=2, ensure_ascii=False), encoding="utf-8")
         self._tag_index_cache = dict(tag_index)
         return {"total_tags": len(tag_index), "total_entries": sum(len(v) for v in tag_index.values()),
                 "top_tags": sorted(tag_index.keys(), key=lambda k: len(tag_index[k]), reverse=True)[:10]}
 
-    def tag_lookup(self, tag: str) -> List[Dict]:
+    def tag_lookup(self, tag: str) -> list[dict]:
         """Encontra todos os arquivos com uma @tag."""
         if not self._tag_index_cache:
             self.build_tag_index()
@@ -84,7 +83,7 @@ class SemanticBootEngine:
 
     # ── STEP 3: PREP ──────────────────────────────────────────
 
-    def prep(self, intent: str) -> Dict:
+    def prep(self, intent: str) -> dict:
         """Prepara acao baseada em intencao: 'KPI', 'audit', 'governance'."""
         # 1. ULQ lookup
         ulq_result = self.ulq_lookup(intent)
@@ -115,7 +114,7 @@ class SemanticBootEngine:
 
     # ── AUTO-REGISTRY ─────────────────────────────────────────
 
-    def auto_register(self, filepath: str) -> Dict:
+    def auto_register(self, filepath: str) -> dict:
         """Registra novo arquivo no indice de tags."""
         fp = self.root / filepath if not filepath.startswith(str(self.root)) else pathlib.Path(filepath)
         if not fp.exists():
@@ -140,7 +139,7 @@ class SemanticBootEngine:
 
     # ── DECAY ─────────────────────────────────────────────────
 
-    def decay_check(self, max_age_days: int = 7) -> Dict:
+    def decay_check(self, max_age_days: int = 7) -> dict:
         """Marca tags nao usadas como STALE."""
         decay_file = self.lexico_dir / "NC-DECAY-LOG.json"
         decay_log = json.loads(decay_file.read_text("utf-8")) if decay_file.exists() else {}
@@ -158,7 +157,7 @@ class SemanticBootEngine:
 
     # ── FULL BOOT SEQUENCE ────────────────────────────────────
 
-    def boot(self) -> Dict:
+    def boot(self) -> dict:
         """Executa sequencia completa: ULQ -> TAGS -> PREP."""
         # 1. ULQ — carregar dicionario
         ulq_loaded = self.ulq_lookup("NeoCortex") is not None

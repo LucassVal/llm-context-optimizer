@@ -25,7 +25,7 @@ Integração: registrar via HookRegistry.register() ou NC-CFG-HK-001-hooks.yaml
 import importlib.util
 import logging
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -79,7 +79,7 @@ def _should_trigger(tool_name: str, action: str = "") -> bool:
     return True
 
 
-def _lexico_search(query: str, limit: int = 5) -> List[Dict]:
+def _lexico_search(query: str, limit: int = 5) -> list[dict]:
     """Busca termos relacionados no léxico."""
     svc = _get_lexico_service()
     if svc is None:
@@ -116,7 +116,7 @@ class LexicoStep0Hook:
         tool_name: str = "",
         action: str = "",
         **kwargs: Any,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """Handler PreToolUse — busca léxico se for tool de serviço/escrita."""
         if not _should_trigger(tool_name, action):
             return {"lexico_step0": "skip", "reason": "not_a_service_write"}
@@ -168,7 +168,7 @@ class LexicoStep0Hook:
             )
         return result
 
-    def stats(self) -> Dict[str, int]:
+    def stats(self) -> dict[str, int]:
         """Retorna estatísticas de hits/misses do hook."""
         return {
             "hits": self._hit_count,
@@ -178,7 +178,7 @@ class LexicoStep0Hook:
 
 
 # ── Função para registro direto via load_yaml ────────────────────────────────
-_hook_instance: Optional[LexicoStep0Hook] = None
+_hook_instance: LexicoStep0Hook | None = None
 
 
 def get_hook() -> LexicoStep0Hook:
@@ -189,7 +189,7 @@ def get_hook() -> LexicoStep0Hook:
     return _hook_instance
 
 
-def hook_handler(**kwargs) -> Dict[str, Any]:
+def hook_handler(**kwargs) -> dict[str, Any]:
     """Entry point para load_yaml (HookRegistry espera uma função 'hook_handler')."""
     return get_hook().on_pre_tool_use(**kwargs)
 

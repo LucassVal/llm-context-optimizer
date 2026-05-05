@@ -22,14 +22,14 @@ import tracemalloc
 from contextlib import contextmanager
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timedelta
-from enum import Enum
+from enum import StrEnum
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
 
-class ProfileMode(str, Enum):
+class ProfileMode(StrEnum):
     """Profiling modes."""
 
     CPU = "cpu"
@@ -48,9 +48,9 @@ class ProfileResult:
     memory_increment_bytes: int = 0
     call_count: int = 0
     timestamp: datetime = field(default_factory=datetime.now)
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary."""
         data = asdict(self)
         data["timestamp"] = self.timestamp.isoformat()
@@ -66,9 +66,9 @@ class Bottleneck:
     description: str
     impact: str
     recommendation: str
-    evidence: Dict[str, Any] = field(default_factory=dict)
+    evidence: dict[str, Any] = field(default_factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary."""
         return asdict(self)
 
@@ -85,7 +85,7 @@ class Profiler:
     - Historical performance tracking
     """
 
-    def __init__(self, output_dir: Optional[Path] = None):
+    def __init__(self, output_dir: Path | None = None):
         """
         Initialize profiler.
 
@@ -101,8 +101,8 @@ class Profiler:
         output_dir.mkdir(parents=True, exist_ok=True)
         self.output_dir = output_dir
 
-        self.results: Dict[str, ProfileResult] = {}
-        self.bottlenecks: List[Bottleneck] = []
+        self.results: dict[str, ProfileResult] = {}
+        self.bottlenecks: list[Bottleneck] = []
 
         # Profiling state
         self._cpu_profiler = None
@@ -115,7 +115,7 @@ class Profiler:
         self,
         name: str,
         mode: ProfileMode = ProfileMode.CPU,
-        metadata: Optional[Dict[str, Any]] = None,
+        metadata: dict[str, Any] | None = None,
     ):
         """
         Context manager for profiling code blocks.
@@ -189,7 +189,7 @@ class Profiler:
     def profile_function(
         self,
         mode: ProfileMode = ProfileMode.CPU,
-        name: Optional[str] = None,
+        name: str | None = None,
     ):
         """
         Decorator for profiling functions.
@@ -233,7 +233,6 @@ class Profiler:
         Returns:
             Dictionary of operation profiles.
         """
-        results = {}
 
         # Import store based on name
         try:
@@ -305,7 +304,7 @@ class Profiler:
 
         return store_results
 
-    def detect_bottlenecks(self) -> List[Bottleneck]:
+    def detect_bottlenecks(self) -> list[Bottleneck]:
         """
         Detect performance bottlenecks from profiling results.
 
@@ -342,7 +341,7 @@ class Profiler:
         return self.bottlenecks
 
     def _analyze_operation_bottlenecks(
-        self, op_type: str, results: List[ProfileResult]
+        self, op_type: str, results: list[ProfileResult]
     ):
         """Analyze bottlenecks for specific operation type."""
         if len(results) < 3:
@@ -393,7 +392,7 @@ class Profiler:
                     )
                 )
 
-    def _analyze_memory_bottlenecks(self, results: List[ProfileResult]):
+    def _analyze_memory_bottlenecks(self, results: list[ProfileResult]):
         """Analyze memory-related bottlenecks."""
         memory_results = [r for r in results if r.memory_peak_bytes > 0]
         if not memory_results:
@@ -406,7 +405,7 @@ class Profiler:
         )
 
         if len(memory_by_time) >= 5:
-            timestamps, memory_values = zip(*memory_by_time)
+            _timestamps, memory_values = zip(*memory_by_time, strict=False)
 
             # Simple trend detection
             first_half = memory_values[: len(memory_values) // 2]
@@ -431,7 +430,7 @@ class Profiler:
                     )
                 )
 
-    def _analyze_io_bottlenecks(self, results: List[ProfileResult]):
+    def _analyze_io_bottlenecks(self, results: list[ProfileResult]):
         """Analyze I/O related bottlenecks."""
         # Look for operations with high call counts
         high_call_ops = [
@@ -456,7 +455,7 @@ class Profiler:
                 )
             )
 
-    def generate_report(self, format: str = "text") -> Union[str, Dict[str, Any]]:
+    def generate_report(self, format: str = "text") -> str | dict[str, Any]:
         """
         Generate profiling report.
 
@@ -495,7 +494,7 @@ class Profiler:
         else:  # text format (default)
             return self._generate_text_report(report_data)
 
-    def _generate_performance_summary(self) -> Dict[str, Any]:
+    def _generate_performance_summary(self) -> dict[str, Any]:
         """Generate performance summary from results."""
         if not self.results:
             return {}
@@ -529,7 +528,7 @@ class Profiler:
 
         return summary
 
-    def _generate_text_report(self, report_data: Dict[str, Any]) -> str:
+    def _generate_text_report(self, report_data: dict[str, Any]) -> str:
         """Generate text format report."""
         lines = []
 
@@ -577,7 +576,7 @@ class Profiler:
 
         return "\n".join(lines)
 
-    def _generate_html_report(self, report_data: Dict[str, Any]) -> str:
+    def _generate_html_report(self, report_data: dict[str, Any]) -> str:
         """Generate HTML format report."""
         # Simple HTML report for now
         html = f"""
@@ -604,7 +603,7 @@ class Profiler:
                 <p>Generated: {report_data["timestamp"]}</p>
                 <p>Total profiles: {report_data["total_profiles"]} | Recent (24h): {report_data["recent_profiles"]}</p>
             </div>
-            
+
             <div class="section">
                 <h2>Performance Summary</h2>
                 <table>
@@ -633,7 +632,7 @@ class Profiler:
         html += """
                 </table>
             </div>
-            
+
             <div class="section">
                 <h2>Detected Bottlenecks</h2>
         """
@@ -659,7 +658,7 @@ class Profiler:
 
         return html
 
-    def save_report(self, filename: Optional[str] = None) -> Path:
+    def save_report(self, filename: str | None = None) -> Path:
         """
         Save profiling report to file.
 
@@ -692,7 +691,7 @@ class Profiler:
         self.bottlenecks.clear()
         logger.info("Profiling results cleared")
 
-    def get_stats(self) -> Dict[str, Any]:
+    def get_stats(self) -> dict[str, Any]:
         """Get profiler statistics."""
         return {
             "total_results": len(self.results),
@@ -708,7 +707,7 @@ class Profiler:
         }
 
 
-def create_profiler(output_dir: Optional[Path] = None) -> Profiler:
+def create_profiler(output_dir: Path | None = None) -> Profiler:
     """
     Create a Profiler instance.
 

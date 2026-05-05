@@ -12,7 +12,7 @@ This service encapsulates business logic for knowledge graph operations,
 using repository interfaces for storage abstraction.
 """
 
-from typing import Any, Dict, Optional
+from typing import Any
 
 from ..repositories import LedgerRepository
 
@@ -20,7 +20,7 @@ from ..repositories import LedgerRepository
 class KGService:
     """Service for knowledge graph business logic."""
 
-    def __init__(self, repository: Optional[LedgerRepository] = None):
+    def __init__(self, repository: LedgerRepository | None = None):
         """
         Initialize KG service.
 
@@ -35,7 +35,7 @@ class KGService:
         else:
             self.repository = repository
 
-    def _ensure_kg_structure(self, ledger: Dict[str, Any]) -> Dict[str, Any]:
+    def _ensure_kg_structure(self, ledger: dict[str, Any]) -> dict[str, Any]:
         """Ensure knowledge graph structure exists in memory_cortex."""
         memory_cortex = ledger.get("memory_cortex", {})
         if "knowledge_graph" not in memory_cortex:
@@ -55,7 +55,7 @@ class KGService:
             ledger["memory_cortex"] = memory_cortex
         return ledger
 
-    def add_entity(self, entity: str, entity_type: str = "concept") -> Dict[str, Any]:
+    def add_entity(self, entity: str, entity_type: str = "concept") -> dict[str, Any]:
         """
         Add an entity to the knowledge graph.
 
@@ -107,8 +107,8 @@ class KGService:
         }
 
     def add_relation(
-        self, source: str, relation: str, target: str, metadata: Optional[Dict] = None
-    ) -> Dict[str, Any]:
+        self, source: str, relation: str, target: str, metadata: dict | None = None
+    ) -> dict[str, Any]:
         """
         Add a relation between entities.
 
@@ -178,7 +178,7 @@ class KGService:
             "message": f"Relation '{source} {relation} {target}' added to KG",
         }
 
-    def query_relations(self, entity: str) -> Dict[str, Any]:
+    def query_relations(self, entity: str) -> dict[str, Any]:
         """
         Query all relations involving an entity.
 
@@ -220,7 +220,7 @@ class KGService:
             "total_relations": len(entity_relations),
         }
 
-    def find_similar(self, entity: str = "") -> Dict[str, Any]:
+    def find_similar(self, entity: str = "") -> dict[str, Any]:
         """
         Find entities similar to a given entity.
 
@@ -278,7 +278,7 @@ class KGService:
             "count": len(similar),
         }
 
-    def visualize(self) -> Dict[str, Any]:
+    def visualize(self) -> dict[str, Any]:
         """
         Generate visualization of the knowledge graph.
 
@@ -330,7 +330,7 @@ class KGService:
             "message": "KG graph exported in DOT format. Use Graphviz to visualize.",
         }
 
-    def get_stats(self) -> Dict[str, Any]:
+    def get_stats(self) -> dict[str, Any]:
         """
         Get knowledge graph statistics.
 
@@ -372,7 +372,7 @@ class KGService:
 _default_kg_service = None
 
 
-def get_kg_service(repository: Optional[LedgerRepository] = None) -> KGService:
+def get_kg_service(repository: LedgerRepository | None = None) -> KGService:
     """
     Get KG service instance (singleton pattern).
 

@@ -13,7 +13,7 @@ using repository interfaces for storage abstraction.
 """
 
 import re
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 # from ..infra.lobe_index import LobeIndexService
 from ..repositories import LobeRepository
@@ -25,8 +25,8 @@ class LobeService:
 
     def __init__(
         self,
-        repository: Optional[LobeRepository] = None,
-        index: Optional[Any] = None,
+        repository: LobeRepository | None = None,
+        index: Any | None = None,
     ):
         """
         Initialize lobe service.
@@ -49,7 +49,7 @@ class LobeService:
         else:
             self.index = index
 
-    def list_lobes(self) -> Dict[str, Any]:
+    def list_lobes(self) -> dict[str, Any]:
         """
         List all available lobes with metadata.
 
@@ -71,7 +71,7 @@ class LobeService:
             "categories": self._categorize_lobes(lobes),
         }
 
-    def get_lobe(self, lobe_name: str) -> Dict[str, Any]:
+    def get_lobe(self, lobe_name: str) -> dict[str, Any]:
         """
         Get a specific lobe with content and metadata.
 
@@ -95,8 +95,8 @@ class LobeService:
         return {"name": lobe_name, "exists": True, "content": content, **metadata}
 
     def create_lobe(
-        self, lobe_name: str, content: str, metadata: Optional[Dict[str, Any]] = None
-    ) -> Dict[str, Any]:
+        self, lobe_name: str, content: str, metadata: dict[str, Any] | None = None
+    ) -> dict[str, Any]:
         """
         Create a new lobe.
 
@@ -158,7 +158,7 @@ class LobeService:
         else:
             return {"success": False, "error": f"Failed to create lobe '{lobe_name}'"}
 
-    def update_lobe(self, lobe_name: str, content: str) -> Dict[str, Any]:
+    def update_lobe(self, lobe_name: str, content: str) -> dict[str, Any]:
         """
         Update an existing lobe.
 
@@ -222,7 +222,7 @@ class LobeService:
         else:
             return {"success": False, "error": f"Failed to update lobe '{lobe_name}'"}
 
-    def delete_lobe(self, lobe_name: str) -> Dict[str, Any]:
+    def delete_lobe(self, lobe_name: str) -> dict[str, Any]:
         """
         Delete a lobe.
 
@@ -242,7 +242,7 @@ class LobeService:
             "note": "Lobes should be archived rather than deleted",
         }
 
-    def search_lobes(self, query: str, case_sensitive: bool = False) -> Dict[str, Any]:
+    def search_lobes(self, query: str, case_sensitive: bool = False) -> dict[str, Any]:
         """
         Search for text across all lobes using LobeIndex for fast retrieval.
 
@@ -317,7 +317,7 @@ class LobeService:
             "results": results,
         }
 
-    def get_lobe_patterns(self, lobe_name: str) -> Dict[str, Any]:
+    def get_lobe_patterns(self, lobe_name: str) -> dict[str, Any]:
         """
         Extract patterns (symbols starting with ?) from a lobe.
 
@@ -346,7 +346,7 @@ class LobeService:
             "count": len(patterns),
         }
 
-    def _extract_lobe_metadata(self, lobe_name: str, content: str) -> Dict[str, Any]:
+    def _extract_lobe_metadata(self, lobe_name: str, content: str) -> dict[str, Any]:
         """Extract metadata from lobe content."""
         metadata = {
             "size_chars": len(content),
@@ -375,7 +375,7 @@ class LobeService:
 
         return metadata
 
-    def _categorize_lobes(self, lobes: List[Dict[str, Any]]) -> Dict[str, List[str]]:
+    def _categorize_lobes(self, lobes: list[dict[str, Any]]) -> dict[str, list[str]]:
         """Categorize lobes based on name patterns."""
         categories = {
             "framework": [],  # NC-CTX-, NC-LED-, etc.
@@ -402,8 +402,8 @@ class LobeService:
         return categories
 
     def _group_results_by_lobe(
-        self, results: List[Dict[str, Any]]
-    ) -> Dict[str, List[Dict[str, Any]]]:
+        self, results: list[dict[str, Any]]
+    ) -> dict[str, list[dict[str, Any]]]:
         """Group search results by lobe name."""
         grouped = {}
         for result in results:
@@ -413,7 +413,7 @@ class LobeService:
             grouped[lobe].append(result)
         return grouped
 
-    def get_active_lobes(self) -> Dict[str, Any]:
+    def get_active_lobes(self) -> dict[str, Any]:
         """
         Get list of active lobes from ledger.
 
@@ -449,7 +449,7 @@ class LobeService:
             "has_memory_cortex": "memory_cortex" in ledger,
         }
 
-    def activate_lobe(self, lobe_name: str) -> Dict[str, Any]:
+    def activate_lobe(self, lobe_name: str) -> dict[str, Any]:
         """
         Activate a lobe (add to active lobes in memory cortex).
 
@@ -515,15 +515,15 @@ class LobeService:
         else:
             return {"success": False, "error": "Failed to update ledger"}
 
-    def activate(self, lobe_name: str) -> Dict[str, Any]:
+    def activate(self, lobe_name: str) -> dict[str, Any]:
         """Alias for activate_lobe."""
         return self.activate_lobe(lobe_name)
 
-    def deactivate(self, lobe_name: str) -> Dict[str, Any]:
+    def deactivate(self, lobe_name: str) -> dict[str, Any]:
         """Alias for deactivate_lobe."""
         return self.deactivate_lobe(lobe_name)
 
-    def deactivate_lobe(self, lobe_name: str) -> Dict[str, Any]:
+    def deactivate_lobe(self, lobe_name: str) -> dict[str, Any]:
         """
         Deactivate a lobe (remove from active lobes in memory cortex).
 
@@ -576,7 +576,7 @@ class LobeService:
         else:
             return {"success": False, "error": "Failed to update ledger"}
 
-    def get_checkpoint_tree(self, lobe_name: str) -> Dict[str, Any]:
+    def get_checkpoint_tree(self, lobe_name: str) -> dict[str, Any]:
         """
         Extract checkpoint tree from a lobe.
 
@@ -640,11 +640,11 @@ class LobeService:
     def search_lobes_advanced(
         self,
         query: str,
-        module: Optional[str] = None,
-        status: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        module: str | None = None,
+        status: str | None = None,
+        tags: list[str] | None = None,
         limit: int = 20,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Advanced search across lobes with metadata filtering.
 
@@ -710,8 +710,8 @@ _default_lobe_service = None
 
 
 def get_lobe_service(
-    repository: Optional[LobeRepository] = None,
-    index: Optional[Any] = None,
+    repository: LobeRepository | None = None,
+    index: Any | None = None,
 ) -> LobeService:
     """
     Get lobe service instance (singleton pattern).

@@ -6,7 +6,6 @@ import os
 import re
 from datetime import datetime
 from pathlib import Path
-from typing import Dict
 
 
 class TechniquesAudit:
@@ -33,7 +32,7 @@ class TechniquesAudit:
         content = gw.read_text(encoding="utf-8", errors="ignore")
         return "ENFORCED" if re.search(pattern, content, re.IGNORECASE) else "NOT_ENFORCED"
 
-    def audit_all(self) -> Dict:
+    def audit_all(self) -> dict:
         return {
             "analysis_techniques": self._audit_analysis(),
             "business_techniques": self._audit_business(),
@@ -41,7 +40,7 @@ class TechniquesAudit:
             "timestamp": datetime.now().isoformat(),
         }
 
-    def _audit_analysis(self) -> Dict:
+    def _audit_analysis(self) -> dict:
         rca_mod = self._check_module("NC-CORE-FR-147-root-cause-engine.py")
         watcher_mod = self._check_module("NC-CORE-FR-146-central-watcher.py")
         three_w_mod = self._check_module("NC-CORE-FR-151-missing-techniques.py")
@@ -72,7 +71,7 @@ class TechniquesAudit:
             },
         }
 
-    def _audit_business(self) -> Dict:
+    def _audit_business(self) -> dict:
         return {
             "PDCA": {
                 "lobe_exists": (self.root / "02_memory_lobes" / "06_governance" / "NC-LBE-FR-PDCA-001.mdc").exists(),
@@ -101,7 +100,7 @@ class TechniquesAudit:
             },
         }
 
-    def _audit_engineering(self) -> Dict:
+    def _audit_engineering(self) -> dict:
         return {
             "DRY": {
                 "gateway_called_by_orbital": self._check_import("NC-CORE-FR-139-orbital-bridge.py", r"gateway_check|gateway_bridge"),

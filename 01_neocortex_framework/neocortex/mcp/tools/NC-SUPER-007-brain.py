@@ -21,7 +21,7 @@ Actions:
 """
 import logging
 from datetime import datetime
-from typing import Any, Dict
+from typing import Any
 
 logger = logging.getLogger(__name__)
 TOOL_NAME = "neocortex_brain"
@@ -41,7 +41,7 @@ def register_tool(mcp) -> None:
         complexity: str = "RACIOCINIO",
         mode: str = "analytical",
         max_tokens: int = 1024,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """CORTE STF — Inteligência Soberana.
         Funde: brain (000) + intelligence (027).
         Actions: brain.think, brain.plan, brain.critique, brain.orchestrate,
@@ -168,10 +168,7 @@ def register_tool(mcp) -> None:
 
                 for expert_name, rules in EXPERT_RULES.items():
                     triggered = [t for t in rules["triggers"] if t in text_lower]
-                    if triggered:
-                        sev = rules["severity_override"]
-                    else:
-                        sev = "BAIXA"
+                    sev = rules["severity_override"] if triggered else "BAIXA"
 
                     # Try LLM for richer feedback, fallback to static
                     llm_hint = _call_llm(

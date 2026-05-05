@@ -11,7 +11,6 @@ UTIL-003  PathResolver: resoluo de paths respeitando get_config()
 
 import logging
 from pathlib import Path
-from typing import List, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -24,7 +23,7 @@ class PathResolver:
 
         self._cfg = get_config()
 
-    def resolve_ticket_path(self, ticket_id: str) -> Optional[Path]:
+    def resolve_ticket_path(self, ticket_id: str) -> Path | None:
         """Busca ticket YAML em DIR-DS-001-tickets/NC-{ticket_id}-*.yaml"""
         # Padro: DIR-DS-001-tickets/NC-DS-NNN-*.yaml
         tickets_dir = self._cfg.project_root / "DIR-DS-001-tickets"
@@ -54,7 +53,7 @@ class PathResolver:
         candidates.sort(key=lambda p: p.name)
         return candidates[0]
 
-    def resolve_handoff_path(self, ticket_id: str) -> Optional[Path]:
+    def resolve_handoff_path(self, ticket_id: str) -> Path | None:
         """Busca handoff mais recente em DIR-DS-002-audit-logs/ para o ticket."""
         # Padro: NC-{ticket_id}-handoff-*.yaml  retorna o mais recente por mtime
         audit_logs_dir = self._cfg.project_root / "DIR-DS-002-audit-logs"
@@ -78,7 +77,7 @@ class PathResolver:
         candidates.sort(key=lambda p: p.stat().st_mtime, reverse=True)
         return candidates[0]
 
-    def resolve_lobe_path(self, lobe_name: str) -> Optional[Path]:
+    def resolve_lobe_path(self, lobe_name: str) -> Path | None:
         """Busca .mdc em 01_neocortex_framework/lobes/ ou 02_memory_lobes/"""
         # Try 01_neocortex_framework/lobes/
         lobes_dir1 = self._cfg.project_root / "01_neocortex_framework" / "lobes"
@@ -105,7 +104,7 @@ class PathResolver:
 
         return None
 
-    def resolve_tool_path(self, tool_name: str) -> Optional[Path]:
+    def resolve_tool_path(self, tool_name: str) -> Path | None:
         """Busca tool em neocortex/mcp/tools/NC-TOOL-FR-*-{tool_name}.py"""
         tools_dir = (
             self._cfg.project_root
@@ -139,7 +138,7 @@ class PathResolver:
         candidates.sort(key=lambda p: p.name)
         return candidates[0]
 
-    def list_zone_files(self, write_zone: str) -> List[Path]:
+    def list_zone_files(self, write_zone: str) -> list[Path]:
         """Lista arquivos Python em uma write_zone (path relativo ao root)."""
         if not write_zone:
             return []

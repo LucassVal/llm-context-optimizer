@@ -9,19 +9,19 @@ import logging
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
 class FullSystemAudit:
     """Auditoria completa do ecossistema NeoCortex."""
 
-    def __init__(self, root: Optional[Path] = None):
+    def __init__(self, root: Path | None = None):
         import os
         self.root = root or Path(os.environ.get("NC_ROOT", Path(__file__).parents[3]))
         self.fw = self.root / "01_neocortex_framework"
 
-    def audit_all(self) -> Dict[str, Any]:
+    def audit_all(self) -> dict[str, Any]:
         """Auditar TUDO — retorna relatório completo."""
         ts = datetime.now().isoformat()
         report = {
@@ -190,7 +190,7 @@ class FullSystemAudit:
 
     # ── SSOT ───────────────────────────────────────────────────
 
-    def _audit_ssot(self) -> Dict:
+    def _audit_ssot(self) -> dict:
         ssot = self.fw / "DIR-DOC-FR-001-docs-main" / "NC-NAM-FR-001-naming-convention.md"
         checks = {
             "ssot_exists": ssot.exists(),
@@ -205,7 +205,7 @@ class FullSystemAudit:
 
     # ── LOBES ──────────────────────────────────────────────────
 
-    def _audit_lobes(self) -> Dict:
+    def _audit_lobes(self) -> dict:
         lobes_dir = self.root / "02_memory_lobes"
         lobes = list(lobes_dir.rglob("*.mdc"))
         domains = set()
@@ -225,7 +225,7 @@ class FullSystemAudit:
 
     # ── SEMANTIC ───────────────────────────────────────────────
 
-    def _audit_semantic(self) -> Dict:
+    def _audit_semantic(self) -> dict:
         cat = self.fw / ".neocortex" / "lexico" / "NC-LEXICO-LATEST.json"
         checks = {"catalog_exists": cat.exists()}
         if cat.exists():
@@ -239,7 +239,7 @@ class FullSystemAudit:
 
     # ── FEDERATIVE ─────────────────────────────────────────────
 
-    def _audit_federative(self) -> Dict:
+    def _audit_federative(self) -> dict:
         pact = self.fw / "neocortex" / "core" / "NC-CORE-FR-131-federative-pact.py"
         checks = {
             "pact_exists": pact.exists(),
@@ -252,7 +252,7 @@ class FullSystemAudit:
 
     # ── REGRAS ─────────────────────────────────────────────────
 
-    def _audit_rules(self) -> Dict:
+    def _audit_rules(self) -> dict:
         rules_file = self.fw / "neocortex" / "mcp" / "tools" / "NC-SUPER-001-governance.py"
         matrix = self.root / "02_memory_lobes" / "06_governance" / "NC-LBE-FR-RULES-MULTILAYER-001.mdc"
         checks = {
@@ -266,7 +266,7 @@ class FullSystemAudit:
 
     # ── TOOLS + TYPE CHECK (FULL SCAN — todos os arquivos) ──────
 
-    def _audit_tools(self) -> Dict:
+    def _audit_tools(self) -> dict:
         import subprocess as _sp
         tools_dir = self.fw / "neocortex" / "mcp" / "tools"
         core_dir = self.fw / "neocortex" / "core"
@@ -323,7 +323,7 @@ class FullSystemAudit:
 
     # ── HOOKS ──────────────────────────────────────────────────
 
-    def _audit_hooks(self) -> Dict:
+    def _audit_hooks(self) -> dict:
         checks = {
             "bashguard_exists": (self.fw / "neocortex" / "core" / "NC-CORE-FR-144-bash-guard.py").exists(),
             "central_watcher_exists": (self.fw / "neocortex" / "core" / "NC-CORE-FR-146-central-watcher.py").exists(),
@@ -335,7 +335,7 @@ class FullSystemAudit:
 
     # ── DDD ────────────────────────────────────────────────────
 
-    def _audit_ddd(self) -> Dict:
+    def _audit_ddd(self) -> dict:
         blueprint = self.fw / "DIR-DOC-FR-001-docs-main" / "NC-ARC-FR-002-architecture-blueprint.yaml"
         checks = {
             "blueprint_yaml_exists": blueprint.exists(),
@@ -348,7 +348,7 @@ class FullSystemAudit:
 
     # ── CALENDAR + UBIQUITOUS LANGUAGE ─────────────────────────
 
-    def _audit_calendar(self) -> Dict:
+    def _audit_calendar(self) -> dict:
         ulq = self.fw / "DIR-DOC-FR-001-docs-main" / "NC-DOC-FR-001-ubiquitous-language-dictionary.md"
         checks = {
             "ulq_exists": ulq.exists(),
@@ -362,7 +362,7 @@ class FullSystemAudit:
 
     # ── PERFORMANCE + SPEED ─────────────────────────────────────
 
-    def _audit_performance(self) -> Dict:
+    def _audit_performance(self) -> dict:
         import time
         t0 = time.time()
         # Medir velocidade de acesso a lobos
@@ -384,7 +384,7 @@ class FullSystemAudit:
 
     # ── DATA QUALITY (Null Returns + Missing Info) ──────────────
 
-    def _audit_data_quality(self) -> Dict:
+    def _audit_data_quality(self) -> dict:
         # Verificar se há arquivos vazios ou corruptos
         empty_files = []
         for d in [self.root / "DIR-DS-002-audit-logs", self.root / "DIR-DS-001-tickets"]:
@@ -402,7 +402,7 @@ class FullSystemAudit:
 
     # ── TOKEN CACHE PRECISION ───────────────────────────────────
 
-    def _audit_token_cache(self) -> Dict:
+    def _audit_token_cache(self) -> dict:
         hot_context = self.root / ".neocortex" / "hot_context" / "hot-context.md"
         pulse_hb = self.root / ".neocortex" / "pulse_heartbeat.json"
         checks = {
@@ -418,7 +418,7 @@ class FullSystemAudit:
 
     # ── 15 TECHNIQUES ───────────────────────────────────────────
 
-    def _audit_techniques(self) -> Dict:
+    def _audit_techniques(self) -> dict:
         try:
             import importlib.util
             import sys
@@ -441,7 +441,7 @@ class FullSystemAudit:
 
     # ── ORPHANS ────────────────────────────────────────────────
 
-    def _audit_orphans(self) -> Dict:
+    def _audit_orphans(self) -> dict:
         orphans = []
         for f in self.root.glob("*"):
             if f.is_file() and not f.name.startswith('.') and not f.name.startswith('NC-'):
@@ -452,7 +452,7 @@ class FullSystemAudit:
 
     # ── MORDAÇAS ───────────────────────────────────────────────
 
-    def _audit_mordacas(self) -> Dict:
+    def _audit_mordacas(self) -> dict:
         tools_dir = self.fw / "neocortex" / "mcp" / "tools"
         tools = list(tools_dir.glob("NC-SUPER-*.py"))
         gateway_wired = sum(1 for t in tools if "gateway_check" in t.read_text(encoding="utf-8", errors="ignore"))
@@ -468,7 +468,7 @@ class FullSystemAudit:
 
     # ── SCRIPTS ────────────────────────────────────────────────
 
-    def _audit_scripts(self) -> Dict:
+    def _audit_scripts(self) -> dict:
         scripts = list(self.root.glob("*.bat")) + list(self.root.glob("*.ps1")) + list(self.root.glob("*.py"))
         checks = {"launcher_exists": (self.root / "NC-SCR-FR-104-neocortex-launcher.bat").exists(),
                   "scripts_with_nc": sum(1 for s in scripts if s.name.startswith("NC-"))}
@@ -477,7 +477,7 @@ class FullSystemAudit:
 
     # ── CICLO 2 GAPS ───────────────────────────────────────────
 
-    def _audit_ciclo2(self) -> Dict:
+    def _audit_ciclo2(self) -> dict:
         checks = {
             "ruff_global": True,  # podemos rodar
             "semantic_catalog": (self.fw / ".neocortex" / "lexico" / "NC-LEXICO-LATEST.json").exists(),
@@ -491,7 +491,7 @@ class FullSystemAudit:
 
     # ── MULTI-FORMAT VERIFICATION (.json, .md, .ps1, .jsonl, .bat, .sh) ──
 
-    def _audit_formats(self) -> Dict:
+    def _audit_formats(self) -> dict:
         import json as _json
         import subprocess as _sp
 
@@ -576,7 +576,7 @@ class FullSystemAudit:
         return {"checks": total_checks, "passed": total_passed, "details": results}
 
 
-_auditor: Optional[FullSystemAudit] = None
+_auditor: FullSystemAudit | None = None
 def get_auditor() -> FullSystemAudit:
     global _auditor
     if _auditor is None: _auditor = FullSystemAudit()

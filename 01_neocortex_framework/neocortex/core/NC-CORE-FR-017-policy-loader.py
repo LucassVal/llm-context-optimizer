@@ -18,7 +18,7 @@ Provides:
 import logging
 import time
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 import yaml
 
@@ -31,7 +31,7 @@ POLICY_YAML_PATH = (
 )
 
 # Hard-coded safe defaults  used only if YAML is unreadable
-DEFAULT_LIMITS: Dict[str, Any] = {
+DEFAULT_LIMITS: dict[str, Any] = {
     "max_tokens_per_task": 2048,
     "daily_budget_tokens": 50000,
     "daily_budget_usd": 0.50,
@@ -40,7 +40,7 @@ DEFAULT_LIMITS: Dict[str, Any] = {
     "min_call_interval_seconds": 1,
 }
 
-DEFAULT_ALLOWED_TOOLS: Dict[str, List[str]] = {
+DEFAULT_ALLOWED_TOOLS: dict[str, list[str]] = {
     "courier":     ["neocortex_lobes", "neocortex_search", "neocortex_ledger",
                     "neocortex_task", "neocortex_regression"],
     "engineer":    ["neocortex_lobes", "neocortex_search", "neocortex_ledger",
@@ -52,7 +52,7 @@ DEFAULT_ALLOWED_TOOLS: Dict[str, List[str]] = {
     "unknown":     ["neocortex_lobes", "neocortex_search"],
 }
 
-DEFAULT_FORBIDDEN: Dict[str, List[str]] = {
+DEFAULT_FORBIDDEN: dict[str, list[str]] = {
     "courier":     ["spawn", "stop", "delete_lobe", "write_ledger", "set_config", "export"],
     "engineer":    ["spawn", "stop", "delete_lobe", "set_config"],
     "guardian":    ["spawn", "stop", "delete_lobe", "write_ledger", "set_config", "export",
@@ -68,13 +68,13 @@ class PolicyLoader:
     Hot-reloads every 120s. Falls back to hard-coded defaults (never crashes).
     """
 
-    def __init__(self, policy_yaml: Optional[Path] = None):
+    def __init__(self, policy_yaml: Path | None = None):
         self._yaml_path = policy_yaml or POLICY_YAML_PATH
-        self._raw: Dict[str, Any] = {}
+        self._raw: dict[str, Any] = {}
         self._loaded: bool = False
         self._last_load: float = 0.0
         self._load_ttl: float = 120.0
-        self._token_usage: Dict[str, int] = {}  # role  total tokens used today
+        self._token_usage: dict[str, int] = {}  # role  total tokens used today
         self._load()
 
     def _load(self) -> None:
@@ -96,14 +96,14 @@ class PolicyLoader:
         if time.monotonic() - self._last_load > self._load_ttl:
             self._load()
 
-    def get_limits(self, role: str = "courier") -> Dict[str, Any]:
+    def get_limits(self, role: str = "courier") -> dict[str, Any]:
         """Get resource limits for a role. Falls back to defaults if YAML missing."""
         self._maybe_reload()
         if self._loaded:
             return dict(self._raw.get("agent", {}).get("limits", DEFAULT_LIMITS))
         return dict(DEFAULT_LIMITS)
 
-    def get_allowed_tools(self, role: str = "courier") -> List[str]:
+    def get_allowed_tools(self, role: str = "courier") -> list[str]:
         """Get whitelist of allowed tools for a role."""
         self._maybe_reload()
         if self._loaded:
@@ -112,7 +112,7 @@ class PolicyLoader:
                 return list(tools)
         return list(DEFAULT_ALLOWED_TOOLS.get(role, DEFAULT_ALLOWED_TOOLS["unknown"]))
 
-    def get_forbidden_actions(self, role: str = "courier") -> List[str]:
+    def get_forbidden_actions(self, role: str = "courier") -> list[str]:
         """Get list of forbidden actions for a role."""
         self._maybe_reload()
         if self._loaded:
@@ -130,7 +130,7 @@ class PolicyLoader:
                 return str(pfx).strip()
         return ""
 
-    def check_token_limit(self, role: str, prompt_len_chars: int) -> Tuple[bool, int, int]:
+    def check_token_limit(self, role: str, prompt_len_chars: int) -> tuple[bool, int, int]:
         """
         Check if prompt length (chars) is within the token budget.
         Approximation: 4 chars  1 token.
@@ -142,7 +142,7 @@ class PolicyLoader:
         over_by = max(0, approx_tokens - max_tokens)
         return over_by == 0, max_tokens, over_by
 
-    def check_tool_allowed(self, role: str, tool_name: str) -> Tuple[bool, str]:
+    def check_tool_allowed(self, role: str, tool_name: str) -> tuple[bool, str]:
         """Check if tool_name is in the allowed_tools list for role."""
         allowed = self.get_allowed_tools(role)
         if not allowed:  # Empty list = all tools allowed (backend_dev/T0)
@@ -151,7 +151,7 @@ class PolicyLoader:
             return True, "ALLOWED"
         return False, f"TOOL_NOT_IN_WHITELIST: '{tool_name}' not allowed for role '{role}'"
 
-    def check_action_allowed(self, role: str, action: str) -> Tuple[bool, str]:
+    def check_action_allowed(self, role: str, action: str) -> tuple[bool, str]:
         """Check if action is forbidden for role."""
         forbidden = self.get_forbidden_actions(role)
         if action.lower() in [f.lower() for f in forbidden]:
@@ -162,7 +162,7 @@ class PolicyLoader:
         """Track token usage per role (for daily budget monitoring)."""
         self._token_usage[role] = self._token_usage.get(role, 0) + tokens
 
-    def get_compliance_status(self) -> Dict[str, Any]:
+    def get_compliance_status(self) -> dict[str, Any]:
         """Returns real-time compliance status for HUD heartbeat."""
         self._maybe_reload()
         limits = self.get_limits()
@@ -180,7 +180,7 @@ class PolicyLoader:
 
 
 #  Singleton
-_policy_loader: Optional[PolicyLoader] = None
+_policy_loader: PolicyLoader | None = None
 
 
 def get_policy_loader() -> PolicyLoader:

@@ -16,7 +16,7 @@ import json
 import re
 import warnings
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 
 def _ensure_yaml():
@@ -34,7 +34,7 @@ def _ensure_yaml():
         return None
 
 
-def safe_load(path: Path) -> Dict[str, Any]:
+def safe_load(path: Path) -> dict[str, Any]:
     """
     Load YAML file safely with regex fallback.
 
@@ -85,9 +85,7 @@ def safe_load(path: Path) -> Dict[str, Any]:
                 value = int(value_str)
             elif re.match(r"^-?\d+\.\d+$", value_str):
                 value = float(value_str)
-            elif value_str.startswith('"') and value_str.endswith('"'):
-                value = value_str[1:-1]
-            elif value_str.startswith("'") and value_str.endswith("'"):
+            elif (value_str.startswith('"') and value_str.endswith('"')) or (value_str.startswith("'") and value_str.endswith("'")):
                 value = value_str[1:-1]
             else:
                 value = value_str
@@ -95,7 +93,7 @@ def safe_load(path: Path) -> Dict[str, Any]:
     return result
 
 
-def safe_dump(data: Dict[str, Any], path: Path) -> None:
+def safe_dump(data: dict[str, Any], path: Path) -> None:
     """
     Dump dictionary to YAML file safely.
 
@@ -124,7 +122,7 @@ def safe_dump(data: Dict[str, Any], path: Path) -> None:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 
-def get_field(path: Path, field: str) -> Optional[str]:
+def get_field(path: Path, field: str) -> str | None:
     """
     Extract field from YAML file without full parsing.
 
@@ -183,8 +181,8 @@ def set_field(path: Path, field: str, value: str) -> None:
 
 
 def validate_schema(
-    data: Dict[str, Any], required_fields: List[str]
-) -> Tuple[bool, List[str]]:
+    data: dict[str, Any], required_fields: list[str]
+) -> tuple[bool, list[str]]:
     """
     Validate dictionary against required fields.
 
@@ -200,6 +198,6 @@ def validate_schema(
 
 
 # Convenience function
-def load_yaml(path: str) -> Dict[str, Any]:
+def load_yaml(path: str) -> dict[str, Any]:
     """Convenience wrapper for safe_load."""
     return safe_load(Path(path))

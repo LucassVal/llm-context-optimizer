@@ -18,9 +18,10 @@ This module is a standalone service that can be imported by any module.
 """
 
 import logging
+from collections.abc import Callable
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -32,14 +33,14 @@ class NeoCortexEvent:
     event_type: str
     payload: Any
     timestamp: datetime
-    source_tool: Optional[str] = None
+    source_tool: str | None = None
 
 
 class EventBus:
     """Synchronous event bus for NeoCortex."""
 
     _instance: Optional["EventBus"] = None
-    _subscribers: Dict[str, List[Callable[[NeoCortexEvent], None]]]
+    _subscribers: dict[str, list[Callable[[NeoCortexEvent], None]]]
 
     def __new__(cls) -> "EventBus":
         """Singleton pattern."""
@@ -150,7 +151,7 @@ def publish_tool_called(tool_name: str, payload: Any) -> None:
 
 
 def publish_tool_result(
-    tool_name: str, result: Any, error: Optional[str] = None
+    tool_name: str, result: Any, error: str | None = None
 ) -> None:
     """Publish a TOOL_RESULT event."""
     event = NeoCortexEvent(
@@ -163,7 +164,7 @@ def publish_tool_result(
 
 
 def publish_agent_state_changed(
-    old_state: str, new_state: str, agent_id: Optional[str] = None
+    old_state: str, new_state: str, agent_id: str | None = None
 ) -> None:
     """Publish an AGENT_STATE_CHANGED event."""
     event = NeoCortexEvent(
@@ -175,7 +176,7 @@ def publish_agent_state_changed(
     get_event_bus().publish(event)
 
 
-def publish_handoff_submitted(ticket_id: str, handoff_data: Dict[str, Any]) -> None:
+def publish_handoff_submitted(ticket_id: str, handoff_data: dict[str, Any]) -> None:
     """Publish a HANDOFF_SUBMITTED event."""
     event = NeoCortexEvent(
         event_type=HANDOFF_SUBMITTED,

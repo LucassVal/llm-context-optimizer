@@ -10,11 +10,10 @@ import re
 import socket
 import time
 from datetime import datetime
-from typing import Dict
 
 
 class SSOTReporter:
-    def __init__(self, root: pathlib.Path = None):
+    def __init__(self, root: pathlib.Path | None = None):
         self.root = root or pathlib.Path(os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3]))
 
     def _check_port(self, port: int) -> str:
@@ -25,7 +24,7 @@ class SSOTReporter:
         except Exception:
             return "DOWN"
 
-    def generate(self) -> Dict:
+    def generate(self) -> dict:
         now = datetime.now()
         fw = self.root / "01_neocortex_framework"
 

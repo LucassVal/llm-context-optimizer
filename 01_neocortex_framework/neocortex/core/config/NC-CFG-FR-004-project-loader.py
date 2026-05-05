@@ -15,7 +15,7 @@ Respects @LOCKED fields and crossplatform XDG/APPDATA paths.
 import logging
 import os
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any
 
 from platformdirs import user_config_dir
 from ruamel.yaml import YAML
@@ -39,8 +39,8 @@ class ProjectConfigLoader:
 
     def __init__(
         self,
-        project_root: Optional[Path] = None,
-        defaults: Optional[Dict[str, Any]] = None,
+        project_root: Path | None = None,
+        defaults: dict[str, Any] | None = None,
     ):
         """
         Initialize loader with optional project root and defaults.
@@ -50,15 +50,15 @@ class ProjectConfigLoader:
             defaults: Default configuration values (lowest precedence).
         """
         self.defaults = defaults or {}
-        self._config: Dict[str, Any] = {}
-        self._project_path: Optional[Path] = None
-        self._global_path: Optional[Path] = None
+        self._config: dict[str, Any] = {}
+        self._project_path: Path | None = None
+        self._global_path: Path | None = None
         self._yaml = YAML()
         self._yaml.preserve_quotes = True
         if project_root is not None:
             self.load(project_root)
 
-    def load(self, project_root: Optional[Path] = None) -> Dict[str, Any]:
+    def load(self, project_root: Path | None = None) -> dict[str, Any]:
         """
         Load configuration merging all sources.
 
@@ -124,7 +124,7 @@ class ProjectConfigLoader:
                 self._global_path = Path(config_dir) / "config.yaml"
         return self._global_path
 
-    def get_project_path(self) -> Optional[Path]:
+    def get_project_path(self) -> Path | None:
         """
         Get path to project .nc/config.yaml (if found).
 
@@ -133,13 +133,13 @@ class ProjectConfigLoader:
         """
         return self._project_path
 
-    def get_config_path(self) -> Optional[Path]:
+    def get_config_path(self) -> Path | None:
         """
         Retorna path do .nc/config.yaml ativo (None se no existir).
         """
         return self._project_path
 
-    def reload(self) -> Dict[str, Any]:
+    def reload(self) -> dict[str, Any]:
         """
         Reload configuration from disk (without changing project root).
         Returns merged configuration.
@@ -147,14 +147,14 @@ class ProjectConfigLoader:
         project_root = self._project_path.parent if self._project_path else None
         return self.load(project_root)
 
-    def _load_global_config(self) -> Dict[str, Any]:
+    def _load_global_config(self) -> dict[str, Any]:
         """Load global configuration from XDG/APPDATA location."""
         global_path = self.get_global_path()
         if not global_path.exists():
             logger.debug(f"Global config not found at {global_path}")
             return {}
         try:
-            with open(global_path, "r", encoding="utf-8") as f:
+            with open(global_path, encoding="utf-8") as f:
                 config = self._yaml.load(f) or {}
             logger.debug(f"Loaded global config from {global_path}")
             return config
@@ -162,7 +162,7 @@ class ProjectConfigLoader:
             logger.warning(f"Failed to load global config {global_path}: {e}")
             return {}
 
-    def _load_project_config(self, start_path: Path) -> Dict[str, Any]:
+    def _load_project_config(self, start_path: Path) -> dict[str, Any]:
         """
         Search up directory hierarchy for .nc/config.yaml and load it.
 
@@ -179,7 +179,7 @@ class ProjectConfigLoader:
 
         self._project_path = config_file
         try:
-            with open(config_file, "r", encoding="utf-8") as f:
+            with open(config_file, encoding="utf-8") as f:
                 config = self._yaml.load(f) or {}
             logger.debug(f"Loaded project config from {config_file}")
             return config
@@ -187,7 +187,7 @@ class ProjectConfigLoader:
             logger.warning(f"Failed to load project config {config_file}: {e}")
             return {}
 
-    def _find_nc_config(self, start_path: Path) -> Optional[Path]:
+    def _find_nc_config(self, start_path: Path) -> Path | None:
         """
         Walk up directory hierarchy to find .nc/config.yaml.
 
@@ -207,8 +207,8 @@ class ProjectConfigLoader:
         return None
 
     def _deep_merge(
-        self, base: Dict[str, Any], override: Dict[str, Any]
-    ) -> Dict[str, Any]:
+        self, base: dict[str, Any], override: dict[str, Any]
+    ) -> dict[str, Any]:
         """Merge recursivo de dicionrios."""
         result = base.copy()
         for key, value in override.items():
@@ -223,8 +223,8 @@ class ProjectConfigLoader:
         return result
 
     def _merge_all(
-        self, global_config: Dict[str, Any], project_config: Dict[str, Any]
-    ) -> Dict[str, Any]:
+        self, global_config: dict[str, Any], project_config: dict[str, Any]
+    ) -> dict[str, Any]:
         """
         Merge configurations with precedence and @LOCKED protection.
 
@@ -251,11 +251,11 @@ class ProjectConfigLoader:
 
 
 # Singleton instance
-_loader: Optional[ProjectConfigLoader] = None
+_loader: ProjectConfigLoader | None = None
 
 
 def get_project_config_loader(
-    project_root: Optional[Path] = None,
+    project_root: Path | None = None,
 ) -> ProjectConfigLoader:
     """Singleton do ProjectConfigLoader."""
     global _loader

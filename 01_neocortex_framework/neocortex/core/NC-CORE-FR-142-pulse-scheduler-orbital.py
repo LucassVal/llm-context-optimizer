@@ -4,13 +4,14 @@
 """
 
 
+import contextlib
 import json
 import logging
 import threading
 import time
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -18,12 +19,12 @@ logger = logging.getLogger(__name__)
 class OrbitalPulseScheduler:
     """PulseScheduler orbital — opera independente do servidor."""
 
-    def __init__(self, root: Optional[Path] = None, interval: int = 300):
+    def __init__(self, root: Path | None = None, interval: int = 300):
         import os
         self.root = root or Path(os.environ.get("NC_ROOT", Path(__file__).parents[3]))
         self.interval = interval  # segundos entre pulsos (default: 5 min)
         self.running = False
-        self._thread: Optional[threading.Thread] = None
+        self._thread: threading.Thread | None = None
         self.stats = {"pulses": 0, "checkpoints": 0, "prunes": 0, "errors": 0}
 
     def start(self):
@@ -56,40 +57,31 @@ class OrbitalPulseScheduler:
         self.stats["pulses"] += 1
 
         # 1. Auto-checkpoint (leve)
-        try: self._auto_checkpoint()
-        except Exception: pass
+        with contextlib.suppress(Exception): self._auto_checkpoint()
 
         # 2. Hot context pruning
-        try: self._prune_context()
-        except Exception: pass
+        with contextlib.suppress(Exception): self._prune_context()
 
         # 3. Registrar heartbeat no ledger
-        try: self._heartbeat()
-        except Exception: pass
+        with contextlib.suppress(Exception): self._heartbeat()
 
         # 4. Compliance checkpoint (R02, R13, R20)
-        try: self._compliance_check()
-        except Exception: pass
+        with contextlib.suppress(Exception): self._compliance_check()
 
         # 5. Naming audit (R01, R24)
-        try: self._naming_audit()
-        except Exception: pass
+        with contextlib.suppress(Exception): self._naming_audit()
 
         # 6. SSOT drift check (R02)
-        try: self._ssot_check()
-        except Exception: pass
+        with contextlib.suppress(Exception): self._ssot_check()
 
         # 7. Evolution check (R27-R35)
-        try: self._evolution_check()
-        except Exception: pass
+        with contextlib.suppress(Exception): self._evolution_check()
 
         # 8. Mutation check (R36-R40)
-        try: self._mutation_check()
-        except Exception: pass
+        with contextlib.suppress(Exception): self._mutation_check()
 
         # 9. AUTO-GOVERNANCE: compliance + KPI + handoff (R56-R58)
-        try: self._auto_governance()
-        except Exception: pass
+        with contextlib.suppress(Exception): self._auto_governance()
 
     def _auto_checkpoint(self):
         """Checkpoint automático leve."""
@@ -321,10 +313,8 @@ class OrbitalPulseScheduler:
             null_ops = conn.execute("SELECT COUNT(*) FROM wal_log WHERE operation IS NULL").fetchone()[0]
             # C: Contemporaneous — check timestamps
             oldest = "N/A"
-            try:
+            with contextlib.suppress(BaseException):
                 oldest = conn.execute("SELECT MIN(timestamp) FROM wal_log").fetchone()[0]
-            except:
-                pass
             conn.close()
             issues = []
             if null_sessions > 0: issues.append(f"A: {null_sessions} unattributed")
@@ -538,11 +528,11 @@ class OrbitalPulseScheduler:
             mod.get_watcher().record_check(check, passed, "", "pulse", "pulse")
         except: pass
 
-    def status(self) -> Dict[str, Any]:
+    def status(self) -> dict[str, Any]:
         return {"running": self.running, "interval": self.interval, "stats": self.stats}
 
 
-_pulse: Optional[OrbitalPulseScheduler] = None
+_pulse: OrbitalPulseScheduler | None = None
 
 
 def get_pulse_scheduler(interval: int = 300) -> OrbitalPulseScheduler:

@@ -7,9 +7,9 @@ NC_TOOL_FR_021_vscode_bridge.py — VS Code IDE Bridge Tool
 
 import json
 import os
-import urllib.request
 import urllib.error
-from typing import Any, Optional
+import urllib.request
+from typing import Any
 
 TOOL_NAME = "neocortex_vscode"
 
@@ -19,7 +19,7 @@ BRIDGE_URL = "http://127.0.0.1:18791"
 DEEPSEEK_API_KEY = os.environ.get("DEEPSEEK_API_KEY") or ""
 
 
-def _bridge_call(tool: str, params: Optional[dict] = None) -> dict:
+def _bridge_call(tool: str, params: dict | None = None) -> dict:
     """Make a JSON-RPC-style call to the VS Code bridge server."""
     payload = json.dumps({"tool": tool, "params": params or {} }).encode("utf-8")
     req = urllib.request.Request(
@@ -59,7 +59,7 @@ def register_tool(mcp):
     @mcp.tool()
     def neocortex_vscode(
         action: str,
-        params: Optional[str] = None,
+        params: str | None = None,
     ) -> str:
         """
         Access VS Code IDE and DeepSeek account tools.

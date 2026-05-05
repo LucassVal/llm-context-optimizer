@@ -15,7 +15,7 @@ using repository interfaces for storage abstraction.
 import os
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from ..repositories import CortexRepository, LobeRepository
 
@@ -25,8 +25,8 @@ class InitService:
 
     def __init__(
         self,
-        cortex_repository: Optional[CortexRepository] = None,
-        lobe_repository: Optional[LobeRepository] = None,
+        cortex_repository: CortexRepository | None = None,
+        lobe_repository: LobeRepository | None = None,
     ):
         """
         Initialize init service.
@@ -49,11 +49,11 @@ class InitService:
         else:
             self.lobe_repository = lobe_repository
 
-    def initialize(self) -> Dict[str, Any]:
+    def initialize(self) -> dict[str, Any]:
         """Alias: inicializa workspace (wrapper para scan_project)."""
         return self.scan_project()
 
-    def scan_project(self, project_path: Optional[str] = None) -> Dict[str, Any]:
+    def scan_project(self, project_path: str | None = None) -> dict[str, Any]:
         """
         Scan project structure and analyze.
 
@@ -130,7 +130,7 @@ class InitService:
 
     def generate_cortex(
         self, project_name: str, template_type: str = "standard"
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Generate initial cortex for a project.
 
@@ -305,7 +305,7 @@ version: "NeoCortex v4.2-Cortex"
             "created": current_date,
         }
 
-    def generate_lobe(self, lobe_name: str, lobe_type: str = "phase") -> Dict[str, Any]:
+    def generate_lobe(self, lobe_name: str, lobe_type: str = "phase") -> dict[str, Any]:
         """
         Generate initial lobe for a module or phase.
 
@@ -443,8 +443,8 @@ Component-specific development tracking.
         }
 
     def _generate_suggested_aliases(
-        self, path: Path, files: List[str], dirs: List[str]
-    ) -> List[Dict[str, str]]:
+        self, path: Path, files: list[str], dirs: list[str]
+    ) -> list[dict[str, str]]:
         """Generate suggested aliases based on project structure."""
         aliases = []
 
@@ -518,7 +518,7 @@ Component-specific development tracking.
 
         return aliases
 
-    def _identify_main_files(self, files: List[str], stack: str) -> List[str]:
+    def _identify_main_files(self, files: list[str], stack: str) -> list[str]:
         """Identify main files based on stack."""
         main_file_patterns = {
             "python": ["main.py", "app.py", "manage.py", "wsgi.py"],
@@ -550,11 +550,7 @@ Component-specific development tracking.
         }
 
         files = config_files.get(stack, [])
-        for file in files:
-            if (path / file).exists():
-                return True
-
-        return False
+        return any((path / file).exists() for file in files)
 
 
 # Singleton instance for convenience
@@ -562,8 +558,8 @@ _default_init_service = None
 
 
 def get_init_service(
-    cortex_repository: Optional[CortexRepository] = None,
-    lobe_repository: Optional[LobeRepository] = None,
+    cortex_repository: CortexRepository | None = None,
+    lobe_repository: LobeRepository | None = None,
 ) -> InitService:
     """
     Get init service instance (singleton pattern).

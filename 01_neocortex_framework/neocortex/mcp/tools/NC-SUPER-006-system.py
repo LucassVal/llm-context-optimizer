@@ -27,7 +27,7 @@ Actions:
 import logging
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 logger = logging.getLogger(__name__)
 TOOL_NAME = "neocortex_system"
@@ -52,7 +52,7 @@ def register_tool(mcp) -> None:
         schedule_interval: int = 300,
         lines: int = 50,
         output_path: str = "",
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """FÓRUM — Sistema, Config, Pulse, Health, Export, Init.
         Funde: system, config, pulse, health, export, init.
         Actions: config.get/set/list, pulse.status/start/stop/schedule_custom,

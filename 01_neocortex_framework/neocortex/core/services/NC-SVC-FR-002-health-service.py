@@ -19,7 +19,7 @@ import os
 import socket
 import time
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -33,7 +33,7 @@ class HealthService:
     VERSION = "1.0.0"
 
     @staticmethod
-    def get_health_status() -> Dict[str, Any]:
+    def get_health_status() -> dict[str, Any]:
         """
         Get comprehensive health status of NeoCortex.
 
@@ -118,9 +118,9 @@ class HealthService:
     @staticmethod
     def format_health_response(
         status: str = "healthy",
-        details: Optional[Dict[str, Any]] = None,
+        details: dict[str, Any] | None = None,
         include_timestamp: bool = True,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Format health response as JSON-compatible dictionary.
 
@@ -149,7 +149,7 @@ class HealthService:
         return response
 
     @staticmethod
-    def get_system_info() -> Dict[str, Any]:
+    def get_system_info() -> dict[str, Any]:
         """
         Get basic system information.
 
@@ -167,7 +167,7 @@ class HealthService:
 
 
 # Convenience functions
-def get_health_status() -> Dict[str, Any]:
+def get_health_status() -> dict[str, Any]:
     """Convenience function to get health status."""
     return HealthService.get_health_status()
 
@@ -184,8 +184,8 @@ def check_mcp_sse_alive(port: int, host: str = "127.0.0.1", timeout: int = 2) ->
 
 def format_health_response(
     status: str = "healthy",
-    details: Optional[Dict[str, Any]] = None,
+    details: dict[str, Any] | None = None,
     include_timestamp: bool = True,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Convenience function to format health response."""
     return HealthService.format_health_response(status, details, include_timestamp)

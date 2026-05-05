@@ -6,7 +6,7 @@
 import logging
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, Optional, Tuple
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -30,7 +30,7 @@ class ConstitutionGateway:
         setattr(ConstitutionGateway, cache_key, mod)
         return mod
 
-    def __init__(self, root: Optional[Path] = None):
+    def __init__(self, root: Path | None = None):
         import os as _os
 
         self.root = root or Path(_os.environ.get("NC_ROOT", Path(__file__).parents[3]))
@@ -84,7 +84,7 @@ class ConstitutionGateway:
         target_path: str = "",
         agent_id: str = "T0",
         agent_role: str = "T0",
-    ) -> Tuple[bool, Dict[str, Any]]:
+    ) -> tuple[bool, dict[str, Any]]:
         """
         KERNEL 0 — Redireciona para CPC Digital (devido processo legal).
         Gate → CPC.process_action() → LockGuard + Pact + ToolGuard → Sentença
@@ -100,7 +100,7 @@ class ConstitutionGateway:
 
     def _fallback_validate(
         self, action, target_path, agent_id, agent_role
-    ) -> Tuple[bool, Dict[str, Any]]:
+    ) -> tuple[bool, dict[str, Any]]:
         """Fallback quando CPC indisponível — validação mínima."""
         self._init()
 
@@ -356,14 +356,13 @@ class ConstitutionGateway:
 
         # R15: Role enforcement — T0 only for writes outside examples/
         role_ok = True
-        if target_path and agent_role != "T0":
-            if not target_path.startswith(
-                "05_examples/"
-            ) and not target_path.startswith("DIR-DS-"):
-                role_ok = False
-                report["violations"].append(
-                    f"R15: {agent_role} não pode escrever em {target_path}"
-                )
+        if target_path and agent_role != "T0" and not target_path.startswith(
+            "05_examples/"
+        ) and not target_path.startswith("DIR-DS-"):
+            role_ok = False
+            report["violations"].append(
+                f"R15: {agent_role} não pode escrever em {target_path}"
+            )
         report["checks"]["role_passed"] = role_ok
 
         # R03: Ticket Reference — check if action references a ticket
@@ -679,7 +678,7 @@ class ConstitutionGateway:
         target_path: str,
         agent_id: str,
         agent_role: str,
-        report: Dict[str, Any],
+        report: dict[str, Any],
     ):
         """Check rules específicas para cada ação MCP (v3.1)."""
         rules = self.ACTION_RULES.get(action, [])
@@ -766,7 +765,7 @@ class ConstitutionGateway:
         target_path: str,
         agent_id: str,
         agent_role: str,
-        report: Dict[str, Any],
+        report: dict[str, Any],
     ):
         """Executa verificacoes baseadas nos 9 hooks MCP registrados.
         Hooks definidos inline para evitar dependencia circular."""
@@ -784,7 +783,7 @@ class ConstitutionGateway:
             "action_complete": [{"name": "R117-ssot-header"}],
         }
 
-        for event, hook_list in hooks.items():
+        for _event, hook_list in hooks.items():
             for hook in hook_list:
                 name = hook["name"]
                 tp = Path(target_path) if target_path else None
@@ -889,7 +888,7 @@ class ConstitutionGateway:
     # R64-R77: HOOKS de Infra + Segurança + IA (7 regras críticas)
     # ═════════════════════════════════════════════════════════
 
-    def _check_critical_hooks(self, action: str, agent_id: str, report: Dict):
+    def _check_critical_hooks(self, action: str, agent_id: str, report: dict):
         """R21-R76: TODOS os H-hooks que rodam em TODA acao."""
 
         # R21: Claim validator (Zero Suposicoes)
@@ -937,7 +936,7 @@ class ConstitutionGateway:
         # R116: Memory-auto — registrar turno
         self._auto_turn_record(action, agent_id)
 
-    def _check_claim_validator(self, action: str, agent_id: str, report: Dict):
+    def _check_claim_validator(self, action: str, agent_id: str, report: dict):
         """R21 H: Claim validator — cruza afirmaoes com evidencia."""
         import re
 
@@ -978,7 +977,7 @@ class ConstitutionGateway:
         # R116: Memory-auto — registrar turn automaticamente
         self._auto_turn_record(action, agent_id)
 
-    def _check_circuit_breaker(self, action: str, agent_id: str, report: Dict):
+    def _check_circuit_breaker(self, action: str, agent_id: str, report: dict):
         """R64 H: Circuit Breaker — bloqueia se tool falhou 3x consecutivas."""
         try:
             if not hasattr(self, "_cb_failures"):
@@ -994,7 +993,7 @@ class ConstitutionGateway:
         except Exception:
             report["checks"]["per_action_R64"] = True
 
-    def _check_bulkhead(self, action: str, report: Dict):
+    def _check_bulkhead(self, action: str, report: dict):
         """R65 H: Bulkhead — isola domínios com falha."""
         try:
             import importlib.util
@@ -1014,7 +1013,7 @@ class ConstitutionGateway:
         except Exception:
             report["checks"]["per_action_R65"] = True
 
-    def _check_backpressure(self, action: str, report: Dict):
+    def _check_backpressure(self, action: str, report: dict):
         """R72 H: Backpressure — rate limit."""
         try:
             if not hasattr(self, "_bp"):
@@ -1035,7 +1034,7 @@ class ConstitutionGateway:
         except Exception:
             report["checks"]["per_action_R72"] = True
 
-    def _check_alignment(self, action: str, report: Dict):
+    def _check_alignment(self, action: str, report: dict):
         """R73 H: AI Alignment — bloqueia ações desalinhadas."""
         ALIGNMENT_BLOCKED = {
             "bypass_gateway",
@@ -1086,7 +1085,7 @@ class ConstitutionGateway:
         except Exception:
             pass
 
-    def _check_federative_pact(self, action: str, agent_id: str, report: Dict):
+    def _check_federative_pact(self, action: str, agent_id: str, report: dict):
         """R02+R06: Federative Pact — valida se ação respeita pacto federativo."""
         try:
             import importlib.util
@@ -1109,7 +1108,7 @@ class ConstitutionGateway:
         except Exception:
             report["checks"]["federative_pact"] = True
 
-    def _check_regulatory_agencies(self, action: str, report: Dict):
+    def _check_regulatory_agencies(self, action: str, report: dict):
         """R133: Regulatory Agencies — ANVISA, ANEEL, BACEN, TCU, CGU."""
         try:
             import importlib.util
@@ -1133,7 +1132,7 @@ class ConstitutionGateway:
         except Exception:
             report["checks"]["regulatory_agencies"] = True
 
-    def _check_xai_hitl(self, action: str, report: Dict):
+    def _check_xai_hitl(self, action: str, report: dict):
         """R75 H: XAI + R76 H: HITL — explicação + aprovação inline."""
         if report.get("violations"):
             # R75 XAI: gerar explicação para cada violação
@@ -1176,7 +1175,7 @@ class ConstitutionGateway:
 
 
 # Singleton
-_gateway_instance: Optional[ConstitutionGateway] = None
+_gateway_instance: ConstitutionGateway | None = None
 
 
 def get_gateway() -> ConstitutionGateway:
@@ -1188,6 +1187,6 @@ def get_gateway() -> ConstitutionGateway:
 
 def validate_action(
     action: str, target_path: str = "", agent_id: str = "T0", agent_role: str = "T0"
-) -> Tuple[bool, Dict[str, Any]]:
+) -> tuple[bool, dict[str, Any]]:
     """Entry point — T0→T1 gateway for ALL actions."""
     return get_gateway().validate_action(action, target_path, agent_id, agent_role)

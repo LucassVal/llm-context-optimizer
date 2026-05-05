@@ -23,11 +23,12 @@ Actions:
   manifest.generate, manifest.list
   search.advanced
 """
+import contextlib
 import json
 import logging
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 logger = logging.getLogger(__name__)
 TOOL_NAME = "neocortex_memory"
@@ -82,10 +83,10 @@ def register_tool(mcp) -> None:
         target: str = "",
         manifest_id: str = "",
         metadata: str = "",
-        search_term: Optional[str] = None,
-        manifest_type: Optional[str] = None,
-        tags_filter: Optional[List[str]] = None,
-    ) -> Dict[str, Any]:
+        search_term: str | None = None,
+        manifest_type: str | None = None,
+        tags_filter: list[str] | None = None,
+    ) -> dict[str, Any]:
         """CORTE TJ — Memória e Conhecimento.
         Funde: cortex, lobes, search, knowledge×2, memory, manifest.
         Actions: cortex.get, cortex.update, cortex.reset,
@@ -487,10 +488,8 @@ def register_tool(mcp) -> None:
                 index_path = root / "02_memory_lobes" / "NC-CAT-INDEX-001.json"
                 index = None
                 if index_path.exists():
-                    try:
+                    with contextlib.suppress(Exception):
                         index = json.loads(index_path.read_text("utf-8"))
-                    except Exception:
-                        pass
                 return {"success": r.returncode == 0, "action": action,
                         "total_categorized": index.get("total", 0) if index else 0,
                         "distribution": index.get("distribution", {}) if index else {},

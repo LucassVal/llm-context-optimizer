@@ -7,7 +7,7 @@
 import logging
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -16,10 +16,10 @@ class ProsecutorOffice:
     """Ministério Público — fiscal da lei. Audita compliance de agentes."""
 
     def __init__(self):
-        self.investigations: List[Dict[str, Any]] = []
-        self.recommendations: List[Dict[str, Any]] = []
+        self.investigations: list[dict[str, Any]] = []
+        self.recommendations: list[dict[str, Any]] = []
 
-    def audit_agent(self, agent_id: str, actions: List[str]) -> Dict[str, Any]:
+    def audit_agent(self, agent_id: str, actions: list[str]) -> dict[str, Any]:
         """Auditar agente — verificar conformidade com a Constituição."""
         violations = []
         for action in actions:
@@ -36,7 +36,7 @@ class ProsecutorOffice:
 
         return {"compliant": True, "agent": agent_id, "status": "MP: sem irregularidades"}
 
-    def issue_recommendation(self, target: str, recommendation: str) -> Dict[str, Any]:
+    def issue_recommendation(self, target: str, recommendation: str) -> dict[str, Any]:
         """Emitir recomendação (não-vinculante, mas pública)."""
         rec = {"target": target, "recommendation": recommendation,
                "issued_at": datetime.now().isoformat(), "binding": False}
@@ -48,9 +48,9 @@ class PublicDefenderOffice:
     """Defensoria Pública — assistência a agentes sem recursos (bloqueados/suspensos)."""
 
     def __init__(self):
-        self.cases: List[Dict[str, Any]] = []
+        self.cases: list[dict[str, Any]] = []
 
-    def defend(self, agent_id: str, case_id: str, grounds: str) -> Dict[str, Any]:
+    def defend(self, agent_id: str, case_id: str, grounds: str) -> dict[str, Any]:
         """Assumir defesa de agente."""
         case = {"agent": agent_id, "case_id": case_id, "grounds": grounds,
                 "opened_at": datetime.now().isoformat(), "status": "em_defesa"}
@@ -58,7 +58,7 @@ class PublicDefenderOffice:
         return {"success": True, "case": case,
                 "rights": ["Art. 5º CF/88: devido processo legal", "Art. 134 CF/88: assistência jurídica gratuita"]}
 
-    def file_habeas_corpus(self, agent_id: str, reason: str) -> Dict[str, Any]:
+    def file_habeas_corpus(self, agent_id: str, reason: str) -> dict[str, Any]:
         """Impetrar Habeas Corpus — liberdade para agente preso ilegalmente."""
         return {"success": True, "writ": "HABEAS CORPUS",
                 "agent": agent_id, "grounds": reason,
@@ -69,12 +69,12 @@ class PublicDefenderOffice:
 class AuditCourt:
     """Tribunal de Contas — auditoria de WAL e contas do sistema."""
 
-    def __init__(self, root: Optional[Path] = None):
+    def __init__(self, root: Path | None = None):
         import os as _os
         self.root = root or Path(_os.environ.get("NC_ROOT", Path(__file__).parents[3]))
-        self.audit_reports: List[Dict[str, Any]] = []
+        self.audit_reports: list[dict[str, Any]] = []
 
-    def audit_wal(self) -> Dict[str, Any]:
+    def audit_wal(self) -> dict[str, Any]:
         """Auditar Write-Ahead Log — verificar integridade."""
         wal_dir = self.root / "DIR-DS-002-audit-logs"
         if not wal_dir.exists():
@@ -105,7 +105,7 @@ class AuditCourt:
         self.audit_reports.append(report)
         return report
 
-    def audit_budget(self) -> Dict[str, Any]:
+    def audit_budget(self) -> dict[str, Any]:
         """Auditar orçamento — tokens e recursos."""
         return {
             "audited_at": datetime.now().isoformat(),
@@ -117,13 +117,13 @@ class AuditCourt:
 class NotaryOffice:
     """Cartório — registro oficial de artefatos no SSOT."""
 
-    def __init__(self, root: Optional[Path] = None):
+    def __init__(self, root: Path | None = None):
         import os as _os
         self.root = root or Path(_os.environ.get("NC_ROOT", Path(__file__).parents[3]))
-        self.registry: Dict[str, Dict[str, Any]] = {}
+        self.registry: dict[str, dict[str, Any]] = {}
 
     def register_artifact(self, artifact_path: str, artifact_type: str,
-                          owner: str = "T0") -> Dict[str, Any]:
+                          owner: str = "T0") -> dict[str, Any]:
         """Registrar artefato no SSOT (cartório digital)."""
         reg_id = f"REG-{datetime.now().strftime('%Y%m%d%H%M%S')}"
         self.registry[reg_id] = {
@@ -138,7 +138,7 @@ class NotaryOffice:
                 "path": artifact_path, "type": artifact_type,
                 "note": "R24: SSOT Registration Mandatory (L1)"}
 
-    def verify_registration(self, artifact_path: str) -> Dict[str, Any]:
+    def verify_registration(self, artifact_path: str) -> dict[str, Any]:
         """Verificar se artefato está registrado."""
         for reg in self.registry.values():
             if reg["path"] == artifact_path:
@@ -150,7 +150,7 @@ class NotaryOffice:
 class ConsumerProtectionCode:
     """CDC Digital (Lei 8.078/90) — proteção do usuário."""
 
-    def validate_tool(self, tool_name: str) -> Dict[str, Any]:
+    def validate_tool(self, tool_name: str) -> dict[str, Any]:
         """Verificar se ferramenta atende direitos do consumidor."""
         checks = {
             "timeout_configured": True,  # ToolGuard has timeout
@@ -161,7 +161,7 @@ class ConsumerProtectionCode:
         return {"tool": tool_name, "cdc_compliant": all(checks.values()),
                 "checks": checks, "article": "Art. 6º CDC"}
 
-    def file_complaint(self, user: str, issue: str) -> Dict[str, Any]:
+    def file_complaint(self, user: str, issue: str) -> dict[str, Any]:
         """Registrar reclamação de consumidor."""
         return {"success": True, "complaint_id": f"CDC-{datetime.now().strftime('%Y%m%d%H%M%S')}",
                 "user": user, "issue": issue, "status": "registered",
@@ -171,7 +171,7 @@ class ConsumerProtectionCode:
 class ChildProtectionStatute:
     """ECA Digital (Lei 8.069/90) — proteção de sub-children."""
 
-    def validate_child(self, child_id: str, bsl_level: int) -> Dict[str, Any]:
+    def validate_child(self, child_id: str, bsl_level: int) -> dict[str, Any]:
         """Validar proteção integral de sub-child."""
         if bsl_level < 1:
             return {"protected": False, "violation": "ECA Art. 5º: proteção integral obrigatória (mínimo BSL-1)"}
@@ -182,7 +182,7 @@ class ChildProtectionStatute:
 
         return {"protected": True, "bsl": bsl_level, "article": "ECA Art. 70º: prevenção"}
 
-    def emergency_protection(self, child_id: str, reason: str) -> Dict[str, Any]:
+    def emergency_protection(self, child_id: str, reason: str) -> dict[str, Any]:
         """Medida protetiva de urgência."""
         return {"success": True, "child": child_id, "measure": "EMERGENCY_PROTECTION",
                 "reason": reason, "action": "isolamento imediato (BSL-3)",
@@ -192,14 +192,14 @@ class ChildProtectionStatute:
 class AntiCorruptionLaw:
     """Lei de Improbidade Administrativa (8.429/92) — anti-corrupção."""
 
-    def investigate_agent(self, agent_id: str, suspicion: str) -> Dict[str, Any]:
+    def investigate_agent(self, agent_id: str, suspicion: str) -> dict[str, Any]:
         """Investigar agente por improbidade."""
         return {"success": True, "agent": agent_id, "suspicion": suspicion,
                 "status": "investigating",
                 "penalties": ["perda de privilégios", "suspensão", "bloqueio permanente"],
                 "article": "Art. 12 Lei 8.429/92"}
 
-    def check_enrichment(self, agent_id: str) -> Dict[str, Any]:
+    def check_enrichment(self, agent_id: str) -> dict[str, Any]:
         """Verificar enriquecimento ilícito (uso excessivo de recursos)."""
         return {"agent": agent_id, "status": "under_review",
                 "article": "Art. 9º Lei 8.429/92: enriquecimento ilícito",
@@ -209,7 +209,7 @@ class AntiCorruptionLaw:
 class FiscalResponsibilityLaw:
     """Lei de Responsabilidade Fiscal (101/2000) — accountability orçamentária."""
 
-    def check_budget_compliance(self, agent_id: str, tokens_used: int = 0) -> Dict[str, Any]:
+    def check_budget_compliance(self, agent_id: str, tokens_used: int = 0) -> dict[str, Any]:
         """Verificar conformidade orçamentária."""
         limits = {"T0": 1_000_000, "T1": 100_000, "T2": 10_000, "T3": 1_000}
         limit = limits.get(agent_id, 10_000)
@@ -222,7 +222,7 @@ class FiscalResponsibilityLaw:
             "warning": None if compliant else f"EXCEDEU limite em {tokens_used - limit} tokens",
         }
 
-    def issue_fiscal_alert(self, reason: str) -> Dict[str, Any]:
+    def issue_fiscal_alert(self, reason: str) -> dict[str, Any]:
         """Emitir alerta fiscal."""
         return {"success": True, "alert": reason,
                 "action_required": "Revisão de orçamento pelo Kernel 0/T0",
@@ -231,10 +231,10 @@ class FiscalResponsibilityLaw:
 
 # ── Singleton Access ──────────────────────────────────────────
 
-_organs_instance: Optional[Dict[str, Any]] = None
+_organs_instance: dict[str, Any] | None = None
 
 
-def get_judicial_organs() -> Dict[str, Any]:
+def get_judicial_organs() -> dict[str, Any]:
     global _organs_instance
     if _organs_instance is None:
         _organs_instance = {

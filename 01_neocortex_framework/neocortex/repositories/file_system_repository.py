@@ -1,6 +1,8 @@
 # Strangler wrapper → NC-REP-FR-001-file-system-repository.py (T0-fixed 2026-05-04)
-import importlib.util, sys
+import importlib.util
+import sys
 from pathlib import Path
+
 _path = Path(__file__).parent / "NC-REP-FR-001-file-system-repository.py"
 _name = "neocortex.repositories.file_system_repository"
 _spec = importlib.util.spec_from_file_location(_name, str(_path))

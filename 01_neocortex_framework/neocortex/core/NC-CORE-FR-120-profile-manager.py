@@ -19,7 +19,7 @@ import json
 import os
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 # Importar constante PROJECT_ROOT do mdulo file_utils
 from .file_utils import PROJECT_ROOT
@@ -38,7 +38,7 @@ TEAM_PROFILE_SCHEMA = "neocortex-team-v1.0"
 # ==================== FUNES AUXILIARES ====================
 
 
-def load_json_file(filepath: Path) -> Dict[str, Any]:
+def load_json_file(filepath: Path) -> dict[str, Any]:
     """Carrega arquivo JSON com tratamento de erro."""
     try:
         with open(filepath, encoding="utf-8") as f:
@@ -49,7 +49,7 @@ def load_json_file(filepath: Path) -> Dict[str, Any]:
         raise ValueError(f"Erro ao decodificar JSON em {filepath}: {e}")
 
 
-def save_json_file(filepath: Path, data: Dict[str, Any], indent: int = 2):
+def save_json_file(filepath: Path, data: dict[str, Any], indent: int = 2):
     """Salva arquivo JSON com formatao."""
     os.makedirs(filepath.parent, exist_ok=True)
     with open(filepath, "w", encoding="utf-8") as f:
@@ -64,7 +64,7 @@ def get_timestamp() -> str:
 # ==================== GESTO DE PERFIS ====================
 
 
-def load_profile(user_id: str) -> Dict[str, Any]:
+def load_profile(user_id: str) -> dict[str, Any]:
     """
     Carrega perfil de desenvolvedor pelo user_id.
 
@@ -89,7 +89,7 @@ def load_profile(user_id: str) -> Dict[str, Any]:
     return load_json_file(profile_path)
 
 
-def save_profile(profile: Dict[str, Any]) -> Path:
+def save_profile(profile: dict[str, Any]) -> Path:
     """
     Salva perfil de desenvolvedor.
 
@@ -114,8 +114,8 @@ def create_profile(
     display_name: str,
     email: str = "",
     hierarchy_level: int = 0,
-    parent_id: Optional[str] = None,
-) -> Dict[str, Any]:
+    parent_id: str | None = None,
+) -> dict[str, Any]:
     """
     Cria novo perfil a partir do template.
 
@@ -171,8 +171,8 @@ def profile_exists(user_id: str) -> bool:
 
 
 def check_hierarchical_access(
-    user_profile: Dict[str, Any], resource_profile: Dict[str, Any], action: str = "read"
-) -> Dict[str, Any]:
+    user_profile: dict[str, Any], resource_profile: dict[str, Any], action: str = "read"
+) -> dict[str, Any]:
     """
     Verifica se usurio pode acessar recurso baseado em hierarquia.
 
@@ -271,7 +271,7 @@ def check_hierarchical_access(
 
 def can_access(
     user_id: str, resource_owner_id: str, action: str = "read"
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Verificao de acesso simplificada (carrega perfis automaticamente).
 
@@ -294,7 +294,7 @@ def can_access(
 # ==================== UTILITRIOS DE HIERARQUIA ====================
 
 
-def get_user_level(user_id: str) -> Optional[int]:
+def get_user_level(user_id: str) -> int | None:
     """
     Obtm nvel hierrquico do usurio.
 
@@ -311,7 +311,7 @@ def get_user_level(user_id: str) -> Optional[int]:
         return None
 
 
-def get_user_ancestors(user_id: str) -> List[str]:
+def get_user_ancestors(user_id: str) -> list[str]:
     """
     Obtm ancestrais (caminho at a raiz) do usurio.
 
@@ -328,7 +328,7 @@ def get_user_ancestors(user_id: str) -> List[str]:
         return []
 
 
-def get_user_descendants(user_id: str, max_depth: int = -1) -> List[str]:
+def get_user_descendants(user_id: str, max_depth: int = -1) -> list[str]:
     """
     Obtm descendentes do usurio (filhos, netos, etc.).
 
@@ -344,7 +344,7 @@ def get_user_descendants(user_id: str, max_depth: int = -1) -> List[str]:
     return []
 
 
-def get_accessible_users(user_id: str) -> List[str]:
+def get_accessible_users(user_id: str) -> list[str]:
     """
     Obtm lista de usurios que o usurio atual pode acessar.
 
@@ -370,7 +370,7 @@ def get_accessible_users(user_id: str) -> List[str]:
 
 
 def update_profile_pattern(
-    user_id: str, pattern_type: str, data: Dict[str, Any]
+    user_id: str, pattern_type: str, data: dict[str, Any]
 ) -> bool:
     """
     Atualiza padro no perfil do usurio (para aprendizado contnuo).
@@ -403,7 +403,7 @@ def update_profile_pattern(
         return False
 
 
-def get_profile_insights(user_id: str) -> Dict[str, Any]:
+def get_profile_insights(user_id: str) -> dict[str, Any]:
     """
     Retorna insights do perfil (para predies).
 
@@ -434,7 +434,7 @@ def get_profile_insights(user_id: str) -> Dict[str, Any]:
 # ==================== VALIDAO ====================
 
 
-def validate_profile(profile: Dict[str, Any]) -> Tuple[bool, List[str]]:
+def validate_profile(profile: dict[str, Any]) -> tuple[bool, list[str]]:
     """
     Valida estrutura do perfil.
 

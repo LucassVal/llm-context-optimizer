@@ -29,7 +29,7 @@ import importlib.util
 import logging
 import threading
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -107,7 +107,7 @@ class MissionControlHook:
                     logger.error("Falha ao criar adapter: %s", e)
             return self.adapter
 
-    def on_before(self, tool_name: str, args: Dict[str, Any], **kwargs: Any) -> None:
+    def on_before(self, tool_name: str, args: dict[str, Any], **kwargs: Any) -> None:
         """
         Chamado antes da execução da tool.
         Envia evento 'tool_call' para o Mission Control.

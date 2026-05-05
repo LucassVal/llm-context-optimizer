@@ -7,7 +7,6 @@ import json
 import os
 import pathlib
 import re
-from typing import Dict, Tuple
 
 
 class ClaimValidator:
@@ -54,10 +53,10 @@ class ClaimValidator:
         },
     }
 
-    def __init__(self, root: pathlib.Path = None):
+    def __init__(self, root: pathlib.Path | None = None):
         self.root = root or pathlib.Path(os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3]))
 
-    def validate(self, response_text: str) -> Dict:
+    def validate(self, response_text: str) -> dict:
         found_claims = []
         for claim_type, config in self.CLAIMS.items():
             for pattern in config["patterns"]:
@@ -89,7 +88,7 @@ class ClaimValidator:
             "message": "Claims nao comprovadas" if violations else "Claims verificadas com evidencia",
         }
 
-    def _verify_implementation(self) -> Tuple[bool, str]:
+    def _verify_implementation(self) -> tuple[bool, str]:
         """Verifica: compilou + wired + ruff/mypy passando."""
         import subprocess
         import sys
@@ -130,7 +129,7 @@ class ClaimValidator:
             return False, "; ".join(results)
         return True, f"{len(recent)} files: compile OK + wired + ruff clean"
 
-    def _verify_tested(self) -> Tuple[bool, str]:
+    def _verify_tested(self) -> tuple[bool, str]:
         """Verifica se o watcher registrou atividade recente."""
         wf = self.root / ".neocortex" / "watcher" / "watcher_stats.json"
         if not wf.exists():
@@ -144,22 +143,22 @@ class ClaimValidator:
         except:
             return False, "Cannot read watcher stats"
 
-    def _verify_not_deleted(self) -> Tuple[bool, str]:
+    def _verify_not_deleted(self) -> tuple[bool, str]:
         """Verifica se nenhum arquivo foi deletado (R05)."""
         archive = self.root / "01_neocortex_framework" / "DIR-ARC-FR-001-archive-main"
         return archive.exists(), "Archive dir exists (R05 compliant)"
 
-    def _verify_compiled(self) -> Tuple[bool, str]:
+    def _verify_compiled(self) -> tuple[bool, str]:
         """Mesmo que _verify_implementation."""
         return self._verify_implementation()
 
-    def _verify_rac(self, response_text: str = "") -> Tuple[bool, str]:
+    def _verify_rac(self, response_text: str = "") -> tuple[bool, str]:
         """R41: Resposta deve conter raciocinio causal."""
         import re
         has_causal = bool(re.search(r'por que|porque|causa raiz|root cause', response_text, re.IGNORECASE))
         return has_causal, "RAC presente" if has_causal else "RAC ausente: sem raciocinio causal"
 
-    def _verify_3w(self, response_text: str = "") -> Tuple[bool, str]:
+    def _verify_3w(self, response_text: str = "") -> tuple[bool, str]:
         """R42: Resposta deve conter estrutura What/Why/Where."""
         import re
         what = bool(re.search(r'(what|o que)\b', response_text, re.IGNORECASE))
@@ -168,7 +167,7 @@ class ClaimValidator:
         ok = what and why
         return ok, f"3W: What={what} Why={why} Where={where}"
 
-    def _verify_kiss(self, response_text: str = "") -> Tuple[bool, str]:
+    def _verify_kiss(self, response_text: str = "") -> tuple[bool, str]:
         """R53: Resposta nao excessivamente complexa (>2500 chars)."""
         ok = len(response_text) < 2500
         return ok, f"KISS OK ({len(response_text)} chars)" if ok else f"KISS VIOLATION: {len(response_text)} chars"

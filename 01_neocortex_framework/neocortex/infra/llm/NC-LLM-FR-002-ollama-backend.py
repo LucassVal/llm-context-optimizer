@@ -14,7 +14,8 @@ Supports running local models via Ollama API.
 import asyncio
 import json
 import logging
-from typing import Any, AsyncGenerator, Dict, List, Optional
+from collections.abc import AsyncGenerator
+from typing import Any
 
 import aiohttp
 
@@ -30,7 +31,7 @@ class OllamaBackend(LLMBackend):
     Requires Ollama to be installed and running locally.
     """
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: dict[str, Any]):
         """
         Initialize Ollama backend.
 
@@ -39,7 +40,7 @@ class OllamaBackend(LLMBackend):
                     and 'model' (default: llama2).
         """
         self.base_url = config.get("base_url", "http://localhost:11434")
-        self.session: Optional[aiohttp.ClientSession] = None
+        self.session: aiohttp.ClientSession | None = None
         super().__init__(config)
 
     def _initialize(self) -> None:
@@ -195,7 +196,7 @@ class OllamaBackend(LLMBackend):
         """
         return len(text) // 4
 
-    def get_available_models(self) -> List[str]:
+    def get_available_models(self) -> list[str]:
         """
         Get available Ollama models.
 

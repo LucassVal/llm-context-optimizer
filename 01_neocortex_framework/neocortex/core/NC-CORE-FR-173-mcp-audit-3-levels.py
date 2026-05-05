@@ -17,20 +17,20 @@ import subprocess
 import sys
 import time
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any
 
 
 class MCPAudit3Levels:
     """Auditoria organica de 3 camadas com profundidade total."""
 
-    def __init__(self, root: pathlib.Path = None):
+    def __init__(self, root: pathlib.Path | None = None):
         self.root = root or pathlib.Path(
             os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3])
         )
         self.fw = self.root / "01_neocortex_framework"
         self.tools_dir = self.fw / "neocortex" / "mcp" / "tools"
         self.core_dir = self.fw / "neocortex" / "core"
-        self.results: Dict[str, Any] = {
+        self.results: dict[str, Any] = {
             "camada_1": {},
             "camada_2": {},
             "camada_3": {},
@@ -41,7 +41,7 @@ class MCPAudit3Levels:
     # CAMADA 1 — COMPILE-TIME (sintaxe, tipo, lint, parse)
     # ═══════════════════════════════════════════════════════════
 
-    def audit_camada_1(self) -> Dict:
+    def audit_camada_1(self) -> dict:
         """Verifica sintaxe, tipo, lint de TODOS os arquivos por tipo."""
         results = {
             "py": self._c1_python(),
@@ -59,7 +59,7 @@ class MCPAudit3Levels:
         results["passed"] = total_passed
         return results
 
-    def _c1_python(self) -> Dict:
+    def _c1_python(self) -> dict:
         """ruff + mypy + py_compile + bandit em todos os .py do core + tools."""
         all_py = list(self.core_dir.glob("NC-CORE-FR-*.py")) + list(
             self.tools_dir.glob("NC-SUPER-*.py")
@@ -133,7 +133,7 @@ class MCPAudit3Levels:
         results["ruff_pct"] = round(results["ruff_ok"] / max(len(all_py), 1) * 100, 1)
         return results
 
-    def _c1_yaml(self) -> Dict:
+    def _c1_yaml(self) -> dict:
         """yaml.safe_load em todos os .yaml do projeto (exceto node_modules, archive)."""
         import yaml as _yaml
 
@@ -165,7 +165,7 @@ class MCPAudit3Levels:
             "passed": ok,
         }
 
-    def _c1_mdc(self) -> Dict:
+    def _c1_mdc(self) -> dict:
         """Frontmatter YAML + NC-READ-HASH em todos os .mdc."""
         import yaml as _yaml
 
@@ -202,7 +202,7 @@ class MCPAudit3Levels:
             "passed": ok_fm + ok_hash,
         }
 
-    def _c1_json(self) -> Dict:
+    def _c1_json(self) -> dict:
         """json.loads em todos os .json do projeto."""
         json_files = list(self.root.rglob("*.json"))
         json_files = [
@@ -232,7 +232,7 @@ class MCPAudit3Levels:
             "passed": ok,
         }
 
-    def _c1_markdown(self) -> Dict:
+    def _c1_markdown(self) -> dict:
         """Verifica naming NC- em .md fora de dirs excluidos."""
         md_files = list(self.root.rglob("*.md"))
         md_files = [
@@ -258,7 +258,7 @@ class MCPAudit3Levels:
             "passed": nc_ok,
         }
 
-    def _c1_powershell(self) -> Dict:
+    def _c1_powershell(self) -> dict:
         """AST Parser em .ps1."""
         ps1_files = list(self.root.rglob("*.ps1"))
         ps1_files = [
@@ -294,7 +294,7 @@ class MCPAudit3Levels:
             "passed": ok,
         }
 
-    def _c1_jsonl(self) -> Dict:
+    def _c1_jsonl(self) -> dict:
         """json.loads por linha em .jsonl."""
         jsonl_files = list(self.root.rglob("*.jsonl"))
         jsonl_files = [
@@ -325,7 +325,7 @@ class MCPAudit3Levels:
     # CAMADA 2 — RUNTIME (contratos, importlib, hasattr, ulq)
     # ═══════════════════════════════════════════════════════════
 
-    def audit_camada_2(self) -> Dict:
+    def audit_camada_2(self) -> dict:
         """Verifica contratos de interface, importlib, ulq.resolve cross-check."""
         results = {
             "ulq_cross_ref": self._c2_ulq_cross_ref(),
@@ -342,7 +342,7 @@ class MCPAudit3Levels:
         results["passed"] = total_passed
         return results
 
-    def _c2_ulq_cross_ref(self) -> Dict:
+    def _c2_ulq_cross_ref(self) -> dict:
         """Verifica se todos os @ symbols do ULQ apontam para arquivos existentes."""
         try:
             spec = importlib.util.spec_from_file_location(
@@ -376,7 +376,7 @@ class MCPAudit3Levels:
             "passed": ok,
         }
 
-    def _c2_import_contracts(self) -> Dict:
+    def _c2_import_contracts(self) -> dict:
         """Verifica se modulos importados por outros modulos existem e compilam."""
         py_files = list(self.core_dir.glob("NC-CORE-FR-*.py")) + list(
             self.tools_dir.glob("NC-SUPER-*.py")
@@ -396,7 +396,7 @@ class MCPAudit3Levels:
             "modules_scanned": len(py_files),
         }
 
-    def _c2_tool_actions_depth(self) -> Dict:
+    def _c2_tool_actions_depth(self) -> dict:
         """Tool-by-tool, action-by-action: verifica se cada action MCP existe no schema."""
         tools = list(self.tools_dir.glob("NC-SUPER-*.py"))
         results = {
@@ -454,7 +454,7 @@ class MCPAudit3Levels:
         )
         return results
 
-    def _c2_gateway_wired(self) -> Dict:
+    def _c2_gateway_wired(self) -> dict:
         """Verifica quantas tools tem gateway_check ou validate_action."""
         tools = list(self.tools_dir.glob("NC-SUPER-*.py"))
         wired = sum(
@@ -471,7 +471,7 @@ class MCPAudit3Levels:
             "passed": wired,
         }
 
-    def _c2_stubs_scan(self) -> Dict:
+    def _c2_stubs_scan(self) -> dict:
         """Scan por stubs, mocks, raise NotImplementedError, pass sozinho."""
         py_files = list(self.core_dir.glob("*.py")) + list(self.tools_dir.glob("*.py"))
         stubs_found = []
@@ -488,7 +488,7 @@ class MCPAudit3Levels:
             "passed": len(py_files) - len(stubs_found),
         }
 
-    def _c2_hardcoded_paths(self) -> Dict:
+    def _c2_hardcoded_paths(self) -> dict:
         """Verifica hardcoded paths que violam R10 (deveriam usar ulq.resolve)."""
         py_files = list(self.core_dir.glob("NC-CORE-FR-*.py")) + list(
             self.tools_dir.glob("NC-SUPER-*.py")
@@ -527,7 +527,7 @@ class MCPAudit3Levels:
     # CAMADA 3 — OPERATIONAL (health, checkpoint, WAL, cortex)
     # ═══════════════════════════════════════════════════════════
 
-    def audit_camada_3(self) -> Dict:
+    def audit_camada_3(self) -> dict:
         """Verifica saude operacional: checkpoints, WAL, cortex, savepoints."""
         results = {
             "checkpoint_freshness": self._c3_checkpoint_freshness(),
@@ -546,7 +546,7 @@ class MCPAudit3Levels:
         results["passed"] = total_passed
         return results
 
-    def _c3_checkpoint_freshness(self) -> Dict:
+    def _c3_checkpoint_freshness(self) -> dict:
         """Verifica se ha checkpoints nas ultimas 24h."""
         # Checkpoints are stored in MCP state, not files. Check via file timestamps.
         wal_jsonl = list(self.root.glob("DIR-DS-002-audit-logs/NC-WAL-GW-*.jsonl"))
@@ -566,7 +566,7 @@ class MCPAudit3Levels:
             "passed": 1 if fresh else 0,
         }
 
-    def _c3_wal_freshness(self) -> Dict:
+    def _c3_wal_freshness(self) -> dict:
         """Verifica se o WAL DB foi atualizado nas ultimas 24h."""
         wal_db = self.root / "DIR-DS-003-wal" / "neocortex_wal.db"
         if wal_db.exists():
@@ -581,7 +581,7 @@ class MCPAudit3Levels:
             }
         return {"exists": False, "checks": 1, "passed": 0}
 
-    def _c3_cortex_health(self) -> Dict:
+    def _c3_cortex_health(self) -> dict:
         """Verifica se ha dados no cortex (LEXICO populado, catalogo com entradas)."""
         lexico = self.fw / ".neocortex" / "lexico" / "NC-LEXICO-LATEST.json"
         tag_index = self.fw / ".neocortex" / "lexico" / "NC-ULQ-TAG-INDEX.json"
@@ -615,7 +615,7 @@ class MCPAudit3Levels:
             "passed": passed,
         }
 
-    def _c3_savepoint_freshness(self) -> Dict:
+    def _c3_savepoint_freshness(self) -> dict:
         """Verifica se ha savepoints recentes (< 7 dias)."""
         savepoint_dir = self.fw / ".neocortex" / "savepoints"
         if savepoint_dir.exists():
@@ -634,7 +634,7 @@ class MCPAudit3Levels:
                 }
         return {"count": 0, "checks": 1, "passed": 0}
 
-    def _c3_handoff_integrity(self) -> Dict:
+    def _c3_handoff_integrity(self) -> dict:
         """Verifica handoffs: total, >30d para archive, orfaos."""
         handoff_dir = self.root / "DIR-DS-002-audit-logs"
         handoffs = (
@@ -651,7 +651,7 @@ class MCPAudit3Levels:
             "passed": 1 if len(old) == 0 else 0,
         }
 
-    def _c3_pulse_health(self) -> Dict:
+    def _c3_pulse_health(self) -> dict:
         """Verifica se PulseScheduler esta importavel e nao crasha."""
         pulse_file = self.core_dir / "NC-CORE-FR-142-pulse-scheduler-orbital.py"
         if pulse_file.exists():
@@ -669,7 +669,7 @@ class MCPAudit3Levels:
                 }
         return {"importable": False, "checks": 1, "passed": 0}
 
-    def _c3_lexico_freshness(self) -> Dict:
+    def _c3_lexico_freshness(self) -> dict:
         """LEXICO atualizado nas ultimas 24h?"""
         lexico = self.fw / ".neocortex" / "lexico" / "NC-LEXICO-LATEST.json"
         if lexico.exists():
@@ -682,7 +682,7 @@ class MCPAudit3Levels:
             }
         return {"checks": 1, "passed": 0}
 
-    def _c3_dir_health(self) -> Dict:
+    def _c3_dir_health(self) -> dict:
         """Verifica diretorios criticos existem e nao estao vazios."""
         dirs = {
             "tickets": self.root / "DIR-DS-001-tickets",
@@ -709,7 +709,7 @@ class MCPAudit3Levels:
     # AUDITORIA COMPLETA 3 NIVEIS
     # ═══════════════════════════════════════════════════════════
 
-    def audit_all_levels(self) -> Dict:
+    def audit_all_levels(self) -> dict:
         """Executa auditoria completa de 3 camadas com profundidade total."""
         ts = datetime.now().isoformat()
         report = {
@@ -751,7 +751,7 @@ class MCPAudit3Levels:
         return report
 
 
-_auditor_3l: Optional[MCPAudit3Levels] = None
+_auditor_3l: MCPAudit3Levels | None = None
 
 
 def get_auditor_3l() -> MCPAudit3Levels:

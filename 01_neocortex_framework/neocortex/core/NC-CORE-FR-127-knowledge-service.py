@@ -6,7 +6,7 @@
 
 import logging
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 class KnowledgeService:
     """Real knowledge service — stores and retrieves knowledge entries on disk."""
 
-    def __init__(self, root: Optional[Path] = None):
+    def __init__(self, root: Path | None = None):
         import os as _os
         self.root = root or Path(_os.environ.get("NC_ROOT", Path(__file__).parents[3]))
         self.store_dir = self.root / ".neocortex" / "knowledge"
@@ -54,7 +54,7 @@ class KnowledgeService:
         results.sort(key=lambda r: r.get("matches", 0), reverse=True)
         return results[:limit]
 
-    def store(self, key: str, content: str, tag: str = "") -> Dict[str, Any]:
+    def store(self, key: str, content: str, tag: str = "") -> dict[str, Any]:
         """Store a knowledge entry."""
         import json
         entry = {
@@ -69,10 +69,10 @@ class KnowledgeService:
 
 
 # Singleton
-_knowledge_service_instance: Optional[KnowledgeService] = None
+_knowledge_service_instance: KnowledgeService | None = None
 
 
-def get_knowledge_service(root: Optional[Path] = None) -> KnowledgeService:
+def get_knowledge_service(root: Path | None = None) -> KnowledgeService:
     global _knowledge_service_instance
     if _knowledge_service_instance is None:
         _knowledge_service_instance = KnowledgeService(root)

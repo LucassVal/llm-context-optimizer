@@ -21,13 +21,13 @@ Actions:
 """
 import logging
 from datetime import datetime
-from typing import Any, Dict, List
+from typing import Any
 
 logger = logging.getLogger(__name__)
 TOOL_NAME = "neocortex_notification"
 
-_NOTIFICATIONS: List[Dict] = []
-_PEERS: Dict[str, Dict] = {}
+_NOTIFICATIONS: list[dict] = []
+_PEERS: dict[str, dict] = {}
 
 
 def _ts() -> str:
@@ -44,7 +44,7 @@ def register_tool(mcp) -> None:
         peer_id: str = "",
         peer_url: str = "",
         limit: int = 20,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """FÓRUM — Notificações e Peers.
         Funde: notification (028) + peers (012).
         Actions: push.send, push.list, push.clear,

@@ -24,7 +24,7 @@ import logging
 import time
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 import yaml
 
@@ -47,14 +47,14 @@ class LockGuard:
     DENY BY DEFAULT  if locks YAML is missing, ALL writes are blocked.
     """
 
-    def __init__(self, locks_yaml: Optional[Path] = None):
+    def __init__(self, locks_yaml: Path | None = None):
         self._locks_yaml = locks_yaml or LOCKS_YAML_PATH
-        self._config: Dict[str, Any] = {}
-        self._locked_patterns: List[Dict[str, Any]] = []  # [{group, action, patterns}]
-        self._exceptions: List[Dict[str, Any]] = []
+        self._config: dict[str, Any] = {}
+        self._locked_patterns: list[dict[str, Any]] = []  # [{group, action, patterns}]
+        self._exceptions: list[dict[str, Any]] = []
         self._last_load_time: float = 0.0
         self._load_ttl: float = 60.0  # Reload YAML every 60s
-        self._violation_log: List[Dict[str, Any]] = []
+        self._violation_log: list[dict[str, Any]] = []
         self._load()
 
     def _load(self) -> None:
@@ -102,7 +102,7 @@ class LockGuard:
         if time.monotonic() - self._last_load_time > self._load_ttl:
             self._load()
 
-    def _matches_any(self, path_str: str, patterns: List[str]) -> bool:
+    def _matches_any(self, path_str: str, patterns: list[str]) -> bool:
         """Check if path_str matches any glob pattern in the list."""
         # Normalize to forward slashes for consistent matching
         normalized = path_str.replace("\\", "/").lstrip("/")
@@ -129,7 +129,7 @@ class LockGuard:
                     return True
         return False
 
-    def _is_excepted(self, path_str: str, agent_role: str) -> Tuple[bool, str]:
+    def _is_excepted(self, path_str: str, agent_role: str) -> tuple[bool, str]:
         """Check if agent_role has an explicit exception for this path."""
         for exc in self._exceptions:
             if exc.get("agent_role") != agent_role:
@@ -140,7 +140,7 @@ class LockGuard:
                 return True, reason
         return False, ""
 
-    def check_write(self, path: str, agent_role: str = "unknown") -> Tuple[bool, str]:
+    def check_write(self, path: str, agent_role: str = "unknown") -> tuple[bool, str]:
         """
         Check if agent_role can write to path.
         Returns (allowed: bool, reason: str).
@@ -194,13 +194,13 @@ class LockGuard:
 
         return True, "ALLOWED: no lock group matched"
 
-    def check_tool_call(self, tool_name: str, action: str, agent_role: str) -> Tuple[bool, str]:
+    def check_tool_call(self, tool_name: str, action: str, agent_role: str) -> tuple[bool, str]:
         """
         Check if agent_role can execute a specific tool action.
         Used by policy enforcement (NC-CFG-FR-001 forbidden_actions).
         """
         # Map tool+action to forbidden_actions list names
-        forbidden_map: Dict[str, List[str]] = {
+        forbidden_map: dict[str, list[str]] = {
             "courier":     ["spawn", "stop", "delete_lobe", "write_ledger", "set_config", "export"],
             "engineer":    ["spawn", "stop", "delete_lobe", "set_config"],
             "guardian":    ["spawn", "stop", "delete_lobe", "write_ledger", "set_config", "export",
@@ -215,7 +215,7 @@ class LockGuard:
             return False, reason
         return True, "ALLOWED"
 
-    def get_compliance_status(self) -> Dict[str, Any]:
+    def get_compliance_status(self) -> dict[str, Any]:
         """
         Returns real-time compliance status for the HUD.
         Checks: YAML loaded, lock groups active, recent violations, reload age.
@@ -237,13 +237,13 @@ class LockGuard:
             "status": " FAILSAFE" if failsafe else (" ACTIVE" if yaml_ok else " NO_YAML"),
         }
 
-    def get_violations(self, limit: int = 50) -> List[Dict[str, Any]]:
+    def get_violations(self, limit: int = 50) -> list[dict[str, Any]]:
         """Return recent violations for audit display."""
         return self._violation_log[-limit:]
 
 
 #  Singleton
-_lock_guard: Optional[LockGuard] = None
+_lock_guard: LockGuard | None = None
 
 
 def get_lock_guard() -> LockGuard:

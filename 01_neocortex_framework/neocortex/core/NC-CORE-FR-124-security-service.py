@@ -15,7 +15,7 @@ using repository interfaces for storage abstraction.
 # SEC-401: LockGuard (R09  via neocortex.core importlib wrapper)
 import importlib as _il
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any
 
 from ..repositories import LedgerRepository
 
@@ -37,7 +37,7 @@ except ImportError:
 class SecurityService:
     """Service for security-related business logic."""
 
-    def __init__(self, repository: Optional[LedgerRepository] = None):
+    def __init__(self, repository: LedgerRepository | None = None):
         """
         Initialize security service.
 
@@ -58,7 +58,7 @@ class SecurityService:
         target_user_id: str = "",
         access_type: str = "read",
         resource: str = "",
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Validate access to resources.
 
@@ -153,7 +153,7 @@ class SecurityService:
             "message": f"Access validation completed: {access_validation['message']}",
         }
 
-    def check_path_write(self, path: str, agent_role: str = "unknown") -> Dict[str, Any]:
+    def check_path_write(self, path: str, agent_role: str = "unknown") -> dict[str, Any]:
         """
         SEC-401  Path-based write check via LockGuard (reads NC-SEC-FR-001-atomic-locks.yaml).
         Call this BEFORE any write operation to a file path.
@@ -168,7 +168,7 @@ class SecurityService:
             "agent_role": agent_role,
         }
 
-    def check_tool_allowed(self, tool_name: str, action: str, agent_role: str) -> Dict[str, Any]:
+    def check_tool_allowed(self, tool_name: str, action: str, agent_role: str) -> dict[str, Any]:
         """
         PRE-1  Tool/action whitelist check via PolicyLoader (reads NC-CFG-FR-001).
         """
@@ -183,7 +183,7 @@ class SecurityService:
             "action_reason": action_reason,
         }
 
-    def audit_changes(self) -> Dict[str, Any]:
+    def audit_changes(self) -> dict[str, Any]:
         """
         Get audit history.
 
@@ -204,7 +204,7 @@ class SecurityService:
             "message": f"{len(recent_audits)} recent entries in audit log",
         }
 
-    def encrypt_sensitive(self, resource: str) -> Dict[str, Any]:
+    def encrypt_sensitive(self, resource: str) -> dict[str, Any]:
         """
         Encrypt sensitive resource via NC-SVC-FR-017-crypto-hub (Fernet real).
         Falls back to hash-only mode when NEOCORTEX_MASTER_KEY is absent.
@@ -283,7 +283,7 @@ class SecurityService:
             "message": f"Resource '{resource}' encrypted via {method}",
         }
 
-    def get_security_log(self, limit: int = 50) -> Dict[str, Any]:
+    def get_security_log(self, limit: int = 50) -> dict[str, Any]:
         """
         Get security log with optional limit.
 
@@ -298,10 +298,7 @@ class SecurityService:
         security_log = memory_cortex.get("security_log", [])
 
         # Apply limit
-        if limit > 0:
-            entries = security_log[-limit:]
-        else:
-            entries = security_log
+        entries = security_log[-limit:] if limit > 0 else security_log
 
         # Categorize entries by type
         by_type = {}
@@ -325,7 +322,7 @@ _default_security_service = None
 
 
 def get_security_service(
-    repository: Optional[LedgerRepository] = None,
+    repository: LedgerRepository | None = None,
 ) -> SecurityService:
     """
     Get security service instance (singleton pattern).

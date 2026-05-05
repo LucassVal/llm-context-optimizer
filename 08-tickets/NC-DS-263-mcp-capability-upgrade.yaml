@@ -1,0 +1,24 @@
+ticket_id: "NC-DS-263"
+title: "MCP Capability Upgrade: Roots, Sampling e URI Remapping"
+description: |
+  Atualização do servidor FastMCP do NeoCortex para atingir 100% de
+  compatibilidade com as diretrizes do Spec 3.1 (Roots e Sampling).
+  Durante a auditoria (RCA), confirmou-se que Resources e Prompts já 
+  estão implementados (linhas 660-768 do server.py), porém usam o schema 
+  'neocortex://' e os paths absolutos são hardcoded. A missão é tornar 
+  o servidor ciente do Workspace via Roots e engatilhar popups nativos via Sampling.
+status: DONE
+priority: "HIGH"
+owner: "OpenCode"
+category: "architecture"
+dependencies: ["NC-DS-262"]
+acceptance_criteria:
+  - "1. Roots (Spec 3.1): O servidor deve requisitar a primitiva 'roots/list' da IDE no startup para determinar dinamicamente o CORTEX_PATH e os limites do workspace, substituindo o hardcode."
+  - "2. URI Remapping (Resources): Adaptar ou expandir o schema atual de 'neocortex://lobes/{id}' para suportar 'lobe://{id}' como sugerido pelas diretrizes de integração, facilitando a UX no clip de anexo da IDE."
+  - "3. Sampling (Human-in-the-Loop): Implementar a chamada 'sampling/createMessage' no ToolGuard/Gateway. O servidor deve enviar um popup nativo para a IDE pedindo permissão do humano antes de ações bloqueantes, substituindo prompts no console."
+  - "4. Capability Negotiation: Garantir que 'roots' e 'sampling' sejam declaradas no objeto InitializationOptions durante o handshake."
+steps_to_execute:
+  - "STEP 1 (RCA & R21 Validação): Analisar o FastMCP Python SDK para injetar os handlers de roots_list e sampling_create_message."
+  - "STEP 2 (URI Alias): No server.py, registrar novas rotas de @server.resource() usando 'lobe://' que apontem para a mesma função subjacente de 'neocortex://'."
+  - "STEP 3 (Dynamic Roots): Substituir variáveis estáticas no init_cortex() para acatar a pasta listada pela IDE via Roots."
+  - "STEP 4 (Testes Múltiplos): Subir o servidor no OpenCode/Cursor e verificar se as URIs novas aparecem na aba de contexto nativo da IDE e se ações críticas exigem popup via sampling."

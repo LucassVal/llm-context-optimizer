@@ -26,7 +26,7 @@ import logging
 import subprocess
 import time
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 logger = logging.getLogger(__name__)
 TOOL_NAME = "neocortex_llm_router"
@@ -48,7 +48,7 @@ _TIER_MODEL = {
 _litellm_proc = None
 
 
-def _get(path: str, timeout: int = 5) -> Dict:
+def _get(path: str, timeout: int = 5) -> dict:
     try:
         import requests
         r = requests.get(f"{_LITELLM_BASE}{path}", headers=_HEADERS, timeout=timeout)
@@ -58,7 +58,7 @@ def _get(path: str, timeout: int = 5) -> Dict:
         return {"ok": False, "error": str(e)}
 
 
-def _post(path: str, body: dict, timeout: int = 60) -> Dict:
+def _post(path: str, body: dict, timeout: int = 60) -> dict:
     try:
         import requests
         r = requests.post(f"{_LITELLM_BASE}{path}", headers=_HEADERS, json=body, timeout=timeout)
@@ -80,7 +80,7 @@ def register_tool(mcp) -> None:
         timeout: int = 60,
         n_workers: int = 1,
         ollama_model: str = "qwen2.5-coder:1.5b",
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """CORTE STJ — Roteamento LLM.
         Funde: litellm (043) + local-llm (042).
         Actions: gateway.health, gateway.start, gateway.stop, gateway.models,

@@ -24,7 +24,7 @@ import logging
 import time
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 logger = logging.getLogger(__name__)
 TOOL_NAME = "neocortex_benchmark"
@@ -47,7 +47,7 @@ def register_tool(mcp) -> None:
         n_iterations: int = 3,
         timeout: int = 120,
         dry_run: bool = False,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """FÓRUM — Benchmark e Workers.
         Funde: benchmark (003).
         Actions: run.drift, run.titanomachy, run.omni,
@@ -62,7 +62,7 @@ def register_tool(mcp) -> None:
             _ok, _report = gateway_check(action, root)
             if not _ok: return _report
         except Exception: pass
-        def _run_benchmark_test(test_name: str, prompt: str) -> Dict:
+        def _run_benchmark_test(test_name: str, prompt: str) -> dict:
             if dry_run:
                 return {"test": test_name, "dry_run": True, "result": "skipped"}
             try:

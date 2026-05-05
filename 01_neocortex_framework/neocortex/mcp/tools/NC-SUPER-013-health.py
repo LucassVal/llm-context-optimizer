@@ -23,7 +23,7 @@ Actions:
 import logging
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 logger = logging.getLogger(__name__)
 TOOL_NAME = "neocortex_health"
@@ -45,7 +45,7 @@ def register_tool(mcp) -> None:
         pattern: str = "",
         lines: int = 50,
         tool_name: str = "",
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """FÓRUM — Health e Monitoramento.
         Funde: health (029).
         Actions: server.health, server.tools_count, log.errors, log.search,

@@ -12,7 +12,7 @@ This service encapsulates business logic for adaptive knowledge lifecycle operat
 using repository interfaces for storage abstraction.
 """
 
-from typing import Any, Dict, Optional
+from typing import Any
 
 from ..repositories import LedgerRepository
 
@@ -20,7 +20,7 @@ from ..repositories import LedgerRepository
 class AKLService:
     """Service for adaptive knowledge lifecycle business logic."""
 
-    def __init__(self, repository: Optional[LedgerRepository] = None):
+    def __init__(self, repository: LedgerRepository | None = None):
         """
         Initialize AKL service.
 
@@ -35,7 +35,7 @@ class AKLService:
         else:
             self.repository = repository
 
-    def _ensure_akl_structure(self, ledger: Dict[str, Any]) -> Dict[str, Any]:
+    def _ensure_akl_structure(self, ledger: dict[str, Any]) -> dict[str, Any]:
         """Ensure AKL metrics structure exists in memory_cortex."""
         memory_cortex = ledger.get("memory_cortex", {})
         if "akl_metrics" not in memory_cortex:
@@ -43,7 +43,7 @@ class AKLService:
             ledger["memory_cortex"] = memory_cortex
         return ledger
 
-    def assess_importance(self, rule_id: str = "") -> Dict[str, Any]:
+    def assess_importance(self, rule_id: str = "") -> dict[str, Any]:
         """
         Assess importance of rules based on usage.
 
@@ -109,7 +109,7 @@ class AKLService:
             "message": f"Importance of rule '{rule_id}' assessed",
         }
 
-    def decay_knowledge(self) -> Dict[str, Any]:
+    def decay_knowledge(self) -> dict[str, Any]:
         """
         Apply decay to unused knowledge.
 
@@ -148,7 +148,7 @@ class AKLService:
             "message": f"Decay applied to {len(decayed_rules)} rules",
         }
 
-    def suggest_cleanup(self, threshold: int = 20) -> Dict[str, Any]:
+    def suggest_cleanup(self, threshold: int = 20) -> dict[str, Any]:
         """
         Suggest rules for archival based on low importance.
 
@@ -188,7 +188,7 @@ class AKLService:
             "message": f"{len(candidates)} rules candidate for archival",
         }
 
-    def get_metrics(self) -> Dict[str, Any]:
+    def get_metrics(self) -> dict[str, Any]:
         """
         Get comprehensive AKL metrics.
 
@@ -241,7 +241,7 @@ class AKLService:
             "low_importance_rules": low_importance,
         }
 
-    def reset_rule(self, rule_id: str) -> Dict[str, Any]:
+    def reset_rule(self, rule_id: str) -> dict[str, Any]:
         """
         Reset metrics for a specific rule.
 
@@ -276,7 +276,7 @@ class AKLService:
             "rule_id": rule_id,
             "message": f"Metrics for rule '{rule_id}' reset",
         }
-    def add(self, key: str, content: str, tag: str = "", session_id: str = "") -> Dict[str, Any]:
+    def add(self, key: str, content: str, tag: str = "", session_id: str = "") -> dict[str, Any]:
         """
         Add a knowledge entry to the AKL store.
 
@@ -312,7 +312,7 @@ class AKLService:
             "message": f"Entry '{key}' added to AKL store",
         }
 
-    def search(self, query: str, limit: int = 10) -> Dict[str, Any]:
+    def search(self, query: str, limit: int = 10) -> dict[str, Any]:
         """
         Search knowledge entries in the AKL store.
 
@@ -352,7 +352,7 @@ class AKLService:
             "count":   len(results),
         }
 
-    def export(self) -> Dict[str, Any]:
+    def export(self) -> dict[str, Any]:
         """Export all AKL entries."""
         ledger    = self.repository.read_ledger()
         akl_store = ledger.get("memory_cortex", {}).get("akl_store", {})
@@ -370,7 +370,7 @@ class AKLService:
 _default_akl_service = None
 
 
-def get_akl_service(repository: Optional[LedgerRepository] = None) -> AKLService:
+def get_akl_service(repository: LedgerRepository | None = None) -> AKLService:
     """
     Get AKL service instance (singleton pattern).
 

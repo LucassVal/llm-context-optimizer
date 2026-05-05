@@ -20,9 +20,10 @@ import importlib.util
 import logging
 import threading
 import time
+from collections.abc import Callable
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Callable, Dict, Optional
+from typing import Any, Optional
 
 import cachetools
 
@@ -49,10 +50,10 @@ class TTLCacheWithEvents(cachetools.TTLCache):
             timer = time.monotonic
         super().__init__(maxsize, ttl, timer)
         self._expired_keys = []
-        self._callbacks: Dict[str, Callable[[str], None]] = {}
+        self._callbacks: dict[str, Callable[[str], None]] = {}
         self._lock = threading.RLock()
 
-    def expire(self, time: Optional[float] = None) -> list:
+    def expire(self, time: float | None = None) -> list:
         """
         Remove expired items and return their keys.
         Overridden to collect expired keys before removal.
@@ -91,7 +92,7 @@ class TTLCacheWithEvents(cachetools.TTLCache):
         with self._lock:
             self._callbacks.pop(key, None)
 
-    def get_callback(self, key: str) -> Optional[Callable[[str], None]]:
+    def get_callback(self, key: str) -> Callable[[str], None] | None:
         """Get the expiration callback for `key`, if any."""
         with self._lock:
             return self._callbacks.get(key)
@@ -132,7 +133,7 @@ class TTLManager:
             return
         self._maxsize = maxsize
         # ttl callable returns perkey TTL seconds
-        self._ttl_map: Dict[str, float] = {}
+        self._ttl_map: dict[str, float] = {}
         self._cache = TTLCacheWithEvents(
             maxsize=maxsize,
             ttl=self._get_ttl,
@@ -148,7 +149,7 @@ class TTLManager:
         }
         self._stats_lock = threading.RLock()
         self._running = False
-        self._thread: Optional[threading.Thread] = None
+        self._thread: threading.Thread | None = None
         self._stop_event = threading.Event()
         self._initialized = True
         logger.debug(f"TTLManager initialized with maxsize={maxsize}")
@@ -157,7 +158,7 @@ class TTLManager:
         """Callable used by TTLCache to obtain TTL for a key."""
         return self._ttl_map.get(key, TTL_CONSTANTS["cache_default"])
 
-    def set(self, key: str, value: Any, ttl_seconds: Optional[int] = None) -> None:
+    def set(self, key: str, value: Any, ttl_seconds: int | None = None) -> None:
         """
         Store a value with a specific TTL.
 
@@ -242,7 +243,7 @@ class TTLManager:
             logger.info(f"TTL cleanup processed {count} expired items")
             return count
 
-    def stats(self) -> Dict[str, Any]:
+    def stats(self) -> dict[str, Any]:
         """
         Return current cache statistics.
 
@@ -375,7 +376,7 @@ class TTLManager:
 
 
 # Singleton instance for global use (threadsafe via __new__)
-_ttl_manager_instance: Optional[TTLManager] = None
+_ttl_manager_instance: TTLManager | None = None
 
 
 def get_ttl_manager() -> TTLManager:

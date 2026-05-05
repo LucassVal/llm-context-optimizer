@@ -16,14 +16,13 @@ Score 100 se PASS, 0 se FAIL em qualquer arquivo.
 import logging
 import py_compile
 from pathlib import Path
-from typing import Dict
 
 from .. import ValidationResult
 
 logger = logging.getLogger(__name__)
 
 
-def validate(data: Dict) -> ValidationResult:
+def validate(data: dict) -> ValidationResult:
     """Valida compilao de arquivos Python.
 
     Args:

@@ -17,7 +17,7 @@ import logging
 import pickle
 import time
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 try:
     import diskcache_rs
@@ -48,7 +48,7 @@ class HotCache:
 
     def __init__(
         self,
-        cache_dir: Optional[Path] = None,
+        cache_dir: Path | None = None,
         size_limit_mb: int = 100,
         default_ttl: int = 300,  # 5 minutes
         use_memory_cache: bool = True,
@@ -84,7 +84,7 @@ class HotCache:
         self.auto_repair = auto_repair
 
         # In-memory cache (LRU dict simulation)
-        self._mem_cache: Dict[str, Tuple[Any, float]] = {}
+        self._mem_cache: dict[str, tuple[Any, float]] = {}
         self._mem_cache_size = 0
         self._mem_cache_hits = 0
         self._mem_cache_misses = 0
@@ -248,7 +248,7 @@ class HotCache:
             self.stats["misses"] += 1
             return default
 
-    def set(self, key: str, value: Any, ttl: Optional[int] = None) -> bool:
+    def set(self, key: str, value: Any, ttl: int | None = None) -> bool:
         """
         Set value in cache.
 
@@ -315,7 +315,7 @@ class HotCache:
 
         # Check memory cache
         if self.use_memory_cache and normalized_key in self._mem_cache:
-            value, expiry = self._mem_cache[normalized_key]
+            _value, expiry = self._mem_cache[normalized_key]
             if time.time() < expiry:
                 return True
 
@@ -325,7 +325,7 @@ class HotCache:
                 entry = self.disk_cache.get(normalized_key)
                 if entry is None:
                     return False
-                data, expiry = entry
+                _data, expiry = entry
                 if expiry and time.time() > expiry:
                     # Expired, delete it
                     self.disk_cache.delete(normalized_key)
@@ -361,7 +361,7 @@ class HotCache:
             logger.error(f"Cache clear failed: {e}")
             return False
 
-    def get_many(self, keys: List[str]) -> Dict[str, Any]:
+    def get_many(self, keys: list[str]) -> dict[str, Any]:
         """Get multiple values from cache."""
         results = {}
         for key in keys:
@@ -370,7 +370,7 @@ class HotCache:
                 results[key] = value
         return results
 
-    def set_many(self, items: Dict[str, Any], ttl: Optional[int] = None) -> bool:
+    def set_many(self, items: dict[str, Any], ttl: int | None = None) -> bool:
         """Set multiple values in cache."""
         success = True
         for key, value in items.items():
@@ -378,7 +378,7 @@ class HotCache:
                 success = False
         return success
 
-    def increment(self, key: str, amount: int = 1, ttl: Optional[int] = None) -> int:
+    def increment(self, key: str, amount: int = 1, ttl: int | None = None) -> int:
         """Increment integer value."""
         current = self.get(key, 0)
         if not isinstance(current, (int, float)):
@@ -388,11 +388,11 @@ class HotCache:
         self.set(key, new_value, ttl)
         return new_value
 
-    def decrement(self, key: str, amount: int = 1, ttl: Optional[int] = None) -> int:
+    def decrement(self, key: str, amount: int = 1, ttl: int | None = None) -> int:
         """Decrement integer value."""
         return self.increment(key, -amount, ttl)
 
-    def get_stats(self) -> Dict[str, Any]:
+    def get_stats(self) -> dict[str, Any]:
         """Get cache statistics."""
         stats = self.stats.copy()
 
@@ -482,7 +482,7 @@ class HotCache:
 
 # Convenience function
 def get_hot_cache(
-    cache_dir: Optional[Path] = None,
+    cache_dir: Path | None = None,
     size_limit_mb: int = 100,
     default_ttl: int = 300,
     use_memory_cache: bool = True,
@@ -500,7 +500,7 @@ def get_hot_cache(
         size_limit_mb = config.hot_cache_size_mb
     if default_ttl == 300:
         default_ttl = config.hot_cache_default_ttl
-    if use_memory_cache == True:
+    if use_memory_cache:
         use_memory_cache = config.hot_cache_use_memory
 
     return HotCache(

@@ -29,17 +29,18 @@ import asyncio
 import logging
 import threading
 import time
+from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
 from concurrent.futures import TimeoutError as FutureTimeoutError
 from dataclasses import dataclass, field
 from datetime import datetime
-from enum import Enum
-from typing import Any, Callable, Dict, List, Optional
+from enum import StrEnum
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
 
-class HookChainEvent(str, Enum):
+class HookChainEvent(StrEnum):
     """Eventos suportados pela cadeia de hooks lexicais."""
     PRE_LEXICAL_ANALYSIS = "pre_lexical_analysis"
     POST_TOKENIZATION = "post_tokenization"
@@ -48,7 +49,7 @@ class HookChainEvent(str, Enum):
     CUSTOM = "custom"
 
 
-class HookExecutionMode(str, Enum):
+class HookExecutionMode(StrEnum):
     """Modos de execução de hooks na cadeia."""
     SEQUENTIAL = "sequential"      # Executa um após o outro
     PARALLEL = "parallel"          # Executa em paralelo
@@ -56,7 +57,7 @@ class HookExecutionMode(str, Enum):
     RACE = "race"                  # Primeiro que completar vence
 
 
-class HookResultStatus(str, Enum):
+class HookResultStatus(StrEnum):
     """Status de resultado de execução de hook."""
     SUCCESS = "success"
     SKIPPED = "skipped"
@@ -69,9 +70,9 @@ class HookResultStatus(str, Enum):
 class HookChainContext:
     """Contexto passado através da cadeia de hooks."""
     event: HookChainEvent
-    initial_data: Dict[str, Any]
-    current_data: Dict[str, Any] = field(default_factory=dict)
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    initial_data: dict[str, Any]
+    current_data: dict[str, Any] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
     execution_id: str = ""
     created_at: datetime = field(default_factory=datetime.now)
 
@@ -79,7 +80,7 @@ class HookChainContext:
         """Atualiza dados atuais do contexto."""
         self.current_data[key] = value
 
-    def merge(self, data: Dict[str, Any]) -> None:
+    def merge(self, data: dict[str, Any]) -> None:
         """Mescla dados no contexto atual."""
         self.current_data.update(data)
 
@@ -87,7 +88,7 @@ class HookChainContext:
         """Obtém valor do contexto atual."""
         return self.current_data.get(key, default)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Converte contexto para dicionário."""
         return {
             "event": self.event.value,
@@ -104,12 +105,12 @@ class HookExecutionResult:
     """Resultado da execução de um hook individual."""
     hook_name: str
     status: HookResultStatus
-    output: Optional[Any] = None
-    error: Optional[str] = None
+    output: Any | None = None
+    error: str | None = None
     duration_ms: float = 0.0
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Converte resultado para dicionário."""
         return {
             "hook_name": self.hook_name,
@@ -130,8 +131,8 @@ class HookChainDefinition:
     timeout_seconds: float = 3.0
     enabled: bool = True
     circuit_breaker_threshold: int = 3  # Número de falhas antes de abrir circuito
-    fallback_handler: Optional[Callable] = None
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    fallback_handler: Callable | None = None
+    metadata: dict[str, Any] = field(default_factory=dict)
 
 
 class CircuitBreaker:
@@ -141,7 +142,7 @@ class CircuitBreaker:
         self.failure_threshold = failure_threshold
         self.reset_timeout = reset_timeout
         self.failure_count = 0
-        self.last_failure_time: Optional[float] = None
+        self.last_failure_time: float | None = None
         self.state = "CLOSED"  # CLOSED, OPEN, HALF_OPEN
         self._lock = threading.Lock()
 
@@ -182,7 +183,7 @@ class CircuitBreaker:
 
             return False
 
-    def get_state(self) -> Dict[str, Any]:
+    def get_state(self) -> dict[str, Any]:
         """Retorna estado atual do circuit breaker."""
         with self._lock:
             return {
@@ -196,7 +197,7 @@ class CircuitBreaker:
 
 class LexicoHookChain:
     """Sistema de cadeia de hooks lexicais.
-    
+
     Gerencia execução de múltiplos hooks em diferentes modos:
     - SEQUENTIAL: Executa hooks em sequência
     - PARALLEL: Executa hooks em paralelo
@@ -214,13 +215,13 @@ class LexicoHookChain:
         self.execution_mode = execution_mode
         self.max_parallel_workers = max_parallel_workers
 
-        self._hooks: Dict[str, HookChainDefinition] = {}
-        self._circuit_breakers: Dict[str, CircuitBreaker] = {}
+        self._hooks: dict[str, HookChainDefinition] = {}
+        self._circuit_breakers: dict[str, CircuitBreaker] = {}
         self._lock = threading.Lock()
         self._executor = ThreadPoolExecutor(max_workers=max_parallel_workers)
 
         # Estatísticas
-        self._execution_stats: Dict[str, Any] = {
+        self._execution_stats: dict[str, Any] = {
             "total_executions": 0,
             "successful_executions": 0,
             "failed_executions": 0,
@@ -235,8 +236,8 @@ class LexicoHookChain:
         timeout_seconds: float = 3.0,
         enabled: bool = True,
         circuit_breaker_threshold: int = 3,
-        fallback_handler: Optional[Callable] = None,
-        metadata: Optional[Dict[str, Any]] = None
+        fallback_handler: Callable | None = None,
+        metadata: dict[str, Any] | None = None
     ) -> None:
         """Adiciona um hook à cadeia."""
         with self._lock:
@@ -274,16 +275,16 @@ class LexicoHookChain:
     def execute(
         self,
         event: HookChainEvent,
-        initial_data: Dict[str, Any],
-        execution_id: Optional[str] = None
-    ) -> Dict[str, Any]:
+        initial_data: dict[str, Any],
+        execution_id: str | None = None
+    ) -> dict[str, Any]:
         """Executa a cadeia de hooks.
-        
+
         Args:
             event: Tipo de evento a ser processado
             initial_data: Dados iniciais para o contexto
             execution_id: ID opcional para rastreamento
-            
+
         Returns:
             Dicionário com resultados da execução
         """
@@ -344,7 +345,7 @@ class LexicoHookChain:
 
         return final_result
 
-    def _get_sorted_hooks(self) -> List[HookChainDefinition]:
+    def _get_sorted_hooks(self) -> list[HookChainDefinition]:
         """Retorna hooks habilitados ordenados por prioridade (maior primeiro)."""
         with self._lock:
             enabled_hooks = [
@@ -357,9 +358,9 @@ class LexicoHookChain:
 
     def _execute_sequential(
         self,
-        hooks: List[HookChainDefinition],
+        hooks: list[HookChainDefinition],
         context: HookChainContext
-    ) -> List[HookExecutionResult]:
+    ) -> list[HookExecutionResult]:
         """Executa hooks em sequência."""
         results = []
 
@@ -376,9 +377,9 @@ class LexicoHookChain:
 
     def _execute_parallel(
         self,
-        hooks: List[HookChainDefinition],
+        hooks: list[HookChainDefinition],
         context: HookChainContext
-    ) -> List[HookExecutionResult]:
+    ) -> list[HookExecutionResult]:
         """Executa hooks em paralelo."""
         # Criar cópias do contexto para cada hook (para evitar race conditions)
         contexts = [
@@ -395,7 +396,7 @@ class LexicoHookChain:
 
         # Submeter todos os hooks para execução paralela
         futures = []
-        for hook_def, hook_context in zip(hooks, contexts):
+        for hook_def, hook_context in zip(hooks, contexts, strict=False):
             future = self._executor.submit(
                 self._execute_single_hook,
                 hook_def,
@@ -428,9 +429,9 @@ class LexicoHookChain:
 
     def _execute_waterfall(
         self,
-        hooks: List[HookChainDefinition],
+        hooks: list[HookChainDefinition],
         context: HookChainContext
-    ) -> List[HookExecutionResult]:
+    ) -> list[HookExecutionResult]:
         """Executa hooks em waterfall (resultado de um alimenta o próximo)."""
         results = []
         current_context = context
@@ -455,9 +456,9 @@ class LexicoHookChain:
 
     def _execute_race(
         self,
-        hooks: List[HookChainDefinition],
+        hooks: list[HookChainDefinition],
         context: HookChainContext
-    ) -> List[HookExecutionResult]:
+    ) -> list[HookExecutionResult]:
         """Executa hooks em race (primeiro que completar vence)."""
         # Criar cópias do contexto
         contexts = [
@@ -474,7 +475,7 @@ class LexicoHookChain:
 
         # Submeter todos os hooks
         futures = []
-        for hook_def, hook_context in zip(hooks, contexts):
+        for hook_def, hook_context in zip(hooks, contexts, strict=False):
             future = self._executor.submit(
                 self._execute_single_hook,
                 hook_def,
@@ -483,7 +484,7 @@ class LexicoHookChain:
             futures.append((hook_def.name, future, hook_def.timeout_seconds))
 
         # Esperar pelo primeiro que completar
-        done, not_done = asyncio.wait(
+        done, _not_done = asyncio.wait(
             [asyncio.wrap_future(future) for _, future, _ in futures],
             return_when=asyncio.FIRST_COMPLETED
         )
@@ -589,7 +590,7 @@ class LexicoHookChain:
                 metadata=hook_def.metadata
             )
 
-    def _create_empty_result(self, context: HookChainContext) -> Dict[str, Any]:
+    def _create_empty_result(self, context: HookChainContext) -> dict[str, Any]:
         """Cria resultado vazio quando não há hooks para executar."""
         return {
             "chain_name": self.name,
@@ -609,9 +610,9 @@ class LexicoHookChain:
     def _create_final_result(
         self,
         context: HookChainContext,
-        results: List[HookExecutionResult],
+        results: list[HookExecutionResult],
         duration_ms: float
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """Cria resultado final da execução da cadeia."""
         successful = sum(1 for r in results if r.status == HookResultStatus.SUCCESS)
         failed = sum(1 for r in results if r.status == HookResultStatus.FAILED)
@@ -635,7 +636,7 @@ class LexicoHookChain:
             "timestamp": datetime.now().isoformat()
         }
 
-    def get_hooks(self) -> List[Dict[str, Any]]:
+    def get_hooks(self) -> list[dict[str, Any]]:
         """Retorna lista de hooks na cadeia."""
         with self._lock:
             return [
@@ -651,7 +652,7 @@ class LexicoHookChain:
                 for hook in self._hooks.values()
             ]
 
-    def get_stats(self) -> Dict[str, Any]:
+    def get_stats(self) -> dict[str, Any]:
         """Retorna estatísticas da cadeia."""
         with self._lock:
             stats = self._execution_stats.copy()
@@ -665,7 +666,7 @@ class LexicoHookChain:
             )
             return stats
 
-    def get_circuit_breaker_states(self) -> Dict[str, Dict[str, Any]]:
+    def get_circuit_breaker_states(self) -> dict[str, dict[str, Any]]:
         """Retorna estados de todos os circuit breakers."""
         return {
             name: cb.get_state()
@@ -684,7 +685,7 @@ class LexicoHookChainFactory:
     """Fábrica para criação e gerenciamento de cadeias de hooks."""
 
     def __init__(self):
-        self._chains: Dict[str, LexicoHookChain] = {}
+        self._chains: dict[str, LexicoHookChain] = {}
         self._lock = threading.Lock()
 
     def create_chain(
@@ -704,7 +705,7 @@ class LexicoHookChainFactory:
             logger.info(f"Cadeia de hooks '{name}' criada")
             return chain
 
-    def get_chain(self, name: str) -> Optional[LexicoHookChain]:
+    def get_chain(self, name: str) -> LexicoHookChain | None:
         """Obtém uma cadeia de hooks existente."""
         with self._lock:
             return self._chains.get(name)
@@ -720,7 +721,7 @@ class LexicoHookChainFactory:
                 return True
             return False
 
-    def list_chains(self) -> List[Dict[str, Any]]:
+    def list_chains(self) -> list[dict[str, Any]]:
         """Lista todas as cadeias de hooks."""
         with self._lock:
             return [
@@ -737,9 +738,9 @@ class LexicoHookChainFactory:
         self,
         chain_name: str,
         event: HookChainEvent,
-        initial_data: Dict[str, Any],
-        execution_id: Optional[str] = None
-    ) -> Optional[Dict[str, Any]]:
+        initial_data: dict[str, Any],
+        execution_id: str | None = None
+    ) -> dict[str, Any] | None:
         """Executa uma cadeia de hooks específica."""
         chain = self.get_chain(chain_name)
         if not chain:
@@ -766,38 +767,38 @@ class LexicoHookChainFactory:
 def create_lexico_chains() -> LexicoHookChainFactory:
     """Cria fábrica de cadeias de hooks com configurações padrão."""
     factory = LexicoHookChainFactory()
-    
+
     # Cadeia para análise lexical pré-processamento
     factory.create_chain(
         name="pre_lexical_analysis",
         execution_mode=HookExecutionMode.SEQUENTIAL
     )
-    
+
     # Cadeia para pós-tokenização
     factory.create_chain(
         name="post_tokenization",
         execution_mode=HookExecutionMode.PARALLEL
     )
-    
+
     # Cadeia para enriquecimento semântico
     factory.create_chain(
         name="semantic_enrichment",
         execution_mode=HookExecutionMode.WATERFALL
     )
-    
+
     # Cadeia para compressão de contexto
     factory.create_chain(
         name="context_compression",
         execution_mode=HookExecutionMode.SEQUENTIAL
     )
-    
+
     logger.info("Fábrica de cadeias de hooks lexicais criada com 4 cadeias padrão")
     return factory
 
 
 # ── Singleton global ────────────────────────────────────────────────────────
 
-_chain_factory_instance: Optional[LexicoHookChainFactory] = None
+_chain_factory_instance: LexicoHookChainFactory | None = None
 
 
 def get_chain_factory() -> LexicoHookChainFactory:
@@ -810,7 +811,7 @@ def get_chain_factory() -> LexicoHookChainFactory:
 
 # ── Funções de conveniência ────────────────────────────────────────────────
 
-def execute_pre_lexical_analysis(data: Dict[str, Any]) -> Dict[str, Any]:
+def execute_pre_lexical_analysis(data: dict[str, Any]) -> dict[str, Any]:
     """Executa cadeia de análise lexical pré-processamento."""
     factory = get_chain_factory()
     return factory.execute_chain(
@@ -820,7 +821,7 @@ def execute_pre_lexical_analysis(data: Dict[str, Any]) -> Dict[str, Any]:
     ) or {}
 
 
-def execute_post_tokenization(data: Dict[str, Any]) -> Dict[str, Any]:
+def execute_post_tokenization(data: dict[str, Any]) -> dict[str, Any]:
     """Executa cadeia de pós-tokenização."""
     factory = get_chain_factory()
     return factory.execute_chain(
@@ -830,7 +831,7 @@ def execute_post_tokenization(data: Dict[str, Any]) -> Dict[str, Any]:
     ) or {}
 
 
-def execute_semantic_enrichment(data: Dict[str, Any]) -> Dict[str, Any]:
+def execute_semantic_enrichment(data: dict[str, Any]) -> dict[str, Any]:
     """Executa cadeia de enriquecimento semântico."""
     factory = get_chain_factory()
     return factory.execute_chain(
@@ -840,7 +841,7 @@ def execute_semantic_enrichment(data: Dict[str, Any]) -> Dict[str, Any]:
     ) or {}
 
 
-def execute_context_compression(data: Dict[str, Any]) -> Dict[str, Any]:
+def execute_context_compression(data: dict[str, Any]) -> dict[str, Any]:
     """Executa cadeia de compressão de contexto."""
     factory = get_chain_factory()
     return factory.execute_chain(
@@ -863,10 +864,10 @@ if __name__ == "__main__":
 
     if chain:
         # Adicionar alguns hooks de exemplo
-        def example_hook1(context: HookChainContext) -> Dict[str, Any]:
+        def example_hook1(context: HookChainContext) -> dict[str, Any]:
             return {"processed_by": "hook1", "timestamp": datetime.now().isoformat()}
 
-        def example_hook2(context: HookChainContext) -> Dict[str, Any]:
+        def example_hook2(context: HookChainContext) -> dict[str, Any]:
             data = context.get("processed_by", "unknown")
             return {"processed_by": "hook2", "previous": data}
 

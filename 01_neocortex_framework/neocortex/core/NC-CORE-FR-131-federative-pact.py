@@ -7,7 +7,7 @@
 import logging
 from enum import Enum
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -100,21 +100,21 @@ class FederativePact:
         ],
     }
 
-    def __init__(self, root: Optional[Path] = None):
+    def __init__(self, root: Path | None = None):
         import os as _os
         self.root = root or Path(_os.environ.get("NC_ROOT", Path(__file__).parents[3]))
         self._instance_level = FederativeLevel.UNIAO
 
     # ── Competências ───────────────────────────────────────────
 
-    def get_competencies(self, level: FederativeLevel) -> Dict[str, List[str]]:
+    def get_competencies(self, level: FederativeLevel) -> dict[str, list[str]]:
         """Listar todas as competências de um nível federativo."""
         comps = {}
         for ctype, items in self.COMPETENCIES.get(level, {}).items():
             comps[ctype.value] = items
         return comps
 
-    def can_do(self, action: str, level: FederativeLevel) -> Tuple[bool, str]:
+    def can_do(self, action: str, level: FederativeLevel) -> tuple[bool, str]:
         """
         Verificar se um nível federativo tem competência para uma ação.
         CF/88 Art. 21-30: distribuição de competências.
@@ -143,7 +143,7 @@ class FederativePact:
     # ── Territórios ────────────────────────────────────────────
 
     def get_territory(self, level: FederativeLevel,
-                      instance_name: str = "") -> List[str]:
+                      instance_name: str = "") -> list[str]:
         """Retornar território (write zones) de um nível."""
         zones = self.TERRITORIES.get(level, [])
         if instance_name:
@@ -161,7 +161,7 @@ class FederativePact:
     # ── Relações Inter-Federativas ─────────────────────────────
 
     def inter_federative_pact(self, level_a: FederativeLevel,
-                               level_b: FederativeLevel) -> Dict[str, Any]:
+                               level_b: FederativeLevel) -> dict[str, Any]:
         """
         Definir relação entre dois entes federativos.
         Retorna protocolo de interação.
@@ -199,7 +199,7 @@ class FederativePact:
 
     # ── Receita (Budget Sharing) ───────────────────────────────
 
-    def budget_share(self, level: FederativeLevel) -> Dict[str, float]:
+    def budget_share(self, level: FederativeLevel) -> dict[str, float]:
         """
         Distribuição de recursos (token budget) por nível federativo.
         Similar ao FPE/FPM brasileiro.
@@ -218,7 +218,7 @@ class FederativePact:
 
 
 # Singleton
-_pact_instance: Optional[FederativePact] = None
+_pact_instance: FederativePact | None = None
 
 
 def get_federative_pact() -> FederativePact:

@@ -13,16 +13,16 @@ from __future__ import annotations
 
 import logging
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
 # Diretório de policies
 _POLICY_DIR = Path(__file__).parents[3] / "DIR-DS-000-agent-config"
-_POLICY_CACHE: Dict[str, Dict] = {}
+_POLICY_CACHE: dict[str, dict] = {}
 
 
-def _load_policy(role: str) -> Dict[str, Any]:
+def _load_policy(role: str) -> dict[str, Any]:
     """Carrega policy YAML para um role. Cache em memória."""
     if role in _POLICY_CACHE:
         return _POLICY_CACHE[role]
@@ -131,7 +131,7 @@ class AgentPolicyEnforcer:
 
     # ── Token budget ──────────────────────────────────────────────────────────
 
-    def get_token_budget(self) -> Dict[str, int]:
+    def get_token_budget(self) -> dict[str, int]:
         """Retorna budget de tokens para este agente."""
         return self.policy.get("token_budget", {
             "max_tokens_per_task": 1024,
@@ -140,7 +140,7 @@ class AgentPolicyEnforcer:
 
     # ── Circuit Breaker config ─────────────────────────────────────────────────
 
-    def get_cb_config(self) -> Dict[str, Any]:
+    def get_cb_config(self) -> dict[str, Any]:
         """Retorna config para o CircuitBreaker deste agente."""
         return self.policy.get("circuit_breaker", {
             "max_calls": 20,
@@ -151,7 +151,7 @@ class AgentPolicyEnforcer:
 
     # ── Full validate ─────────────────────────────────────────────────────────
 
-    def validate_call(self, tool: str, action: str, lobe: str = "") -> Dict[str, Any]:
+    def validate_call(self, tool: str, action: str, lobe: str = "") -> dict[str, Any]:
         """Validação completa de uma chamada. Retorna dict com resultado."""
         violations = []
         try:
@@ -179,7 +179,7 @@ class AgentPolicyEnforcer:
 
     # ── Info ──────────────────────────────────────────────────────────────────
 
-    def summary(self) -> Dict[str, Any]:
+    def summary(self) -> dict[str, Any]:
         return {
             "role":            self.role,
             "tier":            self.policy.get("tier", "T2"),
@@ -200,7 +200,7 @@ class PolicyViolationError(PermissionError):
 
 # ── Registry de enforcers ─────────────────────────────────────────────────────
 
-_enforcer_cache: Dict[str, AgentPolicyEnforcer] = {}
+_enforcer_cache: dict[str, AgentPolicyEnforcer] = {}
 
 
 def get_enforcer(role: str) -> AgentPolicyEnforcer:
@@ -209,7 +209,7 @@ def get_enforcer(role: str) -> AgentPolicyEnforcer:
     return _enforcer_cache[role]
 
 
-def list_policies() -> List[Dict[str, Any]]:
+def list_policies() -> list[dict[str, Any]]:
     """Lista todas as policies disponíveis em DIR-DS-000-agent-config."""
     policies = []
     if _POLICY_DIR.exists():

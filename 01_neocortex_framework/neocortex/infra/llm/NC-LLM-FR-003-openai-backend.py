@@ -14,7 +14,8 @@ Supports OpenAI API and compatible providers (OpenRouter, etc.)
 import asyncio
 import json
 import logging
-from typing import Any, AsyncGenerator, Dict, List, Optional
+from collections.abc import AsyncGenerator
+from typing import Any
 
 import aiohttp
 
@@ -30,7 +31,7 @@ class OpenAIBackend(LLMBackend):
     Supports OpenAI API and compatible providers.
     """
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: dict[str, Any]):
         """
         Initialize OpenAI backend.
 
@@ -43,7 +44,7 @@ class OpenAIBackend(LLMBackend):
             logger.warning("OpenAI API key not provided in config")
 
         self.base_url = config.get("base_url", "https://api.openai.com/v1")
-        self.session: Optional[aiohttp.ClientSession] = None
+        self.session: aiohttp.ClientSession | None = None
         super().__init__(config)
 
     def _initialize(self) -> None:
@@ -191,7 +192,7 @@ class OpenAIBackend(LLMBackend):
                                 break
                             try:
                                 chunk = json.loads(data)
-                                if "choices" in chunk and chunk["choices"]:
+                                if chunk.get("choices"):
                                     delta = chunk["choices"][0].get("delta", {})
                                     token = delta.get("content", "")
                                     if token:
@@ -211,7 +212,7 @@ class OpenAIBackend(LLMBackend):
         """
         return len(text) // 4
 
-    def get_available_models(self) -> List[str]:
+    def get_available_models(self) -> list[str]:
         """
         Get available OpenAI models.
 

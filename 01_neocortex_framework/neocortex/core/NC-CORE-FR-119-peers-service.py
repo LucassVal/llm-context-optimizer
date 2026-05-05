@@ -12,7 +12,7 @@ This service encapsulates business logic for peer coordination operations,
 using repository interfaces for storage abstraction.
 """
 
-from typing import Any, Dict, Optional
+from typing import Any
 
 from ..repositories import LedgerRepository
 
@@ -20,7 +20,7 @@ from ..repositories import LedgerRepository
 class PeersService:
     """Service for peer coordination business logic."""
 
-    def __init__(self, repository: Optional[LedgerRepository] = None):
+    def __init__(self, repository: LedgerRepository | None = None):
         """
         Initialize peers service.
 
@@ -35,7 +35,7 @@ class PeersService:
         else:
             self.repository = repository
 
-    def _ensure_peers_structure(self, ledger: Dict[str, Any]) -> Dict[str, Any]:
+    def _ensure_peers_structure(self, ledger: dict[str, Any]) -> dict[str, Any]:
         """Ensure peers structure exists in memory_cortex."""
         memory_cortex = ledger.get("memory_cortex", {})
         if "peers" not in memory_cortex:
@@ -43,7 +43,7 @@ class PeersService:
             ledger["memory_cortex"] = memory_cortex
         return ledger
 
-    def discover(self) -> Dict[str, Any]:
+    def discover(self) -> dict[str, Any]:
         """
         Discover available peers.
 
@@ -62,7 +62,7 @@ class PeersService:
             "message": f"{len(peers)} peers available",
         }
 
-    def sync_state(self, peer_id: str, state_data: str = "") -> Dict[str, Any]:
+    def sync_state(self, peer_id: str, state_data: str = "") -> dict[str, Any]:
         """
         Synchronize state with a peer.
 
@@ -104,7 +104,7 @@ class PeersService:
             "message": f"State synchronized with peer '{peer_id}'",
         }
 
-    def resolve_conflict(self, peer_id: str) -> Dict[str, Any]:
+    def resolve_conflict(self, peer_id: str) -> dict[str, Any]:
         """
         Resolve state conflicts with a peer.
 
@@ -137,7 +137,7 @@ class PeersService:
             "message": f"Conflict with peer '{peer_id}' resolved",
         }
 
-    def add_peer(self, peer_id: str, metadata: Optional[Dict] = None) -> Dict[str, Any]:
+    def add_peer(self, peer_id: str, metadata: dict | None = None) -> dict[str, Any]:
         """
         Add a new peer.
 
@@ -187,7 +187,7 @@ class PeersService:
             "message": f"Peer '{peer_id}' added successfully",
         }
 
-    def remove_peer(self, peer_id: str) -> Dict[str, Any]:
+    def remove_peer(self, peer_id: str) -> dict[str, Any]:
         """
         Remove a peer.
 
@@ -225,7 +225,7 @@ class PeersService:
             "message": f"Peer '{peer_id}' removed successfully",
         }
 
-    def get_peer_stats(self) -> Dict[str, Any]:
+    def get_peer_stats(self) -> dict[str, Any]:
         """
         Get peer statistics.
 
@@ -269,7 +269,7 @@ class PeersService:
 _default_peers_service = None
 
 
-def get_peers_service(repository: Optional[LedgerRepository] = None) -> PeersService:
+def get_peers_service(repository: LedgerRepository | None = None) -> PeersService:
     """
     Get peers service instance (singleton pattern).
 

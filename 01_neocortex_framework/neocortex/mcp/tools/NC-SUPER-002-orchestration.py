@@ -26,7 +26,7 @@ import json
 import logging
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 logger = logging.getLogger(__name__)
 TOOL_NAME = "neocortex_orchestration"
@@ -73,7 +73,7 @@ def register_tool(mcp) -> None:
         n_workers: int = 1,
         timeout: int = 60,
         dispatch_id: str = "",
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """PODER EXECUTIVO — Execução de tasks, agentes e workers.
         Funde: orchestration, agent, task (ambos), subserver, picoclaw, run.
         Actions: task.execute, task.list, task.cancel, task.status,

@@ -8,17 +8,16 @@ import json
 import os
 import pathlib
 from datetime import datetime
-from typing import Dict
 
 
 class StranglerFig:
     """Migration tracker: ferramentas hardcoded -> MCP."""
 
-    def __init__(self, root: pathlib.Path = None):
+    def __init__(self, root: pathlib.Path | None = None):
         self.root = root or pathlib.Path(os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3]))
         self._tracker_file = self.root / ".neocortex" / "state" / "NC-STATE-STRANGLER-FIG.json"
 
-    def scan(self) -> Dict:
+    def scan(self) -> dict:
         tools_dir = self.root / "01_neocortex_framework" / "neocortex" / "mcp" / "tools"
         total_tools = len(list(tools_dir.glob("NC-SUPER-*.py"))) if tools_dir.exists() else 0
         gw_wired = sum(1 for t in tools_dir.glob("NC-SUPER-*.py") if "gateway_check" in t.read_text(encoding="utf-8", errors="ignore")) if tools_dir.exists() else 0

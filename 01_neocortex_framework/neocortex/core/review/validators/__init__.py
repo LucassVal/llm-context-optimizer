@@ -25,4 +25,4 @@ NamingValidator = _naming.NamingValidator
 CompileValidator = _compile.CompileValidator
 LocksValidator = _locks.LocksValidator
 
-__all__ = ["NamingValidator", "CompileValidator", "LocksValidator"]
+__all__ = ["CompileValidator", "LocksValidator", "NamingValidator"]

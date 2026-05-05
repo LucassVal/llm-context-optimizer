@@ -13,7 +13,7 @@ using repository interfaces for storage abstraction.
 """
 
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any
 
 from ..repositories import LedgerRepository
 
@@ -21,7 +21,7 @@ from ..repositories import LedgerRepository
 class CheckpointService:
     """Service for checkpoint and timeline business logic."""
 
-    def __init__(self, repository: Optional[LedgerRepository] = None):
+    def __init__(self, repository: LedgerRepository | None = None):
         """
         Initialize checkpoint service.
 
@@ -36,7 +36,7 @@ class CheckpointService:
         else:
             self.repository = repository
 
-    def get_current_checkpoint(self) -> Dict[str, Any]:
+    def get_current_checkpoint(self) -> dict[str, Any]:
         """
         Get current checkpoint from memory cortex.
 
@@ -62,7 +62,7 @@ class CheckpointService:
 
     def set_current_checkpoint(
         self, checkpoint_id: str, description: str = "", lobe_id: str = "00-cortex"
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Set a new current checkpoint.
 
@@ -147,7 +147,7 @@ class CheckpointService:
         else:
             return {"success": False, "error": "Failed to write to ledger"}
 
-    def complete_task(self, task_name: str) -> Dict[str, Any]:
+    def complete_task(self, task_name: str) -> dict[str, Any]:
         """
         Mark a task as completed in action queue.
 
@@ -227,7 +227,7 @@ class CheckpointService:
         else:
             return {"success": False, "error": "Failed to write to ledger"}
 
-    def list_checkpoint_history(self, limit: int = 10) -> Dict[str, Any]:
+    def list_checkpoint_history(self, limit: int = 10) -> dict[str, Any]:
         """
         List checkpoint history from timeline.
 
@@ -270,7 +270,7 @@ class CheckpointService:
             "limit_applied": limit,
         }
 
-    def get_global_checkpoint_index(self) -> Dict[str, Any]:
+    def get_global_checkpoint_index(self) -> dict[str, Any]:
         """
         Get global checkpoint index.
 
@@ -316,8 +316,8 @@ class CheckpointService:
         }
 
     def add_timeline_event(
-        self, event_type: str, data: Dict[str, Any]
-    ) -> Dict[str, Any]:
+        self, event_type: str, data: dict[str, Any]
+    ) -> dict[str, Any]:
         """
         Add custom event to timeline.
 
@@ -356,7 +356,7 @@ class CheckpointService:
         else:
             return {"success": False, "error": "Failed to write to ledger"}
 
-    def force_checkpoint(self) -> Dict[str, Any]:
+    def force_checkpoint(self) -> dict[str, Any]:
         """
         Force creation of an automatic checkpoint.
 
@@ -396,7 +396,7 @@ _default_checkpoint_service = None
 
 
 def get_checkpoint_service(
-    repository: Optional[LedgerRepository] = None,
+    repository: LedgerRepository | None = None,
 ) -> CheckpointService:
     """
     Get checkpoint service instance (singleton pattern).

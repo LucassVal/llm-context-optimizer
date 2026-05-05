@@ -10,14 +10,14 @@ import threading
 from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
 class CentralWatcher:
     """Vigia Central — monitora TODAS as regras em tempo real."""
 
-    def __init__(self, root: Optional[Path] = None):
+    def __init__(self, root: Path | None = None):
         import os
         self.root = root or Path(os.environ.get("NC_ROOT", Path(__file__).parents[3]))
         self.history_dir = self.root / ".neocortex" / "watcher"
@@ -37,11 +37,11 @@ class CentralWatcher:
                 "rules_enforced": 0, "rules_warned": 0,
                 "gateway_calls": 0, "pulse_checks": 0
             }
-        self.violations_today: List[Dict] = []
+        self.violations_today: list[dict] = []
         self._lock = threading.Lock()
         self._load_history()
 
-    def _load_from_disk(self) -> Optional[Dict]:
+    def _load_from_disk(self) -> dict | None:
         if self._stats_file.exists():
             try:
                 return json.loads(self._stats_file.read_text(encoding="utf-8"))
@@ -59,7 +59,7 @@ class CentralWatcher:
     # ── REGISTRAR CHECK ────────────────────────────────────────
 
     def record_check(self, rule: str, passed: bool, detail: str = "",
-                     agent: str = "system", source: str = "unknown") -> Dict:
+                     agent: str = "system", source: str = "unknown") -> dict:
         """Registrar verificação de regra — alimenta STEP 0."""
         with self._lock:
             self.stats["total_checks"] += 1
@@ -106,7 +106,7 @@ class CentralWatcher:
 
     # ── VIGIAR TODAS AS REGRAS ─────────────────────────────────
 
-    def full_sweep(self) -> Dict[str, Any]:
+    def full_sweep(self) -> dict[str, Any]:
         """Varredura completa de todas as 40 regras — retorna status."""
         results = {}
         ts = datetime.now().isoformat()
@@ -145,7 +145,7 @@ class CentralWatcher:
 
     # ── HISTÓRICO DE SESSÃO ────────────────────────────────────
 
-    def get_session_report(self) -> Dict[str, Any]:
+    def get_session_report(self) -> dict[str, Any]:
         """Relatório da sessão atual: regras ativadas, violações, erros."""
         return {
             "session_id": self.session_id,
@@ -156,7 +156,7 @@ class CentralWatcher:
             "top_violations": self._top_violations(5),
         }
 
-    def _top_violations(self, n: int = 5) -> List[Tuple[str, int]]:
+    def _top_violations(self, n: int = 5) -> list[tuple[str, int]]:
         counts = defaultdict(int)
         for v in self.violations_today:
             counts[v["rule"]] += 1
@@ -164,7 +164,7 @@ class CentralWatcher:
 
     # ── PERSISTÊNCIA ───────────────────────────────────────────
 
-    def _save_violation(self, entry: Dict):
+    def _save_violation(self, entry: dict):
         today = datetime.now().strftime("%Y%m%d")
         f = self.history_dir / f"violations-{today}.jsonl"
         with open(f, "a", encoding="utf-8") as fp:
@@ -183,7 +183,7 @@ class CentralWatcher:
 
     # ── R117: SSOT HEADER VALIDATION ──────────────────────────
 
-    def validate_ssot_header(self, response_text: str) -> Dict:
+    def validate_ssot_header(self, response_text: str) -> dict:
         """R117: Valida header SSOT de 5 linhas na resposta."""
         required = ["NC-SSOT", "lobes", "rules", "STEP0", "GW:", "RUFF:", "MCP:", "RAC:ON", "KISS:ON"]
         found = [r for r in required if r in response_text]
@@ -213,7 +213,7 @@ class CentralWatcher:
 
         return result
 
-    def get_history(self, days: int = 7) -> List[Dict]:
+    def get_history(self, days: int = 7) -> list[dict]:
         """Histórico de violações dos últimos N dias."""
         all_entries = []
         for f in sorted(self.history_dir.glob("violations-*.jsonl"), reverse=True)[:days]:
@@ -225,7 +225,7 @@ class CentralWatcher:
 
 
 # Singleton
-_watcher: Optional[CentralWatcher] = None
+_watcher: CentralWatcher | None = None
 
 def get_watcher() -> CentralWatcher:
     global _watcher

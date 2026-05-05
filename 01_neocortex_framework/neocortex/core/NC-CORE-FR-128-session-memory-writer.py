@@ -8,7 +8,7 @@ import json
 import logging
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 class SessionMemoryWriter:
     """Real session memory writer — records turns and manages hot context."""
 
-    def __init__(self, root: Optional[Path] = None):
+    def __init__(self, root: Path | None = None):
         import os as _os
         self.root = root or Path(_os.environ.get("NC_ROOT", Path(__file__).parents[3]))
         self.hot_context_dir = self.root / ".neocortex" / "hot_context"
@@ -26,7 +26,7 @@ class SessionMemoryWriter:
         self.hot_context_file = self.hot_context_dir / "hot-context.md"
         self.max_hot_interactions = 5
 
-    def record_turn(self, user_message: str, ai_response: str) -> Dict[str, Any]:
+    def record_turn(self, user_message: str, ai_response: str) -> dict[str, Any]:
         """Record a conversation turn."""
         ts = datetime.now().isoformat()
         entry = {
@@ -46,7 +46,7 @@ class SessionMemoryWriter:
 
         return {"success": True, "recorded": ts, "log_file": str(log_file)}
 
-    def _update_hot_context(self, entry: Dict[str, Any]) -> None:
+    def _update_hot_context(self, entry: dict[str, Any]) -> None:
         """Maintain hot context (last N interactions)."""
         current = []
         if self.hot_context_file.exists():
@@ -60,7 +60,7 @@ class SessionMemoryWriter:
 
         self.hot_context_file.write_text("\n---\n".join(current), encoding="utf-8")
 
-    def get_session_stats(self) -> Dict[str, Any]:
+    def get_session_stats(self) -> dict[str, Any]:
         """Get session statistics."""
         today = datetime.now().strftime("%Y-%m-%d")
         log_file = self.session_log_dir / f"session-{today}.jsonl"
@@ -74,7 +74,7 @@ class SessionMemoryWriter:
             "hot_context_entries": self.max_hot_interactions,
         }
 
-    def end_session(self) -> Dict[str, Any]:
+    def end_session(self) -> dict[str, Any]:
         """End current session — archive hot context."""
         if self.hot_context_file.exists():
             archive_dir = self.hot_context_dir / "archive"
@@ -87,10 +87,10 @@ class SessionMemoryWriter:
 
 
 # Singleton
-_session_writer: Optional[SessionMemoryWriter] = None
+_session_writer: SessionMemoryWriter | None = None
 
 
-def get_session_memory_writer(root: Optional[Path] = None) -> SessionMemoryWriter:
+def get_session_memory_writer(root: Path | None = None) -> SessionMemoryWriter:
     global _session_writer
     if _session_writer is None:
         _session_writer = SessionMemoryWriter(root)

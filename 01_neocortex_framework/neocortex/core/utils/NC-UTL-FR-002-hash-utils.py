@@ -15,10 +15,9 @@ import hashlib
 import hmac
 import json
 from pathlib import Path
-from typing import Union
 
 
-def sha256_file(path: Union[str, Path]) -> str:
+def sha256_file(path: str | Path) -> str:
     """Compute SHA-256 hash of a file. Returns hex string."""
     h = hashlib.sha256()
     with open(path, "rb") as f:
@@ -37,7 +36,7 @@ def sha256_short(text: str, length: int = 12) -> str:
     return sha256_str(text)[:length]
 
 
-def sha512_file(path: Union[str, Path]) -> str:
+def sha512_file(path: str | Path) -> str:
     """Compute SHA-512 hash of a file."""
     h = hashlib.sha512()
     with open(path, "rb") as f:
@@ -55,7 +54,7 @@ def compute_integrity_hash(ticket_id: str, write_zone: str, title: str) -> str:
     return sha256_str(payload)[:16]
 
 
-def verify_file_integrity(path: Union[str, Path], expected_hash: str) -> bool:
+def verify_file_integrity(path: str | Path, expected_hash: str) -> bool:
     """Verify that a file's SHA-256 matches the expected hash."""
     return sha256_file(path) == expected_hash
 
@@ -79,7 +78,7 @@ def hmac_verify(data: str, secret: str, signature: str) -> bool:
     return hmac.compare_digest(expected, signature)
 
 
-def compute_prompt_sha(prompt_path: Union[str, Path], length: int = 6) -> str:
+def compute_prompt_sha(prompt_path: str | Path, length: int = 6) -> str:
     """
     Compute short hash of a prompt file  used for MY_CLAIM in worker identity.
     Skips the first line if it's a comment (<!-- ... -->).

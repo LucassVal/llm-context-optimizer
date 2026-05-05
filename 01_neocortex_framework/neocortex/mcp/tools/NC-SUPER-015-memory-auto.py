@@ -24,12 +24,13 @@ Actions:
   lobe.decay      — aplica decaimento térmico em lóbulos existentes
   catalog.now     — cataloga semanticamente a sessão atual
 """
+import contextlib
 import importlib.util
 import json
 import logging
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 logger = logging.getLogger(__name__)
 TOOL_NAME = "neocortex_memory_auto"
@@ -76,7 +77,7 @@ def register_tool(mcp) -> None:
         lobe_category: str = "04_cc_patterns",
         decay_amount: int = 10,
         n_turns: int = 10,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """FÓRUM — Auto-Memória e Catalogação Semântica.
         Gatilho: após cada turn (user → ai), registe automaticamente.
         Actions: turn.record, session.hot, session.stats,
@@ -133,10 +134,8 @@ def register_tool(mcp) -> None:
             sessions = list(memory_dir.glob("*.jsonl"))
             total_turns = 0
             for s in sessions:
-                try:
+                with contextlib.suppress(Exception):
                     total_turns += sum(1 for _ in s.open(encoding="utf-8"))
-                except Exception:
-                    pass
             return {"success": True, "action": action,
                     "stats": {"sessions": len(sessions), "total_turns": total_turns},
                     "timestamp": ts}

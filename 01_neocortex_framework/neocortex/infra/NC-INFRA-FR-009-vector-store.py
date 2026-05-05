@@ -15,7 +15,7 @@ with embedding generation and similarity search capabilities.
 import logging
 from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import Any, Dict, List, Union
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -25,25 +25,25 @@ class VectorStore(ABC):
 
     @abstractmethod
     def add_vectors(
-        self, vectors: List[List[float]], metadata: List[Dict[str, Any]]
-    ) -> List[str]:
+        self, vectors: list[list[float]], metadata: list[dict[str, Any]]
+    ) -> list[str]:
         """Add vectors with metadata to store."""
         pass
 
     @abstractmethod
     def search(
-        self, query_vector: List[float], top_k: int = 10
-    ) -> List[Dict[str, Any]]:
+        self, query_vector: list[float], top_k: int = 10
+    ) -> list[dict[str, Any]]:
         """Search for similar vectors."""
         pass
 
     @abstractmethod
-    def delete(self, vector_ids: List[str]) -> bool:
+    def delete(self, vector_ids: list[str]) -> bool:
         """Delete vectors by IDs."""
         pass
 
     @abstractmethod
-    def get_stats(self) -> Dict[str, Any]:
+    def get_stats(self) -> dict[str, Any]:
         """Get store statistics."""
         pass
 
@@ -71,11 +71,11 @@ class InfinityVectorStore(VectorStore):
         logger.info(f"InfinityVectorStore stub initialized (API: {api_url})")
 
     def add_vectors(
-        self, vectors: List[List[float]], metadata: List[Dict[str, Any]]
-    ) -> List[str]:
+        self, vectors: list[list[float]], metadata: list[dict[str, Any]]
+    ) -> list[str]:
         """Add vectors with metadata."""
         vector_ids = []
-        for vec, meta in zip(vectors, metadata):
+        for vec, meta in zip(vectors, metadata, strict=False):
             vec_id = f"infinity_vec_{self._next_id}"
             self._next_id += 1
             self._vectors[vec_id] = {"vector": vec, "metadata": meta}
@@ -84,8 +84,8 @@ class InfinityVectorStore(VectorStore):
         return vector_ids
 
     def search(
-        self, query_vector: List[float], top_k: int = 10
-    ) -> List[Dict[str, Any]]:
+        self, query_vector: list[float], top_k: int = 10
+    ) -> list[dict[str, Any]]:
         """Search for similar vectors (stub returns random results)."""
         import random
 
@@ -104,13 +104,13 @@ class InfinityVectorStore(VectorStore):
         results.sort(key=lambda x: x["score"], reverse=True)
         return results[:top_k]
 
-    def delete(self, vector_ids: List[str]) -> bool:
+    def delete(self, vector_ids: list[str]) -> bool:
         """Delete vectors by IDs."""
         for vec_id in vector_ids:
             self._vectors.pop(vec_id, None)
         return True
 
-    def get_stats(self) -> Dict[str, Any]:
+    def get_stats(self) -> dict[str, Any]:
         """Get store statistics."""
         return {
             "type": "infinity_stub",
@@ -129,7 +129,7 @@ class LanceDBVectorStore(VectorStore):
     """LanceDB-based vector store (stub)."""
 
     def __init__(
-        self, db_path: Union[str, Path] = "lancedb_data", table_name: str = "vectors"
+        self, db_path: str | Path = "lancedb_data", table_name: str = "vectors"
     ):
         """
         Initialize LanceDB vector store stub.
@@ -145,11 +145,11 @@ class LanceDBVectorStore(VectorStore):
         logger.info(f"LanceDBVectorStore stub initialized (path: {db_path})")
 
     def add_vectors(
-        self, vectors: List[List[float]], metadata: List[Dict[str, Any]]
-    ) -> List[str]:
+        self, vectors: list[list[float]], metadata: list[dict[str, Any]]
+    ) -> list[str]:
         """Add vectors with metadata."""
         vector_ids = []
-        for vec, meta in zip(vectors, metadata):
+        for vec, meta in zip(vectors, metadata, strict=False):
             vec_id = f"lancedb_vec_{self._next_id}"
             self._next_id += 1
             self._vectors[vec_id] = {"vector": vec, "metadata": meta}
@@ -158,8 +158,8 @@ class LanceDBVectorStore(VectorStore):
         return vector_ids
 
     def search(
-        self, query_vector: List[float], top_k: int = 10
-    ) -> List[Dict[str, Any]]:
+        self, query_vector: list[float], top_k: int = 10
+    ) -> list[dict[str, Any]]:
         """Search for similar vectors (stub returns random results)."""
         import random
 
@@ -177,13 +177,13 @@ class LanceDBVectorStore(VectorStore):
         results.sort(key=lambda x: x["score"], reverse=True)
         return results[:top_k]
 
-    def delete(self, vector_ids: List[str]) -> bool:
+    def delete(self, vector_ids: list[str]) -> bool:
         """Delete vectors by IDs."""
         for vec_id in vector_ids:
             self._vectors.pop(vec_id, None)
         return True
 
-    def get_stats(self) -> Dict[str, Any]:
+    def get_stats(self) -> dict[str, Any]:
         """Get store statistics."""
         return {
             "type": "lancedb_stub",

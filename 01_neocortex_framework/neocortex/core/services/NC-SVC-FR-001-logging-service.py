@@ -20,7 +20,7 @@ import logging
 import logging.handlers
 import time
 from pathlib import Path
-from typing import Any, Dict, Optional, Union
+from typing import Any
 
 
 class JSONFormatter(logging.Formatter):
@@ -56,7 +56,7 @@ class NeoCortexLogger:
         cls,
         name: str,
         level: int = logging.INFO,
-        log_file: Optional[Union[str, Path]] = None,
+        log_file: str | Path | None = None,
     ) -> logging.Logger:
         """
         Configure a logger with JSON formatting.
@@ -141,7 +141,7 @@ class NeoCortexLogger:
         logger: logging.Logger,
         level: str,
         event: str,
-        context: Optional[Dict[str, Any]] = None,
+        context: dict[str, Any] | None = None,
     ) -> None:
         """
         Log a structured event with context.

@@ -13,7 +13,7 @@ using repository interfaces for storage abstraction.
 """
 
 import json
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from ..repositories import ProfileRepository
 
@@ -21,7 +21,7 @@ from ..repositories import ProfileRepository
 class ProfileService:
     """Service for profile-related business logic."""
 
-    def __init__(self, repository: Optional[ProfileRepository] = None):
+    def __init__(self, repository: ProfileRepository | None = None):
         """
         Initialize profile service.
 
@@ -36,7 +36,7 @@ class ProfileService:
         else:
             self.repository = repository
 
-    def list_profiles(self) -> Dict[str, Any]:
+    def list_profiles(self) -> dict[str, Any]:
         """
         List all available profiles with metadata.
 
@@ -58,7 +58,7 @@ class ProfileService:
             "access_levels": self._summarize_access_levels(profiles),
         }
 
-    def get_profile(self, profile_id: str) -> Dict[str, Any]:
+    def get_profile(self, profile_id: str) -> dict[str, Any]:
         """
         Get a specific profile with content and metadata.
 
@@ -82,8 +82,8 @@ class ProfileService:
         return {"id": profile_id, "exists": True, "profile": profile, **metadata}
 
     def create_profile(
-        self, profile_id: str, profile_data: Dict[str, Any]
-    ) -> Dict[str, Any]:
+        self, profile_id: str, profile_data: dict[str, Any]
+    ) -> dict[str, Any]:
         """
         Create a new profile.
 
@@ -139,8 +139,8 @@ class ProfileService:
             }
 
     def update_profile(
-        self, profile_id: str, profile_data: Dict[str, Any]
-    ) -> Dict[str, Any]:
+        self, profile_id: str, profile_data: dict[str, Any]
+    ) -> dict[str, Any]:
         """
         Update an existing profile.
 
@@ -191,7 +191,7 @@ class ProfileService:
                 "error": f"Failed to update profile '{profile_id}'",
             }
 
-    def delete_profile(self, profile_id: str) -> Dict[str, Any]:
+    def delete_profile(self, profile_id: str) -> dict[str, Any]:
         """
         Delete a profile.
 
@@ -237,7 +237,7 @@ class ProfileService:
 
     def validate_access(
         self, profile_id: str, resource: str, operation: str = "read"
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Validate if a profile has access to a resource.
 
@@ -284,13 +284,12 @@ class ProfileService:
         if operation in access_rules:
             operation_rules = access_rules[operation]
             for rule_resource, rule_allowed in operation_rules.items():
-                if rule_resource == resource or rule_resource == "*":
-                    if rule_allowed:
-                        return {
-                            "allowed": True,
-                            "reason": f"Access level '{access_level}' allows {operation} on {resource}",
-                            "access_level": access_level,
-                        }
+                if (rule_resource == resource or rule_resource == "*") and rule_allowed:
+                    return {
+                        "allowed": True,
+                        "reason": f"Access level '{access_level}' allows {operation} on {resource}",
+                        "access_level": access_level,
+                    }
 
         return {
             "allowed": False,
@@ -299,7 +298,7 @@ class ProfileService:
             "suggestion": "Request elevated permissions or specific resource access",
         }
 
-    def get_profile_access_level(self, profile_id: str) -> Dict[str, Any]:
+    def get_profile_access_level(self, profile_id: str) -> dict[str, Any]:
         """
         Get access level for a profile.
 
@@ -320,8 +319,8 @@ class ProfileService:
         }
 
     def _extract_profile_metadata(
-        self, profile_id: str, profile: Dict[str, Any]
-    ) -> Dict[str, Any]:
+        self, profile_id: str, profile: dict[str, Any]
+    ) -> dict[str, Any]:
         """Extract metadata from profile data."""
         metadata = {
             "access_level": profile.get("access_level", "developer"),
@@ -350,7 +349,7 @@ class ProfileService:
 
         return metadata
 
-    def _validate_profile_data(self, profile_data: Dict[str, Any]) -> Dict[str, Any]:
+    def _validate_profile_data(self, profile_data: dict[str, Any]) -> dict[str, Any]:
         """Validate profile data structure."""
         errors = []
 
@@ -379,8 +378,8 @@ class ProfileService:
         return {"valid": len(errors) == 0, "errors": errors}
 
     def _summarize_access_levels(
-        self, profiles: List[Dict[str, Any]]
-    ) -> Dict[str, int]:
+        self, profiles: list[dict[str, Any]]
+    ) -> dict[str, int]:
         """Summarize access level distribution."""
         summary = {}
         for profile in profiles:
@@ -388,7 +387,7 @@ class ProfileService:
             summary[level] = summary.get(level, 0) + 1
         return summary
 
-    def _get_access_rules(self, access_level: str) -> Dict[str, Dict[str, bool]]:
+    def _get_access_rules(self, access_level: str) -> dict[str, dict[str, bool]]:
         """Get access rules for a given access level."""
         # Default access rules
         rules = {
@@ -424,7 +423,7 @@ _default_profile_service = None
 
 
 def get_profile_service(
-    repository: Optional[ProfileRepository] = None,
+    repository: ProfileRepository | None = None,
 ) -> ProfileService:
     """
     Get profile service instance (singleton pattern).

@@ -4,13 +4,13 @@
 """
 
 
+import contextlib
 import json
 import os
 import pathlib
 import threading
 import time
 from datetime import datetime
-from typing import Dict, List, Optional
 
 # ═══════════════════════════════════════════════════════════════
 # R65 — Bulkhead (Isolamento de Servidores MCP)
@@ -19,9 +19,9 @@ from typing import Dict, List, Optional
 class Bulkhead:
     """Isola servidores MCP por domínio. Falha em um não afeta outros."""
 
-    def __init__(self, root: Optional[pathlib.Path] = None):
+    def __init__(self, root: pathlib.Path | None = None):
         self.root = root or pathlib.Path(os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3]))
-        self._partitions: Dict[str, Dict] = {}
+        self._partitions: dict[str, dict] = {}
         self._init_partitions()
 
     def _init_partitions(self):
@@ -38,7 +38,7 @@ class Bulkhead:
                 self._partitions[name] = {"domain": domain, "status": "healthy", "failures": 0, "last_heartbeat": datetime.now().isoformat()}
             except: pass
 
-    def check(self) -> Dict:
+    def check(self) -> dict:
         return {
             "partitions": len(self._partitions),
             "domains": list({p["domain"] for p in self._partitions.values()}),
@@ -73,7 +73,7 @@ class CQRSRouter:
             return "COMMAND"
         return "UNKNOWN"
 
-    def route(self, action: str) -> Dict:
+    def route(self, action: str) -> dict:
         cls = self.classify(action)
         return {
             "action": action,
@@ -91,17 +91,16 @@ class CQRSRouter:
 class FeatureToggle:
     """Habilita/desabilita ferramentas MCP dinamicamente."""
 
-    def __init__(self, root: Optional[pathlib.Path] = None):
+    def __init__(self, root: pathlib.Path | None = None):
         self.root = root or pathlib.Path(os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3]))
         self._config_file = self.root / ".neocortex" / "feature_toggles.json"
-        self._toggles: Dict[str, bool] = {}
+        self._toggles: dict[str, bool] = {}
         self._load()
 
     def _load(self):
         if self._config_file.exists():
-            try:
+            with contextlib.suppress(BaseException):
                 self._toggles = json.loads(self._config_file.read_text(encoding="utf-8"))
-            except: pass
 
     def _save(self):
         self._config_file.parent.mkdir(parents=True, exist_ok=True)
@@ -115,7 +114,7 @@ class FeatureToggle:
         self._save()
         return True
 
-    def list_all(self) -> Dict:
+    def list_all(self) -> dict:
         return {"toggles": self._toggles, "count": len(self._toggles),
                 "active": sum(1 for v in self._toggles.values() if v),
                 "inactive": sum(1 for v in self._toggles.values() if not v)}
@@ -136,9 +135,9 @@ class GracefulDegradation:
         "litellm_gateway": ["ollama_local", "static_responses"],
     }
 
-    def __init__(self, root: Optional[pathlib.Path] = None):
+    def __init__(self, root: pathlib.Path | None = None):
         self.root = root or pathlib.Path(os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3]))
-        self._degraded_services: Dict[str, str] = {}
+        self._degraded_services: dict[str, str] = {}
 
     def degrade(self, service: str, reason: str = "health_check_failed") -> str:
         fallbacks = self.FALLBACKS.get(service, ["none_available"])
@@ -152,7 +151,7 @@ class GracefulDegradation:
         self._degraded_services.pop(service, None)
         return True
 
-    def status(self) -> Dict:
+    def status(self) -> dict:
         return {
             "degraded_services": self._degraded_services,
             "count": len(self._degraded_services),
@@ -171,9 +170,9 @@ class Backpressure:
     def __init__(self, max_calls_per_second: int = 10, window_seconds: int = 5):
         self.max_calls = max_calls_per_second
         self.window = window_seconds
-        self._calls: List[float] = []
+        self._calls: list[float] = []
         self._lock = threading.Lock()
-        self._blocked_until: Optional[float] = None
+        self._blocked_until: float | None = None
 
     def allow(self) -> tuple[bool, str]:
         now = time.monotonic()
@@ -190,7 +189,7 @@ class Backpressure:
                 return False, f"BACKPRESSURE: rate {rate:.1f}/s exceeds limit {self.max_calls}/s. Cooldown {self.window}s."
             return True, "OK"
 
-    def status(self) -> Dict:
+    def status(self) -> dict:
         now = time.monotonic()
         recent = len([c for c in self._calls if now - c < self.window])
         return {
@@ -207,7 +206,7 @@ class Backpressure:
 # ═══════════════════════════════════════════════════════════════
 
 class ResiliencyEngine:
-    def __init__(self, root: Optional[pathlib.Path] = None):
+    def __init__(self, root: pathlib.Path | None = None):
         self.root = root or pathlib.Path(os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3]))
         self.bulkhead = Bulkhead(root=self.root)
         self.cqrs = CQRSRouter()
@@ -215,7 +214,7 @@ class ResiliencyEngine:
         self.graceful = GracefulDegradation(root=self.root)
         self.backpressure = Backpressure()
 
-    def full_audit(self) -> Dict:
+    def full_audit(self) -> dict:
         return {
             "bulkhead": self.bulkhead.check(),
             "cqrs_sample": self.cqrs.route("lobes.create"),

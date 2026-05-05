@@ -21,7 +21,7 @@ import logging
 import time
 import uuid
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -50,7 +50,7 @@ def _get_wal_service():
         return None
 
 
-def _query_wal_savepoints(ttl_seconds: int = 3600) -> List[Dict[str, Any]]:
+def _query_wal_savepoints(ttl_seconds: int = 3600) -> list[dict[str, Any]]:
     """Query WAL for savepoint_create events within TTL."""
     try:
         # Acessar banco diretamente (fallback)
@@ -104,13 +104,13 @@ def _query_wal_savepoints(ttl_seconds: int = 3600) -> List[Dict[str, Any]]:
 class SavePoint:
     """SavePoint representation (stub)."""
 
-    def __init__(self, state_snapshot: Dict[str, Any], ttl_seconds: int = 3600):
+    def __init__(self, state_snapshot: dict[str, Any], ttl_seconds: int = 3600):
         self.id = str(uuid.uuid4())
         self.timestamp = time.time()
         self.state_snapshot = state_snapshot
         self.ttl_seconds = ttl_seconds
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert SavePoint to dictionary."""
         return {
             "id": self.id,
@@ -123,12 +123,12 @@ class SavePoint:
 class SavePointService:
     """SavePoint service stub."""
 
-    _savepoints: Dict[str, SavePoint] = {}
+    _savepoints: dict[str, SavePoint] = {}
 
     @classmethod
     def create(
-        cls, state_snapshot: Dict[str, Any], ttl_seconds: int = 3600
-    ) -> Dict[str, Any]:
+        cls, state_snapshot: dict[str, Any], ttl_seconds: int = 3600
+    ) -> dict[str, Any]:
         """
         Create a new SavePoint.
 
@@ -172,7 +172,7 @@ class SavePointService:
         return sp.to_dict()
 
     @classmethod
-    def list_active(cls) -> List[Dict[str, Any]]:
+    def list_active(cls) -> list[dict[str, Any]]:
         """
         List all active (nonexpired) SavePoints.
 
@@ -199,7 +199,7 @@ class SavePointService:
         return active
 
     @classmethod
-    def rollback(cls, savepoint_id: str) -> Dict[str, Any]:
+    def rollback(cls, savepoint_id: str) -> dict[str, Any]:
         """
         Rollback to a specific SavePoint (stub).
 
@@ -244,7 +244,7 @@ class SavePointService:
         }
 
     @classmethod
-    def discard(cls, savepoint_id: str) -> Dict[str, Any]:
+    def discard(cls, savepoint_id: str) -> dict[str, Any]:
         """
         Discard a SavePoint.
 
@@ -288,23 +288,23 @@ class SavePointService:
 
 
 def create_savepoint(
-    state_snapshot: Dict[str, Any], ttl_seconds: int = 3600
-) -> Dict[str, Any]:
+    state_snapshot: dict[str, Any], ttl_seconds: int = 3600
+) -> dict[str, Any]:
     """Create a SavePoint and return its data."""
     return SavePointService.create(state_snapshot, ttl_seconds)
 
 
-def list_active_savepoints() -> List[Dict[str, Any]]:
+def list_active_savepoints() -> list[dict[str, Any]]:
     """Return list of active SavePoints."""
     return SavePointService.list_active()
 
 
-def rollback_to_savepoint(savepoint_id: str) -> Dict[str, Any]:
+def rollback_to_savepoint(savepoint_id: str) -> dict[str, Any]:
     """Rollback to a specific SavePoint (stub)."""
     return SavePointService.rollback(savepoint_id)
 
 
-def discard_savepoint(savepoint_id: str) -> Dict[str, Any]:
+def discard_savepoint(savepoint_id: str) -> dict[str, Any]:
     """Discard a SavePoint."""
     return SavePointService.discard(savepoint_id)
 

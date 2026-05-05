@@ -15,7 +15,7 @@ based on role, configuration, and override settings.
 import logging
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 from ..config import get_config
 from ..infra.llm.backend import FallbackChain, LLMRequest, LLMResponse
@@ -32,11 +32,11 @@ class AgentTask:
     task_id: str
     role: str
     prompt: str
-    system_prompt: Optional[str] = None
-    model: Optional[str] = None
+    system_prompt: str | None = None
+    model: str | None = None
     temperature: float = 0.7
-    max_tokens: Optional[int] = None
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    max_tokens: int | None = None
+    metadata: dict[str, Any] = field(default_factory=dict)
 
 
 class AgentExecutor:
@@ -80,7 +80,7 @@ class AgentExecutor:
             "fallback_usage": 0,
         }
 
-    def _get_role_backend_config(self, role: str) -> Dict[str, Any]:
+    def _get_role_backend_config(self, role: str) -> dict[str, Any]:
         """
         Get backend configuration for a specific role.
 
@@ -113,8 +113,8 @@ class AgentExecutor:
         return self.config.llm_config
 
     def _get_backend_for_role(
-        self, role: str, backend_override: Optional[str] = None
-    ) -> Union[FallbackChain, Any]:
+        self, role: str, backend_override: str | None = None
+    ) -> FallbackChain | Any:
         """
         Get backend instance for role, with optional override.
 
@@ -162,7 +162,7 @@ class AgentExecutor:
         return backend
 
     async def execute_async(
-        self, task: AgentTask, backend_override: Optional[str] = None
+        self, task: AgentTask, backend_override: str | None = None
     ) -> LLMResponse:
         """
         Execute agent task asynchronously.
@@ -279,7 +279,7 @@ class AgentExecutor:
             raise
 
     def execute(
-        self, task: AgentTask, backend_override: Optional[str] = None
+        self, task: AgentTask, backend_override: str | None = None
     ) -> LLMResponse:
         """
         Execute agent task synchronously (convenience wrapper).
@@ -297,7 +297,7 @@ class AgentExecutor:
 
         return asyncio.run(self.execute_async(task, backend_override))
 
-    def get_available_backends(self) -> List[str]:
+    def get_available_backends(self) -> list[str]:
         """
         Get list of available backend providers.
 
@@ -306,7 +306,7 @@ class AgentExecutor:
         """
         return self.llm_factory.get_available_providers()
 
-    def set_role_backend(self, role: str, backend_config: Dict[str, Any]) -> None:
+    def set_role_backend(self, role: str, backend_config: dict[str, Any]) -> None:
         """
         Set backend configuration for a specific role.
 
@@ -320,7 +320,7 @@ class AgentExecutor:
 
         # Clear cache for this role
         keys_to_clear = [
-            k for k in self._backend_cache.keys() if k.startswith(f"{role}:")
+            k for k in self._backend_cache if k.startswith(f"{role}:")
         ]
         for key in keys_to_clear:
             del self._backend_cache[key]
@@ -330,7 +330,7 @@ class AgentExecutor:
         self._backend_cache.clear()
         logger.debug("Cleared backend cache")
 
-    def get_stats(self) -> Dict[str, Any]:
+    def get_stats(self) -> dict[str, Any]:
         """
         Get executor statistics.
 

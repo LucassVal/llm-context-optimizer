@@ -9,17 +9,49 @@ globs: "*"
 
 # NeoCortex — Master Rules Index v3
 
+## Hierarquia de Governança (P0 a P3)
+
+```mermaid
+graph TD
+    P0[P0: Supreme Kernel] --> P1[P1: Operational Pipeline]
+    P0 --> P2[P2: Domain Rules]
+    P1 --> P3[P3: Episodic State]
+    
+    subgraph P0_Supreme
+        R000[NC-RULE-000-master-index.md]
+        WF002[NC-WF-002 / NC-PRF-FR-001 Master Governance]
+    end
+    
+    subgraph P1_Operational
+        WF001[NC-WF-001 Workspace Routine]
+    end
+    
+    subgraph P2_Modular
+        R001[NC-RULE-001 Core/SSOT]
+        R002[NC-RULE-002 Python/MCP]
+        R003[NC-RULE-003 Memory/Lobes]
+        R004[NC-RULE-004 Filesystem]
+        R006[NC-RULE-006 R21 Zero Assumptions]
+    end
+    
+    subgraph P3_Episodic
+        BOOT[NC-BOOT-FR-001 System Manifest]
+    end
+```
+
 ## Arquitetura de Regras (Modular)
 
 ```
 .agents/rules/
-├── neocortexrules.md           ← ESTE ARQUIVO (índice + regras completas para Antigravity)
-├── NC-RULE-001-core-ssot.mdc   ← alwaysApply: true  | Core SSOT, < 50 linhas
-├── NC-RULE-002-python-mcp.mdc  ← globs: **/*.py      | Python & MCP patterns
-├── NC-RULE-003-lobes-memory.mdc← globs: **/lobes/**  | Lobes & Memory
-├── NC-RULE-004-filesystem.mdc  ← globs: **/DIR-*/**  | Filesystem & Governance
-└── NC-RULE-006-no-assumptions.mdc ← alwaysApply: true | R21 Zero Suposições (CRÍTICO)
+├── NC-RULE-000-master-index.md ← ESTE ARQUIVO (P0 - Mapa de Hierarquia)
+├── NC-RULE-001-core-ssot.mdc   ← P2 Core SSOT
+├── NC-RULE-002-python-mcp.mdc  ← P2 Python & MCP
+├── NC-RULE-003-lobes-memory.mdc← P2 Lobes & Memory
+├── NC-RULE-004-filesystem.mdc  ← P2 Filesystem & Governance
+└── NC-RULE-006-no-assumptions.mdc ← P2 R21 Zero Suposições
 ```
+
+> **Nota:** As regras `NC-RULE-008`, `NC-RULE-009` e `NC-RULE-010` foram ABSORVIDAS pelo **P0 Master Governance (NC-WF-002)** para eliminar duplicação e fragmentação (KISS/DRY). Estão arquivadas em `DIR-ARC-FR-001-archive-main/rules-consolidated-20260505/`.
 
 ## Dicionário de Linguagem Ubíqua
 
@@ -175,6 +207,14 @@ Raiz: C:\Users\Lucas Valério\Desktop\TURBOQUANT_V42\
 </action>
 
 </actions>
+
+<analytical_lens>
+**APLICAÇÃO OBRIGATÓRIA ANTES DE DECISÕES ARQUITETURAIS OU DEBUGGING:**
+1. **RCA (Root Cause Analysis - 5 Porquês):** Nunca trate o sintoma. Investigue a causa raiz documental/sistêmica antes de alterar código.
+2. **3W (Who, What, Why):** Todo handoff e alteração deve responder Quem fez, O que foi feito e Por que foi feito (benefício sistêmico).
+3. **SWOT:** Ao alterar fluxos master, liste internamente: Forças do estado atual, Fraquezas do gap, Oportunidades da solução, Ameaças de quebra.
+4. **KISS:** Elimine complexidade prematura. Solução simples, robusta e aderente ao código já existente.
+</analytical_lens>
 
 <validation>
 Antes de qualquer ação:

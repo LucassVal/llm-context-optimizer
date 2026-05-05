@@ -18,12 +18,12 @@ import logging
 import os
 import re
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from ..repositories import CortexRepository, LedgerRepository, LobeRepository
 
 
-def _parse_yaml_string(yaml_str: str) -> Dict[str, Any]:
+def _parse_yaml_string(yaml_str: str) -> dict[str, Any]:
     """
     Parse YAML string using available YAML parser (ruamel.yaml, PyYAML, or regex fallback).
 
@@ -82,7 +82,7 @@ def _parse_yaml_string(yaml_str: str) -> Dict[str, Any]:
     return result
 
 
-def _extract_frontmatter(content: str) -> Dict[str, Any]:
+def _extract_frontmatter(content: str) -> dict[str, Any]:
     """
     Extract YAML frontmatter from Python or Markdown content.
 
@@ -165,9 +165,9 @@ class ManifestService:
 
     def __init__(
         self,
-        ledger_repository: Optional[LedgerRepository] = None,
-        cortex_repository: Optional[CortexRepository] = None,
-        lobe_repository: Optional[LobeRepository] = None,
+        ledger_repository: LedgerRepository | None = None,
+        cortex_repository: CortexRepository | None = None,
+        lobe_repository: LobeRepository | None = None,
     ):
         """
         Initialize manifest service.
@@ -198,7 +198,7 @@ class ManifestService:
         else:
             self.lobe_repository = lobe_repository
 
-    def _ensure_manifests_structure(self, ledger: Dict[str, Any]) -> Dict[str, Any]:
+    def _ensure_manifests_structure(self, ledger: dict[str, Any]) -> dict[str, Any]:
         """Ensure manifests structure exists in memory cortex."""
         if "memory_cortex" not in ledger:
             ledger["memory_cortex"] = {}
@@ -210,11 +210,11 @@ class ManifestService:
 
         return ledger
 
-    def generate(self, target: str = "") -> Dict[str, Any]:
+    def generate(self, target: str = "") -> dict[str, Any]:
         """Alias for generate_manifest."""
         return self.generate_manifest(target or "all")
 
-    def generate_manifest(self, target: str) -> Dict[str, Any]:
+    def generate_manifest(self, target: str) -> dict[str, Any]:
         """
         Generate manifest for a cortex or lobe.
 
@@ -395,8 +395,8 @@ class ManifestService:
             return {"success": False, "error": "Failed to write to ledger"}
 
     def update_manifest(
-        self, manifest_id: str, metadata: Optional[Dict[str, Any]] = None
-    ) -> Dict[str, Any]:
+        self, manifest_id: str, metadata: dict[str, Any] | None = None
+    ) -> dict[str, Any]:
         """
         Update manifest metadata.
 
@@ -454,11 +454,11 @@ class ManifestService:
 
     def query_manifests(
         self,
-        search_term: Optional[str] = None,
-        manifest_type: Optional[str] = None,
-        tags: Optional[List[str]] = None,
+        search_term: str | None = None,
+        manifest_type: str | None = None,
+        tags: list[str] | None = None,
         limit: int = 100,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Query manifests by various criteria.
 
@@ -530,9 +530,8 @@ class ManifestService:
                         found = True
 
                 # Search in title if exists
-                if not found and "title" in manifest:
-                    if search_term_lower in manifest["title"].lower():
-                        found = True
+                if not found and "title" in manifest and search_term_lower in manifest["title"].lower():
+                    found = True
 
                 if not found:
                     matches = False
@@ -557,7 +556,7 @@ class ManifestService:
             "total_manifests": len(manifests),
         }
 
-    def get_manifest(self, manifest_id: str) -> Dict[str, Any]:
+    def get_manifest(self, manifest_id: str) -> dict[str, Any]:
         """
         Get a specific manifest.
 
@@ -601,7 +600,7 @@ class ManifestService:
             "accessed_at": current_time,
         }
 
-    def delete_manifest(self, manifest_id: str) -> Dict[str, Any]:
+    def delete_manifest(self, manifest_id: str) -> dict[str, Any]:
         """
         Delete a manifest.
 
@@ -644,7 +643,7 @@ class ManifestService:
         else:
             return {"success": False, "error": "Failed to write to ledger"}
 
-    def list_all_manifests(self) -> Dict[str, Any]:
+    def list_all_manifests(self) -> dict[str, Any]:
         """
         List all manifests.
 
@@ -686,7 +685,7 @@ class ManifestService:
             "last_updated": datetime.now().isoformat(),
         }
 
-    def generate_all_manifests(self) -> Dict[str, Any]:
+    def generate_all_manifests(self) -> dict[str, Any]:
         """
         Generate manifests for all lobes and cortex.
 
@@ -735,8 +734,8 @@ class ManifestService:
         }
 
     def vector_scan(
-        self, root_dir: Optional[str] = None, output_file: Optional[str] = None
-    ) -> Dict[str, Any]:
+        self, root_dir: str | None = None, output_file: str | None = None
+    ) -> dict[str, Any]:
         """
         Perform vector scanning of YAML frontmatter headers across all files.
 
@@ -955,9 +954,9 @@ _default_manifest_service = None
 
 
 def get_manifest_service(
-    ledger_repository: Optional[LedgerRepository] = None,
-    cortex_repository: Optional[CortexRepository] = None,
-    lobe_repository: Optional[LobeRepository] = None,
+    ledger_repository: LedgerRepository | None = None,
+    cortex_repository: CortexRepository | None = None,
+    lobe_repository: LobeRepository | None = None,
 ) -> ManifestService:
     """
     Get manifest service instance (singleton pattern).

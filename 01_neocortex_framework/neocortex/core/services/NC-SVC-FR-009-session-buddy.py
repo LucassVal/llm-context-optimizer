@@ -17,10 +17,11 @@ import json
 import logging
 import time
 import types
+from collections.abc import Callable
 from dataclasses import asdict, dataclass, field
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any
 
 from rich.console import Console
 from rich.progress import BarColumn, Progress, TextColumn
@@ -61,15 +62,15 @@ class SessionStats:
 
     session_id: str
     started_at: str  # ISO format
-    ended_at: Optional[str] = None
+    ended_at: str | None = None
     tasks_done: int = 0
     tasks_approved: int = 0
     estimated_cost_usd: float = 0.0
     total_tokens: int = 0
     total_tool_calls: int = 0
     avg_duration_ms: float = 0.0
-    achievements_unlocked: List[str] = field(default_factory=list)
-    history: List[Dict[str, Any]] = field(default_factory=list)
+    achievements_unlocked: list[str] = field(default_factory=list)
+    history: list[dict[str, Any]] = field(default_factory=list)
 
     @property
     def approved_rate(self) -> float:
@@ -121,7 +122,7 @@ BADGES = {
 }
 
 
-def find_nc_directory(start_path: Optional[Path] = None) -> Optional[Path]:
+def find_nc_directory(start_path: Path | None = None) -> Path | None:
     """
     Walk up the directory hierarchy to find a `.nc` folder.
 
@@ -149,7 +150,7 @@ class SessionMate:
 
     def __new__(cls):
         if cls._instance is None:
-            cls._instance = super(SessionMate, cls).__new__(cls)
+            cls._instance = super().__new__(cls)
             cls._instance._initialized = False
         return cls._instance
 
@@ -157,10 +158,10 @@ class SessionMate:
         if self._initialized:
             return
 
-        self.session_id: Optional[str] = None
-        self.start_time: Optional[float] = None
-        self.stats: Optional[SessionStats] = None
-        self.nc_dir: Optional[Path] = None
+        self.session_id: str | None = None
+        self.start_time: float | None = None
+        self.stats: SessionStats | None = None
+        self.nc_dir: Path | None = None
         self.metrics_collector = get_metrics_collector()
         self._console = Console()
         self._initialized = True
@@ -264,7 +265,7 @@ class SessionMate:
             raise RuntimeError("Session stats not initialized")
         return self.stats
 
-    def check_achievements(self) -> List[Achievement]:
+    def check_achievements(self) -> list[Achievement]:
         """
         Check which achievements are unlocked based on current stats.
 
@@ -359,7 +360,7 @@ class SessionMate:
         stats_file = self.nc_dir / "session_stats.json"
         try:
             if stats_file.exists():
-                with open(stats_file, "r", encoding="utf-8") as f:
+                with open(stats_file, encoding="utf-8") as f:
                     data = json.load(f)
             else:
                 data = {
@@ -393,14 +394,14 @@ class SessionMate:
         except Exception as e:
             logger.error(f"Failed to persist session stats: {e}")
 
-    def save_session(self, session_data: Dict) -> None:
+    def save_session(self, session_data: dict) -> None:
         """Persiste stats da sesso em .nc/session_stats.json (append)."""
         if self.nc_dir is None:
             return
         stats_file = self.nc_dir / "session_stats.json"
         try:
             if stats_file.exists():
-                with open(stats_file, "r", encoding="utf-8") as f:
+                with open(stats_file, encoding="utf-8") as f:
                     data = json.load(f)
             else:
                 data = {
@@ -416,7 +417,7 @@ class SessionMate:
         except Exception as e:
             logger.error(f"Failed to persist session stats: {e}")
 
-    def load_history(self, limit: int = 10) -> List[Dict]:
+    def load_history(self, limit: int = 10) -> list[dict]:
         """Carrega ltimas N sesses do histrico."""
         if self.nc_dir is None:
             return []
@@ -424,7 +425,7 @@ class SessionMate:
         if not stats_file.exists():
             return []
         try:
-            with open(stats_file, "r", encoding="utf-8") as f:
+            with open(stats_file, encoding="utf-8") as f:
                 data = json.load(f)
             sessions = data.get("sessions", [])
             return sessions[-limit:]
@@ -432,7 +433,7 @@ class SessionMate:
             logger.error(f"Failed to load session history: {e}")
             return []
 
-    def check_badges(self, stats: Dict) -> List[str]:
+    def check_badges(self, stats: dict) -> list[str]:
         """Retorna lista de badges conquistados."""
         unlocked = []
         # Convert dict to SimpleNamespace for attribute access
@@ -446,7 +447,7 @@ class SessionMate:
                 continue
         return unlocked
 
-    def display_summary(self, stats: Dict) -> None:
+    def display_summary(self, stats: dict) -> None:
         """Exibe tabela formatada com rich.Console."""
         # Usar self.display() que j usa rich
         self.display()

@@ -7,7 +7,6 @@
 import os
 import pathlib
 from datetime import datetime
-from typing import Dict, List
 
 import yaml as _yaml
 
@@ -24,7 +23,7 @@ class EisenhowerReal:
         self.root = root or pathlib.Path(os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3]))
         self.ticket_dir = self.root / "DIR-DS-001-tickets"
 
-    def load_all_tickets(self) -> List[Dict]:
+    def load_all_tickets(self) -> list[dict]:
         tickets = []
         if not self.ticket_dir.exists():
             return tickets
@@ -43,7 +42,7 @@ class EisenhowerReal:
                 pass
         return tickets
 
-    def _infer_urgency(self, ticket: Dict) -> int:
+    def _infer_urgency(self, ticket: dict) -> int:
         status = str(ticket.get("status", "")).upper()
         priority = str(ticket.get("priority", "")).upper()
         if status == "BLOCKED":
@@ -56,7 +55,7 @@ class EisenhowerReal:
             return 2
         return 1
 
-    def _infer_impact(self, ticket: Dict) -> int:
+    def _infer_impact(self, ticket: dict) -> int:
         title = str(ticket.get("title", ticket.get("summary", "")))
         module = str(ticket.get("module", ""))
         if "L1" in title or "L1" in module or "CRITICAL" in title:
@@ -67,7 +66,7 @@ class EisenhowerReal:
             return 3
         return 2
 
-    def classify(self, ticket: Dict) -> str:
+    def classify(self, ticket: dict) -> str:
         urgency = int(ticket.get("urgency", 3))
         impact = int(ticket.get("impact", 2))
 
@@ -80,7 +79,7 @@ class EisenhowerReal:
         else:
             return self.NOT_URGENT_NOT_IMPORTANT
 
-    def full_analysis(self) -> Dict:
+    def full_analysis(self) -> dict:
         tickets = self.load_all_tickets()
         for t in tickets:
             t["_quadrant"] = self.classify(t)
@@ -118,7 +117,7 @@ class EisenhowerReal:
             "timestamp": datetime.now().isoformat(),
         }
 
-    def inject_urgency_impact(self, dry_run: bool = True) -> Dict:
+    def inject_urgency_impact(self, dry_run: bool = True) -> dict:
         """Adiciona urgency/impact aos tickets que nao tem."""
         tickets = self.load_all_tickets()
         updated = 0

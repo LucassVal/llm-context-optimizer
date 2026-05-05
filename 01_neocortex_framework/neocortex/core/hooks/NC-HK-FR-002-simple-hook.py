@@ -43,7 +43,7 @@ import logging
 import threading
 import time
 from collections import defaultdict, deque
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -57,17 +57,17 @@ logger = logging.getLogger(__name__)
 class LoggingHook:
     """Loga cada tool_call antes e depois da execucao."""
 
-    def on_before(self, tool_name: "str | dict" = None, args: dict = None, **kwargs) -> None:
+    def on_before(self, tool_name: str | dict | None = None, args: dict | None = None, **kwargs) -> None:
         if isinstance(tool_name, dict):
             tool_name = tool_name.get("tool_name", "unknown")
         logger.info("[HOOK] before_tool_call | tool=%s", tool_name)
 
-    def on_after(self, tool_name: "str | dict" = None, result=None, elapsed_ms: float = 0.0, **kwargs) -> None:
+    def on_after(self, tool_name: str | dict | None = None, result=None, elapsed_ms: float = 0.0, **kwargs) -> None:
         if isinstance(tool_name, dict):
             tool_name = tool_name.get("tool_name", "unknown")
         logger.info("[HOOK] after_tool_call  | tool=%s | elapsed=%.1fms", tool_name, elapsed_ms)
 
-    def on_error(self, tool_name: "str | dict" = None, error=None, **kwargs) -> None:
+    def on_error(self, tool_name: str | dict | None = None, error=None, **kwargs) -> None:
         if isinstance(tool_name, dict):
             tool_name = tool_name.get("tool_name", "unknown")
         logger.error("[HOOK] on_error | tool=%s | error=%s", tool_name, error)
@@ -90,12 +90,12 @@ class TimingHook:
             return context_or_tool.get("tool_name", "unknown")
         return str(context_or_tool) if context_or_tool else "unknown"
 
-    def on_before(self, tool_name: "str | dict" = None, **kwargs) -> None:
+    def on_before(self, tool_name: str | dict | None = None, **kwargs) -> None:
         name = self._extract_tool_name(tool_name)
         with self._lock:
             self._start[name] = time.monotonic()
 
-    def on_after(self, tool_name: "str | dict" = None, **kwargs) -> None:
+    def on_after(self, tool_name: str | dict | None = None, **kwargs) -> None:
         name = self._extract_tool_name(tool_name)
         with self._lock:
             start = self._start.pop(name, None)
@@ -162,10 +162,10 @@ class AuditHook:
                 log_dir = Path(".neocortex") / "logs" / "NC-LOG-FR-001-hud-audit"
         self._log_dir = Path(log_dir)
         self._log_dir.mkdir(parents=True, exist_ok=True)
-        self._file = self._log_dir / f"audit-hook-{datetime.now(timezone.utc).strftime('%Y%m%d')}.yaml"
+        self._file = self._log_dir / f"audit-hook-{datetime.now(UTC).strftime('%Y%m%d')}.yaml"
 
     def on_after(self, tool_name: str, result: Any = None, **kwargs: Any) -> None:
-        ts = datetime.now(timezone.utc).isoformat()
+        ts = datetime.now(UTC).isoformat()
         entry = f"- timestamp: \"{ts}\"\n  tool: \"{tool_name}\"\n  status: ok\n"
         try:
             with open(self._file, "a", encoding="utf-8") as fh:
@@ -174,7 +174,7 @@ class AuditHook:
             logger.warning("[AUDIT_HOOK] Falha ao gravar log: %s", exc)
 
     def on_error(self, tool_name: str, error: Exception, **kwargs: Any) -> None:
-        ts = datetime.now(timezone.utc).isoformat()
+        ts = datetime.now(UTC).isoformat()
         entry = f"- timestamp: \"{ts}\"\n  tool: \"{tool_name}\"\n  status: error\n  error: \"{error}\"\n"
         try:
             with open(self._file, "a", encoding="utf-8") as fh:
@@ -183,4 +183,4 @@ class AuditHook:
             logger.warning("[AUDIT_HOOK] Falha ao gravar log: %s", exc)
 
 
-__all__ = ["LoggingHook", "TimingHook", "RateLimitHook", "AuditHook"]
+__all__ = ["AuditHook", "LoggingHook", "RateLimitHook", "TimingHook"]

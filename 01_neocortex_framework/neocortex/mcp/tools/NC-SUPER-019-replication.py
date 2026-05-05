@@ -6,7 +6,7 @@
 
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 TOOL_NAME = "neocortex_replication"
 root = Path(__file__).parents[4]
@@ -20,7 +20,7 @@ def register_tool(mcp):
         child_id: str = "",
         bsl_level: int = 1,
         task: str = "",
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """FASE 6 — Replicação governada para agentes.
         Actions:
           genome.fork      — criar child (herda políticas, BSL sandbox)

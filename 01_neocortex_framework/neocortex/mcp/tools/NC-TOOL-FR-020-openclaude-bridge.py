@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """---
-NC-TOOL-FR-020 — openclaude_bridge
+domain: parietal
+layer: mcp
+type: tool
+topology: parent
+tags: [bridge, openclaude, grpc]
 ---
-"""
-
-"""---
 NC-TOOL-FR-020 — openclaude_bridge
----
+Bridge MCP NeoCortex ↔ OpenClaude (Antigravity/T0)
 """
 
 """
@@ -25,21 +26,21 @@ Integra:
   - MCP Server :8765 (NC-SVC-FR-100)
   - OpenClaude profile (.openclaude-profile.json)
 """
+import importlib
 import json
 import logging
 import os
 import subprocess
-import sys
-import time
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any
 
-import importlib
 try:
     ProfileRouter = importlib.import_module(".NC-SVC-FR-026-profile-router", package="neocortex.infra.llm").ProfileRouter
 except ImportError:
     ProfileRouter = None
+
+from neocortex.core.file_utils import get_project_root
 
 logger = logging.getLogger(__name__)
 TOOL_NAME = "openclaude_bridge"
@@ -59,7 +60,7 @@ def _ts() -> str:
     return datetime.now().isoformat(timespec="seconds")
 
 
-def _http_get(url: str, timeout: int = 5) -> Dict:
+def _http_get(url: str, timeout: int = 5) -> dict:
     """GET request simples com stdlib."""
     try:
         import urllib.request
@@ -71,7 +72,7 @@ def _http_get(url: str, timeout: int = 5) -> Dict:
         return {"ok": False, "error": str(e)}
 
 
-def _profile_status() -> Dict:
+def _profile_status() -> dict:
     """Lê o profile do OpenClaude e retorna status."""
     if not OPENCLAUDE_PROFILE.exists():
         return {"exists": False, "error": "Profile não encontrado"}
@@ -87,7 +88,7 @@ def _profile_status() -> Dict:
         return {"exists": True, "error": str(e)}
 
 
-def _gateway_health() -> Dict:
+def _gateway_health() -> dict:
     """Health check no gateway DeepSeek :4001."""
     result = _http_get(GATEWAY_HEALTH_ENDPOINT, timeout=5)
     if result.get("ok"):
@@ -95,7 +96,7 @@ def _gateway_health() -> Dict:
     return {"online": False, "error": result.get("error", "Gateway offline")}
 
 
-def _mcp_health() -> Dict:
+def _mcp_health() -> dict:
     """Health check no MCP Server :8765."""
     result = _http_get(f"{MCP_URL}/health", timeout=5)
     if result.get("ok"):
@@ -118,7 +119,7 @@ def register_tool(mcp) -> None:
         action: str,
         prompt_text: str = "",
         session_id: str = "",
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """Bridge MCP NeoCortex ↔ OpenClaude (Antigravity/T0).
 
         Actions:
@@ -135,9 +136,12 @@ def register_tool(mcp) -> None:
         # UBL Gateway (Kernel 0)
         try:
             from neocortex.core.utils.NC_UTL_FR_004_gateway_bridge import gateway_check
+            root = get_project_root()
             _ok, _report = gateway_check(action, root)
-            if not _ok: return _report
-        except Exception: pass
+            if not _ok:
+                return _report
+        except Exception:
+            pass
         if action == "session.status":
             gw = _gateway_health()
             mcp_st = _mcp_health()
@@ -227,7 +231,7 @@ def register_tool(mcp) -> None:
             import shutil
             openclaude_path = shutil.which("openclaude")
             node_path = shutil.which("node")
-            
+
             results = {
                 "openclaude_binary": openclaude_path,
                 "node_binary": node_path,
@@ -235,7 +239,7 @@ def register_tool(mcp) -> None:
                 "mcp_online": _mcp_health().get("online", False),
                 "profile_found": OPENCLAUDE_PROFILE.exists()
             }
-            
+
             return {
                 "success": all([openclaude_path, node_path, results["gateway_online"]]),
                 "action": action,
@@ -293,27 +297,28 @@ def register_tool(mcp) -> None:
 
             try:
                 import grpc
+
                 from .stubs import openclaude_pb2, openclaude_pb2_grpc
-                
+
                 # Configuração do Canal
                 channel = grpc.insecure_channel('localhost:50051')
                 stub = openclaude_pb2_grpc.AgentServiceStub(channel)
-                
+
                 # Prepara a mensagem inicial
                 request = openclaude_pb2.ChatRequest(
                     message=prompt_text,
                     working_directory=os.getcwd(),
                     session_id=session_id or "default-bridge-session"
                 )
-                
+
                 client_msg = openclaude_pb2.ClientMessage(request=request)
-                
+
                 # Envia via stream
                 responses = stub.Chat(iter([client_msg]))
-                
+
                 full_text = ""
                 tokens = {"prompt": 0, "completion": 0, "total": 0}
-                
+
                 for response in responses:
                     if hasattr(response, 'text_chunk'):
                         full_text += response.text_chunk.text
@@ -336,12 +341,13 @@ def register_tool(mcp) -> None:
                 }
             except Exception as e:
                 logger.error(f"Erro gRPC na Bridge: {e}")
-                return {"success": False, "action": action, "error": f"Erro gRPC: {str(e)} (O servidor OpenClaude --headless está rodando?)"}
+                return {"success": False, "action": action, "error": f"Erro gRPC: {e!s} (O servidor OpenClaude --headless está rodando?)"}
 
         elif action == "session.commands":
             """Lista comandos de barra (shash commands) do OpenClaude."""
             try:
                 import grpc
+
                 from .stubs import openclaude_pb2, openclaude_pb2_grpc
                 channel = grpc.insecure_channel('localhost:50051')
                 stub = openclaude_pb2_grpc.AgentServiceStub(channel)
@@ -359,7 +365,7 @@ def register_tool(mcp) -> None:
                         full_text += response.text_chunk.text
                     elif hasattr(response, 'done'):
                         full_text = response.done.full_text or full_text
-                
+
                 return {
                     "success": True,
                     "action": action,

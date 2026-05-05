@@ -10,7 +10,7 @@ A lógica de pulse actions está em NC-SUPER-006-system.py.
 ---"""
 import logging
 from datetime import datetime
-from typing import Any, Dict
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -56,7 +56,7 @@ def register_tool(mcp) -> None:
     com neocortex_system que já expõe pulse.status e pulse.schedule_custom.
     """
     @mcp.tool(name="neocortex_pulse_bridge")
-    def neocortex_pulse_bridge(action: str = "status") -> Dict[str, Any]:
+    def neocortex_pulse_bridge(action: str = "status") -> dict[str, Any]:
         """Bridge de compatibilidade — use neocortex_system para ações de pulse.
         Actions: status
         """

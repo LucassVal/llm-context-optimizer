@@ -13,17 +13,18 @@ Score >= 80: APPROVED | Score 50-79: NEEDS_REVIEW | Score < 50: REJECTED
 """
 
 import logging
+from collections.abc import Callable
 from dataclasses import dataclass, field
-from enum import Enum
+from enum import StrEnum
 from pathlib import Path
-from typing import Any, Callable, Dict, List
+from typing import Any
 
 import yaml
 
 logger = logging.getLogger(__name__)
 
 
-class ReviewVerdict(str, Enum):
+class ReviewVerdict(StrEnum):
     APPROVED = "APPROVED"  # score >= 80
     NEEDS_REVIEW = "NEEDS_REVIEW"  # 50-79
     REJECTED = "REJECTED"  # < 50
@@ -35,7 +36,7 @@ class ValidationResult:
     passed: bool
     score: int  # 0-100
     message: str
-    details: Dict = field(default_factory=dict)
+    details: dict = field(default_factory=dict)
 
 
 @dataclass
@@ -43,7 +44,7 @@ class ReviewReport:
     ticket_id: str
     final_score: int  # mdia ponderada
     verdict: ReviewVerdict
-    validations: List[ValidationResult] = field(default_factory=list)
+    validations: list[ValidationResult] = field(default_factory=list)
     timestamp: str = ""
 
 
@@ -57,7 +58,7 @@ class ConfidenceReviewService:
     """
 
     def __init__(self):
-        self.validators: Dict[str, Dict[str, Any]] = {}  # name -> {func, weight}
+        self.validators: dict[str, dict[str, Any]] = {}  # name -> {func, weight}
 
     def review(self, handoff_path: Path) -> ReviewReport:
         """Valida um handoff YAML e retorna ReviewReport."""
@@ -75,7 +76,7 @@ class ConfidenceReviewService:
             )
         return self.review_dict(data, str(handoff_path))
 
-    def review_dict(self, data: Dict, ticket_id: str = "unknown") -> ReviewReport:
+    def review_dict(self, data: dict, ticket_id: str = "unknown") -> ReviewReport:
         """Valida dicionrio de handoff diretamente."""
         validations = []
         total_weight = 0
@@ -109,7 +110,7 @@ class ConfidenceReviewService:
             weighted_score += result.score * weight
 
         final_score = (
-            int(round(weighted_score / total_weight)) if total_weight > 0 else 0
+            round(weighted_score / total_weight) if total_weight > 0 else 0
         )
         if final_score >= 80:
             verdict = ReviewVerdict.APPROVED
@@ -129,7 +130,7 @@ class ConfidenceReviewService:
     def add_validator(
         self,
         name: str,
-        validator_func: Callable[[Dict], ValidationResult],
+        validator_func: Callable[[dict], ValidationResult],
         weight: float = 1.0,
     ) -> None:
         """Registra validador customizado."""

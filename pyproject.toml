@@ -13,3 +13,11 @@ dependencies = [
     "ruamel.yaml",
     "anthropic",
 ]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "C4", "W", "SIM", "UP", "RUF", "N", "PLC", "PLE"]
+ignore = ["E402", "N999"]

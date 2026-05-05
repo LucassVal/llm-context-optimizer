@@ -33,7 +33,7 @@ and smart merging of lists.
 
 import copy
 from pathlib import Path
-from typing import Any, Dict, List, Union
+from typing import Any
 
 from . import load_yaml
 
@@ -118,7 +118,7 @@ def find_template_file(filename: str, base_dir: Path) -> Path:
     )
 
 
-def deep_merge(parent: Dict[str, Any], child: Dict[str, Any]) -> Dict[str, Any]:
+def deep_merge(parent: dict[str, Any], child: dict[str, Any]) -> dict[str, Any]:
     """
     Recursively merge child dictionary into parent, with child values taking precedence.
 
@@ -193,7 +193,7 @@ def deep_merge(parent: Dict[str, Any], child: Dict[str, Any]) -> Dict[str, Any]:
     return result
 
 
-def resolve_inheritance(data: Dict[str, Any], base_dir: Path) -> Dict[str, Any]:
+def resolve_inheritance(data: dict[str, Any], base_dir: Path) -> dict[str, Any]:
     """
     Resolve inheritance chain for a YAML dictionary.
 
@@ -228,7 +228,7 @@ def resolve_inheritance(data: Dict[str, Any], base_dir: Path) -> Dict[str, Any]:
     return merged
 
 
-def load_yaml_with_inheritance(filepath: Union[str, Path]) -> Dict[str, Any]:
+def load_yaml_with_inheritance(filepath: str | Path) -> dict[str, Any]:
     """
     Load a YAML file and resolve its inheritance chain.
 
@@ -251,7 +251,7 @@ def load_yaml_with_inheritance(filepath: Union[str, Path]) -> Dict[str, Any]:
     return resolved
 
 
-def validate_inheritance_chain(filepath: Union[str, Path]) -> List[str]:
+def validate_inheritance_chain(filepath: str | Path) -> list[str]:
     """
     Validate an inheritance chain and return list of resolved files.
 

@@ -24,7 +24,7 @@ import json
 import logging
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 logger = logging.getLogger(__name__)
 TOOL_NAME = "neocortex_akl"
@@ -50,7 +50,7 @@ def register_tool(mcp) -> None:
         session_id: str = "",
         summary: str = "",
         limit: int = 10,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """FÓRUM — AKL, Knowledge Graph e Consolidation.
         Funde: akl + kg + consolidation.
         Actions: akl.add, akl.search, akl.export,

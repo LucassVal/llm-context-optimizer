@@ -21,7 +21,7 @@ Protege a thread principal de modelos vetoriais que afogam a thread, criando wor
 import asyncio
 import logging
 from concurrent.futures import ProcessPoolExecutor
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from . import ValidationResult
 
@@ -62,7 +62,7 @@ class AsyncVectorStore:
         self.store_type = store_type
         self.store_kwargs = kwargs
         self.max_workers = max_workers
-        self._executor: Optional[ProcessPoolExecutor] = None
+        self._executor: ProcessPoolExecutor | None = None
         self._vector_store = None
 
         # Inicializar executor e carregar store em processo separado
@@ -81,7 +81,7 @@ class AsyncVectorStore:
             )
 
     @staticmethod
-    def _worker_initializer(store_type: str, kwargs: Dict[str, Any]):
+    def _worker_initializer(store_type: str, kwargs: dict[str, Any]):
         """Inicializa o VectorStore no processo worker."""
         # Importar dentro do worker para evitar pickling de mdulos
         # Atribuir ao namespace global do worker
@@ -102,9 +102,9 @@ class AsyncVectorStore:
 
     async def async_add_vectors(
         self,
-        vectors: List[List[float]],
-        metadata: List[Dict[str, Any]],
-    ) -> List[str]:
+        vectors: list[list[float]],
+        metadata: list[dict[str, Any]],
+    ) -> list[str]:
         """Adiciona vetores com metadata (assncrono)."""
         loop = asyncio.get_event_loop()
         try:
@@ -129,9 +129,9 @@ class AsyncVectorStore:
 
     async def async_search(
         self,
-        query_vector: List[float],
+        query_vector: list[float],
         top_k: int = 10,
-    ) -> List[Dict[str, Any]]:
+    ) -> list[dict[str, Any]]:
         """Busca vetores similares (assncrono)."""
         loop = asyncio.get_event_loop()
         try:
@@ -152,7 +152,7 @@ class AsyncVectorStore:
             raise RuntimeError("VectorStore no inicializado no worker")
         return store.search(query_vector, top_k)
 
-    async def async_delete(self, vector_ids: List[str]) -> bool:
+    async def async_delete(self, vector_ids: list[str]) -> bool:
         """Deleta vetores por IDs (assncrono)."""
         loop = asyncio.get_event_loop()
         try:
@@ -172,7 +172,7 @@ class AsyncVectorStore:
             raise RuntimeError("VectorStore no inicializado no worker")
         return store.delete(vector_ids)
 
-    async def async_get_stats(self) -> Dict[str, Any]:
+    async def async_get_stats(self) -> dict[str, Any]:
         """Obtm estatsticas da store (assncrono)."""
         loop = asyncio.get_event_loop()
         try:
@@ -238,7 +238,7 @@ class AsyncThreadValidator:
         """
         self.max_sync_operations = max_sync_operations
 
-    def validate(self, data: Dict) -> ValidationResult:
+    def validate(self, data: dict) -> ValidationResult:
         """
         Valida se o handoff contm indicaes de uso de async para VectorDB.
 

@@ -9,7 +9,7 @@ import logging
 from datetime import datetime, timedelta
 from enum import Enum
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -73,19 +73,19 @@ CRIMES = {
 class CriminalProcedureCode:
     """CPP Digital — investigação, processo e execução penal."""
 
-    def __init__(self, root: Optional[Path] = None):
+    def __init__(self, root: Path | None = None):
         import os as _os
         self.root = root or Path(_os.environ.get("NC_ROOT", Path(__file__).parents[3]))
-        self.investigations: Dict[str, Dict[str, Any]] = {}
-        self.prison: Dict[str, Dict[str, Any]] = {}
+        self.investigations: dict[str, dict[str, Any]] = {}
+        self.prison: dict[str, dict[str, Any]] = {}
         self._prison_file = self.root / ".neocortex" / "prison.json"
         self._load_prison()
 
     # ── INQUÉRITO POLICIAL (Guardian investiga) ────────────────
 
     def investigate(self, suspect: str, crime_type: str,
-                    evidence: Dict[str, Any],
-                    investigator: str = "Guardian") -> Dict[str, Any]:
+                    evidence: dict[str, Any],
+                    investigator: str = "Guardian") -> dict[str, Any]:
         """Art. 4º CPP: Inquérito Policial — Guardian investiga."""
         if crime_type not in CRIMES:
             return {"success": False, "error": f"Tipo criminal '{crime_type}' não tipificado"}
@@ -107,7 +107,7 @@ class CriminalProcedureCode:
 
     # ── DENÚNCIA (MP — Compliance auditor) ────────────────────
 
-    def indict(self, case_id: str, prosecutor: str = "MP") -> Dict[str, Any]:
+    def indict(self, case_id: str, prosecutor: str = "MP") -> dict[str, Any]:
         """Art. 41 CPP: Denúncia — Ministério Público oferece denúncia."""
         if case_id not in self.investigations:
             return {"success": False, "error": "Inquérito não encontrado"}
@@ -129,7 +129,7 @@ class CriminalProcedureCode:
 
     # ── INSTRUÇÃO (Provas — WAL audit) ────────────────────────
 
-    def gather_evidence(self, case_id: str, evidence: Dict[str, Any]) -> Dict[str, Any]:
+    def gather_evidence(self, case_id: str, evidence: dict[str, Any]) -> dict[str, Any]:
         """Art. 155 CPP: Produção de provas."""
         if case_id not in self.investigations:
             return {"success": False, "error": "Caso não encontrado"}
@@ -140,7 +140,7 @@ class CriminalProcedureCode:
 
     # ── SENTENÇA (Juiz — Kernel 0) ────────────────────────────
 
-    def sentence(self, case_id: str, judge: str = "Kernel0") -> Dict[str, Any]:
+    def sentence(self, case_id: str, judge: str = "Kernel0") -> dict[str, Any]:
         """Art. 381 CPP: Sentença — Kernel 0 julga."""
         if case_id not in self.investigations:
             return {"success": False, "error": "Caso não encontrado"}
@@ -180,7 +180,7 @@ class CriminalProcedureCode:
 
     # ── EXECUÇÃO PENAL (Quarantine Manager) ───────────────────
 
-    def check_prisoner(self, agent_id: str) -> Tuple[bool, Dict[str, Any]]:
+    def check_prisoner(self, agent_id: str) -> tuple[bool, dict[str, Any]]:
         """Verificar se agente está preso/suspenso."""
         if agent_id not in self.prison:
             return True, {"status": PrisonStatus.FREE.value}
@@ -217,7 +217,7 @@ class CriminalProcedureCode:
         return True, {"status": prisoner.get("status", PrisonStatus.FREE.value)}
 
     def parole(self, agent_id: str, conditions: str = "",
-               authorized_by: str = "Kernel0") -> Dict[str, Any]:
+               authorized_by: str = "Kernel0") -> dict[str, Any]:
         """Conceder liberdade condicional."""
         if agent_id not in self.prison:
             return {"success": False, "error": "Agente não está preso"}
@@ -232,7 +232,7 @@ class CriminalProcedureCode:
         return {"success": True, "agent": agent_id,
                 "status": PrisonStatus.PAROLED.value, "conditions": conditions}
 
-    def list_prisoners(self) -> List[Dict[str, Any]]:
+    def list_prisoners(self) -> list[dict[str, Any]]:
         """Listar todos os presos/suspensos."""
         return [
             {"agent": aid, "status": p.get("status"), "crime": p.get("crime"),
@@ -257,7 +257,7 @@ class CriminalProcedureCode:
 
 
 # Singleton
-_cpp_instance: Optional[CriminalProcedureCode] = None
+_cpp_instance: CriminalProcedureCode | None = None
 
 
 def get_cpp() -> CriminalProcedureCode:

@@ -6,32 +6,47 @@ Este servidor MCP expoe as ferramentas do NeoCortex para agentes.
 """
 
 import asyncio
+import atexit
+import contextlib
 import importlib
 import json
 import logging
 import os
 import sys
-import atexit
-import json
-import logging
-import os
-import sys
-import time as _time
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Dict, Any
-from datetime import datetime, timezone
-
-from mcp.server import Server
-from mcp.server.models import InitializationOptions
 
 from ..core.pulse_scheduler import PulseScheduler
 from ..infra.metrics_store import create_metrics_store
 
+_workspace_roots = None
+
+
+def _get_workspace_roots():
+    global _workspace_roots
+    if _workspace_roots is None:
+        return None
+    return _workspace_roots
+
+
+def _set_workspace_roots(roots_result):
+    global _workspace_roots
+    if roots_result is None or not hasattr(roots_result, "roots"):
+        return
+    parsed = {}
+    for root in roots_result.roots:
+        uri = str(root.uri) if hasattr(root, "uri") else str(root)
+        p = Path(uri.replace("file:///", "").replace("file://", ""))
+        if p.exists():
+            lobe_check = p / "02_memory_lobes"
+            parsed["lobes"] = lobe_check if lobe_check.exists() else None
+            parsed["project"] = p
+    _workspace_roots = parsed if parsed else None
+
 # Import para carregamento de regras .mdc
 try:
-    from .mdc_loader import load_mdc_rules, inject_rules_into_fastmcp
+    from .mdc_loader import inject_rules_into_fastmcp, load_mdc_rules
     MDC_LOADER_AVAILABLE = True
 except ImportError as e:
     import sys as _sys_mdc
@@ -72,7 +87,7 @@ class SessionManager:
 
     def __init__(self):
         self.session_id = str(uuid.uuid4())
-        self.session_start = datetime.now(timezone.utc).isoformat() + "Z"
+        self.session_start = datetime.now(UTC).isoformat() + "Z"
         self.last_heartbeat = self.session_start
         self.active = True
         logger.info(f"Sessão NeoCortex {self.session_id[:8]} iniciada em: {self.session_start}")
@@ -91,7 +106,7 @@ class SessionManager:
             service = get_ledger_service()
             # Atualiza métricas de sessão
             service.update_session_metrics(interaction_type="heartbeat", tokens_used=0)
-            self.last_heartbeat = datetime.now(timezone.utc).isoformat() + "Z"
+            self.last_heartbeat = datetime.now(UTC).isoformat() + "Z"
             logger.debug(f"Heartbeat atualizado: {self.last_heartbeat}")
         except Exception as e:
             logger.error(f"Erro ao atualizar heartbeat: {e}")
@@ -130,12 +145,12 @@ class SessionManager:
             # 3. Prune context (via ledger service)
             from ..core import get_ledger_service
 
-            ledger_service = get_ledger_service()
+            get_ledger_service()
             # Simulação de pruning - em produção chamaria método específico
             logger.info("Pruning de contexto simulado")
 
             # 4. Registrar término da sessão
-            session_end = datetime.now(timezone.utc).isoformat() + "Z"
+            session_end = datetime.now(UTC).isoformat() + "Z"
             logger.info(f"Sessão encerrada em: {session_end}")
 
         except Exception as e:
@@ -183,16 +198,6 @@ except ImportError:
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 
 # Importar utilitários de arquivo
-from ..core.file_utils import (
-    read_cortex,
-    write_cortex,
-    read_ledger,
-    write_ledger,
-    find_lobes,
-    get_lobe_content,
-    CORTEX_PATH,
-    LEDGER_PATH,
-)
 
 # Lista de todas as ferramentas disponíveis
 TOOL_MODULES = [
@@ -259,21 +264,18 @@ def _wrap_with_hooks(func, tool_name):
     def wrapper(*args, **kwargs):
         _ctx = {"tool_name": tool_name, "args": str(args)[:200]}
         if hook_registry_instance:
-            try: hook_registry_instance.trigger("PreToolUse", _ctx)
-            except Exception: pass
+            with contextlib.suppress(Exception): hook_registry_instance.trigger("PreToolUse", _ctx)
         try:
             result = func(*args, **kwargs)
             if isinstance(result, dict) and result.get("success") is False:
                 raise RuntimeError(result.get("error", "unknown tool error"))
             if hook_registry_instance:
-                try: hook_registry_instance.trigger("PostToolUse", _ctx)
-                except Exception: pass
+                with contextlib.suppress(Exception): hook_registry_instance.trigger("PostToolUse", _ctx)
             return result
         except Exception as e:
             _ctx["error"] = str(e)
             if hook_registry_instance:
-                try: hook_registry_instance.trigger("ToolError", _ctx)
-                except Exception: pass
+                with contextlib.suppress(Exception): hook_registry_instance.trigger("ToolError", _ctx)
             raise
     return wrapper
 
@@ -293,17 +295,15 @@ def _wrap_tool_with_metrics(tool_func, tool_name):
 
     @wraps(tool_func)
     def wrapper(*args, **kwargs):
-        start_time = datetime.now(timezone.utc)
+        start_time = datetime.now(UTC)
         status = "success"
         details = {}
 
         # PreToolUse hooks
         _ctx = {"tool_name": tool_name, "args": str(args)[:200]}
         if hook_registry_instance:
-            try:
+            with contextlib.suppress(Exception):
                 hook_registry_instance.trigger("PreToolUse", _ctx)
-            except Exception:
-                pass
 
         try:
             result = tool_func(*args, **kwargs)
@@ -317,10 +317,8 @@ def _wrap_tool_with_metrics(tool_func, tool_name):
 
             # PostToolUse hooks
             if hook_registry_instance:
-                try:
+                with contextlib.suppress(Exception):
                     hook_registry_instance.trigger("PostToolUse", _ctx)
-                except Exception:
-                    pass
 
             return result
         except Exception as e:
@@ -329,14 +327,12 @@ def _wrap_tool_with_metrics(tool_func, tool_name):
             # ToolError hooks
             _ctx["error"] = str(e)
             if hook_registry_instance:
-                try:
+                with contextlib.suppress(Exception):
                     hook_registry_instance.trigger("ToolError", _ctx)
-                except Exception:
-                    pass
             raise
         finally:
             duration_ms = int(
-                (datetime.now(timezone.utc) - start_time).total_seconds() * 1000
+                (datetime.now(UTC) - start_time).total_seconds() * 1000
             )
 
             # Record metric if metrics store is available
@@ -416,8 +412,11 @@ def create_mcp_server(host="127.0.0.1", port=8765):
         Configured MCP server instance (FastMCP or MockMCP)
     """
     if FAST_MCP_AVAILABLE:
-        server = FastMCP("neocortex", host=host, port=port)
-        
+        server = FastMCP(
+            "neocortex",
+            sampling_handler_behavior="fallback",
+        )
+
         # Add health check tool for monitoring
         def _health_check_impl() -> dict:
             """Check MCP server health status"""
@@ -426,7 +425,7 @@ def create_mcp_server(host="127.0.0.1", port=8765):
                 "status": "healthy",
                 "service": "neocortex-mcp",
                 "version": "4.2-cortex",
-                "timestamp": datetime.now(timezone.utc).isoformat() + "Z",
+                "timestamp": datetime.now(UTC).isoformat() + "Z",
                 "tools_loaded": 17
             }
         health_check = _wrap_with_hooks(_health_check_impl, "health_check")
@@ -455,11 +454,11 @@ def create_mcp_server(host="127.0.0.1", port=8765):
 
     # Initialize PulseScheduler for autonomous maintenance (with metrics store)
     from ..core import (
-        get_consolidation_service,
-        get_ledger_service,
         get_akl_service,
-        get_export_service,
         get_checkpoint_service,
+        get_consolidation_service,
+        get_export_service,
+        get_ledger_service,
     )
 
     pulse_scheduler = PulseScheduler(
@@ -488,7 +487,7 @@ def create_mcp_server(host="127.0.0.1", port=8765):
     def _hlog(msg: str):
         try:
             with open(_hook_log, "a", encoding="utf-8") as _hf:
-                _hf.write(f"{datetime.now(timezone.utc).isoformat()} {msg}\n")
+                _hf.write(f"{datetime.now(UTC).isoformat()} {msg}\n")
         except Exception:
             pass
 
@@ -515,6 +514,44 @@ def create_mcp_server(host="127.0.0.1", port=8765):
     _hooks_pre.append(lambda **ctx: _hlog("BashGuard: ok"))
     _hooks_pre.append(lambda **ctx: _hlog("DelGuard: R05"))
     _hooks_pre.append(lambda **ctx: _hlog("Naming: NC- check"))
+
+    _critical_tools = set()
+    _server_ref = server
+
+    def _mark_critical(tool_name: str):
+        _critical_tools.add(tool_name)
+
+    async def _sampling_approval(**ctx):
+        tool = ctx.get("tool_name", "unknown")
+        if tool not in _critical_tools:
+            return
+        try:
+            req = _server_ref._mcp_server.request_context()
+            if req is None:
+                _hlog(f"Sampling: no session — {tool} proceed (no client)")
+                return
+            sess = req.session
+            if sess and hasattr(sess, "create_message"):
+                result = await sess.create_message(
+                    messages=[{"role": "user", "content": f"CRITICAL: Approve execution of '{tool}'?", "type": "text"}],
+                    max_tokens=50,
+                )
+                if result and hasattr(result, "content"):
+                    resp = str(result.content).lower() if result.content else ""
+                    if "deny" in resp or "reject" in resp or "no" in resp:
+                        raise RuntimeError(f"CSC: sampling denied for {tool}")
+                    _hlog(f"Sampling: approved for {tool}")
+                else:
+                    raise RuntimeError(f"CSC: client does not support sampling — {tool} blocked")
+            else:
+                _hlog(f"Sampling: client lacks sampling — {tool} proceed")
+        except RuntimeError:
+            raise
+        except Exception as e:
+            if "CSC" in str(e):
+                raise
+            _hlog(f"Sampling: fallback — {tool} ({str(e)[:50]})")
+    _hooks_pre.append(_sampling_approval)
 
     _hooks_post = []
     _hooks_post.append(lambda **ctx: _hlog(f"Watcher: {ctx.get('tool_name','?')} recorded"))
@@ -549,7 +586,17 @@ def create_mcp_server(host="127.0.0.1", port=8765):
             hooks = _hooks_pre if str(event) == "PreToolUse" else _hooks_post if str(event) == "PostToolUse" else _hooks_err
             for h in hooks:
                 try:
-                    h(**ctx)
+                    if asyncio.iscoroutinefunction(h):
+                        try:
+                            loop = asyncio.get_event_loop()
+                        except RuntimeError:
+                            loop = asyncio.new_event_loop()
+                            asyncio.set_event_loop(loop)
+                        loop.run_until_complete(h(**ctx))
+                    else:
+                        h(**ctx)
+                except RuntimeError:
+                    raise
                 except Exception:
                     pass
 
@@ -575,7 +622,7 @@ def create_mcp_server(host="127.0.0.1", port=8765):
     # ── PING + NOTIFICATIONS (NC-DS-254 + NC-DS-258) ──────────────
     if FAST_MCP_AVAILABLE:
         def _ping_impl() -> dict:
-            return {"pong": True, "timestamp": datetime.now(timezone.utc).isoformat() + "Z"}
+            return {"pong": True, "timestamp": datetime.now(UTC).isoformat() + "Z"}
         ping = _wrap_with_hooks(_ping_impl, "ping")
         server.tool(name="ping")(ping)
         ping.__doc__ = "Keepalive ping — MCP spec utility primitive"
@@ -584,8 +631,7 @@ def create_mcp_server(host="127.0.0.1", port=8765):
         _orig_post = list(_hooks_post)
         def _notify_hook(**ctx):
             for h in _orig_post:
-                try: h(**ctx)
-                except: pass
+                with contextlib.suppress(BaseException): h(**ctx)
             # NC-DS-254: Signal potential tool list change
             try:
                 if hasattr(server, 'send_tool_list_changed'):
@@ -700,23 +746,34 @@ def create_mcp_server(host="127.0.0.1", port=8765):
         return _safe_read(lk) or "# Locks file not found"
 
     # R5: Lobe by ID (template)
-    @server.resource(
-        "neocortex://lobes/{lobe_id}",
-        name="Lobe by ID",
-        description="Read any lobe by its NC-LBE identifier",
-        mime_type="text/markdown",
-    )
-    def _res_lobe(lobe_id: str) -> str:
-        import glob as _glob
-        lobe_dir = _prj_root / "02_memory_lobes"
+    def _res_lobe_impl(lobe_id: str) -> str:
+        roots = _get_workspace_roots()
+        lobe_dir = roots["lobes"] if roots else _prj_root / "02_memory_lobes"
         matches = list(lobe_dir.rglob(f"{lobe_id}*.mdc"))
-        # Exclude archive/deprecated
         matches = [m for m in matches if "DIR-ARC" not in str(m) and "deprecated" not in str(m)]
         if matches:
             return _safe_read(matches[0]) or f"# Lobe {lobe_id} is empty"
         return f"# Lobe {lobe_id} not found in 02_memory_lobes/"
 
-    logger.info(f"Resources registrados: lexico, lobes/manifest, boot/manifest, locks/active, lobes/{{id}}")
+    @server.resource(
+        "neocortex://lobes/{lobe_id}",
+        name="Lobe by ID (neocortex://)",
+        description="Read any lobe by its NC-LBE identifier",
+        mime_type="text/markdown",
+    )
+    def _res_lobe(lobe_id: str) -> str:
+        return _res_lobe_impl(lobe_id)
+
+    @server.resource(
+        "lobe://{lobe_id}",
+        name="Lobe by ID (lobe://)",
+        description="Read any lobe by its NC-LBE identifier — IDE-friendly alias",
+        mime_type="text/markdown",
+    )
+    def _res_lobe_alias(lobe_id: str) -> str:
+        return _res_lobe_impl(lobe_id)
+
+    logger.info("Resources registrados: lexico, lobes/manifest, boot/manifest, locks/active, lobes/{id} (+ lobe:// alias)")
 
     # ── MCP PROMPTS (NC-DS-251) ────────────────────────────────────
     # T0-implemented. FastMCP pattern: @server.prompt()
@@ -811,10 +868,10 @@ def main():
             # NC-DS-252: auth_token from env var for Streamable HTTP
             _auth = os.environ.get("NEOCORTEX_MCP_AUTH_TOKEN", "")
             if _auth:
-                mcp.run(transport="streamable-http", auth_token=_auth)
+                mcp.run(transport="streamable-http", transport_kwargs={"host": args.host, "port": args.port, "auth_token": _auth})
                 logger.info("MCP auth_token enabled")
             else:
-                mcp.run(transport="streamable-http")
+                mcp.run(transport="streamable-http", transport_kwargs={"host": args.host, "port": args.port})
         else:
             print("FastMCP indisponível. Saindo.", file=sys.stderr)
     else:

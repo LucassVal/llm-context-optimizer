@@ -17,7 +17,7 @@ from collections import deque
 from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Deque, Dict, List, Optional
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -42,7 +42,7 @@ class ToolMetric:
     duration_ms: float
     success: bool
     tokens_used: int = 0
-    error_msg: Optional[str] = None
+    error_msg: str | None = None
     timestamp: datetime = field(default_factory=datetime.now)
 
 
@@ -62,7 +62,7 @@ class MetricsCollector:
     def __new__(cls):
         with cls._instance_lock:
             if cls._instance is None:
-                cls._instance = super(MetricsCollector, cls).__new__(cls)
+                cls._instance = super().__new__(cls)
                 cls._instance._initialized = False
             return cls._instance
 
@@ -71,8 +71,8 @@ class MetricsCollector:
             return
 
         self._lock = threading.Lock()
-        self._session_token_usage: List[TokenUsage] = []
-        self._tool_metrics: Deque[ToolMetric] = deque(maxlen=1000)
+        self._session_token_usage: list[TokenUsage] = []
+        self._tool_metrics: deque[ToolMetric] = deque(maxlen=1000)
         self._session_start_time = time.time()
 
         self._initialized = True
@@ -173,7 +173,7 @@ class MetricsCollector:
         except Exception:
             logger.warning("Failed to publish error event", exc_info=True)
 
-    def get_session_metrics(self) -> Dict[str, Any]:
+    def get_session_metrics(self) -> dict[str, Any]:
         """Retorna mtricas agregadas da sesso atual."""
         with self._lock:
             tool_metrics = list(self._tool_metrics)
@@ -206,7 +206,7 @@ class MetricsCollector:
             "session_duration_sec": time.time() - self._session_start_time,
         }
 
-    def get_session_summary(self) -> Dict[str, Any]:
+    def get_session_summary(self) -> dict[str, Any]:
         """
         Get summary of current session metrics.
         Compatible with NC-SVC-FR-009-session-buddy.py.
@@ -227,7 +227,7 @@ class MetricsCollector:
             "timestamp": datetime.now().isoformat(),
         }
 
-    def get_tool_stats(self, tool_name: str) -> Dict[str, Any]:
+    def get_tool_stats(self, tool_name: str) -> dict[str, Any]:
         """Retorna estatsticas por tool."""
         with self._lock:
             tool_metrics = [m for m in self._tool_metrics if m.tool_name == tool_name]
@@ -253,7 +253,7 @@ class MetricsCollector:
             "total_tokens": total_tokens,
         }
 
-    def get_recent_errors(self, limit: int = 10) -> List[ToolMetric]:
+    def get_recent_errors(self, limit: int = 10) -> list[ToolMetric]:
         """Retorna ltimos N erros registrados."""
         with self._lock:
             errors = [m for m in self._tool_metrics if m.error_msg is not None]
@@ -271,7 +271,7 @@ class MetricsCollector:
         self.reset()
 
     # Compatibility methods (no disk persistence)
-    def get_daily_report(self, target_date=None) -> Dict[str, Any]:
+    def get_daily_report(self, target_date=None) -> dict[str, Any]:
         """Stub for daily report (no disk persistence)."""
         return {
             "date": datetime.now().date().isoformat()

@@ -15,8 +15,7 @@ backups, and checkpoints to prevent context overflow and agent blindness.
 import logging
 import threading
 import time
-from datetime import datetime, timedelta, timezone
-from typing import Dict, List
+from datetime import UTC, datetime, timedelta
 
 from ..config import get_config
 from ..infra.metrics_store import create_metrics_store
@@ -51,7 +50,7 @@ class PulseScheduler:
         else:
             self.metrics = metrics_store
 
-        self.tasks: List[Dict] = []
+        self.tasks: list[dict] = []
         self.running = False
         self.thread: threading.Thread | None = None
 
@@ -104,7 +103,7 @@ class PulseScheduler:
     def _run_thermal_decay_gc(self):
         """Executa GC de Lóbulos Memória com Decaimento Térmico TTL."""
         logger.info("[Pulse] Executando Thermal Context Decay GC...")
-        start_time = datetime.now(timezone.utc)
+        start_time = datetime.now(UTC)
         status = "success"
         details = {}
         try:
@@ -140,7 +139,7 @@ class PulseScheduler:
             status = "failure"
             details = {"error": str(e)}
         finally:
-            duration_ms = int((datetime.now(timezone.utc) - start_time).total_seconds() * 1000)
+            duration_ms = int((datetime.now(UTC) - start_time).total_seconds() * 1000)
             try:
                 self.metrics.record_pulse_health(
                     event_type="thermal_gc",
@@ -154,7 +153,7 @@ class PulseScheduler:
     def _run_pruning(self):
         """Executa pruning de contexto (hot  cold)."""
         logger.info("[Pulse] Executando pruning de contexto...")
-        start_time = datetime.now(timezone.utc)
+        start_time = datetime.now(UTC)
         status = "success"
         details = {}
         # TODO: Implement pruning logic in LedgerService
@@ -174,7 +173,7 @@ class PulseScheduler:
             details = {"error": str(e)}
         finally:
             duration_ms = int(
-                (datetime.now(timezone.utc) - start_time).total_seconds() * 1000
+                (datetime.now(UTC) - start_time).total_seconds() * 1000
             )
             try:
                 self.metrics.record_pulse_health(
@@ -189,13 +188,13 @@ class PulseScheduler:
     def _run_consolidation(self):
         """Executa consolidao semntica."""
         logger.info("[Pulse] Executando consolidao semntica...")
-        start_time = datetime.now(timezone.utc)
+        start_time = datetime.now(UTC)
         status = "success"
         details = {}
         try:
             import uuid
 
-            session_id = f"session_pulse_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}_{str(uuid.uuid4())[:8]}"
+            session_id = f"session_pulse_{datetime.now(UTC).strftime('%Y%m%d_%H%M%S')}_{str(uuid.uuid4())[:8]}"
             result = self.consolidation.summarize_session(
                 session_id=session_id,
                 summary="Consolidao automtica via PulseScheduler",
@@ -208,7 +207,7 @@ class PulseScheduler:
             details = {"error": str(e)}
         finally:
             duration_ms = int(
-                (datetime.now(timezone.utc) - start_time).total_seconds() * 1000
+                (datetime.now(UTC) - start_time).total_seconds() * 1000
             )
             try:
                 self.metrics.record_pulse_health(
@@ -223,7 +222,7 @@ class PulseScheduler:
     def _run_akl(self):
         """Executa avaliao do Ciclo de Vida Adaptativo."""
         logger.info("[Pulse] Executando AKL assessment...")
-        start_time = datetime.now(timezone.utc)
+        start_time = datetime.now(UTC)
         status = "success"
         details = {}
         try:
@@ -236,7 +235,7 @@ class PulseScheduler:
             details = {"error": str(e)}
         finally:
             duration_ms = int(
-                (datetime.now(timezone.utc) - start_time).total_seconds() * 1000
+                (datetime.now(UTC) - start_time).total_seconds() * 1000
             )
             try:
                 self.metrics.record_pulse_health(
@@ -251,7 +250,7 @@ class PulseScheduler:
     def _run_backup(self):
         """Executa backup completo."""
         logger.info("[Pulse] Executando backup completo...")
-        start_time = datetime.now(timezone.utc)
+        start_time = datetime.now(UTC)
         status = "success"
         details = {}
         try:
@@ -264,7 +263,7 @@ class PulseScheduler:
             details = {"error": str(e)}
         finally:
             duration_ms = int(
-                (datetime.now(timezone.utc) - start_time).total_seconds() * 1000
+                (datetime.now(UTC) - start_time).total_seconds() * 1000
             )
             try:
                 self.metrics.record_pulse_health(
@@ -279,7 +278,7 @@ class PulseScheduler:
     def _run_checkpoint(self):
         """Executa checkpoint automtico."""
         logger.info("[Pulse] Executando checkpoint automtico...")
-        start_time = datetime.now(timezone.utc)
+        start_time = datetime.now(UTC)
         status = "success"
         details = {}
         try:
@@ -292,7 +291,7 @@ class PulseScheduler:
             details = {"error": str(e)}
         finally:
             duration_ms = int(
-                (datetime.now(timezone.utc) - start_time).total_seconds() * 1000
+                (datetime.now(UTC) - start_time).total_seconds() * 1000
             )
             try:
                 self.metrics.record_pulse_health(
@@ -307,7 +306,7 @@ class PulseScheduler:
     def _worker(self):
         """Thread worker que verifica e executa tarefas agendadas."""
         while self.running:
-            now = datetime.now(timezone.utc)
+            now = datetime.now(UTC)
             for task in self.tasks:
                 if self._should_run(task, now):
                     try:
@@ -317,13 +316,10 @@ class PulseScheduler:
                         logger.error(f"[Pulse] Erro na tarefa {task['name']}: {e}")
             time.sleep(60)  # Verifica a cada minuto
 
-    def _should_run(self, task: Dict, now: datetime) -> bool:
+    def _should_run(self, task: dict, now: datetime) -> bool:
         """Determina se uma tarefa deve ser executada agora."""
         last_run = task.get("last_run")
-        if last_run:
-            last_run_dt = datetime.fromisoformat(last_run)
-        else:
-            last_run_dt = None
+        last_run_dt = datetime.fromisoformat(last_run) if last_run else None
 
         # Tarefas com horrio alvo especfico (ex: 00:00 UTC)
         if "target_hour" in task:
@@ -331,9 +327,7 @@ class PulseScheduler:
             if now.hour != target_hour:
                 return False
             # J foi executada hoje?
-            if last_run_dt and last_run_dt.date() == now.date():
-                return False
-            return True
+            return not (last_run_dt and last_run_dt.date() == now.date())
 
         # Tarefas baseadas em intervalo
         if "interval_hours" in task:
@@ -364,7 +358,7 @@ class PulseScheduler:
             self.thread.join(timeout=5)
         logger.info("[Pulse] PulseScheduler parado.")
 
-    def get_status(self) -> Dict:
+    def get_status(self) -> dict:
         """Retorna o status atual do pulso."""
         return {
             "running": self.running,
@@ -378,13 +372,13 @@ class PulseScheduler:
             ],
         }
 
-    def force_task(self, task_name: str) -> Dict:
+    def force_task(self, task_name: str) -> dict:
         """Fora a execuo imediata de uma tarefa."""
         for task in self.tasks:
             if task["name"] == task_name:
                 try:
                     task["func"]()
-                    task["last_run"] = datetime.now(timezone.utc).isoformat()
+                    task["last_run"] = datetime.now(UTC).isoformat()
                     return {
                         "success": True,
                         "message": f"Tarefa {task_name} executada com sucesso.",

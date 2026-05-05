@@ -10,7 +10,7 @@ import logging
 from datetime import datetime
 from enum import Enum
 from pathlib import Path
-from typing import Any, Dict, Optional, Tuple
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -43,10 +43,10 @@ class JudicialOrgan(Enum):
 class CivilProcedureCode:
     """CPC Digital — devido processo legal para toda ação no NeoCortex."""
 
-    def __init__(self, root: Optional[Path] = None):
+    def __init__(self, root: Path | None = None):
         import os as _os
         self.root = root or Path(_os.environ.get("NC_ROOT", Path(__file__).parents[3]))
-        self.case_registry: Dict[str, Dict[str, Any]] = {}
+        self.case_registry: dict[str, dict[str, Any]] = {}
         self._warned_at = dict.fromkeys(["naming", "lock", "zone"], 0)
 
     # ── PROCESSO COMPLETO ──────────────────────────────────────
@@ -58,7 +58,7 @@ class CivilProcedureCode:
         agent_id: str = "unknown",
         agent_role: str = "T0",
         urgency: str = "normal",
-    ) -> Tuple[bool, Dict[str, Any]]:
+    ) -> tuple[bool, dict[str, Any]]:
         """
         CPC Art. 319 — Petição Inicial → Sentença.
 
@@ -125,8 +125,8 @@ class CivilProcedureCode:
 
     # ── FASES ───────────────────────────────────────────────────
 
-    def _phase_petition(self, case: Dict, action: str, target: str,
-                        agent_id: str, role: str) -> Dict[str, Any]:
+    def _phase_petition(self, case: dict, action: str, target: str,
+                        agent_id: str, role: str) -> dict[str, Any]:
         """FASE 1: Petição Inicial — verifica requisitos formais."""
         case["phases"].append({"phase": "peticao", "timestamp": datetime.now().isoformat()})
 
@@ -141,7 +141,7 @@ class CivilProcedureCode:
 
         return {"admitted": True, "court": court.value}
 
-    def _phase_admissibility(self, case: Dict, action: str) -> Dict[str, Any]:
+    def _phase_admissibility(self, case: dict, action: str) -> dict[str, Any]:
         """FASE 2: Admissibilidade — STEP 0 (regression check)."""
         case["phases"].append({"phase": "admissibilidade", "timestamp": datetime.now().isoformat()})
 
@@ -165,7 +165,7 @@ class CivilProcedureCode:
         except Exception as e:
             return {"passed": True, "note": f"STEP-0 indisponível: {e}"}
 
-    def _phase_citation(self, case: Dict, agent_id: str) -> None:
+    def _phase_citation(self, case: dict, agent_id: str) -> None:
         """FASE 3: Citação — notificar partes (Art. 238 CPC)."""
         case["phases"].append({
             "phase": "citacao",
@@ -174,7 +174,7 @@ class CivilProcedureCode:
             "method": "wal_notification",
         })
 
-    def _phase_contestation(self, case: Dict, action: str) -> Dict[str, Any]:
+    def _phase_contestation(self, case: dict, action: str) -> dict[str, Any]:
         """FASE 4: Contestação — regression buffer + precedentes (Art. 335)."""
         case["phases"].append({"phase": "contestacao", "timestamp": datetime.now().isoformat()})
 
@@ -195,8 +195,8 @@ class CivilProcedureCode:
 
         return {"evidence": evidence[:3]}
 
-    def _phase_evidence(self, case: Dict, target: str,
-                        role: str) -> Dict[str, Any]:
+    def _phase_evidence(self, case: dict, target: str,
+                        role: str) -> dict[str, Any]:
         """FASE 5: Provas — WAL audit trail + Lock check (Art. 369)."""
         case["phases"].append({"phase": "provas", "timestamp": datetime.now().isoformat()})
 
@@ -252,8 +252,8 @@ class CivilProcedureCode:
         passed = len(violations) == 0
         return {"passed": passed, "evidence": evidence, "violations": violations}
 
-    def _phase_final_arguments(self, case: Dict, target: str,
-                               role: str) -> Dict[str, Any]:
+    def _phase_final_arguments(self, case: dict, target: str,
+                               role: str) -> dict[str, Any]:
         """FASE 6: Alegações Finais — ToolGuard pipeline (Art. 364)."""
         case["phases"].append({"phase": "alegacoes_finais", "timestamp": datetime.now().isoformat()})
 
@@ -283,7 +283,7 @@ class CivilProcedureCode:
         except Exception as e:
             return {"evidence": [{"type": "error", "detail": str(e)}]}
 
-    def _phase_sentence(self, case: Dict) -> Dict[str, Any]:
+    def _phase_sentence(self, case: dict) -> dict[str, Any]:
         """FASE 7: Sentença — decisão final (Art. 489 CPC)."""
         case["phases"].append({"phase": "sentenca", "timestamp": datetime.now().isoformat()})
 
@@ -331,7 +331,7 @@ class CivilProcedureCode:
         }
         return courts.get(role, JudicialOrgan.JUDGE_1ST)
 
-    def appeal(self, case_id: str, grounds: str) -> Dict[str, Any]:
+    def appeal(self, case_id: str, grounds: str) -> dict[str, Any]:
         """CPC Art. 994 — Interpor recurso."""
         # Buscar caso nos arquivos
         case = self._find_case(case_id)
@@ -357,7 +357,7 @@ class CivilProcedureCode:
 
     # ── ARQUIVAMENTO ───────────────────────────────────────────
 
-    def _archive_case(self, case: Dict) -> None:
+    def _archive_case(self, case: dict) -> None:
         """Arquivar caso no WAL (coisa julgada)."""
         wal_dir = self.root / "DIR-DS-002-audit-logs"
         wal_dir.mkdir(parents=True, exist_ok=True)
@@ -365,7 +365,7 @@ class CivilProcedureCode:
         with open(archive_file, "a", encoding="utf-8") as f:
             f.write(json.dumps(case, ensure_ascii=False) + "\n")
 
-    def _find_case(self, case_id: str) -> Optional[Dict]:
+    def _find_case(self, case_id: str) -> dict | None:
         """Buscar caso arquivado."""
         wal_dir = self.root / "DIR-DS-002-audit-logs"
         if not wal_dir.exists():
@@ -382,7 +382,7 @@ class CivilProcedureCode:
 
 
 # Singleton
-_cpc_instance: Optional[CivilProcedureCode] = None
+_cpc_instance: CivilProcedureCode | None = None
 
 
 def get_cpc() -> CivilProcedureCode:

@@ -49,15 +49,15 @@ RateLimitHook = _smpl.RateLimitHook
 AuditHook = _smpl.AuditHook
 
 __all__ = [
-    "HookRegistry",
-    "HOOK_BEFORE_TOOL_CALL",
     "HOOK_AFTER_TOOL_CALL",
-    "HOOK_ON_ERROR",
-    "HOOK_ON_SESSION_START",
-    "HOOK_ON_SESSION_END",
+    "HOOK_BEFORE_TOOL_CALL",
     "HOOK_ON_CHECKPOINT",
-    "LoggingHook",
-    "TimingHook",
-    "RateLimitHook",
+    "HOOK_ON_ERROR",
+    "HOOK_ON_SESSION_END",
+    "HOOK_ON_SESSION_START",
     "AuditHook",
+    "HookRegistry",
+    "LoggingHook",
+    "RateLimitHook",
+    "TimingHook",
 ]

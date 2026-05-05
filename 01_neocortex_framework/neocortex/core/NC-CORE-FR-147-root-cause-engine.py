@@ -8,23 +8,23 @@ import json
 import logging
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
 class RootCauseEngine:
     """Motor de 5 Porquês + 4 Porquês Estratégicos."""
 
-    def __init__(self, root: Optional[Path] = None):
+    def __init__(self, root: Path | None = None):
         import os
         self.root = root or Path(os.environ.get("NC_ROOT", Path(__file__).parents[3]))
         self.rca_dir = self.root / ".neocortex" / "rca"
         self.rca_dir.mkdir(parents=True, exist_ok=True)
-        self.analyses: List[Dict] = self._load()
+        self.analyses: list[dict] = self._load()
 
     # ── 5 PORQUÊS (RCA) ────────────────────────────────────────
 
-    def analyze_failure(self, problem: str, whys: List[str]) -> Dict[str, Any]:
+    def analyze_failure(self, problem: str, whys: list[str]) -> dict[str, Any]:
         """
         Analisar falha usando 5 Porquês.
 
@@ -61,7 +61,7 @@ class RootCauseEngine:
         self._save()
         return analysis
 
-    def auto_analyze(self, rule: str, detail: str) -> Dict[str, Any]:
+    def auto_analyze(self, rule: str, detail: str) -> dict[str, Any]:
         """Auto RCA — gerar 5 Porquês a partir de violação detectada."""
         problem = f"Violação {rule}: {detail[:100]}"
 
@@ -102,7 +102,7 @@ class RootCauseEngine:
 
     # ── 4 PORQUÊS ESTRATÉGICOS ─────────────────────────────────
 
-    def strategic_alignment(self, context: str = "") -> Dict[str, Any]:
+    def strategic_alignment(self, context: str = "") -> dict[str, Any]:
         """4 Porquês do Planejamento Estratégico — alinhamento contínuo."""
         return {
             "why_1_mission": "Garantir governança automatizada para todo agente de IA",
@@ -114,7 +114,7 @@ class RootCauseEngine:
 
     # ── REGISTRO + CONSULTA ────────────────────────────────────
 
-    def log_failure_with_rca(self, rule: str, detail: str) -> Dict[str, Any]:
+    def log_failure_with_rca(self, rule: str, detail: str) -> dict[str, Any]:
         """Log integrado: registra violação + gera RCA automática."""
         rca = self.auto_analyze(rule, detail)
         # Persistir no WAL
@@ -124,10 +124,10 @@ class RootCauseEngine:
             f.write(json.dumps({"violation": {"rule": rule, "detail": detail}, "rca": rca}, ensure_ascii=False) + "\n")
         return {"logged": True, "rca_id": rca["id"], "root_cause": rca["root_cause"]}
 
-    def get_analyses(self, limit: int = 10) -> List[Dict]:
+    def get_analyses(self, limit: int = 10) -> list[dict]:
         return self.analyses[-limit:]
 
-    def _load(self) -> List[Dict]:
+    def _load(self) -> list[dict]:
         f = self.rca_dir / "analyses.json"
         if f.exists():
             try: return json.loads(f.read_text(encoding="utf-8"))
@@ -137,7 +137,7 @@ class RootCauseEngine:
     def _save(self):
         (self.rca_dir / "analyses.json").write_text(json.dumps(self.analyses, indent=2, ensure_ascii=False), encoding="utf-8")
 
-_rca: Optional[RootCauseEngine] = None
+_rca: RootCauseEngine | None = None
 def get_rca() -> RootCauseEngine:
     global _rca
     if _rca is None: _rca = RootCauseEngine()

@@ -8,10 +8,10 @@ NC-SVC-FR-016-wal-service.py
 import hashlib
 import sqlite3
 import threading
+from collections.abc import Generator
 from contextlib import contextmanager
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
-from typing import Generator, List, Optional
 
 # ---------------------------------------------------------------------------
 # Schema
@@ -52,7 +52,7 @@ CREATE INDEX IF NOT EXISTS idx_wal_time    ON wal_log(timestamp);
 # Helpers
 # ---------------------------------------------------------------------------
 
-def _sha256(path: Path) -> Optional[str]:
+def _sha256(path: Path) -> str | None:
     """Retorna sha256 do arquivo ou None se não existir."""
     try:
         return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -61,7 +61,7 @@ def _sha256(path: Path) -> Optional[str]:
 
 
 def _now() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 # ---------------------------------------------------------------------------
@@ -88,7 +88,7 @@ class WALService:
     _instances: "dict[str, WALService]" = {}
     _lock = threading.Lock()
 
-    def __new__(cls, db_path: Optional[Path] = None) -> "WALService":
+    def __new__(cls, db_path: Path | None = None) -> "WALService":
         key = str(db_path or "default")
         with cls._lock:
             if key not in cls._instances:
@@ -97,7 +97,7 @@ class WALService:
                 cls._instances[key] = instance
             return cls._instances[key]
 
-    def __init__(self, db_path: Optional[Path] = None) -> None:
+    def __init__(self, db_path: Path | None = None) -> None:
         if object.__getattribute__(self, "_initialized"):
             return
         self._db_path: Path = db_path or self._default_db_path()
@@ -117,7 +117,7 @@ class WALService:
         return Path("DIR-DS-003-wal") / "neocortex_wal.db"
 
     def _get_conn(self) -> sqlite3.Connection:
-        conn: Optional[sqlite3.Connection] = getattr(self._local, "conn", None)
+        conn: sqlite3.Connection | None = getattr(self._local, "conn", None)
         if conn is None:
             conn = sqlite3.connect(str(self._db_path), check_same_thread=False)
             conn.row_factory = sqlite3.Row
@@ -133,7 +133,7 @@ class WALService:
     # Session management
     # ------------------------------------------------------------------
 
-    def open_session(self, session_id: str, agent: str, ticket_id: Optional[str] = None) -> None:
+    def open_session(self, session_id: str, agent: str, ticket_id: str | None = None) -> None:
         conn = self._get_conn()
         conn.execute(
             "INSERT OR IGNORE INTO wal_sessions (session_id, agent, ticket_id, started_at, status)"
@@ -150,7 +150,7 @@ class WALService:
         )
         conn.commit()
 
-    def rollback_session(self, session_id: str) -> List[dict]:
+    def rollback_session(self, session_id: str) -> list[dict]:
         """
         Marca a sessão como ROLLED_BACK e retorna a lista de operações
         que precisam ser revertidas manualmente (WAL não desfaz arquivos
@@ -183,9 +183,9 @@ class WALService:
         session_id: str,
         operation: str,
         file_path: str,
-        ticket_id: Optional[str] = None,
-        before_hash: Optional[str] = None,
-        after_hash: Optional[str] = None,
+        ticket_id: str | None = None,
+        before_hash: str | None = None,
+        after_hash: str | None = None,
     ) -> int:
         """Registra uma operação no WAL. Retorna o id da entrada."""
         conn = self._get_conn()
@@ -197,11 +197,11 @@ class WALService:
         conn.commit()
         return cur.lastrowid or 0
 
-    def capture_before(self, path) -> Optional[str]:
+    def capture_before(self, path) -> str | None:
         """Captura hash antes de modificar um arquivo. Retorna o hash ou None."""
         return _sha256(Path(path))
 
-    def capture_after(self, path) -> Optional[str]:
+    def capture_after(self, path) -> str | None:
         """Captura hash após modificar um arquivo. Retorna o hash ou None."""
         return _sha256(Path(path))
 
@@ -214,7 +214,7 @@ class WALService:
         self,
         session_id: str,
         agent: str,
-        ticket_id: Optional[str] = None,
+        ticket_id: str | None = None,
     ) -> Generator["_WALTransaction", None, None]:
         """
         Context manager para agrupar operações numa sessão WAL.
@@ -254,7 +254,7 @@ class WALService:
             "total_ops": len(entries),
         }
 
-    def get_file_history(self, file_path: str, limit: int = 20) -> List[dict]:
+    def get_file_history(self, file_path: str, limit: int = 20) -> list[dict]:
         conn = self._get_conn()
         rows = conn.execute(
             "SELECT l.*, s.agent, s.status as session_status"
@@ -264,7 +264,7 @@ class WALService:
         ).fetchall()
         return [dict(r) for r in rows]
 
-    def get_open_sessions(self) -> List[dict]:
+    def get_open_sessions(self) -> list[dict]:
         conn = self._get_conn()
         rows = conn.execute(
             "SELECT * FROM wal_sessions WHERE status='OPEN' ORDER BY started_at DESC"
@@ -294,7 +294,7 @@ class WALService:
         Entradas OPEN ou ROLLED_BACK são preservadas independente da idade.
         Retorna quantidade de entradas removidas.
         """
-        cutoff = (datetime.now(timezone.utc) - timedelta(days=days)).isoformat()
+        cutoff = (datetime.now(UTC) - timedelta(days=days)).isoformat()
         conn = self._get_conn()
 
         # IDs de sessões COMMITTED antigas
@@ -328,16 +328,16 @@ class WALService:
 class _WALTransaction:
     """Helper para uso dentro do context manager `wal.transaction()`."""
 
-    def __init__(self, service: WALService, session_id: str, ticket_id: Optional[str]):
+    def __init__(self, service: WALService, session_id: str, ticket_id: str | None):
         self._svc = service
         self.session_id = session_id
         self.ticket_id = ticket_id
 
-    def before_write(self, path) -> Optional[str]:
+    def before_write(self, path) -> str | None:
         """Captura hash antes de modificar. Retorna hash para passar ao after_write."""
         return self._svc.capture_before(path)
 
-    def after_write(self, path, before_hash: Optional[str] = None) -> int:
+    def after_write(self, path, before_hash: str | None = None) -> int:
         after_hash = self._svc.capture_after(path)
         op = "CREATE" if before_hash is None else "MODIFY"
         return self._svc.log_operation(
@@ -347,7 +347,7 @@ class _WALTransaction:
             after_hash=after_hash,
         )
 
-    def log_delete(self, path, before_hash: Optional[str] = None) -> int:
+    def log_delete(self, path, before_hash: str | None = None) -> int:
         bh = before_hash or self._svc.capture_before(path)
         return self._svc.log_operation(
             self.session_id, "DELETE", str(path),

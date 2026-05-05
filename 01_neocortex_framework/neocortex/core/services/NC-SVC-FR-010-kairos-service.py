@@ -22,9 +22,10 @@ import os
 import threading
 import time
 import uuid
+from collections.abc import Callable
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Optional
 
 # Dynamic import for hyphenated module name (EventBus)
 spec = importlib.util.spec_from_file_location(
@@ -71,9 +72,9 @@ class KairosService:
         if cls._instance is None:
             cls._instance = super().__new__(cls)
             cls._instance._lock = threading.Lock()
-            cls._instance._tasks: Dict[str, Dict] = {}  # task_id -> task dict
+            cls._instance._tasks: dict[str, dict] = {}  # task_id -> task dict
             cls._instance._running = False
-            cls._instance._tick_thread: Optional[threading.Thread] = None
+            cls._instance._tick_thread: threading.Thread | None = None
             cls._instance._tick_interval = 1.0  # seconds
             cls._instance._event_bus = get_event_bus()
             cls._instance._load_pulse_tasks()
@@ -212,7 +213,7 @@ class KairosService:
         self._publish_event(self.EVENT_STOPPED)
         logger.info("KairosService parado.")
 
-    def list_tasks(self) -> List[Dict]:
+    def list_tasks(self) -> list[dict]:
         """Retorna lista de tarefas agendadas.
 
         Returns:
@@ -229,7 +230,7 @@ class KairosService:
                 for t in self._tasks.values()
             ]
 
-    def get_next_tick(self, task_id: str) -> Optional[float]:
+    def get_next_tick(self, task_id: str) -> float | None:
         """Retorna o timestamp (Unix) da prxima execuo de uma tarefa.
 
         Args:

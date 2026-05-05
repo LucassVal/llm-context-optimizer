@@ -13,7 +13,7 @@ using repository interfaces for storage abstraction.
 """
 
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any
 
 from ..repositories import LedgerRepository
 
@@ -21,7 +21,7 @@ from ..repositories import LedgerRepository
 class RegressionService:
     """Service for regression buffer and STEP 0 business logic."""
 
-    def __init__(self, repository: Optional[LedgerRepository] = None):
+    def __init__(self, repository: LedgerRepository | None = None):
         """
         Initialize regression service.
 
@@ -36,7 +36,7 @@ class RegressionService:
         else:
             self.repository = repository
 
-    def check_similar_errors(self, error: str) -> Dict[str, Any]:
+    def check_similar_errors(self, error: str) -> dict[str, Any]:
         """
         Check for similar errors in regression buffer.
 
@@ -73,7 +73,7 @@ class RegressionService:
 
     def add_regression_entry(
         self, error: str, attempt: str, lesson: str
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Add a new entry to regression buffer.
 
@@ -133,7 +133,7 @@ class RegressionService:
         else:
             return {"success": False, "error": "Failed to write to ledger"}
 
-    def list_all_entries(self) -> Dict[str, Any]:
+    def list_all_entries(self) -> dict[str, Any]:
         """
         List all entries in regression buffer.
 
@@ -169,7 +169,7 @@ class RegressionService:
             },
         }
 
-    def clear_regression_buffer(self, confirm: bool = False) -> Dict[str, Any]:
+    def clear_regression_buffer(self, confirm: bool = False) -> dict[str, Any]:
         """
         Clear all entries from regression buffer.
 
@@ -220,7 +220,7 @@ class RegressionService:
         else:
             return {"success": False, "error": "Failed to write to ledger"}
 
-    def set_baseline(self) -> Dict[str, Any]:
+    def set_baseline(self) -> dict[str, Any]:
         """
         Set a regression baseline — snapshot current state for regression comparison.
 
@@ -257,7 +257,7 @@ class RegressionService:
         else:
             return {"success": False, "error": "Failed to write baseline to ledger"}
 
-    def check(self) -> Dict[str, Any]:
+    def check(self) -> dict[str, Any]:
         """Check regression buffer status (STEP 0 compliance)."""
         try:
             stats = self.get_buffer_stats()
@@ -272,7 +272,7 @@ class RegressionService:
         except Exception as e:
             return {"success": False, "error": str(e)}
 
-    def get_buffer_stats(self) -> Dict[str, Any]:
+    def get_buffer_stats(self) -> dict[str, Any]:
         """
         Get statistics about regression buffer.
 
@@ -322,7 +322,7 @@ _default_regression_service = None
 
 
 def get_regression_service(
-    repository: Optional[LedgerRepository] = None,
+    repository: LedgerRepository | None = None,
 ) -> RegressionService:
     """
     Get regression service instance (singleton pattern).

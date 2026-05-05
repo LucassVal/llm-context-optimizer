@@ -16,7 +16,7 @@ Suporta feature flags via env var (NEOCORTEX_FF_<FLAG>=true).
 import logging
 import os
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 import platformdirs
 from cachetools import TTLCache
@@ -42,7 +42,7 @@ class FeatureFlagService:
     """
 
     # Flags padro (fallback se config no existir)
-    _DEFAULTS: Dict[str, Any] = {
+    _DEFAULTS: dict[str, Any] = {
         "kairos_channels": False,
         "kairos_push_notification": False,
         "mentor_step0": True,
@@ -53,7 +53,7 @@ class FeatureFlagService:
 
     def __new__(cls):
         if cls._instance is None:
-            cls._instance = super(FeatureFlagService, cls).__new__(cls)
+            cls._instance = super().__new__(cls)
             cls._instance._initialized = False
         return cls._instance
 
@@ -63,7 +63,7 @@ class FeatureFlagService:
 
         self._cache = TTLCache(maxsize=1, ttl=3600)  # cache do arquivo de config
         self._config_path = self._get_global_config_path()
-        self._flags: Dict[str, Any] = {}
+        self._flags: dict[str, Any] = {}
         self._yaml = YAML()
         self._yaml.preserve_quotes = True
         self.reload()
@@ -104,17 +104,17 @@ class FeatureFlagService:
         self._flags = self._load_config()
         logger.info(f"Feature flags recarregadas, {len(self._flags)} flags")
 
-    def list_flags(self) -> Dict[str, Any]:
+    def list_flags(self) -> dict[str, Any]:
         """Retorna todas as flags com seus valores atuais."""
         result = {}
         for flag_name in set(self._flags.keys()) | set(self._DEFAULTS.keys()):
             result[flag_name] = self.get_flag(flag_name, self._DEFAULTS.get(flag_name))
         return result
 
-    def _load_config(self) -> Dict[str, Any]:
+    def _load_config(self) -> dict[str, Any]:
         """Carrega flags do arquivo de configurao YAML."""
         try:
-            with open(self._config_path, "r", encoding="utf-8") as f:
+            with open(self._config_path, encoding="utf-8") as f:
                 config = self._yaml.load(f) or {}
         except FileNotFoundError:
             logger.warning(

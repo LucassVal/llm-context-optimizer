@@ -23,10 +23,11 @@ Actions:
   session.start, session.end, session.status, session.heartbeat
   ledger.read, ledger.update, ledger.stats
 """
+import contextlib
 import logging
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 logger = logging.getLogger(__name__)
 TOOL_NAME = "neocortex_state"
@@ -51,7 +52,7 @@ def register_tool(mcp) -> None:
         session_id: str = "",
         summary: str = "",
         limit: int = 10,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """CORTE TJ — Estado e Persistência.
         Funde: checkpoint, regression, savepoint, session, ledger.
         Actions: checkpoint.get/set/list, regression.check/baseline,
@@ -191,10 +192,8 @@ def register_tool(mcp) -> None:
                 _root() / "01_neocortex_framework" / ".neocortex" / "guardian_state.json",
             ]:
                 if snap_file.exists():
-                    try:
+                    with contextlib.suppress(Exception):
                         snapshot["files_snapshot"][snap_file.name] = snap_file.read_text("utf-8")[:8000]
-                    except Exception:
-                        pass
             sp_file = sp_dir / f"{name}.json"
             sp_file.write_text(_json.dumps(snapshot, ensure_ascii=False, indent=2), encoding="utf-8")
             return {"success": True, "action": action, "savepoint": name,

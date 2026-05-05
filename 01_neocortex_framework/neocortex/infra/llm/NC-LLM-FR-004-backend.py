@@ -13,14 +13,15 @@ Provides unified interface for local and cloud LLM providers.
 
 import logging
 from abc import ABC, abstractmethod
+from collections.abc import AsyncGenerator
 from dataclasses import dataclass, field
-from enum import Enum
-from typing import Any, AsyncGenerator, Dict, List, Optional
+from enum import StrEnum
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
 
-class LLMProvider(str, Enum):
+class LLMProvider(StrEnum):
     """Supported LLM providers."""
 
     OLLAMA = "ollama"
@@ -40,7 +41,7 @@ class LLMResponse:
     provider: LLMProvider
     tokens_used: int = 0
     completion_time_ms: float = 0.0
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass
@@ -48,12 +49,12 @@ class LLMRequest:
     """Standardized LLM request."""
 
     prompt: str
-    system_prompt: Optional[str] = None
-    model: Optional[str] = None
+    system_prompt: str | None = None
+    model: str | None = None
     temperature: float = 0.7
-    max_tokens: Optional[int] = None
+    max_tokens: int | None = None
     stream: bool = False
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
 
 
 class LLMBackend(ABC):
@@ -64,7 +65,7 @@ class LLMBackend(ABC):
     the NeoCortex hybrid LLM system.
     """
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: dict[str, Any]):
         """
         Initialize backend with configuration.
 
@@ -127,7 +128,7 @@ class LLMBackend(ABC):
         pass
 
     @abstractmethod
-    def get_available_models(self) -> List[str]:
+    def get_available_models(self) -> list[str]:
         """
         Get list of available models for this backend.
 
@@ -136,7 +137,7 @@ class LLMBackend(ABC):
         """
         pass
 
-    def health_check(self) -> Dict[str, Any]:
+    def health_check(self) -> dict[str, Any]:
         """
         Perform health check and return status.
 
@@ -161,7 +162,7 @@ class FallbackChain:
     Tries backends in order until one succeeds.
     """
 
-    def __init__(self, backends: List[LLMBackend]):
+    def __init__(self, backends: list[LLMBackend]):
         """
         Initialize with ordered list of backends.
 
@@ -213,6 +214,6 @@ class FallbackChain:
 
         raise RuntimeError(f"All backends failed. Last error: {last_error}")
 
-    def get_stats(self) -> Dict[str, Any]:
+    def get_stats(self) -> dict[str, Any]:
         """Get current chain statistics."""
         return self.stats.copy()

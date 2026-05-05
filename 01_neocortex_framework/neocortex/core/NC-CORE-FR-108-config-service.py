@@ -13,7 +13,7 @@ using repository interfaces for storage abstraction.
 """
 
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any
 
 from ..repositories import LedgerRepository
 
@@ -21,7 +21,7 @@ from ..repositories import LedgerRepository
 class ConfigService:
     """Service for system configuration business logic."""
 
-    def __init__(self, repository: Optional[LedgerRepository] = None):
+    def __init__(self, repository: LedgerRepository | None = None):
         """
         Initialize config service.
 
@@ -36,7 +36,7 @@ class ConfigService:
         else:
             self.repository = repository
 
-    def get_system_config(self) -> Dict[str, Any]:
+    def get_system_config(self) -> dict[str, Any]:
         """
         Get full system configuration from ledger.
 
@@ -87,7 +87,7 @@ class ConfigService:
             },
         }
 
-    def set(self, key: str, value: Any) -> Dict[str, Any]:
+    def set(self, key: str, value: Any) -> dict[str, Any]:
         """Set a configuration value in the ledger."""
         try:
             ledger = self.repository.read_ledger()
@@ -98,7 +98,7 @@ class ConfigService:
         except Exception as e:
             return {"success": False, "error": str(e)}
 
-    def set_model(self, model_id: str) -> Dict[str, Any]:
+    def set_model(self, model_id: str) -> dict[str, Any]:
         """
         Set LLM model in agent session.
 
@@ -157,7 +157,7 @@ class ConfigService:
         else:
             return {"success": False, "error": "Failed to write to ledger"}
 
-    def list_available_models(self) -> Dict[str, Any]:
+    def list_available_models(self) -> dict[str, Any]:
         """
         List available LLM models.
 
@@ -226,7 +226,7 @@ class ConfigService:
 
     def update_system_constraint(
         self, constraint_key: str, value: Any
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Update a system constraint.
 
@@ -294,7 +294,7 @@ class ConfigService:
         else:
             return {"success": False, "error": "Failed to write to ledger"}
 
-    def get_constraint_summary(self) -> Dict[str, Any]:
+    def get_constraint_summary(self) -> dict[str, Any]:
         """
         Get summary of all system constraints.
 
@@ -339,7 +339,7 @@ class ConfigService:
 _default_config_service = None
 
 
-def get_config_service(repository: Optional[LedgerRepository] = None) -> ConfigService:
+def get_config_service(repository: LedgerRepository | None = None) -> ConfigService:
     """
     Get config service instance (singleton pattern).
 

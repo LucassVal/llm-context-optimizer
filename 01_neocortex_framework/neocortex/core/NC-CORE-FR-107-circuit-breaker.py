@@ -16,10 +16,11 @@ import hashlib
 import logging
 import time
 from collections import deque
+from collections.abc import Callable
 from datetime import datetime
 from enum import Enum
 from threading import Lock
-from typing import Any, Callable, Dict
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -71,7 +72,7 @@ class CircuitBreaker:
         self._state        = CBState.CLOSED
         self._lock         = Lock()
         self._call_times:  deque = deque()    # timestamps das chamadas
-        self._payload_counts: Dict[str, int] = {}  # hash → count
+        self._payload_counts: dict[str, int] = {}  # hash → count
         self._opened_at:   float | None = None
         self._half_open_trials = 0
         self._total_blocked = 0
@@ -196,7 +197,7 @@ class CircuitBreaker:
 
     # ── Status ────────────────────────────────────────────────────────────────
 
-    def status(self) -> Dict[str, Any]:
+    def status(self) -> dict[str, Any]:
         with self._lock:
             state = self._get_state()
             remaining_cooldown = 0.0
@@ -220,7 +221,7 @@ class CircuitBreaker:
 
 # ── Registry global ───────────────────────────────────────────────────────────
 
-_registry: Dict[str, CircuitBreaker] = {}
+_registry: dict[str, CircuitBreaker] = {}
 _registry_lock = Lock()
 
 
@@ -244,7 +245,7 @@ def get_circuit_breaker(
         return _registry[agent_id]
 
 
-def list_breakers() -> Dict[str, Dict[str, Any]]:
+def list_breakers() -> dict[str, dict[str, Any]]:
     """Retorna status de todos os circuit breakers ativos."""
     with _registry_lock:
         return {aid: cb.status() for aid, cb in _registry.items()}

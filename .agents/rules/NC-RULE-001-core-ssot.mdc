@@ -68,9 +68,16 @@ Estes arquivos SÃO o sistema. Corrompeu um = sistema quebrado:
 - @ULQ: NC-DOC-FR-001 (dicionário mestre — NOVO LOCK)
 - Lobes .mdc: protegidos por Lobe Isolation (R14)
 
-## R01 — Naming (🔴 CRÍTICO)
+## R01 — Naming & Tagging (🔴 CRÍTICO)
 Qualquer arquivo/pasta: `NC-<TIPO>-<SIGLA>-<NUM>-<desc>.ext`. Consulte `@SSOT` antes de criar.
-NUNCA crie sem prefixo NC-, mesmo que o usuário abrevie. Tipos: TOOL,SCR,DOC,TODO,LBE,CFG,SEC,SOP,ARC,BAK,BOOT,TST.
+NUNCA crie sem prefixo NC-. Tipos: TOOL,SCR,DOC,TODO,LBE,CFG,SEC,SOP,ARC,BAK,BOOT,TST.
+
+**R42b — Cabeçalho Frontmatter (Obrigatório):**
+Todo arquivo DEVE possuir metadados no topo para buscabilidade (R07):
+- MD/MDC: Usar frontmatter YAML (`---`) com `domain`, `layer`, `type`, `topology` (parent/children), `tags`.
+- CODE: Emular frontmatter em bloco de comentário `"""--- ... ---"""` no topo.
+- JSON: Key raiz `_meta: { ... }`.
+Sempre validar nomenclaturas no `@ULQ`.
 
 ## R02 — SSOT Update (🔴 CRÍTICO)
 Arquivo CRIADO/MOVIDO → atualizar tabela + changelog em `@SSOT` com data [YYYY-MM-DD]. Tarefa sem update = INCOMPLETA.

@@ -10,7 +10,7 @@ import time
 from collections import defaultdict
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -21,12 +21,12 @@ class RateLimiter:
     def __init__(self, max_per_minute: int = 60, max_per_hour: int = 1000):
         self.max_per_minute = max_per_minute
         self.max_per_hour = max_per_hour
-        self._minute_requests: Dict[str, List[float]] = defaultdict(list)
-        self._hour_requests: Dict[str, List[float]] = defaultdict(list)
-        self._banned: Dict[str, float] = {}
+        self._minute_requests: dict[str, list[float]] = defaultdict(list)
+        self._hour_requests: dict[str, list[float]] = defaultdict(list)
+        self._banned: dict[str, float] = {}
         self._lock = threading.Lock()
 
-    def check(self, agent_id: str) -> Tuple[bool, str]:
+    def check(self, agent_id: str) -> tuple[bool, str]:
         """Verificar se agente excedeu limite de requisições."""
         now = time.time()
         with self._lock:
@@ -56,7 +56,7 @@ class RateLimiter:
             self._hour_requests[agent_id].append(now)
             return True, "ANATEL: OK"
 
-    def get_stats(self) -> Dict[str, Any]:
+    def get_stats(self) -> dict[str, Any]:
         """Estatísticas de tráfego."""
         return {
             "active_agents": len(self._minute_requests),
@@ -79,10 +79,10 @@ class HealthInspector:
     ]
 
     def __init__(self):
-        self.last_inspection: Dict[str, Dict[str, Any]] = {}
-        self.alerts: List[Dict[str, Any]] = []
+        self.last_inspection: dict[str, dict[str, Any]] = {}
+        self.alerts: list[dict[str, Any]] = []
 
-    def inspect(self, root: Path) -> Dict[str, Any]:
+    def inspect(self, root: Path) -> dict[str, Any]:
         """Inspeção completa de saúde."""
         import shutil
         import socket
@@ -132,7 +132,7 @@ class HealthInspector:
         self.last_inspection[ts] = results
         return {"timestamp": ts, "results": results, "alerts": len(self.alerts)}
 
-    def get_certification(self, system_name: str) -> Dict[str, Any]:
+    def get_certification(self, system_name: str) -> dict[str, Any]:
         """Emitir certificado de conformidade sanitária."""
         total = len(self.HEALTH_CHECKS)
         healthy = sum(
@@ -158,13 +158,13 @@ class CompetitionAuditor:
     """CADE Digital — auditoria de concorrência entre agentes."""
 
     def __init__(self):
-        self._agent_actions: Dict[str, int] = defaultdict(int)
+        self._agent_actions: dict[str, int] = defaultdict(int)
 
     def track_agent(self, agent_id: str) -> None:
         """Registrar ação de agente para análise de mercado."""
         self._agent_actions[agent_id] += 1
 
-    def check_monopoly(self) -> Dict[str, Any]:
+    def check_monopoly(self) -> dict[str, Any]:
         """Verificar se algum agente tem monopólio de ações."""
         total = sum(self._agent_actions.values())
         if total == 0:
@@ -184,7 +184,7 @@ class CompetitionAuditor:
 class StandardsValidator:
     """INMETRO Digital — validação de padrões e normas."""
 
-    def validate_naming(self, filename: str) -> Dict[str, Any]:
+    def validate_naming(self, filename: str) -> dict[str, Any]:
         """Validar se arquivo segue padrão NC- (norma técnica)."""
         if not filename.startswith("NC-"):
             return {"valid": False, "standard": "NBR-NC-001",
@@ -208,7 +208,7 @@ class RegulatoryAgencies:
         self.cade = CompetitionAuditor() # CADE
         self.inmetro = StandardsValidator()  # INMETRO
 
-    def full_audit(self, root: Path) -> Dict[str, Any]:
+    def full_audit(self, root: Path) -> dict[str, Any]:
         """Auditoria regulatória completa."""
         return {
             "anatel_rate_limit": self.anat.get_stats(),
@@ -219,7 +219,7 @@ class RegulatoryAgencies:
 
 
 # Singleton
-_regulatory_instance: Optional[RegulatoryAgencies] = None
+_regulatory_instance: RegulatoryAgencies | None = None
 
 
 def get_regulatory() -> RegulatoryAgencies:

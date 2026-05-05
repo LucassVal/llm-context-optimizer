@@ -10,7 +10,6 @@ import os
 import pathlib
 import re
 from datetime import datetime
-from typing import Dict, List
 
 # ═══════════════════════════════════════════════════════════════
 # R74 — Model Cards (Manifesto do Servidor MCP)
@@ -22,7 +21,7 @@ class ModelCards:
     def __init__(self, root: Optional[pathlib.Path] = None):
         self.root = root or pathlib.Path(os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3]))
 
-    def generate_card(self, tool_name: str) -> Dict:
+    def generate_card(self, tool_name: str) -> dict:
         tools_dir = self.root / "01_neocortex_framework" / "neocortex" / "mcp" / "tools"
         tool_file = tools_dir / tool_name
         if not tool_file.exists():
@@ -49,7 +48,7 @@ class ModelCards:
             "generated_at": datetime.now().isoformat(),
         }
 
-    def generate_all(self) -> Dict:
+    def generate_all(self) -> dict:
         tools_dir = self.root / "01_neocortex_framework" / "neocortex" / "mcp" / "tools"
         cards = {}
         for f in sorted(tools_dir.glob("NC-SUPER-*.py")) if tools_dir.exists() else []:
@@ -76,14 +75,14 @@ class ExplainabilityEngine:
         "R04": "Lei de Acesso à Informação (12.527/2011): Path '{path}' está sob Atomic Lock.",
     }
 
-    def explain(self, violation: str, context: Dict = None) -> str:
+    def explain(self, violation: str, context: dict | None = None) -> str:
         context = context or {}
         for rule_id, template in self.TEMPLATES.items():
             if rule_id in violation:
                 return template.format(**context, **({"role": "AGENT", "file": "unknown", "path": "unknown"}))
         return f"Motivo da recusa: {violation}"
 
-    def explain_all(self, violations: List[str], context: Dict = None) -> List[str]:
+    def explain_all(self, violations: list[str], context: dict | None = None) -> list[str]:
         return [self.explain(v, context) for v in violations]
 
 
@@ -105,7 +104,7 @@ class HITLEngine:
     def is_dangerous(self, action: str) -> bool:
         return action in self.DANGEROUS_ACTIONS
 
-    def require_approval(self, action: str, payload: Dict = None) -> Dict:
+    def require_approval(self, action: str, payload: dict | None = None) -> dict:
         if not self.is_dangerous(action):
             return {"approved": True, "reason": "Low risk action", "method": "auto"}
 
@@ -125,7 +124,7 @@ class HITLEngine:
             "instructions": f"T0: Use 'hitl.approve {approval_id}' ou 'hitl.reject {approval_id}' via MCP",
         }
 
-    def approve(self, approval_id: str) -> Dict:
+    def approve(self, approval_id: str) -> dict:
         af = self._pending_dir / f"{approval_id}.json"
         if not af.exists():
             return {"error": f"Approval {approval_id} not found"}
@@ -135,14 +134,14 @@ class HITLEngine:
         af.write_text(json.dumps(data, indent=2), encoding="utf-8")
         return {"approved": True, "action": data["action"], "method": "T0"}
 
-    def reject(self, approval_id: str, reason: str = "") -> Dict:
+    def reject(self, approval_id: str, reason: str = "") -> dict:
         af = self._pending_dir / f"{approval_id}.json"
         if not af.exists():
             return {"error": f"Approval {approval_id} not found"}
         af.unlink()
         return {"approved": False, "action": "rejected", "reason": reason or "Rejected by T0"}
 
-    def list_pending(self) -> List[Dict]:
+    def list_pending(self) -> list[dict]:
         pending = []
         for f in sorted(self._pending_dir.glob("HITL-*.json")):
             try:
@@ -164,9 +163,9 @@ class BiasDetector:
                     "delete_everything", "sudo", "root", "admin_override", "bypass"}
 
     def __init__(self):
-        self._flagged: List[Dict] = []
+        self._flagged: list[dict] = []
 
-    def scan(self, params: Dict) -> List[str]:
+    def scan(self, params: dict) -> list[str]:
         flagged = []
         flat = json.dumps(params).lower()
         for term in self.BIASED_TERMS:
@@ -176,7 +175,7 @@ class BiasDetector:
             self._flagged.append({"timestamp": datetime.now().isoformat(), "terms": flagged, "params": params})
         return flagged
 
-    def report(self) -> Dict:
+    def report(self) -> dict:
         return {"total_flagged": len(self._flagged),
                 "recent": self._flagged[-5:],
                 "timestamp": datetime.now().isoformat()}
@@ -196,9 +195,9 @@ class RedTeam:
     ]
 
     def __init__(self):
-        self._results: List[Dict] = []
+        self._results: list[dict] = []
 
-    def run_attack(self, attack: Dict) -> Dict:
+    def run_attack(self, attack: dict) -> dict:
         # Simulated attack — in production would call gateway_check
         action = attack["action"]
         expected = attack["expected"]
@@ -206,7 +205,7 @@ class RedTeam:
         return {"action": action, "expected": expected, "result": "rejected" if "delete" in action or "config" in action else "needs_testing",
                 "timestamp": datetime.now().isoformat()}
 
-    def full_assault(self) -> Dict:
+    def full_assault(self) -> dict:
         results = [self.run_attack(a) for a in self.ATTACK_VECTORS]
         passed = sum(1 for r in results if r["result"] == r["expected"])
         return {"total_attacks": len(results), "passed": passed, "failed": len(results) - passed,
@@ -224,7 +223,7 @@ class AIAuditor:
         self.root = root or pathlib.Path(os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3]))
         self.audit_dir = self.root / "DIR-DS-002-audit-logs"
 
-    def scan_logs(self, max_files: int = 100) -> Dict:
+    def scan_logs(self, max_files: int = 100) -> dict:
         if not self.audit_dir.exists():
             return {"error": "No audit logs directory"}
 

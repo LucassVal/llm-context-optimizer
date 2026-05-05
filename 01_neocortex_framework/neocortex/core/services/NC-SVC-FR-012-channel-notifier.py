@@ -20,9 +20,10 @@ import importlib
 import logging
 import os
 import threading
+from collections.abc import Callable
 from datetime import datetime
 from pathlib import Path
-from typing import Callable, Dict, List, Optional
+from typing import Optional
 
 # Dynamic import for hyphenated module name (EventBus)
 spec = importlib.util.spec_from_file_location(
@@ -69,7 +70,7 @@ class ChannelNotifier:
         if cls._instance is None:
             cls._instance = super().__new__(cls)
             cls._instance._lock = threading.Lock()
-            cls._instance._channels: Dict[str, Callable] = {}
+            cls._instance._channels: dict[str, Callable] = {}
             cls._instance._event_bus = get_event_bus()
             cls._instance._register_default_channels()
         return cls._instance
@@ -84,8 +85,8 @@ class ChannelNotifier:
         self.register_channel("eventbus", self._eventbus_channel)
 
     def _log_channel(
-        self, message: str, level: str = "info", metadata: Dict = None
-    ) -> Dict:
+        self, message: str, level: str = "info", metadata: dict | None = None
+    ) -> dict:
         """Handler do canal 'log'  escreve no logger."""
         log_method = getattr(logger, level.lower(), logger.info)
         extra = {"metadata": metadata} if metadata else {}
@@ -93,8 +94,8 @@ class ChannelNotifier:
         return {"status": "logged", "level": level}
 
     def _console_channel(
-        self, message: str, level: str = "info", metadata: Dict = None
-    ) -> Dict:
+        self, message: str, level: str = "info", metadata: dict | None = None
+    ) -> dict:
         """Handler do canal 'console'  output colorido ou simples."""
         if not self.KAIROS_CHANNELS:
             # Fallback: apenas log
@@ -120,8 +121,8 @@ class ChannelNotifier:
         return {"status": "printed", "level": level, "rich_used": RICH_AVAILABLE}
 
     def _eventbus_channel(
-        self, message: str, level: str = "info", metadata: Dict = None
-    ) -> Dict:
+        self, message: str, level: str = "info", metadata: dict | None = None
+    ) -> dict:
         """Handler do canal 'eventbus'  publica evento 'channel.notification'."""
         if not self.KAIROS_CHANNELS:
             # Fallback: apenas log
@@ -143,8 +144,8 @@ class ChannelNotifier:
         return {"status": "published", "event_type": "channel.notification"}
 
     def notify(
-        self, channel: str, message: str, level: str = "info", metadata: Dict = None
-    ) -> Dict:
+        self, channel: str, message: str, level: str = "info", metadata: dict | None = None
+    ) -> dict:
         """Envia uma notificao para um canal especfico.
 
         Args:
@@ -183,7 +184,7 @@ class ChannelNotifier:
             self._channels[name] = handler
         logger.debug(f"Canal '{name}' registrado.")
 
-    def list_channels(self) -> List[str]:
+    def list_channels(self) -> list[str]:
         """Retorna lista de canais registrados.
 
         Returns:

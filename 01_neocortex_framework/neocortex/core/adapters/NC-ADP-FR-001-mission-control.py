@@ -23,13 +23,13 @@ import time
 import urllib.error
 import urllib.request
 from dataclasses import dataclass
-from enum import Enum
-from typing import Any, Dict, Optional
+from enum import StrEnum
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
 
-class MissionControlAction(str, Enum):
+class MissionControlAction(StrEnum):
     """Actions supported by Mission Control generic adapter endpoint."""
 
     REGISTER = "register"
@@ -49,8 +49,8 @@ class MissionControlConfig:
     agent_id: str = ""
     name: str = "neocortex-agent"
     role: str = "coder"
-    capabilities: Optional[list] = None
-    metadata: Optional[dict] = None
+    capabilities: list | None = None
+    metadata: dict | None = None
     heartbeat_interval_sec: int = 30
     timeout_sec: int = 3
     max_retries: int = 3
@@ -67,7 +67,7 @@ class MissionControlConfig:
 class MissionControlAdapter:
     """Adapter for Mission Control integration."""
 
-    def __init__(self, config: Optional[MissionControlConfig] = None):
+    def __init__(self, config: MissionControlConfig | None = None):
         """
         Initialize Mission Control adapter.
 
@@ -88,8 +88,8 @@ class MissionControlAdapter:
         self._shutdown_event = threading.Event()
 
     def _call_api(
-        self, action: MissionControlAction, payload: Dict[str, Any]
-    ) -> Optional[Dict[str, Any]]:
+        self, action: MissionControlAction, payload: dict[str, Any]
+    ) -> dict[str, Any] | None:
         """
         Make API call to Mission Control generic adapter endpoint.
 
@@ -284,7 +284,7 @@ class MissionControlAdapter:
             return False
 
     def report_task(
-        self, task_id: str, status: str, details: Dict[str, Any], **kwargs
+        self, task_id: str, status: str, details: dict[str, Any], **kwargs
     ) -> bool:
         """
         Report task status to Mission Control.
@@ -324,7 +324,7 @@ class MissionControlAdapter:
             logger.error("Task report failed with error: %s", str(e))
             return False
 
-    def report(self, event_type: str, data: Dict[str, Any]) -> None:
+    def report(self, event_type: str, data: dict[str, Any]) -> None:
         """
         Fire-and-forget report of an arbitrary event to Mission Control.
         This method does not block; it submits the report to a background thread.
@@ -342,7 +342,7 @@ class MissionControlAdapter:
         self._executor.submit(self._call_api, MissionControlAction.REPORT, payload)
         logger.debug("Report submitted for event_type=%s", event_type)
 
-    def fetch_assignments(self, **kwargs) -> Optional[Dict[str, Any]]:
+    def fetch_assignments(self, **kwargs) -> dict[str, Any] | None:
         """
         Fetch assigned tasks from Mission Control.
 
@@ -410,7 +410,7 @@ class MissionControlAdapter:
 
 # Convenience function for easy access
 def get_mission_control_adapter(
-    config: Optional[MissionControlConfig] = None,
+    config: MissionControlConfig | None = None,
 ) -> MissionControlAdapter:
     """
     Get a MissionControlAdapter instance.

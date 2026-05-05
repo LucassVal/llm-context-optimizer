@@ -21,9 +21,10 @@ File System Repository Implementation
 Concrete implementation of repository interfaces using local filesystem.
 """
 
+import builtins
 import logging
 import re
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from ..core.file_utils import (
     find_lobes,
@@ -67,7 +68,7 @@ class FileSystemCortexRepository(CortexRepository):
             "DIR-CORE-FR-001-core-central/.agents/rules/NC-CTX-FR-001-cortex-central.mdc"
         )
 
-    def list(self) -> List[str]:
+    def list(self) -> list[str]:
         """List available cortex identifiers (only 'cortex')."""
         return ["cortex"] if self.exists("cortex") else []
 
@@ -79,7 +80,7 @@ class FileSystemCortexRepository(CortexRepository):
         """Write content to cortex."""
         return write_cortex(content)
 
-    def get_aliases(self) -> Dict[str, str]:
+    def get_aliases(self) -> dict[str, str]:
         """Extract and return all aliases from cortex."""
         content = self.read_cortex()
         aliases = {}
@@ -90,7 +91,7 @@ class FileSystemCortexRepository(CortexRepository):
         header_found = False
         separator_found = False
 
-        for i, line in enumerate(lines):
+        for _i, line in enumerate(lines):
             line_stripped = line.strip()
 
             # Look for "##  Workspace Map" or "## Workspace Map"
@@ -148,7 +149,7 @@ class FileSystemCortexRepository(CortexRepository):
 
         return aliases
 
-    def get_workflows(self) -> List[Dict[str, Any]]:
+    def get_workflows(self) -> builtins.list[dict[str, Any]]:
         """Extract and return all workflows from cortex."""
         content = self.read_cortex()
         workflows = []
@@ -251,19 +252,19 @@ class FileSystemLedgerRepository(LedgerRepository):
             "DIR-CORE-FR-001-core-central/NC-LED-FR-001-framework-ledger.json"
         )
 
-    def list(self) -> List[str]:
+    def list(self) -> list[str]:
         """List available ledger identifiers (only 'ledger')."""
         return ["ledger"] if self.exists("ledger") else []
 
-    def read_ledger(self) -> Dict[str, Any]:
+    def read_ledger(self) -> dict[str, Any]:
         """Read the entire ledger content."""
         return read_ledger()
 
-    def write_ledger(self, data: Dict[str, Any]) -> bool:
+    def write_ledger(self, data: dict[str, Any]) -> bool:
         """Write data to ledger."""
         return write_ledger(data)
 
-    def update_ledger_section(self, section: str, data: Dict[str, Any]) -> bool:
+    def update_ledger_section(self, section: str, data: dict[str, Any]) -> bool:
         """Update a specific section of the ledger."""
         ledger = self.read_ledger()
 
@@ -303,7 +304,7 @@ class FileSystemLedgerRepository(LedgerRepository):
 
         return self.write_ledger(ledger)
 
-    def get_system_constraints(self) -> Dict[str, Any]:
+    def get_system_constraints(self) -> dict[str, Any]:
         """Get system constraints from ledger."""
         ledger = self.read_ledger()
         return ledger.get("system_constraints", {})
@@ -332,7 +333,7 @@ class FileSystemProfileRepository(ProfileRepository):
         profile_path = self.profiles_dir / f"{identifier}.json"
         return profile_path.exists()
 
-    def list(self) -> List[str]:
+    def list(self) -> list[str]:
         """List all available profile IDs."""
         if not self.profiles_dir.exists():
             return []
@@ -343,7 +344,7 @@ class FileSystemProfileRepository(ProfileRepository):
 
         return profiles
 
-    def read_profile(self, profile_id: str) -> Dict[str, Any]:
+    def read_profile(self, profile_id: str) -> dict[str, Any]:
         """Read a specific profile."""
         profile_path = self.profiles_dir / f"{profile_id}.json"
         if not profile_path.exists():
@@ -351,7 +352,7 @@ class FileSystemProfileRepository(ProfileRepository):
 
         return read_json_file(profile_path)
 
-    def write_profile(self, profile_id: str, data: Dict[str, Any]) -> bool:
+    def write_profile(self, profile_id: str, data: dict[str, Any]) -> bool:
         """Write or update a profile."""
         profile_path = self.profiles_dir / f"{profile_id}.json"
 
@@ -360,7 +361,7 @@ class FileSystemProfileRepository(ProfileRepository):
 
         return write_json_file(profile_path, data)
 
-    def list_profiles(self) -> List[str]:
+    def list_profiles(self) -> builtins.list[str]:
         """List all available profile IDs."""
         return self.list()
 
@@ -392,11 +393,11 @@ class FileSystemLobeRepository(LobeRepository):
         """Check if lobe exists."""
         return self.lobe_exists(identifier)
 
-    def list(self) -> List[str]:
+    def list(self) -> list[str]:
         """List all available lobe names."""
         return self.list_lobes()
 
-    def read_lobe(self, lobe_name: str) -> Optional[str]:
+    def read_lobe(self, lobe_name: str) -> str | None:
         """Read a specific lobe content."""
         # Use existing utility function
         return get_lobe_content(lobe_name)
@@ -416,7 +417,7 @@ class FileSystemLobeRepository(LobeRepository):
             logger.error(f"Error writing lobe {lobe_name}: {e}")
             return False
 
-    def list_lobes(self) -> List[str]:
+    def list_lobes(self) -> builtins.list[str]:
         """List all available lobe names."""
         # Use existing utility function
         return find_lobes()

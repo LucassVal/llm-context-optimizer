@@ -8,7 +8,7 @@ import json
 import logging
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -16,19 +16,19 @@ logger = logging.getLogger(__name__)
 class VigilantCycle:
     """CICLO 0 — Vigilante. Roda após cada interação user↔AI."""
 
-    def __init__(self, root: Optional[Path] = None):
+    def __init__(self, root: Path | None = None):
         import os as _os
         self.root = root or Path(_os.environ.get("NC_ROOT", Path(__file__).parents[3]))
-        self.turns: List[Dict[str, Any]] = []
-        self.detected_patterns: Dict[str, int] = {}
-        self.pending_proposals: List[Dict[str, Any]] = []
+        self.turns: list[dict[str, Any]] = []
+        self.detected_patterns: dict[str, int] = {}
+        self.pending_proposals: list[dict[str, Any]] = []
         self._log_file = self.root / ".neocortex" / "vigilant" / "cycle0.jsonl"
         self._log_file.parent.mkdir(parents=True, exist_ok=True)
 
     # ── TURN RECORD: após cada interação ──────────────────────
 
     def record_turn(self, user_message: str, ai_action: str,
-                    result: Dict[str, Any]) -> Dict[str, Any]:
+                    result: dict[str, Any]) -> dict[str, Any]:
         """
         Registrar turno e analisar.
         Chamado APÓS cada interação user↔AI.
@@ -60,7 +60,7 @@ class VigilantCycle:
 
     # ── ANALYZE: detectar padrões ──────────────────────────────
 
-    def _analyze_turn(self, turn: Dict[str, Any]) -> Dict[str, Any]:
+    def _analyze_turn(self, turn: dict[str, Any]) -> dict[str, Any]:
         """Analisar turno e detectar padrões de governança."""
         findings = []
 
@@ -114,7 +114,7 @@ class VigilantCycle:
 
     # ── GENERATE PROPOSAL: criar emenda ────────────────────────
 
-    def _generate_proposal(self, pattern: str, count: int) -> Dict[str, Any]:
+    def _generate_proposal(self, pattern: str, count: int) -> dict[str, Any]:
         """Gerar proposta de emenda baseada em padrão detectado."""
         proposal_id = f"VIG-{datetime.now().strftime('%Y%m%d%H%M%S')}"
 
@@ -145,7 +145,7 @@ class VigilantCycle:
 
     # ── APPROVE/REJECT: T0 decide ──────────────────────────────
 
-    def approve_proposal(self, proposal_id: str) -> Dict[str, Any]:
+    def approve_proposal(self, proposal_id: str) -> dict[str, Any]:
         """T0 aprova proposta e envia para auto-amendment engine."""
         for p in self.pending_proposals:
             if p["id"] == proposal_id:
@@ -168,7 +168,7 @@ class VigilantCycle:
 
         return {"success": False, "error": "Proposta não encontrada"}
 
-    def reject_proposal(self, proposal_id: str, reason: str = "") -> Dict[str, Any]:
+    def reject_proposal(self, proposal_id: str, reason: str = "") -> dict[str, Any]:
         """T0 rejeita proposta."""
         for p in self.pending_proposals:
             if p["id"] == proposal_id:
@@ -179,7 +179,7 @@ class VigilantCycle:
 
     # ── STATUS ─────────────────────────────────────────────────
 
-    def get_status(self) -> Dict[str, Any]:
+    def get_status(self) -> dict[str, Any]:
         """Status do CICLO 0 + Drift Control (R37)."""
         drift = self._calculate_drift()
         return {
@@ -196,7 +196,7 @@ class VigilantCycle:
             "drift": drift,
         }
 
-    def _calculate_drift(self) -> Dict[str, Any]:
+    def _calculate_drift(self) -> dict[str, Any]:
         """R37: Calcular identity hysteresis ratio."""
         total = len(self.turns)
         if total < 10:
@@ -212,7 +212,7 @@ class VigilantCycle:
 
 
 # Singleton
-_vigilant_cycle: Optional[VigilantCycle] = None
+_vigilant_cycle: VigilantCycle | None = None
 
 
 def get_vigilant_cycle() -> VigilantCycle:

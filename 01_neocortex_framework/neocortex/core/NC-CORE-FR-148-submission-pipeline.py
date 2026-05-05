@@ -8,7 +8,7 @@ import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -16,15 +16,15 @@ logger = logging.getLogger(__name__)
 class SubmissionPipeline:
     """Pipeline completo de submissão governada."""
 
-    def __init__(self, root: Optional[Path] = None):
+    def __init__(self, root: Path | None = None):
         import os
         self.root = root or Path(os.environ.get("NC_ROOT", Path(__file__).parents[3]))
-        self.results: List[Dict] = []
+        self.results: list[dict] = []
 
     # ── PIPELINE PRINCIPAL ─────────────────────────────────────
 
-    def submit(self, files: List[str] = None, description: str = "",
-               agent: str = "T0") -> Dict[str, Any]:
+    def submit(self, files: list[str] | None = None, description: str = "",
+               agent: str = "T0") -> dict[str, Any]:
         """Submeter mudanças — pipeline completo."""
         pipeline_id = f"SUB-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
         result = {"pipeline_id": pipeline_id, "agent": agent, "steps": [], "passed": True}
@@ -85,7 +85,7 @@ class SubmissionPipeline:
 
     FAIL_FAST_ENABLED = True  # FAIL-FAST gate: ruff errors BLOCK submission
 
-    def _ruff_check(self, files: List[str]) -> Dict:
+    def _ruff_check(self, files: list[str]) -> dict:
         if not files:
             return {"passed": True, "note": "sem arquivos para verificar", "fail_fast": self.FAIL_FAST_ENABLED}
         try:
@@ -106,7 +106,7 @@ class SubmissionPipeline:
 
     # ── STEP 2: SEMANTIC + 3 W's ───────────────────────────────
 
-    def _semantic_check(self, files: List[str]) -> Dict:
+    def _semantic_check(self, files: list[str]) -> dict:
         if not files:
             return {"valid": True, "note": "sem arquivos"}
         invalid = [f for f in files if not Path(f).name.startswith("NC-")]
@@ -125,7 +125,7 @@ class SubmissionPipeline:
 
     # ── STEP 2.5: YAML VALIDATE (R112) ──────────────────────────
 
-    def _yaml_check(self, files: List[str]) -> Dict:
+    def _yaml_check(self, files: list[str]) -> dict:
         if not files:
             return {"passed": True, "note": "sem arquivos YAML"}
         yamls = [f for f in files if f.endswith((".yaml", ".yml"))]
@@ -150,7 +150,7 @@ class SubmissionPipeline:
 
     # ── STEP 2.6: SECRET SCAN (R114) ────────────────────────────
 
-    def _secret_check(self, files: List[str]) -> Dict:
+    def _secret_check(self, files: list[str]) -> dict:
         if not files:
             return {"passed": True, "note": "sem arquivos"}
         try:
@@ -171,7 +171,7 @@ print(r['leaks'] if r['leaks']==0 else str(r['leaks'])+' leaks: '+str(r.get('fin
 
     # ── STEP 2.7: MYPY TYPE CHECK ──────────────────────────────
 
-    def _mypy_check(self, files: List[str]) -> Dict:
+    def _mypy_check(self, files: list[str]) -> dict:
         if not files:
             return {"passed": True, "note": "sem arquivos"}
         py_files = [f for f in files if f.endswith(".py")]
@@ -189,7 +189,7 @@ print(r['leaks'] if r['leaks']==0 else str(r['leaks'])+' leaks: '+str(r.get('fin
 
     # ── STEP 2.8: PYRIGHT TYPE CHECK ───────────────────────────
 
-    def _pyright_check(self, files: List[str]) -> Dict:
+    def _pyright_check(self, files: list[str]) -> dict:
         if not files:
             return {"passed": True, "note": "sem arquivos"}
         py_files = [f for f in files if f.endswith(".py")]
@@ -213,7 +213,7 @@ print(r['leaks'] if r['leaks']==0 else str(r['leaks'])+' leaks: '+str(r.get('fin
 
     # ── STEP 3: HANDOFF ────────────────────────────────────────
 
-    def _create_handoff(self, description: str, agent: str, files: List[str]) -> Dict:
+    def _create_handoff(self, description: str, agent: str, files: list[str]) -> dict:
         hf_dir = self.root / "DIR-DS-002-audit-logs"
         ts = datetime.now().strftime("%Y%m%dT%H%M%S")
         hf = hf_dir / f"NC-DS-SUB-handoff-{ts}.yaml"
@@ -231,7 +231,7 @@ print(r['leaks'] if r['leaks']==0 else str(r['leaks'])+' leaks: '+str(r.get('fin
 
     # ── STEP 4: RCA ────────────────────────────────────────────
 
-    def _rca_analysis(self, files: List[str], ruff: Dict, semantic: Dict) -> Dict:
+    def _rca_analysis(self, files: list[str], ruff: dict, semantic: dict) -> dict:
         try:
             import importlib.util
             rca_path = self.root / "01_neocortex_framework" / "neocortex" / "core" / "NC-CORE-FR-147-root-cause-engine.py"
@@ -251,7 +251,7 @@ print(r['leaks'] if r['leaks']==0 else str(r['leaks'])+' leaks: '+str(r.get('fin
 
     # ── STEP 5: CATALOG ────────────────────────────────────────
 
-    def _catalog_refresh(self) -> Dict:
+    def _catalog_refresh(self) -> dict:
         catalog_file = self.root / "01_neocortex_framework" / ".neocortex" / "lexico" / "NC-LEXICO-LATEST.json"
         if catalog_file.exists():
             return {"passed": True, "catalog_updated": True}
@@ -259,14 +259,14 @@ print(r['leaks'] if r['leaks']==0 else str(r['leaks'])+' leaks: '+str(r.get('fin
 
     # ── STEP 6: ROADMAP ────────────────────────────────────────
 
-    def _roadmap_sync(self) -> Dict:
+    def _roadmap_sync(self) -> dict:
         roadmap = self.root / "01_neocortex_framework" / "DIR-DOC-FR-001-docs-main" / "NC-TODO-FR-001-project-roadmap-consolidated.md"
         if roadmap.exists():
             return {"passed": True, "roadmap_exists": True, "size": roadmap.stat().st_size}
         return {"passed": False, "error": "roadmap não encontrado"}
 
 
-_pipeline: Optional[SubmissionPipeline] = None
+_pipeline: SubmissionPipeline | None = None
 
 def get_pipeline() -> SubmissionPipeline:
     global _pipeline

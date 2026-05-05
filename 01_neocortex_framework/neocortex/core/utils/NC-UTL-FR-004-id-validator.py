@@ -16,7 +16,6 @@ import hashlib
 import logging
 import re
 from datetime import datetime
-from typing import Dict
 
 logger = logging.getLogger(__name__)
 
@@ -28,7 +27,7 @@ class IDValidator:
     """Validador de IDs no formato NeoCortex."""
 
     # Padres de IDs vlidos
-    PATTERNS: Dict[str, re.Pattern] = {
+    PATTERNS: dict[str, re.Pattern] = {
         "ticket": re.compile(r"^NC-DS-\d{3}$"),
         "worker": re.compile(r"^worker-\d{4,5}-[a-f0-9]{4}$"),
         "session": re.compile(r"^sess-\d{8}-\d{6}$"),

@@ -9,7 +9,7 @@ import os
 import pathlib
 import sqlite3
 from datetime import datetime
-from typing import Any, Dict, Optional
+from typing import Any
 
 # ═══════════════════════════════════════════════════════════════
 # R56 — KPIs (Key Performance Indicators)
@@ -18,7 +18,7 @@ from typing import Any, Dict, Optional
 class KPIEngine:
     """Indicadores de desempenho do ecossistema NeoCortex."""
 
-    def __init__(self, root: Optional[pathlib.Path] = None):
+    def __init__(self, root: pathlib.Path | None = None):
         self.root = root or pathlib.Path(os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3]))
         self.wal_path = self.root / "DIR-DS-003-wal" / "neocortex_wal.db"
         self.metrics_path = self.root / "01_neocortex_framework" / ".neocortex" / "lexico" / "NC-LEXICO-LATEST.json"
@@ -52,7 +52,7 @@ class KPIEngine:
         except Exception:
             return -1
 
-    def compute(self) -> Dict:
+    def compute(self) -> dict:
         kpis = {
             "timestamp": datetime.now().isoformat(),
             "kpis": {},
@@ -141,11 +141,11 @@ class ROIEngine:
     ESTIMATED_CALL_TOKENS = 500   # avg tokens per MCP call + response
     ESTIMATED_COST_PER_CALL = (COST_PER_1K_INPUT + COST_PER_1K_OUTPUT) * ESTIMATED_CALL_TOKENS / 1000
 
-    def __init__(self, root: Optional[pathlib.Path] = None):
+    def __init__(self, root: pathlib.Path | None = None):
         self.root = root or pathlib.Path(os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3]))
         self.wal_path = self.root / "DIR-DS-003-wal" / "neocortex_wal.db"
 
-    def analyze(self) -> Dict:
+    def analyze(self) -> dict:
         total_calls = 0
         successful = 0
         rollbacks = 0
@@ -195,10 +195,10 @@ class ROIEngine:
 class ComplianceEngine:
     """Fechador de compliance gap."""
 
-    def __init__(self, root: Optional[pathlib.Path] = None):
+    def __init__(self, root: pathlib.Path | None = None):
         self.root = root or pathlib.Path(os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3]))
 
-    def find_gaps(self) -> Dict[str, Any]:
+    def find_gaps(self) -> dict[str, Any]:
         gaps = []
         score = 100.0
 
@@ -265,7 +265,7 @@ class ComplianceEngine:
             "next_action": [g["fix"] for g in gaps],
         }
 
-    def fix_gaps(self, auto_fix: bool = True) -> Dict:
+    def fix_gaps(self, auto_fix: bool = True) -> dict:
         """Aplica correções automáticas nos gaps de baixo risco."""
         fixed = []
         errors = []
@@ -313,13 +313,13 @@ class ComplianceEngine:
 # ═══════════════════════════════════════════════════════════════
 
 class CorporateEngine:
-    def __init__(self, root: Optional[pathlib.Path] = None):
+    def __init__(self, root: pathlib.Path | None = None):
         self.root = root or pathlib.Path(os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3]))
         self.kpi = KPIEngine(root=self.root)
         self.roi = ROIEngine(root=self.root)
         self.compliance = ComplianceEngine(root=self.root)
 
-    def full_report(self) -> Dict:
+    def full_report(self) -> dict:
         return {
             "kpis": self.kpi.compute(),
             "roi": self.roi.analyze(),

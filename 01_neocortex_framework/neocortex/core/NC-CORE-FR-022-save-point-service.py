@@ -26,7 +26,7 @@ import threading
 import time
 import uuid
 from datetime import datetime
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -64,7 +64,7 @@ class SavePoint:
         "status"
     )
 
-    def __init__(self, action: str, agent_role: str, context: Dict[str, Any]):
+    def __init__(self, action: str, agent_role: str, context: dict[str, Any]):
         self.save_id    = str(uuid.uuid4())[:12]
         self.action     = action
         self.agent_role = agent_role
@@ -77,7 +77,7 @@ class SavePoint:
     def is_expired(self) -> bool:
         return time.time() > self.expires_at
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         return {
             "save_id":    self.save_id,
             "action":     self.action,
@@ -112,7 +112,7 @@ class SavePointService:
 
     def __init__(self):
         self._lock   = threading.RLock()
-        self._store: Dict[str, SavePoint] = {}
+        self._store: dict[str, SavePoint] = {}
         self._stats  = {"captured": 0, "committed": 0, "rolled_back": 0, "expired": 0}
 
         # Tentar importar LockGuard (opcional  falha silenciosa)
@@ -127,8 +127,8 @@ class SavePointService:
         self,
         action: str,
         agent_role: str = "unknown",
-        context: Optional[Dict[str, Any]] = None,
-    ) -> Tuple[str, bool]:
+        context: dict[str, Any] | None = None,
+    ) -> tuple[str, bool]:
         """
         STEP -1  Chamado ANTES de qualquer write op.
 
@@ -178,7 +178,7 @@ class SavePointService:
         return (sp.save_id, True)
 
     #  STEP +1: Rollback
-    def rollback(self, save_id: str) -> Dict[str, Any]:
+    def rollback(self, save_id: str) -> dict[str, Any]:
         """
         STEP +1  Reverter ao estado do save point aps falha.
 
@@ -233,13 +233,13 @@ class SavePointService:
             logger.info(f"[SavePoint]  DISCARDED | id={save_id}")
         return removed is not None
 
-    def list_active(self) -> List[Dict[str, Any]]:
+    def list_active(self) -> list[dict[str, Any]]:
         """Listar todos os save points ativos (no expirados)."""
         self._evict_expired()
         with self._lock:
             return [sp.to_dict() for sp in self._store.values() if sp.status == "active"]
 
-    def get_compliance_status(self) -> Dict[str, Any]:
+    def get_compliance_status(self) -> dict[str, Any]:
         """Retorna status para o HUD Compliance Heartbeat."""
         self._evict_expired()
         with self._lock:
@@ -266,7 +266,7 @@ class SavePointService:
 
 
 #  Singleton
-_instance: Optional[SavePointService] = None
+_instance: SavePointService | None = None
 _instance_lock = threading.Lock()
 
 

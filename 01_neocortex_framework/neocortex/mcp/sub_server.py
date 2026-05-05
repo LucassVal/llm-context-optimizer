@@ -23,7 +23,7 @@ import logging
 import os
 import sys
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 import yaml
 from mcp.server import FastMCP
@@ -46,7 +46,7 @@ mentor_logger.setLevel(logging.DEBUG)
 # ─────────────────────────────────────────────────────────────────────────────
 
 # Mapeamento: role → lobos padrão a carregar. Expanded via tarefa + keywords.
-ROLE_DEFAULT_LOBES: Dict[str, List[str]] = {
+ROLE_DEFAULT_LOBES: dict[str, list[str]] = {
     "courier": ["NC-LBE-FR-ARCHITECTURE-001.mdc", "NC-LBE-FR-SECURITY-001.mdc"],
     "engineer": ["NC-LBE-FR-ARCHITECTURE-001.mdc", "NC-LBE-FR-DEVELOPMENT-001.mdc"],
     "guardian": ["NC-LBE-FR-SECURITY-001.mdc"],
@@ -55,7 +55,7 @@ ROLE_DEFAULT_LOBES: Dict[str, List[str]] = {
 }
 
 # Keywords da tarefa → lobos adicionais a incluir
-KEYWORD_LOBE_MAP: Dict[str, List[str]] = {
+KEYWORD_LOBE_MAP: dict[str, list[str]] = {
     "index": ["NC-LBE-FR-ARCHITECTURE-001.mdc"],
     "indexar": ["NC-LBE-FR-ARCHITECTURE-001.mdc"],
     "search": ["NC-LBE-FR-ARCHITECTURE-001.mdc"],
@@ -74,12 +74,12 @@ KEYWORD_LOBE_MAP: Dict[str, List[str]] = {
 }
 
 
-def identify_relevant_lobes(agent_role: str, task_description: str) -> List[str]:
+def identify_relevant_lobes(agent_role: str, task_description: str) -> list[str]:
     """
     Decide quais lobos devem ser consultados com base no papel do agente e keywords da tarefa.
     Retorna lista deduplicada de nomes de arquivos .mdc.
     """
-    relevant: List[str] = list(ROLE_DEFAULT_LOBES.get(agent_role, []))
+    relevant: list[str] = list(ROLE_DEFAULT_LOBES.get(agent_role, []))
 
     task_lower = task_description.lower()
     for keyword, lobes in KEYWORD_LOBE_MAP.items():
@@ -104,7 +104,7 @@ def extract_relevant_snippet(content: str, task_description: str, max_words: int
         return content  # Lobo pequeno — retorna inteiro
 
     paragraphs = [p.strip() for p in content.split("\n\n") if p.strip()]
-    task_keywords = set(w.lower() for w in task_description.split() if len(w) > 3)
+    task_keywords = {w.lower() for w in task_description.split() if len(w) > 3}
 
     scored = []
     for para in paragraphs:
@@ -122,7 +122,7 @@ def extract_relevant_snippet(content: str, task_description: str, max_words: int
     return "\n\n".join(top)
 
 
-def mentor_step_0(agent_role: str, task_description: str, lobe_dir: Optional[Path] = None) -> Optional[str]:
+def mentor_step_0(agent_role: str, task_description: str, lobe_dir: Path | None = None) -> str | None:
     """
     AGENT-203 — Mentor Mode Step 0.
 
@@ -154,7 +154,7 @@ def mentor_step_0(agent_role: str, task_description: str, lobe_dir: Optional[Pat
         return None
 
     # 2. Ler conteúdo dos lobos e extrair trechos
-    context_blocks: List[str] = []
+    context_blocks: list[str] = []
     for lobe_name in relevant_lobes:
         try:
             result = lobe_svc.get_lobe(lobe_name)
@@ -207,9 +207,9 @@ def handle_task(
     task_description: str,
     agent_role: str,
     task_id: str = "unknown",
-    lobe_dir: Optional[Path] = None,
+    lobe_dir: Path | None = None,
     llm_backend=None,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Handler central para processamento de tarefas com Mentor Mode ativo.
     Chamado pelo sub-server ao receber qualquer tarefa via neocortex_task.execute.
@@ -266,7 +266,7 @@ def handle_task(
     }
 
 
-def load_agent_config(lobe_dir: Path) -> Optional[Dict[str, Any]]:
+def load_agent_config(lobe_dir: Path) -> dict[str, Any] | None:
     """Carrega configuração do agente a partir de neocortex_config.yaml."""
     config_path = lobe_dir / "neocortex_config.yaml"
     if not config_path.exists():
@@ -274,7 +274,7 @@ def load_agent_config(lobe_dir: Path) -> Optional[Dict[str, Any]]:
         return None
 
     try:
-        with open(config_path, "r", encoding="utf-8") as f:
+        with open(config_path, encoding="utf-8") as f:
             config = yaml.safe_load(f)
         logger.info(f"Config loaded from {config_path}")
         return config
@@ -284,8 +284,8 @@ def load_agent_config(lobe_dir: Path) -> Optional[Dict[str, Any]]:
 
 
 def filter_allowed_tools(
-    requested_tools: List[str], config: Dict[str, Any]
-) -> List[str]:
+    requested_tools: list[str], config: dict[str, Any]
+) -> list[str]:
     """Filtra ferramentas baseado nas permissões do config."""
     if not config:
         return requested_tools
@@ -295,7 +295,7 @@ def filter_allowed_tools(
         return requested_tools
 
     # Converter nomes de ferramentas MCP para nomes de módulos
-    tool_to_module = {v: k for k, v in TOOL_MODULE_MAP.items()}
+    {v: k for k, v in TOOL_MODULE_MAP.items()}
 
     filtered = []
     for tool in requested_tools:
@@ -313,7 +313,7 @@ class SubSessionManager:
     """Gerencia o ciclo de vida da sessão do sub-servidor."""
 
     def __init__(
-        self, lobe_dir: Path, tools: List[str], port: int, role: str = "unknown"
+        self, lobe_dir: Path, tools: list[str], port: int, role: str = "unknown"
     ):
         self.lobe_dir = lobe_dir
         self.tools = tools
@@ -375,7 +375,7 @@ TOOL_MODULE_MAP = {
 
 
 def create_sub_mcp_server(
-    lobe_dir: Path, enabled_tools: List[str], port: int, role: str = "unknown"
+    lobe_dir: Path, enabled_tools: list[str], port: int, role: str = "unknown"
 ):
     """
     Create and configure a sub-MCP server instance for a specific lobe.

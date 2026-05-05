@@ -1,7 +1,10 @@
 # Strangler Fig wrapper — re-exports from NC-INFRA-FR-*
 # This file kept for backward compatibility. Migrate imports to NC- name.
 # See R09: importlib for hyphenated module names.
-import importlib.util, sys, pathlib
+import importlib.util
+import pathlib
+import sys
+
 _nc_module = pathlib.Path(__file__).parent / "NC-INFRA-FR-009-vector-store.py"
 spec = importlib.util.spec_from_file_location("vector_store", _nc_module)
 _mod = importlib.util.module_from_spec(spec)

@@ -6,7 +6,7 @@
 
 import importlib.util
 from pathlib import Path
-from typing import Any, Dict, Tuple
+from typing import Any
 
 _GATEWAY = None
 
@@ -26,7 +26,7 @@ def _get_gateway():
 
 
 def gateway_check(action: str, root: Path, agent_id: str = "T0",
-                  agent_role: str = "T0", target_path: str = "") -> Tuple[bool, Dict[str, Any]]:
+                  agent_role: str = "T0", target_path: str = "") -> tuple[bool, dict[str, Any]]:
     """Súmula Vinculante: toda ação passa por esta porteira."""
     try:
         gw = _get_gateway()

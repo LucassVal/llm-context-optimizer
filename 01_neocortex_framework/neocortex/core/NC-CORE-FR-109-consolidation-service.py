@@ -12,7 +12,7 @@ This service encapsulates business logic for consolidation operations,
 using repository interfaces for storage abstraction.
 """
 
-from typing import Any, Dict, Optional
+from typing import Any
 
 from ..repositories import CortexRepository, LedgerRepository
 
@@ -22,8 +22,8 @@ class ConsolidationService:
 
     def __init__(
         self,
-        ledger_repository: Optional[LedgerRepository] = None,
-        cortex_repository: Optional[CortexRepository] = None,
+        ledger_repository: LedgerRepository | None = None,
+        cortex_repository: CortexRepository | None = None,
     ):
         """
         Initialize consolidation service.
@@ -46,7 +46,7 @@ class ConsolidationService:
         else:
             self.cortex_repository = cortex_repository
 
-    def _ensure_consolidation_structure(self, ledger: Dict[str, Any]) -> Dict[str, Any]:
+    def _ensure_consolidation_structure(self, ledger: dict[str, Any]) -> dict[str, Any]:
         """Ensure consolidation structure exists in memory_cortex."""
         memory_cortex = ledger.get("memory_cortex", {})
         if "consolidation_sessions" not in memory_cortex:
@@ -54,17 +54,17 @@ class ConsolidationService:
             ledger["memory_cortex"] = memory_cortex
         return ledger
 
-    def run(self) -> Dict[str, Any]:
+    def run(self) -> dict[str, Any]:
         """Alias: executa consolidação completa."""
         return self.summarize_session("auto", "Auto-consolidation via MCP")
 
-    def run_full_consolidation(self) -> Dict[str, Any]:
+    def run_full_consolidation(self) -> dict[str, Any]:
         """Alias: executa consolidação completa."""
         return self.summarize_session("full", "Full consolidation via MCP")
 
     def summarize_session(
-        self, session_id: str, summary: str = "", metadata: Optional[Dict] = None
-    ) -> Dict[str, Any]:
+        self, session_id: str, summary: str = "", metadata: dict | None = None
+    ) -> dict[str, Any]:
         """
         Summarize a session into concise rules.
 
@@ -105,7 +105,7 @@ class ConsolidationService:
             "message": f"Session '{session_id}' summarized and stored",
         }
 
-    def merge_learnings(self) -> Dict[str, Any]:
+    def merge_learnings(self) -> dict[str, Any]:
         """
         Merge learnings from multiple summarized sessions.
 
@@ -151,7 +151,7 @@ class ConsolidationService:
             "message": f"Learnings from {len(summarized)} sessions merged",
         }
 
-    def promote_to_rule(self, target: str = "") -> Dict[str, Any]:
+    def promote_to_rule(self, target: str = "") -> dict[str, Any]:
         """
         Promote an entry from regression buffer to permanent rule.
 
@@ -224,7 +224,7 @@ class ConsolidationService:
         else:
             return {"success": False, "error": "Failed to write updated cortex"}
 
-    def list_sessions(self, status_filter: str = "") -> Dict[str, Any]:
+    def list_sessions(self, status_filter: str = "") -> dict[str, Any]:
         """
         List consolidation sessions with optional filtering.
 
@@ -261,7 +261,7 @@ class ConsolidationService:
             "status_counts": status_counts,
         }
 
-    def get_session(self, session_id: str) -> Dict[str, Any]:
+    def get_session(self, session_id: str) -> dict[str, Any]:
         """
         Get a specific consolidation session.
 
@@ -305,8 +305,8 @@ _default_consolidation_service = None
 
 
 def get_consolidation_service(
-    ledger_repository: Optional[LedgerRepository] = None,
-    cortex_repository: Optional[CortexRepository] = None,
+    ledger_repository: LedgerRepository | None = None,
+    cortex_repository: CortexRepository | None = None,
 ) -> ConsolidationService:
     """
     Get consolidation service instance (singleton pattern).

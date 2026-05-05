@@ -12,17 +12,16 @@ import pathlib
 import re
 from collections import defaultdict
 from datetime import datetime
-from typing import Dict
 
 
 class ULQRegistry:
     """Auto-registro de novos arquivos + cross-reference ULQ-aware."""
 
-    def __init__(self, root: pathlib.Path = None):
+    def __init__(self, root: pathlib.Path | None = None):
         self.root = root or pathlib.Path(os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3]))
         self._last_sync = None
 
-    def auto_register(self) -> Dict:
+    def auto_register(self) -> dict:
         """Detecta novos arquivos e registra no catalogo."""
         catalog_file = self.root / "01_neocortex_framework" / ".neocortex" / "lexico" / "NC-LEXICO-LATEST.json"
         if not catalog_file.exists():
@@ -30,7 +29,7 @@ class ULQRegistry:
 
         catalog = json.loads(catalog_file.read_text(encoding="utf-8"))
         registered = set()
-        for dom, data in catalog.get("domains", {}).items():
+        for _dom, data in catalog.get("domains", {}).items():
             for lobe in data.get("lobes", []):
                 registered.add(lobe["name"] if isinstance(lobe, dict) else lobe)
 
@@ -62,7 +61,7 @@ class ULQRegistry:
             "timestamp": datetime.now().isoformat(),
         }
 
-    def cross_reference(self) -> Dict:
+    def cross_reference(self) -> dict:
         """ULQ-aware cross-reference: usa @tags + NC-IDs para mapear conexoes."""
         fw = self.root / "01_neocortex_framework" / "neocortex"
 
@@ -97,9 +96,8 @@ class ULQRegistry:
                 all_refs.add(ref)
         orphans = []
         for rel, data in file_index.items():
-            if data["self_nc"] and data["self_nc"] not in all_refs:
-                if len(data["refs"]) == 0:
-                    orphans.append(rel)
+            if data["self_nc"] and data["self_nc"] not in all_refs and len(data["refs"]) == 0:
+                orphans.append(rel)
 
         # 3. Find duplicates (same functionality via @tags)
         dup_candidates = defaultdict(list)

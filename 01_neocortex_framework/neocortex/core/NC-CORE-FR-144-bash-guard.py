@@ -9,7 +9,6 @@ import logging
 import re
 from datetime import datetime
 from pathlib import Path
-from typing import Optional, Tuple
 
 logger = logging.getLogger(__name__)
 
@@ -35,7 +34,7 @@ WARNINGS = [
 class BashGuard:
     """R05: Bloqueia comandos destrutivos no bash/terminal."""
 
-    def __init__(self, root: Optional[Path] = None):
+    def __init__(self, root: Path | None = None):
         import os
         self.root = root or Path(os.environ.get("NC_ROOT", Path(__file__).parents[3]))
         self.log_file = self.root / "DIR-DS-002-audit-logs" / "NC-WAL-BASH-GUARD.jsonl"
@@ -44,7 +43,7 @@ class BashGuard:
         self.warned_count = 0
         self.override_tokens = set()
 
-    def check(self, command: str, agent_id: str = "T0") -> Tuple[bool, str]:
+    def check(self, command: str, agent_id: str = "T0") -> tuple[bool, str]:
         """Verificar comando bash. Retorna (permitido, mensagem)."""
         if not command or not command.strip():
             return True, ""
@@ -94,7 +93,7 @@ class BashGuard:
 
 _guard = BashGuard()
 
-def check_bash(command: str, agent_id: str = "T0") -> Tuple[bool, str]:
+def check_bash(command: str, agent_id: str = "T0") -> tuple[bool, str]:
     return _guard.check(command, agent_id)
 
 def grant_bash_override(agent_id: str, reason: str = "") -> str:

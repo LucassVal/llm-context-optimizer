@@ -23,7 +23,7 @@ import re
 import urllib.request
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Set
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -72,7 +72,7 @@ def _ask_qwen(prompt: str, max_tok: int = 80) -> str:
 
 # ── Extração ───────────────────────────────────────────────────────────────────
 
-def _extract_terms(text: str) -> Set[str]:
+def _extract_terms(text: str) -> set[str]:
     """Extrai termos técnicos candidatos de um texto."""
     # Palavras compostas NC-style: NC-TIPO-SIGLA ou camelCase
     compound = set(re.findall(r'NC-[A-Z]{2,}-[A-Z]{2,}-\d+', text))
@@ -92,9 +92,9 @@ def _extract_terms(text: str) -> Set[str]:
     return {t for t in all_terms if len(t) >= 3 and t.lower() not in STOP_TERMS}
 
 
-def _gather_terms_from_lobes() -> Dict[str, List[str]]:
+def _gather_terms_from_lobes() -> dict[str, list[str]]:
     """Varre todos os .mdc e extrai termos por categoria."""
-    term_sources: Dict[str, List[str]] = {}  # termo → [fontes]
+    term_sources: dict[str, list[str]] = {}  # termo → [fontes]
     for mdc in sorted(LOBES_DIR.rglob("*.mdc")):
         try:
             text = mdc.read_text("utf-8", errors="replace")
@@ -111,7 +111,7 @@ def _gather_terms_from_lobes() -> Dict[str, List[str]]:
 
 # ── Definições via LLM ─────────────────────────────────────────────────────────
 
-def _define_term(term: str, contexts: List[str]) -> str:
+def _define_term(term: str, contexts: list[str]) -> str:
     """Gera definição curta via Qwen 1.5b."""
     ctx = ", ".join(contexts[:3])
     prompt = (
@@ -126,7 +126,7 @@ def _define_term(term: str, contexts: List[str]) -> str:
 
 # ── Drift detection ────────────────────────────────────────────────────────────
 
-def _detect_drift(current: Dict[str, Any], previous: Dict[str, Any] | None) -> Dict[str, Any]:
+def _detect_drift(current: dict[str, Any], previous: dict[str, Any] | None) -> dict[str, Any]:
     """Detecta termos novos, removidos e alterados entre versões."""
     if not previous:
         return {"new": list(current.keys()), "removed": [], "changed": []}
@@ -159,9 +159,9 @@ class LexicoService:
 
     def __init__(self):
         self.version  = datetime.now().strftime("%Y%m%d-%H%M%S")
-        self._lexico: Dict[str, Any] = {}
+        self._lexico: dict[str, Any] = {}
 
-    def _load_previous(self) -> Dict | None:
+    def _load_previous(self) -> dict | None:
         """Carrega versão anterior do lexico (se existir)."""
         existing = sorted(LEX_DIR.glob("NC-LEXICO-*.json"))
         if not existing:
@@ -171,7 +171,7 @@ class LexicoService:
         except Exception:
             return None
 
-    def build(self, with_definitions: bool = True, max_defs: int = 30) -> Dict[str, Any]:
+    def build(self, with_definitions: bool = True, max_defs: int = 30) -> dict[str, Any]:
         """Constrói o lexico completo."""
         logger.info(f"[LEXICO] Iniciando build v{self.version}")
 
@@ -183,13 +183,13 @@ class LexicoService:
         ranked = sorted(term_sources.items(), key=lambda x: len(x[1]), reverse=True)
 
         # 3. Gerar definições (limitado para economizar tokens)
-        terms_dict: Dict[str, Any] = {}
+        terms_dict: dict[str, Any] = {}
         previous = self._load_previous()
         prev_terms = previous.get("terms", {}) if previous else {}
 
         def_count = 0
         for term, sources in ranked:
-            entry: Dict[str, Any] = {
+            entry: dict[str, Any] = {
                 "sources":   sources,
                 "frequency": len(sources),
             }
@@ -249,7 +249,7 @@ class LexicoService:
             "timestamp":    lexico["generated"],
         }
 
-    def search(self, query: str) -> List[Dict[str, Any]]:
+    def search(self, query: str) -> list[dict[str, Any]]:
         """Busca termos no lexico pelo nome ou definição."""
         if not self._lexico:
             latest = LEX_DIR / "NC-LEXICO-LATEST.json"
@@ -276,7 +276,7 @@ class LexicoService:
                 })
         return sorted(results, key=lambda x: (-x["score"], -x["frequency"]))[:20]
 
-    def latest_stats(self) -> Dict[str, Any]:
+    def latest_stats(self) -> dict[str, Any]:
         latest = LEX_DIR / "NC-LEXICO-LATEST.json"
         if not latest.exists():
             return {"status": "not_built", "timestamp": datetime.now().isoformat(timespec="seconds")}
@@ -305,7 +305,7 @@ def get_lexico_service() -> LexicoService:
     return _service
 
 
-def run_lexico_build(with_defs: bool = True, max_defs: int = 30) -> Dict[str, Any]:
+def run_lexico_build(with_defs: bool = True, max_defs: int = 30) -> dict[str, Any]:
     return get_lexico_service().build(with_definitions=with_defs, max_defs=max_defs)
 
 

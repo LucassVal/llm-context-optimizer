@@ -8,7 +8,6 @@ import os
 import pathlib
 import sqlite3
 from datetime import datetime
-from typing import Dict
 
 
 class ParetoReal:
@@ -18,7 +17,7 @@ class ParetoReal:
         self.root = root or pathlib.Path(os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3]))
         self.wal_path = self.root / "DIR-DS-003-wal" / "neocortex_wal.db"
 
-    def analyze_from_db(self) -> Dict:
+    def analyze_from_db(self) -> dict:
         if not self.wal_path.exists():
             return {"error": "wal_db_not_found", "path": str(self.wal_path)}
 
@@ -101,7 +100,7 @@ class ParetoReal:
             return "/".join(parts[-2:])
         return file_path
 
-    def check_wal_schema(self) -> Dict:
+    def check_wal_schema(self) -> dict:
         if not self.wal_path.exists():
             return {"error": "wal_db_not_found"}
         conn = sqlite3.connect(str(self.wal_path))

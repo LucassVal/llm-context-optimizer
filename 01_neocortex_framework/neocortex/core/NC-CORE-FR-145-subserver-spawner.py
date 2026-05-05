@@ -12,7 +12,7 @@ import sys
 import time
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -21,14 +21,14 @@ BASE_PORT = 8766
 class SubServerSpawner:
     """Gerencia sub-servers MCP para children forked."""
 
-    def __init__(self, root: Optional[Path] = None):
+    def __init__(self, root: Path | None = None):
         import os
         self.root = root or Path(os.environ.get("NC_ROOT", Path(__file__).parents[3]))
         self.registry_file = self.root / ".neocortex" / "subservers.json"
         self.registry_file.parent.mkdir(parents=True, exist_ok=True)
-        self.servers: Dict[str, Dict[str, Any]] = self._load()
+        self.servers: dict[str, dict[str, Any]] = self._load()
 
-    def spawn(self, child_id: str, child_dir: str) -> Dict[str, Any]:
+    def spawn(self, child_id: str, child_dir: str) -> dict[str, Any]:
         """Iniciar MCP server no child fork."""
         port = self._next_port()
         child_path = Path(child_dir)
@@ -71,7 +71,7 @@ class SubServerSpawner:
         except Exception as e:
             return {"success": False, "error": str(e)}
 
-    def stop(self, child_id: str) -> Dict[str, Any]:
+    def stop(self, child_id: str) -> dict[str, Any]:
         """Parar sub-server."""
         if child_id not in self.servers:
             return {"success": False, "error": f"Sub-server {child_id} não encontrado"}
@@ -84,7 +84,7 @@ class SubServerSpawner:
         except Exception as e:
             return {"success": False, "error": str(e)}
 
-    def list_servers(self) -> List[Dict[str, Any]]:
+    def list_servers(self) -> list[dict[str, Any]]:
         return list(self.servers.values())
 
     def _next_port(self) -> int:
@@ -101,7 +101,7 @@ class SubServerSpawner:
             return True
         except: return False
 
-    def _load(self) -> Dict:
+    def _load(self) -> dict:
         if self.registry_file.exists():
             try: return json.loads(self.registry_file.read_text(encoding="utf-8"))
             except: pass
@@ -110,7 +110,7 @@ class SubServerSpawner:
     def _save(self):
         self.registry_file.write_text(json.dumps(self.servers, indent=2, ensure_ascii=False), encoding="utf-8")
 
-_spawner: Optional[SubServerSpawner] = None
+_spawner: SubServerSpawner | None = None
 def get_spawner() -> SubServerSpawner:
     global _spawner
     if _spawner is None: _spawner = SubServerSpawner()

@@ -14,7 +14,6 @@ Score 100 se todos OK, penalidade de 20 por arquivo fora do padro.
 import logging
 import re
 from pathlib import Path
-from typing import Dict
 
 from .. import ValidationResult
 
@@ -24,7 +23,7 @@ logger = logging.getLogger(__name__)
 PATTERN = re.compile(r"^NC-[A-Z]+-[A-Z]+-\d{3}")
 
 
-def validate(data: Dict) -> ValidationResult:
+def validate(data: dict) -> ValidationResult:
     """Valida que `files_modified` seguem padro `NC-TIPO-SIGLA-NUM-desc.ext`.
 
     Args:

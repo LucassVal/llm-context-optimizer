@@ -8,14 +8,13 @@ import pathlib
 import re
 from collections import defaultdict
 from datetime import datetime
-from typing import Dict
 
 
 class SemanticAuditEngine:
-    def __init__(self, root: pathlib.Path = None):
+    def __init__(self, root: pathlib.Path | None = None):
         self.root = root or pathlib.Path(os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3]))
 
-    def deep_audit(self) -> Dict:
+    def deep_audit(self) -> dict:
         core = self.root / "01_neocortex_framework" / "neocortex" / "core"
         tools = self.root / "01_neocortex_framework" / "neocortex" / "mcp" / "tools"
 

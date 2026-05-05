@@ -9,7 +9,6 @@ import os
 import re
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List
 
 # ═══════════════════════════════════════════════════════════════
 # 1. 3 W's — Auto-Contexto (What / Why / Where)
@@ -18,10 +17,10 @@ from typing import Dict, List
 class ThreeWEngine:
     """Gera What/Why/Where automaticamente para qualquer módulo NC-."""
 
-    def __init__(self, root: Path = None):
+    def __init__(self, root: Path | None = None):
         self.root = root or Path(os.environ.get("NC_ROOT", Path(__file__).parents[3]))
 
-    def analyze_module(self, file_path: Path) -> Dict:
+    def analyze_module(self, file_path: Path) -> dict:
         """Analisa um módulo e extrai seu contexto em 3 W's."""
         if not file_path.exists():
             return {"error": "not_found", "what": "", "why": "", "where": ""}
@@ -109,7 +108,7 @@ class EisenhowerEngine:
     URGENT_NOT_IMPORTANT = "DELEGATE"
     NOT_URGENT_NOT_IMPORTANT = "DELETE"
 
-    def classify(self, ticket: Dict) -> str:
+    def classify(self, ticket: dict) -> str:
         urgency = self._score_urgency(ticket)
         importance = self._score_importance(ticket)
 
@@ -122,7 +121,7 @@ class EisenhowerEngine:
         else:
             return self.NOT_URGENT_NOT_IMPORTANT
 
-    def _score_urgency(self, t: Dict) -> int:
+    def _score_urgency(self, t: dict) -> int:
         score = 0
         # Bloqueante = urgente
         if t.get("status") == "BLOCKED": score += 4
@@ -132,7 +131,7 @@ class EisenhowerEngine:
         if t.get("age_hours", 999) < 1: score += 2
         return min(score, 10)
 
-    def _score_importance(self, t: Dict) -> int:
+    def _score_importance(self, t: dict) -> int:
         score = 0
         # Core module = importante
         if t.get("module", "").startswith("NC-CORE"): score += 3
@@ -142,7 +141,7 @@ class EisenhowerEngine:
         if t.get("has_rca"): score += 2
         return min(score, 10)
 
-    def prioritize_tickets(self, tickets: List[Dict]) -> List[Dict]:
+    def prioritize_tickets(self, tickets: list[dict]) -> list[dict]:
         for t in tickets:
             t["eisenhower_quadrant"] = self.classify(t)
         # Order: DO_NOW first, DELETE last
@@ -157,12 +156,12 @@ class EisenhowerEngine:
 class ParetoEngine:
     """Analisa quais 20% dos módulos causam 80% dos erros."""
 
-    def __init__(self, root: Path = None):
+    def __init__(self, root: Path | None = None):
         self.root = root or Path(os.environ.get("NC_ROOT", Path(__file__).parents[3]))
 
-    def analyze(self) -> Dict:
+    def analyze(self) -> dict:
         log_dir = self.root / "DIR-DS-002-audit-logs"
-        errors_by_module: Dict[str, int] = {}
+        errors_by_module: dict[str, int] = {}
 
         if log_dir.exists():
             for f in log_dir.glob("*.yaml"):
@@ -203,22 +202,22 @@ class ParetoEngine:
 class OKREngine:
     """Track Objectives and Key Results no roadmap."""
 
-    def __init__(self, root: Path = None):
+    def __init__(self, root: Path | None = None):
         self.root = root or Path(os.environ.get("NC_ROOT", Path(__file__).parents[3]))
         self.okr_lobe = self.root / "02_memory_lobes" / "06_governance" / "NC-LBE-FR-OKR-001.md"
 
-    def get_current_okrs(self) -> Dict:
+    def get_current_okrs(self) -> dict:
         if self.okr_lobe.exists():
             return {"objective": "NeoCortex Production-Ready", "key_results": self._parse_krs(self.okr_lobe.read_text(encoding="utf-8"))}
         return self._default_okrs()
 
-    def _parse_krs(self, text: str) -> List[Dict]:
+    def _parse_krs(self, text: str) -> list[dict]:
         krs = []
         for m in re.finditer(r'KR(\d+):\s*(.+?)(?=\n\n|\nKR|\Z)', text, re.DOTALL):
             krs.append({"id": f"KR{m.group(1)}", "description": m.group(2).strip().replace("\n", " ")})
         return krs
 
-    def _default_okrs(self) -> Dict:
+    def _default_okrs(self) -> dict:
         return {
             "objective": "Sermos os mais competitivos com governança autônoma",
             "key_results": [
@@ -248,7 +247,7 @@ class OKREngine:
 class IdempotencyGuard:
     """Garante que operações em savepoints/WAL sejam idempotentes."""
 
-    def __init__(self, root: Path = None):
+    def __init__(self, root: Path | None = None):
         self.root = root or Path(os.environ.get("NC_ROOT", Path(__file__).parents[3]))
         self.state_dir = self.root / ".neocortex" / "state"
 
@@ -301,7 +300,7 @@ class IdempotencyGuard:
 class TechniquesEngine:
     """Motor combinado das 5 técnicas faltantes."""
 
-    def __init__(self, root: Path = None):
+    def __init__(self, root: Path | None = None):
         self.root = root or Path(os.environ.get("NC_ROOT", Path(__file__).parents[3]))
         self.three_w = ThreeWEngine(root=self.root)
         self.eisenhower = EisenhowerEngine()
@@ -309,7 +308,7 @@ class TechniquesEngine:
         self.okr = OKREngine(root=self.root)
         self.idempotency = IdempotencyGuard(root=self.root)
 
-    def full_analysis(self) -> Dict:
+    def full_analysis(self) -> dict:
         return {
             "3ws_onboarding": self.three_w.generate_welcome_doc()[:500],
             "eisenhower_sample": self.eisenhower.prioritize_tickets([

@@ -7,7 +7,7 @@ import json
 import os
 import pathlib
 import re
-from typing import Any, Dict, Optional
+from typing import Any
 
 
 class SemanticRouter:
@@ -42,19 +42,19 @@ class SemanticRouter:
         "NC-SVC-FR-020-benchmark-service": "NC-CORE-FR-104-benchmark-service",
     }
 
-    def __init__(self, root: pathlib.Path = None):
+    def __init__(self, root: pathlib.Path | None = None):
         self.root = root or pathlib.Path(
             os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3])
         )
         self._cache = None
         self._cache_ts = 0
-        self._overrides: Dict[str, str] = {}
+        self._overrides: dict[str, str] = {}
 
     def resolve_alias(self, nc_id: str) -> str:
         """Resolve alias: NC-ID antigo → NC-ID novo."""
         return self.NC_ALIASES.get(nc_id, nc_id)
 
-    def _load_catalog(self) -> Dict:
+    def _load_catalog(self) -> dict:
         import time
 
         if self._cache and time.time() - self._cache_ts < 60:
@@ -73,7 +73,7 @@ class SemanticRouter:
         self._cache_ts = time.time()
         return self._cache
 
-    def resolve(self, query: str) -> Dict:
+    def resolve(self, query: str) -> dict:
         """Resolve query para path e modulo. Ex: 'FR-154', 'KPI', 'governance'"""
         result = {"query": query, "found": False, "matches": []}
         catalog = self._load_catalog()
@@ -141,7 +141,7 @@ class SemanticRouter:
 
     # ─── ULQ SYMBOL RESOLVER (@/$/%/#) ──────────────────────────
 
-    def _load_ulq_dictionary(self) -> Dict:
+    def _load_ulq_dictionary(self) -> dict:
         """Carrega e parseia o dicionario ULQ markdown em tabelas de simbolos."""
         ulq_file = (
             self.root
@@ -199,7 +199,7 @@ class SemanticRouter:
 
         return symbols
 
-    def resolve_symbol(self, symbol: str) -> Dict:
+    def resolve_symbol(self, symbol: str) -> dict:
         """Resolve simbolo ULQ (@/$/%/#) para path real, com decay chain.
 
         Exemplos:
@@ -266,14 +266,14 @@ class SemanticRouter:
 
     # ─── SANDBOX OVERRIDE ──────────────────────────────────────
 
-    def override(self, symbol: str, temp_path: str) -> Dict:
+    def override(self, symbol: str, temp_path: str) -> dict:
         """Restaura o path original de um simbolo ULQ."""
         if symbol in self._overrides:
             del self._overrides[symbol]
             return {"symbol": symbol, "status": "restored"}
         return {"symbol": symbol, "status": "not_overridden"}
 
-    def resolve_path(self, symbol: str) -> Optional[pathlib.Path]:
+    def resolve_path(self, symbol: str) -> pathlib.Path | None:
         """Conveniencia: resolve simbolo @ e retorna Path absoluto ou None.
         Respeita overrides de sandbox."""
         if symbol in self._overrides:
@@ -289,7 +289,7 @@ class SemanticRouter:
             return p if p.exists() else None
         return None
 
-    def route_to_module(self, nc_id: str) -> Optional[Any]:
+    def route_to_module(self, nc_id: str) -> Any | None:
         """Carrega e retorna modulo por NC-ID. Ex: route_to_module('FR-154') -> KPIEngine"""
         import importlib.util
 

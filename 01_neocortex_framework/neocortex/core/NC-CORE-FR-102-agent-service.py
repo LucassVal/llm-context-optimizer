@@ -12,7 +12,7 @@ This service encapsulates business logic for ephemeral agent operations,
 using repository interfaces for storage abstraction.
 """
 
-from typing import Any, Dict, Optional
+from typing import Any
 
 try:
     from ..repositories import LedgerRepository
@@ -23,7 +23,7 @@ except ImportError:
 class AgentService:
     """Service for ephemeral agent business logic."""
 
-    def __init__(self, repository: Optional[LedgerRepository] = None):
+    def __init__(self, repository: LedgerRepository | None = None):
         """
         Initialize agent service.
 
@@ -41,7 +41,7 @@ class AgentService:
         else:
             self.repository = repository
 
-    def _ensure_agent_structure(self, ledger: Dict[str, Any]) -> Dict[str, Any]:
+    def _ensure_agent_structure(self, ledger: dict[str, Any]) -> dict[str, Any]:
         """Ensure agent structure exists in memory_cortex."""
         memory_cortex = ledger.get("memory_cortex", {})
         if "active_agents" not in memory_cortex:
@@ -52,8 +52,8 @@ class AgentService:
         return ledger
 
     def spawn_agent(
-        self, role: str, backend_override: Optional[str] = None
-    ) -> Dict[str, Any]:
+        self, role: str, backend_override: str | None = None
+    ) -> dict[str, Any]:
         """
         Spawn a new ephemeral agent.
 
@@ -96,7 +96,7 @@ class AgentService:
             + (f" (backend: {backend_override})" if backend_override else ""),
         }
 
-    def list_ephemeral(self) -> Dict[str, Any]:
+    def list_ephemeral(self) -> dict[str, Any]:
         """
         List all active ephemeral agents.
 
@@ -114,7 +114,7 @@ class AgentService:
             "count": len(active_agents),
         }
 
-    def heartbeat(self, agent_id: str) -> Dict[str, Any]:
+    def heartbeat(self, agent_id: str) -> dict[str, Any]:
         """
         Check agent status (heartbeat).
 
@@ -143,7 +143,7 @@ class AgentService:
             "last_heartbeat": "auto_generated",
         }
 
-    def consume(self, agent_id: str) -> Dict[str, Any]:
+    def consume(self, agent_id: str) -> dict[str, Any]:
         """
         Consume agent results and archive agent.
 
@@ -187,7 +187,7 @@ class AgentService:
             "message": f"Agent {agent_id} archived after consumption",
         }
 
-    def get_agent_stats(self) -> Dict[str, Any]:
+    def get_agent_stats(self) -> dict[str, Any]:
         """
         Get statistics about agents.
 
@@ -231,7 +231,7 @@ class AgentService:
 _default_agent_service = None
 
 
-def get_agent_service(repository: Optional[LedgerRepository] = None) -> AgentService:
+def get_agent_service(repository: LedgerRepository | None = None) -> AgentService:
     """
     Get agent service instance (singleton pattern).
 

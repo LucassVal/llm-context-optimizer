@@ -16,7 +16,6 @@ Score 100 se nenhum lock violado, 0 se qualquer lock modificado.
 import fnmatch
 import logging
 from pathlib import Path
-from typing import Dict, List
 
 import yaml
 
@@ -25,7 +24,7 @@ from .. import ValidationResult
 logger = logging.getLogger(__name__)
 
 
-def _load_locked_paths() -> List[str]:
+def _load_locked_paths() -> list[str]:
     """Carrega lista de paths bloqueados do arquivo atomic-locks.yaml."""
     locks_file = (
         Path(__file__).parent.parent.parent.parent
@@ -52,7 +51,7 @@ def _load_locked_paths() -> List[str]:
     return locked_paths
 
 
-def validate(data: Dict) -> ValidationResult:
+def validate(data: dict) -> ValidationResult:
     """Valida que `files_modified` NO contm arquivos da lista @LOCKS.
 
     Args:

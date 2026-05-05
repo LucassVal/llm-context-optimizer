@@ -15,7 +15,7 @@ using repository interfaces for storage abstraction.
 import subprocess
 import sys
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 
 class BenchmarkService:
@@ -25,7 +25,7 @@ class BenchmarkService:
         """Initialize benchmark service."""
         self.project_root = Path(__file__).parent.parent.parent.parent
 
-    def run_drift(self) -> Dict[str, Any]:
+    def run_drift(self) -> dict[str, Any]:
         """
         Run Drift Exhaustion benchmark.
 
@@ -88,7 +88,7 @@ class BenchmarkService:
                 "message": f"Error executing benchmark: {e}",
             }
 
-    def run_titanomachy(self) -> Dict[str, Any]:
+    def run_titanomachy(self) -> dict[str, Any]:
         """
         Run Titanomachy benchmark.
 
@@ -110,7 +110,7 @@ class BenchmarkService:
             },
         }
 
-    def get_last_report(self) -> Dict[str, Any]:
+    def get_last_report(self) -> dict[str, Any]:
         """
         Get the last benchmark report.
 
@@ -139,7 +139,7 @@ class BenchmarkService:
             },
         }
 
-    def get_benchmark_stats(self) -> Dict[str, Any]:
+    def get_benchmark_stats(self) -> dict[str, Any]:
         """
         Get benchmark statistics.
 

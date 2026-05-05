@@ -6,7 +6,6 @@
 
 import logging
 import re
-from typing import Tuple
 
 logger = logging.getLogger(__name__)
 
@@ -23,7 +22,7 @@ class DeletionGuard:
         self.blocked_count = 0
         self.override_tokens: set = set()
 
-    def check_command(self, command: str, agent_id: str = "unknown") -> Tuple[bool, str]:
+    def check_command(self, command: str, agent_id: str = "unknown") -> tuple[bool, str]:
         """Verificar se comando contém operação de deleção."""
         if agent_id in self.override_tokens:
             self.override_tokens.discard(agent_id)
@@ -46,5 +45,5 @@ class DeletionGuard:
 
 _deletion_guard = DeletionGuard()
 
-def check_deletion(command: str, agent_id: str = "unknown") -> Tuple[bool, str]:
+def check_deletion(command: str, agent_id: str = "unknown") -> tuple[bool, str]:
     return _deletion_guard.check_command(command, agent_id)

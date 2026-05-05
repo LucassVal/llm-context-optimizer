@@ -17,7 +17,7 @@ import logging
 import threading
 import time
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -40,7 +40,7 @@ class TaskBroker:
     def __new__(cls):
         with cls._instance_lock:
             if cls._instance is None:
-                cls._instance = super(TaskBroker, cls).__new__(cls)
+                cls._instance = super().__new__(cls)
                 cls._instance._initialized = False
             return cls._instance
 
@@ -49,8 +49,8 @@ class TaskBroker:
             return
 
         self._lock = threading.Lock()
-        self._tasks: Dict[str, Dict[str, Any]] = {}
-        self._queue_file: Optional[Path] = None
+        self._tasks: dict[str, dict[str, Any]] = {}
+        self._queue_file: Path | None = None
         self._load_config()
 
         # Load existing tasks from disk
@@ -78,7 +78,7 @@ class TaskBroker:
             return
 
         try:
-            with open(self._queue_file, "r", encoding="utf-8") as f:
+            with open(self._queue_file, encoding="utf-8") as f:
                 data = json.load(f)
                 if isinstance(data, dict):
                     self._tasks = data
@@ -104,10 +104,10 @@ class TaskBroker:
         self,
         task_id: str,
         port: int,
-        task_data: Dict[str, Any],
+        task_data: dict[str, Any],
         timeout_seconds: int = 30,
         subserver_role: str = "unknown",
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Register a new task for tracking.
 
@@ -145,8 +145,8 @@ class TaskBroker:
         return {"success": True, "task_id": task_id}
 
     def update_task_status(
-        self, task_id: str, status: str, result: Optional[Dict[str, Any]] = None
-    ) -> Dict[str, Any]:
+        self, task_id: str, status: str, result: dict[str, Any] | None = None
+    ) -> dict[str, Any]:
         """
         Update task status and optionally store result.
 
@@ -172,7 +172,7 @@ class TaskBroker:
         logger.debug(f"Task {task_id} status updated to {status}")
         return {"success": True, "task_id": task_id, "status": status}
 
-    def get_task_status(self, task_id: str) -> Dict[str, Any]:
+    def get_task_status(self, task_id: str) -> dict[str, Any]:
         """Retrieve task status and result."""
         with self._lock:
             task = self._tasks.get(task_id)
@@ -187,7 +187,7 @@ class TaskBroker:
                 "created_at": task.get("created_at"),
             }
 
-    def cancel_task(self, task_id: str) -> Dict[str, Any]:
+    def cancel_task(self, task_id: str) -> dict[str, Any]:
         """Cancel a queued or running task."""
         with self._lock:
             task = self._tasks.get(task_id)
@@ -204,7 +204,7 @@ class TaskBroker:
             self._save_queue()
         return {"success": True, "task_id": task_id, "cancelled": True}
 
-    def list_queued_tasks(self, port: Optional[int] = None) -> Dict[str, Any]:
+    def list_queued_tasks(self, port: int | None = None) -> dict[str, Any]:
         """List all queued tasks, optionally filtered by port."""
         with self._lock:
             tasks = []
@@ -224,12 +224,12 @@ class TaskBroker:
             return {"success": True, "tasks": tasks}
 
     # Additional utility methods
-    def get_task(self, task_id: str) -> Optional[Dict[str, Any]]:
+    def get_task(self, task_id: str) -> dict[str, Any] | None:
         """Retrieve raw task entry (internal use)."""
         with self._lock:
             return self._tasks.get(task_id)
 
-    def get_tasks_by_status(self, status: str) -> List[Dict[str, Any]]:
+    def get_tasks_by_status(self, status: str) -> list[dict[str, Any]]:
         """Get all tasks with given status."""
         with self._lock:
             return [t for t in self._tasks.values() if t.get("status") == status]
@@ -245,7 +245,7 @@ class TaskBroker:
 
     def poll_result(
         self, task_id: str, timeout_sec: int = 30, poll_interval: float = 2.0
-    ) -> Optional[Dict[str, Any]]:
+    ) -> dict[str, Any] | None:
         """
         Poll subserver for task result with exponential backoff and retry.
 

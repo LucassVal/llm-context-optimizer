@@ -26,7 +26,7 @@ import os
 import urllib.request
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -67,7 +67,7 @@ def _ask_qwen(prompt: str, max_tok: int = 200) -> str:
 
 # ── Leitura de fontes ─────────────────────────────────────────────────────────
 
-def _recent_files(directory: Path, hours: int = 24, extensions=(".yaml", ".json", ".md", ".log")) -> List[Path]:
+def _recent_files(directory: Path, hours: int = 24, extensions=(".yaml", ".json", ".md", ".log")) -> list[Path]:
     """Arquivos modificados nas últimas N horas."""
     if not directory.exists():
         return []
@@ -93,7 +93,7 @@ def _read_excerpt(path: Path, max_chars: int = 500) -> str:
 
 # ── Extração de padrões ───────────────────────────────────────────────────────
 
-def _extract_pattern(content: str, source: str) -> Dict[str, Any] | None:
+def _extract_pattern(content: str, source: str) -> dict[str, Any] | None:
     """Usa Qwen 1.5b para extrair padrão relevante de um trecho."""
     prompt = (
         f"Analyze this log/handoff excerpt from a software framework.\n"
@@ -117,7 +117,7 @@ def _extract_pattern(content: str, source: str) -> Dict[str, Any] | None:
 
 # ── Persistência ───────────────────────────────────────────────────────────────
 
-def _save_to_akl(patterns: List[Dict], session_id: str) -> int:
+def _save_to_akl(patterns: list[dict], session_id: str) -> int:
     """Persiste padrões no AKL (machine_memory lobe)."""
     try:
         import sys
@@ -140,7 +140,7 @@ def _save_to_akl(patterns: List[Dict], session_id: str) -> int:
         return 0
 
 
-def _save_to_kg(patterns: List[Dict]) -> int:
+def _save_to_kg(patterns: list[dict]) -> int:
     """Adiciona entidades/relações ao KG."""
     try:
         from neocortex.core.kg_service import get_kg_service
@@ -164,7 +164,7 @@ def _save_to_kg(patterns: List[Dict]) -> int:
 
 # ── Report ────────────────────────────────────────────────────────────────────
 
-def _generate_report(patterns: List[Dict], sources: int, session_id: str, akl_saved: int, kg_added: int) -> Path:
+def _generate_report(patterns: list[dict], sources: int, session_id: str, akl_saved: int, kg_added: int) -> Path:
     ts = datetime.now().strftime("%Y%m%d-%H%M%S")
     report_path = OUT_DIR / f"NC-CASC-REPORT-{ts}.md"
 
@@ -177,7 +177,7 @@ def _generate_report(patterns: List[Dict], sources: int, session_id: str, akl_sa
         "\n---\n\n## Padrões Consolidados\n",
     ]
 
-    by_cat: Dict[str, List] = {}
+    by_cat: dict[str, list] = {}
     for p in patterns:
         cat = p.get("category", "insight")
         by_cat.setdefault(cat, []).append(p)
@@ -210,11 +210,11 @@ class CascadeConsolidator:
         self.hours      = hours
         self.session_id = f"casc-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
 
-    def run(self) -> Dict[str, Any]:
+    def run(self) -> dict[str, Any]:
         logger.info(f"[CASCADE] Iniciando consolidação | session={self.session_id} | janela={self.hours}h")
 
         # 1. Coletar fontes
-        sources: List[Path] = []
+        sources: list[Path] = []
         for d in [LOG_DIR, HND_DIR]:
             sources.extend(_recent_files(d, hours=self.hours))
 
@@ -226,7 +226,7 @@ class CascadeConsolidator:
         logger.info(f"[CASCADE] {len(sources)} fontes encontradas")
 
         # 2. Extrair padrões
-        patterns: List[Dict] = []
+        patterns: list[dict] = []
         processed = 0
         for src in sources[:20]:  # Limite de 20 fontes por ciclo
             excerpt = _read_excerpt(src, max_chars=400)
@@ -267,17 +267,17 @@ class CascadeConsolidator:
 
 # ── Singleton + registry ───────────────────────────────────────────────────────
 
-_last_result: Dict | None = None
+_last_result: dict | None = None
 
 
-def run_cascade(hours: int = 24) -> Dict[str, Any]:
+def run_cascade(hours: int = 24) -> dict[str, Any]:
     global _last_result
     cc = CascadeConsolidator(hours=hours)
     _last_result = cc.run()
     return _last_result
 
 
-def cascade_status() -> Dict[str, Any]:
+def cascade_status() -> dict[str, Any]:
     return _last_result or {"status": "never_run", "timestamp": datetime.now().isoformat(timespec="seconds")}
 
 

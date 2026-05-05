@@ -9,7 +9,7 @@ import logging
 from datetime import datetime
 from enum import Enum
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -24,7 +24,7 @@ class CommunicationType(Enum):
 class HierarchyProtocol:
     """Protocolo de comunicação entre níveis hierárquicos."""
 
-    def __init__(self, root: Optional[Path] = None):
+    def __init__(self, root: Path | None = None):
         import os as _os
         self.root = root or Path(_os.environ.get("NC_ROOT", Path(__file__).parents[3]))
         self.comm_log = self.root / ".neocortex" / "hierarchy" / "comm.jsonl"
@@ -34,7 +34,7 @@ class HierarchyProtocol:
 
     def can_communicate(self, source_level: str, target_level: str,
                         comm_type: CommunicationType,
-                        same_parent: bool = True) -> Tuple[bool, str]:
+                        same_parent: bool = True) -> tuple[bool, str]:
         """
         Verificar se comunicação entre níveis é permitida.
 
@@ -74,10 +74,10 @@ class HierarchyProtocol:
 
     # ── SEND: enviar mensagem ──────────────────────────────────
 
-    def send(self, source_id: str, target_id: str, message: Dict[str, Any],
+    def send(self, source_id: str, target_id: str, message: dict[str, Any],
              source_level: str = "uniao", target_level: str = "municipio",
              comm_type: CommunicationType = CommunicationType.VERTICAL_DOWN,
-             authorization: str = "") -> Dict[str, Any]:
+             authorization: str = "") -> dict[str, Any]:
         """
         Enviar mensagem entre níveis hierárquicos.
         Registra no WAL de comunicação.
@@ -115,7 +115,7 @@ class HierarchyProtocol:
     # ── PARENT↔PARENT: WAL Sync ───────────────────────────────
 
     def parent_sync(self, parent_a: str, parent_b: str,
-                    data: Dict[str, Any]) -> Dict[str, Any]:
+                    data: dict[str, Any]) -> dict[str, Any]:
         """Sync entre dois parents (horizontal, mesmo nível)."""
         return self.send(parent_a, parent_b, data,
                         "estado", "estado", CommunicationType.HORIZONTAL)
@@ -123,7 +123,7 @@ class HierarchyProtocol:
     # ── CHILD↔CHILD: intra-parent ──────────────────────────────
 
     def child_communicate(self, child_a: str, child_b: str,
-                          parent_id: str, data: Dict[str, Any]) -> Dict[str, Any]:
+                          parent_id: str, data: dict[str, Any]) -> dict[str, Any]:
         """Comunicação entre children do MESMO parent."""
         return self.send(child_a, child_b, data,
                         "municipio", "municipio", CommunicationType.HORIZONTAL,
@@ -132,7 +132,7 @@ class HierarchyProtocol:
     # ── DIAGONAL: Child → Other Parent ─────────────────────────
 
     def diagonal_request(self, child_id: str, target_parent: str,
-                         own_parent: str, request: Dict[str, Any]) -> Dict[str, Any]:
+                         own_parent: str, request: dict[str, Any]) -> dict[str, Any]:
         """Child solicita comunicação com parent de outro domínio."""
         # Requer autorização do próprio parent
         if not own_parent:
@@ -145,7 +145,7 @@ class HierarchyProtocol:
 
     # ── TERRITORY ENFORCEMENT ─────────────────────────────────
 
-    def enforce_territory(self, level: str, path: str) -> Tuple[bool, str]:
+    def enforce_territory(self, level: str, path: str) -> tuple[bool, str]:
         """
         Verificar se um path está dentro do território do nível.
         Usa as zonas definidas no Pacto Federativo.
@@ -170,7 +170,7 @@ class HierarchyProtocol:
     # ── QUERY: histórico de comunicação ────────────────────────
 
     def get_communication_log(self, source_id: str = "",
-                              limit: int = 20) -> List[Dict[str, Any]]:
+                              limit: int = 20) -> list[dict[str, Any]]:
         """Consultar log de comunicação."""
         if not self.comm_log.exists():
             return []
@@ -187,7 +187,7 @@ class HierarchyProtocol:
 
 
 # Singleton
-_hierarchy_instance: Optional[HierarchyProtocol] = None
+_hierarchy_instance: HierarchyProtocol | None = None
 
 
 def get_hierarchy() -> HierarchyProtocol:

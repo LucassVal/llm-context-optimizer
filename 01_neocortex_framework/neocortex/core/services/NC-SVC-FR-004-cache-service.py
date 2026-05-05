@@ -18,7 +18,7 @@ This module is a standalone service that can be imported by any module.
 import logging
 import time
 from threading import RLock
-from typing import Any, Dict, Optional, Tuple
+from typing import Any, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -28,13 +28,18 @@ class HotCache:
 
     _instance: Optional["HotCache"] = None
     _lock: RLock
+    _cache: dict[str, tuple[Any, float | None]]
+    _hits: int
+    _misses: int
+    _max_size: int
+    _default_ttl: int
 
     def __new__(cls) -> "HotCache":
         """Singleton pattern."""
         if cls._instance is None:
             cls._instance = super().__new__(cls)
             cls._instance._lock = RLock()
-            cls._instance._cache: Dict[str, Tuple[Any, Optional[float]]] = {}
+            cls._instance._cache = {}
             cls._instance._hits = 0
             cls._instance._misses = 0
             cls._instance._max_size = 500
@@ -53,7 +58,7 @@ class HotCache:
         except Exception as e:
             logger.warning(f"Failed to load cache config: {e}. Using defaults.")
 
-    def set(self, key: str, value: Any, ttl: Optional[float] = None) -> None:
+    def set(self, key: str, value: Any, ttl: float | None = None) -> None:
         """
         Store a value in cache with optional TTL.
 
@@ -79,7 +84,7 @@ class HotCache:
             self._cache[key] = (value, expire_at)
             logger.debug(f"Cache set: {key} (ttl={ttl}s)")
 
-    def get(self, key: str) -> Optional[Any]:
+    def get(self, key: str) -> Any | None:
         """
         Retrieve a value from cache.
 
@@ -139,7 +144,7 @@ class HotCache:
             logger.info(f"Cache cleared, removed {count} entries")
             return count
 
-    def stats(self) -> Dict[str, Any]:
+    def stats(self) -> dict[str, Any]:
         """
         Get cache statistics.
 

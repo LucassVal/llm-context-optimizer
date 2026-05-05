@@ -24,7 +24,7 @@ import json
 import logging
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 logger = logging.getLogger(__name__)
 TOOL_NAME = "neocortex_context"
@@ -49,7 +49,7 @@ def register_tool(mcp) -> None:
         format: str = "markdown",
         output_path: str = "",
         session_id: str = "",
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """CORTE TJ — Contexto e Compressão.
         Funde: context (017) + report (013+010).
         Actions: context.budget_status, context.compress, context.prune,

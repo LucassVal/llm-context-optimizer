@@ -7,7 +7,7 @@
 import importlib.util
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any
 
 ACTIONS = {
     # CPC Digital — (filename, mod_key, method, param_mapping)
@@ -58,7 +58,7 @@ DEFAULTS = {
     "case_id": "",
 }
 
-_cache: Dict[str, Any] = {}
+_cache: dict[str, Any] = {}
 
 
 def _load_module(root: Path, filename: str):
@@ -72,7 +72,7 @@ def _load_module(root: Path, filename: str):
     return mod
 
 
-def orbital_dispatch(action: str, root: Path, **kwargs) -> Optional[Dict[str, Any]]:
+def orbital_dispatch(action: str, root: Path, **kwargs) -> dict[str, Any] | None:
     """
     Orbital Bridge — dispatch para módulos jurídicos.
     R22 DRY (Súmula Vinculante): toda ação passa pelo gateway ANTES de despachar.

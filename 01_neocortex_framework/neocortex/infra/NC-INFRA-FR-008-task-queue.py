@@ -17,16 +17,17 @@ import sqlite3
 import threading
 import time
 import uuid
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
-from enum import Enum
+from enum import Enum, StrEnum
 from pathlib import Path
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
 
-class TaskStatus(str, Enum):
+class TaskStatus(StrEnum):
     """Task status states."""
 
     PENDING = "pending"
@@ -52,24 +53,24 @@ class Task:
 
     id: str
     name: str
-    payload: Dict[str, Any]
+    payload: dict[str, Any]
     status: TaskStatus = TaskStatus.PENDING
     priority: TaskPriority = TaskPriority.NORMAL
     max_retries: int = 3
     retry_count: int = 0
     created_at: datetime = field(default_factory=datetime.now)
-    scheduled_for: Optional[datetime] = None
-    started_at: Optional[datetime] = None
-    completed_at: Optional[datetime] = None
-    error_message: Optional[str] = None
-    result: Optional[Dict[str, Any]] = None
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    scheduled_for: datetime | None = None
+    started_at: datetime | None = None
+    completed_at: datetime | None = None
+    error_message: str | None = None
+    result: dict[str, Any] | None = None
+    metadata: dict[str, Any] = field(default_factory=dict)
 
     @classmethod
     def create(
         cls,
         name: str,
-        payload: Dict[str, Any],
+        payload: dict[str, Any],
         priority: TaskPriority = TaskPriority.NORMAL,
         max_retries: int = 3,
         schedule_delay_seconds: int = 0,
@@ -118,7 +119,7 @@ class TaskQueue:
     - Progress tracking
     """
 
-    def __init__(self, db_path: Optional[Path] = None):
+    def __init__(self, db_path: Path | None = None):
         """
         Initialize task queue.
 
@@ -173,7 +174,7 @@ class TaskQueue:
                 error_message TEXT,
                 result_json TEXT,
                 metadata_json TEXT,
-                
+
                 -- Indexes for common queries
                 INDEX idx_status_priority (status, priority DESC),
                 INDEX idx_scheduled_for (scheduled_for),
@@ -263,7 +264,7 @@ class TaskQueue:
             finally:
                 conn.close()
 
-    def dequeue(self, worker_id: str = "default") -> Optional[Task]:
+    def dequeue(self, worker_id: str = "default") -> Task | None:
         """
         Dequeue the next available task for execution.
 
@@ -281,12 +282,12 @@ class TaskQueue:
 
                 cursor = conn.execute(
                     """
-                SELECT * FROM tasks 
-                WHERE status = ? 
+                SELECT * FROM tasks
+                WHERE status = ?
                 AND (scheduled_for IS NULL OR scheduled_for <= ?)
                 AND NOT EXISTS (
-                    SELECT 1 FROM task_dependencies 
-                    WHERE task_dependencies.task_id = tasks.id 
+                    SELECT 1 FROM task_dependencies
+                    WHERE task_dependencies.task_id = tasks.id
                     AND task_dependencies.depends_on_id IN (
                         SELECT id FROM tasks WHERE status != ?
                     )
@@ -306,7 +307,7 @@ class TaskQueue:
                 task_id = row["id"]
                 conn.execute(
                     """
-                UPDATE tasks 
+                UPDATE tasks
                 SET status = ?, started_at = ?, retry_count = retry_count + 1
                 WHERE id = ?
                 """,
@@ -331,7 +332,7 @@ class TaskQueue:
             finally:
                 conn.close()
 
-    def complete(self, task_id: str, result: Optional[Dict[str, Any]] = None) -> bool:
+    def complete(self, task_id: str, result: dict[str, Any] | None = None) -> bool:
         """
         Mark task as completed.
 
@@ -349,7 +350,7 @@ class TaskQueue:
 
                 conn.execute(
                     """
-                UPDATE tasks 
+                UPDATE tasks
                 SET status = ?, completed_at = ?, result_json = ?
                 WHERE id = ?
                 """,
@@ -401,7 +402,7 @@ class TaskQueue:
 
                     conn.execute(
                         """
-                    UPDATE tasks 
+                    UPDATE tasks
                     SET status = ?, error_message = ?, scheduled_for = ?
                     WHERE id = ?
                     """,
@@ -416,7 +417,7 @@ class TaskQueue:
                     # Max retries exceeded
                     conn.execute(
                         """
-                    UPDATE tasks 
+                    UPDATE tasks
                     SET status = ?, error_message = ?, completed_at = ?
                     WHERE id = ?
                     """,
@@ -438,7 +439,7 @@ class TaskQueue:
             finally:
                 conn.close()
 
-    def get_task(self, task_id: str) -> Optional[Task]:
+    def get_task(self, task_id: str) -> Task | None:
         """
         Get task by ID.
 
@@ -459,11 +460,11 @@ class TaskQueue:
 
     def list_tasks(
         self,
-        status: Optional[TaskStatus] = None,
-        name: Optional[str] = None,
+        status: TaskStatus | None = None,
+        name: str | None = None,
         limit: int = 100,
         offset: int = 0,
-    ) -> List[Task]:
+    ) -> list[Task]:
         """
         List tasks with optional filters.
 
@@ -529,7 +530,7 @@ class TaskQueue:
                 conn.close()
 
     def register_handler(
-        self, task_name: str, handler: Callable[[Task], Dict[str, Any]]
+        self, task_name: str, handler: Callable[[Task], dict[str, Any]]
     ):
         """
         Register task handler.
@@ -620,17 +621,17 @@ class TaskQueue:
             self._worker_thread.join(timeout=10.0)
             self._worker_thread = None
 
-    def get_stats(self) -> Dict[str, Any]:
+    def get_stats(self) -> dict[str, Any]:
         """Get queue statistics."""
         with self.lock:
             conn = self._get_connection()
             try:
                 cursor = conn.execute("""
-                SELECT 
+                SELECT
                     status,
                     COUNT(*) as count,
                     AVG((julianday(completed_at) - julianday(started_at)) * 86400) as avg_duration_seconds
-                FROM tasks 
+                FROM tasks
                 WHERE started_at IS NOT NULL
                 GROUP BY status
                 """)
@@ -649,7 +650,7 @@ class TaskQueue:
                 # Pending tasks
                 cursor = conn.execute(
                     """
-                SELECT COUNT(*) as pending FROM tasks 
+                SELECT COUNT(*) as pending FROM tasks
                 WHERE status = ?
                 """,
                     (TaskStatus.PENDING.value,),
@@ -660,7 +661,7 @@ class TaskQueue:
                 cursor = conn.execute(
                     """
                 SELECT AVG((julianday('now') - julianday(created_at)) * 86400) as avg_age_seconds
-                FROM tasks 
+                FROM tasks
                 WHERE status = ?
                 """,
                     (TaskStatus.PENDING.value,),
@@ -707,7 +708,7 @@ class TaskQueue:
         self.close()
 
 
-def create_task_queue(db_path: Optional[Path] = None) -> TaskQueue:
+def create_task_queue(db_path: Path | None = None) -> TaskQueue:
     """
     Create a TaskQueue instance.
 

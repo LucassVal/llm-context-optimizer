@@ -20,7 +20,6 @@ import logging
 from collections import deque
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -38,7 +37,7 @@ class SessionMemoryWriter:
 
     def __init__(
         self,
-        log_dir: Optional[Path] = None,
+        log_dir: Path | None = None,
         hot_buffer_size: int = 10,
     ):
         self._log_dir = log_dir or (
@@ -58,7 +57,7 @@ class SessionMemoryWriter:
 
     # ── Core ──────────────────────────────────────────────────────────────────
 
-    def turn_record(self, user_msg: str, ai_response: str) -> Dict:
+    def turn_record(self, user_msg: str, ai_response: str) -> dict:
         """Registra um turno de conversa. Retorna o entry persistido."""
         self._turn_count += 1
         ts = datetime.now().isoformat()
@@ -83,7 +82,7 @@ class SessionMemoryWriter:
         logger.debug("turn_record: turno %d registrado", self._turn_count)
         return entry
 
-    def get_hot_summary(self) -> List[Dict]:
+    def get_hot_summary(self) -> list[dict]:
         """Retorna os últimos N turnos (hot buffer)."""
         return list(self._hot)
 
@@ -99,7 +98,7 @@ class SessionMemoryWriter:
         text = "\n".join(lines)
         return text[:max_chars]
 
-    def session_end(self, output_path: Optional[Path] = None) -> Dict:
+    def session_end(self, output_path: Path | None = None) -> dict:
         """
         Encerra sessão: gera handoff compacto e salva em output_path.
         Retorna dict com stats da sessão.
@@ -107,7 +106,7 @@ class SessionMemoryWriter:
         output_path = output_path or self._log_dir.parent
         ts = datetime.now().strftime("%Y%m%dT%H%M%S")
         total_tokens = sum(e.get("tokens_est", 0) for e in self._hot)
-        all_tags: List[str] = []
+        all_tags: list[str] = []
         for e in self._hot:
             all_tags.extend(e.get("topic_tags", []))
         top_tags = list(dict.fromkeys(all_tags))[:10]
@@ -141,7 +140,7 @@ class SessionMemoryWriter:
         return max(1, len(text) // 4)
 
     @staticmethod
-    def _extract_tags(text: str) -> List[str]:
+    def _extract_tags(text: str) -> list[str]:
         """Extrai tags simples por frequência de palavras-chave NC."""
         keywords = [
             "litellm", "lexico", "lobe", "mcp", "tool", "ticket",
@@ -152,7 +151,7 @@ class SessionMemoryWriter:
         text_lower = text.lower()
         return [kw for kw in keywords if kw in text_lower]
 
-    def stats(self) -> Dict:
+    def stats(self) -> dict:
         """Retorna estatísticas da sessão atual."""
         return {
             "session_date": self._session_date,
@@ -164,10 +163,10 @@ class SessionMemoryWriter:
 
 
 # Singleton
-_smw_instance: Optional[SessionMemoryWriter] = None
+_smw_instance: SessionMemoryWriter | None = None
 
 
-def get_session_memory(log_dir: Optional[Path] = None) -> SessionMemoryWriter:
+def get_session_memory(log_dir: Path | None = None) -> SessionMemoryWriter:
     """Retorna instância singleton do SessionMemoryWriter."""
     global _smw_instance
     if _smw_instance is None:

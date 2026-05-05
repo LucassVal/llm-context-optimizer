@@ -10,7 +10,6 @@ import sqlite3
 import subprocess
 import sys
 from datetime import datetime
-from typing import Dict, Optional
 
 # ═══════════════════════════════════════════════════════════════
 # R54 — BSC (Balanced Scorecard) — 4 Perspectivas
@@ -19,10 +18,10 @@ from typing import Dict, Optional
 class BalancedScorecard:
     """Painel de controle estratégico com 4 óticas."""
 
-    def __init__(self, root: Optional[pathlib.Path] = None):
+    def __init__(self, root: pathlib.Path | None = None):
         self.root = root or pathlib.Path(os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3]))
 
-    def analyze(self) -> Dict:
+    def analyze(self) -> dict:
         # Coletar dados REAIS
         tools_dir = self.root / "01_neocortex_framework" / "neocortex" / "mcp" / "tools"
         tools_count = len(list(tools_dir.glob("NC-SUPER-*.py"))) if tools_dir.exists() else 0
@@ -73,10 +72,10 @@ class BalancedScorecard:
 class SWOTAnalyzer:
     """Análise de risco automatizada do ecossistema MCP."""
 
-    def __init__(self, root: Optional[pathlib.Path] = None):
+    def __init__(self, root: pathlib.Path | None = None):
         self.root = root or pathlib.Path(os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3]))
 
-    def analyze(self) -> Dict:
+    def analyze(self) -> dict:
         return {
             "strengths": {
                 "label": "Forças (Internas Positivas)",
@@ -135,12 +134,12 @@ class SWOTAnalyzer:
 # ═══════════════════════════════════════════════════════════════
 
 class BSCSWOTEngine:
-    def __init__(self, root: Optional[pathlib.Path] = None):
+    def __init__(self, root: pathlib.Path | None = None):
         self.root = root or pathlib.Path(os.environ.get("NC_ROOT", pathlib.Path(__file__).parents[3]))
         self.bsc = BalancedScorecard(root=self.root)
         self.swot = SWOTAnalyzer(root=self.root)
 
-    def full(self) -> Dict:
+    def full(self) -> dict:
         return {
             "bsc": self.bsc.analyze(),
             "swot": self.swot.analyze(),

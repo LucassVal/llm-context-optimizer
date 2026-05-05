@@ -20,7 +20,7 @@ import json
 import logging
 import os
 from pathlib import Path
-from typing import Any, Dict, Optional, Union
+from typing import Any
 
 # YAML loading utilities
 _yaml_loader = None
@@ -64,7 +64,7 @@ class ProjectConfig:
         reset() -> None
     """
 
-    def __init__(self, project_root: Union[Path, str]) -> None:
+    def __init__(self, project_root: Path | str) -> None:
         """
         Inicializa config para o projeto especificado.
 
@@ -78,15 +78,15 @@ class ProjectConfig:
 
         self.config_dir = self.project_root / ".neocortex"
         self.config_file = self.config_dir / "project.yaml"
-        self._config: Dict[str, Any] = {}
-        self._global_config: Optional[Dict[str, Any]] = None
+        self._config: dict[str, Any] = {}
+        self._global_config: dict[str, Any] | None = None
 
         if _yaml_lib is None:
             logger.warning(
                 "Nem ruamel.yaml nem PyYAML encontrados. Usando JSON como fallback."
             )
 
-    def load(self) -> Dict[str, Any]:
+    def load(self) -> dict[str, Any]:
         """
         Carrega .neocortex/project.yaml se existir.
 
@@ -102,10 +102,7 @@ class ProjectConfig:
 
         try:
             content = self.config_file.read_text(encoding="utf-8")
-            if _yaml_loader is not None:
-                config = _yaml_loader(content) or {}
-            else:
-                config = json.loads(content)
+            config = _yaml_loader(content) or {} if _yaml_loader is not None else json.loads(content)
         except Exception as e:
             logger.error(f"Erro ao carregar configurao do projeto: {e}")
             config = {}
@@ -114,7 +111,7 @@ class ProjectConfig:
         logger.debug(f"Configurao do projeto carregada: {len(config)} chaves")
         return config
 
-    def save(self, data: Dict[str, Any]) -> None:
+    def save(self, data: dict[str, Any]) -> None:
         """
         Persiste dicionrio em .neocortex/project.yaml.
 
@@ -187,7 +184,7 @@ class ProjectConfig:
         # Persiste
         self.save(self._config)
 
-    def merge_with_global(self) -> Dict[str, Any]:
+    def merge_with_global(self) -> dict[str, Any]:
         """
         Retorna dict merged: global + project (project wins).
 
@@ -226,7 +223,7 @@ class ProjectConfig:
                 return default
         return value
 
-    def _load_global_config(self) -> Dict[str, Any]:
+    def _load_global_config(self) -> dict[str, Any]:
         """
         Carrega configurao global (neocortex_config.yaml).
 
@@ -247,10 +244,7 @@ class ProjectConfig:
 
         try:
             content = config_path.read_text(encoding="utf-8")
-            if _yaml_loader is not None:
-                config = _yaml_loader(content) or {}
-            else:
-                config = json.loads(content)
+            config = _yaml_loader(content) or {} if _yaml_loader is not None else json.loads(content)
         except Exception as e:
             logger.error(f"Erro ao carregar configurao global: {e}")
             config = {}
@@ -284,8 +278,8 @@ class ProjectConfig:
             return Path.home() / ".config" / "neocortex" / "neocortex_config.yaml"
 
     def _deep_merge(
-        self, base: Dict[str, Any], override: Dict[str, Any]
-    ) -> Dict[str, Any]:
+        self, base: dict[str, Any], override: dict[str, Any]
+    ) -> dict[str, Any]:
         """
         Merge recursivo de dicionrios (override sobrescreve base).
 
@@ -310,11 +304,11 @@ class ProjectConfig:
 
 
 # Singleton convenience
-_default_project_config: Optional[ProjectConfig] = None
+_default_project_config: ProjectConfig | None = None
 
 
 def get_project_config(
-    project_root: Optional[Union[Path, str]] = None,
+    project_root: Path | str | None = None,
 ) -> ProjectConfig:
     """
     Singleton do ProjectConfig.
