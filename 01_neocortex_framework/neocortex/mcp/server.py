@@ -11,7 +11,13 @@ import logging
 import os
 import sys
 import atexit
-import importlib
+import json
+import logging
+import os
+import sys
+import time as _time
+import uuid
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, Any
 from datetime import datetime, timezone
@@ -64,10 +70,11 @@ class SessionManager:
     """Gerencia o ciclo de vida da sessão NeoCortex."""
 
     def __init__(self):
+        self.session_id = str(uuid.uuid4())
         self.session_start = datetime.now(timezone.utc).isoformat() + "Z"
         self.last_heartbeat = self.session_start
         self.active = True
-        logger.info(f"Sessão NeoCortex iniciada em: {self.session_start}")
+        logger.info(f"Sessão NeoCortex {self.session_id[:8]} iniciada em: {self.session_start}")
 
         # Registrar finalização via atexit
         atexit.register(self.finalize_session)
@@ -359,21 +366,8 @@ def create_mcp_server(host="127.0.0.1", port=8765):
     if FAST_MCP_AVAILABLE:
         server = FastMCP("neocortex", host=host, port=port)
         
-        # Add health check tool (NC-DS-253: outputSchema PoC)
-        @server.tool(
-            outputSchema={
-                "type": "object",
-                "properties": {
-                    "success": {"type": "boolean"},
-                    "status": {"type": "string", "enum": ["healthy", "degraded", "down"]},
-                    "service": {"type": "string"},
-                    "version": {"type": "string"},
-                    "timestamp": {"type": "string", "format": "date-time"},
-                    "tools_loaded": {"type": "integer"}
-                },
-                "required": ["success", "status", "service"]
-            }
-        )
+        # Add health check tool for monitoring
+        @server.tool()
         def health_check() -> dict:
             """Check MCP server health status"""
             return {
@@ -473,6 +467,28 @@ def create_mcp_server(host="127.0.0.1", port=8765):
 
     hook_registry_instance = _HookProxy()
     logger.info(f"Hooks: {len(_hooks_pre)}P/{len(_hooks_post)}O/{len(_hooks_err)}E ativos")
+
+    # ── PING + NOTIFICATIONS (NC-DS-254 + NC-DS-258) ──────────────
+    if FAST_MCP_AVAILABLE:
+        @server.tool()
+        def ping() -> dict:
+            """Keepalive ping — MCP spec utility primitive"""
+            return {"pong": True, "timestamp": datetime.now(timezone.utc).isoformat() + "Z"}
+
+        # Wire PostToolUse hooks to send notifications
+        _orig_post = list(_hooks_post)
+        def _notify_hook(**ctx):
+            for h in _orig_post:
+                try: h(**ctx)
+                except: pass
+            # NC-DS-254: Signal potential tool list change
+            try:
+                if hasattr(server, 'send_tool_list_changed'):
+                    server.send_tool_list_changed()
+            except Exception:
+                pass
+        _hooks_post.clear()
+        _hooks_post.append(_notify_hook)
 
     # ── LOGGING (NC-DS-257) ────────────────────────────────────────
     _current_log_level = "INFO"
