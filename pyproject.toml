@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "neocortex"
+version = "4.2.0"
+requires-python = ">=3.10"
+dependencies = [
+    "fastmcp>=1.2.0",
+    "httpx",
+    "pyyaml",
+    "ruamel.yaml",
+    "anthropic",
+]
