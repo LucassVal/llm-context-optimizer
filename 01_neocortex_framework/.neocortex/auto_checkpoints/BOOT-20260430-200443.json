@@ -1,0 +1,28 @@
+{
+  "checkpoint": "BOOT-20260430-200443.json",
+  "transport": "sse",
+  "host": "127.0.0.1",
+  "port": 8765,
+  "python": "C:\\Program Files\\Python312\\python.exe",
+  "version": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+  "steps": [
+    {
+      "step": "01_config_parsed",
+      "status": "OK",
+      "detail": "transport=sse",
+      "elapsed_ms": 2
+    },
+    {
+      "step": "02_server_created",
+      "status": "OK",
+      "detail": "host=127.0.0.1 port=8765",
+      "elapsed_ms": 649
+    },
+    {
+      "step": "03_transport_sse",
+      "status": "OK",
+      "detail": "starting uvicorn on 127.0.0.1:8765/sse",
+      "elapsed_ms": 650
+    }
+  ]
+}

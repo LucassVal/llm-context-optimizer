@@ -1,0 +1,94 @@
+{
+  "checkpoint": "BOOT-20260502-144219.json",
+  "transport": "sse",
+  "host": "127.0.0.1",
+  "port": 8765,
+  "python": "C:\\Program Files\\Python312\\python.exe",
+  "version": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+  "steps": [
+    {
+      "step": "01_config_parsed",
+      "status": "OK",
+      "detail": "transport=streamable-http",
+      "elapsed_ms": 2
+    },
+    {
+      "step": "01_fastmcp_create",
+      "status": "START",
+      "detail": "host=127.0.0.1 port=8765",
+      "elapsed_ms": 4
+    },
+    {
+      "step": "01_fastmcp_create",
+      "status": "OK",
+      "detail": "FastMCP instance created",
+      "elapsed_ms": 10
+    },
+    {
+      "step": "02_metrics_store",
+      "status": "START",
+      "detail": "",
+      "elapsed_ms": 13
+    },
+    {
+      "step": "02_metrics_store",
+      "status": "OK",
+      "detail": "DuckDB metrics store ready",
+      "elapsed_ms": 138
+    },
+    {
+      "step": "03_governance_rules",
+      "status": "START",
+      "detail": "",
+      "elapsed_ms": 142
+    },
+    {
+      "step": "03_governance_rules",
+      "status": "OK",
+      "detail": "MDC rules injected into FastMCP",
+      "elapsed_ms": 159
+    },
+    {
+      "step": "04_pulse_scheduler",
+      "status": "START",
+      "detail": "",
+      "elapsed_ms": 162
+    },
+    {
+      "step": "04_pulse_scheduler",
+      "status": "OK",
+      "detail": "interval=300s",
+      "elapsed_ms": 167
+    },
+    {
+      "step": "05_tools_loading",
+      "status": "START",
+      "detail": "scanning C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools...",
+      "elapsed_ms": 169
+    },
+    {
+      "step": "05_tools_loading",
+      "status": "OK",
+      "detail": "21/21 loaded",
+      "elapsed_ms": 315
+    },
+    {
+      "step": "BOOT_COMPLETE",
+      "status": "OK",
+      "detail": "server ready, 21 tools, host=127.0.0.1:8765",
+      "elapsed_ms": 317
+    },
+    {
+      "step": "06_create_mcp_done",
+      "status": "OK",
+      "detail": "host=127.0.0.1 port=8765",
+      "elapsed_ms": 319
+    },
+    {
+      "step": "07_transport_http",
+      "status": "OK",
+      "detail": "starting streamable-http on 127.0.0.1:8765/mcp",
+      "elapsed_ms": 320
+    }
+  ]
+}

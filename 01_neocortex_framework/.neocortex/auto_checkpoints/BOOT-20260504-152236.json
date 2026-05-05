@@ -1,0 +1,184 @@
+{
+  "checkpoint": "BOOT-20260504-152236.json",
+  "transport": "stdio",
+  "host": "127.0.0.1",
+  "port": 8765,
+  "python": "C:\\Program Files\\Python312\\python.exe",
+  "version": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+  "steps": [
+    {
+      "step": "01_config_parsed",
+      "status": "OK",
+      "detail": "transport=stdio",
+      "elapsed_ms": 1
+    },
+    {
+      "step": "01_fastmcp_create",
+      "status": "START",
+      "detail": "host=127.0.0.1 port=8765",
+      "elapsed_ms": 19
+    },
+    {
+      "step": "01_fastmcp_create",
+      "status": "OK",
+      "detail": "FastMCP instance created",
+      "elapsed_ms": 42
+    },
+    {
+      "step": "02_metrics_store",
+      "status": "START",
+      "detail": "",
+      "elapsed_ms": 67
+    },
+    {
+      "step": "02_metrics_store",
+      "status": "FAIL",
+      "detail": "attempted relative import with no known parent package",
+      "elapsed_ms": 71
+    },
+    {
+      "step": "03_governance_rules",
+      "status": "START",
+      "detail": "",
+      "elapsed_ms": 72
+    },
+    {
+      "step": "03_governance_rules",
+      "status": "WARN",
+      "detail": "no MDC loader",
+      "elapsed_ms": 74
+    },
+    {
+      "step": "04_pulse_scheduler",
+      "status": "START",
+      "detail": "",
+      "elapsed_ms": 87
+    },
+    {
+      "step": "04_pulse_scheduler",
+      "status": "OK",
+      "detail": "interval=300s",
+      "elapsed_ms": 104
+    },
+    {
+      "step": "04b_ciclo4_weekly",
+      "status": "START",
+      "detail": "",
+      "elapsed_ms": 105
+    },
+    {
+      "step": "04b_ciclo4_weekly",
+      "status": "OK",
+      "detail": "CICLO4 via PulseScheduler compliance checks (300s)",
+      "elapsed_ms": 105
+    },
+    {
+      "step": "05_hook_registry",
+      "status": "START",
+      "detail": "",
+      "elapsed_ms": 107
+    },
+    {
+      "step": "05_hook_registry",
+      "status": "FAIL",
+      "detail": "STEP0_MentorMode: 'str' object has no attribute 'value'",
+      "elapsed_ms": 359
+    },
+    {
+      "step": "05_hook_registry",
+      "status": "FAIL",
+      "detail": "ConstitutionGateway: 'str' object has no attribute 'value'",
+      "elapsed_ms": 361
+    },
+    {
+      "step": "05_hook_registry",
+      "status": "FAIL",
+      "detail": "LockGuard: 'str' object has no attribute 'value'",
+      "elapsed_ms": 362
+    },
+    {
+      "step": "05_hook_registry",
+      "status": "FAIL",
+      "detail": "BashGuard: 'str' object has no attribute 'value'",
+      "elapsed_ms": 362
+    },
+    {
+      "step": "05_hook_registry",
+      "status": "FAIL",
+      "detail": "DeletionGuard: 'str' object has no attribute 'value'",
+      "elapsed_ms": 369
+    },
+    {
+      "step": "05_hook_registry",
+      "status": "FAIL",
+      "detail": "NamingValidator: 'str' object has no attribute 'value'",
+      "elapsed_ms": 370
+    },
+    {
+      "step": "05_hook_registry",
+      "status": "FAIL",
+      "detail": "CentralWatcher: 'str' object has no attribute 'value'",
+      "elapsed_ms": 370
+    },
+    {
+      "step": "05_hook_registry",
+      "status": "FAIL",
+      "detail": "SSOTReporter: 'str' object has no attribute 'value'",
+      "elapsed_ms": 371
+    },
+    {
+      "step": "05_hook_registry",
+      "status": "FAIL",
+      "detail": "SystemIntegrity: 'str' object has no attribute 'value'",
+      "elapsed_ms": 374
+    },
+    {
+      "step": "05_hook_registry",
+      "status": "FAIL",
+      "detail": "RegressionBuffer: 'str' object has no attribute 'value'",
+      "elapsed_ms": 375
+    },
+    {
+      "step": "05_hook_registry",
+      "status": "FAIL",
+      "detail": "RCAEngine: 'str' object has no attribute 'value'",
+      "elapsed_ms": 375
+    },
+    {
+      "step": "05_hook_registry",
+      "status": "OK",
+      "detail": "0/11 hooks ativos \u2014 H:6 C:5 S:pending U:chat",
+      "elapsed_ms": 376
+    },
+    {
+      "step": "05_tools_loading",
+      "status": "START",
+      "detail": "scanning C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools...",
+      "elapsed_ms": 377
+    },
+    {
+      "step": "05_tools_loading",
+      "status": "OK",
+      "detail": "19/20 loaded | FAILED: ['NC-TOOL-FR-020-openclaude-bridge']",
+      "elapsed_ms": 577
+    },
+    {
+      "step": "BOOT_COMPLETE",
+      "status": "OK",
+      "detail": "server ready, 19 tools, host=127.0.0.1:8765",
+      "elapsed_ms": 578
+    },
+    {
+      "step": "06_create_mcp_done",
+      "status": "OK",
+      "detail": "host=127.0.0.1 port=8765",
+      "elapsed_ms": 584
+    },
+    {
+      "step": "07_transport_stdio",
+      "status": "OK",
+      "detail": "starting stdio",
+      "elapsed_ms": 586
+    }
+  ]
+}
