@@ -73,7 +73,7 @@ def register_tool(mcp) -> None:
             d["tools"] = len(list((_Path(__file__).parent).glob("NC-SUPER-*.py")))
             # Services
             svc = {}
-            for name, port in [("mcp",8766),("litellm",4000),("picoclaw",18790),("ollama",11434)]:
+            for name, port in [("mcp",8765),("ollama",11434),("mission-control",3000),("opencode",32879)]:
                 try: s=socket.create_connection(("localhost",port),timeout=1); s.close(); svc[name]=f":{port} UP"
                 except: svc[name]=f":{port} DOWN"
             d["services"] = svc
@@ -124,23 +124,6 @@ def register_tool(mcp) -> None:
                     result["mission_control_3000"] = {"reachable": r.status_code == 200, "status": "up" if r.status_code == 200 else "down"}
                 except:
                     result["mission_control_3000"] = {"reachable": False, "status": "down"}
-
-                # Picoclaw (18790) - tem /health
-                try:
-                    r = requests.get("http://localhost:18790/health", timeout=2)
-                    result["picoclaw_18790"] = {"reachable": r.status_code == 200, "status": "up" if r.status_code == 200 else "down"}
-                except:
-                    result["picoclaw_18790"] = {"reachable": False, "status": "down"}
-
-                # LiteLLM (40001) - porta aberta mas sem /health
-                try:
-                    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                    sock.settimeout(2)
-                    connection_result = sock.connect_ex(('localhost', 40001))
-                    sock.close()
-                    result["litellm_4000"] = {"reachable": connection_result == 0, "status": "up" if connection_result == 0 else "down"}
-                except:
-                    result["litellm_4000"] = {"reachable": False, "status": "down"}
 
                 # Ollama (11434) - API funciona
                 try:
@@ -262,7 +245,7 @@ def register_tool(mcp) -> None:
 
         elif action == "server.status":
             import socket
-            ports = {"mcp": 8765, "litellm": 4000, "ollama": 11434}
+            ports = {"mcp": 8765, "ollama": 11434, "mission-control": 3000, "opencode": 32879}
             status = {}
             for name, port in ports.items():
                 try:

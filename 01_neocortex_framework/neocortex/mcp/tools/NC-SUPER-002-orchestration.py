@@ -31,8 +31,8 @@ from typing import Any
 logger = logging.getLogger(__name__)
 TOOL_NAME = "neocortex_orchestration"
 
-_PICOCLAW_BASE = "http://localhost:18790"
-_OLLAMA_BASE = "http://localhost:11434"
+# ── CONSTANTS ──────────────────────────────────────────────────────────────
+OLLAMA_BASE = "http://localhost:11434"
 
 
 def _ts() -> str:
@@ -182,30 +182,6 @@ def register_tool(mcp) -> None:
                     return {"success": False, "error": str(e), "timestamp": ts}
             return {"success": False, "error": "OrchestrationService indisponível", "timestamp": ts}
 
-        # ── DISPATCH (PicoClaw) ───────────────────────────────────────────────
-        elif action == "dispatch.create":
-            try:
-                import requests
-                body = {"task_name": task_name, "task_type": task_type,
-                        "payload": json.loads(task_payload) if task_payload else {},
-                        "priority": priority}
-                r = requests.post(f"{_PICOCLAW_BASE}/dispatch", json=body, timeout=timeout)
-                return {"success": r.status_code in (200, 201), "action": action,
-                        "status_code": r.status_code,
-                        "dispatch_id": r.json().get("dispatch_id") if r.ok else None,
-                        "error": None if r.ok else r.text, "timestamp": ts}
-            except Exception as e:
-                return {"success": False, "action": action,
-                        "error": f"PicoClaw: {e}", "note": "PicoClaw pode estar OFFLINE", "timestamp": ts}
-
-        elif action == "dispatch.status":
-            try:
-                import requests
-                r = requests.get(f"{_PICOCLAW_BASE}/status/{dispatch_id}", timeout=5)
-                return {"success": r.ok, "action": action, "data": r.json() if r.ok else {}, "timestamp": ts}
-            except Exception as e:
-                return {"success": False, "error": str(e), "timestamp": ts}
-
         # ── WORKERS ───────────────────────────────────────────────────────────
         elif action == "workers.spawn":
             spawned = []
@@ -213,7 +189,7 @@ def register_tool(mcp) -> None:
                 try:
                     import requests
                     r = requests.post(
-                        f"{_OLLAMA_BASE}/api/generate",
+                        f"{OLLAMA_BASE}/api/generate",
                         json={"model": "qwen2.5-coder:1.5b", "prompt": "ping", "stream": False},
                         timeout=30,
                     )
@@ -227,7 +203,7 @@ def register_tool(mcp) -> None:
         elif action == "workers.status":
             try:
                 import requests
-                r = requests.get(f"{_OLLAMA_BASE}/api/tags", timeout=5)
+                r = requests.get(f"{OLLAMA_BASE}/api/tags", timeout=5)
                 models = r.json().get("models", []) if r.ok else []
                 return {"success": True, "action": action, "ollama_online": r.ok,
                         "models": [m.get("name") for m in models],

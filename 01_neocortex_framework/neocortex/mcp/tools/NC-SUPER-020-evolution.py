@@ -97,6 +97,6 @@ def register_tool(mcp):
                         "timestamp": ts}
 
             return {"success": False, "error": f"action desconhecida: {action}",
-                    "available": ["sandbox.test","sandbox.promote","mutation.propose","mutation.approve","mutation.reject","mutation.list","drift.status","constitution.amend"], "timestamp": ts}
+                    "available": ["sandbox.test","mutation.propose","mutation.approve","mutation.reject","mutation.list","drift.status","constitution.amend"], "timestamp": ts}
         except Exception as e:
             return {"success": False, "error": str(e), "timestamp": ts}

@@ -193,14 +193,6 @@ def register_tool(mcp) -> None:
                     "event_type": event_type, "timestamp": ts}
 
 
-        elif action == "gateway.status":
-            import socket
-            try:
-                s = socket.create_connection(("localhost", 18790), timeout=1); s.close()
-                return {"success": True, "action": action, "picoclaw": {"port": 18790, "reachable": True}, "timestamp": ts}
-            except:
-                return {"success": True, "action": action, "picoclaw": {"port": 18790, "reachable": False}, "timestamp": ts}
-
         # ── CIRCUIT BREAKER (SEC-403) ──────────────────────────────────────────
         elif action == "cb.status":
             try:
