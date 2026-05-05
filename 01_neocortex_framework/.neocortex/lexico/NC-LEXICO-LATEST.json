@@ -1,10 +1,10 @@
 {
-  "version": "4.3",
+  "version": "4.4",
   "generated_at": "2026-05-05T00:00:00Z",
   "source": "T0 Python scan + R21 verified",
   "total_engines": 0,
   "total_tools": 0,
-  "total_services": 105,
+  "total_services": 113,
   "brain_regions": {},
   "rules_blocos": {},
   "engines": [],
@@ -638,6 +638,54 @@
       "name": "NC-REP-FR-002-base",
       "path": "01_neocortex_framework\\neocortex\\repositories\\NC-REP-FR-002-base.py",
       "desc": "Repository"
+    },
+    {
+      "symbol": "#",
+      "name": "SCRIPTS-SYSTEM",
+      "path": "01_neocortex_framework/scripts/",
+      "desc": "109 NC-SCR scripts"
+    },
+    {
+      "symbol": "#",
+      "name": "HOOKS-CORE",
+      "path": "01_neocortex_framework/neocortex/core/hooks/",
+      "desc": "7 NC-HK hooks"
+    },
+    {
+      "symbol": "#",
+      "name": "LLM-BACKENDS",
+      "path": "01_neocortex_framework/neocortex/infra/llm/",
+      "desc": "5 NC-LLM backends"
+    },
+    {
+      "symbol": "#",
+      "name": "SERVICES-AUX",
+      "path": "01_neocortex_framework/neocortex/core/services/",
+      "desc": "3 NC-SVC aux"
+    },
+    {
+      "symbol": "#",
+      "name": "ADAPTERS",
+      "path": "01_neocortex_framework/neocortex/core/adapters/",
+      "desc": "1 NC-ADP adapter"
+    },
+    {
+      "symbol": "#",
+      "name": "AGENTS-CLI",
+      "path": "01_neocortex_framework/neocortex/agent/",
+      "desc": "2 NC-AGENT/CLI"
+    },
+    {
+      "symbol": "#",
+      "name": "STRANGLER-WRAPPERS",
+      "path": "01_neocortex_framework/neocortex/core/",
+      "desc": "19 Strangler wrappers"
+    },
+    {
+      "symbol": "#",
+      "name": "TESTS-MCP",
+      "path": "01_neocortex_framework/DIR-TEST-FR-001-tests-main/",
+      "desc": "8 NC-TEST tests"
     }
   ],
   "total_symbols": 105
