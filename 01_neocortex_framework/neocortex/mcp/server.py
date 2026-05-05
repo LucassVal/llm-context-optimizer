@@ -654,7 +654,7 @@ def create_mcp_server(host="127.0.0.1", port=8765):
         mime_type="text/csv",
     )
     def _res_lobe_manifest() -> str:
-        lm = _prj_root / "DIR-DS-003-lobe-manifest" / "NC-MAN-LOBE-001.csv"
+        lm = _prj_root / "10-lobe-manifest" / "NC-MAN-LOBE-001.csv"
         return _safe_read(lm) or 'lobe_id,size,path\nerror,0,manifest not found'
 
     # R3: Boot Manifest
@@ -665,7 +665,7 @@ def create_mcp_server(host="127.0.0.1", port=8765):
         mime_type="text/markdown",
     )
     def _res_boot() -> str:
-        bm = _prj_root / "DIR-BOOT-FR-001-bootup-main" / "NC-BOOT-FR-001-system-manifest.md"
+        bm = _prj_root / "06-boot" / "NC-BOOT-FR-001-system-manifest.md"
         return _safe_read(bm) or "# Boot manifest not found"
 
     # R4: Active Locks
@@ -676,7 +676,7 @@ def create_mcp_server(host="127.0.0.1", port=8765):
         mime_type="application/x-yaml",
     )
     def _res_locks() -> str:
-        lk = _fw_root / "DIR-DOC-FR-001-docs-main" / "NC-SEC-FR-001-atomic-locks.yaml"
+        lk = _fw_root / "05-docs" / "NC-SEC-FR-001-atomic-locks.yaml"
         return _safe_read(lk) or "# Locks file not found"
 
     # R5: Lobe by ID (template)
@@ -707,7 +707,7 @@ def create_mcp_server(host="127.0.0.1", port=8765):
     def _prompt_audit(domain: str = "all") -> list:
         return [
             {"role": "system", "content": "You are NC-Auditor (TA). Execute a governance audit following NC-CYC-FR-001."},
-            {"role": "user", "content": f"Audit domain: {domain}\n\nPipeline:\n1. Ruff check + mypy (compile layer)\n2. SSOT diff + naming check (runtime layer)\n3. Health check + regression check (operational layer)\n4. Generate NC-AUDIT-FR-*-{domain}-YYYYMMDD.yaml in DIR-DS-002-audit-logs/\n\nReport: score per layer, HEALTHY/DEGRADED/CRITICAL status, tickets suggested."},
+            {"role": "user", "content": f"Audit domain: {domain}\n\nPipeline:\n1. Ruff check + mypy (compile layer)\n2. SSOT diff + naming check (runtime layer)\n3. Health check + regression check (operational layer)\n4. Generate NC-AUDIT-FR-*-{domain}-YYYYMMDD.yaml in 09-audit-logs/\n\nReport: score per layer, HEALTHY/DEGRADED/CRITICAL status, tickets suggested."},
         ]
 
     @server.prompt(
@@ -717,7 +717,7 @@ def create_mcp_server(host="127.0.0.1", port=8765):
     def _prompt_handoff(ticket_id: str = "NC-DS-XXX", summary: str = "") -> list:
         return [
             {"role": "system", "content": "You generate NeoCortex handoff YAML files following NC-SOP standards."},
-            {"role": "user", "content": f"Generate handoff for {ticket_id}.\nSummary: {summary}\n\nFields required: ticket_id, status (DONE/FAILED/ESCALATED), summary, files_created, files_modified, locks_violated (true/false), checklist_r20.\nOutput path: DIR-DS-002-audit-logs/{ticket_id}-handoff-{datetime}.yaml"},
+            {"role": "user", "content": f"Generate handoff for {ticket_id}.\nSummary: {summary}\n\nFields required: ticket_id, status (DONE/FAILED/ESCALATED), summary, files_created, files_modified, locks_violated (true/false), checklist_r20.\nOutput path: 09-audit-logs/{ticket_id}-handoff-{datetime}.yaml"},
         ]
 
     @server.prompt(
@@ -806,4 +806,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
