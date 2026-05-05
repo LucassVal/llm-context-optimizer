@@ -707,8 +707,8 @@ def create_mcp_server(host="127.0.0.1", port=8765):
     )
     def _prompt_audit(domain: str = "all") -> list:
         return [
-            {"role": "system", "content": "You are NC-Auditor (TA). Execute a governance audit following NC-CYC-FR-001."},
-            {"role": "user", "content": f"Audit domain: {domain}\n\nPipeline:\n1. Ruff check + mypy (compile layer)\n2. SSOT diff + naming check (runtime layer)\n3. Health check + regression check (operational layer)\n4. Generate NC-AUDIT-FR-*-{domain}-YYYYMMDD.yaml in 09-audit-logs/\n\nReport: score per layer, HEALTHY/DEGRADED/CRITICAL status, tickets suggested."},
+            {"role": "system", "content": "You are NC-Auditor (TA). Execute governance audit per NC-CYC-FR-001. 133 rules (R01-R133). 4 mordaças (H/C/S/U). Constitution §4."},
+            {"role": "user", "content": f"Audit domain: {domain}\n\nLAYER 1 (Compile): ruff check + mypy + pyright + yaml.safe_load\nLAYER 2 (Runtime): SSOT diff + naming check + hook_registry health + ULQ cross-ref\nLAYER 3 (Operational): health_check + regression.check + checkpoint.list\n\nHOOKS CHECK: Verify hook_registry_instance is not None and trigger() works. If hooks degraded -> status WARNING.\n\nOutput: 09-audit-logs/NC-AUDIT-FR-{domain}-YYYYMMDD.yaml\nFields: score per layer (0-100%), HEALTHY(>70)/DEGRADED(>50)/CRITICAL(<50), tickets suggested, baseline comparison."},
         ]
 
     @server.prompt(
@@ -717,8 +717,8 @@ def create_mcp_server(host="127.0.0.1", port=8765):
     )
     def _prompt_handoff(ticket_id: str = "NC-DS-XXX", summary: str = "") -> list:
         return [
-            {"role": "system", "content": "You generate NeoCortex handoff YAML files following NC-SOP standards."},
-            {"role": "user", "content": f"Generate handoff for {ticket_id}.\nSummary: {summary}\n\nFields required: ticket_id, status (DONE/FAILED/ESCALATED), summary, files_created, files_modified, locks_violated (true/false), checklist_r20.\nOutput path: 09-audit-logs/{ticket_id}-handoff-{datetime}.yaml"},
+            {"role": "system", "content": "You generate NeoCortex handoff YAML files per NC-SOP standards. @UBL for paths. #LEXICO for services."},
+            {"role": "user", "content": f"Generate handoff for {ticket_id}.\nSummary: {summary}\n\nYAML Fields:\n- ticket_id: {ticket_id}\n- status: DONE|FAILED|ESCALATED|PENDING_REVIEW\n- summary: (brief)\n- files_created: [paths]\n- files_modified: [paths]\n- locks_violated: true|false\n- checklist_r20: {{naming_convention, no_print, ssot_updated, no_locked_modified, handoff_yaml_complete, roadmap_marked}}\n\nOutput: 09-audit-logs/{ticket_id}-handoff-{{timestamp}}.yaml"},
         ]
 
     @server.prompt(
@@ -727,8 +727,8 @@ def create_mcp_server(host="127.0.0.1", port=8765):
     )
     def _prompt_lobe_create(domain: str = "", description: str = "") -> list:
         return [
-            {"role": "system", "content": "You create NeoCortex lobe files following NC-SOP-FR-003-creation standards."},
-            {"role": "user", "content": f"Create lobe for domain: {domain}\nDescription: {description}\n\nRequirements:\n1. YAML frontmatter (lobe_id, name, status, version, created_at, tags, domain, layer)\n2. 3W block (## What, ## Why, ## Where)\n3. Every H1/H2 MUST have @UBL {{name}} + LEXICO: #tags\n4. Numbered sections (# 1., # 2., etc.)\n5. File: 02_memory_lobes/{domain}/NC-LBE-{domain}-NNN-description.mdc\n6. Register in NC-MAN-LOBE-001.csv\n7. Update NC-CHG-FR-001-changelog.yaml"},
+            {"role": "system", "content": "You create NeoCortex lobe files per NC-SOP-FR-003. @UBL for bookmarks. #LEXICO for tags. NC-MAN-LOBE-001.csv for registration."},
+            {"role": "user", "content": f"Create lobe — domain: {domain} | topic: {description}\n\nNC-SOP-FR-003 §3 FORMAT:\n1. YAML frontmatter: lobe_id, name, status, version, created_at, tags, domain, layer\n2. 3W block: ## What / ## Why / ## Where\n3. EVERY H1/H2: @UBL {{section-name}} + LEXICO: #tags\n4. Numbered sections: # 1. Title, ## 1.1 Subtitle\n5. File path: 02_memory_lobes/{{domain}}/NC-LBE-{{domain}}-NNN-{{description}}.mdc\n\nNC-SOP-FR-003 §4 CREATION ROUTINE:\n6. Check NC-MAN-LOBE-001.csv for next ID\n7. Register new lobe in NC-MAN-LOBE-001.csv\n8. Add to LEXICO (NC-LEXICO-LATEST.json)\n9. Update NC-CHG-FR-001-changelog.yaml\n10. Run nc-validate on new lobe"},
         ]
 
     logger.info("Prompts registrados: audit-workflow, handoff-generation, lobe-creation")
