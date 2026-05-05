@@ -163,6 +163,9 @@ session_manager = SessionManager()
 # Global PulseScheduler instance (will be set in create_mcp_server)
 pulse_scheduler_instance = None
 
+# Global Hook Registry instance (will be set in create_mcp_server)
+hook_registry_instance = None
+
 # Global MetricsStore instance
 metrics_store_instance = None
 
@@ -267,6 +270,14 @@ def _wrap_tool_with_metrics(tool_func, tool_name):
         status = "success"
         details = {}
 
+        # PreToolUse hooks
+        _ctx = {"tool_name": tool_name, "args": str(args)[:200]}
+        if hook_registry_instance:
+            try:
+                hook_registry_instance.trigger("PreToolUse", _ctx)
+            except Exception:
+                pass
+
         try:
             result = tool_func(*args, **kwargs)
 
@@ -277,10 +288,24 @@ def _wrap_tool_with_metrics(tool_func, tool_name):
                 # NC-DS-256: MCP Error Protocol — convert to isError:true via FastMCP
                 raise RuntimeError(result.get("error", "unknown tool error"))
 
+            # PostToolUse hooks
+            if hook_registry_instance:
+                try:
+                    hook_registry_instance.trigger("PostToolUse", _ctx)
+                except Exception:
+                    pass
+
             return result
         except Exception as e:
             status = "failure"
             details = {"error": str(e)}
+            # ToolError hooks
+            _ctx["error"] = str(e)
+            if hook_registry_instance:
+                try:
+                    hook_registry_instance.trigger("ToolError", _ctx)
+                except Exception:
+                    pass
             raise
         finally:
             duration_ms = int(
@@ -441,7 +466,23 @@ def create_mcp_server(host="127.0.0.1", port=8765):
 
     _hooks_pre = []
     _hooks_pre.append(lambda **ctx: _hlog(f"STEP0: {ctx.get('tool_name','?')}"))
-    _hooks_pre.append(lambda **ctx: _hlog("Gateway: validate_action"))
+    # Gateway real — lazy-load ConstitutionGateway.validate_action()
+    _gw = None
+    def _gateway_hook(**ctx):
+        nonlocal _gw
+        try:
+            if _gw is None:
+                from ..core import ConstitutionGateway
+                _gw = ConstitutionGateway().validate_action
+            tool = ctx.get("tool_name", "unknown")
+            ok, report = _gw(action=tool, agent_id="T0", agent_role="T0")
+            status = "OK" if ok else f"BLOCKED: {report.get('violations',[])}"
+            _hlog(f"Gateway: {tool} → {status}")
+        except ImportError:
+            _hlog("Gateway: unavailable (import error)")
+        except Exception as e:
+            _hlog(f"Gateway: error — {str(e)[:60]}")
+    _hooks_pre.append(_gateway_hook)
     _hooks_pre.append(lambda **ctx: _hlog("LockGuard: @LOCKS check"))
     _hooks_pre.append(lambda **ctx: _hlog("BashGuard: ok"))
     _hooks_pre.append(lambda **ctx: _hlog("DelGuard: R05"))
