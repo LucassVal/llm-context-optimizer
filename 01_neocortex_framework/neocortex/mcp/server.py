@@ -647,6 +647,22 @@ def create_mcp_server(host="127.0.0.1", port=8765):
 
     logger.info("Prompts registrados: audit-workflow, handoff-generation, lobe-creation")
 
+    # ── RESOURCE SUBSCRIBE (NC-DS-254 P3) ──────────────────────────
+    _subscribers: dict = {}
+    @server.tool()
+    def resources_subscribe(uri: str = "", action: str = "subscribe") -> dict:
+        """Subscribe/unsubscribe to resource change notifications.
+        Args: uri - resource URI, action - 'subscribe'|'unsubscribe'|'list'"""
+        if action == "subscribe" and uri:
+            _subscribers[uri] = _subscribers.get(uri, 0) + 1
+            return {"success": True, "subscribed": uri, "count": _subscribers[uri]}
+        elif action == "unsubscribe" and uri in _subscribers:
+            del _subscribers[uri]
+            return {"success": True, "unsubscribed": uri}
+        elif action == "list":
+            return {"success": True, "subscriptions": list(_subscribers.keys())}
+        return {"success": False, "error": f"Unknown action: {action}"}
+
     return server
 
 
