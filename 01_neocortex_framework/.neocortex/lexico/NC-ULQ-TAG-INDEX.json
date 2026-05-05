@@ -1,59 +1,224 @@
 {
   "_meta": {
-    "generated_at": "2026-04-30T10:05:00Z",
-    "version": "1.0",
+    "generated_at": "2026-05-05T00:00:00Z",
+    "version": "2.0",
     "source": "FR-166 Domain Routers + ULQ Cross-Reference",
-    "description": "ULQ Tag Index — mapeia @tags para paths, NC-IDs e dominios",
-    "total_entries": 67,
-    "search_pipeline": ["ULQ", "TAG_INDEX", "PREP"],
-    "decay": { "stale_days": 7, "removed_days": 30 }
+    "description": "ULQ Tag Index v2.0 — unified @/$/#/%% -> path resolver. DDD parent: Constitution. Children: LEXICO, MANIFEST, CATALOG, BOOT.",
+    "total_entries": 250,
+    "search_pipeline": [
+      "ULQ",
+      "TAG_INDEX",
+      "PREP"
+    ],
+    "decay": {
+      "stale_days": 7,
+      "removed_days": 30
+    }
   },
   "domains": {
     "governance": {
       "path": "02_memory_lobes/06_governance/",
-      "tags": ["@RULES", "@LOCKS", "@POLICY", "@GOVERNANCE", "@BOOT", "@ULQ", "#GOV", "#SEC"],
+      "tags": [
+        "@RULES",
+        "@LOCKS",
+        "@POLICY",
+        "@GOVERNANCE",
+        "@BOOT",
+        "@ULQ",
+        "#GOV",
+        "#SEC"
+      ],
       "items": 8
     },
     "memory": {
       "path": "02_memory_lobes/",
-      "tags": ["$FRONTAL", "$TEMPORAL", "$PARIETAL", "$OCCIPITAL", "$CEREBELO", "$HIPOCAMPO", "#MEM", "#AKL", "#AUTO"],
+      "tags": [
+        "$FRONTAL",
+        "$TEMPORAL",
+        "$PARIETAL",
+        "$OCCIPITAL",
+        "$CEREBELO",
+        "$HIPOCAMPO",
+        "#MEM",
+        "#AKL",
+        "#AUTO"
+      ],
       "items": 9
     },
     "orchestration": {
       "path": "01_neocortex_framework/neocortex/",
-      "tags": ["#ORCH", "#PULSE", "#EVENTBUS", "#STATE", "#LEDGER", "%ORCH301", "%ORCH302"],
+      "tags": [
+        "#ORCH",
+        "#PULSE",
+        "#EVENTBUS",
+        "#STATE",
+        "#LEDGER",
+        "%ORCH301",
+        "%ORCH302"
+      ],
       "items": 7
     },
     "llm_routing": {
       "path": "01_neocortex_framework/neocortex/mcp/tools/",
-      "tags": ["#LLM", "#ROUTER", "#BENCH", "#NOTIF", "#HEALTH", "#PICOCLAW"],
+      "tags": [
+        "#LLM",
+        "#ROUTER",
+        "#BENCH",
+        "#NOTIF",
+        "#HEALTH",
+        "#PICOCLAW"
+      ],
       "items": 6
     },
     "docs": {
       "path": "01_neocortex_framework/DIR-DOC-FR-001-docs-main/",
-      "tags": ["@SSOT", "@ROADMAP", "@ADR", "@SOP", "@APPENDIX", "@VISION", "@BLUEPRINT"],
+      "tags": [
+        "@SSOT",
+        "@ROADMAP",
+        "@ADR",
+        "@SOP",
+        "@APPENDIX",
+        "@VISION",
+        "@BLUEPRINT"
+      ],
       "items": 7
     },
     "config": {
       "path": "DIR-DS-000-agent-config/",
-      "tags": ["@CONFIG", "@PROMPT", "@PREP", "@LEXICO", "@POPULATE"],
+      "tags": [
+        "@CONFIG",
+        "@PROMPT",
+        "@PREP",
+        "@LEXICO",
+        "@POPULATE"
+      ],
       "items": 5
     },
     "semantic": {
       "path": "02_memory_lobes/06_governance/",
-      "tags": ["#LEXICO", "#KG", "#AKL", "#CASCADE", "#CORTEX", "R116", "R117", "R118", "R119", "R120", "R121", "R122", "R123"],
+      "tags": [
+        "#LEXICO",
+        "#KG",
+        "#AKL",
+        "#CASCADE",
+        "#CORTEX",
+        "R116",
+        "R117",
+        "R118",
+        "R119",
+        "R120",
+        "R121",
+        "R122",
+        "R123"
+      ],
       "items": 13
     },
     "tickets_audit": {
       "path": "DIR-DS-001-tickets/",
-      "tags": ["%DONE", "%NOW", "%NEXT", "%P5", "%SEM001", "%SEM002", "#TICKETS", "#AUDIT"],
+      "tags": [
+        "%DONE",
+        "%NOW",
+        "%NEXT",
+        "%P5",
+        "%SEM001",
+        "%SEM002",
+        "#TICKETS",
+        "#AUDIT"
+      ],
       "items": 8
+    },
+    "governance_rules": {
+      "path": "02_memory_lobes/06_governance/",
+      "tags": [
+        "#RULES-MULTILAYER",
+        "#R127-MURPHY",
+        "#R129-ITIL",
+        "#R130-POSTEL",
+        "#CONSTITUTION"
+      ],
+      "items": 19
     }
   },
   "symbol_index": {
-    "@": ["@SSOT", "@ROADMAP", "@LOCKS", "@POLICY", "@BOOT", "@RULES", "@ULQ", "@POPULATE", "@LEXICO", "@SOP", "@ADR", "@PROMPT", "@CONFIG", "@VISION", "@APPENDIX", "@PREP", "@BLUEPRINT", "@CHANGELOG", "@MAPS"],
-    "$": ["$FRONTAL", "$TEMPORAL", "$PARIETAL", "$OCCIPITAL", "$CEREBELO", "$HIPOCAMPO", "$COURIER", "$ENGINEER", "$GUARDIAN"],
-    "%": ["%DONE", "%NOW", "%NEXT", "%P5", "%SEM001", "%SEM002", "%ORCH301", "%ORCH302"],
-    "#": ["#GOV", "#ORCH", "#MEM", "#STATE", "#LLM", "#SYS", "#BRAIN", "#CTX", "#SEC", "#BENCH", "#NOTIF", "#AKL_TOOL", "#HEALTH", "#LEDGER", "#AUTO", "#LEXICO", "#KG", "#AKL", "#CASCADE", "#CORTEX", "#GUARDIAN", "#PULSE", "#EVENTBUS", "#ROUTER", "#LOBE_DB", "#METRICS", "#HOT", "#SESSION", "#TICKETS", "#AUDIT", "#PICOCLAW"]
+    "@": [
+      "@ADR",
+      "@APPENDIX",
+      "@BLUEPRINT",
+      "@BOOT",
+      "@CHANGELOG",
+      "@CONFIG",
+      "@LEXICO",
+      "@LOCKS",
+      "@MAPS",
+      "@POLICY",
+      "@POPULATE",
+      "@PREP",
+      "@PROMPT",
+      "@ROADMAP",
+      "@RULES",
+      "@SOP",
+      "@SSOT",
+      "@UBL",
+      "@ULQ",
+      "@VISION"
+    ],
+    "$": [
+      "$CEREBELO",
+      "$COURIER",
+      "$ENGINEER",
+      "$FRONTAL",
+      "$GUARDIAN",
+      "$HIPOCAMPO",
+      "$OCCIPITAL",
+      "$PARIETAL",
+      "$TEMPORAL"
+    ],
+    "%": [
+      "%DONE",
+      "%NEXT",
+      "%NOW",
+      "%ORCH301",
+      "%ORCH302",
+      "%P5",
+      "%SEM001",
+      "%SEM002"
+    ],
+    "#": [
+      "#AKL",
+      "#AKL_TOOL",
+      "#AUDIT",
+      "#AUTO",
+      "#BENCH",
+      "#BRAIN",
+      "#CASCADE",
+      "#CONSTITUTION",
+      "#CORTEX",
+      "#CTX",
+      "#EVENTBUS",
+      "#GOV",
+      "#GUARDIAN",
+      "#HEALTH",
+      "#HOT",
+      "#KG",
+      "#LEDGER",
+      "#LEXICO",
+      "#LLM",
+      "#LOBE_DB",
+      "#MANIFEST",
+      "#MEM",
+      "#METRICS",
+      "#NOTIF",
+      "#ORCH",
+      "#PULSE",
+      "#ROUTER",
+      "#RULES-MULTILAYER",
+      "#SEC",
+      "#SESSION",
+      "#STATE",
+      "#SYS",
+      "#TICKETS",
+      "#UBL",
+      "#ULQ"
+    ]
   }
 }
