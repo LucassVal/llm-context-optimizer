@@ -251,6 +251,32 @@ else:
             )
 
 
+def _wrap_with_hooks(func, tool_name):
+    """Wrap any callable with PreToolUse/PostToolUse/ToolError hooks. For inline tools."""
+    from functools import wraps as _wraps
+    @_wraps(func)
+    def wrapper(*args, **kwargs):
+        _ctx = {"tool_name": tool_name, "args": str(args)[:200]}
+        if hook_registry_instance:
+            try: hook_registry_instance.trigger("PreToolUse", _ctx)
+            except Exception: pass
+        try:
+            result = func(*args, **kwargs)
+            if isinstance(result, dict) and result.get("success") is False:
+                raise RuntimeError(result.get("error", "unknown tool error"))
+            if hook_registry_instance:
+                try: hook_registry_instance.trigger("PostToolUse", _ctx)
+                except Exception: pass
+            return result
+        except Exception as e:
+            _ctx["error"] = str(e)
+            if hook_registry_instance:
+                try: hook_registry_instance.trigger("ToolError", _ctx)
+                except Exception: pass
+            raise
+    return wrapper
+
+
 def _wrap_tool_with_metrics(tool_func, tool_name):
     """
     Wrap a tool function with metrics recording.
@@ -392,8 +418,7 @@ def create_mcp_server(host="127.0.0.1", port=8765):
         server = FastMCP("neocortex", host=host, port=port)
         
         # Add health check tool for monitoring
-        @server.tool()
-        def health_check() -> dict:
+        def _health_check_impl() -> dict:
             """Check MCP server health status"""
             return {
                 "success": True,
@@ -403,6 +428,8 @@ def create_mcp_server(host="127.0.0.1", port=8765):
                 "timestamp": datetime.now(timezone.utc).isoformat() + "Z",
                 "tools_loaded": 17
             }
+        health_check = _wrap_with_hooks(_health_check_impl, "health_check")
+        server.tool()(health_check)
     else:
         server = MockMCP("neocortex")
 
@@ -511,10 +538,11 @@ def create_mcp_server(host="127.0.0.1", port=8765):
 
     # ── PING + NOTIFICATIONS (NC-DS-254 + NC-DS-258) ──────────────
     if FAST_MCP_AVAILABLE:
-        @server.tool()
-        def ping() -> dict:
-            """Keepalive ping — MCP spec utility primitive"""
+        def _ping_impl() -> dict:
             return {"pong": True, "timestamp": datetime.now(timezone.utc).isoformat() + "Z"}
+        ping = _wrap_with_hooks(_ping_impl, "ping")
+        server.tool()(ping)
+        ping.__doc__ = "Keepalive ping — MCP spec utility primitive"
 
         # Wire PostToolUse hooks to send notifications
         _orig_post = list(_hooks_post)
@@ -690,10 +718,7 @@ def create_mcp_server(host="127.0.0.1", port=8765):
 
     # ── RESOURCE SUBSCRIBE (NC-DS-254 P3) ──────────────────────────
     _subscribers: dict = {}
-    @server.tool()
-    def resources_subscribe(uri: str = "", action: str = "subscribe") -> dict:
-        """Subscribe/unsubscribe to resource change notifications.
-        Args: uri - resource URI, action - 'subscribe'|'unsubscribe'|'list'"""
+    def _subscribe_impl(uri: str = "", action: str = "subscribe") -> dict:
         if action == "subscribe" and uri:
             _subscribers[uri] = _subscribers.get(uri, 0) + 1
             return {"success": True, "subscribed": uri, "count": _subscribers[uri]}
@@ -703,6 +728,8 @@ def create_mcp_server(host="127.0.0.1", port=8765):
         elif action == "list":
             return {"success": True, "subscriptions": list(_subscribers.keys())}
         return {"success": False, "error": f"Unknown action: {action}"}
+    resources_subscribe = _wrap_with_hooks(_subscribe_impl, "resources_subscribe")
+    server.tool()(resources_subscribe)
 
     return server
 
