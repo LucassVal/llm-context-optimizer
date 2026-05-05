@@ -1,0 +1,18 @@
+id: "NC-DS-259"
+title: "R127 MURPHY — Health check testa hook_registry ativamente"
+status: "OPEN"
+priority: "P0"
+assignee: "opencode"
+created: "2026-05-05"
+description: |
+  Implementar fail-check no health_check: verificar se hook_registry_instance existe, se trigger() funciona, se hooks respondem. Se falhar -> status degraded. Mitigacao do Risco 1 (hook_registry fragil).
+context:
+  - "Reference: NC-LBE-FR-RULES-MULTILAYER-001 §16"
+  - "27 Regras de Governanca — Tabela-Mestra"
+  - "Constitution §4 — R126 Structural Boundary"
+task: |
+  1. Adicionar hook_registry test no health_check() em server.py. 2. Chamar hook_registry_instance.trigger('PreToolUse', {'tool_name':'health_check_internal'}). 3. Se falhar, status='degraded'. 4. Validar py_compile+ruff.
+write_zone: "PROD -> 01_neocortex_framework/neocortex/mcp/server.py"
+locks:
+  - "01_neocortex_framework/neocortex/mcp/server.py -> MODIFICAR SOMENTE COM APROVACAO T0"
+  - "01_neocortex_framework/neocortex/mcp/sub_server.py -> NUNCA MODIFICAR"

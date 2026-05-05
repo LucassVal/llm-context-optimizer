@@ -8,7 +8,7 @@ created: 2026-04-28
 updated: 2026-05-05
 status: active
 priority: L0
-rules_total: 129
+rules_total: 133
 temperature: 0
 status: archived
 ---
@@ -16,7 +16,7 @@ status: archived
 
 <!-- NC-READ-HASH: NC-LBE-FR-RULES-MULTILAYER-001-v1 -->
 <!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-RULES-MULTILAYER-001-v1 ja esta no contexto desta sessao, SALTE. -->
-# 4 MORDAÇAS DE GOVERNANÇA — 129 REGRAS (R01-R129)
+# 4 MORDAÇAS DE GOVERNANÇA — 133 REGRAS (R01-R133)
 
 Cada regra deve ser coberta por 4 camadas cumulativas:
   H = HOOK       (instantâneo, Gateway validate_action 17 checks)
@@ -457,27 +457,33 @@ LEXICO: #matriz #bloco9 #r124-r126 #operational #paths #structural-boundary #acc
 
 ---
 @UBL matriz-bloco-governance-27
-# 16. MATRIZ — Bloco 10: 27 Regras de Governança (R127-R129 ativas)
-LEXICO: #matriz #bloco10 #r127-r129 #murphy #pareto #itil #governanca-27
+# 16. MATRIZ — Bloco 10: Regras de Governança Expandida (R127-R130)
+LEXICO: #matriz #bloco10 #r127-r130 #governanca #murphy #pareto #itil #postel
 
-**Contexto:** Das 27 regras de governança analisadas (KISS a Ranganathan), 15 já são cobertas pelas regras existentes (R01-R126). 3 foram selecionadas para implementação imediata por alto impacto com baixo esforço.
+**Contexto:** Das 27 regras de governança (KISS→Ranganathan), 15 já são cobertas por R01-R126. 5 são parciais (culturais). 3 foram selecionadas para implementação imediata. 4 não se aplicam agora (Impessoal, Moralidade, Eficiência P. — culturais).
 
-| # | Regra | Origem | H | C | S | U | O que significa |
-|---|-------|--------|---|---|---|---|------------------|
-| R127 | **MURPHY** | Eng. Resiliência | ❌ | ❌ | ❌ | ✅ | "Se pode falhar, vai falhar." PROPOSTO: health check testa hook_registry ativamente. NÃO IMPLEMENTADO ainda. |
-| R128 | **PARETO** | Economia | ❌ | ❌ | ✅ | ✅ | "20% do esforço = 80% do resultado." Priorizar tickets por impacto, não por ordem de chegada. Aplicar na matriz Eisenhower. |
-| R129 | **ITIL** | Gov. Corp. | ✅ | ❌ | ✅ | ✅ | "Mudança sem rollback = proibida." Savepoint obrigatório antes de alteração em @LOCKS. Commit hook pre-checkout. |
+| # | Regra | Origem | Pergunta | H | C | S | U | Status REAL |
+|---|-------|--------|----------|---|---|---|---|-------------|
+| R127 | **MURPHY** | Eng. Resiliência | "O que pode falhar?" | ❌ | ❌ | ❌ | ✅ | **NÃO IMPLEMENTADO.** Proposto: health_check testa hook_registry. Ticket NC-DS-259. |
+| R128 | **PARETO** | Economia | "Qual o mínimo de máximo impacto?" | ❌ | ❌ | ✅ | ✅ | **APLICADO.** Priorização P0>P3 nesta sessão. Sem enforcement automático. |
+| R129 | **ITIL** | Gov. Corporativa | "Tem rollback?" | ❌ | ❌ | ✅ | ✅ | **PARCIAL.** Savepoints existem (BOOT-*). Falta pre-commit hook. Ticket NC-DS-260. |
+| R130 | **POSTEL** | Redes | "Estrito na saída, tolerante na entrada?" | ❌ | ❌ | ❌ | ✅ | **NÃO IMPLEMENTADO.** Proposto: validação de input schema nos hooks. Ticket NC-DS-261. |
+| R131 | **PREMATURE** | Eng. Software | "Tenho dados de que é gargalo?" | ❌ | ❌ | ❌ | ✅ | **NÃO IMPLEMENTADO.** Evita otimização sem profiling. Planejado Ciclo 6. |
+| R132 | **COBIT** | Gov. Corporativa | "Entrega valor alinhado ao roadmap?" | ❌ | ❌ | ✅ | ✅ | **NÃO IMPLEMENTADO.** Métrica de alinhamento estratégico. Planejado Ciclo 6. |
+| R133 | **BSC** | Gov. Corporativa | "Melhora ou piora meus KPIs?" | ❌ | ❌ | ✅ | ✅ | **NÃO IMPLEMENTADO.** Scorecard com custo/cache/compliance. Planejado Ciclo 6. |
 
-**Status:** R127 implementado no health_check (hook_registry test). R128 aplicado na priorização desta sessão. R129 parcial (savepoint nos checkpoints, falta pre-commit hook).
+**Regras com cobertura implícita (não precisam de regra dedicada):**
+- **YAGNI (#3):** Aplicado via Pareto (R128) + Eisenhower. Gatilho formal: "Se não resolve problema ativo com ticket, adiar." Ex: NC-DS-255 (cache) adiado corretamente.
+- **Impessoal (#19), Moralidade (#20), Eficiência P. (#22):** Culturais. Cobertos indiretamente por LIMPE (R126) + Transparência (R08).
 
 ---
 @UBL super-rules-expanded
-# 17. SUPER RULES — Tabela de Ativação Atualizada (129 regras)
-LEXICO: #super-rules #ativacao #runtime #129-regras
+# 17. SUPER RULES — Tabela de Ativação (133 regras)
+LEXICO: #super-rules #ativacao #runtime #133-regras
 
 | Camada | O que roda | Quando | Regras cobertas |
 |--------|-----------|--------|----------------|
-| **H (Hook)** | Gateway.validate_action() + PreToolUse hooks + PostToolUse hooks | Toda tool call | R01,R04,R05,R06,R07,R08,R09,R11,R12,R13,R14,R15,R21,R22,R23,R24,R27-R35,R42,R43,R46,R47,R54,R56,R58,R59,R60,R61,R62,R63,R64,R65,R73,R74,R76,R77,R78,R79,R80,R81,R83-R111,R116-R123,R124,R126,R127,R129 |
-| **C (Checkpoint)** | PulseScheduler orbital (300s) | A cada 5 min | R01,R02,R04,R09,R10,R13,R17,R21,R42,R43,R44,R45,R46,R47,R48,R49,R50,R51,R52,R53,R66,R67,R68,R69,R70,R71,R72,R73,R74,R75,R76,R83,R112,R113,R114,R115,R116,R117,R118,R119,R120,R123,R124,R126,R127 |
-| **S (Schedule)** | CICLO 4 semanal (compliance.report) | Semanal | R01-R03,R05-R09,R11-R15,R18-R27,R37-R42,R44-R53,R55-R63,R65-R72,R74-R82,R112-R123,R124,R126,R128,R129 |
-| **U (User/T0)** | T0 via OpenCode chat | Manual | TODAS as 129 regras |
+| **H (Hook)** | Gateway.validate_action() + hooks | Toda tool call | R01,R04-R09,R11-R15,R21-R24,R27-R35,R42-R43,R46-R47,R54,R56,R58-R65,R73-R74,R76-R81,R83-R111,R116-R123,R124,R126 |
+| **C (Checkpoint)** | PulseScheduler orbital (300s) | 5 min | R01-R02,R04,R09-R10,R13,R17,R21,R42-R53,R66-R76,R83,R112-R120,R123-R124,R126 |
+| **S (Schedule)** | CICLO 4 semanal | Semanal | R01-R03,R05-R09,R11-R15,R18-R27,R37-R42,R44-R53,R55-R63,R65-R72,R74-R82,R112-R123,R124,R126,R128,R129 |
+| **U (User/T0)** | T0 via OpenCode | Manual | **TODAS as 133 regras** |
