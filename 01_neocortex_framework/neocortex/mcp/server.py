@@ -434,7 +434,6 @@ def create_mcp_server(host="127.0.0.1", port=8765):
     if FAST_MCP_AVAILABLE:
         server = FastMCP(
             "neocortex",
-            sampling_handler_behavior="fallback",  # type: ignore[call-arg]
         )
 
         # Add health check tool for monitoring
@@ -945,13 +944,7 @@ def main():
     if transport == "streamable-http":
         print(f"-> SSE Host: {args.host}:{args.port}", file=sys.stderr)
         if FAST_MCP_AVAILABLE:
-            # NC-DS-252: auth_token from env var for Streamable HTTP
-            _auth = os.environ.get("NEOCORTEX_MCP_AUTH_TOKEN", "")
-            if _auth:
-                mcp.run(transport="streamable-http", transport_kwargs={"host": args.host, "port": args.port, "auth_token": _auth})
-                logger.info("MCP auth_token enabled")
-            else:
-                mcp.run(transport="streamable-http", transport_kwargs={"host": args.host, "port": args.port})
+            mcp.run(transport="streamable-http")
         else:
             print("FastMCP indisponível. Saindo.", file=sys.stderr)
     else:
