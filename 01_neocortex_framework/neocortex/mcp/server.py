@@ -676,7 +676,7 @@ def create_mcp_server(host="127.0.0.1", port=8765):
         mime_type="application/x-yaml",
     )
     def _res_locks() -> str:
-        lk = _fw_root / "05-docs" / "NC-SEC-FR-001-atomic-locks.yaml"
+        lk = _fw_root / "15-docs" / "NC-SEC-FR-001-atomic-locks.yaml"
         return _safe_read(lk) or "# Locks file not found"
 
     # R5: Lobe by ID (template)
@@ -806,5 +806,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
