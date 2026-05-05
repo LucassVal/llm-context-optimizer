@@ -1,0 +1,189 @@
+---
+lobe_id: NC-LBE-FR-LEGAL-001
+name: legal-framework
+status: ACTIVE
+version: "1.0"
+created_at: "2026-05-05"
+created_by: T0
+tags: [legal, ddd, constitution, federative-pact, cpc, cpp, judicial-organs, regulatory, secretariats, hierarchy, vigilant-cycle, governance]
+domain: governance
+layer: legal
+priority: HIGH
+temperature: 90
+---
+
+# NC-LBE-FR-LEGAL-001 — Arcabouço Jurídico NeoCortex (DDD Legal Framework)
+
+> **Propósito:** Documentar TODOS os componentes do arcabouço jurídico DDD do NeoCortex — órgãos, códigos, pactos, entidades, processos. Estes componentes implementam o "devido processo legal digital" para validação de ações no sistema.
+
+## 3W
+
+| 3W | Resposta |
+|----|----------|
+| **WHAT** | Documentação completa do framework jurídico DDD — 9 componentes de código + relações hierárquicas |
+| **WHY** | Código existe mas nunca foi documentado no SSOT. Agentes e ferramentas não sabem que estes componentes existem |
+| **WHERE** | `01_neocortex_framework/neocortex/core/NC-CORE-FR-131..141` |
+
+---
+
+@UBL federative-pact
+# 1. PACTO FEDERATIVO (NC-CORE-FR-131)
+LEXICO: #federative-pact #pacto-federativo #federative-levels #municipal #state #federal
+
+**Arquivo:** `neocortex/core/NC-CORE-FR-131-federative-pact.py` (228 linhas)
+
+Define a estrutura federativa do NeoCortex:
+- **FederativeLevel**: Municipal, Estadual, Federal
+- **FederativePact**: Pacto entre níveis — define competências e limites de cada ente
+- **Competence**: O que cada nível pode fazer
+- **validate_jurisdiction()**: Verifica se uma ação está dentro da jurisdição do agente
+
+**Relação DDD:** Implementa o padrão Bounded Context — cada nível federativo é um contexto delimitado com suas próprias regras.
+
+---
+
+@UBL civil-procedure-code
+# 2. CPC DIGITAL (NC-CORE-FR-132)
+LEXICO: #cpc #civil-procedure-code #devido-processo-legal #digital-due-process
+
+**Arquivo:** `neocortex/core/NC-CORE-FR-132-civil-procedure-code.py` (392 linhas)
+
+Implementa o "devido processo legal digital":
+- **process_action()**: Entry point — toda ação passa por aqui
+- **DueProcess**: Garantias processuais (contraditório, ampla defesa, juiz natural)
+- **Sentence**: Sentença digital — resultado da validação
+- **Appeal**: Sistema de recursos
+
+**Uso:** `ConstitutionGateway.validate_action()` → `CPC.process_action()` → LockGuard + Pact + ToolGuard → Sentença
+
+---
+
+@UBL regulatory-agencies
+# 3. AGÊNCIAS REGULADORAS (NC-CORE-FR-133)
+LEXICO: #regulatory-agencies #agencias-reguladoras #aneel #anatel #bacen
+
+**Arquivo:** `neocortex/core/NC-CORE-FR-133-regulatory-agencies.py`
+
+Define agências reguladoras do sistema:
+- Cada agência tem jurisdição sobre um domínio específico
+- Fiscalizam conformidade setorial
+- Emitem normas infralegais
+
+---
+
+@UBL legislative-process
+# 4. PROCESSO LEGISLATIVO (NC-CORE-FR-134)
+LEXICO: #legislative-process #processo-legislativo #law-creation #norms
+
+**Arquivo:** `neocortex/core/NC-CORE-FR-134-legislative-process.py`
+
+Define como novas regras são criadas:
+- **Bill**: Proposta de nova regra
+- **Voting**: Processo de votação
+- **Enactment**: Promulgação
+- **Publication**: Publicação no Diário Oficial (SSOT)
+
+---
+
+@UBL criminal-procedure-code
+# 5. CPP DIGITAL (NC-CORE-FR-135)
+LEXICO: #cpp #criminal-procedure-code #penal #violations #sanctions
+
+**Arquivo:** `neocortex/core/NC-CORE-FR-135-criminal-procedure-code.py`
+
+Define o processo penal digital:
+- **Violation**: Tipificação de violações
+- **Investigation**: Fase investigativa
+- **Prosecution**: Acusação formal
+- **Sanction**: Penalidades (warning, suspension, ban)
+
+---
+
+@UBL vigilant-cycle
+# 6. CICLO VIGILANTE (NC-CORE-FR-137)
+LEXICO: #vigilant-cycle #ciclo-vigilante #oversight #monitoring
+
+**Arquivo:** `neocortex/core/NC-CORE-FR-137-vigilant-cycle.py`
+
+Ciclo de vigilância contínua:
+- Monitora conformidade em runtime
+- Detecta desvios e aciona CPC
+- Alimenta Regression Buffer
+
+---
+
+@UBL judicial-organs
+# 7. ÓRGÃOS JUDICIAIS (NC-CORE-FR-138)
+LEXICO: #judicial-organs #orgaos-judiciais #stf #stj #courts
+
+**Arquivo:** `neocortex/core/NC-CORE-FR-138-judicial-organs.py`
+
+Estrutura do Poder Judiciário:
+- **STF** (Supremo Tribunal Federal): Última instância — guarda da Constituição
+- **STJ** (Superior Tribunal de Justiça): Uniformização de jurisprudência
+- **TRF** (Tribunais Regionais Federais): 2ª instância
+- **Juízes**: 1ª instância
+
+---
+
+@UBL hierarchy-protocol
+# 8. PROTOCOLO DE HIERARQUIA (NC-CORE-FR-140)
+LEXICO: #hierarchy-protocol #protocolo-hierarquia #chain-of-command
+
+**Arquivo:** `neocortex/core/NC-CORE-FR-140-hierarchy-protocol.py`
+
+Define a cadeia de comando:
+- **T0** → autoridade máxima (OpenCode/DeepSeek V4)
+- **TA** → auditoria (DeepSeek Flash)
+- **T2** → engenharia (Qwen 3B)
+- **T1** → operações (Qwen 1.5B)
+- **T3** → validação (Qwen 1.5B)
+
+---
+
+@UBL secretariats
+# 9. SECRETARIAS (NC-CORE-FR-141)
+LEXICO: #secretariats #secretarias #administration #support
+
+**Arquivo:** `neocortex/core/NC-CORE-FR-141-secretariats.py`
+
+Estrutura administrativa:
+- Suporte aos órgãos judiciais
+- Gestão documental
+- Protocolo e distribuição
+
+---
+
+@UBL legal-references
+# 10. REFERÊNCIAS CRUZADAS
+LEXICO: #legal-references #cross-ref #governance #ssot
+
+| Componente | Relaciona-se com |
+|-----------|-----------------|
+| Pacto Federativo | Constitution §4 (R126), CPC (FR-132) |
+| CPC Digital | Gateway (FR-129), LockGuard (FR-014), ToolGuard (FR-125) |
+| Agências Reguladoras | Constitution §7 (security rules) |
+| Processo Legislativo | NC-NAM-FR-001 (normas), RULES-MULTILAYER (R01-R133) |
+| CPP Digital | Regression Buffer, RCA Engine (FR-147) |
+| Ciclo Vigilante | PulseScheduler (FR-122), CICLO 4 |
+| Órgãos Judiciais | Constitution §4 (hierarchy), R126 (structural boundary) |
+| Protocolo Hierarquia | Agent Rules (Constitution §4), R126 |
+| Secretarias | DIR-DS-001-tickets, DIR-DS-002-audit-logs, BOOT checkpoints |
+
+---
+
+@UBL legal-status
+# 11. STATUS DE IMPLEMENTAÇÃO
+LEXICO: #legal-status #implementation #gaps
+
+| Componente | Código | Lobe | LEXICO | @UBL | Wire-up |
+|-----------|--------|------|--------|------|---------|
+| Pacto Federativo | ✅ | ✅ (este) | ✅ | ✅ | ⚠️ Gateway |
+| CPC Digital | ✅ | ✅ (este) | ✅ | ✅ | ✅ Gateway |
+| Agências Reguladoras | ✅ | ✅ (este) | ✅ | ✅ | ❌ |
+| Processo Legislativo | ✅ | ✅ (este) | ✅ | ✅ | ❌ |
+| CPP Digital | ✅ | ✅ (este) | ✅ | ✅ | ❌ |
+| Ciclo Vigilante | ✅ | ✅ (este) | ✅ | ✅ | ⚠️ Pulse |
+| Órgãos Judiciais | ✅ | ✅ (este) | ✅ | ✅ | ❌ |
+| Protocolo Hierarquia | ✅ | ✅ (este) | ✅ | ✅ | ✅ Agent rules |
+| Secretarias | ✅ | ✅ (este) | ✅ | ✅ | ❌ |
