@@ -87,6 +87,29 @@ class DeepSeekBackend(LLMBackend):
         if not self.api_key:
             raise RuntimeError("DeepSeek API key not configured")
 
+        cache_prompt = request.prompt
+        if request.system_prompt:
+            cache_prompt = f"{request.system_prompt}\n---\n{request.prompt}"
+
+        try:
+            from neocortex.core.NC_CORE_FR_174_response_cache import get_response_cache
+            cache = get_response_cache()
+            cached = cache.query(cache_prompt, tool_name="deepseek")
+            if cached is not None:
+                logger.debug(f"DeepSeek: cache hit ({cached.get('_cache_similarity', '?')})")
+                return LLMResponse(
+                    content=cached.get("content", ""),
+                    model=self.model,
+                    provider=LLMProvider.DEEPSEEK,
+                    tokens_used=cached.get("tokens_used", 0),
+                    completion_time_ms=0.0,
+                    metadata={"_cache_hit": True, "_cache_source": "semantic"},
+                )
+        except ImportError:
+            pass
+        except Exception as e:
+            logger.debug(f"DeepSeek: cache query error — {e}")
+
         session = await self._ensure_session()
 
         # Prepare messages
@@ -126,7 +149,7 @@ class DeepSeekBackend(LLMBackend):
                 content = result["choices"][0]["message"]["content"]
                 tokens_used = result.get("usage", {}).get("total_tokens", 0)
 
-                return LLMResponse(
+                lr = LLMResponse(
                     content=content,
                     model=self.model,
                     provider=LLMProvider.DEEPSEEK,
@@ -138,6 +161,15 @@ class DeepSeekBackend(LLMBackend):
                         "id": result.get("id"),
                     },
                 )
+
+                try:
+                    from neocortex.core.NC_CORE_FR_174_response_cache import get_response_cache
+                    cached_resp = {"content": content, "tokens_used": tokens_used, "model": self.model}
+                    get_response_cache().store(cache_prompt, cached_resp, tool_name="deepseek")
+                except (ImportError, Exception):
+                    pass
+
+                return lr
 
         except Exception as e:
             logger.error(f"DeepSeek generation failed: {e}")
@@ -190,6 +222,26 @@ class DeepSeekBackend(LLMBackend):
         """Call DeepSeek chat/completions with thinking mode enabled."""
         if not self.api_key:
             raise RuntimeError("DeepSeek API key not configured")
+
+        cache_prompt_t = request.prompt
+        if request.system_prompt:
+            cache_prompt_t = f"{request.system_prompt}\n---\n{request.prompt}"
+
+        try:
+            from neocortex.core.NC_CORE_FR_174_response_cache import get_response_cache
+            cache_t = get_response_cache()
+            cached_t = cache_t.query(cache_prompt_t, tool_name="deepseek_thinking")
+            if cached_t is not None:
+                return LLMResponse(
+                    content=cached_t.get("content", ""),
+                    model=self.model if "v4" in self.model else "deepseek-v4-pro",
+                    provider=LLMProvider.DEEPSEEK,
+                    tokens_used=cached_t.get("tokens_used", 0),
+                    completion_time_ms=0.0,
+                    metadata={"_cache_hit": True, "_cache_source": "semantic"},
+                )
+        except (ImportError, Exception):
+            pass
 
         session = await self._ensure_session()
 
@@ -250,66 +302,6 @@ class DeepSeekBackend(LLMBackend):
                 return self._build_response(result)
         except Exception as e:
             logger.error(f"DeepSeek multi-round failed: {e}")
-            raise
-
-        """
-        Stream completion tokens from DeepSeek.
-
-        Args:
-            request: LLMRequest with stream=True.
-
-        Yields:
-            Token strings as they become available.
-        """
-        if not self.api_key:
-            raise RuntimeError("DeepSeek API key not configured")
-
-        session = await self._ensure_session()
-
-        messages = []
-        if request.system_prompt:
-            messages.append({"role": "system", "content": request.system_prompt})
-        messages.append({"role": "user", "content": request.prompt})
-
-        payload = {
-            "model": self.model,
-            "messages": messages,
-            "temperature": request.temperature,
-            "stream": True,
-        }
-
-        if request.max_tokens:
-            payload["max_tokens"] = request.max_tokens
-
-        try:
-            async with session.post(
-                f"{self.base_url}/chat/completions", json=payload
-            ) as response:
-                if response.status != 200:
-                    error_text = await response.text()
-                    raise RuntimeError(
-                        f"DeepSeek API error {response.status}: {error_text}"
-                    )
-
-                async for line in response.content:
-                    if line:
-                        line = line.strip()
-                        if line.startswith("data: "):
-                            data = line[6:]
-                            if data == "[DONE]":
-                                break
-                            try:
-                                chunk = json.loads(data)
-                                if chunk.get("choices"):
-                                    delta = chunk["choices"][0].get("delta", {})
-                                    token = delta.get("content", "")
-                                    if token:
-                                        yield token
-                            except json.JSONDecodeError:
-                                continue
-
-        except Exception as e:
-            logger.error(f"DeepSeek streaming failed: {e}")
             raise
 
     def estimate_tokens(self, text: str) -> int:
