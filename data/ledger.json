@@ -1,10 +1,10 @@
 {
   "session_metrics": {
-    "total_interactions": 33,
+    "total_interactions": 34,
     "compactions_executed": 0,
     "token_budget_warnings": 0,
     "interaction_types": {
-      "heartbeat": 33
+      "heartbeat": 34
     },
     "total_tokens_used": 0
   },
@@ -261,13 +261,20 @@
         "created_at": "auto_generated",
         "metadata": {},
         "status": "summarized"
+      },
+      {
+        "id": "session_2026-05-05T05-27-59-129147+00-00Z",
+        "summary": "Sess\u00e3o finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
       }
     ],
     "synapses": {
       "current_context": {
         "lobe_id": "NC-LBE-FR-002-claude-assistant",
-        "checkpoint_id": "CP-AUTO-20260505-022701-719305e4",
-        "set_at": "2026-05-05T02:27:01.649503"
+        "checkpoint_id": "CP-AUTO-20260505-022759-a3f9f88c",
+        "set_at": "2026-05-05T02:27:59.172948"
       }
     },
     "global_checkpoint_index": {
@@ -334,7 +341,8 @@
         "CP-AUTO-20260505-021201-41f9ca81",
         "CP-AUTO-20260505-021701-02f31aaa",
         "CP-AUTO-20260505-022201-0068e696",
-        "CP-AUTO-20260505-022701-719305e4"
+        "CP-AUTO-20260505-022701-719305e4",
+        "CP-AUTO-20260505-022759-a3f9f88c"
       ]
     }
   },
@@ -777,6 +785,13 @@
       "timestamp": "2026-05-05T02:27:01.649503",
       "event": "checkpoint_set",
       "checkpoint_id": "CP-AUTO-20260505-022701-719305e4",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-05T02:27:59.172948",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260505-022759-a3f9f88c",
       "lobe_id": "NC-LBE-FR-002-claude-assistant",
       "description": "Auto-checkpoint created by PulseScheduler"
     }
