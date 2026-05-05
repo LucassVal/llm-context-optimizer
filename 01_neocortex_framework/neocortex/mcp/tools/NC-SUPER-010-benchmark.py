@@ -27,7 +27,7 @@ from typing import Any
 
 logger = logging.getLogger(__name__)
 TOOL_NAME = "neocortex_benchmark"
-
+root = Path(__file__).parents[4]
 
 def _ts() -> str:
     return datetime.now().isoformat(timespec="seconds")
@@ -58,7 +58,7 @@ def register_tool(mcp) -> None:
         # UBL Gateway (Kernel 0)
         try:
             from neocortex.core.utils.gateway_bridge import gateway_check
-            _ok, _report = gateway_check(action, root)
+            _ok, _report = gateway_check(action, root)  # type: ignore[arg-type]
             if not _ok: return _report
         except Exception: pass
         def _run_benchmark_test(test_name: str, prompt: str) -> dict:
@@ -146,7 +146,7 @@ def register_tool(mcp) -> None:
         _orbital_result = None
         try:
             import importlib.util
-            _spec = importlib.util.spec_from_file_location("orbital_bridge", str(root / "01_neocortex_framework" / "neocortex" / "core" / "NC-CORE-FR-139-orbital-bridge.py"))
+            _spec = importlib.util.spec_from_file_location("orbital_bridge", str(root / "01_neocortex_framework" / "neocortex" / "core" / "NC-CORE-FR-139-orbital-bridge.py"))  # type: ignore[operator]
             _mod = importlib.util.module_from_spec(_spec)
             _spec.loader.exec_module(_mod)
             _orbital_result = _mod.orbital_dispatch(action, root)

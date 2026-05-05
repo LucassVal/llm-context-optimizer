@@ -339,7 +339,7 @@ def register_tool(mcp) -> None:
                 }
 
                 # Check R04 - Nomenclatura Padronizada
-                pattern = re.compile(r'^NC-[A-Z]+-[A-Z]+-[0-9]{3}-.+\.')
+                name_pattern = re.compile(r'^NC-[A-Z]+-[A-Z]+-[0-9]{3}-.+\.')
                 nc_files = []
                 non_conformant = []
 

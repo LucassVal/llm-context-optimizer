@@ -247,7 +247,7 @@ def register_tool(mcp) -> None:
             try:
                 from neocortex.infra.hot_cache import get_hot_cache
                 cache = get_hot_cache()
-                stats = cache.stats() if hasattr(cache, "stats") else {"size": "unknown"}
+                stats = cache.stats() if hasattr(cache, "stats") else {"size": "unknown"}  # type: ignore[union-attr]
                 return {"success": True, "action": action, "stats": stats, "timestamp": ts}
             except Exception as e:
                 return {"success": False, "error": str(e), "timestamp": ts}

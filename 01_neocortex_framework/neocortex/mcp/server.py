@@ -17,8 +17,8 @@ import uuid
 from datetime import UTC, datetime
 from pathlib import Path
 
-from ..core.pulse_scheduler import PulseScheduler
-from ..infra.metrics_store import create_metrics_store
+from ..core.pulse_scheduler import PulseScheduler  # type: ignore[import-untyped]
+from ..infra.metrics_store import create_metrics_store  # type: ignore[import-untyped]
 
 _workspace_roots = None
 
@@ -243,6 +243,26 @@ else:
 
             return decorator
 
+        def resource(self, uri, name="", description="", mime_type="text/plain"):
+            def decorator(func):
+                return func
+            return decorator
+
+        def prompt(self, name="", description=""):
+            def decorator(func):
+                return func
+            return decorator
+
+        @property
+        def _mcp_server(self):
+            return None
+
+        def send_tool_list_changed(self):
+            pass
+
+        def set_logging_level(self, level):
+            pass
+
         def run(self):
             logger.info(
                 f"MockMCP '{self.name}' v{self.version} rodando com {len(self.tools)} ferramentas"
@@ -414,7 +434,7 @@ def create_mcp_server(host="127.0.0.1", port=8765):
     if FAST_MCP_AVAILABLE:
         server = FastMCP(
             "neocortex",
-            sampling_handler_behavior="fallback",
+            sampling_handler_behavior="fallback",  # type: ignore[call-arg]
         )
 
         # Add health check tool for monitoring
@@ -573,7 +593,7 @@ def create_mcp_server(host="127.0.0.1", port=8765):
         if tool not in _critical_tools:
             return
         try:
-            req = _server_ref._mcp_server.request_context()
+            req = _server_ref._mcp_server.request_context()  # type: ignore[operator]
             if req is None:
                 _hlog(f"Sampling: no session — {tool} proceed (no client)")
                 return
