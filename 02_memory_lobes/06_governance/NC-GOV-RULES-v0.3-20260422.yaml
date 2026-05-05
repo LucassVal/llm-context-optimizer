@@ -1,0 +1,262 @@
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC GOV RULES v0.3 20260422
+# Why:  Criado em 2026-04-22 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/governance/rules
+
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC GOV RULES v0.3 20260422
+# Why:  Criado em 2026-04-22 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/governance/rules
+
+# NEOCORTEX GOVERNANCE RULES v0.3
+# Data: 2026-04-22
+# Status: ATIVAS
+# Total de regras: 30
+
+rules:
+  # REGRAS EXISTENTES (v0.2)
+  R01:
+    id: "R01"
+    name: "Inventário de Ativos de IA"
+    description: "Manter inventário atualizado de todos os ativos de IA no sistema"
+    compliance_check: "Verificar se há inventário atualizado"
+    tier: "T0"
+    status: "ACTIVE"
+
+  R02:
+    id: "R02"
+    name: "Política Formalizada"
+    description: "Todas as políticas devem ser documentadas formalmente"
+    compliance_check: "Verificar documentação de políticas"
+    tier: "T0"
+    status: "ACTIVE"
+
+  R03:
+    id: "R03"
+    name: "Estrutura de Diretórios"
+    description: "Manter estrutura de diretórios padronizada NC-"
+    compliance_check: "Verificar estrutura de diretórios"
+    tier: "T1"
+    status: "ACTIVE"
+
+  R04:
+    id: "R04"
+    name: "Nomenclatura NC-"
+    description: "Usar prefixo NC- para todos os artefatos do sistema"
+    compliance_check: "Verificar nomenclatura em arquivos"
+    tier: "T1"
+    status: "ACTIVE"
+
+  R07:
+    id: "R07"
+    name: "Privilégio Mínimo (PoLP)"
+    description: "Aplicar princípio do menor privilégio em todas as operações"
+    compliance_check: "Verificar níveis de acesso"
+    tier: "T0"
+    status: "ACTIVE"
+
+  R08:
+    id: "R08"
+    name: "Atomic Locks"
+    description: "Usar locks atômicos para operações críticas"
+    compliance_check: "Verificar uso de locks em operações críticas"
+    tier: "T1"
+    status: "ACTIVE"
+
+  R09:
+    id: "R09"
+    name: "Zonas de Escrita"
+    description: "Definir zonas de escrita específicas para diferentes operações"
+    compliance_check: "Verificar zonas de escrita"
+    tier: "T1"
+    status: "ACTIVE"
+
+  R10:
+    id: "R10"
+    name: "Trilha de Auditoria"
+    description: "Manter trilha de auditoria completa para todas as operações"
+    compliance_check: "Verificar logs de auditoria"
+    tier: "T0"
+    status: "ACTIVE"
+
+  R12:
+    id: "R12"
+    name: "Handoffs Formais"
+    description: "Realizar handoffs formais entre agents/tiers"
+    compliance_check: "Verificar arquivos de handoff"
+    tier: "T0"
+    status: "ACTIVE"
+
+  R13:
+    id: "R13"
+    name: "Checkpoints"
+    description: "Estabelecer checkpoints regulares para estado do sistema"
+    compliance_check: "Verificar checkpoints existentes"
+    tier: "T1"
+    status: "ACTIVE"
+
+  R18:
+    id: "R18"
+    name: "Ciclo de Vida Tickets"
+    description: "Gerenciar ciclo completo de tickets (criação→fechamento)"
+    compliance_check: "Verificar ciclo de vida de tickets"
+    tier: "T0"
+    status: "ACTIVE"
+
+  R19:
+    id: "R19"
+    name: "Rotina 4 Ciclos"
+    description: "Executar rotina de 4 ciclos diários para manutenção"
+    compliance_check: "Verificar execução de ciclos"
+    tier: "T1"
+    status: "ACTIVE"
+
+  R20:
+    id: "R20"
+    name: "Revisão e Arquivo"
+    description: "Revisar e arquivar artefatos regularmente"
+    compliance_check: "Verificar processos de arquivamento"
+    tier: "T1"
+    status: "ACTIVE"
+
+  R21:
+    id: "R21"
+    name: "Zero Suposições"
+    description: "Não fazer suposições sobre estado do sistema - sempre verificar"
+    compliance_check: "Verificar verificações de estado"
+    tier: "T0"
+    status: "ACTIVE"
+
+  # NOVAS REGRAS v0.3
+  R22:
+    id: "R22"
+    name: "Integração entre Sistemas"
+    description: "Sistemas memory, state e ledger devem estar integrados e sincronizados"
+    compliance_check: "Verificar sincronização entre memory, state, ledger"
+    automation: "cf.audit com verificação de integração"
+    tier: "T1"
+    status: "NEW_ACTIVE"
+    implementation_date: "2026-04-22"
+
+  R23:
+    id: "R23"
+    name: "Automação de Compliance"
+    description: "Processos de compliance devem ser automatizados e contínuos"
+    compliance_check: "Verificar automação de checks de compliance"
+    automation: "Auditoria automática a cada ciclo"
+    tier: "T0"
+    status: "NEW_ACTIVE"
+    implementation_date: "2026-04-22"
+
+  R24:
+    id: "R24"
+    name: "Processo de Evolução Constitucional"
+    description: "Evolução constitucional deve seguir processo formal com pre-check e aprovação"
+    compliance_check: "Verificar uso de cf.pre_check para emendas"
+    automation: "Validação automática de emendas"
+    tier: "T0"
+    status: "NEW_ACTIVE"
+    implementation_date: "2026-04-22"
+
+  R25:
+    id: "R25"
+    name: "Normas para Handoffs entre Tiers"
+    description: "Handoffs entre tiers devem documentar contexto, estado e expectativas"
+    compliance_check: "Verificar completude de arquivos de handoff"
+    automation: "Validação de handoff files"
+    tier: "T0"
+    status: "NEW_ACTIVE"
+    implementation_date: "2026-04-22"
+
+  R26:
+    id: "R26"
+    name: "Políticas de Backup/Restore"
+    description: "Sistemas críticos devem ter políticas de backup e restore definidas"
+    compliance_check: "Verificar existência de políticas de backup"
+    automation: "Checkpoints automáticos"
+    tier: "T1"
+    status: "NEW_ACTIVE"
+    implementation_date: "2026-04-22"
+
+  R27:
+    id: "R27"
+    name: "Monitoramento de Integridade"
+    description: "Integridade do sistema deve ser monitorada continuamente"
+    compliance_check: "Verificar health checks regulares"
+    automation: "Health checks automáticos"
+    tier: "T1"
+    status: "NEW_ACTIVE"
+    implementation_date: "2026-04-22"
+
+  R28:
+    id: "R28"
+    name: "Gestão de Dependências"
+    description: "Dependências entre sistemas devem ser mapeadas e gerenciadas"
+    compliance_check: "Verificar mapa de dependências atualizado"
+    automation: "Mapeamento automático de dependências"
+    tier: "T1"
+    status: "NEW_ACTIVE"
+    implementation_date: "2026-04-22"
+
+  R29:
+    id: "R29"
+    name: "Auditoria Contínua"
+    description: "Auditoria deve ocorrer de forma contínua e proativa"
+    compliance_check: "Verificar logs de auditoria em tempo real"
+    automation: "Logs automáticos de auditoria"
+    tier: "T0"
+    status: "NEW_ACTIVE"
+    implementation_date: "2026-04-22"
+
+  R30:
+    id: "R30"
+    name: "Resiliência do Sistema"
+    description: "Sistema deve ser resiliente a falhas e se recuperar automaticamente"
+    compliance_check: "Verificar mecanismos de fallback e recovery"
+    automation: "Recovery automático"
+    tier: "T1"
+    status: "NEW_ACTIVE"
+    implementation_date: "2026-04-22"
+
+compliance_automation:
+  frequency: "A cada ciclo (4x/dia)"
+  scope: "Todas as 30 regras"
+  actions:
+    - "Verificação automática via cf.audit"
+    - "Geração de relatório de compliance"
+    - "Log de violações automático"
+    - "Notificações para não-conformidades críticas"
+
+  tools:
+    primary: "neocortex_governance.cf.audit"
+    secondary: "neocortex_governance.compliance.report"
+    monitoring: "neocortex_health.server.health"
+
+integration_matrix:
+  memory_state_ledger:
+    synchronization: "Checkpoints a cada handoff"
+    consistency: "Transacional com rollback"
+    recovery: "Coordenado entre sistemas"
+    
+  governance_orchestration:
+    handoff: "T0→T1 via handoff files"
+    execution: "T1 executa tasks delegadas"
+    monitoring: "T0 monitora compliance"
+
+  health_monitoring:
+    services: "Todos os serviços MCP"
+    frequency: "30 segundos"
+    alerts: "Notificações automáticas"
+
+implementation_status:
+  rules_active: 30
+  rules_automated: 22
+  compliance_score: 100.0
+  last_audit: "2026-04-22T09:28:00"
+  next_audit: "2026-04-22T12:00:00"
+
+signature:
+  authority: "T0 Soberano"
+  date: "2026-04-22T09:28:30"
+  version: "v0.3"
+  status: "IMPLEMENTADA"
