@@ -19,10 +19,12 @@ Actions: ollama.ask, ollama.list, ollama.pull,
 ---
 """
 import logging
+from pathlib import Path
 from typing import Any
 
 logger = logging.getLogger(__name__)
 TOOL_NAME = "neocortex_llm_router"
+root = Path(__file__).parents[4]
 
 _OLLAMA_BASE = "http://localhost:11434"
 
@@ -51,6 +53,12 @@ def register_tool(mcp) -> None:
         Actions: ollama.ask, ollama.list, ollama.pull, workers.spawn, workers.status
         Tiers: OPERACIONAL→qwen-1.5b | TECNICO→deepseek-v4-flash | RACIOCINIO→deepseek-v4-pro
         """
+        try:
+            from neocortex.core.utils.gateway_bridge import gateway_check
+            _ok, _report = gateway_check(action, root)
+            if not _ok: return _report
+        except Exception: pass
+
         if action == "ollama.ask":
             if not prompt:
                 return {"success": False, "action": action, "error": "prompt obrigatório"}

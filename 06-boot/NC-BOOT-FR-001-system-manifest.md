@@ -5,7 +5,7 @@
 
 > **LEIA ESTE ARQUIVO PRIMEIRO — e apenas este.** Ele contem TUDO.  
 > Qualquer IA (Antigravity, OpenCode, Cursor, Claude, DeepSeek) comeca aqui.  
-> Ultima atualizacao: 2026-05-04 | **v7** — GOVERNANCA & MULTI-AGENTE | LEXICO v4.1 ativo | NC- 67.9%
+> Ultima atualizacao: 2026-05-05 | **v8** — LEXICO v4.6 | 258 files | gateway 19/19 | 0 LSP errors
 
 ---
 
@@ -23,11 +23,9 @@
 | Componente | Versao |
 |-----------|--------|
 | Package | 4.2.0 |
-| LEXICO | v4.1 |
-| SSOT (NC-NAM-FR-001) | v1.3 |
-| Architecture Blueprint | v3.0 |
-| Governance Rules | v1.3 |
-| Boot Manifest | v7 |
+| LEXICO | v4.6 |
+| SSOT (NC-NAM-FR-001) | v2.1 |
+| Governance Rules | v4.0 (133) |
 
 ---
 

@@ -17,9 +17,11 @@ Actions: status
 ---"""
 import logging
 from datetime import datetime
+from pathlib import Path
 from typing import Any
 
 logger = logging.getLogger(__name__)
+root = Path(__file__).parents[4]
 
 # Referência global ao scheduler (populada pelo server.py no boot)
 _scheduler = None
@@ -68,6 +70,12 @@ def register_tool(mcp) -> None:
         Actions: status
         """
         ts = datetime.now().isoformat(timespec="seconds")
+        try:
+            from neocortex.core.utils.gateway_bridge import gateway_check
+            _ok, _report = gateway_check(action, root)
+            if not _ok: return _report
+        except Exception: pass
+
         if _scheduler is None:
             return {"success": False, "error": "PulseScheduler não inicializado", "timestamp": ts}
         running = _scheduler.is_running() if hasattr(_scheduler, "is_running") else True

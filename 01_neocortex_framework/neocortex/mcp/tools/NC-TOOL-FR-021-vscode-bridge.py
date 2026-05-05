@@ -23,9 +23,11 @@ import json
 import os
 import urllib.error
 import urllib.request
+from pathlib import Path
 from typing import Any
 
 TOOL_NAME = "neocortex_vscode"
+root = Path(__file__).parents[4]
 
 BRIDGE_URL = "http://127.0.0.1:18791"
 
@@ -96,6 +98,12 @@ def register_tool(mcp):
           action: The bridge or account action to invoke.
           params: Optional JSON string with parameters for the action.
         """
+        try:
+            from neocortex.core.utils.gateway_bridge import gateway_check
+            _ok, _report = gateway_check(action, root)
+            if not _ok: return json.dumps(_report)
+        except Exception: pass
+
         parsed_params: dict[str, Any] = {}
         if params:
             try:

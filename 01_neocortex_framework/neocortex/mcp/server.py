@@ -944,6 +944,9 @@ def main():
     if transport == "streamable-http":
         print(f"-> SSE Host: {args.host}:{args.port}", file=sys.stderr)
         if FAST_MCP_AVAILABLE:
+            import fastmcp.settings as _fmcp_cfg
+            _fmcp_cfg.host = args.host
+            _fmcp_cfg.port = args.port
             mcp.run(transport="streamable-http")
         else:
             print("FastMCP indisponível. Saindo.", file=sys.stderr)
