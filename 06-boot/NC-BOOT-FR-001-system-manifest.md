@@ -15,9 +15,9 @@
 **GitHub:** https://github.com/LucassVal/llm-context-optimizer  
 **Raiz:** `C:\Users\Lucas Valerio\Desktop\TURBOQUANT_V42\`  
 **Framework:** `01_neocortex_framework\`  
-**Objetivo:** Framework MCP industrial com governanca de IA, orquestracao multi-agente, memoria persistente (lobos) e resolvedor semantico de paths (LEXICO).  
+**Objetivo:** Framework MCP industrial com governanca de IA, memoria persistente (lobos) e resolvedor semantico de paths (LEXICO).  
 **Dono:** Lucas Valerio  
-**Fase atual:** GOVERNANCA & MULTI-AGENTE. MCP ativo via stdio local. 155 servicos no LEXICO v4.1, 4 agentes OpenCode configurados, 250 simbolos ULQ. Ollama :11434 com Qwen 1.5B/3B. NC- 67.9% em ascensao.
+**Fase atual:** GOVERNANCA & MULTI-AGENTE. MCP ativo via stdio local. 19 tools MCP com 3W documentadas. Semantic Response Cache integrado no DeepSeekBackend. Ollama :11434 com Qwen 1.5B/3B. LiteLLM e PicoClaw removidos. NC- 67.9%.
 
 **Versoes dos componentes:**
 | Componente | Versao |
@@ -53,9 +53,9 @@
    SSOT → referencia #TOOLGUARD → LEXICO v4.1 resolve → path real
    NENHUM código, ticket ou documento hardcoda paths.
 ```
-| **DeepSeek** | LLM executor | via :4000 | LiteLLM roteia |
-| **Ollama (Qwen)** | Worker pool braçal | :11434 | LiteLLM roteia |
-| **Pixel Agents** | Adaptador secundrio (observer) | :8767 | Core  Visual |
+| **DeepSeek** | LLM executor via API direta | cloud | DeepSeekBackend (NC-LLM-FR-001) |
+| **Ollama (Qwen)** | Worker pool bracal | :11434 | local iGPU |
+| **Semantic Cache** | Response cache com embeddings | LanceDB local | NC-CORE-FR-174 |
 | **neocortex_hud.py** | Dashboard local | GUI Tkinter | Read-only monitor |
 
 ### Regra de ouro

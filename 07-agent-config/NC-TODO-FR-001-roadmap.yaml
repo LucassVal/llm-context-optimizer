@@ -10,10 +10,13 @@ metadata:
   status: ACTIVE
   version: 5.0
   last_updated: 2026-05-05
-  mcp_compliance: "71% (era 29%)"
+  mcp_compliance: "71%"
   rules_total: 133
-  server_py_lines: 809
-  active_tickets: 14
+  server_py_lines: 900
+  active_tickets: 3
+  mcp_tools: 19
+  tools_audited: "2026-05-05"
+  tools_3w_documented: true
 
 phases:
   # ── COMPLETED ─────────────────────────────────────────────────
@@ -36,23 +39,30 @@ phases:
 
   # ── CURRENT ──────────────────────────────────────────────────
   - phase: CICLO_6
-    title: "MCP Compliance Final + Governanca 27 Regras"
+    title: "MCP Compliance Final + Governanca 27 Regras + Limpeza Tecnica"
     status: IN_PROGRESS
     started_at: 2026-05-05
-    summary: "Fechar os 2 gaps MCP restantes + implementar 3 regras criticas de governanca. Compliance 71% -> 82%."
+    summary: "3 gaps MCP restantes (sampling+roots+URI concluidos). 3 regras de governanca criticas P0/P1. Cache semantico implementado."
+    tickets_done_this_cycle:
+      - id: NC-DS-262
+        title: "Pivotacao DDD e Saneamento de Orfãos/Duplicatas"
+        result: "5 duplicatas arquivadas. DDD zero child-to-child."
+      - id: NC-DS-263
+        title: "MCP Capability Upgrade: Roots, Sampling e URI Remapping"
+        result: "lobe:// alias. Roots dinamicos. Sampling HITL hook. Capability negotiation."
+      - id: NC-DS-264
+        title: "MCP Tools Full Audit — stale cleanup + 3W descriptions"
+        result: "5 stale refs limpos. 19 tools com 3W. openclaude-bridge arquivado."
+      - id: NC-DS-255
+        title: "Semantic Response Cache com Embedding Similarity"
+        result: "NC-CORE-FR-174. LanceDB + embeddings. >0.92 cache hit no DeepSeekBackend."
     tickets_active:
       - id: NC-DS-259
-        title: "R127 MURPHY — health_check testa hook_registry"
+        title: "R127 MURPHY — health_check testa hook_registry ativamente"
         status: OPEN
         priority: P0
         effort: 30min
         impact: "Elimina Risco 1 (hook_registry fragil)"
-      - id: NC-DS-253
-        title: "outputSchema TypedDict nas 20 tools"
-        status: IN_PROGRESS
-        priority: P1
-        effort: 2-3h
-        impact: "Compliance 71% -> 82%. Bloqueador: FastMCP kwarg."
       - id: NC-DS-260
         title: "R129 ITIL — pre-commit hook bloqueia checkout sem savepoint"
         status: OPEN
@@ -65,12 +75,12 @@ phases:
         priority: P1
         effort: 1h
         impact: "Seguranca de inputs"
-      - id: NC-DS-255
-        title: "Semantic Response Cache"
-        status: OPEN
-        priority: P2
-        effort: 2h
-        impact: "Feature futura, adiada por YAGNI"
+    tickets_blocked:
+      - id: NC-DS-253
+        title: "outputSchema TypedDict nas 20 tools"
+        status: BLOCKED
+        priority: P1
+        reason: "FastMCP 3.2.3 nao suporta kwarg outputSchema no decorator"
 
   # ── NEXT ─────────────────────────────────────────────────────
   - phase: CICLO_7

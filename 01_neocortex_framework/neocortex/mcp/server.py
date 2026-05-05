@@ -419,14 +419,61 @@ def create_mcp_server(host="127.0.0.1", port=8765):
 
         # Add health check tool for monitoring
         def _health_check_impl() -> dict:
-            """Check MCP server health status"""
+            """Check MCP server health status — R127 MURPHY: actively tests hooks."""
+            import time as _time
+
+            hooks_ok = False
+            hooks_details = {}
+            try:
+                if hook_registry_instance is not None:
+                    test_ctx = {"tool_name": "__health_check_test__", "args": "()"}
+                    t0 = _time.monotonic()
+                    hook_registry_instance.trigger("PreToolUse", test_ctx)
+                    elapsed = _time.monotonic() - t0
+                    hooks_ok = True
+                    hooks_details = {
+                        "hook_registry": "active",
+                        "test_trigger_ms": round(elapsed * 1000, 2),
+                        "pre_hooks_count": len(_hooks_pre) if "_hooks_pre" in dir() else 0,
+                        "post_hooks_count": len(_hooks_post) if "_hooks_post" in dir() else 0,
+                    }
+                else:
+                    hooks_details = {"hook_registry": "NONE", "error": "hook_registry_instance is None"}
+            except Exception as e:
+                hooks_details = {"hook_registry": "ERROR", "error": str(e)[:120]}
+
+            pulse_ok = False
+            pulse_details = {}
+            try:
+                if pulse_scheduler_instance is not None:
+                    pulse_ok = pulse_scheduler_instance.running
+                    pulse_details = {
+                        "running": pulse_scheduler_instance.running,
+                        "interval": getattr(pulse_scheduler_instance, "interval", "?"),
+                        "pulses": getattr(pulse_scheduler_instance, "stats", {}).get("pulses", 0),
+                    }
+                else:
+                    pulse_details = {"running": False, "error": "pulse_scheduler_instance is None"}
+            except Exception as e:
+                pulse_details = {"running": False, "error": str(e)[:120]}
+
+            checks = {
+                "hooks": hooks_ok,
+                "pulse": pulse_ok,
+            }
+            degraded = [k for k, v in checks.items() if not v]
+            status = "critical" if len(degraded) >= 2 else "degraded" if degraded else "healthy"
+
             return {
                 "success": True,
-                "status": "healthy",
+                "status": status,
+                "degraded": degraded,
                 "service": "neocortex-mcp",
                 "version": "4.2-cortex",
                 "timestamp": datetime.now(UTC).isoformat() + "Z",
-                "tools_loaded": 17
+                "tools_loaded": 19,
+                "hooks": hooks_details,
+                "pulse": pulse_details,
             }
         health_check = _wrap_with_hooks(_health_check_impl, "health_check")
         server.tool(name="health_check")(health_check)
