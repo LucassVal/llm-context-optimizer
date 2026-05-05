@@ -62,6 +62,11 @@
 > T0 (OpenCode) **pensa e decide**. Agentes (nc-courier, nc-engineer, nc-guardian, nc-auditor) **executam**. OpenCode **orquestra** nativamente. Hierarquia completa: **Constitution §4** (`@UBL agent-rules`).
 > O Core **não sabe** que Mission Control ou Pixel Agents existem — DDD hexagonal.
 
+### Blindagem do Servidor MCP (STDIO & WAL) - INTEGRAÇÃO OPENCODE/ANTIGRAVITY
+> **Transporte Oficial (Launch Mode):** Antigravity e OpenCode DEVEM instanciar o MCP via **`stdio`** (chave `command: python`). A IDE governa o ciclo de vida do processo filho. O uso de `httpUrl` (Attach Mode/SSE) para MCP é banido por risco de portas órfãs.
+> **Canal JSON-RPC Blindado:** O NeoCortex redireciona cirurgicamente todos os logs do ciclo de vida nativo para `sys.stderr`. O `stdout` é isolado de corrupções para garantir sincronia do JSON-RPC da IDE.
+> **Crash Recovery (WAL):** Em caso de fechamento súbito do OpenCode/Antigravity (kill process), as transações de contexto não são perdidas. O Hook de `PostToolUse` injeta diretamente na base SQLite cada requisição finalizada (`TOOL_TRANSACTION`), garantindo Commit Imediato no FileSystem.
+
 ### Mapeamento de Portas NeoCortex (Orquestrador Unitário)
 
 **8 portas para serviços core:**

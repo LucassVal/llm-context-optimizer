@@ -6,7 +6,7 @@ description: |
   outro filho de contexto distinto diretamente (cross-domain p2p).
   Adicionalmente, processar 'orphan_audit_final.txt' e sanear falhas críticas de 
   unicidade de nomenclatura (IDs duplicados), além de arquivar scripts obsoletos.
-status: "TODO"
+status: DONE
 priority: "CRITICAL"
 owner: "OpenCode"
 category: "architecture"

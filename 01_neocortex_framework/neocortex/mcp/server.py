@@ -522,6 +522,25 @@ def create_mcp_server(host="127.0.0.1", port=8765):
     _hooks_post.append(lambda **ctx: _hlog("Integrity: YAML/MDC/Secret ok"))
     _hooks_post.append(lambda **ctx: _hlog("Regression: recorded"))
 
+    def _wal_transaction_hook(**ctx):
+        try:
+            wal_mod = importlib.import_module(".core.services.NC-SVC-FR-016-wal-service", package="neocortex")
+            wal = wal_mod.WALService()
+            # Assegura que a sessão ativa existe no banco SQLite do WAL
+            wal.open_session(session_manager.session_id, "T0-Antigravity")
+            tool_name = ctx.get('tool_name', 'unknown')
+            # Gravação síncrona na tabela wal_log (com commit implícito pelo método)
+            wal.log_operation(
+                session_id=session_manager.session_id,
+                operation="TOOL_TRANSACTION",
+                file_path=f"tool://{tool_name}",
+                after_hash="state_committed"
+            )
+        except Exception as e:
+            _hlog(f"WAL Sync Error: {e}")
+
+    _hooks_post.append(_wal_transaction_hook)
+
     _hooks_err = []
     _hooks_err.append(lambda **ctx: _hlog(f"RCA 5W: {str(ctx.get('error','?'))[:100]}"))
 
@@ -779,14 +798,15 @@ def main():
     # Apply fix as requested by user
     transport = "streamable-http" if args.transport in ["websocket", "sse"] else "stdio"
     print(
-        f"-> Iniciando NeoCortex MCP Server (Modo Selecionado: {args.transport} -> Adaptado para {transport})"
+        f"-> Iniciando NeoCortex MCP Server (Modo Selecionado: {args.transport} -> Adaptado para {transport})",
+        file=sys.stderr
     )
 
     # Instance server with explicit host and port parsed from args
     mcp = create_mcp_server(host=args.host, port=args.port)
 
     if transport == "streamable-http":
-        print(f"-> SSE Host: {args.host}:{args.port}")
+        print(f"-> SSE Host: {args.host}:{args.port}", file=sys.stderr)
         if FAST_MCP_AVAILABLE:
             # NC-DS-252: auth_token from env var for Streamable HTTP
             _auth = os.environ.get("NEOCORTEX_MCP_AUTH_TOKEN", "")
@@ -796,13 +816,13 @@ def main():
             else:
                 mcp.run(transport="streamable-http")
         else:
-            print("FastMCP indisponível. Saindo.")
+            print("FastMCP indisponível. Saindo.", file=sys.stderr)
     else:
-        print("-> STDIO ativado (conexão direta com IDE)")
+        print("-> STDIO ativado (conexão direta com IDE)", file=sys.stderr)
         if FAST_MCP_AVAILABLE:
             mcp.run(transport="stdio")
         else:
-            print("FastMCP indisponível. Saindo.")
+            print("FastMCP indisponível. Saindo.", file=sys.stderr)
 
 
 if __name__ == "__main__":
