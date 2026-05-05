@@ -631,6 +631,14 @@ def create_mcp_server(host="127.0.0.1", port=8765):
     class _HookProxy:
         def trigger(self, event, ctx):
             hooks = _hooks_pre if str(event) == "PreToolUse" else _hooks_post if str(event) == "PostToolUse" else _hooks_err
+
+            # R130 POSTEL: be liberal in what you accept
+            if not isinstance(ctx, dict):
+                ctx = {}
+            ctx.setdefault("tool_name", "unknown")
+            ctx.setdefault("args", "()")
+            ctx.setdefault("error", "")
+
             for h in hooks:
                 try:
                     if asyncio.iscoroutinefunction(h):
@@ -643,9 +651,14 @@ def create_mcp_server(host="127.0.0.1", port=8765):
                     else:
                         h(**ctx)
                 except RuntimeError:
+                    # R130 POSTEL: strict on output — RuntimeError = intentional block (CSC denial)
                     raise
-                except Exception:
-                    pass
+                except asyncio.CancelledError:
+                    # R130 POSTEL: strict on output — cancelled async hooks are hard failures
+                    _hlog(f"R130 POSTEL: async hook cancelled for {ctx.get('tool_name')} — re-raising")
+                    raise
+                except Exception as e:
+                    _hlog(f"R130 POSTEL: hook suppressed {type(e).__name__}: {str(e)[:100]}")
 
     hook_registry_instance = _HookProxy()
     logger.info(f"Hooks: {len(_hooks_pre)}P/{len(_hooks_post)}O/{len(_hooks_err)}E ativos")
