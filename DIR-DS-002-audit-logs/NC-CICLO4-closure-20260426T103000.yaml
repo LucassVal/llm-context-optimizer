@@ -1,0 +1,66 @@
+ticket_id: "NC-CICLO4"
+status: "APPROVED"
+timestamp: "2026-04-26T10:30:00"
+agent: "T1"
+ciclo: 4
+type: "cleanup_weekly"
+
+summary:
+  governance_compliance: 58.8
+  governance_target: 80.0
+  governance_below_target: true
+
+  total_tickets: 157
+  tickets_with_handoff: 132
+  handoff_coverage_pct: 84.1
+  orphan_tickets: 20
+  orphan_list:
+    - NC-DS-048-GLOBAL-SANE-002
+    - NC-DS-062-ANALYSIS-001
+    - NC-DS-062-governance-auditor-extension-retrospective
+    - NC-DS-063-FIX-001
+    - NC-DS-063-mission-control-adapter-retrospective
+    - NC-DS-064-KG-001
+    - NC-DS-065-ENCODING-001
+    - NC-DS-065-engineer-encoding-fix-retrospective
+    - NC-DS-066-courier-discrepancy-fix-retrospective
+    - NC-DS-066-DISCREPANCY-001
+    - NC-DS-067-tester-vector-fix-retrospective
+    - NC-DS-067-TESTFIX-001
+    - NC-DS-068-vector-tests-final-retrospective
+    - NC-DS-124-correction-20260420
+    - NC-DS-125-correction-20260420
+    - NC-DS-127
+    - NC-DS-128
+    - NC-DS-129
+    - NC-DS-130
+    - NC-DS-131-correction-20260420
+
+  naming_compliance_pct: 100.0
+  yaml_broken_fixed: 2
+  artifacts_py: 667
+  artifacts_yaml: 525
+
+  last_ciclo3: "2026-04-26T10:27:00"
+  last_ciclo4: "2026-04-26T10:30:00"
+
+actions_taken:
+  - "Generated artifact catalog (667 PY, 525 YAML)"
+  - "Sanitized YAMLs (active-zones.yaml rebuilt)"
+  - "Synced boot manifest"
+  - "Fixed 2 broken YAMLs (handoff + gemini audit)"
+  - "End-of-cycle routine executed"
+  - "Governance auditor run (58.8% compliance)"
+  - "Orphan ticket audit (20 orphans detected)"
+  - "Naming compliance verified (100%)"
+
+issues:
+  - "Governance compliance 58.8% below target 80%"
+  - "20 orphan tickets without handoff documentation"
+  - "Governance report directory not found at expected path"
+
+recommendations:
+  - "Create handoff YAMLs for orphan tickets"
+  - "Fix governance compliance: review 20 NC-naming rules"
+  - "Run NC-SCR-FR-001-populate-lobes-ssot.py to update lobes"
+  - "Address governance auditor module path issue"

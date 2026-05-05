@@ -4,7 +4,10 @@ layer: "core"
 type: "file"
 tags: ["profile", "manager"]
 hash: "auto-generated"
----"""
+---
+"""
+
+
 #!/usr/bin/env python3
 """
 NeoCortex Profile Manager
@@ -38,7 +41,7 @@ TEAM_PROFILE_SCHEMA = "neocortex-team-v1.0"
 def load_json_file(filepath: Path) -> Dict[str, Any]:
     """Carrega arquivo JSON com tratamento de erro."""
     try:
-        with open(filepath, "r", encoding="utf-8") as f:
+        with open(filepath, encoding="utf-8") as f:
             return json.load(f)
     except FileNotFoundError:
         raise FileNotFoundError(f"Arquivo no encontrado: {filepath}")
@@ -285,7 +288,7 @@ def can_access(
         resource_profile = load_profile(resource_owner_id)
         return check_hierarchical_access(user_profile, resource_profile, action)
     except FileNotFoundError as e:
-        return {"allowed": False, "reason": f"profile_not_found: {str(e)}"}
+        return {"allowed": False, "reason": f"profile_not_found: {e!s}"}
 
 
 # ==================== UTILITRIOS DE HIERARQUIA ====================
@@ -353,7 +356,7 @@ def get_accessible_users(user_id: str) -> List[str]:
     """
     try:
         profile = load_profile(user_id)
-        user_level = profile["hierarchy"]["level"]
+        profile["hierarchy"]["level"]
 
         # Regra simplificada: pode acessar usurios do mesmo nvel ou inferiores
         # Implementao real precisaria varrer todos os perfis

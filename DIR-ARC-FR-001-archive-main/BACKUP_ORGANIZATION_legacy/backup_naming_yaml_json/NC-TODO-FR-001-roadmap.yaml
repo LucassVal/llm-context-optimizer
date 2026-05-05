@@ -1,0 +1,337 @@
+# NC-TODO-FR-001-roadmap.yaml
+# Roadmap consolidado NeoCortex Framework
+# Documento @ROADMAP centralizado conforme R03: Estrutura de Diretórios
+
+roadmap_id: NC-TODO-FR-001
+version: "1.0.0"
+created_at: "2026-04-22T15:10:00Z"
+created_by: "T0-Antigravity"
+description: "Roadmap consolidado do NeoCortex Framework com tickets, fases e dependências"
+status: "ACTIVE"
+last_updated: "2026-04-22T15:10:00Z"
+
+# ==============================================
+# METADADOS DO ROADMAP
+# ==============================================
+
+metadata:
+  framework: "NeoCortex"
+  compliance: "NC-CONST-FR-001-v0.2"
+  rules_applied: ["R03", "R04", "R12", "R13", "R19"]
+  source_documents:
+    - "roadmap_v69_tickets.md"
+    - "governance_audit_report.json"
+    - "ticket_fix_report.json"
+  checkpoint_system: "implemented"
+  handoff_system: "implemented"
+
+# ==============================================
+# CICLOS DE TRABALHO
+# ==============================================
+
+cycles:
+  - id: "CICLO_0"
+    name: "Boot"
+    status: "COMPLETED"
+    start_date: "2026-04-20"
+    end_date: "2026-04-20"
+    description: "Inicialização do sistema e configuração básica"
+    checkpoints: 0
+    handoffs: 0
+
+  - id: "CICLO_1"
+    name: "Início"
+    status: "ACTIVE"
+    start_date: "2026-04-22"
+    end_date: null
+    description: "Auditoria inicial, correção de gaps e implementação de governança"
+    checkpoints: 3
+    handoffs: 4
+    current_focus: "Correção de gaps YAML/JSON e implementação de checkpoints/handoffs"
+
+  - id: "CICLO_2"
+    name: "Execução"
+    status: "PLANNED"
+    start_date: null
+    end_date: null
+    description: "Execução do roadmap v69 e integração com sistemas externos"
+    dependencies: ["CICLO_1"]
+
+  - id: "CICLO_3"
+    name: "Encerramento"
+    status: "PLANNED"
+    start_date: null
+    end_date: null
+    description: "Consolidação, documentação e handoff para operação"
+    dependencies: ["CICLO_2"]
+
+  - id: "CICLO_4"
+    name: "Semanal"
+    status: "PLANNED"
+    start_date: null
+    end_date: null
+    description: "Manutenção contínua e monitoramento"
+    dependencies: ["CICLO_3"]
+
+# ==============================================
+# FASES DO ROADMAP v69 (CONSOLIDADAS)
+# ==============================================
+
+phases:
+  - id: "FASE_1"
+    name: "CORE INTEGRATION"
+    status: "PLANNED"
+    description: "Integração do core do sistema com hooks, compactação e permissões"
+    tickets_v69:
+      - "TKT-101: Fix Chrono Serde Compile Error"
+      - "TKT-102: Integrar HookRunner em Gateway"
+      - "TKT-103: Integrar CompactionEngine"
+      - "TKT-104: Sistema de Permissões Sandbox"
+      - "TKT-105: Sessão Transparente Colono"
+      - "TKT-106: Feature Flags Engine"
+    tickets_nc_ds: []
+    dependencies: []
+    priority: "HIGH"
+
+  - id: "FASE_2"
+    name: "SWARM & AGENTS"
+    status: "PLANNED"
+    description: "Implementação de swarm de agentes e personas"
+    tickets_v69:
+      - "TKT-201: Engine Swarm"
+      - "TKT-202: Módulos Persona Yaml"
+      - "TKT-203: Micro-Executor (PicoClaw) Bridge"
+      - "TKT-204: Kairos Cron de Flags"
+    tickets_nc_ds: []
+    dependencies: ["FASE_1"]
+    priority: "HIGH"
+
+  - id: "FASE_3"
+    name: "MCP TOOLS EXPANSION"
+    status: "PLANNED"
+    description: "Expansão das ferramentas MCP e análise de código"
+    tickets_v69:
+      - "TKT-301: Manifestos SOTA MCP"
+      - "TKT-302: Módulo Code Analysis Suite"
+      - "TKT-303: Módulo File & Data Suite"
+    tickets_nc_ds: []
+    dependencies: ["FASE_2"]
+    priority: "MEDIUM"
+
+  - id: "FASE_4"
+    name: "OPTIMIZATION & DEPLOY"
+    status: "PLANNED"
+    description: "Otimização de performance e deploy em produção"
+    tickets_v69:
+      - "TKT-401: Implementar Redb KV Cache Aggressive"
+      - "TKT-402: Telemetry & Cost Tracker"
+      - "TKT-403: Failover Robusto"
+    tickets_nc_ds: []
+    dependencies: ["FASE_3"]
+    priority: "MEDIUM"
+
+# ==============================================
+# TICKETS NC-DS-* (SISTEMA ATUAL)
+# ==============================================
+
+current_tickets:
+  - ticket_id: "NC-DS-117"
+    title: "Audit Completion"
+    status: "COMPLETED"
+    priority: "HIGH"
+    phase: null
+    v69_mapping: null
+    description: "Auditoria de imports Python e classificação de arquivos"
+
+  - ticket_id: "NC-DS-118"
+    title: "Fix F841 metrics store implementation"
+    status: "OPEN"
+    priority: "HIGH"
+    phase: null
+    v69_mapping: null
+    description: "Correção da implementação do metrics store F841"
+
+  - ticket_id: "NC-DS-119"
+    title: "Picoclaw Integration Test"
+    status: "OPEN"
+    priority: "MEDIUM"
+    phase: null
+    v69_mapping: "TKT-203"
+    description: "Teste de integração com servidor Picoclaw"
+
+  - ticket_id: "NC-DS-121"
+    title: "Lexico Hook Boot Loader"
+    status: "OPEN"
+    priority: "MEDIUM"
+    phase: null
+    v69_mapping: null
+    description: "Implementação do boot loader para hooks Lexico"
+
+  - ticket_id: "NC-DS-150"
+    title: "Smoke Test 40 Tools"
+    status: "OPEN"
+    priority: "MEDIUM"
+    phase: null
+    v69_mapping: null
+    description: "Teste de fumaça para 40 ferramentas"
+
+  - ticket_id: "NC-DS-170"
+    title: "Investigar gaps críticos YAML/JSON identificados na última análise"
+    status: "OPEN"
+    priority: "HIGH"
+    phase: null
+    v69_mapping: null
+    description: "Investigação e correção dos gaps YAML/JSON identificados"
+
+# ==============================================
+# MAPEAMENTO TICKETS v69 → NC-DS-*
+# ==============================================
+
+ticket_mapping:
+  strategy: "PARALLEL"
+  notes: "Tickets v69 representam funcionalidades do core, tickets NC-DS-* representam tarefas de implementação"
+  
+  mapped_tickets:
+    - v69_ticket: "TKT-203"
+      nc_ds_ticket: "NC-DS-119"
+      mapping_type: "DIRECT"
+      status: "MAPPED"
+      notes: "Micro-Executor Bridge ↔ Picoclaw Integration"
+
+  unmapped_v69_tickets: 13
+  unmapped_nc_ds_tickets: 5
+
+# ==============================================
+# DEPENDÊNCIAS CRÍTICAS
+# ==============================================
+
+dependencies:
+  blocking:
+    - item: "Implementação completa do sistema de checkpoints"
+      blocker_for: ["FASE_1", "CICLO_2"]
+      status: "RESOLVED"
+      resolved_at: "2026-04-22T15:08:00Z"
+
+    - item: "Implementação completa do sistema de handoffs"
+      blocker_for: ["FASE_1", "CICLO_2"]
+      status: "RESOLVED"
+      resolved_at: "2026-04-22T15:09:00Z"
+
+    - item: "Consolidação de roadmaps"
+      blocker_for: ["FASE_1"]
+      status: "IN_PROGRESS"
+      eta: "2026-04-22T15:30:00Z"
+
+  critical_path:
+    - "CICLO_1 → Correção gaps YAML/JSON"
+    - "CICLO_1 → Implementação checkpoints/handoffs"
+    - "CICLO_2 → FASE_1 (Core Integration)"
+    - "CICLO_2 → Sincronização tickets v69/NC-DS"
+
+# ==============================================
+# MÉTRICAS E PROGRESSO
+# ==============================================
+
+metrics:
+  overall_progress: 25
+  breakdown:
+    governance: 80
+    yaml_json_security: 90
+    checkpoint_system: 100
+    handoff_system: 100
+    roadmap_consolidation: 60
+    ticket_synchronization: 20
+
+  tickets:
+    total_v69: 16
+    total_nc_ds: 7
+    completed: 2
+    in_progress: 5
+    blocked: 0
+
+  compliance:
+    rules_total: 16
+    rules_passed: 16
+    compliance_score: 100.0
+    last_audit: "2026-04-22T13:28:12Z"
+
+# ==============================================
+# PRÓXIMOS PASSOS (IMMEDIATOS)
+# ==============================================
+
+next_steps:
+  - step: "Sincronizar tickets NC-DS-* com fases do roadmap v69"
+    owner: "T0"
+    priority: "HIGH"
+    eta: "2026-04-22T16:00:00Z"
+    dependencies: []
+
+  - step: "Criar handoff formal CICLO_1 → CICLO_2"
+    owner: "T0"
+    priority: "HIGH"
+    eta: "2026-04-22T15:30:00Z"
+    dependencies: ["roadmap_consolidation"]
+
+  - step: "Iniciar execução da FASE_1 (Core Integration)"
+    owner: "T1"
+    priority: "HIGH"
+    eta: "2026-04-23T09:00:00Z"
+    dependencies: ["ticket_synchronization", "handoff_ciclo1_ciclo2"]
+
+  - step: "Configurar monitoramento automático de compliance"
+    owner: "T2"
+    priority: "MEDIUM"
+    eta: "2026-04-23T12:00:00Z"
+    dependencies: []
+
+# ==============================================
+# CONTROLE DE MUDANÇAS
+# ==============================================
+
+change_log:
+  - version: "1.0.0"
+    date: "2026-04-22T15:10:00Z"
+    changes:
+      - "Criação inicial do roadmap consolidado"
+      - "Mapeamento fases v69"
+      - "Listagem tickets NC-DS-* atuais"
+      - "Identificação de dependências críticas"
+      - "Definição de próximos passos"
+
+# ==============================================
+# REFERÊNCIAS
+# ==============================================
+
+references:
+  - document: "NC-CONST-FR-001-v0.2"
+    type: "constitution"
+    relevance: "HIGH"
+
+  - document: "roadmap_v69_tickets.md"
+    type: "execution_plan"
+    relevance: "HIGH"
+
+  - document: "governance_audit_report.json"
+    type: "audit"
+    relevance: "HIGH"
+
+  - document: "checkpoint_system.py"
+    type: "implementation"
+    relevance: "HIGH"
+
+  - document: "handoff_system.py"
+    type: "implementation"
+    relevance: "HIGH"
+
+# ==============================================
+# VALIDAÇÃO
+# ==============================================
+
+validation:
+  yaml_valid: true
+  validated_at: "2026-04-22T15:10:00Z"
+  validated_by: "checkpoint_system"
+  hash: "sha256:..."
+  compliance_check: "PASS"
+
+# FIM DO DOCUMENTO @ROADMAP

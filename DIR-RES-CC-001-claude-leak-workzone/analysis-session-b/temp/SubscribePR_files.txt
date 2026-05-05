@@ -1,0 +1,2 @@
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\commands.ts
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\bridge\replBridgeHandle.ts

@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+"""---
+NC-SUPER-002 — neocortex_orchestration
+---
+"""
+
+"""---
+NC-SUPER-002 — neocortex_orchestration
+---
+"""
+
 """
 NC-SUPER-002 — neocortex_orchestration
 PODER EXECUTIVO
@@ -72,6 +82,15 @@ def register_tool(mcp) -> None:
                  workers.spawn, workers.status
         """
         ts = _ts()
+
+        # ── GATEWAY VALIDATION ──────────────────────────────
+        try:
+            from neocortex.core.utils.gateway_bridge import gateway_check
+            _ok, _report = gateway_check(action, root)
+            if not _ok:
+                return _report
+        except Exception:
+            pass
 
         # ── TASKS ─────────────────────────────────────────────────────────────
         if action == "task.execute":
@@ -281,6 +300,18 @@ def register_tool(mcp) -> None:
                 return {"success": True, "action": action, **cascade_status()}
             except Exception as e:
                 return {"success": False, "error": str(e), "timestamp": ts}
+        # ORBITAL BRIDGE
+        _orbital_result = None
+        try:
+            import importlib.util
+            _spec = importlib.util.spec_from_file_location("orbital_bridge", str(root / "01_neocortex_framework" / "neocortex" / "core" / "NC-CORE-FR-139-orbital-bridge.py"))
+            _mod = importlib.util.module_from_spec(_spec)
+            _spec.loader.exec_module(_mod)
+            _orbital_result = _mod.orbital_dispatch(action, root)
+        except Exception: pass
+        if _orbital_result is not None: return _orbital_result
+
+
 
         else:
             return {"success": False, "error": f"action desconhecida: {action}",

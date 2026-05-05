@@ -1,0 +1,18 @@
+id: "NC-DS-260"
+title: "R129 ITIL — Pre-commit hook bloqueia checkout sem savepoint"
+status: "OPEN"
+priority: "P1"
+assignee: "opencode"
+created: "2026-05-05"
+description: |
+  Criar pre-commit hook que bloqueia git checkout/git reset em @LOCKS files sem savepoint previo. Evita perda de staging (desastre dos hooks).
+context:
+  - "Reference: NC-LBE-FR-RULES-MULTILAYER-001 §16"
+  - "27 Regras de Governanca — Tabela-Mestra"
+  - "Constitution §4 — R126 Structural Boundary"
+task: |
+  1. Criar script NC-SCR-FR-260-pre-commit-guard.py. 2. Verificar se arquivos staged estao em @LOCKS. 3. Se sim, exigir savepoint (BOOT-*.json) recente. 4. Wire como pre-commit hook no .git/hooks/.
+write_zone: "PROD -> 01_neocortex_framework/neocortex/mcp/server.py"
+locks:
+  - "01_neocortex_framework/neocortex/mcp/server.py -> MODIFICAR SOMENTE COM APROVACAO T0"
+  - "01_neocortex_framework/neocortex/mcp/sub_server.py -> NUNCA MODIFICAR"

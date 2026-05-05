@@ -1,0 +1,40 @@
+{
+  "timestamp": "2026-04-22T16:32:31.043473Z",
+  "components": {
+    "yaml_security": {
+      "score": 71.42857142857143,
+      "status": "WARN"
+    },
+    "json_security": {
+      "score": 66.66666666666666,
+      "status": "FAIL"
+    },
+    "naming_convention": {
+      "score": 59.285714285714285,
+      "status": "FAIL"
+    },
+    "ticket_structure": {
+      "score": 85.71428571428571,
+      "status": "WARN"
+    },
+    "checkpoint_system": {
+      "score": 100,
+      "status": "PASS"
+    },
+    "handoff_system": {
+      "score": 100,
+      "status": "PASS"
+    },
+    "roadmap_sync": {
+      "score": 100,
+      "status": "PASS"
+    }
+  },
+  "overall_score": 83.29931972789116,
+  "status": "WARNING",
+  "alerts": [],
+  "recommendations": [
+    "Melhorar json_security: 66.7% (status: FAIL)",
+    "Melhorar naming_convention: 59.3% (status: FAIL)"
+  ]
+}

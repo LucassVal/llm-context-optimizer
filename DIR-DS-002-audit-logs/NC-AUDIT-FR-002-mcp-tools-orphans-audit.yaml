@@ -1,0 +1,312 @@
+# NC-AUDIT-FR-002 — Auditoria MCP + Tools + Orfaos + Paths v1.0
+# generated_at: 2026-04-30T10:20:00 | generated_by: T0 Antigravity
+# objetivo: Verificar stubs/mocks, arquivos quebrados, orfaos, paths de salvamento
+# cross-ref: NC-AUDIT-FR-001 (consolidation plan) + ULQ CAMADA 0
+
+metadata:
+  title: "Auditoria de Integridade — MCP Tools + Orfaos + Paths"
+  version: 1.0
+  status: PENDING_REVIEW
+  cross_referenced:
+    - "DIR-DS-002-audit-logs/NC-AUDIT-FR-001-consolidation-plan.yaml"
+    - "01_neocortex_framework/neocortex/mcp/tools/__init__.py (fossil)"
+    - "01_neocortex_framework/neocortex/mcp/sub_server.py (TOOL_MODULE_MAP)"
+    - ".gitignore (exclusoes que escondem arquivos)"
+
+# ═══════════════════════════════════════════════════════════
+# DIMENSAO 1: MCP TOOLS — STUBS, MOCKS, FOSSEIS
+# ═══════════════════════════════════════════════════════════
+
+mcp_tools_integrity:
+  tools_total: 22  # 18 SUPER + 2 bridge + 1 pulse + 1 __init__
+  real_implementations: 21  # todas tem codigo real, nao sao stubs
+  stubs: 1  # __init__.py (so tem dicionario de mapeamento obsoleto)
+
+  fossil_init_py:
+    file: "01_neocortex_framework/neocortex/mcp/tools/__init__.py"
+    issue: >
+      Mapeia 16 tools com nomes NC-TOOL-FR-001 a 020 que NAO EXISTEM.
+      Todas as 16 chamadas importlib.import_module falham silenciosamente
+      (ModuleNotFoundError capturado com pass). Este arquivo e um FOSSIL
+      da era pre-migracao para NC-SUPER.
+    git_history: "NUNCA comitadas no git. So existem em archive pre-rename."
+    broken_refs:
+      - "NC-TOOL-FR-001-cortex → GAP (real: NC-SUPER-003-memory)"
+      - "NC-TOOL-FR-002-agent → GAP (real: sub_server.py internal)"
+      - "NC-TOOL-FR-003-benchmark → GAP (real: NC-SUPER-010-benchmark)"
+      - "NC-TOOL-FR-004-checkpoint → GAP (real: NC-SUPER-004-state)"
+      - "NC-TOOL-FR-005-config → GAP (real: NC-SUPER-006-system)"
+      - "NC-TOOL-FR-006-export → GAP (real: NC-SUPER-006-system)"
+      - "NC-TOOL-FR-007-init → GAP (real: NC-SUPER-006-system)"
+      - "NC-TOOL-FR-008-ledger → GAP (real: NC-SUPER-014-ledger)"
+      - "NC-TOOL-FR-009-lobes → GAP (real: NC-SUPER-003-memory)"
+      - "NC-TOOL-FR-010-peers → GAP (real: NC-SUPER-011-notification)"
+      - "NC-TOOL-FR-011-pulse → GAP (real: pulse.py)"
+      - "NC-TOOL-FR-012-regression → GAP (real: NC-SUPER-004-state)"
+      - "NC-TOOL-FR-014-search → GAP (real: NC-SUPER-003-memory)"
+      - "NC-TOOL-FR-015-security → GAP (real: NC-SUPER-009-security)"
+      - "NC-TOOL-FR-019-project-manifest → GAP (real: NC-SUPER-003-memory)"
+      - "NC-TOOL-FR-020-knowledge → GAP (real: NC-SUPER-003-memory)"
+    impact: "NENHUM — tools sao carregadas pelo sub_server.py, nao pelo __init__.py"
+    action: "REESCREVER __init__.py com mapeamento correto NC-SUPER OU arquivar como fossil"
+    ticket: NC-DS-190
+
+  naming_convention_violation:
+    issue: >
+      18 ferramentas de producao usam prefixo NC-SUPER-XXX.
+      SUPER NAO esta na lista aprovada de TIPOs do SSOT.
+      Lista aprovada: TOOL, SCR, DOC, TODO, LBE, CFG, SEC, SOP, ARC, BAK, BOOT, TST, APP, API, LIB, DPL, ALN, AUD, PRF, NAM.
+    files_affected: 18
+    options:
+      a: "Adicionar SUPER a lista de TIPOs no @SSOT (NC-NAM-FR-001)"
+      b: "Renomear todas para NC-TOOL-FR-XXX (conformidade total)"
+    recommendation: "Opcao A — menor disrupcao, SUPER indica tool consolidada (multi-action)"
+    ticket: NC-DS-191
+
+  missing_super_numbers:
+    gap: "SUPER-017 e SUPER-018 nao existem"
+    existing: "001-016, 019, 020"
+    impact: "Baixo — pode ser reserva para futuras tools"
+    action: "Documentar no @SSOT que 017/018 sao reservados"
+
+  ruff_status:
+    total: 18
+    clean: 18
+    warnings: "18x UP038 (regra removida do ruff — harmless)"
+    errors: 0
+    conclusion: "LINT 100% LIMPO em todas as 18 SUPER tools"
+
+# ═══════════════════════════════════════════════════════════
+# DIMENSAO 2: ORFAOS — ARQUIVOS FORA DA CHAIN SSOT
+# ═══════════════════════════════════════════════════════════
+
+orphans_analysis:
+
+  # ─── NC-ORPHAN (26 arquivos na raiz) ───
+  nc_orphan_root:
+    total: 26
+    classified:
+      LEGACY_SCRIPTS:
+        - "NC-ORPHAN-start_mcp_server.py (41 linhas)"
+        - "NC-ORPHAN-start_neocortex_mcp.ps1 (37 linhas)"
+        - "NC-ORPHAN-run_mcp_daemon.py (98 linhas — hardcoded path R10!)"
+        - "NC-ORPHAN-validate_gov.py (40 linhas)"
+        - "NC-ORPHAN-iniciar_stack.bat (2 linhas)"
+        risk: "MEDIO — podem ser usadas por atalhos Windows ou scripts externos"
+        task_scheduler: "VERIFICADO: nenhuma tarefa registrada no Windows"
+        action: "Mover para DIR-ARC-FR-001-archive-main/legacy-startup-scripts/"
+        ticket: NC-DS-192
+      LEGACY_DOCS:
+        - "NC-ORPHAN-README.md (8.4KB)"
+        - "NC-ORPHAN-README_GITHUB_EN.md (3.1KB)"
+        - "NC-ORPHAN-README_GITHUB_PT.md (3.4KB)"
+        - "NC-ORPHAN-README_LEGACY_MVP.md (5.2KB)"
+        - "NC-ORPHAN-README_PRESENTATION_EN.md (2KB)"
+        - "NC-ORPHAN-README_PRESENTATION_PT.md (2.3KB)"
+        - "NC-ORPHAN-METRICS.md (2KB)"
+        - "NC-ORPHAN-METRICS_PT.md (2.2KB)"
+        - "NC-ORPHAN-openclaude_help.txt (8.7KB)"
+        risk: "BAIXO — docs de versao anterior"
+        action: "Mover para DIR-ARC-FR-001-archive-main/legacy-docs/"
+      LEGACY_AUDIT:
+        - "NC-ORPHAN-audit_system.py (7.8KB)"
+        - "NC-ORPHAN-audit_output.txt (6.9KB)"
+        - "NC-ORPHAN-audit_results.json (68.6KB)"
+        - "NC-ORPHAN-pre-commit-validation-report.txt (611KB — enorme!)"
+        - "NC-ORPHAN-compliance_dashboard.html (17KB)"
+        risk: "BAIXO — outputs de auditorias antigas"
+        action: "Mover para DIR-ARC-FR-001-archive-main/legacy-audit/"
+      OTHER:
+        - "NC-ORPHAN-_tag_legacy.py (1.4KB — script legado)"
+        - "NC-ORPHAN-config.yaml (1.7KB — config antigo)"
+        - "NC-ORPHAN-LICENSE (1KB)"
+        - "NC-ORPHAN-package.json + package-lock.json (NPM legado)"
+        - "NC-ORPHAN-junctions.tmp (1.1KB — temp)"
+        - "NC-ORPHAN-server_err.log (vazio)"
+        risk: "BAIXO — lixo/temp"
+        action: "Mover para archive ou deletar (tmp/log)"
+
+  # ─── ARQUIVOS SEM NC- PREFIXO (7 validos, naming apenas) ───
+  non_nc_valid:
+    total: 7
+    files:
+      - ".agents/rules/neocortexrules.md (master index — CRITICO manter)"
+      - "01_neocortex_framework/02_memory_lobes/_INDEX.md"
+      - "01_neocortex_framework/02_memory_lobes/99_uncategorized/_INDEX.mdc"
+      - "01_neocortex_framework/02_memory_lobes/99_uncategorized/_INDEX_20260420_014717.mdc"
+      - "01_neocortex_framework/02_memory_lobes/checkpoint-post-audit-20260420.json"
+      - "01_neocortex_framework/02_memory_lobes/session-20260420-audit-governance.mdc"
+      - "01_neocortex_framework/DIR-CFG-FR-001-config-main/_INDEX.mdc"
+    action: "Renomear com prefixo NC-LBE-FR- ou NC-DOC-FR- conforme tipo"
+    ticket: NC-DS-193
+
+  # ─── ARQUIVOS LEGITIMOS SEM NC- (10 — manter como esta) ───
+  non_nc_legitimate:
+    - ".openclaude-profile.json (config OpenClaude)"
+    - "pyproject.toml (Python project config)"
+    - "requirements.txt (dependencias)"
+    - ".neocortex_ignore (config interna)"
+    - ".gitignore (git exclusions)"
+    - "CACHEDIR.TAG (marca diretorio cache)"
+    - ".env (variaveis ambiente — NAO COMMITAR)"
+    - "server_err.log (log)"
+    status: "MANTER — arquivos de configuracao/ferramentas nao seguem NC-"
+
+# ═══════════════════════════════════════════════════════════
+# DIMENSAO 3: PATHS QUEBRADOS (salvamento, cache, mencoes)
+# ═══════════════════════════════════════════════════════════
+
+broken_paths:
+
+  # ─── PATHS DE SISTEMA (verificados contra disco) ───
+  system_paths:
+    OK:
+      - ".neocortex/savepoints/ → 01_neocortex_framework/.neocortex/savepoints/ (4 items)"
+      - ".neocortex/cache/ → 01_neocortex_framework/.neocortex/cache/ (7 items)"
+      - ".neocortex/lexico/ → 01_neocortex_framework/.neocortex/lexico/ (4 items — POPULADO)"
+      - ".neocortex/metrics/ → 01_neocortex_framework/.neocortex/metrics/ (1 item)"
+      - "DIR-DS-003-wal/ → OK (2 items)"
+      - "DIR-DS-002-audit-logs/ → OK (267 items — precisa TTL)"
+      - "DIR-DS-001-tickets/ → OK (169 items)"
+      - "02_memory_lobes/ → OK (28 items)"
+      - "reports/ → OK (18 items)"
+    MISSING:
+      - "memory/sessions/ → NAO EXISTE (sessoes JSONL nao estao sendo salvas)"
+      - "lobes/ → NAO EXISTE (isolamento courier/engineer/guardian quebrado)"
+      - "data/ → EXISTE mas 0 items"
+    action_sessions: "Criar diretorio memory/sessions/ ou redirecionar para .neocortex/sessions/"
+    action_lobes: "Criar diretorio lobes/ com subpastas courier/ engineer/ guardian/"
+    ticket: NC-DS-194
+
+  # ─── PATHS HARCODED (R10 violation) ───
+  hardcoded_paths:
+    neocortex_core: "VERIFICADO: 0 violacoes em 01_neocortex_framework/neocortex/"
+    orphan_scripts:
+      - file: "NC-ORPHAN-run_mcp_daemon.py"
+        path: "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework"
+        rule: R10
+        action: "Arquivar junto com demais NC-ORPHAN scripts"
+    status: "CORE LIMPO. Violacao apenas em scripts orfaos que serao arquivados."
+
+  # ─── GITIGNORE — O QUE ESTA SENDO ESCONDIDO ───
+  gitignore_analysis:
+    hidden_dirs:
+      - ".neocortex/ → esconde lexico, cache, savepoints, metrics, cascade, logs"
+      - "02_memory_lobes/$lobe*/ → esconde subpastas de lobes (pattern confuso)"
+      - "lobes/ → esconde diretorio de isolamento (se existisse)"
+      - ".rename_backup/ → esconde backups de rename"
+    hidden_files:
+      - "*.tmp, *.temp, *.backup, *.bak → arquivos temporarios"
+      - "*.log, logs/ → logs"
+      - "metrics.db, cache/ → banco de dados local"
+    impact: >
+      NC-LEXICO-LATEST.json, NC-ULQ-TAG-INDEX.json e demais artefatos
+      do .neocortex/ NAO serao commitados. Isso e intencional (sao dados
+      regeneraveis), mas significa que outro dev nao recebe o LEXICO populado.
+    recommendation: "Adicionar excecao no .gitignore para .neocortex/lexico/ se quiser versionar"
+
+# ═══════════════════════════════════════════════════════════
+# DIMENSAO 4: SUB_SERVER.PY + IMPORT GRAPH
+# ═══════════════════════════════════════════════════════════
+
+sub_server_analysis:
+  tool_loading: >
+    TOOL_MODULE_MAP esta em sub_server.py (nao depende do __init__.py fossil).
+    Tools sao carregadas via importlib direto do sub_server, bypassando __init__.
+    Por isso o sistema funciona apesar do __init__.py quebrado.
+  circular_imports: "VERIFICADO: 0 importacoes circulares entre as 18 SUPER tools"
+  coupling: "BAIXO — tools nao se importam mutuamente. Arquitetura limpa."
+
+# ═══════════════════════════════════════════════════════════
+# TICKETS ABERTOS
+# ═══════════════════════════════════════════════════════════
+
+tickets:
+  - ticket: NC-DS-190
+    priority: HIGH
+    title: "Reescrever __init__.py — remover fossil NC-TOOL-FR, mapear NC-SUPER"
+    effort: "15 min"
+    risk: "BAIXO (tools carregadas pelo sub_server.py, init nao usado)"
+    details: >
+      16 referencias a arquivos inexistentes. Substituir _TOOL_MAPPING
+      pelo mapeamento real NC-SUPER-001 a 020 ou remover o arquivo
+      e delegar 100% ao sub_server.py.
+
+  - ticket: NC-DS-191
+    priority: HIGH
+    title: "Adicionar SUPER a lista de TIPOs aprovados no @SSOT"
+    effort: "5 min"
+    risk: "ZERO"
+    details: >
+      Adicionar 'SUPER' na tabela de TIPOs do NC-NAM-FR-001.
+      SUPER = Super-Tool MCP consolidada (multi-action, multi-domain).
+      Afeta 18 arquivos de producao.
+
+  - ticket: NC-DS-192
+    priority: MEDIUM
+    title: "Arquivar 26 NC-ORPHAN files da raiz"
+    effort: "10 min"
+    risk: "MEDIO (verificar se scripts sao usados por atalhos antes)"
+    details: >
+      Separar em 3 lotes: legacy-scripts (5), legacy-docs (9), legacy-audit (5),
+      other (7). Mover para DIR-ARC-FR-001-archive-main/.
+
+  - ticket: NC-DS-193
+    priority: MEDIUM
+    title: "Renomear 7 arquivos sem NC- prefixo"
+    effort: "10 min"
+    risk: "BAIXO (atualizar referencias em neocortexrules.md)"
+    details: >
+      neocortexrules.md → NC-RULE-000-master-index.md
+      _INDEX.md → NC-LBE-FR-INDEX-001.md
+      _INDEX.mdc → NC-LBE-FR-INDEX-002.mdc
+      _INDEX_20260420 → NC-LBE-FR-INDEX-003.mdc
+      checkpoint-*.json → NC-CPT-FR-001-*.json
+      session-*.mdc → NC-SES-FR-001-*.mdc
+
+  - ticket: NC-DS-194
+    priority: MEDIUM
+    title: "Criar diretorios faltantes: memory/sessions/ + lobes/"
+    effort: "5 min"
+    risk: "ZERO"
+    details: >
+      Criar memory/sessions/ para gravacao de sessoes JSONL.
+      Criar lobes/ com subpastas courier/ engineer/ guardian/.
+      Ou redirecionar codigo para .neocortex/sessions/.
+
+  - ticket: NC-DS-195
+    priority: LOW
+    title: "TTL pruning: 267 handoffs acumulados em DIR-DS-002-audit-logs/"
+    effort: "10 min"
+    risk: "BAIXO (mover >30 dias para archive)"
+    details: "Aplicar TTL-002: handoffs >30 dias → DIR-ARC-FR-001-archive-main/handoffs-archive/"
+
+  - ticket: NC-DS-196
+    priority: LOW
+    title: "Remover regra UP038 obsoleta dos 18 SUPER tools"
+    effort: "5 min"
+    risk: "ZERO"
+    details: "18 arquivos tem 'ignore = [\"UP038\"]' — regra removida do ruff. Remover a linha."
+
+  - ticket: NC-DS-197
+    priority: LOW
+    title: "Verificar data/ vazio — remover ou popular"
+    effort: "2 min"
+    risk: "ZERO"
+    details: "data/ tem 0 items. Ou remove diretorio ou documenta proposito."
+
+# ═══════════════════════════════════════════════════════════
+# RESUMO
+# ═══════════════════════════════════════════════════════════
+
+executive_summary:
+  tools_status: "21/22 reais, 1 fossil (__init__.py), 18/18 ruff LIMPO"
+  orphans: "26 na raiz + 7 sem NC- prefixo + 3 dirs missing"
+  paths: "3 quebrados (sessions, lobes, data vazio), 0 hardcoded no core"
+  gitignore: ".neocortex/ escondido — LEXICO/TAG INDEX nao versionados"
+  task_scheduler: "LIMPO — sem tarefas registradas"
+  git_db: "LIMPO — sem .db/.wal commitados"
+  circular_imports: "LIMPO — 0 dependencias circulares entre tools"
+  total_tickets: 8
+
+  ssot_header: "NC-SSOT | 2026-04-30T10:20 | 12 lobes 8 dom | 123 rules H:24 C:13 S:35 U:115 | TOOLS:21/1fossil RUFF:100% | MCP:UP ORPHANS:26 PATHS:3broken | sess:1 turns:8 hf:2 | RAC:ON 3W:ON KISS:ON"

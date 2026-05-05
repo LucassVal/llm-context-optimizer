@@ -1,0 +1,97 @@
+{
+  "audit_date": "2026-04-22T13:34:09.104930Z",
+  "compliance": {
+    "rules_checked": {
+      "NC- naming convention": true,
+      "YAML structure": true,
+      "JSON security": true,
+      "Ticket fields": true,
+      "Cycle adherence": false
+    },
+    "score": 80.0,
+    "details": {
+      "NC- naming convention": true,
+      "YAML structure": true,
+      "JSON security": true,
+      "Ticket fields": true,
+      "Cycle adherence": false
+    }
+  },
+  "roadmaps": {
+    "found": 6,
+    "files": [
+      {
+        "file": "e458b7a2-8e87-4899-8c0a-5cac5901c952\\roadmap_v69_tickets.md",
+        "size": 6280,
+        "type": ".md"
+      },
+      {
+        "file": "e458b7a2-8e87-4899-8c0a-5cac5901c952\\roadmap_v69_tickets.md.metadata.json",
+        "size": 306,
+        "type": ".json"
+      },
+      {
+        "file": "e458b7a2-8e87-4899-8c0a-5cac5901c952\\roadmap_v69_tickets.md",
+        "size": 6280,
+        "type": ".md"
+      },
+      {
+        "file": "e458b7a2-8e87-4899-8c0a-5cac5901c952\\roadmap_v69_tickets.md.metadata.json",
+        "size": 306,
+        "type": ".json"
+      },
+      {
+        "file": "e458b7a2-8e87-4899-8c0a-5cac5901c952\\roadmap_v69_tickets.md",
+        "size": 6280,
+        "type": ".md"
+      },
+      {
+        "file": "e458b7a2-8e87-4899-8c0a-5cac5901c952\\roadmap_v69_tickets.md.metadata.json",
+        "size": 306,
+        "type": ".json"
+      }
+    ],
+    "has_main_roadmap": true,
+    "ticket_count": 16,
+    "phases": [
+      "## FASE 1: CORE INTEGRATION",
+      "## FASE 2: SWARM & AGENTS",
+      "## FASE 3: MCP TOOLS EXPANSION",
+      "## FASE 4: OPTIMIZATION & DEPLOY"
+    ]
+  },
+  "tickets": {
+    "total_tickets": 7,
+    "by_status": {
+      "COMPLETED": 2,
+      "OPEN": 4,
+      "UNKNOWN": 1
+    },
+    "by_priority": {
+      "MEDIUM": 4,
+      "HIGH": 2,
+      "UNKNOWN": 1
+    },
+    "recent_tickets": [],
+    "recent_7_days": 7
+  },
+  "cycles": {
+    "current_cycle": "CICLO 1 (Início)",
+    "cycle_files": [
+      "de6887f8-e5b8-444d-914a-ebaffb9c777d\\ENCICLOPEDIA_GENIO_SOTA_v52_0.md",
+      "de6887f8-e5b8-444d-914a-ebaffb9c777d\\ENCICLOPEDIA_GENIO_SOTA_v52_0.md.metadata.json"
+    ],
+    "checkpoints": 0,
+    "handoffs": 0
+  },
+  "gaps": [
+    "Nenhum checkpoint registrado",
+    "Nenhum handoff registrado"
+  ],
+  "recommendations": [
+    "Implementar checkpoints regulares",
+    "Documentar handoffs entre ciclos"
+  ],
+  "overall_score": 62.5,
+  "status": "NON_COMPLIANT"
+}

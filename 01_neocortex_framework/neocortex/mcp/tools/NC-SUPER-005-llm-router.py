@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+"""---
+NC-SUPER-005 — neocortex_llm_router
+---
+"""
+
+"""---
+NC-SUPER-005 — neocortex_llm_router
+---
+"""
+
 """
 NC-SUPER-005 — neocortex_llm_router
 CORTE STJ — Roteamento LLM
@@ -30,8 +40,8 @@ _HEADERS = {"Authorization": f"Bearer {_LITELLM_KEY}", "Content-Type": "applicat
 
 _TIER_MODEL = {
     "OPERACIONAL": "qwen-1.5b",
-    "TECNICO": "deepseek-chat",
-    "RACIOCINIO": "deepseek-reasoner",
+    "TECNICO": "deepseek-v4-flash",
+    "RACIOCINIO": "deepseek-v4-pro",
     "SOBERANO": None,
 }
 
@@ -76,7 +86,7 @@ def register_tool(mcp) -> None:
         Actions: gateway.health, gateway.start, gateway.stop, gateway.models,
                  route.call, ollama.ask, ollama.list, ollama.pull,
                  budget.status, workers.spawn, workers.status
-        Tiers: OPERACIONAL→qwen-1.5b | TECNICO→deepseek-chat | RACIOCINIO→deepseek-reasoner
+        Tiers: OPERACIONAL→qwen-1.5b | TECNICO→deepseek-v4-flash | RACIOCINIO→deepseek-v4-pro
         """
         global _litellm_proc
 
@@ -125,7 +135,7 @@ def register_tool(mcp) -> None:
             return {"success": True, "action": action, "status": "not_running_by_mcp"}
 
         elif action == "route.call":
-            target_model = model or _TIER_MODEL.get(complexity.upper(), "deepseek-chat")
+            target_model = model or _TIER_MODEL.get(complexity.upper(), "deepseek-v4-flash")
             if not target_model:
                 return {"success": False, "action": action, "error": "Tier SOBERANO não delega — T0 executa diretamente"}
             if not prompt:

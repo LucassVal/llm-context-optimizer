@@ -1,0 +1,6 @@
+ticket_id: NC-DS-SUB
+status: submitted
+agent: T0
+description: Teste do Pipeline de Submissão — auditar governance tool
+files: ['C:\\TQ\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-001-governance.py']
+timestamp: 2026-04-28T16:41:42.868607

@@ -1,0 +1,7 @@
+ticket_id: "NC-DS-SESS"
+status: "APPROVED"
+timestamp: "2026-04-28T13:36:58"
+agent: "T0"
+summary: |
+  R26 compliant: 1 linha de import no security tool para delegar cpp.*, dp.* via orbital bridge. Sem injeção de elifs.
+data: {}

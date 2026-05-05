@@ -1,20 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:58.073883'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-parent_ssot: NC-CORE-FR-014-lock-guard
-related_ssot:
-  - NC-SEC-FR-001-atomic-locks
-  - NC-CFG-FR-001
-  - NC-CORE-FR-017-policy-loader
-tags:
-  - neocortex-other
-  - level-0
-  - python
----"""
+@Guard NC-CORE-FR-124-security-service mcp _genealogy:   injected_at: '2026-04-16T00:23:58.07
+---
+"""
+
+
 #!/usr/bin/env python3
 """
 Security Service - Business logic for security operations.

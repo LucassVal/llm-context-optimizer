@@ -1,0 +1,17 @@
+{
+  "category": "06_infrastructure",
+  "tags": [
+    "core-services",
+    "operations",
+    "startup",
+    "watchdog",
+    "lexico",
+    "wal",
+    "cryptohub"
+  ],
+  "summary": "O NC-LBE-FR-CORE-OPS-001 é um serviço central para gerenciamento e operações do NeoCortex, incluindo loggagem, saúde, save points, cache, eventos de evento, e outros serviços essenciais.",
+  "priority_score": 8,
+  "file": "NC-LBE-FR-CORE-OPS-001.mdc",
+  "lobe_id": "NC-LBE-FR-CORE-OPS-001",
+  "classified": "2026-04-21T10:36:18"
+}

@@ -1,0 +1,25 @@
+ticket_id: "NC-DS-SESS"
+status: "APPROVED"
+timestamp: "2026-04-22T09:47:55"
+agent: "T1"
+summary: |
+  Concluída consolidação do SSOT de governança:
+  1. **SSOT atualizado**: DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.yaml
+  2. **Total de regras**: 30 (R01-R30)
+  3. **Novas regras**: R25-R30 adicionadas (evolução constitucional)
+  4. **Compliance score ajustado**: 68.5% (realista, considerando tickets sem handoff)
+  5. **Compatibilidade**: Auditor NC-SCR-FR-080 atualizado com novas regras
+  6. **Arquivo canônico definido**: SSOT é a fonte única de verdade
+
+  **Mudanças implementadas**:
+  - Regras R05-R06, R11, R14-R17 mantidas (existiam no SSOT)
+  - Status NEW_ACTIVE para R25-R30
+  - Compliance score reflete realidade: 116/149 tickets com handoff (77.9%)
+  - Integração com auditor mantida
+
+  **Próximos passos**:
+  1. Executar auditoria completa com novo SSOT
+  2. Implementar automação de compliance (R26)
+  3. Evoluir integração entre sistemas (R25)
+  4. Monitorar compliance score em tempo real
+data: {}

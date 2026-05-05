@@ -1,0 +1,19 @@
+{
+  "analysis_date": "2026-04-22T15:57:58.044153Z",
+  "files_analyzed": 0,
+  "files_valid": 0,
+  "files_invalid": 0,
+  "files_to_rename": [],
+  "files_to_keep": [],
+  "risks": [],
+  "backup_created": false,
+  "changes_applied": false,
+  "statistics": {
+    "total_files": 0,
+    "valid_files": 0,
+    "invalid_files": 0,
+    "validity_rate": 0,
+    "backup_created": false,
+    "changes_applied": false
+  }
+}

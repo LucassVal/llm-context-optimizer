@@ -1,0 +1,5 @@
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\main.tsx
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\constants\betas.ts
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\constants\systemPromptSections.ts
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\services\api\claude.ts
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\services\api\errors.ts

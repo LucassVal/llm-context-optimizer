@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+"""---
+NC-SCR-FR-134 — NC-DS-134: Smoke Test 40 MCP Super-Tools
+---
+"""
+
+"""---
+NC-SCR-FR-134 — NC-DS-134: Smoke Test 40 MCP Super-Tools
+---
+"""
+
 """
 NC-SCR-FR-134 — NC-DS-134: Smoke Test 40 MCP Super-Tools
 Valida que todos os NC-SUPER-001..015 respondem sem erros críticos.

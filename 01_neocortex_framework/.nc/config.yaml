@@ -1,3 +1,13 @@
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: config
+# Why:  Criado em 2026-04-26 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/.nc/config.yaml
+
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: config
+# Why:  Criado em 2026-04-26 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/.nc/config.yaml
+
 _meta:
   domain: configuration
   hash: auto-generated
@@ -34,7 +44,7 @@ llm:
     default:
       api_key: sk-cc547db836f04d58a9aa651f1b0279c2
       base_url: https://api.deepseek.com
-      model: deepseek-chat
+      model: deepseek-v4-flash
       provider: deepseek
     engineer:
       base_url: http://localhost:11434
@@ -43,18 +53,18 @@ llm:
     t0:
       api_key: sk-cc547db836f04d58a9aa651f1b0279c2
       base_url: https://api.deepseek.com
-      model: deepseek-reasoner
+      model: deepseek-v4-pro
       provider: deepseek
   api_key: sk-cc547db836f04d58a9aa651f1b0279c2
   base_url: https://api.deepseek.com
   fallback_chain:
   - api_key: sk-cc547db836f04d58a9aa651f1b0279c2
     base_url: https://api.deepseek.com
-    model: deepseek-chat
+    model: deepseek-v4-flash
     provider: deepseek
   - api_key: sk-cc547db836f04d58a9aa651f1b0279c2
     base_url: https://api.deepseek.com
-    model: deepseek-reasoner
+    model: deepseek-v4-pro
     provider: deepseek
   - base_url: http://localhost:11434
     model: qwen2.5-coder:1.5b-instruct
@@ -64,7 +74,7 @@ llm:
     model: gpt-3.5-turbo
     provider: openai
   max_tokens: 8192
-  model: deepseek-chat
+  model: deepseek-v4-flash
   provider: deepseek
   temperature: 0.7
 monitoring:

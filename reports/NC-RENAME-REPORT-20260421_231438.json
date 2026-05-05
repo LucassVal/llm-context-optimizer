@@ -1,0 +1,420 @@
+{
+  "metadata": {
+    "script": "NC-SCR-FR-120-batch-rename-fix.py",
+    "timestamp": "2026-04-21T23:14:38.912519",
+    "dry_run": true
+  },
+  "analysis": {
+    "total_nc_files": 553,
+    "conformant": 368,
+    "non_conformant": 54,
+    "exceptions": 131,
+    "rename_candidates": [
+      {
+        "old_name": "NC-RPT-117-core-audit-report.json",
+        "new_name": "NC-RPT-FR-117-core-audit-report.json",
+        "old_path": "01_neocortex_framework\\05_examples\\NC-RPT-117-core-audit-report.json",
+        "new_path": "01_neocortex_framework\\05_examples\\NC-RPT-FR-117-core-audit-report.json",
+        "problem_type": "^NC-RPT-([0-9]{3})-([a-z0-9_-]+)\\.(json|py|md)$",
+        "directory": "01_neocortex_framework\\05_examples"
+      },
+      {
+        "old_name": "NC-RPT-117-core-audit.py",
+        "new_name": "NC-RPT-FR-117-core-audit.py",
+        "old_path": "01_neocortex_framework\\05_examples\\NC-RPT-117-core-audit.py",
+        "new_path": "01_neocortex_framework\\05_examples\\NC-RPT-FR-117-core-audit.py",
+        "problem_type": "^NC-RPT-([0-9]{3})-([a-z0-9_-]+)\\.(json|py|md)$",
+        "directory": "01_neocortex_framework\\05_examples"
+      },
+      {
+        "old_name": "NC-RPT-150-coverage-gaps.md",
+        "new_name": "NC-RPT-FR-150-coverage-gaps.md",
+        "old_path": "01_neocortex_framework\\05_examples\\NC-RPT-150-coverage-gaps.md",
+        "new_path": "01_neocortex_framework\\05_examples\\NC-RPT-FR-150-coverage-gaps.md",
+        "problem_type": "^NC-RPT-([0-9]{3})-([a-z0-9_-]+)\\.(json|py|md)$",
+        "directory": "01_neocortex_framework\\05_examples"
+      },
+      {
+        "old_name": "NC-RPT-150-smoke-test-report.json",
+        "new_name": "NC-RPT-FR-150-smoke-test-report.json",
+        "old_path": "01_neocortex_framework\\05_examples\\NC-RPT-150-smoke-test-report.json",
+        "new_path": "01_neocortex_framework\\05_examples\\NC-RPT-FR-150-smoke-test-report.json",
+        "problem_type": "^NC-RPT-([0-9]{3})-([a-z0-9_-]+)\\.(json|py|md)$",
+        "directory": "01_neocortex_framework\\05_examples"
+      },
+      {
+        "old_name": "NC-RPT-154-ssot-cross-audit.json",
+        "new_name": "NC-RPT-FR-154-ssot-cross-audit.json",
+        "old_path": "01_neocortex_framework\\05_examples\\NC-RPT-154-ssot-cross-audit.json",
+        "new_path": "01_neocortex_framework\\05_examples\\NC-RPT-FR-154-ssot-cross-audit.json",
+        "problem_type": "^NC-RPT-([0-9]{3})-([a-z0-9_-]+)\\.(json|py|md)$",
+        "directory": "01_neocortex_framework\\05_examples"
+      },
+      {
+        "old_name": "NC-TEST-119-picoclaw-integration-fixed.py",
+        "new_name": "NC-TEST-FR-119-picoclaw-integration-fixed.py",
+        "old_path": "01_neocortex_framework\\05_examples\\NC-TEST-119-picoclaw-integration-fixed.py",
+        "new_path": "01_neocortex_framework\\05_examples\\NC-TEST-FR-119-picoclaw-integration-fixed.py",
+        "problem_type": "^NC-TEST-([0-9]{3})-([a-z0-9_-]+)\\.py$",
+        "directory": "01_neocortex_framework\\05_examples"
+      },
+      {
+        "old_name": "NC-TEST-119-picoclaw-integration.py",
+        "new_name": "NC-TEST-FR-119-picoclaw-integration.py",
+        "old_path": "01_neocortex_framework\\05_examples\\NC-TEST-119-picoclaw-integration.py",
+        "new_path": "01_neocortex_framework\\05_examples\\NC-TEST-FR-119-picoclaw-integration.py",
+        "problem_type": "^NC-TEST-([0-9]{3})-([a-z0-9_-]+)\\.py$",
+        "directory": "01_neocortex_framework\\05_examples"
+      },
+      {
+        "old_name": "NC-TEST-152-savepoint-wal-integration.py",
+        "new_name": "NC-TEST-FR-152-savepoint-wal-integration.py",
+        "old_path": "01_neocortex_framework\\05_examples\\NC-TEST-152-savepoint-wal-integration.py",
+        "new_path": "01_neocortex_framework\\05_examples\\NC-TEST-FR-152-savepoint-wal-integration.py",
+        "problem_type": "^NC-TEST-([0-9]{3})-([a-z0-9_-]+)\\.py$",
+        "directory": "01_neocortex_framework\\05_examples"
+      },
+      {
+        "old_name": "NC-TEST-153-ttl-wal-prune.py",
+        "new_name": "NC-TEST-FR-153-ttl-wal-prune.py",
+        "old_path": "01_neocortex_framework\\05_examples\\NC-TEST-153-ttl-wal-prune.py",
+        "new_path": "01_neocortex_framework\\05_examples\\NC-TEST-FR-153-ttl-wal-prune.py",
+        "problem_type": "^NC-TEST-([0-9]{3})-([a-z0-9_-]+)\\.py$",
+        "directory": "01_neocortex_framework\\05_examples"
+      },
+      {
+        "old_name": "NC-TEST-154-ssot-cross-audit.py",
+        "new_name": "NC-TEST-FR-154-ssot-cross-audit.py",
+        "old_path": "01_neocortex_framework\\05_examples\\NC-TEST-154-ssot-cross-audit.py",
+        "new_path": "01_neocortex_framework\\05_examples\\NC-TEST-FR-154-ssot-cross-audit.py",
+        "problem_type": "^NC-TEST-([0-9]{3})-([a-z0-9_-]+)\\.py$",
+        "directory": "01_neocortex_framework\\05_examples"
+      },
+      {
+        "old_name": "NC-NAM-FR-001a-tools-registry.md",
+        "new_name": "NC-NAM-FR-001-tools-registry.md",
+        "old_path": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001a-tools-registry.md",
+        "new_path": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001-tools-registry.md",
+        "problem_type": "^NC-NAM-FR-([0-9]{3})([a-z])-([a-z0-9_-]+)\\.(md|ba",
+        "directory": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main"
+      },
+      {
+        "old_name": "NC-NAM-FR-001b-lobes-registry.md",
+        "new_name": "NC-NAM-FR-001-lobes-registry.md",
+        "old_path": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001b-lobes-registry.md",
+        "new_path": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001-lobes-registry.md",
+        "problem_type": "^NC-NAM-FR-([0-9]{3})([a-z])-([a-z0-9_-]+)\\.(md|ba",
+        "directory": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main"
+      },
+      {
+        "old_name": "NC-NAM-FR-001c-config-registry.md",
+        "new_name": "NC-NAM-FR-001-config-registry.md",
+        "old_path": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001c-config-registry.md",
+        "new_path": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001-config-registry.md",
+        "problem_type": "^NC-NAM-FR-([0-9]{3})([a-z])-([a-z0-9_-]+)\\.(md|ba",
+        "directory": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main"
+      },
+      {
+        "old_name": "NC-NAM-FR-001d-prompts-registry.md",
+        "new_name": "NC-NAM-FR-001-prompts-registry.md",
+        "old_path": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001d-prompts-registry.md",
+        "new_path": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001-prompts-registry.md",
+        "problem_type": "^NC-NAM-FR-([0-9]{3})([a-z])-([a-z0-9_-]+)\\.(md|ba",
+        "directory": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main"
+      },
+      {
+        "old_name": "NC-DS-118-fix-f841-metrics-store.yaml",
+        "new_name": "NC-DS-FR-118-fix-f841-metrics-store.yaml",
+        "old_path": "01_neocortex_framework\\DIR-DS-001-tickets\\NC-DS-118-fix-f841-metrics-store.yaml",
+        "new_path": "01_neocortex_framework\\DIR-DS-001-tickets\\NC-DS-FR-118-fix-f841-metrics-store.yaml",
+        "problem_type": "^NC-DS-([0-9]{3})-([a-z0-9_-]+)\\.yaml$",
+        "directory": "01_neocortex_framework\\DIR-DS-001-tickets"
+      },
+      {
+        "old_name": "NC-DS-119-picoclaw-integration-test.yaml",
+        "new_name": "NC-DS-FR-119-picoclaw-integration-test.yaml",
+        "old_path": "01_neocortex_framework\\DIR-DS-001-tickets\\NC-DS-119-picoclaw-integration-test.yaml",
+        "new_path": "01_neocortex_framework\\DIR-DS-001-tickets\\NC-DS-FR-119-picoclaw-integration-test.yaml",
+        "problem_type": "^NC-DS-([0-9]{3})-([a-z0-9_-]+)\\.yaml$",
+        "directory": "01_neocortex_framework\\DIR-DS-001-tickets"
+      },
+      {
+        "old_name": "NC-DS-120-picoclaw-tool-autoloader.yaml",
+        "new_name": "NC-DS-FR-120-picoclaw-tool-autoloader.yaml",
+        "old_path": "01_neocortex_framework\\DIR-DS-001-tickets\\NC-DS-120-picoclaw-tool-autoloader.yaml",
+        "new_path": "01_neocortex_framework\\DIR-DS-001-tickets\\NC-DS-FR-120-picoclaw-tool-autoloader.yaml",
+        "problem_type": "^NC-DS-([0-9]{3})-([a-z0-9_-]+)\\.yaml$",
+        "directory": "01_neocortex_framework\\DIR-DS-001-tickets"
+      },
+      {
+        "old_name": "NC-DS-121-lexico-hook-boot-loader.yaml",
+        "new_name": "NC-DS-FR-121-lexico-hook-boot-loader.yaml",
+        "old_path": "01_neocortex_framework\\DIR-DS-001-tickets\\NC-DS-121-lexico-hook-boot-loader.yaml",
+        "new_path": "01_neocortex_framework\\DIR-DS-001-tickets\\NC-DS-FR-121-lexico-hook-boot-loader.yaml",
+        "problem_type": "^NC-DS-([0-9]{3})-([a-z0-9_-]+)\\.yaml$",
+        "directory": "01_neocortex_framework\\DIR-DS-001-tickets"
+      },
+      {
+        "old_name": "NC-DS-120-completion.yaml",
+        "new_name": "NC-DS-FR-120-completion.yaml",
+        "old_path": "01_neocortex_framework\\DIR-DS-002-audit-logs\\NC-DS-120-completion.yaml",
+        "new_path": "01_neocortex_framework\\DIR-DS-002-audit-logs\\NC-DS-FR-120-completion.yaml",
+        "problem_type": "^NC-DS-([0-9]{3})-([a-z0-9_-]+)\\.yaml$",
+        "directory": "01_neocortex_framework\\DIR-DS-002-audit-logs"
+      },
+      {
+        "old_name": "NC-DS-121-completion.yaml",
+        "new_name": "NC-DS-FR-121-completion.yaml",
+        "old_path": "01_neocortex_framework\\DIR-DS-002-audit-logs\\NC-DS-121-completion.yaml",
+        "new_path": "01_neocortex_framework\\DIR-DS-002-audit-logs\\NC-DS-FR-121-completion.yaml",
+        "problem_type": "^NC-DS-([0-9]{3})-([a-z0-9_-]+)\\.yaml$",
+        "directory": "01_neocortex_framework\\DIR-DS-002-audit-logs"
+      },
+      {
+        "old_name": "NC-DS-150-completion.yaml",
+        "new_name": "NC-DS-FR-150-completion.yaml",
+        "old_path": "01_neocortex_framework\\DIR-DS-002-audit-logs\\NC-DS-150-completion.yaml",
+        "new_path": "01_neocortex_framework\\DIR-DS-002-audit-logs\\NC-DS-FR-150-completion.yaml",
+        "problem_type": "^NC-DS-([0-9]{3})-([a-z0-9_-]+)\\.yaml$",
+        "directory": "01_neocortex_framework\\DIR-DS-002-audit-logs"
+      },
+      {
+        "old_name": "NC-CMD-EXAMPLE.md",
+        "new_name": "NC-CMD-FR-001-example.md",
+        "old_path": "01_neocortex_framework\\DIR-TMP-FR-001-templates-main\\NC-TOOL-FR-TEMPLATE\\commands\\NC-CMD-EXAMPLE.md",
+        "new_path": "01_neocortex_framework\\DIR-TMP-FR-001-templates-main\\NC-TOOL-FR-TEMPLATE\\commands\\NC-CMD-FR-001-example.md",
+        "problem_type": "^NC-CMD-([A-Za-z0-9_-]+)\\.md$",
+        "directory": "01_neocortex_framework\\DIR-TMP-FR-001-templates-main\\NC-TOOL-FR-TEMPLATE\\commands"
+      },
+      {
+        "old_name": "NC-HK-EXAMPLE.py",
+        "new_name": "NC-HK-FR-001-example.py",
+        "old_path": "01_neocortex_framework\\DIR-TMP-FR-001-templates-main\\NC-TOOL-FR-TEMPLATE\\hooks\\NC-HK-EXAMPLE.py",
+        "new_path": "01_neocortex_framework\\DIR-TMP-FR-001-templates-main\\NC-TOOL-FR-TEMPLATE\\hooks\\NC-HK-FR-001-example.py",
+        "problem_type": "^NC-HK-([A-Za-z0-9_-]+)\\.py$",
+        "directory": "01_neocortex_framework\\DIR-TMP-FR-001-templates-main\\NC-TOOL-FR-TEMPLATE\\hooks"
+      },
+      {
+        "old_name": "NC-SCR-FR-103b-start-with-mc.ps1",
+        "new_name": "NC-SCR-FR-103-start-with-mc.ps1",
+        "old_path": "01_neocortex_framework\\scripts\\NC-SCR-FR-103b-start-with-mc.ps1",
+        "new_path": "01_neocortex_framework\\scripts\\NC-SCR-FR-103-start-with-mc.ps1",
+        "problem_type": "^NC-SCR-FR-([0-9]{3})([a-z])-([a-z0-9_-]+)\\.ps1$",
+        "directory": "01_neocortex_framework\\scripts"
+      }
+    ],
+    "analysis_time": "2026-04-21T23:14:38.869303",
+    "root_dir": "01_neocortex_framework"
+  },
+  "rename_results": {
+    "successful": [
+      {
+        "old_name": "NC-RPT-117-core-audit-report.json",
+        "new_name": "NC-RPT-FR-117-core-audit-report.json",
+        "old_path": "01_neocortex_framework\\05_examples\\NC-RPT-117-core-audit-report.json",
+        "new_path": "01_neocortex_framework\\05_examples\\NC-RPT-FR-117-core-audit-report.json",
+        "problem_type": "^NC-RPT-([0-9]{3})-([a-z0-9_-]+)\\.(json|py|md)$",
+        "directory": "01_neocortex_framework\\05_examples"
+      },
+      {
+        "old_name": "NC-RPT-117-core-audit.py",
+        "new_name": "NC-RPT-FR-117-core-audit.py",
+        "old_path": "01_neocortex_framework\\05_examples\\NC-RPT-117-core-audit.py",
+        "new_path": "01_neocortex_framework\\05_examples\\NC-RPT-FR-117-core-audit.py",
+        "problem_type": "^NC-RPT-([0-9]{3})-([a-z0-9_-]+)\\.(json|py|md)$",
+        "directory": "01_neocortex_framework\\05_examples"
+      },
+      {
+        "old_name": "NC-RPT-150-coverage-gaps.md",
+        "new_name": "NC-RPT-FR-150-coverage-gaps.md",
+        "old_path": "01_neocortex_framework\\05_examples\\NC-RPT-150-coverage-gaps.md",
+        "new_path": "01_neocortex_framework\\05_examples\\NC-RPT-FR-150-coverage-gaps.md",
+        "problem_type": "^NC-RPT-([0-9]{3})-([a-z0-9_-]+)\\.(json|py|md)$",
+        "directory": "01_neocortex_framework\\05_examples"
+      },
+      {
+        "old_name": "NC-RPT-150-smoke-test-report.json",
+        "new_name": "NC-RPT-FR-150-smoke-test-report.json",
+        "old_path": "01_neocortex_framework\\05_examples\\NC-RPT-150-smoke-test-report.json",
+        "new_path": "01_neocortex_framework\\05_examples\\NC-RPT-FR-150-smoke-test-report.json",
+        "problem_type": "^NC-RPT-([0-9]{3})-([a-z0-9_-]+)\\.(json|py|md)$",
+        "directory": "01_neocortex_framework\\05_examples"
+      },
+      {
+        "old_name": "NC-RPT-154-ssot-cross-audit.json",
+        "new_name": "NC-RPT-FR-154-ssot-cross-audit.json",
+        "old_path": "01_neocortex_framework\\05_examples\\NC-RPT-154-ssot-cross-audit.json",
+        "new_path": "01_neocortex_framework\\05_examples\\NC-RPT-FR-154-ssot-cross-audit.json",
+        "problem_type": "^NC-RPT-([0-9]{3})-([a-z0-9_-]+)\\.(json|py|md)$",
+        "directory": "01_neocortex_framework\\05_examples"
+      },
+      {
+        "old_name": "NC-TEST-119-picoclaw-integration-fixed.py",
+        "new_name": "NC-TEST-FR-119-picoclaw-integration-fixed.py",
+        "old_path": "01_neocortex_framework\\05_examples\\NC-TEST-119-picoclaw-integration-fixed.py",
+        "new_path": "01_neocortex_framework\\05_examples\\NC-TEST-FR-119-picoclaw-integration-fixed.py",
+        "problem_type": "^NC-TEST-([0-9]{3})-([a-z0-9_-]+)\\.py$",
+        "directory": "01_neocortex_framework\\05_examples"
+      },
+      {
+        "old_name": "NC-TEST-119-picoclaw-integration.py",
+        "new_name": "NC-TEST-FR-119-picoclaw-integration.py",
+        "old_path": "01_neocortex_framework\\05_examples\\NC-TEST-119-picoclaw-integration.py",
+        "new_path": "01_neocortex_framework\\05_examples\\NC-TEST-FR-119-picoclaw-integration.py",
+        "problem_type": "^NC-TEST-([0-9]{3})-([a-z0-9_-]+)\\.py$",
+        "directory": "01_neocortex_framework\\05_examples"
+      },
+      {
+        "old_name": "NC-TEST-152-savepoint-wal-integration.py",
+        "new_name": "NC-TEST-FR-152-savepoint-wal-integration.py",
+        "old_path": "01_neocortex_framework\\05_examples\\NC-TEST-152-savepoint-wal-integration.py",
+        "new_path": "01_neocortex_framework\\05_examples\\NC-TEST-FR-152-savepoint-wal-integration.py",
+        "problem_type": "^NC-TEST-([0-9]{3})-([a-z0-9_-]+)\\.py$",
+        "directory": "01_neocortex_framework\\05_examples"
+      },
+      {
+        "old_name": "NC-TEST-153-ttl-wal-prune.py",
+        "new_name": "NC-TEST-FR-153-ttl-wal-prune.py",
+        "old_path": "01_neocortex_framework\\05_examples\\NC-TEST-153-ttl-wal-prune.py",
+        "new_path": "01_neocortex_framework\\05_examples\\NC-TEST-FR-153-ttl-wal-prune.py",
+        "problem_type": "^NC-TEST-([0-9]{3})-([a-z0-9_-]+)\\.py$",
+        "directory": "01_neocortex_framework\\05_examples"
+      },
+      {
+        "old_name": "NC-TEST-154-ssot-cross-audit.py",
+        "new_name": "NC-TEST-FR-154-ssot-cross-audit.py",
+        "old_path": "01_neocortex_framework\\05_examples\\NC-TEST-154-ssot-cross-audit.py",
+        "new_path": "01_neocortex_framework\\05_examples\\NC-TEST-FR-154-ssot-cross-audit.py",
+        "problem_type": "^NC-TEST-([0-9]{3})-([a-z0-9_-]+)\\.py$",
+        "directory": "01_neocortex_framework\\05_examples"
+      },
+      {
+        "old_name": "NC-NAM-FR-001a-tools-registry.md",
+        "new_name": "NC-NAM-FR-001-tools-registry.md",
+        "old_path": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001a-tools-registry.md",
+        "new_path": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001-tools-registry.md",
+        "problem_type": "^NC-NAM-FR-([0-9]{3})([a-z])-([a-z0-9_-]+)\\.(md|ba",
+        "directory": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main"
+      },
+      {
+        "old_name": "NC-NAM-FR-001b-lobes-registry.md",
+        "new_name": "NC-NAM-FR-001-lobes-registry.md",
+        "old_path": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001b-lobes-registry.md",
+        "new_path": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001-lobes-registry.md",
+        "problem_type": "^NC-NAM-FR-([0-9]{3})([a-z])-([a-z0-9_-]+)\\.(md|ba",
+        "directory": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main"
+      },
+      {
+        "old_name": "NC-NAM-FR-001c-config-registry.md",
+        "new_name": "NC-NAM-FR-001-config-registry.md",
+        "old_path": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001c-config-registry.md",
+        "new_path": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001-config-registry.md",
+        "problem_type": "^NC-NAM-FR-([0-9]{3})([a-z])-([a-z0-9_-]+)\\.(md|ba",
+        "directory": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main"
+      },
+      {
+        "old_name": "NC-NAM-FR-001d-prompts-registry.md",
+        "new_name": "NC-NAM-FR-001-prompts-registry.md",
+        "old_path": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001d-prompts-registry.md",
+        "new_path": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001-prompts-registry.md",
+        "problem_type": "^NC-NAM-FR-([0-9]{3})([a-z])-([a-z0-9_-]+)\\.(md|ba",
+        "directory": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main"
+      },
+      {
+        "old_name": "NC-DS-118-fix-f841-metrics-store.yaml",
+        "new_name": "NC-DS-FR-118-fix-f841-metrics-store.yaml",
+        "old_path": "01_neocortex_framework\\DIR-DS-001-tickets\\NC-DS-118-fix-f841-metrics-store.yaml",
+        "new_path": "01_neocortex_framework\\DIR-DS-001-tickets\\NC-DS-FR-118-fix-f841-metrics-store.yaml",
+        "problem_type": "^NC-DS-([0-9]{3})-([a-z0-9_-]+)\\.yaml$",
+        "directory": "01_neocortex_framework\\DIR-DS-001-tickets"
+      },
+      {
+        "old_name": "NC-DS-119-picoclaw-integration-test.yaml",
+        "new_name": "NC-DS-FR-119-picoclaw-integration-test.yaml",
+        "old_path": "01_neocortex_framework\\DIR-DS-001-tickets\\NC-DS-119-picoclaw-integration-test.yaml",
+        "new_path": "01_neocortex_framework\\DIR-DS-001-tickets\\NC-DS-FR-119-picoclaw-integration-test.yaml",
+        "problem_type": "^NC-DS-([0-9]{3})-([a-z0-9_-]+)\\.yaml$",
+        "directory": "01_neocortex_framework\\DIR-DS-001-tickets"
+      },
+      {
+        "old_name": "NC-DS-120-picoclaw-tool-autoloader.yaml",
+        "new_name": "NC-DS-FR-120-picoclaw-tool-autoloader.yaml",
+        "old_path": "01_neocortex_framework\\DIR-DS-001-tickets\\NC-DS-120-picoclaw-tool-autoloader.yaml",
+        "new_path": "01_neocortex_framework\\DIR-DS-001-tickets\\NC-DS-FR-120-picoclaw-tool-autoloader.yaml",
+        "problem_type": "^NC-DS-([0-9]{3})-([a-z0-9_-]+)\\.yaml$",
+        "directory": "01_neocortex_framework\\DIR-DS-001-tickets"
+      },
+      {
+        "old_name": "NC-DS-121-lexico-hook-boot-loader.yaml",
+        "new_name": "NC-DS-FR-121-lexico-hook-boot-loader.yaml",
+        "old_path": "01_neocortex_framework\\DIR-DS-001-tickets\\NC-DS-121-lexico-hook-boot-loader.yaml",
+        "new_path": "01_neocortex_framework\\DIR-DS-001-tickets\\NC-DS-FR-121-lexico-hook-boot-loader.yaml",
+        "problem_type": "^NC-DS-([0-9]{3})-([a-z0-9_-]+)\\.yaml$",
+        "directory": "01_neocortex_framework\\DIR-DS-001-tickets"
+      },
+      {
+        "old_name": "NC-DS-120-completion.yaml",
+        "new_name": "NC-DS-FR-120-completion.yaml",
+        "old_path": "01_neocortex_framework\\DIR-DS-002-audit-logs\\NC-DS-120-completion.yaml",
+        "new_path": "01_neocortex_framework\\DIR-DS-002-audit-logs\\NC-DS-FR-120-completion.yaml",
+        "problem_type": "^NC-DS-([0-9]{3})-([a-z0-9_-]+)\\.yaml$",
+        "directory": "01_neocortex_framework\\DIR-DS-002-audit-logs"
+      },
+      {
+        "old_name": "NC-DS-121-completion.yaml",
+        "new_name": "NC-DS-FR-121-completion.yaml",
+        "old_path": "01_neocortex_framework\\DIR-DS-002-audit-logs\\NC-DS-121-completion.yaml",
+        "new_path": "01_neocortex_framework\\DIR-DS-002-audit-logs\\NC-DS-FR-121-completion.yaml",
+        "problem_type": "^NC-DS-([0-9]{3})-([a-z0-9_-]+)\\.yaml$",
+        "directory": "01_neocortex_framework\\DIR-DS-002-audit-logs"
+      },
+      {
+        "old_name": "NC-DS-150-completion.yaml",
+        "new_name": "NC-DS-FR-150-completion.yaml",
+        "old_path": "01_neocortex_framework\\DIR-DS-002-audit-logs\\NC-DS-150-completion.yaml",
+        "new_path": "01_neocortex_framework\\DIR-DS-002-audit-logs\\NC-DS-FR-150-completion.yaml",
+        "problem_type": "^NC-DS-([0-9]{3})-([a-z0-9_-]+)\\.yaml$",
+        "directory": "01_neocortex_framework\\DIR-DS-002-audit-logs"
+      },
+      {
+        "old_name": "NC-CMD-EXAMPLE.md",
+        "new_name": "NC-CMD-FR-001-example.md",
+        "old_path": "01_neocortex_framework\\DIR-TMP-FR-001-templates-main\\NC-TOOL-FR-TEMPLATE\\commands\\NC-CMD-EXAMPLE.md",
+        "new_path": "01_neocortex_framework\\DIR-TMP-FR-001-templates-main\\NC-TOOL-FR-TEMPLATE\\commands\\NC-CMD-FR-001-example.md",
+        "problem_type": "^NC-CMD-([A-Za-z0-9_-]+)\\.md$",
+        "directory": "01_neocortex_framework\\DIR-TMP-FR-001-templates-main\\NC-TOOL-FR-TEMPLATE\\commands"
+      },
+      {
+        "old_name": "NC-HK-EXAMPLE.py",
+        "new_name": "NC-HK-FR-001-example.py",
+        "old_path": "01_neocortex_framework\\DIR-TMP-FR-001-templates-main\\NC-TOOL-FR-TEMPLATE\\hooks\\NC-HK-EXAMPLE.py",
+        "new_path": "01_neocortex_framework\\DIR-TMP-FR-001-templates-main\\NC-TOOL-FR-TEMPLATE\\hooks\\NC-HK-FR-001-example.py",
+        "problem_type": "^NC-HK-([A-Za-z0-9_-]+)\\.py$",
+        "directory": "01_neocortex_framework\\DIR-TMP-FR-001-templates-main\\NC-TOOL-FR-TEMPLATE\\hooks"
+      },
+      {
+        "old_name": "NC-SCR-FR-103b-start-with-mc.ps1",
+        "new_name": "NC-SCR-FR-103-start-with-mc.ps1",
+        "old_path": "01_neocortex_framework\\scripts\\NC-SCR-FR-103b-start-with-mc.ps1",
+        "new_path": "01_neocortex_framework\\scripts\\NC-SCR-FR-103-start-with-mc.ps1",
+        "problem_type": "^NC-SCR-FR-([0-9]{3})([a-z])-([a-z0-9_-]+)\\.ps1$",
+        "directory": "01_neocortex_framework\\scripts"
+      }
+    ],
+    "failed": [],
+    "skipped": [],
+    "total": 24,
+    "dry_run": true
+  },
+  "backup_info": null,
+  "summary": {
+    "total_nc_files": 553,
+    "conformant_before": 368,
+    "non_conformant_before": 54,
+    "exceptions": 131,
+    "rename_candidates": 24,
+    "successful_renames": 24,
+    "failed_renames": 0,
+    "skipped_renames": 0
+  }
+}

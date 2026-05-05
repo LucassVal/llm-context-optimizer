@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""
-NC-CORE-FR-022-cascade-consolidator.py — CASC-001
+"""---
+NC-CORE-FR-105-cascade-consolidator.py — CASC-001
 "Sono REM" do NeoCortex: consolida handoffs e logs de sessão em padrões
 persistidos nos lobes de memória.
 
@@ -17,7 +17,7 @@ Trigado por:
   - GuardianDaemon (ciclo noturno)
   - MCP action cascade.run
   - Manualmente via script
-"""
+---"""
 from __future__ import annotations
 
 import json
@@ -26,7 +26,7 @@ import os
 import urllib.request
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 logger = logging.getLogger(__name__)
 
@@ -93,7 +93,7 @@ def _read_excerpt(path: Path, max_chars: int = 500) -> str:
 
 # ── Extração de padrões ───────────────────────────────────────────────────────
 
-def _extract_pattern(content: str, source: str) -> Optional[Dict[str, Any]]:
+def _extract_pattern(content: str, source: str) -> Dict[str, Any] | None:
     """Usa Qwen 1.5b para extrair padrão relevante de um trecho."""
     prompt = (
         f"Analyze this log/handoff excerpt from a software framework.\n"
@@ -267,7 +267,7 @@ class CascadeConsolidator:
 
 # ── Singleton + registry ───────────────────────────────────────────────────────
 
-_last_result: Optional[Dict] = None
+_last_result: Dict | None = None
 
 
 def run_cascade(hours: int = 24) -> Dict[str, Any]:

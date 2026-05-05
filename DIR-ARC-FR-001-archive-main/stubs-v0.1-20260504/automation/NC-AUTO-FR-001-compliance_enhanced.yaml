@@ -1,0 +1,272 @@
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC AUTO FR 001 compliance_enhanced
+# Why:  Criado em 2026-04-22 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/automation/NC-AUTO-FR-001-compliance_enhanced.yaml
+
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC AUTO FR 001 compliance_enhanced
+# Why:  Criado em 2026-04-22 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/automation/NC-AUTO-FR-001-compliance_enhanced.yaml
+
+# NEOCORTEX COMPLIANCE AUTOMATION ENHANCED v0.4
+# Data: 2026-04-22
+# Status: ENHANCED
+# Automação de compliance com novos checks e monitoramento em tempo real
+
+automation_config:
+  name: "Enhanced Compliance Automation System"
+  version: "v0.4"
+  scope: "30 governance rules + real-time monitoring"
+  frequency: "Continuous monitoring + per cycle"
+  trigger: "Real-time events + scheduled audits"
+
+enhanced_checks:
+  real_time_monitoring:
+    - rule: "R21 (Zero Suposições)"
+      check: "Validate all assumptions before action"
+      tool: "neocortex_brain.critique"
+      frequency: "Pre-action"
+    
+    - rule: "R22 (Economia de Tokens)"
+      check: "Token usage optimization"
+      tool: "neocortex_context.budget_status"
+      threshold: "Max 4096 tokens per action"
+    
+    - rule: "R23 (Uma Tarefa por Sessão)"
+      check: "Single task focus validation"
+      tool: "neocortex_state.session.status"
+      validation: "No task switching within session"
+    
+    - rule: "R24 (STEP 0 - Validação Pré-Ação)"
+      check: "Pre-action validation"
+      tool: "neocortex_governance.cf.pre_check"
+      required: "Always"
+    
+    - rule: "R25 (STEP -1 - Save Point)"
+      check: "State preservation before writes"
+      tool: "neocortex_state.savepoint.create"
+      trigger: "Before any file modification"
+    
+    - rule: "R26 (Circuit Breaker)"
+      check: "Failure detection and suspension"
+      tool: "neocortex_governance.cf.stj"
+      threshold: "3 consecutive failures"
+    
+    - rule: "R27 (Regression Buffer)"
+      check: "Regression prevention"
+      tool: "neocortex_state.regression.check"
+      validation: "Compare with baseline"
+    
+    - rule: "R28 (Handoffs Formais)"
+      check: "Formal handoff documentation"
+      tool: "neocortex_governance.handoff.create"
+      required: "For all delegated tasks"
+    
+    - rule: "R29 (Checkpoints)"
+      check: "Periodic state checkpoints"
+      tool: "neocortex_state.checkpoint.set"
+      frequency: "Every 30 minutes"
+    
+    - rule: "R30 (Revisão e Arquivo)"
+      check: "Artifact review and archiving"
+      tool: "neocortex_governance.roadmap.done"
+      schedule: "Daily"
+
+continuous_monitoring:
+  system_health:
+    - check: "MCP server health"
+      tool: "neocortex_health_check"
+      frequency: "Every 5 minutes"
+      alert: "If unhealthy"
+    
+    - check: "Tool availability"
+      tool: "neocortex_system.health.agent"
+      frequency: "On session start"
+      validation: "All required tools available"
+    
+    - check: "Memory usage"
+      tool: "neocortex_context.budget_status"
+      threshold: "Max 80% memory usage"
+      alert: "If exceeded"
+
+  compliance_tracking:
+    - check: "Rule compliance score"
+      tool: "neocortex_governance.compliance.report"
+      frequency: "Real-time"
+      display: "Dashboard"
+    
+    - check: "Violation tracking"
+      tool: "neocortex_governance.violation.log"
+      real_time: "Yes"
+      notification: "Immediate"
+    
+    - check: "Automation status"
+      tool: "neocortex_system.pulse.status"
+      monitoring: "Continuous"
+      alert: "If automation fails"
+
+automated_remediation:
+  violation_response:
+    - type: "Minor violation (score 80-90%)"
+      action: "neocortex_notification.push.send"
+      level: "WARNING"
+      auto_fix: "No"
+    
+    - type: "Major violation (score 70-80%)"
+      action: "neocortex_governance.ticket.create"
+      priority: "HIGH"
+      auto_fix: "With approval"
+    
+    - type: "Critical violation (score < 70%)"
+      action: "neocortex_security.lock.check"
+      priority: "CRITICAL"
+      auto_fix: "Immediate + escalation"
+
+  auto_fix_workflows:
+    - issue: "Missing handoff"
+      fix: "neocortex_governance.handoff.create"
+      parameters: "Auto-generated from session"
+    
+    - issue: "Rule violation"
+      fix: "neocortex_governance.cf.audit"
+      follow_up: "neocortex_governance.violation.log"
+    
+    - issue: "State inconsistency"
+      fix: "neocortex_state.savepoint.rollback"
+      validation: "neocortex_state.regression.check"
+
+reporting_enhancements:
+  real_time_dashboard:
+    - metric: "Compliance score"
+      update: "Real-time"
+      display: "Percentage + trend"
+    
+    - metric: "Rule violations"
+      update: "Immediate"
+      display: "Count + severity"
+    
+    - metric: "Automation health"
+      update: "Every 5 minutes"
+      display: "Status + uptime"
+
+  scheduled_reports:
+    - type: "Daily compliance summary"
+      tool: "neocortex_context.report.generate"
+      schedule: "00:00 daily"
+      retention: "30 days"
+    
+    - type: "Weekly performance report"
+      tool: "neocortex_context.report.generate"
+      schedule: "Monday 09:00"
+      sections: ["Compliance trends", "Violation analysis", "Improvement recommendations"]
+    
+    - type: "Monthly governance review"
+      tool: "neocortex_context.report.generate"
+      schedule: "First day of month"
+      audience: "T0 + stakeholders"
+
+integration_points:
+  with_memory:
+    - tool: "neocortex_memory.lobe.search"
+      purpose: "Rule pattern matching"
+      frequency: "Pre-action"
+    
+    - tool: "neocortex_akl.search"
+      purpose: "Historical compliance data"
+      context: "For decision making"
+
+  with_state:
+    - tool: "neocortex_state.checkpoint.get"
+      purpose: "State validation"
+      trigger: "Before critical operations"
+    
+    - tool: "neocortex_state.session.heartbeat"
+      purpose: "Session health monitoring"
+      frequency: "Every minute"
+
+  with_security:
+    - tool: "neocortex_security.access.validate"
+      purpose: "Permission validation"
+      required: "Always"
+    
+    - tool: "neocortex_security.hook.register"
+      purpose: "Compliance hooks"
+      events: ["file_write", "tool_call", "session_start"]
+
+testing_validation_enhanced:
+  automated_tests:
+    - name: "Real-time monitoring tests"
+      tool: "neocortex_benchmark.run.drift"
+      frequency: "Daily"
+      validation: "Detection latency < 1s"
+    
+    - name: "Auto-fix validation"
+      tool: "neocortex_benchmark.run.titanomachy"
+      frequency: "Weekly"
+      validation: "Fix success rate > 95%"
+    
+    - name: "Integration stress test"
+      tool: "neocortex_benchmark.run.omni"
+      frequency: "Monthly"
+      validation: "System stability under load"
+
+  performance_metrics:
+    - metric: "Audit completion time"
+      target: "< 2 minutes"
+      measurement: "neocortex_system.health.full"
+    
+    - metric: "Violation detection time"
+      target: "< 10 seconds"
+      measurement: "neocortex_health.metrics.live"
+    
+    - metric: "Auto-fix success rate"
+      target: "> 90%"
+      measurement: "neocortex_ledger.stats"
+
+maintenance_schedule:
+  daily:
+    - "Log analysis and cleanup"
+    - "Dashboard health check"
+    - "Real-time monitoring validation"
+  
+  weekly:
+    - "Rule effectiveness review"
+    - "Performance optimization"
+    - "Report archiving"
+  
+  monthly:
+    - "System audit and update"
+    - "Integration point validation"
+    - "Stakeholder review"
+  
+  quarterly:
+    - "Architecture review"
+    - "Scalability assessment"
+    - "Compliance framework update"
+
+deployment_plan:
+  phase_1: "Enhanced checks implementation"
+  phase_2: "Real-time monitoring deployment"
+  phase_3: "Auto-fix workflows activation"
+  phase_4: "Dashboard and reporting"
+  phase_5: "Integration and optimization"
+
+rollback_procedure:
+  trigger: "System instability or false positives"
+  steps:
+    - "Pause enhanced monitoring"
+    - "Revert to v0.3 automation"
+    - "Diagnose issue"
+    - "Fix and redeploy"
+  validation: "Post-rollback audit"
+
+signature:
+  enhanced_by: "T0 Soberano"
+  enhancement_date: "2026-04-22T10:45:00"
+  review_date: "2026-04-29"
+  status: "DEPLOYMENT_READY"
+  dependencies:
+    - "neocortex_brain v1.0+"
+    - "neocortex_context v1.0+"
+    - "neocortex_state v1.0+"
+    - "neocortex_security v1.0+"

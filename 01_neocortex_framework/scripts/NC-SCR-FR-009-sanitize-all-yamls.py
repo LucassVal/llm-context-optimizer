@@ -1,3 +1,15 @@
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:24:01.652783'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+parent_ssot: NC-SCR-FR-009-sanitize-all-y
+---
+"""
+
+
 import io
 import sys
 

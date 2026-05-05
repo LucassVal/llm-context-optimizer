@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "migration_timestamp": "2026-04-14T16:52:13.997862",
+  "global_config_backup": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\.nc_backup\\neocortex_config.yaml.pre_nc_migration",
+  "nc_config_created": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\.nc\\config.yaml",
+  "nc_config_sections": [
+    "_schema",
+    "_meta",
+    "cache",
+    "llm",
+    "monitoring",
+    "paths",
+    "scheduler",
+    "search",
+    "vector_store",
+    "plugins",
+    "features"
+  ],
+  "config_py_updated": true,
+  "validation_passed": true
+}

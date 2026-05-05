@@ -1,5 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+"""---
+NC-SCR-FR-080-governance-auditor.py
+---
+"""
+
+"""---
+NC-SCR-FR-080-governance-auditor.py
+---
+"""
+
 """
 NC-SCR-FR-080-governance-auditor.py
 Auditor e Sincronizador de Ambientes NeoCortex
@@ -43,34 +53,46 @@ if sys.platform == "win32":
 logger = logging.getLogger(__name__)
 
 # ------------------------------------------------------------------------------
-# 20 REGRAS DE GOVERNANA DE IA (categorizadas)
+# 30 REGRAS DE GOVERNANÇA DE IA (categorizadas) - CONSTITUIÇÃO v0.3
 # ------------------------------------------------------------------------------
 IA_GOVERNANCE_RULES = {
-    # Categoria 1: Fundao e Estrutura
-    "R01": "Inventrio de Ativos de IA: manter catlogo completo de modelos, ferramentas, agentes e fontes de dados",
-    "R02": "Poltica Formalizada: polticas de governana escritas, versionadas e acessveis como cdigo ou documentos SSOT",
-    "R03": "Estrutura de Diretrios Cannica: definir e impor estrutura padronizada",
+    # Categoria 1: Fundação e Estrutura
+    "R01": "Inventário de Ativos de IA: manter catálogo completo de modelos, ferramentas, agentes e fontes de dados",
+    "R02": "Política Formalizada: políticas de governança escritas, versionadas e acessíveis como código ou documentos SSOT",
+    "R03": "Estrutura de Diretórios Canônica: definir e impor estrutura padronizada",
     "R04": "Nomenclatura Padronizada: todos os arquivos seguem NC-<TIPO>-<SIGLA>-<NUM>-<desc>.ext",
-    "R05": "Segregao de Ambientes: manter ambientes separados para desenvolvimento, teste e produo",
+    "R05": "Segregação de Ambientes: manter ambientes separados para desenvolvimento, teste e produção",
     # Categoria 2: Controle de Acesso e Identidade
-    "R06": "Identidade para Agentes: cada agente deve ter identidade nica e verificvel",
-    "R07": "Privilgio Mnimo (PoLP): agentes tm apenas permisses estritamente necessrias",
-    "R08": "Atomic Locks (Path-Based): arquivos crticos protegidos contra modificao",
-    "R09": "Segregao de Zonas de Escrita: agentes de diferentes domnios no podem escrever nos mesmos diretrios",
+    "R06": "Identidade para Agentes: cada agente deve ter identidade única e verificável",
+    "R07": "Privilégio Mínimo (PoLP): agentes têm apenas permissões estritamente necessárias",
+    "R08": "Atomic Locks (Path-Based): arquivos críticos protegidos contra modificação",
+    "R09": "Segregação de Zonas de Escrita: agentes de diferentes domínios não podem escrever nos mesmos diretórios",
     # Categoria 3: Rastreabilidade e Auditoria
-    "R10": "Trilha de Auditoria Imutvel: todas as aes registradas em log  prova de adulterao",
-    "R11": "Versionamento de Artefatos: todos os artefatos de governana versionados (Git) com hashes de integridade",
+    "R10": "Trilha de Auditoria Imutável: todas as ações registradas em log à prova de adulteração",
+    "R11": "Versionamento de Artefatos: todos os artefatos de governança versionados (Git) com hashes de integridade",
     "R12": "Handoffs Formais: toda tarefa delegada a um agente documentada em handoff YAML",
-    "R13": "Checkpoints e Save Points: estado do sistema salvo periodicamente e antes de operaes crticas",
-    # Categoria 4: Execuo e Orquestrao
-    "R14": "STEP 0 (Validao Pr-Ao): validar tarefa contra Regression Buffer e polticas antes de executar",
-    "R15": "STEP -1 (Save Point): snapshot do estado antes de aes de escrita para possvel rollback",
+    "R13": "Checkpoints e Save Points: estado do sistema salvo periodicamente e antes de operações críticas",
+    # Categoria 4: Execução e Orquestração
+    "R14": "STEP 0 (Validação Pré-Ação): validar tarefa contra Regression Buffer e políticas antes de executar",
+    "R15": "STEP -1 (Save Point): snapshot do estado antes de ações de escrita para possível rollback",
     "R16": "Circuit Breaker: se um agente falhar repetidamente, deve ser suspenso para evitar loops de falha",
-    "R17": "Rate Limiting por Ferramenta: limitar frequncia de chamadas a ferramentas crticas ou caras",
-    # Categoria 5: Ciclo de Vida e Melhoria Contnua
+    "R17": "Economia de Tokens: otimizar uso de tokens em todas as operações",
+    # Categoria 5: Ciclo de Vida e Melhoria Contínua
     "R18": "Ciclo de Vida de Tickets: toda tarefa registrada como ticket e seguir fluxo formal",
-    "R19": "Rotina de 4 Ciclos: trabalho deve seguir rotina diria/semanal para garantir continuidade e limpeza",
-    "R20": "Reviso e Arquivo de Artefatos: artefatos antigos arquivados periodicamente para evitar acmulo",
+    "R19": "Rotina de 4 Ciclos: trabalho deve seguir rotina diária/semanal para garantir continuidade e limpeza",
+    "R20": "Revisão e Arquivo de Artefatos: artefatos antigos arquivados periodicamente para evitar acúmulo",
+    # Categoria 6: Protocolo de Agente Inteligente
+    "R21": "Zero Suposições — Parar e Retornar ao T0: em caso de dúvida, parar e retornar ao T0",
+    "R22": "Economia de Tokens: otimizar uso de tokens em todas as operações",
+    "R23": "Uma Tarefa por Sessão: foco em uma única tarefa por sessão de trabalho",
+    "R24": "STEP 0 - Validação Pré-Ação: validar tarefa contra Regression Buffer e políticas antes de executar",
+    # Categoria 7: Evolução Constitucional v0.3
+    "R25": "STEP -1 - Save Point: snapshot do estado antes de ações de escrita para possível rollback",
+    "R26": "Circuit Breaker: se um agente falhar repetidamente, deve ser suspenso para evitar loops de falha",
+    "R27": "Regression Buffer: prevenir regressões através de buffer de estado",
+    "R28": "Handoffs Formais: toda tarefa delegada a um agente documentada em handoff YAML",
+    "R29": "Checkpoints: estado do sistema salvo periodicamente em pontos críticos",
+    "R30": "Revisão e Arquivo de Artefatos: artefatos antigos arquivados periodicamente para evitar acúmulo",
 }
 
 
@@ -661,12 +683,13 @@ class GovernanceAuditor:
             "details": f"MCP server exists: {mcp_server_path.exists()}, Mission Control adapter exists: {mission_control_adapter_path.exists()}",
         }
 
-        # Remaining rules without implementation (R03, R16, R17)
-        for rule_id in ["R03", "R16", "R17"]:
+        # Remaining rules without implementation (R03, R16, R17, R21-R30)
+        pending_rules = ["R03", "R16", "R17", "R21", "R22", "R23", "R24", "R25", "R26", "R27", "R28", "R29", "R30"]
+        for rule_id in pending_rules:
             compliance[rule_id] = {
                 "description": IA_GOVERNANCE_RULES[rule_id],
                 "status": "pending_implementation",
-                "details": "Verificao no implementada nesta verso",
+                "details": "Verificação não implementada nesta versão",
             }
 
         return compliance
@@ -773,17 +796,30 @@ class GovernanceAuditor:
                         f"- **Vulnerabilidades:** {results['dependencies']['vulnerabilities']['error']}\n"
                     )
 
-            f.write("\n## 3. Conformidade com Governana de IA\n")
-            for rule_id, rule_info in results["governance_compliance"].items():
-                status_icon = (
-                    ""
-                    if rule_info.get("status") == True
-                    else ""
-                    if rule_info.get("status") == False
-                    else ""
-                )
-                f.write(f"### {rule_id}: {rule_info['description']}\n")
-                f.write(f"{status_icon} **Status:** {rule_info['status']}\n")
+            f.write("\n## 3. Conformidade com Governança de IA (30 regras)\n")
+            # Agrupar regras por categoria
+            categories = {
+                "Fundação e Estrutura": ["R01", "R02", "R03", "R04", "R05"],
+                "Controle de Acesso e Identidade": ["R06", "R07", "R08", "R09"],
+                "Rastreabilidade e Auditoria": ["R10", "R11", "R12", "R13"],
+                "Execução e Orquestração": ["R14", "R15", "R16", "R17"],
+                "Ciclo de Vida e Melhoria Contínua": ["R18", "R19", "R20"],
+                "Protocolo de Agente Inteligente": ["R21", "R22", "R23", "R24"],
+                "Evolução Constitucional v0.3": ["R25", "R26", "R27", "R28", "R29", "R30"],
+            }
+            
+            for category_name, rule_ids in categories.items():
+                f.write(f"\n### {category_name}\n")
+                for rule_id in rule_ids:
+                    if rule_id in results["governance_compliance"]:
+                        rule_info = results["governance_compliance"][rule_id]
+                        status_icon = (
+                            "✅" if rule_info.get("status") == True
+                            else "❌" if rule_info.get("status") == False
+                            else "⏳"
+                        )
+                        f.write(f"- **{rule_id}:** {rule_info['description']} {status_icon}\n")
+                        f.write(f"  *Status:* {rule_info['status']} - {rule_info['details']}\n")
                 f.write(f"**Detalhes:** {rule_info.get('details', 'N/A')}\n\n")
 
             f.write("\n## 4. Discrepncias\n")

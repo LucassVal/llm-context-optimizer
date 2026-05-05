@@ -1,0 +1,339 @@
+
+        <!DOCTYPE html>
+        <html lang="pt-BR">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>NeoCortex Compliance Dashboard</title>
+            <style>
+                body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+                .container { max-width: 1200px; margin: 0 auto; }
+                .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; }
+                .header h1 { margin: 0; font-size: 2.5em; }
+                .header .subtitle { opacity: 0.9; margin-top: 5px; }
+                
+                .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px; }
+                .metric-card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+                .metric-card h3 { margin-top: 0; color: #333; }
+                .metric-value { font-size: 2.5em; font-weight: bold; margin: 10px 0; }
+                .metric-value.good { color: #10b981; }
+                .metric-value.warning { color: #f59e0b; }
+                .metric-value.critical { color: #ef4444; }
+                
+                .rules-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; }
+                .rule-card { background: white; padding: 15px; border-radius: 6px; border-left: 4px solid #ddd; }
+                .rule-card.compliant { border-left-color: #10b981; }
+                .rule-card.non-compliant { border-left-color: #ef4444; }
+                .rule-card.pending { border-left-color: #f59e0b; }
+                .rule-id { font-weight: bold; color: #333; }
+                .rule-status { display: inline-block; padding: 3px 8px; border-radius: 12px; font-size: 0.8em; margin-left: 10px; }
+                .status-compliant { background: #d1fae5; color: #065f46; }
+                .status-non-compliant { background: #fee2e2; color: #991b1b; }
+                .status-pending { background: #fef3c7; color: #92400e; }
+                
+                .alerts-section { margin-top: 30px; }
+                .alert-card { background: white; padding: 15px; margin-bottom: 10px; border-radius: 6px; border-left: 4px solid #f59e0b; }
+                .alert-card.critical { border-left-color: #ef4444; }
+                .alert-card.info { border-left-color: #3b82f6; }
+                
+                .chart-container { background: white; padding: 20px; border-radius: 8px; margin-top: 20px; }
+                
+                .footer { margin-top: 40px; text-align: center; color: #666; font-size: 0.9em; }
+            </style>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        </head>
+        <body>
+            <div class="container">
+                <div class="header">
+                    <h1>NeoCortex Compliance Dashboard</h1>
+                    <div class="subtitle">Governança em Tempo Real • 2026-04-22 11:22</div>
+                </div>
+                
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <h3>Compliance Score</h3>
+                        <div class="metric-value critical">
+                            48.4%
+                        </div>
+                        <p>Conformidade com 30 regras de governança</p>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <h3>Arquivos NC-</h3>
+                        <div class="metric-value critical">
+                            58.4%
+                        </div>
+                        <p>Arquivos seguem convenção de nomenclatura</p>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <h3>Handoff Coverage</h3>
+                        <div class="metric-value warning">
+                            77.0%
+                        </div>
+                        <p>Tickets com handoffs documentados</p>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <h3>Audit Frequency</h3>
+                        <div class="metric-value">
+                            Every 2-3 days
+                        </div>
+                        <p>Frequência média de auditorias</p>
+                    </div>
+                </div>
+                
+                <h2>Status das Regras de Governança</h2>
+                <div class="rules-grid">
+        
+                    <div class="rule-card compliant">
+                        <div class="rule-id">R04</div>
+                        <span class="rule-status status-compliant">Compliant</span>
+                        <p>Nomenclatura Padronizada: todos os arquivos seguem...</p>
+                    </div>
+            
+                    <div class="rule-card compliant">
+                        <div class="rule-id">R05</div>
+                        <span class="rule-status status-compliant">Compliant</span>
+                        <p>Segregação de Ambientes: manter ambientes separado...</p>
+                    </div>
+            
+                    <div class="rule-card compliant">
+                        <div class="rule-id">R11</div>
+                        <span class="rule-status status-compliant">Compliant</span>
+                        <p>Versionamento de Artefatos: todos os artefatos de ...</p>
+                    </div>
+            
+                    <div class="rule-card non-compliant">
+                        <div class="rule-id">R01</div>
+                        <span class="rule-status status-non-compliant">Non-Compliant</span>
+                        <p>Inventário de Ativos de IA: manter catálogo comple...</p>
+                    </div>
+            
+                    <div class="rule-card compliant">
+                        <div class="rule-id">R02</div>
+                        <span class="rule-status status-compliant">Compliant</span>
+                        <p>Política Formalizada: políticas de governança escr...</p>
+                    </div>
+            
+                    <div class="rule-card compliant">
+                        <div class="rule-id">R06</div>
+                        <span class="rule-status status-compliant">Compliant</span>
+                        <p>Identidade para Agentes: cada agente deve ter iden...</p>
+                    </div>
+            
+                    <div class="rule-card compliant">
+                        <div class="rule-id">R07</div>
+                        <span class="rule-status status-compliant">Compliant</span>
+                        <p>Privilégio Mínimo (PoLP): agentes têm apenas permi...</p>
+                    </div>
+            
+                    <div class="rule-card compliant">
+                        <div class="rule-id">R08</div>
+                        <span class="rule-status status-compliant">Compliant</span>
+                        <p>Atomic Locks (Path-Based): arquivos críticos prote...</p>
+                    </div>
+            
+                    <div class="rule-card compliant">
+                        <div class="rule-id">R09</div>
+                        <span class="rule-status status-compliant">Compliant</span>
+                        <p>Segregação de Zonas de Escrita: agentes de diferen...</p>
+                    </div>
+            
+                    <div class="rule-card compliant">
+                        <div class="rule-id">R10</div>
+                        <span class="rule-status status-compliant">Compliant</span>
+                        <p>Trilha de Auditoria Imutável: todas as ações regis...</p>
+                    </div>
+            
+                    <div class="rule-card compliant">
+                        <div class="rule-id">R12</div>
+                        <span class="rule-status status-compliant">Compliant</span>
+                        <p>Handoffs Formais: toda tarefa delegada a um agente...</p>
+                    </div>
+            
+                    <div class="rule-card non-compliant">
+                        <div class="rule-id">R13</div>
+                        <span class="rule-status status-non-compliant">Non-Compliant</span>
+                        <p>Checkpoints e Save Points: estado do sistema salvo...</p>
+                    </div>
+            
+                    <div class="rule-card compliant">
+                        <div class="rule-id">R14</div>
+                        <span class="rule-status status-compliant">Compliant</span>
+                        <p>STEP 0 (Validação Pré-Ação): validar tarefa contra...</p>
+                    </div>
+            
+                    <div class="rule-card non-compliant">
+                        <div class="rule-id">R15</div>
+                        <span class="rule-status status-non-compliant">Non-Compliant</span>
+                        <p>STEP -1 (Save Point): snapshot do estado antes de ...</p>
+                    </div>
+            
+                    <div class="rule-card compliant">
+                        <div class="rule-id">R18</div>
+                        <span class="rule-status status-compliant">Compliant</span>
+                        <p>Ciclo de Vida de Tickets: toda tarefa registrada c...</p>
+                    </div>
+            
+                    <div class="rule-card compliant">
+                        <div class="rule-id">R19</div>
+                        <span class="rule-status status-compliant">Compliant</span>
+                        <p>Rotina de 4 Ciclos: trabalho deve seguir rotina di...</p>
+                    </div>
+            
+                    <div class="rule-card compliant">
+                        <div class="rule-id">R20</div>
+                        <span class="rule-status status-compliant">Compliant</span>
+                        <p>Revisão e Arquivo de Artefatos: artefatos antigos ...</p>
+                    </div>
+            
+                    <div class="rule-card compliant">
+                        <div class="rule-id">MCP_EXTRA</div>
+                        <span class="rule-status status-compliant">Compliant</span>
+                        <p>MCP & Mission Control Integration Health...</p>
+                    </div>
+            
+                    <div class="rule-card pending">
+                        <div class="rule-id">R03</div>
+                        <span class="rule-status status-pending">Pending</span>
+                        <p>Estrutura de Diretórios Canônica: definir e impor ...</p>
+                    </div>
+            
+                    <div class="rule-card pending">
+                        <div class="rule-id">R16</div>
+                        <span class="rule-status status-pending">Pending</span>
+                        <p>Circuit Breaker: se um agente falhar repetidamente...</p>
+                    </div>
+            
+                    <div class="rule-card pending">
+                        <div class="rule-id">R17</div>
+                        <span class="rule-status status-pending">Pending</span>
+                        <p>Economia de Tokens: otimizar uso de tokens em toda...</p>
+                    </div>
+            
+                    <div class="rule-card pending">
+                        <div class="rule-id">R21</div>
+                        <span class="rule-status status-pending">Pending</span>
+                        <p>Zero Suposições — Parar e Retornar ao T0: em caso ...</p>
+                    </div>
+            
+                    <div class="rule-card pending">
+                        <div class="rule-id">R22</div>
+                        <span class="rule-status status-pending">Pending</span>
+                        <p>Economia de Tokens: otimizar uso de tokens em toda...</p>
+                    </div>
+            
+                    <div class="rule-card pending">
+                        <div class="rule-id">R23</div>
+                        <span class="rule-status status-pending">Pending</span>
+                        <p>Uma Tarefa por Sessão: foco em uma única tarefa po...</p>
+                    </div>
+            
+                    <div class="rule-card pending">
+                        <div class="rule-id">R24</div>
+                        <span class="rule-status status-pending">Pending</span>
+                        <p>STEP 0 - Validação Pré-Ação: validar tarefa contra...</p>
+                    </div>
+            
+                    <div class="rule-card pending">
+                        <div class="rule-id">R25</div>
+                        <span class="rule-status status-pending">Pending</span>
+                        <p>STEP -1 - Save Point: snapshot do estado antes de ...</p>
+                    </div>
+            
+                    <div class="rule-card pending">
+                        <div class="rule-id">R26</div>
+                        <span class="rule-status status-pending">Pending</span>
+                        <p>Circuit Breaker: se um agente falhar repetidamente...</p>
+                    </div>
+            
+                    <div class="rule-card pending">
+                        <div class="rule-id">R27</div>
+                        <span class="rule-status status-pending">Pending</span>
+                        <p>Regression Buffer: prevenir regressões através de ...</p>
+                    </div>
+            
+                    <div class="rule-card pending">
+                        <div class="rule-id">R28</div>
+                        <span class="rule-status status-pending">Pending</span>
+                        <p>Handoffs Formais: toda tarefa delegada a um agente...</p>
+                    </div>
+            
+                    <div class="rule-card pending">
+                        <div class="rule-id">R29</div>
+                        <span class="rule-status status-pending">Pending</span>
+                        <p>Checkpoints: estado do sistema salvo periodicament...</p>
+                    </div>
+            
+                    <div class="rule-card pending">
+                        <div class="rule-id">R30</div>
+                        <span class="rule-status status-pending">Pending</span>
+                        <p>Revisão e Arquivo de Artefatos: artefatos antigos ...</p>
+                    </div>
+            
+                </div>
+                
+                <div class="alerts-section">
+                    <h2>Alertas Recentes</h2>
+        
+                    <div class="alert-card info">
+                        <strong>UNKNOWN</strong> • MEDIUM
+                        <p></p>
+                        <small>2026-04-22T09:26:19</small>
+                    </div>
+                
+                </div>
+                
+                <div class="chart-container">
+                    <h2>Tendência de Compliance</h2>
+                    <canvas id="complianceChart" width="400" height="200"></canvas>
+                </div>
+                
+                <div class="footer">
+                    <p>NeoCortex Governance Dashboard v0.1 • Atualizado em tempo real</p>
+                    <p>Dados carregados de: {self.data_dir}</p>
+                </div>
+            </div>
+            
+            <script>
+                // Gráfico de tendência
+                const ctx = document.getElementById('complianceChart').getContext('2d');
+                const complianceChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['D-5', 'D-4', 'D-3', 'D-2', 'D-1', 'Hoje'],
+                        datasets: [{
+                            label: 'Compliance Score (%)',
+                            data: [85, 82, 80, 78, 75, 68.5],
+                            borderColor: '#667eea',
+                            backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '%';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+                
+                // Atualização automática a cada 5 minutos
+                setInterval(() => {
+                    window.location.reload();
+                }, 300000);
+            </script>
+        </body>
+        </html>
+        

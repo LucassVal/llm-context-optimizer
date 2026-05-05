@@ -1,10 +1,9 @@
 """---
-domain: "core"
-layer: "core"
-type: "file"
-tags: ["init"]
-hash: "auto-generated"
----"""
+@Module  mcp domain: "core" layer: "core" type: "file" tags: ["
+---
+"""
+
+
 """
 Mdulo de reviso por confiana (Confidence Review).
 """

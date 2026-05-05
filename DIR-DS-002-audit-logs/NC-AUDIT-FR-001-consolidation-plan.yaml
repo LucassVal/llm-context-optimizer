@@ -1,0 +1,676 @@
+# NC-AUDIT-FR-001 — Plano de Consolidação & Unificação v3.0
+# generated_at: 2026-04-30T09:55:00 | generated_by: T0 Antigravity
+# objetivo: ULQ como dicionário universal de busca e mapeamento — TUDO cruza de volta
+
+metadata:
+  title: "Auditoria de Duplicação & Consolidação — Arquitetura ULQ-Centrada"
+  version: 3.0
+  status: PENDING_REVIEW
+  files_analyzed: 82
+  files_after_consolidation: 19
+  reduction_pct: 77
+
+# ╔══════════════════════════════════════════════════════════╗
+# ║  CAMADA 0 — ULQ: DICIONÁRIO UNIVERSAL (BASE DE TUDO)  ║
+# ╚══════════════════════════════════════════════════════════╝
+
+ulq_layer_0:
+  description: >
+    O ULQ (Ubiquitous Language Dictionary) é a CAMADA 0 — toda busca,
+    todo mapeamento, toda referência começa nele. Ele traduz símbolos
+    compactos em paths reais, definições e regras associadas.
+    Pipeline de busca: ULQ → TAG INDEX → PREP → ação.
+
+  files:
+    ssot: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-DOC-FR-001-ubiquitous-language-dictionary.md"
+    living: "01_neocortex_framework/.neocortex/lexico/NC-LEXICO-LATEST.json"
+    tag_index: "01_neocortex_framework/.neocortex/lexico/NC-ULQ-TAG-INDEX.json"
+    decay_log: "01_neocortex_framework/.neocortex/lexico/NC-DECAY-LOG.json"
+
+  status:
+    ulq_documentado: "✅ 232 linhas, 67 símbolos, v2.0"
+    ulq_vivo_json: "🔴 QUASE VAZIO — só 3 keys (version, total_lobes, generated_at)"
+    tag_index: "🔴 NÃO ENCONTRADO no disco"
+    decay_log: "🔴 NÃO ENCONTRADO no disco"
+
+  # ─── SÍMBOLOS @ — ARQUIVOS SSOT (17 símbolos) ───
+  symbols_at:
+    description: "Mapeia @SÍMBOLO → caminho real do arquivo SSOT"
+    entries:
+      "@SSOT":     { path: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md", type: "Naming + Map + Changelog" }
+      "@ROADMAP":  { path: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md", type: "Roadmap consolidado v17.0" }
+      "@LOCKS":    { path: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml", type: "Arquivos imutáveis" }
+      "@POLICY":   { path: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-CFG-FR-001-agent-policy-template.yaml", type: "Template de política" }
+      "@BOOT":     { path: "DIR-BOOT-FR-001-bootup-main/NC-BOOT-FR-001-system-manifest.md", type: "Boot manifest v6" }
+      "@RULES":    { path: ".agents/rules/NC-RULE-001-core-ssot.mdc", type: "Regras always-apply" }
+      "@ULQ":      { path: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-DOC-FR-001-ubiquitous-language-dictionary.md", type: "Este dicionário" }
+      "@POPULATE": { path: "01_neocortex_framework/scripts/NC-SCR-FR-001-populate-lobes-ssot.py", type: "Script de poblamento" }
+      "@LEXICO":   { path: "01_neocortex_framework/.neocortex/lexico/NC-LEXICO-LATEST.json", type: "Dicionário vivo" }
+      "@SOP":      { path: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SOP-FR-001-session-startup.md", type: "Session startup SOP" }
+      "@ADR":      { path: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-ARC-FR-001-decision-log.md", type: "Architecture Decision Log" }
+      "@PROMPT":   { path: "NC-PROMPT-FR-001-master-context.md", type: "Master context prompt" }
+      "@CONFIG":   { path: "01_neocortex_framework/DIR-CFG-FR-001-config-main/neocortex_config.yaml", type: "Config principal" }
+      "@VISION":   { path: "visao_arquitetural_neocortex.md", type: "Visão 6 camadas" }
+      "@APPENDIX": { path: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-APP-FR-001-technical-appendix.md", type: "Apêndice técnico" }
+      "@PREP":     { path: "02_memory_lobes/06_governance/NC-LBE-FR-SEMANTIC-BOOT-001.mdc", type: "Semantic Boot ULQ→TAGS→PREP" }
+
+  # ─── SÍMBOLOS $ — REGIÕES CEREBRAIS (9 símbolos) ───
+  symbols_dollar:
+    description: "Mapeia $REGIÃO → área funcional + lobes típicos"
+    brain_regions:
+      "$FRONTAL":    { function: "Planejamento, decisão, roadmap", lobes: ["roadmap", "tickets", "governance", "ADR"] }
+      "$TEMPORAL":   { function: "Memória semântica: léxico + KG + AKL", lobes: ["lexico", "knowledge-graph", "akl", "ubiquitous-language"] }
+      "$PARIETAL":   { function: "Integração: MCP patterns, health, APIs", lobes: ["mcp-patterns", "health", "integrations", "profiles"] }
+      "$OCCIPITAL":  { function: "Padrões estruturais: manifests, naming", lobes: ["naming", "manifests", "architecture", "cc-patterns"] }
+      "$CEREBELO":   { function: "Controle motor: Guardian, automação", lobes: ["guardian", "automation", "benchmark", "deployment"] }
+      "$HIPOCAMPO":  { function: "Memória episódica: sessões, savepoints", lobes: ["sessions", "savepoints", "handoffs", "audit"] }
+    agent_lobes:
+      "$COURIER":    { model: "qwen2.5-coder:1.5b", cost: "Grátis local", role: "T2 — Tarefas braçais" }
+      "$ENGINEER":   { model: "qwen2.5-coder:3b", cost: "Grátis local", role: "T3 — Tarefas técnicas" }
+      "$GUARDIAN":   { model: "qwen2.5-coder:1.5b", cost: "Grátis local", role: "TG — Validação contínua" }
+
+  # ─── SÍMBOLOS % — TICKETS E AÇÕES (12 símbolos) ───
+  symbols_percent:
+    description: "Mapeia %AÇÃO → ticket associado + status"
+    entries:
+      "%DONE":      { ticket: "—", status: "✅", desc: "Marcar concluído no @ROADMAP" }
+      "%NOW":       { ticket: "—", status: "🔴", desc: "Ação imediata obrigatória" }
+      "%NEXT":      { ticket: "—", status: "🟡", desc: "Próximo na fila" }
+      "%P5":        { ticket: "NC-DS-150", status: "🔴 NOW", desc: "PICOCLAW EventBus :18790 wiring" }
+      "%SEM001":    { ticket: "NC-DS-151", status: "🔴 NOW", desc: "Divisão cerebral de lobos ($FRONTAL...$HIPOCAMPO)" }
+      "%SEM002":    { ticket: "NC-DS-152", status: "🟡 NEXT", desc: "@POPULATE mapeado para regiões cerebrais" }
+      "%ORCH301":   { ticket: "ORCH-301", status: "🔴 Pendente", desc: "spawn/stop/send_task robustos" }
+      "%ORCH302":   { ticket: "ORCH-302", status: "🔴 Pendente", desc: "execute integrado com LLMBackend" }
+
+  # ─── SÍMBOLOS # — SERVIÇOS E COMPONENTES (32 símbolos em 3 camadas) ───
+  symbols_hash:
+    description: "Mapeia #SERVIÇO → engine/função + path + status"
+    camada_1_cortex:
+      "#LEXICO":    { engine: "LexicoService", path: "neocortex/core/lexico_service.py", func: "Neuroplasticidade: extrai termos via Qwen" }
+      "#KG":        { engine: "KGService", path: "neocortex/core/kg_service.py", func: "Knowledge Graph: relações entre conceitos" }
+      "#AKL":       { engine: "AKLService", path: "neocortex/core/akl_service.py", func: "Active Knowledge Layer: memória rápida" }
+      "#CASCADE":   { engine: "CascadeConsolidator", path: "neocortex/core/cascade_consolidator.py", func: "Consolida sessão → lobes permanentes" }
+      "#CORTEX":    { engine: "CortexService", path: "neocortex/core/cortex_service.py", func: "Estado central: contexto + budget" }
+    camada_2_nervoso:
+      "#GUARDIAN":  { engine: "GuardianDaemon", path: "scripts/NC-SCR-FR-115-guardian-daemon.py", func: "Loop automático: Ciclo3 (1h) + Ciclo4 (24h)" }
+      "#PULSE":     { engine: "PulseScheduler", path: "neocortex/core/pulse_scheduler.py", func: "Tarefas agendadas internas 300s" }
+      "#EVENTBUS":  { engine: "PicoClaw EventBus", path: "neocortex/core/services/NC-SVC-FR-005-event-bus.py", func: "Comunicação async A2A :18790", status: "🔴 NOW" }
+      "#ROUTER":    { engine: "LiteLLM Router", path: "NC-SUPER-005-llm-router.py", func: "T0→T2→T3 por complexidade" }
+    camada_3_db:
+      "#LOBE_DB":   { type: "SQLite FTS5", path: ".neocortex/cache/lobe_index.db" }
+      "#METRICS":   { type: "DuckDB", path: ".neocortex/metrics/metrics.db" }
+      "#LEXICO_F":  { type: "JSON", path: ".neocortex/lexico/NC-LEXICO-LATEST.json", status: "🔴 VAZIO" }
+      "#SAVES":     { type: "JSON", path: ".neocortex/savepoints/" }
+      "#HOT":       { type: "Redis-like", path: ".neocortex/cache/hot_cache/" }
+      "#SESSION":   { type: "JSONL", path: "memory/sessions/" }
+      "#TICKETS":   { type: "YAML", path: "DIR-DS-001-tickets/" }
+      "#AUDIT":     { type: "YAML", path: "DIR-DS-002-audit-logs/" }
+    super_tools_mcp:
+      "#GOV":       { tool: "NC-SUPER-001-governance", actions: ["rule.list", "compliance.report", "audit.full", "catalog.refresh"] }
+      "#ORCH":      { tool: "NC-SUPER-002-orchestration", actions: ["task.execute", "agent.spawn", "dispatch.create"] }
+      "#MEM":       { tool: "NC-SUPER-003-memory", actions: ["cortex.get", "lobes.search", "lexico.build"] }
+      "#STATE":     { tool: "NC-SUPER-004-state", actions: ["savepoint.create", "checkpoint.set", "session.start"] }
+      "#LLM":       { tool: "NC-SUPER-005-llm-router", actions: ["route.call", "ollama.ask", "budget.status"], status: "🔴 Fase 5" }
+      "#SYS":       { tool: "NC-SUPER-006-system", actions: ["config.get", "pulse.status", "health.check"] }
+      "#BRAIN":     { tool: "NC-SUPER-007-brain", actions: ["brain.think", "brain.plan", "brain.critique"] }
+      "#CTX":       { tool: "NC-SUPER-008-context", actions: ["context.compress", "session.summarize"] }
+      "#SEC":       { tool: "NC-SUPER-009-security", actions: ["access.validate", "lock.check", "hook.register"] }
+      "#BENCH":     { tool: "NC-SUPER-010-benchmark", actions: ["run.drift", "benchmark.status"] }
+      "#NOTIF":     { tool: "NC-SUPER-011-notification", actions: ["push.send", "peers.sync"] }
+      "#AKL_TOOL":  { tool: "NC-SUPER-012-akl", actions: ["akl.add", "kg.query", "consolidate"] }
+      "#HEALTH":    { tool: "NC-SUPER-013-health", actions: ["server.health", "metrics.live", "watchdog"] }
+      "#LEDGER":    { tool: "NC-SUPER-014-ledger", actions: ["ledger.read", "agent.identity"] }
+      "#AUTO":      { tool: "NC-SUPER-015-memory-auto", actions: ["turn.record", "lobe.auto", "session.hot"] }
+
+  # ─── BUSCA EM 3 NÍVEIS (Decay Pattern) ───
+  search_pipeline:
+    description: "Toda consulta semântica segue ULQ → TAGS → PREP com decay"
+    level_1_ulq:
+      action: "Consultar ULQ (NC-DOC-FR-001)"
+      on_hit: "Retorna definição canônica + regra associada + domínio"
+      on_miss: "decay += 1, vai para nível 2"
+    level_2_tags:
+      action: "Consultar TAG INDEX (NC-ULQ-TAG-INDEX.json)"
+      on_hit: "Retorna path + NC-ID + domain router"
+      on_miss: "decay += 1, vai para nível 3"
+    level_3_prep:
+      action: "Regex scan no código-fonte (fallback)"
+      on_hit: "Retorna match + registra como @Untagged no índice"
+      on_miss: "Registra STALE, retorna None"
+    decay_rules:
+      stale: "7 dias sem acesso → STALE (warning)"
+      removed: "30 dias sem acesso → REMOVED (mantido no histórico)"
+      archived: "Tags com 0 hits em 30 dias → arquivadas"
+
+  # ─── CICLOS DE VIDA DO ULQ ───
+  lifecycle:
+    ciclo_1_boot: "ULQ + TAGS carregados no startup — dicionário disponível para toda sessão"
+    ciclo_2_auto_register: "Novos arquivos .py/.mdc/.yaml → extrair @Tags → registrar no LEXICO + Domain Router"
+    ciclo_3_decay: "Semantic Guardian (FR-167) a cada 300s → audita decay → remove STALE"
+    ciclo_4_consolidate: "Semanal → índice consolidado → Cascade (AKL → Lobes → Archive)"
+
+  gaps_criticos:
+    - gap: "NC-LEXICO-LATEST.json VAZIO"
+      impact: "Nível 2 da busca (TAG INDEX) não funciona — não há índice de @tags"
+      fix: "Popular com @POPULATE + scan de headers de todos os arquivos"
+      ticket: NC-DS-180
+    - gap: "NC-ULQ-TAG-INDEX.json NÃO EXISTE"
+      impact: "Sem índice, toda busca cai no nível 3 (regex scan — lento)"
+      fix: "Gerar a partir do catálogo semântico (763 itens) + Domain Routers (FR-166)"
+      ticket: NC-DS-181
+    - gap: "ULQ não carregado no boot do OpenCode"
+      impact: "Assistente não tem acesso aos símbolos @/$/%/# — respostas sem contexto ULQ"
+      fix: "Adicionar ULQ load no NC-RULE-001 (alwaysApply) ou no STEP0"
+      ticket: NC-DS-182
+    - gap: "6 regiões cerebrais ($) não espelhadas no .agents/"
+      impact: "OpenCode não sabe que $FRONTAL = roadmap + tickets + governance"
+      fix: "Adicionar tabela de $ no neocortexrules.md"
+      ticket: NC-DS-183
+
+# ╔══════════════════════════════════════════════════════════╗
+# ║  CAMADA 1 — REGRAS (cruzam com ULQ via @RULES + #GOV) ║
+# ╚══════════════════════════════════════════════════════════╝
+
+rules_layer_1:
+  description: >
+    Regras existem em 3 fontes. O ULQ mapeia: @RULES → .agents/rules/,
+    #GOV → neocortex_governance (MCP), $FRONTAL → lobes/governance.
+    Cada regra DEVE ter entry no ULQ com: símbolo, path, domínio, H/C/S/U.
+
+  three_sources:
+    mcp_server:
+      source: "neocortex_governance (tool MCP)"
+      symbol_ulq: "#GOV"
+      rules_count: 42  # R01-R42
+      activation: "Via MCP tool — rule.list, policy.check, compliance.report"
+      status: "✅ ONLINE"
+    lobes_ssot:
+      source: "02_memory_lobes/06_governance/NC-LBE-FR-RULES-MULTILAYER-001.mdc"
+      symbol_ulq: "$FRONTAL"
+      rules_count: 123  # R01-R123 com matriz H/C/S/U
+      activation_h: "24/115 (21%) — Gateway + BashGuard + LockGuard + 7 critical"
+      activation_c: "13/115 (11%) — PulseScheduler 12 checks + Bias"
+      activation_s: "35/115 (30%) — CICLO 4 + pipeline"
+      activation_u: "115/115 (100%) — T0 via MCP"
+      implemented: "69/115 (60%)"
+    agents_rules:
+      source: ".agents/rules/ (10 arquivos)"
+      symbol_ulq: "@RULES"
+      rules_referenced: "R01-R22 + R41-R42 + R53 + R117"
+      status: "🔴 DUPLICAÇÃO — R01-R17 em 5 arquivos"
+
+  # Matriz de duplicação: cada R aparece em quais camadas
+  duplication_matrix:
+    R01_R17_core:
+      ulq_mapped: "✅ $FRONTAL (governance)"
+      mcp: "✅"
+      lobes: "✅ H/C/S/U"
+      agents: "🔴 5 cópias (NC-RULE-001, 005, neocortexrules.md, 009, MCP)"
+    R18_R22_extended:
+      ulq_mapped: "✅ $FRONTAL + $OCCIPITAL (naming)"
+      mcp: "✅"
+      lobes: "✅ mixed"
+      agents: "🟡 2-3 cópias"
+    R41_R42_R53_R117:
+      ulq_mapped: "🟡 parcial (R42=3W, R53=KISS, R117=Header)"
+      mcp: "✅ (R41, R42)"
+      lobes: "✅ completo"
+      agents: "🟡 só NC-RULE-009"
+    R43_R53:  # Eisenhower, Pareto, OKRs, PDCA, DRY, Fail-Fast, Kaizen, KISS
+      ulq_mapped: "❌ NÃO estão no ULQ como entries individuais"
+      mcp: "❌"
+      lobes: "✅ completo"
+      agents: "❌"
+    R54_R63:  # Corporativos
+      ulq_mapped: "❌"
+      mcp: "❌"
+      lobes: "✅ (35% implementado)"
+      agents: "❌"
+    R64_R82:  # Sistemas + IA
+      ulq_mapped: "🟡 parcial (alguns engines têm # no ULQ)"
+      mcp: "❌"
+      lobes: "✅ (67-75% implementado)"
+      agents: "❌"
+    R83_R115: # Avançados + Integridade
+      ulq_mapped: "🟡 parcial (#SEC, #HEALTH, #PULSE)"
+      mcp: "❌"
+      lobes: "✅ (0-64% implementado)"
+      agents: "❌"
+    R116_R123: # Semantic Architecture
+      ulq_mapped: "✅ FR-165 a FR-172 no Master Map"
+      mcp: "❌ (só 42 rules)"
+      lobes: "✅ completo"
+      agents: "❌ NÃO espelhadas"
+
+  file_classification:
+    KEEP:
+      - { file: "NC-RULE-001-core-ssot.mdc", role: "Resumo R01-R20 (41 linhas)", ulq: "@RULES" }
+      - { file: "NC-RULE-002-python-mcp.mdc", role: "R09-R13 detalhado", ulq: "$PARIETAL (mcp-patterns)" }
+      - { file: "NC-RULE-003-lobes-memory.mdc", role: "R14-R16 + API", ulq: "$TEMPORAL" }
+      - { file: "NC-RULE-004-filesystem.mdc", role: "R06-R08, R18-R19 + zonas", ulq: "$OCCIPITAL" }
+      - { file: "NC-RULE-006-no-assumptions.mdc", role: "R21 completa + STEP0", ulq: "$FRONTAL (governance)" }
+      - { file: "NC-RULE-007-tagging-system.mdc", role: "Frontmatter universal", ulq: "$OCCIPITAL" }
+      - { file: "NC-RULE-008-karpathy-skills.mdc", role: "R22 completa", ulq: "$FRONTAL" }
+      - { file: "NC-RULE-009-multilayer-governance.mdc", role: "Meta-índice 115+ regras", ulq: "$FRONTAL" }
+      - { file: "neocortexrules.md", role: "Índice master + tabela @/$/%", ulq: "@RULES" }
+    ARCHIVE:
+      - { file: "NC-RULE-005-workspace-standards.mdc", reason: "Cópia XML redundante R01-R20", destination: "DIR-ARC-FR-001-archive-main/deprecated-rules/" }
+    CREATE:
+      - { file: "NC-RULE-010-semantic-architecture.mdc", reason: "R116-R123 + decay + regiões $ — fecha gap OpenCode", ticket: NC-DS-178 }
+    UPDATE:
+      - { file: "neocortexrules.md", change: "Unificar símbolos @ com paths exatos do ULQ. Adicionar tabela $ regiões. Substituir texto R01-R21 por referências.", ticket: NC-DS-175 }
+      - { file: "NC-RULE-009-multilayer-governance.mdc", change: "Adicionar bloco 8 (R116-R123) + tabela 6 regiões cerebrais $.", ticket: NC-DS-179 }
+
+# ╔══════════════════════════════════════════════════════════╗
+# ║  CAMADA 2 — MCP TOOLS (cruzam com ULQ via # símbolos) ║
+# ╚══════════════════════════════════════════════════════════╝
+
+tools_layer_2:
+  description: >
+    Cada tool MCP tem símbolo # no ULQ. O mapeamento ULQ → tool permite
+    buscas: "quero executar auditoria" → ULQ diz #GOV → #GOV diz
+    neocortex_governance → action audit.full.
+
+  tools_mapped:
+    total_tools: 17
+    wired_gateway: 16
+    pending_phase5: 2  # #LLM (llm_router) + #PICOCLAW (picoclaw)
+    
+    # Ver CAMADA 0 → symbols_hash → super_tools_mcp para o mapeamento completo
+
+  cross_reference_ulq:
+    # Exemplo de busca: "preciso de KPIs"
+    exemplo_busca_kpi:
+      ulq_lookup: "KPI → #GOV → neocortex_governance --action kpi.report"
+      tag_index: "#GOV está em NC-SUPER-001-governance.py"
+      prep: "Executar: neocortex_governance --action kpi.report"
+    exemplo_busca_savepoint:
+      ulq_lookup: "savepoint → #STATE → neocortex_state"
+      tag_index: "#STATE está em NC-SUPER-004-state.py"
+      prep: "Executar: neocortex_state --action savepoint.create"
+    exemplo_busca_handoff:
+      ulq_lookup: "handoff → #AUDIT → DIR-DS-002-audit-logs/"
+      tag_index: "Template: NC-DS-HANDOFF-TEMPLATE.yaml"
+      prep: "Gerar YAML e depositar em DIR-DS-002-audit-logs/"
+
+  tool_inventory_mcp: "DIR-DOC-FR-001-docs-main/mcp_tools_inventory.json — 🔴 VAZIO (tools: [])"
+  
+  gaps:
+    - gap: "Inventory JSON vazio"
+      impact: "Sem catálogo machine-readable das tools. ULQ não pode referenciar tools que não estão listadas."
+      fix: "Popular inventory com as 17 tools + actions + symbols ULQ"
+      ticket: NC-DS-184
+
+# ╔══════════════════════════════════════════════════════════╗
+# ║  CAMADA 3 — ROADMAPS (cruzam com ULQ via @ROADMAP + %) ║
+# ╚══════════════════════════════════════════════════════════╝
+
+roadmaps_layer_3:
+  description: >
+    O ULQ mapeia @ROADMAP → consolidated .md. Tickets usam % para
+    referenciar ações. O ULQ deve ser o tradutor: %NOW → qual ticket?
+    → qual arquivo? → qual agente?
+
+  active:
+    - { file: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md", symbol: "@ROADMAP", scope: "SSOT macro: 20 engines, 123 rules, FASE 0-5", lines: 341 }
+    - { file: "DIR-DS-000-agent-config/NC-TODO-FR-001-roadmap.yaml", symbol: "%SPRINT", scope: "Sprint backlog: CICLO_1-4, next_steps", lines: 106, needs: "derived_from: @ROADMAP" }
+
+  to_delete:  # 6 duplicatas idênticas byte-a-byte
+    - "deprecated-roadmaps/NC-TODO-FR-001-project-roadmap_RENAMED.md"
+    - "deprecated-roadmaps/NC-TODO-FR-001-project-roadmap-v6-stability_RENAMED.md"
+    - "deprecated-roadmaps/NC-TODO-FR-001-project-roadmap-v7-combined_RENAMED.md"
+    ticket: NC-DS-170
+
+  to_consolidate:  # Snapshots arquivais redundantes → unificar em 1
+    - "DIR-ARC-FR-001-archive-main/.../NC-TODO-FR-001-project-roadmap-consolidated.md (versão antiga)"
+    - "DIR-ARC-FR-001-archive-main/.../NC-TODO-DS-001-roadmap-pre-mcp.md"
+    - "01_neocortex_framework/DIR-ARC-FR-001-archive-main/NC-TODO-DS-001-roadmap-pre-mcp-archived-20260416.md"
+    ticket: NC-DS-176
+
+  orphan:
+    - { file: "NC-ORPHAN-ROADMAP_2026.md", action: "Integrar visão Q2-Q4 no @ROADMAP → arquivar" }
+
+  result: "20 → 6 arquivos (-70%)"
+
+# ╔══════════════════════════════════════════════════════════╗
+# ║  CAMADA 4 — PROMPTS & CONFIGS (cruzam com ULQ via @)   ║
+# ╚══════════════════════════════════════════════════════════╝
+
+prompts_configs_layer_4:
+  description: >
+    Cada config/prompt referencia @POLICY, @SOP, @BOOT, @CONFIG do ULQ.
+    A unificação reduz 48 → 12 arquivos.
+
+  config_merges:
+    - { action: MERGE, sources: ["NC-CFG-DS-001-agent-policy.yaml", "NC-CFG-DS-002-session-contract.yaml"], target: "NC-CFG-DS-001-agent-session.yaml", ticket: NC-DS-173 }
+    - { action: MERGE, sources: ["NC-CFG-COURIER-001", "NC-CFG-ENGINEER-001", "NC-CFG-GUARDIAN-001"], target: "NC-CFG-FR-001-multi-agent-policies.yaml", ticket: NC-DS-174 }
+
+  to_archive:  # 12 prompts one-shot consumidos
+    - "NC-PROMPT-DS-004/005/006 (CC Leak research)"
+    - "NC-PROMPT-DS-010 (PersistentWorker)"
+    - "NC-PROMPT-DS-011/012/013/014/036 (task dispatches)"
+    - "NC-PROMPT-DS-AGENT1/2/3-20260413 (batch sprint)"
+    destination: "DIR-ARC-FR-001-archive-main/consumed-prompts-20260413/"
+    ticket: NC-DS-172
+
+  keep_active:  # 7 arquivos essenciais
+    - "NC-PROMPT-DS-000-launcher.md"
+    - "NC-PROMPT-DS-001-deepseek-subordinate.md"
+    - "NC-PROMPT-DS-002-worker-universal.md"
+    - "NC-PROMPT-DS-003-persistent-worker.md"
+    - "NC-CFG-DS-003-coordination.yaml"
+    - "NC-CFG-DS-004-task-queue.yaml"
+    - "NC-CFG-DS-005-step0-environment.md"
+
+  result: "48 → 12 arquivos (-75%)"
+
+# ╔══════════════════════════════════════════════════════════╗
+# ║  PIPELINE DE VERIFICAÇÃO — TODA TAREFA EXECUTA ISTO    ║
+# ╚══════════════════════════════════════════════════════════╝
+
+execution_pipeline:
+  description: >
+    Padrao obrigatorio para TODA tarefa de implementacao. Nenhuma tarefa
+    e concluida sem este pipeline completo. Aplicavel a TODOS os tickets.
+    Verificadores variam por TIPO de arquivo modificado.
+
+  environment_verified:
+    python: "3.12.10 OK"
+    ruff: "0.15.10 OK"
+    mypy: "1.20.2 OK"
+    pytest: "9.0.3 OK"
+    bandit: "1.9.4 OK"
+
+  # ─── MATRIZ DE VERIFICADORES POR TIPO DE ARQUIVO ───
+  verification_matrix:
+    description: >
+      REGRA PADRAO — todo arquivo criado/modificado DEVE passar pelo
+      verificador correspondente ao seu tipo. Esta matriz e LEI (R51 FAIL-FAST).
+    
+    py_files:
+      extensions: [".py"]
+      pipeline:
+        - { step: "ruff check --fix", rule: R51, engine: "ruff 0.15.10", gate: "FAIL se != 'All checks passed!'" }
+        - { step: "ruff format", rule: R51, engine: "ruff 0.15.10", gate: "FAIL se arquivo alterado" }
+        - { step: "ruff check", rule: R51, engine: "ruff 0.15.10", gate: "FAIL se errors > 0" }
+        - { step: "mypy --ignore-missing-imports", rule: R51, engine: "mypy 1.20.2", gate: "FAIL se errors > 0" }
+        - { step: "py_compile", rule: R09, engine: "python 3.12", gate: "FAIL se SyntaxError" }
+        - { step: "bandit -q", rule: R114, engine: "bandit 1.9.4", gate: "FAIL se HIGH severity" }
+        - { step: "grep 'print(' ", rule: R11, engine: "rg", gate: "FAIL se encontrado (usar logger)" }
+        - { step: "grep -iE 'api_key|token|password|secret'", rule: R114, engine: "rg", gate: "FAIL se encontrado" }
+    
+    yaml_files:
+      extensions: [".yaml", ".yml"]
+      pipeline:
+        - { step: "yaml.safe_load()", rule: R112, engine: "FR-158 YAMLValidator", gate: "FAIL se YAML invalido" }
+        - { step: "yaml.sanitize", rule: R112, engine: "#GOV governance MCP", gate: "FAIL se erros estruturais" }
+        - { step: "naming NC- check", rule: R01, engine: "regex", gate: "FAIL se nao conforme NC-<TIPO>-<SIGLA>-<NUM>" }
+        - { step: "secret scan", rule: R114, engine: "FR-158 SecretScanner", gate: "FAIL se token/senha exposta" }
+    
+    mdc_files:
+      extensions: [".mdc"]
+      pipeline:
+        - { step: "frontmatter YAML validate", rule: R113, engine: "FR-158 MDCValidator", gate: "FAIL se cabecalho invalido" }
+        - { step: "NC-READ-HASH present", rule: R113, engine: "regex", gate: "FAIL se ausente (dedup quebrado)" }
+        - { step: "naming NC- check", rule: R01, engine: "regex", gate: "FAIL se nao conforme" }
+        - { step: "secret scan", rule: R114, engine: "FR-158 SecretScanner", gate: "FAIL se token/senha exposta" }
+    
+    md_files:
+      extensions: [".md"]
+      pipeline:
+        - { step: "naming NC- check", rule: R01, engine: "regex", gate: "FAIL se nao conforme" }
+        - { step: "secret scan", rule: R114, engine: "FR-158 SecretScanner", gate: "FAIL se token/senha exposta" }
+    
+    json_files:
+      extensions: [".json"]
+      pipeline:
+        - { step: "json.loads() parse", rule: R112, engine: "python json", gate: "FAIL se JSON invalido" }
+        - { step: "naming NC- check", rule: R01, engine: "regex", gate: "FAIL se nao conforme" }
+    
+    ps1_files:
+      extensions: [".ps1"]
+      pipeline:
+        - { step: "Parser::ParseFile() syntax", rule: R51, engine: "PowerShell AST", gate: "FAIL se erros sintaxe" }
+        - { step: "naming NC- check", rule: R01, engine: "regex", gate: "FAIL se nao conforme" }
+    
+    all_files:
+      extensions: ["*"]
+      pipeline:
+        - { step: "@LOCKS check", rule: R04, engine: "LockGuard", gate: "FAIL se arquivo em atomic locks" }
+        - { step: "Write Zone check", rule: R06, engine: "PolicyLoader", gate: "FAIL se zona incorreta" }
+        - { step: "@SSOT update", rule: R02, engine: "NC-NAM-FR-001", gate: "FAIL se arquivo novo nao registrado" }
+        - { step: "Handoff YAML", rule: R12, engine: "Pipeline STEP 4", gate: "FAIL se handoff nao gerado" }
+        - { step: "3W check (What/Why/Where)", rule: R42, engine: "FR-151 ThreeWEngine", gate: "FAIL se ausente" }
+        - { step: "KISS check (<2500 chars)", rule: R53, engine: "manual", gate: "WARN se > 2500" }
+        - { step: "SSOT Header", rule: R117, engine: "FR-163 SSOT Reporter", gate: "WARN se ausente" }
+
+  # ─── PASSO 0: VERIFICAR AMBIENTE (R21) ───
+  step_0_verify:
+    - { action: "python --version", rule: R21, gate: "FAIL se != 3.12.x" }
+    - { action: "python -m ruff --version", rule: R21, gate: "FAIL se nao instalado" }
+    - { action: "python -m mypy --version", rule: R21, gate: "FAIL se nao instalado" }
+    - { action: "Test-Path <ARQUIVO_ALVO>", rule: R21, gate: "FAIL se arquivo nao existe" }
+
+  # ─── ORDEM DE EXECUCAO POR TAREFA ───
+  per_task_sequence:
+    - "STEP 0: Verificar ambiente + arquivo alvo (R21)"
+    - "STEP 1: Verificadores por tipo de arquivo conforme MATRIZ acima"
+    - "STEP 2: @LOCKS + Write Zone + @SSOT (governanca)"
+    - "STEP 3: Handoff YAML (R12)"
+    - "STEP 4: 3W + KISS + SSOT Header (R42 + R53 + R117)"
+
+  # ─── MOTORES DE VERIFICACAO DISPONIVEIS ───
+  available_engines:
+    python_lint: ["ruff 0.15.10", "mypy 1.20.2", "bandit 1.9.4"]
+    yaml_validate: ["FR-158 YAMLValidator", "#GOV yaml.sanitize", "FR-148 SubmissionPipeline"]
+    mdc_validate: ["FR-158 MDCValidator", "FR-149 FullSystemAudit"]
+    secret_scan: ["FR-158 SecretScanner", "#GOV secret.scan"]
+    dead_code: ["FR-158 DeadCodeScanner", "#GOV deadcode.scan"]
+    integrity_full: ["FR-149 FullSystemAudit", "#GOV integrity.full"]
+    governance: ["#GOV compliance.report", "#GOV audit.full", "#GOV submit"]
+
+  # ─── AUDIT.FULL NOS CICLOS 2, 3, 4 ───
+  audit_full_cycles:
+    description: >
+      O audit.full (FR-149) DEVE ser executado em TODO ciclo.
+      Agora com 19 secoes incluindo verificacao multi-formato
+      (.json, .md, .ps1, .jsonl, .bat, .sh).
+
+    ciclo_2_durante_sessao:
+      trigger: "Apos cada task concluida + handoff gerado"
+      sections: [ssot, lobes, semantic, federative, rules, tools, hooks, ddd, calendar_ulq, performance, data_quality, token_cache, techniques, orphans, mordacas, scripts, ciclo2, yaml_validate, mdc_header, secret_scan, dead_code, formats]
+      engine: "NC-CORE-FR-149-full-system-audit.py"
+      gate: "WARN se score < 70%"
+
+    ciclo_3_fim_sessao:
+      trigger: "Ao final de cada sessao (CICLO 3)"
+      sections: ["todas as 19 secoes"]
+      engine: "NC-CORE-FR-149-full-system-audit.py"
+      gate: "FAIL se score < 60% — BLOQUEAR encerramento ate corrigir"
+
+    ciclo_4_limpeza_semanal:
+      trigger: "A cada 5-7 dias (CICLO 4)"
+      sections: ["todas as 19 secoes + relatorio em JSON"]
+      engine: "NC-CORE-FR-149-full-system-audit.py"
+      output: "DIR-DS-002-audit-logs/audit-full-weekly-{date}.json"
+      gate: "FAIL se score < 50% — BLOQUEAR semanal ate corrigir"
+
+# ╔══════════════════════════════════════════════════════════╗
+# ║  EXECUTIVE SUMMARY — TICKETS ORDENADOS POR PRIORIDADE  ║
+# ╚══════════════════════════════════════════════════════════╝
+
+executive_summary:
+  totals:
+    files_analyzed: 82
+    after_consolidation: 19
+    removed_or_merged: 63
+    reduction_pct: 77
+
+  ulq_status:
+    documentado: "✅ 232 linhas, 67 símbolos"
+    vivo_json: "🔴 VAZIO — precisa popular"
+    tag_index: "🔴 INEXISTENTE — precisa gerar"
+    decay_log: "🔴 INEXISTENTE — precisa criar"
+    injetado_opencode: "🔴 NÃO — precisa adicionar ao boot/STEP0"
+
+  tickets:
+    - { priority: 1, ticket: "NC-DS-180", front: "ULQ", action: "Popular NC-LEXICO-LATEST.json com scan de headers", effort: "20min", risk: "BAIXO" }
+    - { priority: 2, ticket: "NC-DS-181", front: "ULQ", action: "Gerar NC-ULQ-TAG-INDEX.json via Domain Routers (FR-166)", effort: "20min", risk: "BAIXO" }
+    - { priority: 3, ticket: "NC-DS-182", front: "ULQ", action: "Adicionar ULQ load no STEP0 / NC-RULE-001 (alwaysApply)", effort: "10min", risk: "BAIXO" }
+    - { priority: 4, ticket: "NC-DS-183", front: "ULQ", action: "Espelhar 6 regiões $ no neocortexrules.md", effort: "5min", risk: "ZERO" }
+    - { priority: 5, ticket: "NC-DS-184", front: "Tools", action: "Popular mcp_tools_inventory.json com 17 tools + actions + #ULQ", effort: "15min", risk: "BAIXO" }
+    - { priority: 6, ticket: "NC-DS-170", front: "Roadmaps", action: "Deletar 6 duplicatas idênticas _RENAMED", effort: "5min", risk: "ZERO" }
+    - { priority: 7, ticket: "NC-DS-171", front: "Rules", action: "Arquivar NC-RULE-005 (XML redundante)", effort: "2min", risk: "BAIXO" }
+    - { priority: 8, ticket: "NC-DS-172", front: "Prompts", action: "Arquivar 12 prompts one-shot", effort: "5min", risk: "ZERO" }
+    - { priority: 9, ticket: "NC-DS-178", front: "Rules", action: "Criar NC-RULE-010 (R116-R123 + decay + regiões $)", effort: "20min", risk: "BAIXO" }
+    - { priority: 10, ticket: "NC-DS-173", front: "Configs", action: "Merge NC-CFG-DS-001 + 002 → 1", effort: "15min", risk: "BAIXO" }
+    - { priority: 11, ticket: "NC-DS-174", front: "Configs", action: "Merge COURIER+ENGINEER+GUARDIAN → 1", effort: "15min", risk: "BAIXO" }
+    - { priority: 12, ticket: "NC-DS-175", front: "Rules", action: "Unificar neocortexrules.md com ULQ paths + tabela $", effort: "10min", risk: "MÉDIO" }
+    - { priority: 13, ticket: "NC-DS-179", front: "Rules", action: "Atualizar NC-RULE-009 (bloco 8 R116-R123)", effort: "10min", risk: "BAIXO" }
+    - { priority: 14, ticket: "NC-DS-176", front: "Roadmaps", action: "Consolidar snapshots + integrar ROADMAP_2026", effort: "15min", risk: "BAIXO" }
+
+# ╔══════════════════════════════════════════════════════════════╗
+# ║  FASE 2 — UNIFICACAO DE SISTEMAS PARALELOS (5 FRENTES)     ║
+# ║  Base: ULQ como sistema nervoso central                     ║
+# ╚══════════════════════════════════════════════════════════════╝
+
+phase2_unification:
+
+  # ─── 3W ──────────────────────────────────────────────────────
+  three_w:
+    what: >
+      O sistema NeoCortex opera com 5 pares de sistemas paralelos que fazem
+      a mesma coisa por caminhos diferentes. 77 engines no disco vs 23 documentadas.
+      Hooks MCP (9 registrados, sem executor) vs Gateway hardcoded (24 regras).
+      Isso cria split-brain: corrigir um lado nao corrige o outro.
+    why: >
+      Evidencia: auditoria 3L revelou CAMADA 1(36.8%), CAMADA 2(87.6%), CAMADA 3(93.8%).
+      Overlaps comprovados em audit(FR-149+FR-173), lock(FR-014+FR-125),
+      compliance(FR-154+FR-161), semantic(6 engines FR-165 a 170), evolution(FR-130+131).
+      5 indices de catalogo paralelos. 8 modulos carregam YAML independentemente.
+      Gateway nao le hooks do MCP — sao dois SSOTs para a mesma funcao.
+    where: >
+      $FRONTAL (governanca): hooks, compliance, audit
+      $CEREBELO (automacao): validacao, config loading
+      $TEMPORAL (semantica): catalogos, indices
+      ULQ CAMADA 0: resolver universal de paths e simbolos
+
+  # ─── RCA 5 PORQUES ──────────────────────────────────────────
+  rca:
+    q1: { q: "Por que 5 sistemas paralelos?", a: "Cada um foi construido em fase diferente, sem unificacao posterior." }
+    q2: { q: "Por que sem unificacao posterior?", a: "Foco em feature velocity, nao em arquitetura limpa. Documentado mas nao enforced." }
+    q3: { q: "Por que documentado mas nao enforced?", a: "Nao havia pipeline de verificacao ativo no ato da criacao. Hooks MCP = 0. PulseScheduler crashado." }
+    q4: { q: "Por que hooks = 0 e Pulse crashado?", a: "Hooks foram documentados (.mdc) mas nunca registrados no MCP. Pulse tinha bug de is_running nao implementado." }
+    q5: { q: "Causa raiz?", a: "Build-first, enforce-later. Sem ULQ como resolver central, cada modulo criou seu proprio jeito de achar arquivos e validar. Solucao: ULQ como CAMADA 0 obrigatoria + unificacao dos 5 sistemas paralelos." }
+
+  # ─── 5 FRENTES DE UNIFICACAO ────────────────────────────────
+  fronts:
+    front_1_hooks:
+      title: "Unificar HOOKS: Gateway le MCP hook registry"
+      current: "Gateway hardcoded (24 regras) + MCP registry (9 entradas, sem executor) = 2 SSOTs"
+      target: "Gateway consulta MCP hook registry como SSOT unico. Remove listas hardcoded."
+      ulq_bridge: "ulq.resolve_symbol('#SEC') -> hook.list -> Gateway executa"
+      affected: ["NC-CORE-FR-129-shared-kernel-gateway.py (@LOCK)", "NC-SUPER-009-security.py"]
+      risk: "ALTO — mexe no Gateway"
+      ticket: "NC-DS-210"
+
+    front_2_validation:
+      title: "Unificar VALIDATION: Gateway como orquestrador unico"
+      current: "Gateway + LockGuard + BashGuard + ToolGuard — 4 validadores independentes"
+      target: "Gateway.validate_action() orquestra LockGuard.check(), BashGuard.check(), ToolGuard.check()"
+      ulq_bridge: "ulq.resolve('@LOCKS') -> LockGuard carrega config do ULQ"
+      affected: ["NC-CORE-FR-129", "NC-CORE-FR-014", "NC-CORE-FR-144", "NC-CORE-FR-125"]
+      risk: "MEDIO"
+      ticket: "NC-DS-211"
+
+    front_3_audit:
+      title: "Unificar AUDIT: FR-173 absorve FR-149"
+      current: "FR-149 (20 secoes) + FR-173 (3 camadas) + #GOV (compliance.report) = 3 entradas"
+      target: "FR-173 = auditoria unica (3 camadas). FR-149 deprecated. #GOV chama FR-173."
+      ulq_bridge: "ulq.resolve_symbol('#GOV') -> audit.full -> FR-173.audit_all_levels()"
+      affected: ["NC-CORE-FR-149 (deprecate)", "NC-CORE-FR-173 (expand)", "NC-SUPER-001"]
+      risk: "BAIXO"
+      ticket: "NC-DS-212"
+
+    front_4_catalog:
+      title: "Unificar CATALOG: LEXICO como SSOT unico"
+      current: "LEXICO.json + TAG_INDEX.json + artifact_catalog.json + _INDEX.yaml + _INDEX.mdc = 5 indices"
+      target: "NC-LEXICO-LATEST.json = SSOT com 3 secoes (symbols, tags, catalog). Demais deletados."
+      ulq_bridge: "ulq.resolve('@LEXICO') -> LEXICO.json -> symbols + tags + catalog"
+      affected: ["NC-LEXICO-LATEST.json (expand)", "_INDEX.yaml (delete)", "_INDEX.mdc (delete x5)"]
+      risk: "BAIXO"
+      ticket: "NC-DS-213"
+
+    front_5_config:
+      title: "Unificar CONFIG: ConfigProvider central via ULQ"
+      current: "8 modulos carregam YAML independentemente. Sem cache, sem hot-reload."
+      target: "ulq.resolve('@CONFIG') central. Cache 60s. Hot-reload no PulseScheduler 300s."
+      ulq_bridge: "ulq.resolve('@CONFIG') -> ConfigProvider.get() -> cached + hot-reload"
+      affected: ["NC-CORE-FR-108-config-service.py (expandir)", "8 modulos com yaml.safe_load direto"]
+      risk: "MEDIO"
+      ticket: "NC-DS-214"
+
+  # ─── 77 ENGINES vs 23 DOCUMENTADAS ──────────────────────────
+  engine_gap:
+    total_on_disk: 77
+    documented_in_master_map: 23  # FR-150 a FR-172
+    undocumented: 54
+    overlaps_found:
+      - { group: "audit", engines: ["FR-149", "FR-173"], action: "FR-173 absorve FR-149" }
+      - { group: "lock", engines: ["FR-014", "FR-125"], action: "LockGuard+ToolGuard mantidos, orquestrados pelo Gateway" }
+      - { group: "compliance", engines: ["FR-154", "FR-161"], action: "FR-154 absorve FR-161 (corporate + regulatory = compliance)" }
+      - { group: "semantic", engines: ["FR-165..170"], action: "6 engines mantidos (sub-funcoes distintas: router, domain, guardian, audit, registry, boot)" }
+      - { group: "evolution", engines: ["FR-130", "FR-131"], action: "Unificar em FR-130 (genome + federative = replication)" }
+    hub_engine: "FR-165 (semantic-router) — 26 cross-refs, candidato a resolver central"
+    ticket_catalog: "NC-DS-215 (documentar 54 engines no Master Map)"
+
+  # ─── ULQ COMO SISTEMA NERVOSO CENTRAL ───────────────────────
+  ulq_centric:
+    description: >
+      O ULQ ja resolve paths em Python (FR-165.resolve_path). A proposta e
+      tornar o ULQ obrigatorio como CAMADA 0 para TODO modulo que precisa de
+      path, config, ou validacao. Nenhum hardcoded path sobrevive.
+    current_state: "20 arquivos com hardcoded paths detectados pela auditoria 3L"
+    python_api: "ulq.resolve('@SIMBOLO') -> Path | ulq.resolve_symbol('#TOOL') -> Dict"
+    sandbox: "ulq.override('@SIMBOLO', '/tmp/test') -> ulq.restore('@SIMBOLO')"
+    ticket: "NC-DS-216 (substituir 20 hardcoded paths + wire-up ULQ nos 77 engines)"
+
+# ╔══════════════════════════════════════════════════════════════╗
+# ║  EXECUTIVE SUMMARY — COMPLETO (FASE 1 + FASE 2)            ║
+# ╚══════════════════════════════════════════════════════════════╝
+
+executive_summary:
+  status_global:
+    fase_1_concluida: true
+    fase_2_planejada: true
+    hooks_ativos: 9
+    engines_total: 77
+    engines_documentados: 23
+    sistemas_paralelos: 5
+    audit_score: "72.7% (CAMADA 1:36.8% CAMADA 2:87.6% CAMADA 3:93.8%)"
+
+  tickets_fase_1:  # ✅ Todos concluidos
+    completed: ["NC-DS-170 a 184", "NC-DS-190 a 199", "NC-DS-200 a 202"]
+
+  tickets_fase_2:
+    urgent_important:
+      - { ticket: "NC-DS-210", front: "HOOKS", action: "Gateway le MCP hook registry (SSOT unico)", effort: "1h", risk: "ALTO" }
+      - { ticket: "NC-DS-211", front: "VALIDATION", action: "Gateway orquestra LockGuard+BashGuard+ToolGuard", effort: "45min", risk: "MEDIO" }
+      - { ticket: "NC-DS-216", front: "ULQ", action: "Substituir 20 hardcoded paths + wire-up ULQ nos engines", effort: "1h", risk: "MEDIO" }
+    important_not_urg:
+      - { ticket: "NC-DS-212", front: "AUDIT", action: "FR-173 absorve FR-149 (auditor unico)", effort: "30min", risk: "BAIXO" }
+      - { ticket: "NC-DS-213", front: "CATALOG", action: "LEXICO como SSOT unico, deletar _INDEX.*", effort: "20min", risk: "BAIXO" }
+      - { ticket: "NC-DS-214", front: "CONFIG", action: "ConfigProvider central via ulq.resolve(@CONFIG)", effort: "30min", risk: "MEDIO" }
+      - { ticket: "NC-DS-215", front: "DOCS", action: "Documentar 54 engines no Master Map + Blueprint", effort: "20min", risk: "BAIXO" }
+    ongoing:
+      - { ticket: "NC-DS-220", front: "ENFORCE", action: "STEP 0 + Mentor Mode ativo no Gateway", effort: "30min", risk: "MEDIO" }
+      - { ticket: "NC-DS-221", front: "ENFORCE", action: "PulseScheduler restart + baseline regression", effort: "15min", risk: "BAIXO" }
+
+  ssot_updates_needed:
+    - "@SSOT (NC-NAM-FR-001): adicionar engines FR-173, tickets NC-DS-210 a 221"
+    - "@BLUEPRINT (NC-ARC-FR-002): adicionar orbital VERIFICATION no FORUM, ULQ como CAMADA 0"
+    - "@CHANGELOG (NC-CHG-FR-001): registrar Fase 2 + hooks ativos + auditoria 3L"
+    - "@MAPS (NC-MAP-FR-001): atualizar organograma com novo orbital, fluxo ULQ-centrico"
+    - "@BOOT (NC-BOOT-FR-001): adicionar @MAPS reference, ULQ boot obrigatorio"
+
+  ssot_header: "NC-SSOT | 2026-04-30T14:45 | CICLOS:3+4-DONE | CATALOG:710yaml | LOBES:POPULATED | GW-HOOKS:APPLIED | PULSE:RUNNING | DONE:5/37 | sess:1 turns:27 hf:12 | RAC:ON 3W:ON KISS:ON"

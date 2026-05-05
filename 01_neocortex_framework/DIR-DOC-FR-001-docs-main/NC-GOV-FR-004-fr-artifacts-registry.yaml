@@ -1,3 +1,13 @@
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC GOV FR 004 fr artifacts registry
+# Why:  Criado em 2026-04-16 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-004-fr-artifacts-registry.yaml
+
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC GOV FR 004 fr artifacts registry
+# Why:  Criado em 2026-04-16 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-004-fr-artifacts-registry.yaml
+
 meta:
   version: '1.0'
   hash: FR-ARTIFACTS-REGISTRY-v1.0
@@ -95,10 +105,10 @@ fr_taxonomy:
     purpose: Manter nomenclatura padronizada, mapa centralizado, changelog
     examples:
     - NC-NAM-FR-001-naming-convention.md
-    - NC-NAM-FR-001a-tools-registry.md
-    - NC-NAM-FR-001b-lobes-registry.md
-    - NC-NAM-FR-001c-config-registry.md
-    - NC-NAM-FR-001d-prompts-registry.md
+    - NC-NAM-FR-001-tools-registry.md
+    - NC-NAM-FR-001-lobes-registry.md
+    - NC-NAM-FR-001-config-registry.md
+    - NC-NAM-FR-001-prompts-registry.md
     governance_rules_applied:
     - R01
     - R02

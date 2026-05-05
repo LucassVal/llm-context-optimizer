@@ -1,0 +1,211 @@
+{
+  "total_files_scanned": 488,
+  "files_with_references": 38,
+  "total_replacements": 1291,
+  "replacements_by_pattern": {
+    "NC-RPT-(\\d{3}-)": 33,
+    "NC-TEST-(\\d{3}-)": 46,
+    "NC-DS-(\\d{3}-)": 1035,
+    "NC-NAM-FR-001a-": 31,
+    "NC-NAM-FR-001b-": 31,
+    "NC-NAM-FR-001c-": 31,
+    "NC-NAM-FR-001d-": 31,
+    "NC-CMD-EXAMPLE\\.md": 14,
+    "NC-HK-EXAMPLE\\.py": 21,
+    "NC-SCR-FR-103b-": 18
+  },
+  "updated_files": [
+    {
+      "file": "01_neocortex_framework\\05_examples\\NC-RPT-FR-117-core-audit.py",
+      "replacements": 3,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\05_examples\\NC-RPT-FR-154-ssot-cross-audit.json",
+      "replacements": 32,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\05_examples\\NC-TEST-FR-119-picoclaw-integration-fixed.py",
+      "replacements": 2,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\05_examples\\NC-TEST-FR-119-picoclaw-integration.py",
+      "replacements": 2,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\05_examples\\NC-TEST-FR-152-savepoint-wal-integration.py",
+      "replacements": 2,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\05_examples\\NC-TEST-FR-153-ttl-wal-prune.py",
+      "replacements": 5,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\05_examples\\NC-TEST-FR-154-ssot-cross-audit.py",
+      "replacements": 3,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\DIR-ARC-FR-001-archive-main\\NC-TODO-DS-001-roadmap-pre-mcp-archived-20260416.md",
+      "replacements": 2,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\DIR-CORE-FR-001-core-central\\NC-LED-FR-001-framework-ledger.json",
+      "replacements": 1,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\artifact_catalog.json",
+      "replacements": 897,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\coverage_report.json",
+      "replacements": 4,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-AUD-FR-001-timestamp-audit.md",
+      "replacements": 4,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-GOV-FR-004-fr-artifacts-registry.yaml",
+      "replacements": 4,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-MAN-FR-001-project-manifest.json",
+      "replacements": 59,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-MAN-FR-001-project-manifest.md",
+      "replacements": 44,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001-naming-convention.md",
+      "replacements": 7,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001-prompts-registry.md",
+      "replacements": 2,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-REPORT-FR-001-consolidated-results.md",
+      "replacements": 4,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\NC-TODO-DS-001-roadmap-pre-mcp.md",
+      "replacements": 2,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\PROJECT_MAP.md",
+      "replacements": 148,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\ssot_audit_report.json",
+      "replacements": 5,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\ssot_audit_report.md",
+      "replacements": 5,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\DIR-DOC-FR-001-docs-main\\structural_audit_report.md",
+      "replacements": 4,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\DIR-DS-001-tickets\\NC-DS-FR-118-fix-f841-metrics-store.yaml",
+      "replacements": 2,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\DIR-DS-001-tickets\\NC-DS-FR-119-picoclaw-integration-test.yaml",
+      "replacements": 7,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\DIR-DS-001-tickets\\NC-DS-FR-120-picoclaw-tool-autoloader.yaml",
+      "replacements": 2,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\DIR-DS-001-tickets\\NC-DS-FR-121-lexico-hook-boot-loader.yaml",
+      "replacements": 2,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\DIR-DS-002-audit-logs\\NC-DS-153-handoff-20260420T235000.yaml",
+      "replacements": 11,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\DIR-DS-002-audit-logs\\NC-DS-154-handoff-20260420T205300.yaml",
+      "replacements": 5,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\DIR-DS-002-audit-logs\\NC-DS-FR-150-completion.yaml",
+      "replacements": 2,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\DIR-TMP-FR-001-templates-main\\NC-TOOL-FR-TEMPLATE\\hooks\\NC-HK-FR-001-example.py",
+      "replacements": 1,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-020-lexico-service.py",
+      "replacements": 1,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\neocortex\\core\\services\\NC-SVC-FR-025-savepoint-wal-bridge.py",
+      "replacements": 1,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\scripts\\NC-SCR-FR-004-governance-validator.py",
+      "replacements": 8,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\scripts\\NC-SCR-FR-012-new-tool.py",
+      "replacements": 2,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\scripts\\NC-SCR-FR-103-start-with-mc.ps1",
+      "replacements": 2,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\scripts\\NC-SCR-FR-148-wal-ttl-pruner.py",
+      "replacements": 2,
+      "dry_run": true
+    },
+    {
+      "file": "01_neocortex_framework\\scripts\\NC-SCR-FR-150-smoke-test.py",
+      "replacements": 2,
+      "dry_run": true
+    }
+  ],
+  "errors": [],
+  "timestamp": "2026-04-21T23:21:51.399976"
+}

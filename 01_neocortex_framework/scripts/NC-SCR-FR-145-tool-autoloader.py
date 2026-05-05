@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+"""---
+NC-SCR-FR-145: Auto-loader de ferramentas extras para MCP server
+---
+"""
+
+"""---
+NC-SCR-FR-145: Auto-loader de ferramentas extras para MCP server
+---
+"""
+
 """
 NC-SCR-FR-145: Auto-loader de ferramentas extras para MCP server
 

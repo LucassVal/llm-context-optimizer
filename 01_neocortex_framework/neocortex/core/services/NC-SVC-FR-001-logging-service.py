@@ -1,19 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:58.560578'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-parent_ssot: NC-LOG-FR-001-hud-audit
-related_ssot:
-  - NC-SVC-FR-001-logging-service
-tags:
-  - neocortex-other
-  - level-0
-  - nc-prefix
-  - python
----"""
+@Audit NC-SVC-FR-001-logging-service mcp _genealogy:   injected_at: '2026-04-16T00:23:58.56
+---
+"""
+
+
 """
 NC-SVC-FR-001-logging-service.py
 FR-001  Logging Service: Structured JSON logging wrapper for NeoCortex.

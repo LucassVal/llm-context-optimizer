@@ -1,0 +1,324 @@
+{
+  "metadata": {
+    "script": "NC-SCR-FR-120-batch-rename-fix.py",
+    "timestamp": "2026-04-21T23:13:08.324432",
+    "dry_run": false
+  },
+  "analysis": {
+    "total_nc_files": 553,
+    "conformant": 349,
+    "non_conformant": 51,
+    "exceptions": 153,
+    "rename_candidates": [
+      {
+        "old_name": "NC-LBE-FR-ARCHITECTURE-001_20260410_155754.mdc",
+        "new_name": "NC-LBE-FR-001-architecture_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-ARCHITECTURE-001_20260410_155754.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-architecture_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      },
+      {
+        "old_name": "NC-LBE-FR-BENCHMARKS-001_20260410_155755.mdc",
+        "new_name": "NC-LBE-FR-001-benchmarks_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-BENCHMARKS-001_20260410_155755.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-benchmarks_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      },
+      {
+        "old_name": "NC-LBE-FR-CLI-001_20260410_155754.mdc",
+        "new_name": "NC-LBE-FR-001-cli_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-CLI-001_20260410_155754.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-cli_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      },
+      {
+        "old_name": "NC-LBE-FR-CORE-001_20260410_155755.mdc",
+        "new_name": "NC-LBE-FR-001-core_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-CORE-001_20260410_155755.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-core_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      },
+      {
+        "old_name": "NC-LBE-FR-DEPLOYMENT-001_20260410_155754.mdc",
+        "new_name": "NC-LBE-FR-001-deployment_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-DEPLOYMENT-001_20260410_155754.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-deployment_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      },
+      {
+        "old_name": "NC-LBE-FR-DEVELOPMENT-001_20260410_155754.mdc",
+        "new_name": "NC-LBE-FR-001-development_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-DEVELOPMENT-001_20260410_155754.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-development_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      },
+      {
+        "old_name": "NC-LBE-FR-DOCUMENTATION-001_20260410_155755.mdc",
+        "new_name": "NC-LBE-FR-001-documentation_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-DOCUMENTATION-001_20260410_155755.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-documentation_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      },
+      {
+        "old_name": "NC-LBE-FR-INTEGRATION-001_20260410_155755.mdc",
+        "new_name": "NC-LBE-FR-001-integration_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-INTEGRATION-001_20260410_155755.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-integration_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      },
+      {
+        "old_name": "NC-LBE-FR-KNOWLEDGE-001_20260410_155754.mdc",
+        "new_name": "NC-LBE-FR-001-knowledge_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-KNOWLEDGE-001_20260410_155754.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-knowledge_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      },
+      {
+        "old_name": "NC-LBE-FR-LEGACY-001_20260410_155755.mdc",
+        "new_name": "NC-LBE-FR-001-legacy_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-LEGACY-001_20260410_155755.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-legacy_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      },
+      {
+        "old_name": "NC-LBE-FR-MCP-001_20260410_155755.mdc",
+        "new_name": "NC-LBE-FR-001-mcp_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-MCP-001_20260410_155755.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-mcp_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      },
+      {
+        "old_name": "NC-LBE-FR-MONITORING-001_20260410_155755.mdc",
+        "new_name": "NC-LBE-FR-001-monitoring_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-MONITORING-001_20260410_155755.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-monitoring_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      },
+      {
+        "old_name": "NC-LBE-FR-PERFORMANCE-001_20260410_155755.mdc",
+        "new_name": "NC-LBE-FR-001-performance_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-PERFORMANCE-001_20260410_155755.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-performance_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      },
+      {
+        "old_name": "NC-LBE-FR-PROFILES-001_20260410_155755.mdc",
+        "new_name": "NC-LBE-FR-001-profiles_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-PROFILES-001_20260410_155755.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-profiles_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      },
+      {
+        "old_name": "NC-LBE-FR-PULSE-001_20260410_155755.mdc",
+        "new_name": "NC-LBE-FR-001-pulse_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-PULSE-001_20260410_155755.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-pulse_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      },
+      {
+        "old_name": "NC-LBE-FR-SECURITY-001_20260410_155754.mdc",
+        "new_name": "NC-LBE-FR-001-security_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-SECURITY-001_20260410_155754.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-security_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      },
+      {
+        "old_name": "NC-LBE-FR-TESTING-001_20260410_155754.mdc",
+        "new_name": "NC-LBE-FR-001-testing_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-TESTING-001_20260410_155754.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-testing_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      },
+      {
+        "old_name": "NC-LBE-FR-WHITELABEL-001_20260410_155754.mdc",
+        "new_name": "NC-LBE-FR-001-whitelabel_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-WHITELABEL-001_20260410_155754.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-whitelabel_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      }
+    ],
+    "analysis_time": "2026-04-21T23:13:07.593361",
+    "root_dir": "01_neocortex_framework"
+  },
+  "rename_results": {
+    "successful": [
+      {
+        "old_name": "NC-LBE-FR-ARCHITECTURE-001_20260410_155754.mdc",
+        "new_name": "NC-LBE-FR-001-architecture_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-ARCHITECTURE-001_20260410_155754.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-architecture_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      },
+      {
+        "old_name": "NC-LBE-FR-BENCHMARKS-001_20260410_155755.mdc",
+        "new_name": "NC-LBE-FR-001-benchmarks_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-BENCHMARKS-001_20260410_155755.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-benchmarks_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      },
+      {
+        "old_name": "NC-LBE-FR-CLI-001_20260410_155754.mdc",
+        "new_name": "NC-LBE-FR-001-cli_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-CLI-001_20260410_155754.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-cli_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      },
+      {
+        "old_name": "NC-LBE-FR-CORE-001_20260410_155755.mdc",
+        "new_name": "NC-LBE-FR-001-core_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-CORE-001_20260410_155755.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-core_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      },
+      {
+        "old_name": "NC-LBE-FR-DEPLOYMENT-001_20260410_155754.mdc",
+        "new_name": "NC-LBE-FR-001-deployment_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-DEPLOYMENT-001_20260410_155754.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-deployment_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      },
+      {
+        "old_name": "NC-LBE-FR-DEVELOPMENT-001_20260410_155754.mdc",
+        "new_name": "NC-LBE-FR-001-development_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-DEVELOPMENT-001_20260410_155754.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-development_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      },
+      {
+        "old_name": "NC-LBE-FR-DOCUMENTATION-001_20260410_155755.mdc",
+        "new_name": "NC-LBE-FR-001-documentation_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-DOCUMENTATION-001_20260410_155755.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-documentation_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      },
+      {
+        "old_name": "NC-LBE-FR-INTEGRATION-001_20260410_155755.mdc",
+        "new_name": "NC-LBE-FR-001-integration_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-INTEGRATION-001_20260410_155755.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-integration_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      },
+      {
+        "old_name": "NC-LBE-FR-KNOWLEDGE-001_20260410_155754.mdc",
+        "new_name": "NC-LBE-FR-001-knowledge_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-KNOWLEDGE-001_20260410_155754.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-knowledge_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      },
+      {
+        "old_name": "NC-LBE-FR-LEGACY-001_20260410_155755.mdc",
+        "new_name": "NC-LBE-FR-001-legacy_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-LEGACY-001_20260410_155755.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-legacy_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      },
+      {
+        "old_name": "NC-LBE-FR-MCP-001_20260410_155755.mdc",
+        "new_name": "NC-LBE-FR-001-mcp_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-MCP-001_20260410_155755.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-mcp_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      },
+      {
+        "old_name": "NC-LBE-FR-MONITORING-001_20260410_155755.mdc",
+        "new_name": "NC-LBE-FR-001-monitoring_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-MONITORING-001_20260410_155755.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-monitoring_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      },
+      {
+        "old_name": "NC-LBE-FR-PERFORMANCE-001_20260410_155755.mdc",
+        "new_name": "NC-LBE-FR-001-performance_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-PERFORMANCE-001_20260410_155755.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-performance_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      },
+      {
+        "old_name": "NC-LBE-FR-PROFILES-001_20260410_155755.mdc",
+        "new_name": "NC-LBE-FR-001-profiles_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-PROFILES-001_20260410_155755.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-profiles_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      },
+      {
+        "old_name": "NC-LBE-FR-PULSE-001_20260410_155755.mdc",
+        "new_name": "NC-LBE-FR-001-pulse_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-PULSE-001_20260410_155755.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-pulse_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      },
+      {
+        "old_name": "NC-LBE-FR-SECURITY-001_20260410_155754.mdc",
+        "new_name": "NC-LBE-FR-001-security_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-SECURITY-001_20260410_155754.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-security_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      },
+      {
+        "old_name": "NC-LBE-FR-TESTING-001_20260410_155754.mdc",
+        "new_name": "NC-LBE-FR-001-testing_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-TESTING-001_20260410_155754.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-testing_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      },
+      {
+        "old_name": "NC-LBE-FR-WHITELABEL-001_20260410_155754.mdc",
+        "new_name": "NC-LBE-FR-001-whitelabel_fixed.mdc",
+        "old_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-WHITELABEL-001_20260410_155754.mdc",
+        "new_path": "01_neocortex_framework\\02_memory_lobes\\09_framework\\NC-LBE-FR-001-whitelabel_fixed.mdc",
+        "problem_type": "^NC-(LBE-[A-Z]+)-([A-Z]+)-([0-9]{3})_(\\d{8}_\\d{6})",
+        "directory": "01_neocortex_framework\\02_memory_lobes\\09_framework"
+      }
+    ],
+    "failed": [],
+    "skipped": [],
+    "total": 18,
+    "dry_run": false
+  },
+  "backup_info": ".rename_backup\\backup_log.json",
+  "summary": {
+    "total_nc_files": 553,
+    "conformant_before": 349,
+    "non_conformant_before": 51,
+    "exceptions": 153,
+    "rename_candidates": 18,
+    "successful_renames": 18,
+    "failed_renames": 0,
+    "skipped_renames": 0
+  }
+}

@@ -4,7 +4,10 @@ layer: "core"
 type: "file"
 tags: ["service"]
 hash: "auto-generated"
----"""
+---
+"""
+
+
 #!/usr/bin/env python3
 """
 Knowledge Graph Service - Business logic for knowledge graph operations.

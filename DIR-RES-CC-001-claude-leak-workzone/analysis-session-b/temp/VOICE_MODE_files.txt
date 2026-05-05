@@ -1,0 +1,17 @@
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\commands.ts
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\components\TextInput.tsx
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\components\LogoV2\LogoV2.tsx
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\components\LogoV2\VoiceModeNotice.tsx
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\components\PromptInput\Notifications.tsx
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\components\PromptInput\PromptInputFooterLeftSide.tsx
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\components\PromptInput\VoiceIndicator.tsx
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\hooks\useVoiceIntegration.tsx
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\keybindings\defaultBindings.ts
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\screens\REPL.tsx
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\services\voiceStreamSTT.ts
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\state\AppState.tsx
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\tools\ConfigTool\ConfigTool.ts
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\tools\ConfigTool\prompt.ts
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\tools\ConfigTool\supportedSettings.ts
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\utils\settings\types.ts
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\voice\voiceModeEnabled.ts

@@ -1,3 +1,13 @@
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC SEC FR 001 atomic locks
+# Why:  Criado em 2026-04-16 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml
+
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC SEC FR 001 atomic locks
+# Why:  Criado em 2026-04-16 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml
+
 # NC-SEC-FR-001 — Atomic Locks: Arquivos Protegidos do NeoCortex
 # Single Source of Truth para o SecurityService.
 # Nenhum agente pode modificar os recursos listados aqui sem autorização explícita do T0.
@@ -28,11 +38,41 @@ atomic_locks:
       - "DIR-CORE-FR-001-core-central/NC-LED-FR-001-framework-ledger.json"
       - "DIR-CORE-FR-001-core-central/*.json"
 
-  # ── DOCUMENTAÇÃO SSOT (SOMENTE T0 EDITA) ─────────────────────────────────
-  ssot_docs:
-    description: "Documentação SSOT — alterada apenas mediante instrução explícita do usuário."
+  # ── LEXICO E RESOLVEDOR DE PATHS (ADR-008) ──────────────────────────────
+  lexico_files:
+    description: "LEXICO v4.1 — resolvedor central de paths. ALTERAR APENAS com scan completo (R21)."
     action: "block_write"
     paths:
+      - ".neocortex/lexico/NC-LEXICO-LATEST.json"
+      - ".neocortex/lexico/NC-ULQ-TAG-INDEX.json"
+
+  # ── OPEncode MULTI-AGENTE ──────────────────────────────────────────────
+  agent_configs:
+    description: "Configurações de agentes OpenCode. Alterar apenas com STEP-0."
+    action: "block_write"
+    paths:
+      - "opencode.json"
+      - ".opencode/agents/nc-courier.md"
+      - ".opencode/agents/nc-engineer.md"
+      - ".opencode/agents/nc-guardian.md"
+      - ".opencode/agents/nc-auditor.md"
+      - ".nc/config.yaml"
+
+  # ── SSOT E BOOT (atualizados em 2026-05-04) ────────────────────────────
+  boot_ssot:
+    description: "Boot manifest v7 e SSOT — alterados apenas via @BOOT sync."
+    action: "block_write"
+    paths:
+      - "DIR-BOOT-FR-001-bootup-main/NC-BOOT-FR-001-system-manifest.md"
+      - "DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
+      - "DIR-DOC-FR-001-docs-main/NC-DOC-FR-001-ubiquitous-language-dictionary.md"
+      - "DIR-DOC-FR-001-docs-main/NC-CHG-FR-001-changelog.yaml"
+      - "DIR-DOC-FR-001-docs-main/NC-MAP-FR-001-structural-maps.yaml"
+      - "DIR-DOC-FR-001-docs-main/NC-ARC-FR-002-architecture-blueprint.yaml"
+      - "DIR-DOC-FR-001-docs-main/NC-ARC-FR-001-decision-log.md"
+      - "DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml"
+      - "DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.yaml"
+      - "DIR-DOC-FR-001-docs-main/NC-CYC-FR-001-4-cycle-validation.md"
       - "DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
       - "DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md"
       - "DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml"
@@ -78,6 +118,18 @@ atomic_locks:
       - "../start_neocortex_mcp.ps1"
       - "../antigravity_neocortex_config.json"
       - "../NC-PROMPT-FR-001-master-context.md"
+
+  # ── ARQUIVOS ORGANICOS (DICIONARIOS VIVOS — CORROMPER = SISTEMA QUEBRADO) ──
+  organic_files:
+    description: "Arquivos de dicionario e indice que evoluem com o sistema. Corromper qualquer um = perda de orientacao semantica."
+    action: "block_write"
+    paths:
+      - "01_neocortex_framework/.neocortex/lexico/NC-LEXICO-LATEST.json"
+      - "01_neocortex_framework/.neocortex/lexico/NC-ULQ-TAG-INDEX.json"
+      - "DIR-DOC-FR-001-docs-main/artifact_catalog.json"
+      - "DIR-DOC-FR-001-docs-main/NC-DOC-FR-001-ubiquitous-language-dictionary.md"
+      - "DIR-DOC-FR-001-docs-main/NC-MAP-FR-001-structural-maps.yaml"
+    ttl: "Modificacao apenas por T0 ou script @POPULATE autorizado"
 
 # ─────────────────────────────────────────────────────────────────────────────
 # EXCEÇÕES AUTORIZADAS

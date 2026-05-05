@@ -6,7 +6,8 @@ created: 2026-04-30T15:00:00
 updated: 2026-04-30T18:30:00
 status: COMPLETED
 lifecycle: PERMANENT
-temperature: 35
+temperature: 0
+status: archived
 ---
 
 

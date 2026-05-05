@@ -1,0 +1,49 @@
+# NC-DS-201 — Handoff Ciclo 2: MCP Hub SSE + Remoção Duplicatas
+# Gerado em: 2026-04-26T23:15:00
+# Turno atual: deepseek-v4-flash → Antigravity (T0)
+
+handoff:
+  ticket_id: "NC-DS-201"
+  turno_atual: "deepseek-v4-flash (VS Code)"
+  turno_destino: "Antigravity (T0)"
+  ciclo: 2
+  status: "HANDOFF_PREPARED"
+
+resumo:
+  - "MCP Hub agora SSE em :8765 via uvicorn direto (NC-HUB-FR-001-mcp-hub.py)"
+  - "Duplicatas mcp_service_100.py e NC-SVC-FR-100-mcp-server.py arquivadas"
+  - "Launcher NC-SCR-FR-104 e startup script atualizados para Hub SSE"
+  - ".env do OpenClaude criado com deepseek-v4-pro"
+  - "Porta 8765 TESTADA — uvicorn responde em /sse"
+  - "DualHub removido (hub_ws.py deletado), 1 hub canônico apenas"
+
+entregues:
+  - path: "01_neocortex_framework/DIR-MCP-FR-001-mcp-server/NC-HUB-FR-001-mcp-hub.py"
+    desc: "Hub canônico — agora com SSE transport via uvicorn.run(sse_app())"
+  - path: "01_neocortex_framework/DIR-MCP-FR-001-mcp-server/NC-BOOT-FR-001-mcp-startup.py"
+    desc: "Startup script — aponta para NC-HUB-FR-001-mcp-hub.py"
+  - path: "NC-SCR-FR-104-neocortex-launcher.bat"
+    desc: "Launcher — usa Hub SSE em vez de neocortex.mcp.server"
+  - path: "03_external_integrations/openclaude/.env"
+    desc: "Config DeepSeek v4-Pro"
+  - path: "DIR-ARC-FR-001-archive-main/mcp-duplicates-20260426/"
+    desc: "Arquivos duplicados removidos do diretório ativo"
+
+pendentes:
+  - ticket: "NC-DS-202 (criar)"
+    desc: "Implementar arquitetura DDD canônica para 02_memory_lobes/"
+    detalhes: |
+      1. Criar 02_memory_lobes/_INDEX.yaml mapeando 29 NC-LBE-* files
+      2. Estender NC-SCR-FR-001-populate-lobes-ssot.py para gerar junctions $lobe/
+      3. Adicionar 02_memory_lobes/$lobe*/ ao .gitignore
+      4. Atualizar NC-BOOT-FR-001-system-manifest.md (seções 4 e 5)
+      5. Atualizar NC-NAM-FR-001-naming-convention.md (seção 1)
+      6. Verificar MCP tools que leem de 02_memory_lobes/
+    prioridade: "MEDIUM (pós-Hub estável)"
+
+observacoes:
+  - "FastMCP SSE não aceita host/port customizado via run() — usei sse_app() + uvicorn.run()"
+  - "SSE path padrão é /sse, messages em /messages/"
+  - "Settings do FastMCP exige TODOS os campos Pydantic — não use construtor parcial"
+  - "Pre-commit hook SEC-402 bloqueia artifact_catalog.json — arquivo removido do tracking"
+  - ".env do OpenClaude usa API KEY FAKE (sk-b7a1f...) — trocar pela real no Antigravity"

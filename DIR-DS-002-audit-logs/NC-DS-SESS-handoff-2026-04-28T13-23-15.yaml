@@ -1,0 +1,7 @@
+ticket_id: "NC-DS-SESS"
+status: "APPROVED"
+timestamp: "2026-04-28T13:23:15"
+agent: "T0"
+summary: |
+  Adicionar orbital_dispatch() como fallback no governance tool. 1 linha de import, sem injeção de elifs. R26 compliant.
+data: {}

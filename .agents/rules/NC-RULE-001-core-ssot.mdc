@@ -10,7 +10,63 @@ alwaysApply: true
 # NeoCortex — Core Rules (Always-On)
 
 > Raiz: `C:\Users\Lucas Valério\Desktop\TURBOQUANT_V42\`  
-> SSOT: `@SSOT` | Roadmap: `@ROADMAP` | Boot: `@BOOT` | Dict: `@ULQ` (NC-DOC-FR-001)
+> SSOT: `@SSOT` | Roadmap: `@ROADMAP` | Boot: `@BOOT` | Dict: `@ULQ` | Maps: `@MAPS`
+
+## R00 — ULQ Boot (🔴 OBRIGATÓRIO — antes de qualquer regra)
+Ao iniciar, carregar `@ULQ` = `01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-DOC-FR-001-ubiquitous-language-dictionary.md`.
+Este dicionário mapeia TODOS os símbolos do sistema:
+- `@` = arquivos SSOT (18 símbolos: @SSOT, @ROADMAP, @LOCKS, @BOOT, @ULQ, @MAPS...)
+- `$` = regiões cerebrais (6 regiões: $FRONTAL, $TEMPORAL, $PARIETAL, $OCCIPITAL, $CEREBELO, $HIPOCAMPO)
+- `%` = tickets e ações (8 ativos: %NOW, %NEXT, %P5, %SEM001...)
+- `#` = serviços e ferramentas MCP (32 símbolos: #GOV, #ORCH, #MEM, #STATE, #LLM...)
+Sem @ULQ carregado = contexto incompleto = risco de erro crítico (R21).
+
+## R00b — THINKING ROUTINES (🔴 OBRIGATÓRIO — toda resposta segue esta ordem)
+
+**Rotina 1: 3W (R42)** — ANTES de responder:
+- WHAT: O que estou dizendo? (definição clara)
+- WHY: Qual a evidência? (compilei? testei? o arquivo existe? R21)
+- WHERE: Onde se aplica? (domínio ULQ? @? $? %? #?)
+
+**Rotina 2: RCA 5 Porquês (R41)** — SE algo parece errado:
+Perguntar "por que?" 5 vezes até a causa raiz. NUNCA parar no sintoma.
+
+**Rotina 3: Eisenhower (R45)** — ANTES de priorizar:
+- URGENTE+IMPORTANTE → Fazer agora (arquivos que podem corromper o sistema)
+- IMPORTANTE+NÃO_URG → Agendar
+- URGENTE+NÃO_IMPORT → Delegar para $COURIER/$ENGINEER
+- NÃO_URG+NÃO_IMPORT → Eliminar
+
+**Rotina 4: KISS + DRY + Fail-Fast (R53+R50+R51)** — ANTES de codificar/criar:
+- KISS: < 2500 caracteres na resposta? Se não, está complexo demais.
+- DRY: Este código/arquivo já existe? Não duplicar.
+- Fail-Fast: Validar inputs ANTES de processar. Rejeitar inválidos imediatamente.
+
+**Rotina 5: PDCA + Kaizen (R48+R52)** — DURANTE a execução:
+- Plan → Do → Check (ruff? compilou?) → Act (corrigir ou registrar melhoria)
+
+**Rotina 6: Pipeline de Verificação por Tipo** — APÓS criar/modificar:
+- .py → ruff + mypy + py_compile + bandit
+- .yaml → yaml.safe_load
+- .mdc → frontmatter YAML + NC-READ-HASH
+- Todos → naming NC- + @LOCKS check + secret scan
+
+**Rotina 7: Handoff + SSOT Header (R12+R117)** — ANTES de encerrar:
+- Handoff YAML em DIR-DS-002-audit-logs/
+- Atualizar @SSOT se criou/modificou arquivos
+- Emitir SSOT Header
+
+**ORDEM FIXA:** R00(ULQ)→R1(3W)→R3(Eisenhower se priorizar)→R4(KISS/DRY se criar)→R5(PDCA)→R6(Verify)→R7(Handoff)
+Se algo falhar → R2(RCA) → voltar para R4.
+
+## GUARDIÃ DA ESTRUTURA (arquivos orgânicos com risco de corromper o sistema)
+Estes arquivos SÃO o sistema. Corrompeu um = sistema quebrado:
+- @LOCKS: server.py, sub_server.py, NC-NAM-FR-001, neocortex_config.yaml (IMUTÁVEIS)
+- @LEXICO: NC-LEXICO-LATEST.json (dicionário vivo — NOVO LOCK)
+- TAG_INDEX: NC-ULQ-TAG-INDEX.json (índice de busca — NOVO LOCK)
+- Catalog: artifact_catalog.json (catálogo semântico — NOVO LOCK)
+- @ULQ: NC-DOC-FR-001 (dicionário mestre — NOVO LOCK)
+- Lobes .mdc: protegidos por Lobe Isolation (R14)
 
 ## R01 — Naming (🔴 CRÍTICO)
 Qualquer arquivo/pasta: `NC-<TIPO>-<SIGLA>-<NUM>-<desc>.ext`. Consulte `@SSOT` antes de criar.

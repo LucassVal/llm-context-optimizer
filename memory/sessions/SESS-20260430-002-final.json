@@ -1,0 +1,65 @@
+{
+  "session_id": "SESS-20260430-002",
+  "agent": "T0-Antigravity (DeepSeek-v4-pro)",
+  "date": "2026-04-30",
+  "status": "COMPLETED",
+  "duration_turns": 30,
+  "key_deliveries": [
+    "10 headers YAML truncados restaurados (repositories, schemas, pulse, server, FR-101/105/107/116)",
+    "4 compile_fail corrigidos — docstrings duplicadas quebrando from __future__",
+    "8 boot checkpoints no server.py (01_fastmcp_create a 08_server_running + BOOT_COMPLETE)",
+    "Transporte MCP: sse → streamable-http (:8765/mcp)",
+    "DuckDB lock: NEOCORTEX_METRICS_MODE=memory no metrics_store.py",
+    "OpenCode mcp.json: formato corrigido type:local + command:[] + environment:{}",
+    "Antigravity mcp_config.json: :8765/sse → :8765/mcp streamable-http",
+    "Launcher .bat atualizado com paths e status"
+  ],
+  "files_modified": [
+    "01_neocortex_framework/neocortex/core/NC-CORE-FR-101-agent-policy-enforcer.py",
+    "01_neocortex_framework/neocortex/core/NC-CORE-FR-105-cascade-consolidator.py",
+    "01_neocortex_framework/neocortex/core/NC-CORE-FR-107-circuit-breaker.py",
+    "01_neocortex_framework/neocortex/core/NC-CORE-FR-116-lexico-service.py",
+    "01_neocortex_framework/neocortex/mcp/server.py",
+    "01_neocortex_framework/neocortex/mcp/tools/pulse.py",
+    "01_neocortex_framework/neocortex/repositories/__init__.py",
+    "01_neocortex_framework/neocortex/repositories/base.py",
+    "01_neocortex_framework/neocortex/repositories/file_system_repository.py",
+    "01_neocortex_framework/neocortex/schemas/__init__.py",
+    "01_neocortex_framework/neocortex/infra/metrics_store.py",
+    "01_neocortex_framework/scripts/NC-SCR-FR-104-neocortex-launcher.bat",
+    "%APPDATA%/Code/User/mcp.json",
+    "~/.gemini/antigravity/mcp_config.json"
+  ],
+  "system_state": {
+    "mcp_transport": "streamable-http + stdio",
+    "mcp_endpoint_http": "http://127.0.0.1:8765/mcp",
+    "mcp_endpoint_stdio": "local subprocess (memory mode)",
+    "tools_loaded": 21,
+    "boot_checkpoints": 8,
+    "pulse_scheduler": "RUNNING (interval=300s)",
+    "governance_rules": "INJECTED",
+    "metrics_store": "DuckDB (file for HTTP, memory for stdio)",
+    "antigravity": "CONNECTED",
+    "opencode": "Config updated, pending MCP reload"
+  },
+  "re_warming": [
+    "1. Verificar servidor HTTP rodando em :8765 (via netstat ou .bat)",
+    "2. OpenCode: Reload MCP Servers (Ctrl+Shift+P)",
+    "3. Verificar tools disponiveis no chat OpenCode",
+    "4. Antigravity conecta automaticamente em :8765/mcp",
+    "5. Se OpenCode falhar: rodar stdio via CMD com env vars do mcp.json"
+  ],
+  "pending": [
+    "OpenCode MCP reload — stdio pode dar DISABLE, testar",
+    "~50 NC-CORE-FR com headers @Tag truncados (cosmetico, nao quebram)",
+    "NC-DS-250 Cache Hit Monitor",
+    "Fase 2: NC-DS-211, 216, 217, 222"
+  ],
+  "session_files": [
+    "02_memory_lobes/08_sessions/NC-LBE-SES-001-20260430.mdc",
+    "02_memory_lobes/08_sessions/NC-LBE-SES-002-20260430.mdc",
+    "memory/sessions/SESS-20260430-001-final.json",
+    "memory/sessions/SESS-20260430-002-final.json",
+    "DIR-DS-002-audit-logs/NC-SESS-HANDOFF-20260430-183000.yaml"
+  ]
+}

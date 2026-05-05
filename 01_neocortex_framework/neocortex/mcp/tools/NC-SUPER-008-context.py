@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+"""---
+NC-SUPER-008 — neocortex_context
+---
+"""
+
+"""---
+NC-SUPER-008 — neocortex_context
+---
+"""
+
 """
 NC-SUPER-008 — neocortex_context
 CORTE TJ — Contexto e Compressão
@@ -47,6 +57,13 @@ def register_tool(mcp) -> None:
                  report.generate, report.list, report.compliance
         """
         ts = _ts()
+
+        # UBL Gateway (Kernel 0)
+        try:
+            from neocortex.core.utils.gateway_bridge import gateway_check
+            _ok, _report = gateway_check(action, root)
+            if not _ok: return _report
+        except Exception: pass
         root = _root()
 
         # ── CONTEXT ───────────────────────────────────────────────────────────
@@ -74,7 +91,7 @@ def register_tool(mcp) -> None:
         elif action == "context.compress":
             if not content:
                 return {"success": False, "error": "content obrigatório", "timestamp": ts}
-            
+
             # Fase 4.4.2: Excluir nós cuja temperatura esteja zerada / status: archived
             import re
             # Filter out chunks that contain "status: archived" or "temperature: 0"
@@ -82,7 +99,7 @@ def register_tool(mcp) -> None:
                 r"(?si)^---\nlobe:(.*?)(status:\s*archived|temperature:\s*0)(.*?)^---\n(.*?)\n\n",
                 "", content
             )
-                
+
             try:
                 from neocortex.core import get_context_service
                 svc = get_context_service()
@@ -90,7 +107,7 @@ def register_tool(mcp) -> None:
                 return {"success": True, "action": action, "compressed": compressed,
                         "original_len": len(content), "cleaned_len": len(content_cleaned),
                         "compressed_len": len(compressed),
-                        "ratio": round(len(compressed) / len(content) if len(content) else 1, 2), 
+                        "ratio": round(len(compressed) / len(content) if len(content) else 1, 2),
                         "timestamp": ts}
             except Exception as e:
                 return {"success": False, "error": str(e), "timestamp": ts}
@@ -234,6 +251,18 @@ def register_tool(mcp) -> None:
                 return {"success": True, "action": action, "stats": stats, "timestamp": ts}
             except Exception as e:
                 return {"success": False, "error": str(e), "timestamp": ts}
+        # ORBITAL BRIDGE
+        _orbital_result = None
+        try:
+            import importlib.util
+            _spec = importlib.util.spec_from_file_location("orbital_bridge", str(root / "01_neocortex_framework" / "neocortex" / "core" / "NC-CORE-FR-139-orbital-bridge.py"))
+            _mod = importlib.util.module_from_spec(_spec)
+            _spec.loader.exec_module(_mod)
+            _orbital_result = _mod.orbital_dispatch(action, root)
+        except Exception: pass
+        if _orbital_result is not None: return _orbital_result
+
+
         else:
             return {"success": False, "error": f"action desconhecida: {action}",
                     "available": ["context.budget_status", "context.compress", "context.prune",

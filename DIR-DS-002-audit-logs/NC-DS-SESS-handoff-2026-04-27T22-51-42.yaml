@@ -1,0 +1,7 @@
+ticket_id: "NC-DS-SESS"
+status: "APPROVED"
+timestamp: "2026-04-27T22:51:42"
+agent: "T0"
+summary: |
+  Início do SPRINT-GOVERNANÇA: wire up ToolGuard middleware (G1-G5). Criado NC-CORE-FR-125-tool-guard.py. Wire up inicial no NC-SUPER-004-state.py. Roadmap v14.0 aprovado com 71 regras classificadas.
+data: {}

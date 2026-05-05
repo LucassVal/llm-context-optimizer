@@ -1,0 +1,20 @@
+{
+  "total_files_scanned": 488,
+  "files_with_references": 0,
+  "total_replacements": 0,
+  "replacements_by_pattern": {
+    "NC-RPT-(?!FR-)(\\d{3}-)": 0,
+    "NC-TEST-(?!FR-)(\\d{3}-)": 0,
+    "NC-DS-(?!FR-)(\\d{3}-)": 0,
+    "NC-NAM-FR-001a-": 0,
+    "NC-NAM-FR-001b-": 0,
+    "NC-NAM-FR-001c-": 0,
+    "NC-NAM-FR-001d-": 0,
+    "NC-CMD-EXAMPLE\\.md": 0,
+    "NC-HK-EXAMPLE\\.py": 0,
+    "NC-SCR-FR-103b-": 0
+  },
+  "updated_files": [],
+  "errors": [],
+  "timestamp": "2026-04-21T23:25:13.193101"
+}

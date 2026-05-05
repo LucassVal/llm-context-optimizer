@@ -1,0 +1,278 @@
+metadata:
+  ticket_id: NC-DS-119
+  title: Picoclaw Integration Test
+  description: Comprehensive integration testing for Picoclaw HTTP server and A2A
+    communication
+  priority: HIGH
+  category: integration-test
+  target_completion: 2026-04-25
+  dependencies:
+  - NC-DS-118-picoclaw-implementation
+  - NC-DS-117-neocortex-orchestration
+test_suite:
+  name: picoclaw-integration-tests
+  environment: neocortex-framework
+  version: 1.0.0
+test_categories:
+- category: server-lifecycle
+  description: Test Picoclaw HTTP server startup, shutdown, and status
+  tests:
+  - id: PLC-001
+    name: server-startup
+    description: Verify Picoclaw server starts successfully on port 18790
+    steps:
+    - action: picoclaw.start
+      parameters: {}
+      expected: server_started
+    validation:
+    - check: picoclaw.status
+      expected: running
+    - check: port_availability
+      port: 18790
+      expected: listening
+  - id: PLC-002
+    name: server-shutdown
+    description: Verify graceful server shutdown
+    steps:
+    - action: picoclaw.stop
+      parameters: {}
+      expected: server_stopped
+    validation:
+    - check: picoclaw.status
+      expected: stopped
+    - check: port_availability
+      port: 18790
+      expected: closed
+- category: llm-routing
+  description: Test LLM tier routing through Picoclaw
+  tests:
+  - id: PLC-003
+    name: llm-operacional-tier
+    description: Test OPERACIONAL tier routing to qwen-1.5b
+    steps:
+    - action: picoclaw.llm_call
+      parameters:
+        prompt: What is 2+2?
+        system: You are a helpful assistant.
+        complexity: OPERACIONAL
+        max_tokens: 50
+      expected: response_received
+    validation:
+    - check: response_contains
+      pattern: '4'
+    - check: response_time
+      max_ms: 5000
+  - id: PLC-004
+    name: llm-tecnico-tier
+    description: Test TECNICO tier routing to deepseek-chat
+    steps:
+    - action: picoclaw.llm_call
+      parameters:
+        prompt: Explain the difference between HTTP and HTTPS.
+        system: You are a technical assistant.
+        complexity: TECNICO
+        max_tokens: 100
+      expected: response_received
+    validation:
+    - check: response_contains
+      pattern: encryption|secure|SSL|TLS
+    - check: response_time
+      max_ms: 10000
+  - id: PLC-005
+    name: llm-raciocinio-tier
+    description: Test RACIOCINIO tier routing to deepseek-reasoner
+    steps:
+    - action: picoclaw.llm_call
+      parameters:
+        prompt: 'Solve this logic puzzle: If all A are B, and some B are C, can we
+          conclude that some A are C?'
+        system: You are a reasoning assistant.
+        complexity: RACIOCINIO
+        max_tokens: 150
+      expected: response_received
+    validation:
+    - check: response_contains
+      pattern: cannot conclude|not necessarily|logical reasoning
+    - check: response_time
+      max_ms: 15000
+- category: task-dispatch
+  description: Test task dispatch and status polling
+  tests:
+  - id: PLC-006
+    name: task-publish-poll
+    description: Publish a task and poll for completion
+    steps:
+    - action: picoclaw.publish
+      parameters:
+        event_type: test_task
+        payload: '{"action": "echo", "message": "test"}'
+        source: mcp
+      expected: task_published
+    - action: picoclaw.poll
+      parameters:
+        poll_timeout: 10
+      expected: task_completed
+    validation:
+    - check: picoclaw.task_status
+      expected: completed
+    - check: response_contains
+      pattern: test
+  - id: PLC-007
+    name: task-dispatch
+    description: Dispatch a task with priority
+    steps:
+    - action: picoclaw.dispatch
+      parameters:
+        task_name: integration_test
+        task_payload: '{"test": "dispatch"}'
+        priority: 10
+      expected: dispatched
+    validation:
+    - check: picoclaw.task_status
+      task_id: '{{generated_task_id}}'
+      expected: processing|completed
+- category: error-handling
+  description: Test error scenarios and recovery
+  tests:
+  - id: PLC-008
+    name: invalid-llm-tier
+    description: Test error handling for invalid LLM tier
+    steps:
+    - action: picoclaw.llm_call
+      parameters:
+        prompt: test
+        complexity: INVALID_TIER
+      expected: error
+    validation:
+    - check: error_message
+      pattern: invalid.*tier|unsupported.*complexity
+  - id: PLC-009
+    name: server-not-running
+    description: Test operations when server is not running
+    steps:
+    - action: picoclaw.stop
+      parameters: {}
+    - action: picoclaw.llm_call
+      parameters:
+        prompt: test
+      expected: error
+    validation:
+    - check: error_message
+      pattern: server.*not.*running|connection.*refused
+- category: performance
+  description: Performance and load testing
+  tests:
+  - id: PLC-010
+    name: concurrent-requests
+    description: Test handling of concurrent LLM requests
+    steps:
+    - action: concurrent_requests
+      parameters:
+        count: 5
+        requests:
+        - action: picoclaw.llm_call
+          parameters:
+            prompt: Request {{index}}
+            complexity: OPERACIONAL
+      expected: all_completed
+    validation:
+    - check: success_rate
+      min_percent: 100
+    - check: average_response_time
+      max_ms: 10000
+  - id: PLC-011
+    name: throughput-test
+    description: Measure requests per second
+    steps:
+    - action: load_test
+      parameters:
+        duration_seconds: 30
+        requests_per_second: 2
+        request:
+          action: picoclaw.llm_call
+          parameters:
+            prompt: Throughput test {{timestamp}}
+            complexity: OPERACIONAL
+      expected: completed
+    validation:
+    - check: throughput
+      min_rps: 1.8
+    - check: error_rate
+      max_percent: 5
+- category: integration
+  description: Integration with other Neocortex components
+  tests:
+  - id: PLC-012
+    name: neocortex-orchestration-integration
+    description: Test Picoclaw integration with Neocortex orchestration
+    steps:
+    - action: neocortex_orchestration.task.execute
+      parameters:
+        task_name: picoclaw_integration_test
+        task_type: integration
+        task_payload: '{"test": "orchestration"}'
+    - action: picoclaw.poll
+      parameters:
+        poll_timeout: 15
+      expected: task_completed
+    validation:
+    - check: task_status
+      expected: completed
+    - check: integration_success
+      expected: true
+  - id: PLC-013
+    name: neocortex-memory-integration
+    description: Test Picoclaw integration with Neocortex memory
+    steps:
+    - action: picoclaw.llm_call
+      parameters:
+        prompt: Store test knowledge
+        complexity: TECNICO
+    - action: neocortex_memory.knowledge.store
+      parameters:
+        content: '{{llm_response}}'
+        key: picoclaw_test
+      expected: stored
+    validation:
+    - check: neocortex_memory.knowledge.search
+      query: picoclaw
+      expected: results_found
+test_execution:
+  prerequisites:
+  - Picoclaw server implementation complete (NC-DS-118)
+  - Neocortex framework running
+  - Ollama with qwen2.5-coder:1.5b installed
+  - Deepseek models accessible
+  setup:
+  - 'Start Picoclaw server: picoclaw.start'
+  - 'Verify server status: picoclaw.status'
+  - Clear any existing test data
+  teardown:
+  - 'Stop Picoclaw server: picoclaw.stop'
+  - Clean up test artifacts
+  - Reset test state
+  reporting:
+    format: junit-xml
+    output: ./test-reports/picoclaw-integration-{{timestamp}}.xml
+    metrics:
+    - success_rate
+    - average_response_time
+    - error_count
+    - throughput
+success_criteria:
+- All critical tests (PLC-001 to PLC-007) must pass
+- Overall test success rate ≥ 95%
+- Average response time < 10 seconds for OPERACIONAL tier
+- No memory leaks or resource exhaustion
+- Graceful error handling for all invalid inputs
+notes:
+- Tests should be run in isolated environment
+- Monitor system resources during performance tests
+- Consider network latency in response time measurements
+- Update test data as Picoclaw implementation evolves
+ticket_id: NC-DS-119
+status: OPEN
+title: Ticket NC-DS-119
+description: Descrição do ticket NC-DS-119
+priority: MEDIUM
+created_at: '2026-04-22T13:11:14.880062Z'

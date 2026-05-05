@@ -1,0 +1,16 @@
+{
+  "category": "09_documentation",
+  "tags": [
+    "litellm",
+    "proxy",
+    "llm-routing",
+    "unified-gateway",
+    "qwen",
+    "deepseek"
+  ],
+  "summary": "O LiteLLM é um sistema nervoso central de LLMs que expõe uma API OpenAI-compatible para unificar TODOS os modelos em um único endpoint com roteamento, fallback, budget e logging.",
+  "priority_score": 8,
+  "file": "NC-LBE-FR-LITELLM-001.mdc",
+  "lobe_id": "NC-LBE-FR-LITELLM-001",
+  "classified": "2026-04-21T10:36:52"
+}

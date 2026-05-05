@@ -1,0 +1,232 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-CC-008-pulse-daemon-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-008-pulse-daemon-v1 ja esta no contexto desta sessao, SALTE. -->
+description: "Pulse Daemon  KAIROS architecture, TTLs, event-driven scheduling"
+lobe_name: "$PULSE_DAEMON"
+lobe_id: "NC-LBE-CC-008"
+status: active
+module: industrialization
+domain: multi_agent_execution
+updated: "2026-04-12T23:22:00"
+temperature: 0
+status: archived
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-008-pulse-daemon-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-008-pulse-daemon-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+## What
+Registra callback para evento especfico.
+
+## Why
+Criado em 2026-04-20 — arquivo do ecossistema NeoCortex
+
+## Where
+02_memory_lobes/$cerebelo
+
+---
+
+
+
+<!-- NC-READ-HASH: NC-LBE-CC-008-pulse-daemon-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-008-pulse-daemon-v1 ja esta no contexto desta sessao, SALTE. -->
+# $PULSE_DAEMON  KAIROS  PulseDaemon NeoCortex Mapping
+
+## 1. Arquitetura KAIROS no Claude Code
+
+KAIROS  o **sistema de tick proativo** que coordena mltiplos subsistemas baseado em eventos e timers. Identificado em 61 arquivos, com hooks para:
+
+| Subsistema | Localizao CC | Responsabilidade |
+|---|---|---|
+| **AFK** | `src/interactiveHelpers.tsx` | Deteco de inatividade do usurio, ativao de modo standby |
+| **Bridge** | `src/bridge/bridgeMain.ts` | Heartbeat de sesses remotas, timeout (`DEFAULT_SESSION_TIMEOUT_MS`), refresh de tokens |
+| **Voice** | `src/voice/` | Gerncia de streaming de udio (TTS/STT), parada/resume |
+| **Buddy** | `src/buddy/` | Atualizao de sprites, gacha, estatsticas de sesso |
+| **ULTRAPLAN** | `src/remote/` | Execuo de comandos em lote (headless) |
+| **Channel Notifications** | `main.tsx:1640` | Notificaes push de servidores MCP (flag `KAIROS_CHANNELS`) |
+| **Push Notification Tool** | `tools.ts:34` | Envio de notificaes push (flag `KAIROS_PUSH_NOTIFICATION`) |
+
+**Flags de feature associadas:**
+- `KAIROS_CHANNELS`  habilita channel notifications via MCP
+- `KAIROS_PUSH_NOTIFICATION`  habilita `PushNotificationTool`
+- `PROACTIVE`  ativa modo proativo (ticks peridicos sem interao do usurio)
+- `COORDINATOR_MODE`  orquestrao de mltiplos agents
+- `DAEMON` / `BRIDGE_MODE`  modo daemon / bridge
+
+## 2. TTLs Reais Extrados do Cdigo
+
+| Constante | Valor | Localizao | Significado |
+|---|---|---|---|
+| `SESSION_LEASE_TTL` | 18000s (~5h) | `bridgeMain.ts:60` | Expirao de lease da sesso (v2 daemon sessions) |
+| `TOKEN_REFRESH_BEFORE` | 300s (5min) | `bridgeMain.ts:53` | Refresh proativo de token JWT (5 min antes da expirao) |
+| `FEATURE_FLAG_CACHE_TTL` | 3600s (1h) | `checkGate_CACHED_OR_BLOCKING` (Growthbook) | Cache de feature flags para evitar roundtrip |
+| `HEARTBEAT_INTERVAL` | 60s (inferido) | `bridgeMain.ts` (heartbeat loop) | Intervalo de heartbeat entre worker e gateway |
+| `DEFAULT_SESSION_TIMEOUT_MS` | configurvel (ex.: 30min) | `bridgeMain.ts:1181` | Timeout de sesso remota (>0  armazenado em `sessionTimers`) |
+| `EXIT_CODE_PERMANENT` | 42 | `bridgeMain.ts:2798` | Cdigo de sada para erros permanentes (daemon worker no respawn) |
+
+**Mecanismo de refresh proativo:** o CC atualiza tokens **5 minutos antes da expirao**, garantindo continuidade sem interrupo.
+
+## 3. Deciso NeoCortex: KAIROS  PulseDaemon / TickEngine
+
+O NeoCortex j possui `pulse_scheduler.py` (intervalo fixo)  evoluir para **modelo eventdriven** com hooks registrveis.
+
+**Renomeao estratgica (sem risco IP):**
+- `KAIROS`  **PulseDaemon** (nome interno) / **TickEngine** (nome de API)
+- `KairosService`  `NCSVCFR010pulsedaemon.py`
+
+**Princpios de design:**
+1. **Eventdriven** em vez de intervalo fixo
+2. **Hooks por tipo de evento** (idle, session_timeout, cache_miss, queue_non_empty)
+3. **Integrao com TTLManager** para expirao granular
+4. **Compatibilidade com tarefas peridicas existentes** (backup, health checks)
+
+## 4. Mapping KAIROS  PulseDaemon NeoCortex
+
+| Subsistema KAIROS | Componente NeoCortex | Ticket |
+|---|---|---|
+| AFK hook | `idle_hook` via `register_hook('idle', callback)` | NCDS035 |
+| Session timeout | `TTLManager.set_ttl(session_id, ttl, callback)` | NCDS036 |
+| Channel notifications | `ChannelNotifier` (escuta eventos MCP) | NCDS039 |
+| Push notifications | `PushNotificationTool` (gateado por feature flag) | NCDS040 |
+| Feature flag cache | `FeatureFlagService` com TTL de 1h | NCDS037 |
+| Bridge heartbeat | `A2AGateway` heartbeat protocol | NCSVCFR011 (psMCP) |
+| Buddy stats | `SessionBuddy` (NCSVCFR009) | NCDS030 |
+
+## 5. Diferena vs pulse_scheduler.py Atual
+
+**Atual (`pulse_scheduler.py`):**
+- Intervalo fixo (ex.: 1 segundo)
+- Lista de callbacks executadas em cada tick
+- Sem discriminao de tipo de evento
+- TTL global (cache service)
+
+**PulseDaemon proposto:**
+- **Eventos disparados sob demanda** (`fire('session_timeout', session_id)`)
+- **Hooks registrados por tipo** (`register_hook('session_timeout', callback)`)
+- **Tick peridico opcional** para tarefas de housekeeping
+- **Integrao com EventBus** (NCSVCFR005) para comunicao entre mdulos
+
+**Exemplo de migrao:**
+```python
+# Antigo (pulse_scheduler.py)
+def backup_lobes():
+    pass
+
+pulse.register(backup_lobes)  # executa a cada 1s
+
+# Novo (PulseDaemon)
+daemon.register_hook('housekeeping', backup_lobes)  # s quando evento 'housekeeping' for disparado
+daemon.register_periodic(backup_lobes, interval=3600)  # tarefa peridica independente
+```
+
+## 6. API do PulseDaemon (proposta)
+
+```python
+class PulseDaemon:
+    def __init__(self, tick_interval=1.0):
+        self.hooks: Dict[str, List[Callable]] = {}
+        self.periodic_tasks: List[Tuple[Callable, float]] = []
+        self.running = False
+        
+    def register_hook(self, event_type: str, callback: Callable[[Dict], None]):
+        """Registra callback para evento especfico."""
+        
+    def register_periodic(self, callback: Callable[[], None], interval: float):
+        """Registra tarefa peridica (intervalo em segundos)."""
+        
+    def fire(self, event_type: str, data: Optional[Dict] = None):
+        """Dispara evento, executando todos os hooks registrados."""
+        
+    def start(self):
+        """Inicia loop principal (executa periodic tasks e escuta eventos)."""
+        
+    def stop(self):
+        """Para o daemon graciosamente."""
+```
+
+**Eventos prdefinidos:**
+- `worker_idle`  worker sem tarefas por X segundos
+- `session_timeout`  sesso expirada (TTLManager)
+- `cache_miss`  cache service miss (pode acionar warmup)
+- `queue_non_empty`  fila tem tasks disponveis (dispatch automtico)
+- `handoff_submitted`  handoff gerado (validao automtica)
+- `tool_called`  tool invocada (EventBus integration)
+
+## 7. Integrao com TTLManager (NCDS036)
+
+O `TTLManager` gerencia expirao granular de entidades (sesso, cache, token). Integrao:
+
+```python
+ttl = TTLManager()
+daemon = PulseDaemon()
+
+# Registra callback para expirao de sesso
+ttl.set_ttl(
+    key=f"session:{session_id}",
+    ttl=18000,
+    callback=lambda: daemon.fire('session_timeout', {'session_id': session_id})
+)
+
+# O PulseDaemon pode ter hook para session_timeout
+daemon.register_hook('session_timeout', lambda data: cleanup_session(data['session_id']))
+```
+
+**Fluxo:**
+1. `TTLManager` detecta expirao
+2. Chama callback registrada
+3. Callback dispara evento no PulseDaemon
+4. Hooks do evento executam aes de cleanup/notificao
+
+## 8. Exemplo de Uso com Feature Flags
+
+```yaml
+# neocortex_config.yaml
+feature_flags:
+  pulse_daemon: true
+  channel_notifications: false
+  push_notifications: true
+```
+
+```python
+from neocortex.config.feature_flags import is_enabled
+
+if is_enabled('channel_notifications'):
+    daemon.register_hook('mcp_event', channel_notifier)
+    
+if is_enabled('push_notifications'):
+    daemon.register_hook('session_timeout', send_push_notification)
+```
+
+## 9. Roadmap de Implementao
+
+1. **NCDS035**  Criar `NCSVCFR010pulsedaemon.py` (180 linhas)
+2. **NCDS036**  Criar `NCSVCFR011ttlmanager.py` (150 linhas)
+3. **NCDS037**  Criar `NCCFGFR002featureflags.py` (120 linhas)
+4. **NCDS039**  Criar `NCSVCFR012channelnotifier.py` (150 linhas)
+5. **NCDS040**  Criar `NCTOOLFR030pushnotification.py` (100 linhas)
+
+**Ordem:** 35  36  37  39  40 (dependncias lineares).
+
+## 10. Referncias
+
+- `NCSTRCC001masterstrategy.md` (sees B.1B.5, D.5D.12)
+- `NCANACC005kairosdeep.md` (anlise arquitetural)
+- `bridgeMain.ts` (linhas 44, 53, 60, 1181, 2798)  TTLs e exit codes
+- `tools.ts:34`  `KAIROS_PUSH_NOTIFICATION`
+- `main.tsx:1640`  `KAIROS_CHANNELS`
+- `checkGate_CACHED_OR_BLOCKING`  cache de 1h
+
+## 11. Notas de Implementao
+
+- O PulseDaemon deve ser inicializado aps o EventBus e antes do TTLManager.
+- Hooks devem ser registrados com identificadores nicos para permitir remoo.
+- Em ambiente multiworker, o PulseDaemon pode ser executado apenas no worker principal (gateway).
+- Para evitar race conditions, callbacks devem ser threadsafe (usar locks quando necessrio).
+
+---
+
+<!-- NC-READ-HASH: NC-LBE-CC-008-pulse-daemon-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-008-pulse-daemon-v1 ja esta no contexto desta sessao, SALTE. -->
+*Lobe gerado por worker{PORT}{HASH} em {TIMESTAMP}*

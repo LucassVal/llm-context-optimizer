@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+"""---
+NC-SUPER-006 — neocortex_system
+---
+"""
+
+"""---
+NC-SUPER-006 — neocortex_system
+---
+"""
+
 """
 NC-SUPER-006 — neocortex_system
 FÓRUM — Sistema e Infraestrutura
@@ -50,7 +60,32 @@ def register_tool(mcp) -> None:
                  export.snapshot/list, init.workspace
         """
         ts = _ts()
+        # ── GATEWAY VALIDATION ──────────────────────────────
+        try:
+            from neocortex.core.utils.gateway_bridge import gateway_check
+            _ok, _report = gateway_check(action, root)
+            if not _ok:
+                return _report
+        except Exception:
+            pass
+
         root = _root()
+
+        # ── TOOLGUARD: STEP 0 + LockGuard (G1+G2) ────────────────────────────
+        _guard = None
+        try:
+            import importlib.util
+            _spec = importlib.util.spec_from_file_location("tool_guard", str(root / "neocortex" / "core" / "NC-CORE-FR-125-tool-guard.py"))
+            _mod = importlib.util.module_from_spec(_spec)
+            _spec.loader.exec_module(_mod)
+            _guard = _mod.ToolGuard()
+            _step0 = _guard.step_zero(action)
+            if not _step0.get("ok"):
+                return {"success": True, "action": action,
+                        "step0_warning": _step0.get("warning", "STEP-0 alert"),
+                        "matched_error": _step0.get("matched_error", ""), "timestamp": ts}
+        except Exception:
+            pass
 
         # ── CONFIG ────────────────────────────────────────────────────────────
         if action == "config.get":
@@ -76,11 +111,33 @@ def register_tool(mcp) -> None:
             except Exception as e:
                 return {"success": False, "error": str(e), "timestamp": ts}
 
+        elif action == "config.set":
+            if not key:
+                return {"success": False, "error": "key obrigatório", "timestamp": ts}
+            # G1 LockGuard: validate write to config
+            if _guard:
+                _ok = _guard.validate_write("DIR-CFG-FR-001-config-main/")
+                if not _ok:
+                    return {"success": False, "error": _guard.last_error, "timestamp": ts}
+                # G3 STEP -1: auto savepoint
+                _guard.savepoint_before_write("config.set")
+            try:
+                from neocortex.core import get_config_service
+                svc = get_config_service()
+                result = svc.set(key, value)
+                return {"success": True, "action": action, "key": key, "value": value,
+                        "result": result, "timestamp": ts}
+            except Exception as e:
+                return {"success": False, "error": str(e), "timestamp": ts}
+
         # ── PULSE ─────────────────────────────────────────────────────────────
         elif action == "pulse.status":
             try:
-                from neocortex.mcp.server import pulse_scheduler_instance
-                if pulse_scheduler_instance and pulse_scheduler_instance.is_running():
+                import importlib.util as _iu
+                _s = _iu.spec_from_file_location("po", str(root / "01_neocortex_framework" / "neocortex" / "core" / "NC-CORE-FR-142-pulse-scheduler-orbital.py"))
+                _m = _iu.module_from_spec(_s); _s.loader.exec_module(_m)
+                pulse_scheduler_instance = _m.get_pulse_scheduler()  # R26 orbital
+                if pulse_scheduler_instance and hasattr(pulse_scheduler_instance, "is_running") and pulse_scheduler_instance.is_running():
                     tasks = pulse_scheduler_instance.list_tasks()
                     return {"success": True, "action": action, "running": True,
                             "tasks": tasks, "count": len(tasks), "timestamp": ts}
@@ -88,11 +145,42 @@ def register_tool(mcp) -> None:
             except Exception as e:
                 return {"success": True, "action": action, "note": str(e), "timestamp": ts}
 
+        elif action == "pulse.start":
+            try:
+                import importlib.util as _iu
+                _s = _iu.spec_from_file_location("po", str(root / "01_neocortex_framework" / "neocortex" / "core" / "NC-CORE-FR-142-pulse-scheduler-orbital.py"))
+                _m = _iu.module_from_spec(_s); _s.loader.exec_module(_m)
+                pulse_scheduler_instance = _m.get_pulse_scheduler()  # R26 orbital
+                if pulse_scheduler_instance:
+                    pulse_scheduler_instance.start()
+                    return {"success": True, "action": action, "running": True,
+                            "message": "PulseScheduler iniciado.", "timestamp": ts}
+                return {"success": False, "error": "PulseScheduler não inicializado", "timestamp": ts}
+            except Exception as e:
+                return {"success": False, "error": str(e), "timestamp": ts}
+
+        elif action == "pulse.stop":
+            try:
+                import importlib.util as _iu
+                _s = _iu.spec_from_file_location("po", str(root / "01_neocortex_framework" / "neocortex" / "core" / "NC-CORE-FR-142-pulse-scheduler-orbital.py"))
+                _m = _iu.module_from_spec(_s); _s.loader.exec_module(_m)
+                pulse_scheduler_instance = _m.get_pulse_scheduler()  # R26 orbital
+                if pulse_scheduler_instance:
+                    pulse_scheduler_instance.stop()
+                    return {"success": True, "action": action, "running": False,
+                            "message": "PulseScheduler parado.", "timestamp": ts}
+                return {"success": False, "error": "PulseScheduler não inicializado", "timestamp": ts}
+            except Exception as e:
+                return {"success": False, "error": str(e), "timestamp": ts}
+
         elif action == "pulse.schedule_custom":
             if not task_name:
                 return {"success": False, "error": "task_name obrigatório", "timestamp": ts}
             try:
-                from neocortex.mcp.server import pulse_scheduler_instance
+                import importlib.util as _iu
+                _s = _iu.spec_from_file_location("po", str(root / "01_neocortex_framework" / "neocortex" / "core" / "NC-CORE-FR-142-pulse-scheduler-orbital.py"))
+                _m = _iu.module_from_spec(_s); _s.loader.exec_module(_m)
+                pulse_scheduler_instance = _m.get_pulse_scheduler()  # R26 orbital
                 if pulse_scheduler_instance:
                     pulse_scheduler_instance.schedule_task(task_name, schedule_interval)
                     return {"success": True, "action": action, "task": task_name,
@@ -131,7 +219,7 @@ def register_tool(mcp) -> None:
 
         elif action == "health.full":
             tools_dir = Path(__file__).parent
-            tool_count = len([f for f in tools_dir.glob("NC-SUPER-*.py")])
+            tool_count = len(list(tools_dir.glob("NC-SUPER-*.py")))
             return {"success": True, "action": action,
                     "super_tools": tool_count, "architecture": "CF-v0.2",
                     "tiers": ["STF", "STJ", "TJ", "FORUM"],
@@ -273,7 +361,10 @@ def register_tool(mcp) -> None:
             if not task_name:
                 return {"success": False, "error": "task_name obrigatorio", "timestamp": ts}
             try:
-                from neocortex.mcp.server import pulse_scheduler_instance
+                import importlib.util as _iu
+                _s = _iu.spec_from_file_location("po", str(root / "01_neocortex_framework" / "neocortex" / "core" / "NC-CORE-FR-142-pulse-scheduler-orbital.py"))
+                _m = _iu.module_from_spec(_s); _s.loader.exec_module(_m)
+                pulse_scheduler_instance = _m.get_pulse_scheduler()  # R26 orbital
                 if pulse_scheduler_instance and hasattr(pulse_scheduler_instance, "force_task"):
                     result = pulse_scheduler_instance.force_task(task_name)
                     return {"success": True, "action": action, "task_name": task_name,
@@ -281,6 +372,38 @@ def register_tool(mcp) -> None:
                 return {"success": False, "error": "PulseScheduler.force_task nao disponivel", "timestamp": ts}
             except Exception as e:
                 return {"success": False, "error": str(e), "timestamp": ts}
+
+        # ── Regulatory Agencies ─────────────────────────────────────────────
+        elif action == "regulatory.health":
+            try:
+                import importlib.util
+                spec = importlib.util.spec_from_file_location("reg", str(root / "neocortex" / "core" / "NC-CORE-FR-133-regulatory-agencies.py"))
+                mod = importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
+                r = mod.get_regulatory().anv.inspect(root)
+                return {"success": True, "action": action, "result": r, "timestamp": ts}
+            except Exception as e: return {"success": False, "error": str(e), "timestamp": ts}
+
+        elif action == "regulatory.audit":
+            try:
+                import importlib.util
+                spec = importlib.util.spec_from_file_location("reg", str(root / "neocortex" / "core" / "NC-CORE-FR-133-regulatory-agencies.py"))
+                mod = importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
+                r = mod.get_regulatory().full_audit(root)
+                return {"success": True, "action": action, "result": r, "timestamp": ts}
+            except Exception as e: return {"success": False, "error": str(e), "timestamp": ts}
+        # ── ORBITAL BRIDGE: delegar ações ──────────────────────────────────
+        _orbital_result = None
+        try:
+            import importlib.util
+            _spec = importlib.util.spec_from_file_location("orbital_bridge", str(root / "01_neocortex_framework" / "neocortex" / "core" / "NC-CORE-FR-139-orbital-bridge.py"))
+            _mod = importlib.util.module_from_spec(_spec)
+            _spec.loader.exec_module(_mod)
+            _orbital_result = _mod.orbital_dispatch(action, root)
+        except Exception:
+            pass
+        if _orbital_result is not None:
+            return _orbital_result
+
 
         else:
             return {"success": False, "error": f"action desconhecida: {action}",

@@ -1,0 +1,162 @@
+<!-- module: development -->
+<!-- category: core -->
+<!-- status: active -->
+<!-- created_by: opencode -->
+
+# Desenvolvimento no NeoCortex
+
+Padrões, boas práticas e guias de desenvolvimento.
+
+## Propósito
+Gerenciar conhecimento específico do módulo development.
+
+## Status
+Sugerido
+
+## Tags
+#development, #framework, #neocortex
+
+## Checkpoints
+- CP-DEVELOPMENT-001: Criação inicial
+
+## Conteúdo Inicial
+*Este lobe está em construção. Adicione aqui:*
+
+### 1. Visão Geral
+- Objetivos principais
+- Escopo do módulo
+- Integrações com outros módulos
+
+### 2. Componentes Principais
+- Lista de componentes/classes
+- Responsabilidades
+- Dependências
+
+### 3. Padrões e Convenções
+- Padrões de código
+- Convenções de nomenclatura
+- Boas práticas
+
+### 4. Exemplos de Uso
+- Exemplos básicos
+- Casos de uso comuns
+- Configurações típicas
+
+### 5. Referências
+- Links para documentação
+- Arquivos relevantes no projeto
+- Exemplos externos
+
+## Notas
+- Criado automaticamente por OpenCode
+- Data: 2026-04-10 15:36:45
+- Revisão necessária para conteúdo específico do projeto
+
+## Guia de Desenvolvimento NeoCortex
+
+### Estrutura de Diretórios
+- `neocortex/core/`: Serviços de negócio
+- `neocortex/repositories/`: Implementações de repositório
+- `neocortex/mcp/`: Servidor e ferramentas MCP
+- `neocortex/cli/`: Interface de linha de comando
+- `neocortex/schemas/`: Esquemas JSON
+
+### Convenções de Código
+- Nomes de classes: PascalCase
+- Nomes de funções: snake_case
+- Nomes de variáveis: snake_case
+- Constantes: UPPER_SNAKE_CASE
+
+### Padrões de Importação
+```python
+# Importação absoluta dentro do projeto
+from neocortex.core import get_cortex_service
+from neocortex.repositories import FileSystemRepositoryFactory
+
+# Importação relativa dentro do mesmo módulo
+from .file_utils import read_cortex
+```
+
+### Documentação
+- Docstrings no formato Google Style
+- Type hints obrigatórios para funções públicas
+- Exemplos de uso em docstrings complexas
+
+### Testes
+- Testes unitários para serviços
+- Testes de integração para repositórios
+- Testes end-to-end para ferramentas MCP
+
+
+# NC-LBE-FR-DEVELOPMENT-001
+
+Práticas de desenvolvimento, código fonte, convenções
+
+## Status
+Ativo (povoado automaticamente)
+
+## Tags
+#development, #framework, #neocortex, #auto_populated
+
+## Checkpoints
+- CP-DEVELOPMENT-001: Criação inicial
+- CP-DEVELOPMENT-002: Povoamento automático
+
+## Análise do Diretório
+- **Total de arquivos**: 49
+
+### Arquivos Principais
+- `neocortex_framework\neocortex\config.py` (369 linhas, 10992 bytes)
+- `neocortex_framework\neocortex\__init__.py` (0 linhas, 0 bytes)
+- `neocortex_framework\neocortex\cli\main.py` (154 linhas, 5170 bytes)
+- `neocortex_framework\neocortex\cli\__init__.py` (0 linhas, 0 bytes)
+- `neocortex_framework\neocortex\core\agent_service.py` (232 linhas, 7396 bytes)
+- `neocortex_framework\neocortex\core\akl_service.py` (296 linhas, 9758 bytes)
+- `neocortex_framework\neocortex\core\benchmark_service.py` (183 linhas, 5719 bytes)
+- `neocortex_framework\neocortex\core\checkpoint_service.py` (411 linhas, 13084 bytes)
+- `neocortex_framework\neocortex\core\config_service.py` (342 linhas, 11736 bytes)
+- `neocortex_framework\neocortex\core\consolidation_service.py` (315 linhas, 10763 bytes)
+
+### Análise de Código Python
+
+#### `neocortex_framework\neocortex\config.py`
+- **Classes**: 1
+  - Config
+- **Funções**: 1
+  - get_config
+- **Imports**: 5
+  - os, json, yaml, typing, pathlib
+
+#### `neocortex_framework\neocortex\__init__.py`
+- **Classes**: 0
+- **Funções**: 0
+- **Imports**: 0
+
+#### `neocortex_framework\neocortex\cli\main.py`
+- **Classes**: 0
+- **Funções**: 1
+  - main
+- **Imports**: 3
+  - sys, argparse, pathlib
+
+#### `neocortex_framework\neocortex\cli\__init__.py`
+- **Classes**: 0
+- **Funções**: 0
+- **Imports**: 0
+
+#### `neocortex_framework\neocortex\core\agent_service.py`
+- **Classes**: 1
+  - AgentService
+- **Funções**: 1
+  - get_agent_service
+- **Imports**: 1
+  - typing
+
+## Contexto do Projeto
+- **Nome do projeto**: N/A
+- **Total de arquivos no projeto**: 0
+
+## Notas de Povoamento
+- Povoado automaticamente por OpenCode
+- Data: 2026-04-10 15:57:54
+- Foco da análise: code_style, conventions, development_workflow

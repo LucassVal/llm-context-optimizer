@@ -1,15 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:57.485178'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-tags:
-  - neocortex-other
-  - level-0
-  - python
----"""
+@Module NC-CORE-FR-109-consolidation-service mcp _genealogy:   injected_at: '2026-04-16T00:23:57.48
+---
+"""
+
+
 #!/usr/bin/env python3
 """
 Consolidation Service - Business logic for semantic consolidation.
@@ -59,6 +53,14 @@ class ConsolidationService:
             memory_cortex["consolidation_sessions"] = []
             ledger["memory_cortex"] = memory_cortex
         return ledger
+
+    def run(self) -> Dict[str, Any]:
+        """Alias: executa consolidação completa."""
+        return self.summarize_session("auto", "Auto-consolidation via MCP")
+
+    def run_full_consolidation(self) -> Dict[str, Any]:
+        """Alias: executa consolidação completa."""
+        return self.summarize_session("full", "Full consolidation via MCP")
 
     def summarize_session(
         self, session_id: str, summary: str = "", metadata: Optional[Dict] = None

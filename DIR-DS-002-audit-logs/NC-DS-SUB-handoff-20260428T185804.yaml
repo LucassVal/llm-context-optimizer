@@ -1,0 +1,6 @@
+ticket_id: NC-DS-SUB
+status: submitted
+agent: T0
+description: Blocos 3-5: FR-154 Corporate + FR-155 Resiliency + FR-156 AI Gov + FR-157 BSC/SWOT + Gateway per-action rules
+files: ['C:\\TQ\\01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-154-corporate-engines.py', 'C:\\TQ\\01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-155-resiliency-engine.py', 'C:\\TQ\\01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-156-ai-governance.py', 'C:\\TQ\\01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-157-bsc-swot.py', 'C:\\TQ\\01_neocortex_framework\\neocortex\\core\\NC-CORE-FR-129-shared-kernel-gateway.py', 'C:\\TQ\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-001-governance.py', 'C:\\TQ\\02_memory_lobes\\06_governance\\NC-LBE-FR-RULES-MULTILAYER-001.mdc']
+timestamp: 2026-04-28T18:58:04.803423

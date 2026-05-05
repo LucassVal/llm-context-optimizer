@@ -2,8 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(Get-Content \"DIR-BOOT-FR-001-bootup-main/NC-BOOT-FR-001-system-manifest.md\" -Head 80)",
-      "Bash(python -c ' *)",
-      "Bash(python3 -c ' *)",
+      "Bash(python -c \"*\")",
+      "Bash(python3 -c \"*\")",
       "Read(//usr/**)",
       "Read(//usr/local/**)",
       "Bash(\"/c/Program Files/Python312/python.exe\" --version)",

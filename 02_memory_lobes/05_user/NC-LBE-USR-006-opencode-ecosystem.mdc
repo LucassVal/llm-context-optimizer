@@ -6,7 +6,8 @@ status: active
 module: integration
 version: 1.0
 created: 2026-05-03
-temperature: 30
+temperature: 0
+status: archived
 ---
 
 <!-- NC-READ-HASH: NC-LBE-USR-006-opencode-ecosystem-v1 -->

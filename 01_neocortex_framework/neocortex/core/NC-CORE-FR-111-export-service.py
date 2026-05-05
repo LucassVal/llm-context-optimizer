@@ -1,15 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:57.553027'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-tags:
-  - neocortex-other
-  - level-0
-  - python
----"""
+@Module NC-CORE-FR-111-export-service mcp _genealogy:   injected_at: '2026-04-16T00:23:57.55
+---
+"""
+
+
 #!/usr/bin/env python3
 """
 Export Service - Business logic for data export operations.
@@ -198,6 +192,10 @@ class ExportService:
                 "content_size": len(markdown_content),
             },
         }
+
+    def export(self) -> Dict[str, Any]:
+        """Alias for export_to_json."""
+        return self.export_to_json()
 
     def export_to_json(self, pretty: bool = True) -> Dict[str, Any]:
         """
@@ -467,7 +465,7 @@ class ExportService:
         # Extract concepts from cortex (simplified)
         if cortex_content:
             # Look for patterns in cortex
-            lines = cortex_content.split("\n")
+            cortex_content.split("\n")
 
             # Add cortex node
             nodes.append(

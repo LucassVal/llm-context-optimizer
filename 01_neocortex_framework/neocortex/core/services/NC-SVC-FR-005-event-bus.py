@@ -1,17 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:58.709279'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-parent_ssot: NC-SVC-FR-005-event-bus
-tags:
-  - neocortex-other
-  - level-0
-  - nc-prefix
-  - python
----"""
+@Module NC-SVC-FR-005-event-bus mcp _genealogy:   injected_at: '2026-04-16T00:23:58.70
+---
+"""
+
+
 """
 NC-SVC-FR-005-event-bus.py
 FR-005  Event Bus: Synchronous event bus for inter-tool communication in NeoCortex.

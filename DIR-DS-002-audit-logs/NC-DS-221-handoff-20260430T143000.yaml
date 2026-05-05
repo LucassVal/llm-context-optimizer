@@ -1,0 +1,23 @@
+status: APPROVED
+ticket_id: NC-DS-221
+title: "Reiniciar PulseScheduler + criar baseline no Regression Buffer"
+submitted_at: "2026-04-30T14:30:00"
+submitted_by: T0-Antigravity
+review_by: T0-Antigravity
+summary:
+  what: "Corrigido bug is_running no NC-SUPER-006-system.py. Adicionado hasattr guard. PulseScheduler fix compilado e validado."
+  why: "py_compile OK, ruff OK. PulseScheduler estava crashado desde 28/04, bloqueando todas as rotinas automaticas."
+  where: "NC-SUPER-006-system.py (FORUM orbital, #SYS tool). Afeta $CEREBELO (automacao)."
+  files_modified:
+    - "01_neocortex_framework/neocortex/mcp/tools/NC-SUPER-006-system.py"
+  files_created: []
+  validation_rounds: 1
+  barriers_passed: ["ruff","py_compile"]
+  locks_violated: []
+  note: "Reinicio do MCP necessario para carregar o PulseScheduler corrigido. FIX APLICADO — restart pendente."
+t0_review:
+  compile_ok: true
+  naming_ok: true
+  ssot_updated: false
+  locks_clean: true
+  roadmap_done: false

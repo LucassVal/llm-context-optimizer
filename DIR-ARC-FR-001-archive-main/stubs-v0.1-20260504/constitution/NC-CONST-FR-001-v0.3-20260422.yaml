@@ -1,0 +1,196 @@
+# NEOCORTEX CONSTITUTION FRAMEWORK v0.3
+# Data: 2026-04-22
+# Autoridade: T0 Soberano
+# Status: EMENDA APROVADA
+
+metadata:
+  version: "v0.3"
+  previous_version: "v0.2"
+  amendment_date: "2026-04-22T09:28:00"
+  authority: "T0"
+  compliance_score: 100.0
+
+preamble:
+  title: "Constituição do Framework Neocortex"
+  purpose: "Estabelecer os princípios fundamentais, estrutura de poderes e regras de governança do sistema Neocortex"
+  scope: "Todo o ecossistema Neocortex, incluindo agentes, serviços, memória e estado"
+
+article_1_powers:
+  legislative:
+    tool: "neocortex_governance"
+    responsibilities:
+      - "Criação e revisão de regras"
+      - "Auditoria de compliance"
+      - "Evolução constitucional"
+      - "Gestão de tickets e handoffs"
+    tier: "T0"
+
+  executive:
+    tools:
+      - "neocortex_orchestration"
+      - "neocortex_system"
+    responsibilities:
+      - "Execução de tasks e agentes"
+      - "Gestão do sistema"
+      - "Monitoramento e health checks"
+      - "Configuração e inicialização"
+    tier: "T1"
+
+  judiciary:
+    tool: "neocortex_governance"
+    responsibilities:
+      - "Interpretação constitucional"
+      - "Resolução de conflitos"
+      - "Aplicação de regras"
+      - "Auditoria de violações"
+    tier: "T0"
+
+article_2_tiers:
+  T0:
+    name: "Soberano"
+    role: "Governança e Constituição"
+    tools: "neocortex_governance, neocortex_brain"
+    authority: "PLENA"
+
+  T1:
+    name: "Técnico"
+    role: "Execução e Orquestração"
+    tools: "neocortex_orchestration, neocortex_system, neocortex_llm_router"
+    authority: "DELEGADA"
+
+  T2:
+    name: "Operacional"
+    role: "Tasks específicas"
+    tools: "task-specific tools"
+    authority: "LIMITADA"
+
+  T3:
+    name: "Braçal"
+    role: "Workers e processamento"
+    tools: "worker tools"
+    authority: "RESTRITA"
+
+article_3_rules:
+  existing_rules:
+    R01: "Inventário de Ativos de IA"
+    R02: "Política Formalizada"
+    R03: "Estrutura de Diretórios"
+    R04: "Nomenclatura NC-"
+    R07: "Privilégio Mínimo (PoLP)"
+    R08: "Atomic Locks"
+    R09: "Zonas de Escrita"
+    R10: "Trilha de Auditoria"
+    R12: "Handoffs Formais"
+    R13: "Checkpoints"
+    R18: "Ciclo de Vida Tickets"
+    R19: "Rotina 4 Ciclos"
+    R20: "Revisão e Arquivo"
+    R21: "Zero Suposições"
+
+  new_rules_v0_3:
+    R22: "Integração entre Sistemas"
+      description: "Sistemas memory, state e ledger devem estar integrados e sincronizados"
+      compliance: "Automático via handoffs e checkpoints"
+    
+    R23: "Automação de Compliance"
+      description: "Processos de compliance devem ser automatizados e contínuos"
+      compliance: "Auditoria automática a cada ciclo"
+    
+    R24: "Processo de Evolução Constitucional"
+      description: "Evolução constitucional deve seguir processo formal com pre-check e aprovação"
+      compliance: "cf.pre_check obrigatório para emendas"
+    
+    R25: "Normas para Handoffs entre Tiers"
+      description: "Handoffs entre tiers devem documentar contexto, estado e expectativas"
+      compliance: "Handoff files obrigatórios para transferências T0→T1"
+    
+    R26: "Políticas de Backup/Restore"
+      description: "Sistemas críticos devem ter políticas de backup e restore definidas"
+      compliance: "Checkpoints regulares e savepoints para rollback"
+    
+    R27: "Monitoramento de Integridade"
+      description: "Integridade do sistema deve ser monitorada continuamente"
+      compliance: "Health checks regulares e alertas automáticos"
+    
+    R28: "Gestão de Dependências"
+      description: "Dependências entre sistemas devem ser mapeadas e gerenciadas"
+      compliance: "Mapa de dependências atualizado"
+    
+    R29: "Auditoria Contínua"
+      description: "Auditoria deve ocorrer de forma contínua e proativa"
+      compliance: "Logs de auditoria em tempo real"
+    
+    R30: "Resiliência do Sistema"
+      description: "Sistema deve ser resiliente a falhas e se recuperar automaticamente"
+      compliance: "Mecanismos de fallback e recovery"
+
+article_4_processes:
+  constitutional_amendment:
+    step_1: "Identificação de lacuna ou necessidade"
+    step_2: "Criação de ticket (NC-DS-XXX)"
+    step_3: "Análise e proposta de emenda"
+    step_4: "Pre-check constitucional (cf.pre_check)"
+    step_5: "Aprovação STJ (cf.stj)"
+    step_6: "Implementação da emenda"
+    step_7: "Auditoria pós-implementação"
+
+  compliance_automation:
+    frequency: "A cada ciclo (4 ciclos/dia)"
+    scope: "Todas as regras ativas"
+    actions:
+      - "Verificação automática de compliance"
+      - "Geração de relatórios"
+      - "Log de violações"
+      - "Notificações de não-conformidade"
+
+  handoff_protocol:
+    trigger: "Transferência de responsabilidade entre tiers"
+    requirements:
+      - "Arquivo YAML com contexto completo"
+      - "Estado atual do sistema"
+      - "Expectativas e deliverables"
+      - "Timeline e prioridades"
+    validation: "Handoff deve ser validado pelo tier receptor"
+
+article_5_integration:
+  memory_state_ledger_integration:
+    synchronization: "Checkpoints regulares entre sistemas"
+    data_flow: "Memory → State → Ledger"
+    consistency: "Garantia de consistência transacional"
+    recovery: "Rollback coordenado em caso de falha"
+
+  backup_restore_policy:
+    frequency: "Checkpoints a cada handoff"
+    retention: "Últimos 7 savepoints"
+    recovery_time_objective: "< 5 minutos"
+    recovery_point_objective: "Último checkpoint válido"
+
+article_6_monitoring:
+  health_monitoring:
+    services: "Todos os serviços MCP"
+    frequency: "A cada 30 segundos"
+    alerts: "Notificações automáticas para falhas"
+    escalation: "T0 para falhas críticas"
+
+  integrity_checks:
+    scope: "Constituição, regras, processos"
+    frequency: "A cada ciclo"
+    automation: "100% automatizado"
+    reporting: "Relatórios consolidados"
+
+enforcement:
+  compliance_verification: "Automático via cf.audit"
+  violation_handling: "Log automático e notificação"
+  corrective_actions: "Baseado em severidade da violação"
+  escalation_path: "T0 → T1 → T2 → T3"
+
+amendment_history:
+  v0_1: "Versão inicial - estrutura básica"
+  v0_2: "Expansão de regras e processos"
+  v0_3: "Evolução constitucional com novas regras R22-R30 e automação"
+
+signature:
+  authority: "T0 Soberano"
+  date: "2026-04-22T09:28:00"
+  status: "ATIVA"
+  next_review: "2026-04-29"

@@ -1,0 +1,188 @@
+{
+  "timestamp": "2026-04-22T16:04:44.685636Z",
+  "operation": "python_files_naming_fix_auto",
+  "summary": {
+    "total_files_analyzed": 53,
+    "files_to_rename": 24,
+    "files_to_keep": 29,
+    "successful_renames": 13,
+    "failed_renames": 0,
+    "skipped_renames": 11,
+    "completion_rate": "54.2%"
+  },
+  "renamed_files": [
+    {
+      "old": "activate_mcp_complete.py",
+      "new": "NC-SCR-ACT-22160444-mcp-activation.py"
+    },
+    {
+      "old": "analyze_imports.py",
+      "new": "NC-SVC-CHK-22160444-checkpoint-system.py"
+    },
+    {
+      "old": "analyze_lobes.py",
+      "new": "NC-SCR-ANL-22160444-analysis-tool.py"
+    },
+    {
+      "old": "audit_json_metadata.py",
+      "new": "NC-SCR-AUD-22160444-audit-tool.py"
+    },
+    {
+      "old": "diagnose_mcp.py",
+      "new": "NC-SVC-MCP-22160444-mcp-integration.py"
+    },
+    {
+      "old": "example_tools.py",
+      "new": "NC-SCR-EXM-22160444-example-tools.py"
+    },
+    {
+      "old": "governance_roadmap_audit.py",
+      "new": "NC-SVC-CMP-22160444-compliance-monitor.py"
+    },
+    {
+      "old": "handoff_system.py",
+      "new": "NC-SVC-HOF-22160444-handoff-system.py"
+    },
+    {
+      "old": "integrate_with_picoclaw.py",
+      "new": "NC-SCR-INT-22160444-integration-tool.py"
+    },
+    {
+      "old": "picoclaw_autoloader.py",
+      "new": "NC-SVC-PCL-22160444-picoclaw-tool.py"
+    },
+    {
+      "old": "setup_monitoring.py",
+      "new": "NC-SCR-SET-22160444-setup-script.py"
+    },
+    {
+      "old": "test_autoloader.py",
+      "new": "NC-SCR-TST-22160444-test-script.py"
+    },
+    {
+      "old": "ticket_sync_tool.py",
+      "new": "NC-SCR-TKT-22160444-ticket-tool.py"
+    }
+  ],
+  "files_kept": [
+    {
+      "name": "analyze_naming_simple.py",
+      "reason": "Arquivo crítico - manter nome original"
+    },
+    {
+      "name": "apply_naming_fix_auto.py",
+      "reason": "Arquivo crítico - manter nome original"
+    },
+    {
+      "name": "apply_naming_fix_safe.py",
+      "reason": "Arquivo crítico - manter nome original"
+    },
+    {
+      "name": "C_Temp_chk121.py",
+      "reason": "Arquivo temporário - manter nome original"
+    },
+    {
+      "name": "C_Temp_imp121.py",
+      "reason": "Arquivo temporário - manter nome original"
+    },
+    {
+      "name": "C_Temp_run121.py",
+      "reason": "Arquivo temporário - manter nome original"
+    },
+    {
+      "name": "fix_tickets_yaml.py",
+      "reason": "Arquivo crítico - manter nome original"
+    },
+    {
+      "name": "NC-SCR-FR-146-hook-boot-loader.py",
+      "reason": "Já segue padrão NC-"
+    },
+    {
+      "name": "NC-SCR-FR-148-organize-lobes.py",
+      "reason": "Já segue padrão NC-"
+    },
+    {
+      "name": "NC-SCR-FR-149-update-lobe-registry.py",
+      "reason": "Já segue padrão NC-"
+    },
+    {
+      "name": "NC-SCR-FR-150-finalize-lobe-migration.py",
+      "reason": "Já segue padrão NC-"
+    },
+    {
+      "name": "NC-SCR-FR-151-compliance-audit.py",
+      "reason": "Já segue padrão NC-"
+    },
+    {
+      "name": "NC-SCR-FR-152-fix-mcp-governance.py",
+      "reason": "Já segue padrão NC-"
+    },
+    {
+      "name": "NC-SCR-FR-153-test-mcp-rules.py",
+      "reason": "Já segue padrão NC-"
+    },
+    {
+      "name": "NC-SCR-FR-154-simple-mcp-test.py",
+      "reason": "Já segue padrão NC-"
+    },
+    {
+      "name": "NC-SCR-FR-155-fix-mock-server.py",
+      "reason": "Já segue padrão NC-"
+    },
+    {
+      "name": "NC-SCR-FR-156-fix-mock-simple.py",
+      "reason": "Já segue padrão NC-"
+    },
+    {
+      "name": "NC-SCR-FR-157-final-fix.py",
+      "reason": "Já segue padrão NC-"
+    },
+    {
+      "name": "NC-SCR-FR-158-test-mock-corrected.py",
+      "reason": "Já segue padrão NC-"
+    },
+    {
+      "name": "NC-SCR-FR-159-test-fastmcp-real.py",
+      "reason": "Já segue padrão NC-"
+    },
+    {
+      "name": "NC-SCR-FR-160-audit-compliance.py",
+      "reason": "Já segue padrão NC-"
+    },
+    {
+      "name": "NC-SCR-FR-161-fix-antigravity-config.py",
+      "reason": "Já segue padrão NC-"
+    },
+    {
+      "name": "NC-SCR-FR-162-final-tests.py",
+      "reason": "Já segue padrão NC-"
+    },
+    {
+      "name": "pre_commit_hook.py",
+      "reason": "Arquivo crítico - manter nome original"
+    },
+    {
+      "name": "safe_naming_fix.py",
+      "reason": "Arquivo crítico - manter nome original"
+    },
+    {
+      "name": "safe_naming_fix_v2.py",
+      "reason": "Arquivo crítico - manter nome original"
+    },
+    {
+      "name": "safe_naming_fix_v3.py",
+      "reason": "Arquivo crítico - manter nome original"
+    },
+    {
+      "name": "test_sanitization.py",
+      "reason": "Arquivo crítico - manter nome original"
+    },
+    {
+      "name": "validate_yaml.py",
+      "reason": "Arquivo crítico - manter nome original"
+    }
+  ],
+  "backup_created": true,
+  "backup_location": "C:\\Users\\Lucas Valério\\.gemini\\antigravity\\brain\\backup_naming_fix_python",
+  "notes": "Aplicação automática segura - apenas arquivos sem conflito foram renomeados"
+}

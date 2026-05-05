@@ -1,0 +1,69 @@
+{
+  "api_health": {
+    "status": "OK",
+    "latency_s": 1.93
+  },
+  "fts5_search": {
+    "status": "OK",
+    "latency_s": 0.004,
+    "regions": {
+      "$frontal": {
+        "hits": 0,
+        "error": "no such table: lobes_fts"
+      },
+      "$temporal": {
+        "hits": 0,
+        "error": "no such table: lobes_fts"
+      },
+      "$parietal": {
+        "hits": 0,
+        "error": "no such table: lobes_fts"
+      },
+      "$occipital": {
+        "hits": 0,
+        "error": "no such table: lobes_fts"
+      },
+      "$cerebelo": {
+        "hits": 0,
+        "error": "no such table: lobes_fts"
+      },
+      "$hipocampo": {
+        "hits": 0,
+        "error": "no such table: lobes_fts"
+      }
+    }
+  },
+  "context_assembly": {
+    "status": "OK",
+    "chars": 2469,
+    "latency_s": 0.002
+  },
+  "deepseek_chat": {
+    "status": "OK",
+    "calls": [
+      {
+        "label": "Q1 — Estrutura",
+        "latency_s": 4.21,
+        "tokens_in": 880,
+        "tokens_out": 92,
+        "answer_len": 362
+      },
+      {
+        "label": "Q2 — Eficiência",
+        "latency_s": 4.57,
+        "tokens_in": 875,
+        "tokens_out": 105,
+        "answer_len": 384
+      },
+      {
+        "label": "Q3 — Operação",
+        "latency_s": 5.07,
+        "tokens_in": 880,
+        "tokens_out": 125,
+        "answer_len": 356
+      }
+    ]
+  },
+  "score": 100.0,
+  "timestamp": "2026-04-20T01:09:55.642689"
+}

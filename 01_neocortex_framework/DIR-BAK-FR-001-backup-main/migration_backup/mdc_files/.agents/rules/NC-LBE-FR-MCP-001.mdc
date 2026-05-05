@@ -1,0 +1,45 @@
+<!-- module: mcp -->
+<!-- status: active -->
+
+# NC-LBE-FR-MCP-001
+
+Lobe para o módulo mcp do framework NeoCortex.
+
+## Propósito
+Gerenciar conhecimento específico do módulo mcp.
+
+## Status
+Ativo
+
+## Tags
+#mcp, #framework, #neocortex
+
+## Checkpoints
+- CP-MCP-001: Criação inicial
+
+
+# NC-LBE-FR-MCP-001
+
+Model Context Protocol
+
+## Status
+Ativo (povoado automaticamente)
+
+## Tags
+#mcp, #framework, #neocortex, #auto_populated
+
+## Checkpoints
+- CP-MCP-001: Criação inicial
+- CP-MCP-002: Povoamento automático
+
+## Análise do Diretório
+- **Total de arquivos**: 0
+
+## Contexto do Projeto
+- **Nome do projeto**: N/A
+- **Total de arquivos no projeto**: 0
+
+## Notas de Povoamento
+- Povoado automaticamente por OpenCode
+- Data: 2026-04-10 15:57:55
+- Foco da análise: mcp_tools, server_implementation, protocol_details

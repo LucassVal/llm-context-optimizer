@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""
-NC-CORE-FR-021-agent-policy-enforcer.py — AGENT-001
+"""---
+NC-CORE-FR-101-agent-policy-enforcer.py — AGENT-001
 Carrega e valida policies de agentes locais.
 
 Responsabilidades:
@@ -8,7 +8,7 @@ Responsabilidades:
   - Validar se tool/action é permitida para o agente
   - Reportar violações ao SecurityService
   - Integrar com CircuitBreaker (token budget)
-"""
+---"""
 from __future__ import annotations
 
 import logging

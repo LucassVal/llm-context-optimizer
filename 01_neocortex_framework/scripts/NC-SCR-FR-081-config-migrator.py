@@ -1,5 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+"""---
+NC-SCR-FR-081-config-migrator.py
+---
+"""
+
+"""---
+NC-SCR-FR-081-config-migrator.py
+---
+"""
+
 """
 NC-SCR-FR-081-config-migrator.py
 Migrador de Configurao por Projeto NeoCortex

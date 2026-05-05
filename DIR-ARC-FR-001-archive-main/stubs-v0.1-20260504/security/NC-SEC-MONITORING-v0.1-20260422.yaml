@@ -1,0 +1,366 @@
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC SEC MONITORING v0.1 20260422
+# Why:  Criado em 2026-04-22 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/security/NC-SEC-MONITORING-v0.1-20260422.yaml
+
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC SEC MONITORING v0.1 20260422
+# Why:  Criado em 2026-04-22 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/security/NC-SEC-MONITORING-v0.1-20260422.yaml
+
+# NEOCORTEX SECURITY MONITORING v0.1
+# Data: 2026-04-22
+# Status: IMPLEMENTED
+# Monitoramento de segurança expandido para governança
+
+security_monitoring_config:
+  name: "Security Monitoring System"
+  version: "v0.1"
+  scope: "Security rules + proactive detection"
+  monitoring_type: "Continuous + pattern-based"
+
+security_rules_monitoring:
+  # R07: Privilégio Mínimo (PoLP)
+  R07_polp_monitor:
+    rule: "Privilégio Mínimo (PoLP)"
+    checks:
+      - check: "Agent tool permissions"
+        tool: "neocortex_security.access.validate"
+        frequency: "On tool call"
+        validation: "Agent has required permission"
+      
+      - check: "File access permissions"
+        tool: "neocortex_security.lock.check"
+        frequency: "On file access"
+        validation: "Agent can access file"
+      
+      - check: "Directory write permissions"
+        tool: "neocortex_security.access.validate"
+        frequency: "On write operation"
+        validation: "Agent can write to directory"
+    
+    alerts:
+      - severity: "CRITICAL"
+        condition: "Unauthorized tool access"
+        action: "neocortex_security.hook.trigger"
+        hook_event: "security_violation"
+      
+      - severity: "HIGH"
+        condition: "Unauthorized file access"
+        action: "neocortex_notification.push.send"
+        level: "WARNING"
+
+  # R08: Atomic Locks (Path-Based)
+  R08_atomic_locks_monitor:
+    rule: "Atomic Locks (Path-Based)"
+    checks:
+      - check: "Critical file lock status"
+        tool: "neocortex_security.lock.check"
+        lock_path: "critical_files"
+        frequency: "On access attempt"
+        validation: "File is locked when required"
+      
+      - check: "Lock integrity"
+        tool: "neocortex_security.lock.list"
+        frequency: "Hourly"
+        validation: "All locks are valid"
+      
+      - check: "Lock expiration"
+        tool: "neocortex_security.lock.check"
+        frequency: "Every 5 minutes"
+        validation: "No expired locks"
+    
+    alerts:
+      - severity: "CRITICAL"
+        condition: "Lock violation detected"
+        action: "neocortex_security.hook.trigger"
+        hook_event: "lock_violation"
+      
+      - severity: "HIGH"
+        condition: "Expired lock"
+        action: "neocortex_notification.push.send"
+        level: "WARNING"
+
+  # R09: Segregação de Zonas de Escrita
+  R09_write_zones_monitor:
+    rule: "Segregação de Zonas de Escrita"
+    checks:
+      - check: "Agent write zone validation"
+        tool: "neocortex_security.access.validate"
+        agent_role: "current"
+        frequency: "On write operation"
+        validation: "Agent writing in allowed zone"
+      
+      - check: "Zone boundary enforcement"
+        tool: "neocortex_security.hook.register"
+        hook_event: "file_write"
+        frequency: "Real-time"
+        validation: "No cross-zone writes"
+      
+      - check: "Zone configuration integrity"
+        tool: "neocortex_governance.policy.check"
+        policy_name: "write_zones"
+        frequency: "Daily"
+        validation: "Zone configuration valid"
+    
+    alerts:
+      - severity: "CRITICAL"
+        condition: "Cross-zone write attempt"
+        action: "neocortex_security.hook.trigger"
+        hook_event: "zone_violation"
+      
+      - severity: "HIGH"
+        condition: "Zone configuration error"
+        action: "neocortex_notification.push.send"
+        level: "ERROR"
+
+proactive_security_detection:
+  pattern_based_detection:
+    - pattern: "Suspicious file modifications"
+      detection: "Multiple rapid file changes"
+      tool: "neocortex_security.audit.log_event"
+      threshold: ">10 changes in 60 seconds"
+      alert: "neocortex_notification.push.send"
+    
+    - pattern: "Unauthorized tool usage patterns"
+      detection: "Tool calls outside normal patterns"
+      tool: "neocortex_ledger.stats"
+      analysis: "Statistical anomaly detection"
+      alert: "neocortex_security.hook.trigger"
+    
+    - pattern: "Privilege escalation attempts"
+      detection: "Sequential permission requests"
+      tool: "neocortex_security.access.validate"
+      pattern: "Increasing permission levels"
+      alert: "neocortex_notification.push.send"
+
+  behavioral_analysis:
+    - analysis: "Agent behavior baseline"
+      tool: "neocortex_state.regression.baseline"
+      frequency: "Daily"
+      validation: "Behavior within normal parameters"
+    
+    - analysis: "Session anomaly detection"
+      tool: "neocortex_state.session.heartbeat"
+      frequency: "Real-time"
+      detection: "Unusual session patterns"
+    
+    - analysis: "Tool usage profiling"
+      tool: "neocortex_ledger.metrics"
+      frequency: "Hourly"
+      validation: "Tool usage matches profile"
+
+security_incident_response:
+  detection_workflow:
+    step_1_detection:
+      trigger: "Security rule violation"
+      action: "neocortex_security.audit.log_event"
+      details: "Log security event"
+    
+    step_2_analysis:
+      tool: "neocortex_brain.think"
+      complexity: "RACIOCINIO"
+      analysis: "Determine severity and impact"
+    
+    step_3_containment:
+      condition: "Critical or High severity"
+      actions:
+        - "neocortex_security.lock.check"
+        - "neocortex_security.hook.trigger"
+      goal: "Contain incident"
+    
+    step_4_investigation:
+      tool: "neocortex_memory.lobe.search"
+      search: "Related events and patterns"
+      goal: "Root cause analysis"
+    
+    step_5_remediation:
+      actions:
+        - "neocortex_state.savepoint.rollback"
+        - "neocortex_security.hook.remove"
+        - "neocortex_governance.violation.log"
+      goal: "Fix and prevent recurrence"
+    
+    step_6_reporting:
+      tool: "neocortex_context.report.generate"
+      format: "security_incident_report"
+      audience: "T0 + security team"
+
+  incident_severity_levels:
+    CRITICAL:
+      examples:
+        - "Unauthorized system access"
+        - "Data exfiltration attempt"
+        - "Critical file tampering"
+      response_time: "< 5 minutes"
+      escalation: "Immediate T0 notification"
+    
+    HIGH:
+      examples:
+        - "Privilege violation"
+        - "Zone boundary breach"
+        - "Suspicious pattern detected"
+      response_time: "< 15 minutes"
+      escalation: "Security team notification"
+    
+    MEDIUM:
+      examples:
+        - "Policy violation"
+        - "Unusual behavior"
+        - "Configuration error"
+      response_time: "< 1 hour"
+      escalation: "Daily security report"
+    
+    LOW:
+      examples:
+        - "Minor permission issue"
+        - "Warning threshold exceeded"
+        - "Informational alert"
+      response_time: "< 24 hours"
+      escalation: "Weekly review"
+
+security_metrics_kpis:
+  detection_metrics:
+    - metric: "Mean Time to Detect (MTTD)"
+      target: "< 5 minutes"
+      measurement: "neocortex_health.metrics.live"
+      frequency: "Daily"
+    
+    - metric: "Mean Time to Respond (MTTR)"
+      target: "< 15 minutes"
+      measurement: "neocortex_ledger.stats"
+      frequency: "Daily"
+    
+    - metric: "False Positive Rate"
+      target: "< 5%"
+      measurement: "neocortex_benchmark.last_report"
+      frequency: "Weekly"
+    
+    - metric: "Detection Coverage"
+      target: "> 95%"
+      measurement: "neocortex_governance.compliance.report"
+      frequency: "Weekly"
+
+  prevention_metrics:
+    - metric: "Prevented incidents"
+      measurement: "neocortex_security.audit.log_event"
+      frequency: "Monthly"
+      goal: "Increasing trend"
+    
+    - metric: "Security rule compliance"
+      target: "> 90%"
+      measurement: "neocortex_governance.cf.audit"
+      frequency: "Daily"
+    
+    - metric: "Vulnerability exposure time"
+      target: "< 24 hours"
+      measurement: "neocortex_state.checkpoint.get"
+      frequency: "Weekly"
+
+integration_points:
+  with_governance:
+    - tool: "neocortex_governance.cf.audit"
+      trigger: "Security incident"
+      action: "Full security audit"
+    
+    - tool: "neocortex_governance.violation.log"
+      trigger: "Security rule violation"
+      action: "Log violation"
+    
+    - tool: "neocortex_governance.ticket.create"
+      trigger: "Security issue requiring fix"
+      action: "Create security ticket"
+
+  with_memory:
+    - tool: "neocortex_memory.lobe.auto"
+      trigger: "Security pattern detection"
+      purpose: "Learn security patterns"
+    
+    - tool: "neocortex_akl.search"
+      trigger: "Historical security incident"
+      purpose: "Context for decision making"
+
+  with_state:
+    - tool: "neocortex_state.savepoint.create"
+      trigger: "Before security operation"
+      purpose: "State preservation"
+    
+    - tool: "neocortex_state.regression.check"
+      trigger: "After security fix"
+      purpose: "Regression prevention"
+
+testing_validation:
+  security_tests:
+    - test: "Penetration testing simulation"
+      tool: "neocortex_benchmark.run.titanomachy"
+      frequency: "Monthly"
+      validation: "No critical vulnerabilities"
+    
+    - test: "Privilege escalation tests"
+      tool: "neocortex_benchmark.run.drift"
+      frequency: "Weekly"
+      validation: "All privilege checks working"
+    
+    - test: "Boundary violation tests"
+      tool: "neocortex_benchmark.run.omni"
+      frequency: "Monthly"
+      validation: "Zone boundaries enforced"
+
+  false_positive_analysis:
+    - analysis: "Alert accuracy review"
+      tool: "neocortex_context.report.generate"
+      frequency: "Weekly"
+      goal: "Reduce false positives"
+    
+    - analysis: "Pattern tuning"
+      tool: "neocortex_brain.critique"
+      frequency: "Monthly"
+      goal: "Improve detection patterns"
+
+maintenance_schedule:
+  daily:
+    - "Security log review"
+    - "Alert analysis"
+    - "Rule effectiveness check"
+  
+  weekly:
+    - "False positive analysis"
+    - "Pattern tuning"
+    - "Security report generation"
+  
+  monthly:
+    - "Penetration testing"
+    - "Security audit"
+    - "System hardening review"
+  
+  quarterly:
+    - "Security architecture review"
+    - "Threat model update"
+    - "Compliance assessment"
+
+deployment_plan:
+  phase_1: "Basic security monitoring (R07-R09)"
+  phase_2: "Proactive pattern detection"
+  phase_3: "Incident response workflow"
+  phase_4: "Metrics and KPIs"
+  phase_5: "Integration and optimization"
+
+rollback_procedure:
+  trigger: "False positive overload or system impact"
+  steps:
+    - "Pause proactive detection"
+    - "Revert to basic monitoring"
+    - "Analyze false positives"
+    - "Tune patterns and redeploy"
+  validation: "Post-rollback security audit"
+
+signature:
+  implemented_by: "T0 Soberano"
+  implementation_date: "2026-04-22T11:35:00"
+  review_date: "2026-04-29"
+  status: "OPERATIONAL"
+  dependencies:
+    - "neocortex_security v1.0+"
+    - "neocortex_governance v1.0+"
+    - "neocortex_state v1.0+"
+    - "neocortex_notification v1.0+"

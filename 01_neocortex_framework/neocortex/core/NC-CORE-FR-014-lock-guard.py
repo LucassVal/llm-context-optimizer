@@ -1,20 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:57.812864'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-parent_ssot: NC-SRV-FR-001
-related_ssot:
-  - NC-SEC-FR-001-atomic-locks
-  - NC-CFG-FR-001
-tags:
-  - neocortex-other
-  - level-0
-  - nc-prefix
-  - python
----"""
+@Module NC-CORE-FR-014-lock-guard mcp _genealogy:   injected_at: '2026-04-16T00:23:57.81
+---
+"""
+
+
 #!/usr/bin/env python3
 """
 NC-SRV-FR-001  LockGuard: Path-Based Atomic Lock Enforcer
@@ -53,7 +42,7 @@ class LockGuard:
     """
     Path-based atomic lock enforcer.
     Reads NC-SEC-FR-001-atomic-locks.yaml and blocks writes to protected paths.
-    
+
     SEC-401: This replaces the broken SecurityService fallback (access_granted=True).
     DENY BY DEFAULT  if locks YAML is missing, ALL writes are blocked.
     """
@@ -80,7 +69,7 @@ class LockGuard:
             return
 
         try:
-            with open(self._locks_yaml, "r", encoding="utf-8") as f:
+            with open(self._locks_yaml, encoding="utf-8") as f:
                 self._config = yaml.safe_load(f) or {}
 
             locks_section = self._config.get("atomic_locks", {})
@@ -191,7 +180,7 @@ class LockGuard:
             elif action == "block_cross_write":
                 # Cross-lobe isolation: deny if agent_role's lobe != path's lobe
                 if "lobes/" in path:
-                    path_lobe = path.split("lobes/")[1].split("/")[0] if "lobes/" in path else ""
+                    path_lobe = path.split("lobes/")[1].split("/", maxsplit=1)[0] if "lobes/" in path else ""
                     agent_lobe = agent_role.replace("_", "-")
                     if path_lobe and path_lobe != agent_lobe and agent_role != "unknown":
                         reason = f"CROSS-LOBE WRITE DENIED: '{agent_role}' cannot write to lobe '{path_lobe}'"
@@ -234,7 +223,7 @@ class LockGuard:
         self._maybe_reload()
         yaml_ok = self._locks_yaml.exists()
         failsafe = any(lg["group"] in ("FAILSAFE", "PARSE_ERROR") for lg in self._locked_patterns)
-        recent_violations = [v for v in self._violation_log[-20:]]
+        recent_violations = list(self._violation_log[-20:])
         age_seconds = round(time.monotonic() - self._last_load_time, 1)
 
         return {

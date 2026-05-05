@@ -1,0 +1,336 @@
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC CFG OP 001 operation profiles
+# Why:  Criado em 2026-04-26 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-CFG-OP-001-operation-profiles.yaml
+
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC CFG OP 001 operation profiles
+# Why:  Criado em 2026-04-26 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-CFG-OP-001-operation-profiles.yaml
+
+# NC-CFG-OP-001 — Perfis de Operação NeoCortex v4
+# SSOT: Definição dos perfis PRO, FLASH, AUTO
+# Consumido por: ProfileRouter (NC-SVC-FR-026), LiteLLM Gateway, PicoClaw Dispatcher
+# Atualizado: 2026-04-26
+# ─────────────────────────────────────────────────────────────────────────────
+
+meta:
+  version: "4.0"
+  hash: "CFG-OP-v4.0-20260426"
+  description: "Perfis de Operação — Roteamento de Intenção para execução NeoCortex"
+  governing_architecture: |
+    Pipeline 3-Estágios:
+    [T0/Claude Pro] → debate/planeja → task card YAML
+        ↓
+    [Profile Router] → decide INTENÇÃO (PRO/FLASH/AUTO)
+        ↓
+    [LiteLLM Gateway :4000] → roteia MODELO correto
+        ↓
+    [PicoClaw :18790] → dispatches para workers (Qwen, T2/T3)
+        ↓
+    [Ollama :11434 / Qwen 2.5 Coder] → executa código
+  related_files:
+    - "NC-CFG-LITELLM-001-router.yaml → mapeamento perfis → modelos"
+    - "NC-SVC-FR-026-profile-router.py → serviço de roteamento"
+    - "NC-TOOL-FR-045 neocortex_profile → MCP tool para setar perfil"
+    - "NC-CFG-FR-001-agent-policy-template.yaml → template de segurança"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 1. PERFIL PRO — Planejamento & Conversa
+# ─────────────────────────────────────────────────────────────────────────────
+pro:
+  id: "profile_pro"
+  label: "PRO — Planejamento & Arquitetura"
+  description: >
+    Perfil deliberativo para exploração arquitetural, design de sistemas,
+    code review estratégico, geração de planos, RFCs e tickets.
+    Usa modelos de raciocínio profundo (DeepSeek-Reasoner, Claude Opus).
+    Opera com contexto completo: boot + roadmap + SSOT + histórico.
+
+  behavior:
+    style: "deliberativo"
+    thinking_tokens: "1k-5k por sessão"
+    context_mode: "full"              # full | ticket-only
+    session_length: "longa (100+ turns)"
+    output_types:
+      - "planos YAML"
+      - "decisões arquiteturais"
+      - "RFCs"
+      - "tickets NC-DS-NNN"
+      - "task cards YAML"
+      - "diagramas (mermaid)"
+    human_in_loop: true               # T0 valida antes de executar
+    parallel_agents: false            # PRO não dispatches paralelo
+    allowed_tools:
+      - "neocortex_lobes"
+      - "neocortex_search"
+      - "neocortex_ledger"
+      - "neocortex_constitution"
+      - "neocortex_tickets"
+      - "neocortex_handoff"
+      - "neocortex_profile"
+      - "neocortex_gateway_health"
+
+  llm_routing:
+    primary:
+      provider: "deepseek"
+      model: "deepseek-v4-pro"
+      endpoint: "https://api.deepseek.com/v1/chat/completions"
+      max_tokens: 8192
+      temperature: 0.3
+      thinking:
+        type: "enabled"
+      reasoning_effort: "high"
+    fallback:
+      provider: "ollama"
+      model: "qwen2.5-coder:14b-instruct-q4_K_M"
+      endpoint: "http://localhost:11434"
+      max_tokens: 4096
+      temperature: 0.3
+
+  resource_limits:
+    max_tokens_per_task: 16384
+    task_timeout_seconds: 600
+    max_retries: 2
+    daily_budget_tokens: 200000
+    daily_budget_usd: 2.00
+
+  mentor:
+    enabled: true
+    require_regression_check: true
+    preload_lobes:
+      - "NC-LBE-FR-ARCHITECTURE-001"
+      - "NC-LBE-FR-ROADMAP-001"
+      - "NC-LBE-FR-CORE-001"
+    mentor_prefix: |
+      VOCÊ ESTÁ EM MODO PRO — Planejamento Estratégico.
+      - Delibere antes de agir. Explore alternativas.
+      - Use o T0 como sounding board — pergunte, valide, refine.
+      - Saída esperada: planos, decisões, tickets. Não código.
+      - A execução será feita pelo perfil FLASH + Qwen Worker.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 2. PERFIL FLASH — Execução de Tickets
+# ─────────────────────────────────────────────────────────────────────────────
+flash:
+  id: "profile_flash"
+  label: "FLASH — Execução & Implementação"
+  description: >
+    Perfil direto para execução de tickets já planejados.
+    Usa modelos rápidos (DeepSeek V3 Chat, Claude Sonnet, Qwen 2.5 Coder).
+    Contexto mínimo: só o ticket + arquivos afetados + regras de governança.
+    Comportamento: ação → validação → fim. Sem deliberação.
+
+  behavior:
+    style: "direto"
+    thinking_tokens: "0-500 por sessão"
+    context_mode: "ticket-only"       # full | ticket-only
+    session_length: "curta (1-10 turns)"
+    output_types:
+      - "código Python"
+      - "testes"
+      - "documentação"
+      - "YAMLs de configuração"
+      - "commits"
+      - "PRs"
+    human_in_loop: false              # execução autônoma
+    parallel_agents: true             # FLASH pode dispatcher paralelo via PicoClaw
+    allowed_tools:
+      - "neocortex_lobes"
+      - "neocortex_search"
+      - "neocortex_regression"
+      - "neocortex_task"
+      - "neocortex_profile"
+      - "neocortex_memory_auto"
+
+  llm_routing:
+    primary:
+      provider: "deepseek"
+      model: "deepseek-v4-flash"
+      endpoint: "https://api.deepseek.com/v1/chat/completions"
+      max_tokens: 4096
+      temperature: 0.1
+      thinking:
+        type: "disabled"
+    fallback:
+      provider: "ollama"
+      model: "qwen2.5-coder:7b-instruct-q4_K_M"
+      endpoint: "http://localhost:11434"
+      max_tokens: 4096
+      temperature: 0.1
+
+  resource_limits:
+    max_tokens_per_task: 4096
+    task_timeout_seconds: 300
+    max_retries: 3
+    daily_budget_tokens: 150000
+    daily_budget_usd: 1.00
+
+  mentor:
+    enabled: true
+    require_regression_check: true
+    preload_lobes:
+      - "NC-LBE-FR-DEVELOPMENT-001"
+      - "NC-LBE-FR-TESTING-001"
+    mentor_prefix: |
+      VOCÊ ESTÁ EM MODO FLASH — Execução Direta.
+      - NÃO delibere. Recebeu um ticket planejado? Execute.
+      - Contexto: apenas o ticket + arquivos afetados.
+      - Saída esperada: código, testes, validação. Ponto.
+      - Se o ticket estiver incompleto, REPORTE — não preencha lacunas.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 3. PERFIL AUTO — Híbrido (router decide)
+# ─────────────────────────────────────────────────────────────────────────────
+auto:
+  id: "profile_auto"
+  label: "AUTO — Roteamento Automático por Intenção"
+  description: >
+    Perfil default. O Profile Router classifica a intenção da entrada
+    e roteia automaticamente para PRO ou FLASH.
+    Não requer configuração manual — usado pelo trigger implícito.
+
+  routing_rules:
+    # Regras de decisão automática
+    route_to_pro:
+      keywords:
+        - "planejar"
+        - "arquitetura"
+        - "design"
+        - "o que acha"
+        - "sugira"
+        - "compare"
+        - "analise"
+        - "projetar"
+        - "estrategia"
+        - "roadmap"
+        - "decidir"
+        - "propor"
+        - "viabilidade"
+      description: "Entradas exploratórias/decisórias → PRO"
+      confidence_threshold: 0.7
+
+    route_to_flash:
+      keywords:
+        - "executar"
+        - "implementar"
+        - "ticket *"
+        - "corrigir"
+        - "fazer"
+        - "codificar"
+        - "NC-DS-*"
+        - "testar"
+        - "deploy"
+        - "commit"
+        - "PR"
+        - "fix"
+        - "refatorar"
+      description: "Entradas diretas/executórias → FLASH"
+      confidence_threshold: 0.7
+
+    # Mapeamento por Domínio DDD
+    domain_routing:
+      pro_domains:
+        - "architecture"
+        - "governance"
+        - "security"
+        - "refinement"
+      flash_domains:
+        - "development"
+        - "testing"
+        - "utility"
+        - "documentation"
+
+    compound_flow:
+      description: >
+        Ticket recém-criado (sem plano associado):
+        PRO planeja → gera task card → cria sub-tickets → FLASH executa
+      trigger: "NC-DS-NNN sem mermaid nem acceptance_criteria"
+      steps:
+        - "PRO: analisar requisitos do ticket"
+        - "PRO: gerar plano (task card YAML)"
+        - "PRO: criar sub-tickets se necessário"
+        - "Profile Router: marcar ticket como 'planned'"
+        - "FLASH: executar ticket já planejado"
+
+    ambiguous_handling:
+      description: "Entrada ambígua → PRO decide roteamento (meta-planejamento)"
+      trigger: "confidence < 0.7 para ambos os perfis"
+      action: "rotear para PRO com instrução de classificar a intenção primeiro"
+
+  default_profile: "pro"  # quando não consegue classificar
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 4. MAPA DE DECISÃO — Profile Router
+# ─────────────────────────────────────────────────────────────────────────────
+decision_matrix:
+  # [origem] → [destino] → [ação]
+  - from: "ticket_novo"
+    to: "pro"
+    action: "planejar"
+  - from: "ticket_planejado"
+    to: "flash"
+    action: "executar"
+  - from: "pergunta_arquitetura"
+    to: "pro"
+    action: "deliberar"
+  - from: "bug_conhecido"
+    to: "flash"
+    action: "corrigir"
+  - from: "duvida_rota"
+    to: "pro"
+    action: "classificar_intencao"
+  - from: "task_card_yaml"
+    to: "flash"
+    action: "expandir_yaml_para_ticket"
+  - from: "handoff_T2_T3"
+    to: "flash"
+    action: "executar_como_worker"
+  - from: "code_review"
+    to: "pro"
+    action: "revisar"
+  - from: "emergencia_rollback"
+    to: "pro"
+    action: "avaliar_impacto"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 5. PIPELINE 3-ESTÁGIOS (referência)
+# ─────────────────────────────────────────────────────────────────────────────
+pipeline_3_estagios:
+  estagio_1:
+    perfil: "PRO"
+    ator: "T0 / Claude Pro (DeepSeek-Reasoner)"
+    entrada: "intenção do usuário / problema"
+    saída: "task card YAML"
+    descricao: "Debate com usuário, exploração, planejamento"
+    ferramenta_chave: "neocortex_tickets"
+
+  estagio_2:
+    perfil: "FLASH (ticket expansion)"
+    ator: "DeepSeek v4 Chat via LiteLLM :4000"
+    entrada: "task card YAML"
+    saída: "ticket NC-DS-NNN completo"
+    descricao: "Expande task card em YAML de ticket com estimativas, referências, ACs"
+    ferramenta_chave: "neocortex_handoff → PicoClaw"
+
+  estagio_3:
+    perfil: "FLASH (execução)"
+    ator: "Qwen 2.5 Coder via Ollama :11434"
+    entrada: "ticket NC-DS-NNN"
+    saída: "código + testes + validação"
+    descricao: "Implementação direta sem deliberação"
+    ferramenta_chave: "PicoClaw dispatches para Qwen worker"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 6. CHANGELOG
+# ─────────────────────────────────────────────────────────────────────────────
+changelog:
+  - date: "2026-04-26"
+    version: "4.0"
+    author: "T0 + NC-DIAG-GOV-001"
+    changes:
+      - "Criação inicial dos perfis PRO, FLASH, AUTO"
+      - "Definição de pipeline 3-estágios com LiteLLM + PicoClaw + Ollama"
+      - "Matriz de decisão para Profile Router"
+      - "Regras de roteamento automático por intenção"
+      - "Mapeamento de recursos, limites e mentor mode por perfil"

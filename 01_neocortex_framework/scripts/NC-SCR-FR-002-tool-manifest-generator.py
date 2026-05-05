@@ -7,6 +7,28 @@ _genealogy:
   version: '1.0'
 topology: neocortex-other
 level: 0
+parent_ssot: NC-TLM-FR-001-tool-manifest-
+---
+"""
+
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:24:01.612561'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+parent_ssot: NC-TLM-FR-001-tool-manifest-
+---
+"""
+
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:24:01.612561'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
 parent_ssot: NC-TLM-FR-001-tool-manifest-schema
 related_ssot:
   - NC-TLM-FR-001-tool-manifest

@@ -1,0 +1,64 @@
+# NC-DS-201-openclaude-deepseek-gateway
+# Handoff: Gateway DeepSeek Reasoner concluído
+# Data: 2026-04-26
+# Agente: antigravity
+
+handoff:
+  id: "NC-DS-201"
+  title: "DeepSeek Reasoner Gateway - Proxy exclusivo"
+  status: "COMPLETED"
+  ts: "2026-04-26T00:30:00"
+
+validation:
+  gateway_health:
+    endpoint: "http://localhost:4001/health"
+    result: '{"status":"healthy","model":"deepseek-reasoner"}'
+    status: "PASSED"
+
+  gateway_models:
+    endpoint: "http://localhost:4001/v1/models"
+    result: "Apenas deepseek-reasoner listado"
+    status: "PASSED"
+
+  block_flash:
+    test: "POST model=deepseek-chat"
+    result: "HTTP 403 MODEL BLOCKED"
+    status: "PASSED"
+
+  block_other:
+    test: "POST model=gpt-4"
+    result: "HTTP 403 MODEL BLOCKED"
+    status: "PASSED"
+
+  full_chain:
+    test: "POST model=deepseek-reasoner → DeepSeek API"
+    result: "HTTP 200, 43 tokens (13 prompt + 30 completion)"
+    status: "PASSED"
+
+  profile_redirect:
+    test: "Antigravity .openclaude-profile.json"
+    result: "Agora aponta para http://localhost:4001/v1"
+    status: "PASSED"
+
+  flash_by_default:
+    test: "Requisição SEM modelo (default)"
+    result: "Tratado como deepseek-reasoner graças ao hardcode"
+    status: "PASSED"
+
+artifacts_created:
+  - "01_neocortex_framework/DIR-MCP-FR-001-mcp-server/NC-SVC-FR-102-deepseek-gateway.py"
+  - "01_neocortex_framework/scripts/NC-SCR-FR-161-start-neocortex-stack.ps1"
+  - "DIR-DS-001-tickets/NC-DS-201-openclaude-deepseek-gateway.yaml"
+  - "iniciar_stack.bat"
+
+artifacts_modified:
+  - "C:/Users/Lucas Valério/.gemini/antigravity/brain/.openclaude-profile.json"
+  - "DIR-BOOT-FR-001-bootup-main/NC-BOOT-FR-001-system-manifest.md"
+  - "01_neocortex_framework/.neocortex/guardian_state.json"
+
+conclusion: |
+  ✅ NC-DS-201 COMPLETO.
+  Gateway exclusivo deepseek-reasoner operando em :4001.
+  Perfil do Antigravity redirecionado.
+  0% de chance de vazamento para Flash.
+  Ticket 201 fechado.

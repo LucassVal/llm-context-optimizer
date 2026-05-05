@@ -1,17 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:58.232866'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-parent_ssot: NC-CFG-FR-004-project-loader
-tags:
-  - neocortex-other
-  - level-0
-  - nc-prefix
-  - python
----"""
+@Module NC-CFG-FR-004-project-loader mcp _genealogy:   injected_at: '2026-04-16T00:23:58.23
+---
+"""
+
+
 """
 NC-CFG-FR-004-project-loader.py
 FR-004  ProjectConfigLoader: Hierarchical configuration loader with .nc/config.yaml support.

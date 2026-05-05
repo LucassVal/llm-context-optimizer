@@ -1,0 +1,4 @@
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\components\Messages.tsx
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\tools\BriefTool\attachments.ts
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\tools\ToolSearchTool\prompt.ts
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\utils\transcriptSearch.ts

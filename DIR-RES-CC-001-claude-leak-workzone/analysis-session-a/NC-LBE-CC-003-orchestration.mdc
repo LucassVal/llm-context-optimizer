@@ -1,0 +1,171 @@
+---
+alwaysApply: false
+description: "Claude Code Leak  Orchestration Architecture (coordinator, autoDream, tasks)."
+---
+
+# NC-LBE-CC-003  Claude Code Orchestration Architecture
+
+**Source:** `freecode/src/coordinator/`, `freecode/src/services/autoDream/`, `freecode/src/tasks/`  
+**Analysis date:** 2026-04-12  
+**Analyst:** T1 (DeepSeek)  
+**Ticket:** NC-DS-008 / CC-001-A  
+
+---
+
+## 1. Viso Geral da Orquestrao
+
+### 1.1 Componentes
+| Componente | Localizao | Responsabilidade |
+|------------|-------------|------------------|
+| **Coordinator Mode** | `coordinator/coordinatorMode.ts` (369 linhas) | Modo coordenador multiworker, gesto de workers, context sharing. |
+| **AutoDream** | `services/autoDream/` (4 arquivos) | Consolidao automtica de memria (background memory consolidation). |
+| **Tasks** | `tasks/` (12 arquivos) | Gesto de tasks assncronas, incluindo `DreamTask`. |
+| **Assistant** | `assistant/` (2 arquivos) | Base KAIROS, escolha de sesso. |
+| **Services** | `services/` (140 arquivos) | Servios de fundo: compact, contextCollapse, extractMemories, etc. |
+
+### 1.2 Princpios de Design
+- **Coordinator vs Workers**  coordinator orquestra, workers executam.
+- **Autoconsolidao**  memrias so consolidadas em background quando gatilhos so atingidos.
+- **Taskbased**  tasks assncronas com estado (registered, added, completed, failed).
+- **Isolamento de contexto**  workers tm seu prprio contexto, mas podem compartilhar via scratchpad.
+
+---
+
+## 2. Coordinator Mode (`coordinatorMode.ts`)
+
+### 2.1 Deteco do Modo
+- **Varivel de ambiente:** `CLAUDE_CODE_COORDINATOR_MODE=1`
+- **Feature flag:** `feature('COORDINATOR_MODE')`
+- **Funo:** `isCoordinatorMode()` retorna `true` se ambos habilitados.
+
+### 2.2 Sincronizao de Sesso
+- `matchSessionMode(sessionMode)`  ajusta a varivel de ambiente para match com sesso restaurada.
+- **Log event:** `tengu_coordinator_mode_switched`.
+
+### 2.3 Contexto do Usurio (Worker Tools)
+- `getCoordinatorUserContext(mcpClients, scratchpadDir)`  retorna string com:
+  - **Lista de tools disponveis para workers** (filtered `ASYNC_AGENT_ALLOWED_TOOLS`).
+  - **MCP tools** de servidores conectados.
+  - **Scratchpad directory** (se habilitado)  workers podem ler/escrever sem prompts de permisso.
+
+### 2.4 System Prompt do Coordinator
+- **Role:** "You are Claude Code, an AI assistant that orchestrates software engineering tasks across multiple workers."
+- **Responsabilidades:**
+  1. Ajudar o usurio a alcanar o objetivo.
+  2. Direcionar workers para pesquisar, implementar e verificar mudanas de cdigo.
+  3. Sintetizar resultados e comunicar com o usurio.
+  4. Responder diretamente quando possvel  no delegar trabalho que pode fazer sem tools.
+- **Tools:**
+  - `AgentTool`  spawna novo worker.
+  - `SendMessageTool`  continua worker existente (send followup to its `to` agent ID).
+  - `TaskStopTool`  para um worker em execuo.
+  - `subscribe_pr_activity` / `unsubscribe_pr_activity`  subscribe a eventos de PR GitHub (no delegar).
+- **Worker results** chegam como mensagens de usurio com `<task-notification>` XML.
+
+### 2.5 Fluxo de Trabalho
+1. **Coordinator** recebe prompt do usurio.
+2. **Coordinator** decide delegar tarefas a workers.
+3. **Coordinator** chama `AgentTool` com `subagent_type: worker`.
+4. **Worker** executa autonomamente, notifica coordinator via `<task-notification>`.
+5. **Coordinator** resume worker com `SendMessageTool` se necessrio.
+6. **Coordinator** sintetiza resultados para o usurio.
+
+---
+
+## 3. AutoDream (`services/autoDream/`)
+
+### 3.1 Objetivo
+- **Consolidao automtica de memria**  funde transcries de sesses recentes em memrias estruturadas.
+- **Gatilho:** quando timegate e sessiongate so atingidos, e lock est livre.
+
+### 3.2 Arquivos
+| Arquivo | Responsabilidade |
+|---------|------------------|
+| `autoDream.ts` (324 linhas) | Lgica principal, gates, fork do subagent `/dream`. |
+| `config.ts` | Configurao de habilitao (`isAutoDreamEnabled`). |
+| `consolidationLock.ts` | Lock de consolidao (evita mltiplas execues concorrentes). |
+| `consolidationPrompt.ts` | Prompt de consolidao (`/dream`). |
+
+### 3.3 As 3 Portas (Gates)
+**Ordem (cheapest first):**
+
+1. **Timegate**  horas desde `lastConsolidatedAt` >= `minHours` (default 24h).
+2. **Sessiongate**  nmero de transcries com `mtime > lastConsolidatedAt` >= `minSessions` (default 5).
+3. **Lockgate**  nenhum outro processo em meio  consolidao (`tryAcquireConsolidationLock`).
+
+### 3.4 Fluxo de Consolidao
+1. **Inicializao**  `initAutoDream()` escaneia a cada `SESSION_SCAN_INTERVAL_MS` (10 minutos).
+2. **Checagem de gates**  se timegate e sessiongate passam, tenta adquirir lock.
+3. **Fork do subagent**  `runForkedAgent()` com prompt `/dream`.
+4. **Prompt de consolidao**  `buildConsolidationPrompt(sessions)`.
+5. **Escrita de memria**  subagent usa `FileEditTool`/`FileWriteTool` para salvar memrias no diretrio `autoMemPath`.
+6. **Atualizao de estado**  `readLastConsolidatedAt` atualizado, lock liberado.
+
+### 3.5 Task Integration
+- `DreamTask`  task assncrona registrada via `registerDreamTask`, com turns adicionados via `addDreamTurn`, completada via `completeDreamTask` ou falha via `failDreamTask`.
+- **Verificao:** `isDreamTask(task)`.
+
+---
+
+## 4. Tasks (`tasks/`)
+
+### 4.1 DreamTask (`tasks/DreamTask/`)
+- **Estado:** `registered`, `added`, `completed`, `failed`.
+- **Mtodos:** `registerDreamTask`, `addDreamTurn`, `completeDreamTask`, `failDreamTask`.
+- **Propsito:** rastrear a execuo do autoDream como task assncrona.
+
+### 4.2 Outras Tasks (12 arquivos)
+- **Tipos:** tasks genricas para operaes de background.
+- **Integrao** com coordinator e workers.
+
+---
+
+## 5. Assistant (`assistant/`)
+
+### 5.1 KAIROS Base
+- **Arquivos:** `AssistantSessionChooser.tsx`, `sessionHistory.ts`.
+- **Responsabilidade:** escolha de sesso, histrico.
+
+### 5.2 Integrao com Coordinator
+- O coordinator pode usar o assistant para gerenciar sesses de workers.
+
+---
+
+## 6. Comparao com NeoCortex
+
+### 6.1 Mapeamento Conceitual
+| Conceito Claude Code | Equivalente NeoCortex | Diferenas |
+|----------------------|-----------------------|------------|
+| `Coordinator Mode` | `NCTOOLFR023orchestration.py` | NeoCortex tem orchestration via MCP + A2A + Gateway, no via workers com AgentTool. |
+| `AgentTool` (spawn worker) | `NCTOOLFR023orchestration.py` (agent.spawn) | NeoCortex spawna subagentes via MCP, no via tool interna. |
+| `AutoDream` (memory consolidation) | `NCTOOLFR021memory.py` (manifest.generate_all) | NeoCortex gera manifestos, no consolida transcries automaticamente. |
+| `DreamTask` | `NCTOOLFR023orchestration.py` (task.*) | NeoCortex gerencia tasks via orchestration tool. |
+| `Scratchpad directory` | `DIRTMPFR001templatesmain/` | NeoCortex usa lobes isolados por agente, no scratchpad compartilhado. |
+
+### 6.2 Lies para NeoCortex
+- **Coordinator pattern**  separao clara entre orquestrador e executores (T0 vs T1).
+- **Autoconsolidao**  gatilhos baseados em tempo e volume de sesses.
+- **Task tracking**  tasks assncronas com estado registrado.
+- **Scratchpad compartilhado**  rea de escrita crossworker para conhecimento durvel.
+
+---
+
+## 7. Perguntas Abertas
+
+1. **Como os workers so isolados?**  `forkSubagent.ts` e `runAgent.ts` precisam ser analisados.
+2. **Qual a estrutura do `<task-notification>` XML?**  detalhes de campos.
+3. **Como o coordinator lida com failures de workers?**  retry, fallback.
+4. **Integrao com MCP**  `mcpClients` no contexto do coordinator.
+
+---
+
+## 8. Prximos Passos (Fase 3)
+
+1. Analisar `freecode/src/tools/forkSubagent.ts` e `runAgent.ts`.
+2. Extrair schema completo do `<task-notification>`.
+3. Investigar `freecode/src/services/` restantes (compact, contextCollapse, extractMemories).
+4. Mapear integrao com MCP (`mcp/`).
+
+---
+
+**Status:** Anlise preliminar da orquestrao concluda. Foco agora em isolamento de workers e integrao MCP.

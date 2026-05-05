@@ -1,0 +1,27 @@
+{
+  "_meta": {
+    "generated_at": "2026-04-30T10:00:00Z",
+    "version": "2.0",
+    "source": "@ULQ → symbols_hash → super_tools_mcp",
+    "description": "MCP Tools Inventory — 17 tools mapeadas com simbolo # ULQ correspondente"
+  },
+  "tools": [
+    { "tool": "neocortex_governance",      "ulq": "#GOV",    "actions": ["audit.full","submit","kpi.report","compliance.gaps","compliance.fix","bsc.report","swot.analyze","rule.list","policy.check","rca.analyze","yaml.validate","mdc.validate","secret.scan","deadcode.scan","integrity.full","hitl.list","hitl.approve","hitl.reject","red_team.assault","ai.audit","resiliency.audit","model_cards.generate","catalog.refresh","naming.check","ssot.diff","cycle.check","ticket.create","ticket.list","ticket.close","roadmap.done","handoff.create","handoff.list","bootup.sync","cf.status","cf.pre_check","cf.audit","cf.stj","cf.tj","cf.forum","plebiscito","emergency.mp","mp.audit","tcu.audit","nota.tecnica","cpc.process"], "gateway_wired": true },
+    { "tool": "neocortex_orchestration",    "ulq": "#ORCH",   "actions": ["task.execute","task.list","task.cancel","task.status","agent.spawn","agent.heartbeat","agent.consume","agent.list","dispatch.create","dispatch.status","workers.spawn","workers.status"], "gateway_wired": true },
+    { "tool": "neocortex_memory",           "ulq": "#MEM",    "actions": ["cortex.get","cortex.update","cortex.reset","lobe.list","lobe.get","lobe.activate","lobe.search","knowledge.search","knowledge.store","manifest.generate","manifest.list","search.advanced"], "gateway_wired": true },
+    { "tool": "neocortex_state",            "ulq": "#STATE",  "actions": ["checkpoint.get","checkpoint.set","checkpoint.list","regression.check","regression.baseline","savepoint.create","savepoint.list","savepoint.rollback","session.start","session.end","session.status","session.heartbeat","ledger.read","ledger.update","ledger.stats"], "gateway_wired": true },
+    { "tool": "neocortex_llm_router",       "ulq": "#LLM",    "actions": ["gateway.health","gateway.start","gateway.stop","gateway.models","route.call","ollama.ask","ollama.list","ollama.pull","budget.status","workers.spawn","workers.status"], "gateway_wired": false },
+    { "tool": "neocortex_system",           "ulq": "#SYS",    "actions": ["config.get","config.set","config.list","pulse.status","pulse.start","pulse.stop","pulse.schedule_custom","health.agent","health.full","health.tools_count","system.diagnostics","system.env_check","export.snapshot","export.list","init.workspace"], "gateway_wired": true },
+    { "tool": "neocortex_brain",            "ulq": "#BRAIN",  "actions": ["brain.think","brain.plan","brain.critique","brain.orchestrate","intelligence.query","intelligence.synthesize"], "gateway_wired": true },
+    { "tool": "neocortex_context",          "ulq": "#CTX",    "actions": ["context.budget_status","context.compress","context.prune","session.summarize","session.hot","report.generate","report.list","report.compliance"], "gateway_wired": true },
+    { "tool": "neocortex_security",         "ulq": "#SEC",    "actions": ["access.validate","lock.check","lock.list","hook.register","hook.trigger","hook.list","hook.remove","audit.log_event","auth.issue_token"], "gateway_wired": true },
+    { "tool": "neocortex_benchmark",        "ulq": "#BENCH",  "actions": ["run.drift","run.titanomachy","run.omni","benchmark.last_report","benchmark.status"], "gateway_wired": true },
+    { "tool": "neocortex_notification",     "ulq": "#NOTIF",  "actions": ["push.send","push.list","push.clear","peers.discover","peers.sync","peers.list","peers.heartbeat"], "gateway_wired": true },
+    { "tool": "neocortex_akl",              "ulq": "#AKL_TOOL","actions": ["akl.add","akl.search","akl.export","kg.query","kg.enrich","kg.stats","consolidate.session","consolidate.run"], "gateway_wired": true },
+    { "tool": "neocortex_health",           "ulq": "#HEALTH", "actions": ["server.health","server.tools_count","log.errors","log.search","metrics.live","metrics.tool_stats","watchdog.start","watchdog.status"], "gateway_wired": true },
+    { "tool": "neocortex_ledger",           "ulq": "#LEDGER", "actions": ["ledger.read","ledger.write","ledger.stats","ledger.metrics","agent.register","agent.identity","agent.token_budget"], "gateway_wired": true },
+    { "tool": "neocortex_memory_auto",      "ulq": "#AUTO",   "actions": ["turn.record","session.hot","session.stats","session.end","lobe.auto","lobe.decay","catalog.now"], "gateway_wired": true },
+    { "tool": "neocortex_picoclaw",         "ulq": "#PICOCLAW","actions": ["picoclaw.start","picoclaw.stop","picoclaw.status","picoclaw.publish","picoclaw.poll","picoclaw.dispatch","picoclaw.task_status","picoclaw.llm_call","picoclaw.mmap_write","picoclaw.mmap_read"], "gateway_wired": false },
+    { "tool": "neocortex_vscode",           "ulq": "#VSCODE", "actions": ["connect","file_tree","file_read","diagnostics","active_editor","git_status","git_diff","terminal_exec","workspace_folders","deepseek_balance"], "gateway_wired": false }
+  ]
+}

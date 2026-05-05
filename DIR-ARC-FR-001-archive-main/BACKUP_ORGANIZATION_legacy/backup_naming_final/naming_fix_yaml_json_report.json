@@ -1,0 +1,94 @@
+{
+  "timestamp": "2026-04-22T16:13:34.614290Z",
+  "operation": "yaml_json_files_naming_fix",
+  "summary": {
+    "total_files_analyzed": 20,
+    "yaml_files_to_rename": 1,
+    "yaml_files_to_keep": 9,
+    "json_files_to_rename": 4,
+    "json_files_to_keep": 6,
+    "successful_renames": 2,
+    "failed_renames": 0,
+    "skipped_renames": 3,
+    "completion_rate": "40.0%"
+  },
+  "renamed_files": [
+    {
+      "old": "picoclaw-autoloader-config.yaml",
+      "new": "NC-CFG-AUT-22161334-autoloader-config.yaml",
+      "type": "YAML"
+    },
+    {
+      "old": "governance_audit_report.json",
+      "new": "NC-RPT-SYS-22161334-system-report.json",
+      "type": "JSON"
+    }
+  ],
+  "yaml_files_kept": [
+    {
+      "name": ".pre-commit-config.yaml",
+      "reason": "Arquivo crítico - configuração de pre-commit"
+    },
+    {
+      "name": "NC-DS-117-audit-completion.yaml",
+      "reason": "Já segue padrão NC-"
+    },
+    {
+      "name": "NC-DS-118-fix-f841-metrics-store.yaml",
+      "reason": "Já segue padrão NC-"
+    },
+    {
+      "name": "NC-DS-119-execution-result.yaml",
+      "reason": "Já segue padrão NC-"
+    },
+    {
+      "name": "NC-DS-119-picoclaw-integration-test.yaml",
+      "reason": "Já segue padrão NC-"
+    },
+    {
+      "name": "NC-DS-120-picoclaw-tool-autoloader.yaml",
+      "reason": "Já segue padrão NC-"
+    },
+    {
+      "name": "NC-DS-121-completion.yaml",
+      "reason": "Já segue padrão NC-"
+    },
+    {
+      "name": "NC-DS-121-lexico-hook-boot-loader.yaml",
+      "reason": "Já segue padrão NC-"
+    },
+    {
+      "name": "NC-TODO-FR-001-roadmap.yaml",
+      "reason": "Já segue padrão NC-"
+    }
+  ],
+  "json_files_kept": [
+    {
+      "name": "naming_conflicts_fix_report.json",
+      "reason": "Relatório de naming convention - manter nome original"
+    },
+    {
+      "name": "naming_convention_analysis_report.json",
+      "reason": "Relatório de naming convention - manter nome original"
+    },
+    {
+      "name": "naming_convention_analysis_report_v2.json",
+      "reason": "Relatório de naming convention - manter nome original"
+    },
+    {
+      "name": "naming_convention_analysis_report_v3.json",
+      "reason": "Relatório de naming convention - manter nome original"
+    },
+    {
+      "name": "naming_fix_python_auto_report.json",
+      "reason": "Relatório de naming convention - manter nome original"
+    },
+    {
+      "name": "opencode.json",
+      "reason": "Arquivo crítico - configuração do OpenCode"
+    }
+  ],
+  "backup_created": true,
+  "backup_location": "C:\\Users\\Lucas Valério\\.gemini\\antigravity\\brain\\backup_naming_yaml_json",
+  "notes": "Fase 2: Configurações YAML e Relatórios JSON"
+}

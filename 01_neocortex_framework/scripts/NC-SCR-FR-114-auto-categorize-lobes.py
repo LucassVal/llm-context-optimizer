@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+"""---
+NC-SCR-FR-114 — NC-DS-148: Auto-Categorização de Lobes com Qwen 1.5b
+---
+"""
+
+"""---
+NC-SCR-FR-114 — NC-DS-148: Auto-Categorização de Lobes com Qwen 1.5b
+---
+"""
+
 """
 NC-SCR-FR-114 — NC-DS-148: Auto-Categorização de Lobes com Qwen 1.5b
 Usa Ollama local para categorizar e enriquecer metadados dos arquivos .mdc.

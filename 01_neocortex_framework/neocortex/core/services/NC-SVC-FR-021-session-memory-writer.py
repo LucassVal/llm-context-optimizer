@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+"""---
+NC-SVC-FR-021 — SessionMemoryWriter
+---
+"""
+
+"""---
+NC-SVC-FR-021 — SessionMemoryWriter
+---
+"""
+
 """
 NC-SVC-FR-021 — SessionMemoryWriter
 Registra turnos de conversa em session-log.jsonl e mantém hot_summary.

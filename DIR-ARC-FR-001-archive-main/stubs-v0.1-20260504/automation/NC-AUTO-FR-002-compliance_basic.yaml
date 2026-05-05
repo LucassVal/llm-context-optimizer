@@ -1,0 +1,196 @@
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC AUTO FR 002 compliance_basic
+# Why:  Criado em 2026-04-22 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/automation/NC-AUTO-FR-002-compliance_basic.yaml
+
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC AUTO FR 002 compliance_basic
+# Why:  Criado em 2026-04-22 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/automation/NC-AUTO-FR-002-compliance_basic.yaml
+
+# NEOCORTEX COMPLIANCE AUTOMATION v0.3
+# Data: 2026-04-22
+# Status: IMPLEMENTADO
+# Automação de compliance para 30 regras
+
+automation_config:
+  name: "Compliance Automation System"
+  version: "v0.3"
+  scope: "30 governance rules"
+  frequency: "Per cycle (4x daily)"
+  trigger: "Cycle completion or manual request"
+
+workflow:
+  step_1_initiation:
+    trigger: "Cycle completion or cf.audit call"
+    action: "neocortex_governance.cf.audit"
+    parameters: "{}"
+    expected_output: "Compliance report"
+
+  step_2_analysis:
+    tool: "neocortex_governance.compliance.report"
+    analysis:
+      - "Calculate compliance score"
+      - "Identify rule violations"
+      - "Check automation status"
+    output: "Structured compliance data"
+
+  step_3_violation_handling:
+    condition: "If violations found"
+    actions:
+      - "neocortex_governance.violation.log"
+      - "neocortex_notification.push.send"
+    parameters:
+      violation_log: "Auto-generated from audit"
+      notification_level: "WARNING or ERROR"
+
+  step_4_reporting:
+    tool: "neocortex_context.report.generate"
+    format: "markdown"
+    sections:
+      - "Executive Summary"
+      - "Compliance Score"
+      - "Rule Violations"
+      - "Automation Status"
+      - "Recommendations"
+    output_path: "DIR-DS-002-audit-logs/compliance-reports/"
+
+  step_5_escalation:
+    condition: "Critical violations (score < 80%)"
+    actions:
+      - "neocortex_notification.push.send (level: CRITICAL)"
+      - "neocortex_governance.ticket.create"
+    parameters:
+      ticket_priority: "HIGH"
+      notification_channel: "system"
+
+integration_points:
+  with_governance:
+    - "cf.audit for rule checking"
+    - "compliance.report for analysis"
+    - "violation.log for tracking"
+    - "ticket.create for issue tracking"
+
+  with_monitoring:
+    - "neocortex_health.server.health"
+    - "neocortex_system.pulse.status"
+    - "neocortex_health.metrics.live"
+
+  with_memory:
+    - "neocortex_memory.cortex.get (for historical data)"
+    - "neocortex_memory_auto.turn.record (for audit trail)"
+
+automation_rules:
+  rule_R23_automation:
+    rule_id: "R23"
+    automation_level: "FULL"
+    checks:
+      - "Verify cf.audit is called automatically"
+      - "Verify compliance.report is generated"
+      - "Verify violation.log is updated"
+    frequency: "Per cycle"
+
+  integration_checks:
+    - "Memory-State-Ledger synchronization"
+    - "Handoff file completeness"
+    - "Backup checkpoint existence"
+    - "Health monitoring status"
+
+scheduled_tasks:
+  daily_compliance_audit:
+    time: "00:00, 06:00, 12:00, 18:00"
+    action: "neocortex_governance.cf.audit"
+    duration: "5 minutes"
+    priority: "HIGH"
+
+  weekly_compliance_report:
+    day: "Monday"
+    time: "09:00"
+    action: "neocortex_context.report.generate"
+    parameters: "weekly_summary: true"
+    output: "Weekly Compliance Report"
+
+  monthly_constitution_review:
+    day: "1st of month"
+    time: "10:00"
+    action: "neocortex_governance.cf.audit"
+    parameters: "deep_audit: true"
+    output: "Monthly Constitutional Review"
+
+alerting_config:
+  compliance_score_alerts:
+    warning: "< 90%"
+    error: "< 80%"
+    critical: "< 70%"
+
+  rule_violation_alerts:
+    new_violation: "Immediate notification"
+    repeated_violation: "Escalated notification"
+    critical_rule_violation: "T0 notification"
+
+  system_integration_alerts:
+    memory_state_desync: "WARNING"
+    ledger_inconsistency: "ERROR"
+    handoff_missing: "WARNING"
+
+implementation_status:
+  automation_active: true
+  rules_covered: 30
+  integration_points: 8
+  last_run: "2026-04-22T09:29:00"
+  next_run: "2026-04-22T12:00:00"
+  success_rate: "100%"
+
+monitoring_dashboard:
+  metrics:
+    - "compliance_score"
+    - "rules_violated"
+    - "automation_success_rate"
+    - "audit_duration"
+    - "violation_resolution_time"
+
+  alerts:
+    - "Low compliance score"
+    - "Unresolved violations"
+    - "Automation failures"
+    - "Integration issues"
+
+backup_recovery:
+  configuration_backup:
+    frequency: "Daily"
+    retention: "7 days"
+    location: "DIR-BACKUP/compliance-automation/"
+
+  state_recovery:
+    recovery_point: "Last successful audit"
+    recovery_time: "< 10 minutes"
+    validation: "Post-recovery audit"
+
+testing_validation:
+  unit_tests:
+    - "Rule validation tests"
+    - "Integration point tests"
+    - "Alerting tests"
+
+  integration_tests:
+    - "End-to-end compliance workflow"
+    - "Failure recovery tests"
+    - "Performance under load"
+
+  validation_criteria:
+    - "100% rule coverage"
+    - "< 5 minute audit duration"
+    - "Real-time violation detection"
+    - "Automated reporting"
+
+maintenance:
+  daily: "Log rotation and cleanup"
+  weekly: "Report archiving"
+  monthly: "Rule review and update"
+  quarterly: "System optimization"
+
+signature:
+  implemented_by: "T0 Soberano"
+  implementation_date: "2026-04-22T09:29:00"
+  review_date: "2026-04-29"
+  status: "OPERATIONAL"

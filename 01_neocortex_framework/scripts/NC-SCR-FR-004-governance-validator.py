@@ -1,6 +1,28 @@
 #!/usr/bin/env python3
 
 # Fix encoding for Windows (UTF-8)
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:24:01.623184'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+parent_ssot: NC-NAM-FR-001-naming-convent
+---
+"""
+
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:24:01.623184'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+parent_ssot: NC-NAM-FR-001-naming-convent
+---
+"""
+
 if sys.platform == "win32":
     import io
     import sys
@@ -17,11 +39,11 @@ level: 0
 parent_ssot: NC-NAM-FR-001-naming-convention
 related_ssot:
   - NC-NAM-FR-001
-  - NC-NAM-FR-001a-tools-registry
-  - NC-NAM-FR-001c-config-registry
+  - NC-NAM-FR-001-tools-registry
+  - NC-NAM-FR-001-config-registry
   - NC-SCR-FR-004-governance-validator
-  - NC-NAM-FR-001b-lobes-registry
-  - NC-NAM-FR-001d-prompts-registry
+  - NC-NAM-FR-001-lobes-registry
+  - NC-NAM-FR-001-prompts-registry
   - NC-SCR-FR-004
 tags:
   - neocortex-other
@@ -91,10 +113,10 @@ def validate_registry_parity(config, verbose=False):
     master_file = docs_dir / "NC-NAM-FR-001-naming-convention.md"
 
     sub_registries = [
-        docs_dir / "NC-NAM-FR-001a-tools-registry.md",
-        docs_dir / "NC-NAM-FR-001b-lobes-registry.md",
-        docs_dir / "NC-NAM-FR-001c-config-registry.md",
-        docs_dir / "NC-NAM-FR-001d-prompts-registry.md",
+        docs_dir / "NC-NAM-FR-001-tools-registry.md",
+        docs_dir / "NC-NAM-FR-001-lobes-registry.md",
+        docs_dir / "NC-NAM-FR-001-config-registry.md",
+        docs_dir / "NC-NAM-FR-001-prompts-registry.md",
     ]
 
     results = {

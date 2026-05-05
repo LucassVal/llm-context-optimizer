@@ -1,0 +1,14 @@
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\commands.ts
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\main.tsx
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\bridge\bridgeEnabled.ts
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\commands\bridge\index.ts
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\components\PromptInput\PromptInputFooter.tsx
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\components\Settings\Config.tsx
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\entrypoints\cli.tsx
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\hooks\useCanUseTool.tsx
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\hooks\useReplBridge.tsx
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\screens\REPL.tsx
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\tools\BriefTool\attachments.ts
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\tools\BriefTool\upload.ts
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\tools\ConfigTool\supportedSettings.ts
+C:\Users\Lucas Valério\Desktop\CLAUDE_CODE_DISSECTION\free-code\src\utils\config.ts

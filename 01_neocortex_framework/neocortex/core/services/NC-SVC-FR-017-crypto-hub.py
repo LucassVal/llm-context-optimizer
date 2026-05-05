@@ -1,22 +1,9 @@
-"""
+"""---
 NC-SVC-FR-017-crypto-hub.py
-FR-017 — CryptoHub: Central de Criptografia Real (Fernet + MASTER_KEY).
-
-Substitui o stub 'simulated_aes256' de security_service.py com
-criptografia Fernet real derivada de NEOCORTEX_MASTER_KEY (env var).
-
-Recursos:
-  - encrypt(plaintext) → token Fernet, WAL-logged
-  - decrypt(token)     → plaintext, WAL-logged
-  - rotate_key()       → re-encripta tokens registrados
-  - scan_config()      → detecta campos !secret em YAML
-  - CLI               → encrypt / decrypt / scan-config / rotate-key
-
-Dependência: cryptography >= 42.0.0
-  pip install "cryptography>=42.0.0"
-
-NOTA: NÃO modifica security_service.py — escopo do NC-DS-093.
+---
 """
+
+
 
 from __future__ import annotations
 

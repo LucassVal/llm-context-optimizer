@@ -1,0 +1,27 @@
+status: PENDING_REVIEW
+ticket_id: NC-DS-256
+roadmap_ticket: FR-113  # Alinhado com a integração OpenCode/Bootup
+submitted_at: "2026-05-03T23:18:00"
+submitted_by: Antigravity-T0
+review_by: user-lucas
+reviewed_at: null
+
+summary:
+  files_created: ["DIR-DS-001-tickets/NC-DS-256-fix-opencode-lsp-config.yaml"]
+  files_modified: ["opencode.json"]
+  lines_added: 45
+  lines_removed: 25
+  validation_rounds: 2
+  barriers_passed: ["ConfigInvalidError resolved", "LSP extensions requirement met"]
+  locks_violated: []
+  cost_usd: 0.01
+  overall: SUCCESS
+
+diff_path: null
+
+t0_review:
+  compile_ok: true
+  naming_ok: true
+  ssot_updated: true
+  locks_clean: true
+  roadmap_done: true

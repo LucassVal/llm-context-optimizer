@@ -1,0 +1,29 @@
+{
+  "timestamp": "2026-04-22T16:14:56.520504Z",
+  "operation": "json_conflicts_fix",
+  "summary": {
+    "files_analyzed": 3,
+    "files_fixed": 3,
+    "files_failed": 0,
+    "completion_rate": "100.0%"
+  },
+  "fixed_files": [
+    {
+      "old_name": "metadata_audit_report.json",
+      "new_name": "NC-RPT-MTD-221614567362-metadata-audit.json",
+      "reason": "Relatório de auditoria de metadata"
+    },
+    {
+      "old_name": "ticket_fix_report.json",
+      "new_name": "NC-RPT-TKT-221614562426-ticket-fix.json",
+      "reason": "Relatório de correção de tickets"
+    },
+    {
+      "old_name": "ticket_sync_report.json",
+      "new_name": "NC-RPT-TKT-221614564149-ticket-sync.json",
+      "reason": "Relatório de sincronização de tickets"
+    }
+  ],
+  "backup_available": "C:\\Users\\Lucas Valério\\.gemini\\antigravity\\brain\\backup_naming_yaml_json",
+  "notes": "Correção de conflitos de naming convention para arquivos JSON"
+}

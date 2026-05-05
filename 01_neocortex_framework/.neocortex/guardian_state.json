@@ -1,0 +1,44 @@
+{
+  "cycle": 1,
+  "ts": "2026-04-25T23:58:00",
+  "health": {
+    "online": 3,
+    "total": 4,
+    "services": {
+      "neocortex_mcp": true,
+      "ollama_cuda": true,
+      "litellm": true,
+      "picoclaw": false
+    },
+    "alerts": [
+      {
+        "service": "picoclaw",
+        "port": 18790,
+        "diagnosis": "PicoClaw offline desde 2026-04-19. Verificar firewall ou reiniciar serviço."
+      }
+    ]
+  },
+  "semantic": {
+    "cycle": 1,
+    "catalog_refresh": "2026-04-25T23:55:46",
+    "total_py": 664,
+    "total_yaml": 523,
+    "akl_rules": 0,
+    "kg_entities": 27,
+    "kg_relations": 34
+  },
+  "integrations": {
+    "openclaude": "integrated",
+    "openclaude_path": "03_external_integrations/openclaude",
+    "openclaude_version": "2.0.0",
+    "mcp_server_port": 8765,
+    "mcp_server_status": "running"
+  },
+  "context": {
+    "auto_pause": false
+  },
+  "circuit_breakers": {
+    "breakers": 5,
+    "open": []
+  }
+}

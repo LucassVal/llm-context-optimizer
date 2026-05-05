@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+"""---
+Audit handoffs with T0 protocol (py_compile + ruff).
+---
+"""
+
+"""---
+Audit handoffs with T0 protocol (py_compile + ruff).
+---
+"""
+
 """
 Audit handoffs with T0 protocol (py_compile + ruff).
 """

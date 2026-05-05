@@ -1,0 +1,155 @@
+{
+  "timestamp": "2026-04-22T16:19:55.658763Z",
+  "operation": "final_naming_convention_fix",
+  "summary": {
+    "total_files_analyzed": 29,
+    "files_to_rename": 9,
+    "files_to_keep": 20,
+    "successful_renames": 9,
+    "failed_renames": 0,
+    "skipped_renames": 0,
+    "completion_rate": "100.0%",
+    "stats_by_type": {
+      "Genérico": {
+        "total": 8,
+        "renamed": 8
+      },
+      "Batch": {
+        "total": 1,
+        "renamed": 1
+      }
+    }
+  },
+  "renamed_files": [
+    {
+      "old": "naming_conflicts_fix_report.json",
+      "new": "NC-FIL-GEN-22161955-naming_conflicts_fix_report.json",
+      "type": "Genérico"
+    },
+    {
+      "old": "naming_convention_analysis_report.json",
+      "new": "NC-FIL-GEN-22161955-naming_convention_analysis_report.json",
+      "type": "Genérico"
+    },
+    {
+      "old": "naming_convention_analysis_report_v2.json",
+      "new": "NC-FIL-GEN-22161955-naming_convention_analysis_report_v2.json",
+      "type": "Genérico"
+    },
+    {
+      "old": "naming_convention_analysis_report_v3.json",
+      "new": "NC-FIL-GEN-22161955-naming_convention_analysis_report_v3.json",
+      "type": "Genérico"
+    },
+    {
+      "old": "naming_fix_md_report.json",
+      "new": "NC-FIL-GEN-22161955-naming_fix_md_report.json",
+      "type": "Genérico"
+    },
+    {
+      "old": "naming_fix_python_auto_report.json",
+      "new": "NC-FIL-GEN-22161955-naming_fix_python_auto_report.json",
+      "type": "Genérico"
+    },
+    {
+      "old": "naming_fix_yaml_json_report.json",
+      "new": "NC-FIL-GEN-22161955-naming_fix_yaml_json_report.json",
+      "type": "Genérico"
+    },
+    {
+      "old": "naming_json_conflicts_fix_report.json",
+      "new": "NC-FIL-GEN-22161955-naming_json_conflicts_fix_report.json",
+      "type": "Genérico"
+    },
+    {
+      "old": "validate_daily.bat",
+      "new": "NC-SCR-BAT-22161955-validate_daily.bat",
+      "type": "Batch"
+    }
+  ],
+  "files_kept": [
+    {
+      "name": ".pre-commit-config.yaml",
+      "reason": "Arquivo crítico - manter nome original"
+    },
+    {
+      "name": "analyze_naming_simple.py",
+      "reason": "Arquivo crítico - manter nome original"
+    },
+    {
+      "name": "apply_naming_final.py",
+      "reason": "Arquivo crítico - manter nome original"
+    },
+    {
+      "name": "apply_naming_fix_auto.py",
+      "reason": "Arquivo crítico - manter nome original"
+    },
+    {
+      "name": "apply_naming_fix_safe.py",
+      "reason": "Arquivo crítico - manter nome original"
+    },
+    {
+      "name": "apply_naming_md.py",
+      "reason": "Arquivo crítico - manter nome original"
+    },
+    {
+      "name": "apply_naming_yaml_json.py",
+      "reason": "Arquivo crítico - manter nome original"
+    },
+    {
+      "name": "C_Temp_chk121.py",
+      "reason": "Arquivo temporário - manter nome original"
+    },
+    {
+      "name": "C_Temp_imp121.py",
+      "reason": "Arquivo temporário - manter nome original"
+    },
+    {
+      "name": "C_Temp_run121.py",
+      "reason": "Arquivo temporário - manter nome original"
+    },
+    {
+      "name": "fix_json_conflicts.py",
+      "reason": "Arquivo crítico - manter nome original"
+    },
+    {
+      "name": "fix_tickets_yaml.py",
+      "reason": "Arquivo crítico - manter nome original"
+    },
+    {
+      "name": "opencode.json",
+      "reason": "Arquivo crítico - manter nome original"
+    },
+    {
+      "name": "pre_commit_hook.py",
+      "reason": "Arquivo crítico - manter nome original"
+    },
+    {
+      "name": "safe_naming_fix.py",
+      "reason": "Arquivo crítico - manter nome original"
+    },
+    {
+      "name": "safe_naming_fix_v2.py",
+      "reason": "Arquivo crítico - manter nome original"
+    },
+    {
+      "name": "safe_naming_fix_v3.py",
+      "reason": "Arquivo crítico - manter nome original"
+    },
+    {
+      "name": "test_mcp_http.py",
+      "reason": "Arquivo crítico - manter nome original"
+    },
+    {
+      "name": "test_sanitization.py",
+      "reason": "Arquivo crítico - manter nome original"
+    },
+    {
+      "name": "validate_yaml.py",
+      "reason": "Arquivo crítico - manter nome original"
+    }
+  ],
+  "backup_created": true,
+  "backup_location": "C:\\Users\\Lucas Valério\\.gemini\\antigravity\\brain\\backup_naming_final",
+  "notes": "Fase Final: Arquivos restantes (Batch, Texto, etc.)"
+}

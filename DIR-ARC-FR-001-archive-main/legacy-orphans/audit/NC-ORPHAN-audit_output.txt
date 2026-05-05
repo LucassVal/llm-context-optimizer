@@ -1,0 +1,123 @@
+======================================================================
+AUDIT GOVERNANÇA/SSOT (prioridade crítica)
+======================================================================
+OK       | 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.yaml
+OK       | 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml
+OK       | 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-CFG-FR-002-rules-policy.yaml
+OK       | 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-002-ticket-lifecycle.yaml
+OK       | 01_neocortex_framework/DIR-CFG-FR-001-config-main/neocortex_config.yaml
+OK       | 01_neocortex_framework/DIR-CFG-FR-001-config-main/neocortex_config_dev.yaml
+
+======================================================================
+VARREDURA COMPLETA DE YAMLs
+======================================================================
+YAMLs verificados: 491 | OK: 461 | ERROS: 30
+
+Arquivos com erro:
+  ERROR | 01_neocortex_framework\DIR-DOC-FR-001-docs-main\NC-CFG-FR-001-agent-policy-template.yaml
+        | expected a single document in the stream
+  ERROR | 01_neocortex_framework\DIR-DOC-FR-001-docs-main\NC-GOV-FR-005-governance-ecosystem.yaml
+        | expected a single document in the stream
+  ERROR | 01_neocortex_framework\DIR-DS-002-audit-logs\NC-HANDOFF-FR-021-phase-4-python-mvp.yaml
+        | expected a single document in the stream
+  ERROR | 01_neocortex_framework\DIR-DS-002-audit-logs\NC-HANDOFF-FR-022-status-real.yaml
+        | expected a single document in the stream
+  ERROR | 01_neocortex_framework\constitution\NC-CONST-FR-001-v0.3-20260422.yaml
+        | while parsing a block mapping
+  ERROR | 01_neocortex_framework\integration\NC-INT-MEMORY-STATE-LEDGER-v0.3-20260422.yaml
+        | while parsing a block collection
+  ERROR | 02_memory_lobes\$temporal\research\NC-GOV-CC-001-governance-mcp-insights.yaml
+        | expected a single document in the stream
+  ERROR | DIR-ARC-FR-001-archive-main\01_neocortex_framework_RENAMED-arc-2026-04-18\DIR-DOC-FR-001-docs-main\NC-CFG-FR-001-agent-policy-template.yaml
+        | expected a single document in the stream
+  ERROR | DIR-ARC-FR-001-archive-main\NC-DS-068-handoff-vector-tests-final.yaml
+        | expected a single document in the stream
+  ERROR | DIR-ARC-FR-001-archive-main\handoffs-archive\NC-CRITICAL-QUEUE-ANALYSIS-20260412-2042.yaml
+        | mapping values are not allowed here
+  ERROR | DIR-ARC-FR-001-archive-main\handoffs-archive\NC-DS-026-claim-expired-20260412-1937.yaml
+        | mapping values are not allowed here
+  ERROR | DIR-ARC-FR-001-archive-main\handoffs-archive\NC-DS-critical-analysis-20260412-203845.yaml
+        | expected a single document in the stream
+  ERROR | DIR-ARC-FR-001-archive-main\handoffs-ciclo4-20260413\NC-DS-042-handoff-20260412-235511.yaml
+        | expected '<document start>', but found '<block mapping start>'
+  ERROR | DIR-ARC-FR-001-archive-main\opensource_prep_20260421\NC-DS-115-execution-summary.yaml
+        | while scanning a double-quoted scalar
+  ERROR | DIR-DS-001-tickets\NC-DS-122-rename-core-keep-non-nc.yaml
+        | while parsing a block collection
+  ERROR | DIR-DS-001-tickets\NC-DS-160-ticket.yaml
+        | while scanning a simple key
+  ERROR | DIR-DS-001-tickets\NC-DS-161-ticket.yaml
+        | while scanning a simple key
+  ERROR | DIR-DS-001-tickets\NC-DS-162-ticket.yaml
+        | while scanning a simple key
+  ERROR | DIR-DS-001-tickets\NC-DS-163-ticket.yaml
+        | while scanning a simple key
+  ERROR | DIR-DS-001-tickets\NC-DS-164-ticket.yaml
+        | while scanning a simple key
+  ERROR | DIR-DS-001-tickets\NC-DS-165-ticket.yaml
+        | while scanning a simple key
+  ERROR | DIR-DS-001-tickets\NC-DS-167-ticket.yaml
+        | while scanning a simple key
+  ERROR | DIR-DS-002-audit-logs\NC-AUDIT-FR-001-governance-ssot-audit-20260421.yaml
+        | expected a single document in the stream
+  ERROR | DIR-DS-002-audit-logs\NC-DS-109-handoff-20260416T144026.yaml
+        | expected '<document start>', but found '<block mapping start>'
+  ERROR | DIR-DS-002-audit-logs\NC-DS-151-handoff-20260420T202800.yaml
+        | while parsing a block collection
+  ERROR | DIR-DS-002-audit-logs\NC-DS-SESS-handoff-2026-04-21T19-51-30.yaml
+        | while scanning a simple key
+  ERROR | DIR-DS-002-audit-logs\NC-DS-SESS-handoff-2026-04-22T09-25-42.yaml
+        | while scanning a simple key
+  ERROR | DIR-DS-002-audit-logs\NC-DS-SESS-handoff-2026-04-22T09-47-55.yaml
+        | while scanning an alias
+  ERROR | DIR-DS-002-audit-logs\NC-HANDOFF-FR-023-mcp-fixed.yaml
+        | expected a single document in the stream
+  ERROR | DIR-DS-002-audit-logs\NC-HANDOFF-FR-024-gemini-audit-fixed.yaml
+        | while parsing a block collection
+
+======================================================================
+VARREDURA DE JSONs
+======================================================================
+JSONs verificados: 595 | OK: 285 | ERROS: 5
+
+Arquivos com erro:
+  ERROR | DIR-ARC-FR-001-archive-main\opensource_prep_20260421\antigravity_neocortex_config.json
+        | Extra data: line 47 column 1 (char 1008)
+  ERROR | DIR-DS-000-agent-config\antigravity_neocortex_config.json
+        | Extra data: line 47 column 1 (char 1058)
+  ERROR | DIR-DS-002-audit-logs\arc-sprint-001-pre-naming\audit_entry_NC-DS-011.json
+        | Expecting ',' delimiter: line 22 column 21 (char 757)
+  ERROR | DIR-RES-CC-001-claude-leak-workzone\external-refs\pixel-agents\webview-ui\tsconfig.app.json
+        | Expecting property name enclosed in double quotes: line 11 column 5 (char 288)
+  ERROR | DIR-RES-CC-001-claude-leak-workzone\external-refs\pixel-agents\webview-ui\tsconfig.node.json
+        | Expecting property name enclosed in double quotes: line 14 column 5 (char 322)
+
+======================================================================
+TEMPLATES — COBERTURA (referenciados no SSOT)
+======================================================================
+  NC-TPL-FR-001-template-central-index.yaml: EXISTS
+  OK      | NC-LBE-DS-000-parent.mdc
+  OK      | NC-TMP-WL-001-cortex-template.mdc
+  OK      | NC-LBE-CC-001-claude-leak-master.mdc
+  OK      | 00-cortex-FULL.mdc
+  OK      | 00-cortex-STARTER.mdc
+  OK      | memory-ledger-TEMPLATE.json
+  OK      | phase-lobe-TEMPLATE.mdc
+  OK      | NC-CFG-FR-001-plugin.json
+  OK      | README.md
+  OK      | NC-DS-HANDOFF-TEMPLATE.yaml
+  OK      | NC-CFG-FR-001-agent-policy-template.yaml
+
+======================================================================
+RESUMO EXECUTIVO
+======================================================================
+YAML:      461/491 OK | 30 ERROS
+JSON:      285/290 OK | 5 ERROS
+Templates: 11/12 OK | 0 FALTANDO
+
+TICKETS A CRIAR:
+  NC-DS-167: CRÍTICO — Corrigir 3 YAML(s) de governança/config inválidos
+  NC-DS-168: ALTA    — Corrigir 27 YAML(s) gerais inválidos
+  NC-DS-169: ALTA    — Corrigir 5 JSON(s) inválidos
+
+Resultados salvos em audit_results.json

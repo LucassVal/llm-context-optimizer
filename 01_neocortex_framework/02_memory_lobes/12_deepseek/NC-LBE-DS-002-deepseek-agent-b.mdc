@@ -23,8 +23,8 @@ description: "DeepSeek T1 Agent Lobe — Frente B (OpenCode 2). Executor subordi
 | Campo | Valor |
 |---|---|
 | **Role** | T1 — Frente B (paralela à Frente A) |
-| **Modelo** | `deepseek-chat` via OpenCode (segunda sessão) |
-| **Custo estimado** | ~USD 0.007 por tool implementada |
+| **Modelo** | `deepseek-v4-flash` via OpenCode (segunda sessão) |
+| **Custo estimado** | ~USD 0.00028 por 1K output tokens |
 | **Supervisor** | Antigravity T0 |
 | **Write Zone** | `neocortex/mcp/tools/NC-TOOL-FR-022-*.py` APENAS |
 | **Proibido** | Qualquer arquivo que Frente A esteja editando |

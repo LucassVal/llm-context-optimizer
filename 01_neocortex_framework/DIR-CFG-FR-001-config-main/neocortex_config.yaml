@@ -1,3 +1,13 @@
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: neocortex_config
+# Why:  Criado em 2026-04-26 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/DIR-CFG-FR-001-config-main/neocortex_config.yaml
+
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: neocortex_config
+# Why:  Criado em 2026-04-26 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/DIR-CFG-FR-001-config-main/neocortex_config.yaml
+
 # NeoCortex Configuration
 # LLM Configuration
 llm:
@@ -15,13 +25,17 @@ llm:
   max_tokens: 4096
   # Fallback chain for redundancy
   fallback_chain:
+    - provider: deepseek
+      model: deepseek-v4-pro
+      base_url: "https://api.deepseek.com"
+      api_key: "${DEEPSEEK_API_KEY}"
+    - provider: deepseek
+      model: deepseek-v4-flash
+      base_url: "https://api.deepseek.com"
+      api_key: "${DEEPSEEK_API_KEY}"
     - provider: ollama
       model: qwen2.5-coder:1.5b-instruct
       base_url: "http://localhost:11434"
-    - provider: deepseek
-      model: deepseek-chat
-      base_url: "https://api.deepseek.com"
-      api_key: "${DEEPSEEK_API_KEY}"
     - provider: openai
       model: gpt-3.5-turbo
       base_url: "https://api.openai.com/v1"
@@ -80,4 +94,19 @@ scheduler:
 monitoring:
   enable_metrics: true
   metrics_store: "duckdb"  # duckdb or sqlite
+
+# Memory & Hooks
+memory:
+  auto_recording: true
+  hot_buffer_size: 10
+  compression_enabled: true
+  exclude_patterns: ["health", "status", "ping", "test"]
+  max_turns_per_session: 1000
+
+hooks:
+  conversation_hook:
+    enabled: true
+    event: "POST_TOOL_USE"
+    timeout_seconds: 5.0
+    compression: true
   health_check_interval_seconds: 60

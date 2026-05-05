@@ -1,4 +1,22 @@
 #!/usr/bin/env python3
+"""---
+domain: "orchestration"
+layer: "infra"
+type: "SCR"
+tags: ['script', 'automation']
+hash: "auto-generated"
+---
+"""
+
+"""---
+domain: "orchestration"
+layer: "infra"
+type: "SCR"
+tags: ['script', 'automation']
+hash: "auto-generated"
+---
+"""
+
 import sys
 
 # Fix encoding for Windows (UTF-8)
@@ -33,7 +51,10 @@ Ou com flag de dry-run para s visualizar o que seria feito:
 
 import argparse
 import logging
+import os
+import subprocess
 import sys
+import yaml
 from pathlib import Path
 
 #  Setup do PATH para importar o pacote neocortex
@@ -272,20 +293,90 @@ SSOT_LOBE_MAP = [
 ]
 
 
+def load_index_yaml() -> dict:
+    """Carrega o _INDEX.yaml se existir."""
+    index_path = FRAMEWORK_ROOT.parent / "02_memory_lobes" / "_INDEX.yaml"
+    if not index_path.exists():
+        return {}
+    try:
+        with open(index_path, "r", encoding="utf-8") as f:
+            data = yaml.safe_load(f)
+            return {item["filename"]: item for item in data.get("lobes", [])}
+    except Exception as e:
+        log.error(f"Erro ao ler _INDEX.yaml: {e}")
+        return {}
+
+
+def create_junction(target_path: Path, link_path: Path, dry_run: bool = False):
+    """Cria um directory junction no Windows, removendo se j existir como dir normal."""
+    if not target_path.exists():
+        target_path.mkdir(parents=True, exist_ok=True)
+
+    if link_path.exists() or link_path.is_symlink():
+        # Verificar se  um junction/symlink real
+        is_junction = False
+        if sys.platform == "win32":
+            try:
+                res = subprocess.run(
+                    ["cmd", "/c", "fsutil", "reparsepoint", "query", str(link_path)],
+                    capture_output=True,
+                )
+                if res.returncode == 0:
+                    is_junction = True
+            except Exception:
+                pass
+        else:
+            if link_path.is_symlink():
+                is_junction = True
+
+        if is_junction:
+            return
+
+        # Se chegou aqui, existe mas NO  junction -> remover
+        log.info(
+            f"   [JUNCTION] Removendo diretrio normal para criar link: {link_path.name}"
+        )
+        if not dry_run:
+            import shutil
+
+            try:
+                shutil.rmtree(link_path)
+            except Exception as e:
+                log.error(f"      Erro ao remover dir normal: {e}")
+                return
+
+    log.info(f"   [JUNCTION] Criando link {link_path.name} -> {target_path.name}")
+    if dry_run:
+        return
+
+    try:
+        if sys.platform == "win32":
+            subprocess.run(
+                ["cmd", "/c", "mklink", "/J", str(link_path), str(target_path)],
+                check=True,
+                capture_output=True,
+            )
+        else:
+            os.symlink(target_path, link_path, target_is_directory=True)
+    except Exception as e:
+        log.error(f"   Falha ao criar junction: {e}")
+
+
 def build_lobe_content(
-    lobe_name: str, file_path: Path, raw_content: str, tags: list
+    lobe_name: str, file_path: Path, raw_content: str, tags: list, capabilities: list = None
 ) -> str:
     """
     Monta o contedo do lobo em formato MDC com header e metadados.
-    Cada lobo pode receber mltiplos arquivos SSOT  este helper
-    cria a seo de um nico arquivo para ser concatenada.
     """
     tag_str = ", ".join(tags)
     header = (
         f"<!-- source: {file_path.name} -->\n"
         f"<!-- tags: {tag_str} -->\n"
-        f"<!-- auto-generated: true -->\n\n"
     )
+    if capabilities:
+        header += f"<!-- deepseek_capabilities: {', '.join(capabilities)} -->\n"
+    
+    header += f"<!-- auto-generated: true -->\n\n"
     return header + raw_content
 
 
@@ -305,34 +396,50 @@ def populate_lobes(dry_run: bool = False):
     log.info(f"  Dry-run: {'SIM (nada ser gravado)' if dry_run else 'NO (gravando)'}")
     log.info("" * 60)
 
+    # Carregar Index YAML para capacidades e junctions
+    index_map = load_index_yaml()
+    lobes_root = FRAMEWORK_ROOT.parent / "02_memory_lobes"
+
     for rel_path, lobe_name, tags in SSOT_LOBE_MAP:
         file_path = (FRAMEWORK_ROOT / rel_path).resolve()
 
-        #  Verificar se arquivo existe
+        # Verificar se arquivo existe
         if not file_path.exists():
             log.warning(f"    ARQUIVO NO ENCONTRADO (pulando): {file_path.name}")
             continue
 
-        #  Ler contedo
+        # Ler contedo
         try:
             raw = file_path.read_text(encoding="utf-8")
         except Exception as e:
             log.error(f"   Erro ao ler {file_path.name}: {e}")
             continue
 
-        #  Acumular por lobo (vrios arquivos podem ir para o mesmo lobo)
-        section = build_lobe_content(lobe_name, file_path, raw, tags)
+        # Validar via Index
+        lobe_key = lobe_name if lobe_name.endswith(".mdc") else f"{lobe_name}.mdc"
+        info = index_map.get(lobe_key, {})
+        capabilities = info.get("deepseek_capabilities", [])
+
+        # Acumular por lobo
+        section = build_lobe_content(lobe_name, file_path, raw, tags, capabilities)
 
         if lobe_name not in lobe_contents:
             lobe_contents[lobe_name] = {
                 "header": f"# {lobe_name}\n\n> Lobo SSOT auto-gerado pelo script populate_lobes_from_ssot. No edite manualmente.\n\n",
                 "sections": [],
                 "files": [],
+                "info": info,
             }
 
         lobe_contents[lobe_name]["sections"].append(section)
         lobe_contents[lobe_name]["files"].append(file_path.name)
         log.info(f"   Lendo {file_path.name}  {lobe_name}")
+
+        # Se tiver info de junction no index, preparar para criar
+        if info:
+            target_dir = lobes_root / info["domain_dir"]
+            link_dir = lobes_root / info["brain_tag"].lower() # e.g. $frontal -> $frontal/
+            create_junction(target_dir, link_dir, dry_run=dry_run)
 
     log.info("" * 60)
 

@@ -1,0 +1,70 @@
+{
+  "timestamp": "2026-04-20T01:20:16.896699",
+  "score": 100.0,
+  "ok": 38,
+  "fail": 0,
+  "ok_list": [
+    "DB size",
+    "FTS MATCH guardian",
+    "FTS MATCH lexico",
+    "FTS MATCH frontal",
+    "FTS MATCH cerebelo",
+    "FTS total lobes",
+    "LEXICO 1041 terms",
+    "LexicoService.search(guardian)",
+    "LobeService list+search",
+    "KGService.get_stats()",
+    "KGService.query_relations(NeoCortex)",
+    "AKLService.get_metrics()",
+    "AKLService.search(guardian)",
+    "CortexService.get_full_cortex()",
+    "LedgerService.get_full_ledger()",
+    "compile NC-SUPER-001-governance.py",
+    "compile NC-SUPER-002-orchestration.py",
+    "compile NC-SUPER-003-memory.py",
+    "compile NC-SUPER-004-state.py",
+    "compile NC-SUPER-005-llm-router.py",
+    "compile NC-SUPER-006-system.py",
+    "compile NC-SUPER-007-brain.py",
+    "compile NC-SUPER-008-context.py",
+    "compile NC-SUPER-009-security.py",
+    "compile NC-SUPER-010-benchmark.py",
+    "compile NC-SUPER-011-notification.py",
+    "compile NC-SUPER-012-akl.py",
+    "compile NC-SUPER-013-health.py",
+    "compile NC-SUPER-014-ledger.py",
+    "compile NC-SUPER-015-memory-auto.py",
+    "compile NC-SCR-FR-001-populate-lobes-ssot.py",
+    "compile NC-SCR-FR-115-guardian-daemon.py",
+    "compile NC-SCR-FR-134-smoke-test-tools.py",
+    "compile NC-SCR-FR-113-kg-populate-lobes.py",
+    "compile NC-SCR-FR-114-auto-categorize-lobes.py",
+    "DeepSeek Q1-Estrutura",
+    "DeepSeek Q2-Eficiência",
+    "DeepSeek Q3-Diagnóstico"
+  ],
+  "fail_list": [],
+  "deepseek_calls": [
+    {
+      "label": "Q1-Estrutura",
+      "latency_s": 3.79,
+      "tokens_in": 730,
+      "tokens_out": 70,
+      "answer": "O $CEREBELO executa ações automáticas e repetitivas, como o ciclo do Guardian Daemon e benchmarks, garantindo a operação contínua e a sanidade do sistema. Ele automatiza a manutenção, o deployment e os testes, funcionando como o \"controle motor\" da autogovernança."
+    },
+    {
+      "label": "Q2-Eficiência",
+      "latency_s": 5.43,
+      "tokens_in": 722,
+      "tokens_out": 144,
+      "answer": "**LexicoService** é o serviço central do NeoCortex que gerencia o léxico do sistema (definições, termos, relações semânticas) e atualiza dinamicamente o arquivo `NC-LEXICO-LATEST.json`.\n\nÉ chamado de **neuroplasticidade** porque permite que o sistema **reconfigure seu próprio vocabulário e conhecimento** em tempo real durante a sessão, aprendendo novos termos, ajustando definições e expandindo o grafo de conhecimento sem intervenção manual.\n\nEssa capacidade de auto-ajuste semântico é análoga à plasticidade neural biológica, onde conexões cerebrais se remodelam com novas experiências."
+    },
+    {
+      "label": "Q3-Diagnóstico",
+      "latency_s": 4.56,
+      "tokens_in": 725,
+      "tokens_out": 112,
+      "answer": "Os 5 steps do Ciclo3 (horário) são:  \n1. **Check-in** — Verifica integridade do sistema.  \n2. **AKL Sync** — Atualiza memória de aprendizado.  \n3. **Health Scan** — Monitora métricas e logs.  \n4. **Ticket Pulse** — Revisa tickets abertos.  \n5. **Guardian Log** — Registra execução no histórico.  \n\nFonte: $CEREBELO — Ciclos automáticos do Guardian."
+    }
+  ]
+}

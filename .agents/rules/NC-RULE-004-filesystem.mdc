@@ -1,5 +1,5 @@
 ---
-description: "NC-RULE-004 | Filesystem & Governance — Auto-attach em DIR-* e docs-main/**"
+description: "NC-RULE-004 | Filesystem & Governance — Auto-attach em DIR-* e scripts-main/**"
 globs: ["**/DIR-*/**", "**/DIR-DOC-FR-001-docs-main/**", "**/DIR-CFG-FR-001-config-main/**", "**/scripts/**"]
 alwaysApply: false
 ---

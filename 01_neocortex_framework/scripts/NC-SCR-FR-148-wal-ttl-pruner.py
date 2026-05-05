@@ -1,9 +1,19 @@
 #!/usr/bin/env python3
+"""---
+NC-SCR-FR-148-wal-ttl-pruner.py
+---
+"""
+
+"""---
+NC-SCR-FR-148-wal-ttl-pruner.py
+---
+"""
+
 """
 NC-SCR-FR-148-wal-ttl-pruner.py
 Script de manutenção WAL TTL Pruner — integração TTLManager + WALService
 
-Ticket: NC-DS-153-ttl-wal-pruner.yaml
+Ticket: NC-DS-FR-153-ttl-wal-pruner.yaml
 Conecta NC-SVC-FR-011 (TTLManager) com NC-SVC-FR-016 (WALService) para prune automático.
 
 Uso:
@@ -153,7 +163,7 @@ def main() -> int:
         audit_log_dir.mkdir(exist_ok=True)
         
         timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S")
-        report_filename = f"NC-RPT-153-wal-prune-{timestamp}.json"
+        report_filename = f"NC-RPT-FR-153-wal-prune-{timestamp}.json"
         report_path = audit_log_dir / report_filename
         
         report_data = {

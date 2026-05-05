@@ -1,15 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:57.591727'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-tags:
-  - neocortex-other
-  - level-0
-  - python
----"""
+@Module NC-CORE-FR-112-file-utils mcp _genealogy:   injected_at: '2026-04-16T00:23:57.59
+---
+"""
+
+
 #!/usr/bin/env python3
 """
 NeoCortex File Utilities
@@ -93,7 +87,7 @@ SOURCE_PATH = _source_path()
 def read_cortex() -> str:
     """L o contedo do arquivo cortex."""
     try:
-        with open(_cortex_path(), "r", encoding="utf-8") as f:
+        with open(_cortex_path(), encoding="utf-8") as f:
             return f.read()
     except FileNotFoundError:
         return ""
@@ -113,7 +107,7 @@ def write_cortex(content: str) -> bool:
 def read_ledger() -> Dict[str, Any]:
     """L e parseia o ledger JSON."""
     try:
-        with open(_ledger_path(), "r", encoding="utf-8") as f:
+        with open(_ledger_path(), encoding="utf-8") as f:
             return json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
         return {}
@@ -146,7 +140,7 @@ def get_lobe_content(lobe_name: str) -> Optional[str]:
         return None
 
     try:
-        with open(lobe_path, "r", encoding="utf-8") as f:
+        with open(lobe_path, encoding="utf-8") as f:
             return f.read()
     except Exception:
         return None
@@ -171,7 +165,7 @@ def path_exists(relative_path: str) -> bool:
 def read_json_file(filepath: Path) -> Dict[str, Any]:
     """L um arquivo JSON genrico."""
     try:
-        with open(filepath, "r", encoding="utf-8") as f:
+        with open(filepath, encoding="utf-8") as f:
             return json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
         return {}

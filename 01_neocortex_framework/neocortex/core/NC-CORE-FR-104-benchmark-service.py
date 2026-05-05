@@ -1,15 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:57.381741'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-tags:
-  - neocortex-other
-  - level-0
-  - python
----"""
+@Module NC-CORE-FR-104-benchmark-service mcp _genealogy:   injected_at: '2026-04-16T00:23:57.38
+---
+"""
+
+
 #!/usr/bin/env python3
 """
 Benchmark Service - Business logic for benchmark operations.

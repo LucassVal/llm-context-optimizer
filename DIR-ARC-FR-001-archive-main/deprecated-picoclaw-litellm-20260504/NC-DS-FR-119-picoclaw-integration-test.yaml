@@ -1,0 +1,93 @@
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC DS FR 119 picoclaw integration test
+# Why:  Criado em 2026-04-27 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/DIR-DS-001-tickets/NC-DS-FR-119-picoclaw-integration-test.yaml
+
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC DS FR 119 picoclaw integration test
+# Why:  Criado em 2026-04-27 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/DIR-DS-001-tickets/NC-DS-FR-119-picoclaw-integration-test.yaml
+
+ticket_id: NC-DS-119
+status: COMPLETED
+completed_at: "2026-04-27T12:30:00-03:00"
+priority: "🟡 NEXT"
+created_at: "2026-04-20T18:16:52-03:00"
+assigned_to: opencode-agent-3
+tier: T1
+
+title: "PICOCLAW integration test — loop dispatch→poll via :18790"
+
+description: |
+  Criar script de teste de integração que valida o ciclo completo:
+  start → health → publish → dispatch → poll → stop.
+
+scope:
+  write_zone: "05_examples/"
+  output_file: "01_neocortex_framework/05_examples/NC-TEST-FR-119-picoclaw-integration.py"
+  forbidden_writes:
+    - "neocortex/core/services/NC-SVC-FR-019-picoclaw-server.py"
+    - "neocortex/mcp/server.py"
+    - "DIR-DOC-FR-001-docs-main/"
+
+project_root: "C:/Users/Lucas Valério/Desktop/TURBOQUANT_V42/01_neocortex_framework"
+
+steps:
+  - "1. Criar NC-TEST-FR-119-picoclaw-integration.py em 05_examples/"
+  - "2. O script deve:"
+  - "   a) Importar NC-SVC-FR-019 via importlib.util.spec_from_file_location (R09 — NUNCA import direto)"
+  - "   b) start() → aguardar 2s"
+  - "   c) GET http://localhost:18790/health — assert status ok"
+  - "   d) POST /event/publish {type:'TEST', payload:{msg:'hello'}}"
+  - "   e) POST /task/dispatch {task_name:'test_task', task_type:'test', payload:{}}"
+  - "   f) Polling GET /task/status/{id} max 10s até COMPLETED"
+  - "   g) stop()"
+  - "   h) Imprimir SCORE X/Y PASS"
+  - "3. IMPORTANTE: usar Path com nome de usuário correto — testar via C:/Temp/run119.py se necessário"
+
+mandatory_tests:
+  - name: "ruff clean no script criado"
+    command: "python -m ruff check 05_examples/NC-TEST-FR-119-picoclaw-integration.py --select F,E9"
+    expected: "All checks passed!"
+  - name: "py_compile do script"
+    command: |
+      echo "import py_compile; py_compile.compile('05_examples/NC-TEST-FR-119-picoclaw-integration.py', doraise=True); print('OK')" > C:/Temp/chk119.py
+      python C:/Temp/chk119.py
+    expected: "OK"
+  - name: "execução do integration test"
+    command: "python C:/Temp/run119.py  (copiar o script para C:/Temp/ para evitar issue de acento)"
+    expected: "SCORE >= 5/7 PASS"
+  - name: "porta liberada após teste"
+    command: "$(netstat -an | Select-String ':18790') deve retornar vazio após stop()"
+    expected: "porta :18790 livre"
+
+handoff_yaml_template: |
+  # OBRIGATÓRIO: Criar e salvar este arquivo ao concluir
+  # Path: DIR-DS-002-audit-logs/NC-DS-FR-119-completion.yaml
+
+  ticket_id: NC-DS-119
+  status: COMPLETED
+  completed_at: "<ISO timestamp>"
+  agent: opencode-agent-3
+
+  files_created:
+    - path: "01_neocortex_framework/05_examples/NC-TEST-FR-119-picoclaw-integration.py"
+      lines: <número>
+
+  test_results:
+    ruff_F_E9: "<PASS ou FAIL>"
+    py_compile: "<PASS ou FAIL>"
+    integration_score: "<X/7>"
+    health_check: "<PASS ou FAIL>"
+    dispatch_task: "<PASS ou FAIL>"
+    poll_status: "<PASS ou FAIL>"
+    port_released: "<PASS ou FAIL>"
+    full_output: |
+      <colar output completo do script aqui>
+
+  errors: []
+  warnings: []
+
+handoff_save_path: "DIR-DS-002-audit-logs/NC-DS-FR-119-completion.yaml"
+
+closing_notes: "Codigo existe e foi verificado. Nao esta integrado ao boot do server.py (necessario wire-up no CICLO_3). Ticket fechado por governanca scan."

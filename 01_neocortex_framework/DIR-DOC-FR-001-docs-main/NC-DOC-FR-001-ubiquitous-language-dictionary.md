@@ -12,20 +12,22 @@
 | Símbolo | Expande para | Caminho Real |
 | :--- | :--- | :--- |
 | `@SSOT` | NC-NAM-FR-001 (Naming + Map + Changelog) | `01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md` |
-| `@ROADMAP` | NC-TODO-FR-001 (Roadmap consolidado) | `01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md` |
+| `@ROADMAP` | NC-TODO-FR-001 (Roadmap ativo — YAML) | `DIR-DS-000-agent-config/NC-TODO-FR-001-roadmap.yaml` |
 | `@APPENDIX` | NC-APP-FR-001 (Apêndice técnico) | `01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-APP-FR-001-technical-appendix.md` |
 | `@LOCKS` | NC-SEC-FR-001 (Atomic locks) | `01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml` |
 | `@POLICY` | NC-CFG-FR-001 (Agent policy template) | `01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-CFG-FR-001-agent-policy-template.yaml` |
 | `@SOP` | NC-SOP-FR-001 (Session startup SOP) | `01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SOP-FR-001-session-startup.md` |
 | `@ADR` | NC-ARC-FR-001 (Architecture decision log) | `01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-ARC-FR-001-decision-log.md` |
 | `@BOOT` | NC-BOOT-FR-001 (Boot manifest) | `DIR-BOOT-FR-001-bootup-main/NC-BOOT-FR-001-system-manifest.md` |
-| `@PROMPT` | NC-PROMPT-FR-001 (Master context prompt) | `NC-PROMPT-FR-001-master-context.md` |
-| `@RULES` | NC-RULE-001 / neocortexrules.md | `.agents/rules/NC-RULE-001-workspace-standards.mdc` |
+| `@PROMPT` | NC-PROMPT-DS-001 (T1 Master context — identidade + 6 fases) | `DIR-DS-000-agent-config/NC-PROMPT-DS-001-deepseek-subordinate.md` |
+| `@RULES` | NC-RULE-000 (Master index) + NC-RULE-001 (Core rules) | `.agents/rules/NC-RULE-000-master-index.md` |
 | `@POPULATE` | Script de poblamento dos lobos | `01_neocortex_framework/scripts/NC-SCR-FR-001-populate-lobes-ssot.py` |
 | `@CONFIG` | neocortex_config.yaml | `01_neocortex_framework/DIR-CFG-FR-001-config-main/neocortex_config.yaml` |
 | `@ULQ` | Este dicionário | `01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-DOC-FR-001-ubiquitous-language-dictionary.md` |
 | `@LEXICO` | NC-LEXICO-LATEST.json (dicionário vivo) | `01_neocortex_framework/.neocortex/lexico/NC-LEXICO-LATEST.json` |
-| `@VISION` | Visão arquitetural 6 camadas | `visao_arquitetural_neocortex.md` |
+| `@CHANGELOG` | NC-CHG-FR-001 (Changelog + Kaizen unificado) | `01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-CHG-FR-001-changelog.yaml` |
+| `@MAPS` | NC-MAP-FR-001 (Mapas estruturais consolidados) | `01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-MAP-FR-001-structural-maps.yaml` |
+| `@VISION` | Visão arquitetural — 6 orbitais DDD + Shared Kernel | `01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-ARC-FR-002-architecture-blueprint.yaml` |
 
 ---
 
@@ -93,8 +95,8 @@
 | :--- | :--- | :--- | :--- |
 | `#GUARDIAN` | GuardianDaemon | Loop automático: Ciclo3 (1h) + Ciclo4 (24h) | `scripts/NC-SCR-FR-115-guardian-daemon.py` |
 | `#PULSE` | PulseScheduler | Tarefas agendadas internas | `neocortex/core/pulse_scheduler.py` |
-| `#EVENTBUS` | PicoClaw EventBus | Comunicação async A2A :18790 | `neocortex/core/services/NC-SVC-FR-005-event-bus.py` |
-| `#ROUTER` | LiteLLM Router | T0→T2→T3 por complexidade | `NC-SUPER-005-llm-router.py` |
+| `#EVENTBUS` | EventBus | Comunicação async via HookRegistry | `neocortex/core/services/NC-SVC-FR-005-event-bus.py` |
+| `#ROUTER` | LLM Router | Roteamento T0 por complexidade (OpenCode agents) | `neocortex/mcp/tools/NC-SUPER-005-llm-router.py` |
 
 ### Super-Tools MCP (NC-SUPER-001..015)
 
@@ -190,3 +192,43 @@ DIR-<TIPO>-<SIGLA>-<NUM>-<desc>/
 
 ---
 *ULQ v2.0 — Atualizado: 2026-04-20 | NC-READ-HASH: ULQ-v2.0*
+
+## R112-R115 — Integridade do Sistema
+
+| Conceito | Definição | Engine |
+|----------|-----------|--------|
+| YAML Validate | Valida sintaxe de todos os .yaml/.yml do sistema | FR-158 YAMLValidator |
+| MDC Header | Verifica cabeçalho YAML dos lobes .mdc | FR-158 MDCValidator |
+| Secret Scan | Detecta tokens/senhas em código-fonte | FR-158 SecretScanner |
+| Dead Code | Encontra arquivos não referenciados | FR-158 DeadCodeScanner |
+
+## 3 W's — Auto de Infração Digital
+
+| Termo | Definição | Onde |
+|-------|-----------|------|
+| What | O que o módulo faz | Extraído da docstring |
+| Why | Por que o módulo existe | Extraído de comentários |
+| Where | Onde se encaixa na arquitetura | Domínio/orbital |
+| Auto de Infração | Documento que registra os 3 W's de cada arquivo | FR-151 ThreeWEngine |
+
+## Cripto — SUPREME-1 v3.0
+
+| Termo | Definição | Engine |
+|-------|-----------|--------|
+| SHA-256 | Hash de integridade de arquivos e savepoints | FR-159 CryptoIntegrity |
+| Manifesto Criptográfico | Hash de todos os arquivos core para verificação de drift | FR-159 generate_manifest_hash |
+| Encoding Scan | Detecta corrupção de caracteres (acentos, UTF-8) | FR-159 scan_encoding_issues |
+
+## R117 — SSOT Header
+
+| Termo | Definicao | Onde |
+|-------|-----------|------|
+| NC-SSOT | Header obrigatorio em toda resposta do assistente | NC-RULE-009 |
+| SSOT Reporter | Gera estado do sistema em YAML | FR-163 |
+| Semantic Router | Roteador universal baseado no catalogo semantico | FR-165 |
+| Claim Validator | Valida claims do assistente contra evidencia real | FR-164 |
+
+| Domain Router | Roteador por dominio DDD — cada bounded context tem seu indice | FR-166 |
+| Central Semantic Index | Indice central que pergunta a cada domain router | FR-166 |
+| 2-Level Architecture | CentralIndex -> DomainRouters -> Modules/Lobes | FR-166 |
+| RAG | Retrieval-Augmented Generation aplicado ao proprio codigo do sistema | FR-165+FR-166 |

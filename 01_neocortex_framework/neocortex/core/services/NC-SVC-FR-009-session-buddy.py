@@ -1,20 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:58.860842'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-parent_ssot: NC-SVC-FR-009-session-buddy
-related_ssot:
-  - NC-SVC-FR-006
-  - NC-SVC-FR-006-metrics-collector
-tags:
-  - neocortex-other
-  - level-0
-  - nc-prefix
-  - python
----"""
+@Module NC-SVC-FR-009-session-buddy mcp _genealogy:   injected_at: '2026-04-16T00:23:58.86
+---
+"""
+
+
 """
 NC-SVC-FR-009-session-buddy.py
 FR-009  SessionMate: Gamified session statistics with achievements.

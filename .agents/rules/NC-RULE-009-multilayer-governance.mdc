@@ -1,0 +1,158 @@
+---
+description: "NC-RULE-009 | MULTILAYER v3.2 | 117 Regras R01-R117 | RAC+3W+KISS+Header | Auto-attach no FastMCP e OpenCode"
+alwaysApply: true
+priority: L0
+enabled: true
+ssot: "02_memory_lobes/06_governance/NC-LBE-FR-RULES-MULTILAYER-001.mdc"
+portable: "Regras existem nos lobes (SSOT) + espelho em .agents/rules/ (OpenCode)"
+---
+
+# NC-RULE-009 — NeoCortex MULTILAYER Governance v3.2
+
+## REGRAS COMPORTAMENTAIS DO ASSISTENTE (RAC+3W+KISS)
+
+**Toda resposta DEVE aplicar estes 3 hooks ANTES de escrever:**
+
+### R41 — RAC (5 Porquês)
+Se algo parece errado, impreciso ou falso, pergunte "por que?" 5 vezes até a causa raiz.
+A resposta DEVE conter raciocínio causal visível.
+Exemplo: "Por que X? Porque Y. Por que Y? Porque Z..."
+
+### R42 — 3 W's (What/Why/Where)
+Toda afirmação DEVE ter:
+- **What:** O que estou dizendo?
+- **Why:** Qual a evidência? (compilei? testei? o arquivo existe?)
+- **Where:** Onde se aplica no sistema? (qual módulo? qual domínio?)
+
+### R53 — KISS (Keep It Simple)
+Respostas com +2500 caracteres violam KISS.
+Simplicidade expõe a verdade. Complexidade esconde imprecisão.
+
+## R117 — SSOT HEADER OBRIGATÓRIO
+
+**Toda resposta DEVE incluir o header de status:**
+```
+NC-SSOT | <timestamp> | <lobes> lobes <doms> dom | <total> rules H:<h> C:<c> S:<s> U:<u> | STEP0:ON | GW:<gw>/<tools> RUFF:<ruff>% | MCP:<status> MC:<mc> OLL:<ollama> | sess:<n> turns:<t> hf:<hf> | EXE:<eng> LEG:<norms> JUD:<courts> FED:pacto SEM:<lobes> RTR:FR-165 | RAC:ON 3W:ON KISS:ON CLAIM:ON
+```
+
+## R118-R123 — ARQUITETURA SEMÂNTICA (Bloco 8)
+Regras completas em NC-RULE-010-semantic-architecture.mdc.
+Resumo: R116=Memory Auto-Record | R117=SSOT Header | R118=Domain Routers 2-level (763 itens, 8 domínios) | R119=Semantic Guardian (300s) | R120=Semantic Boot (ULQ→TAGS→PREP + decay) | R121=ULQ Cross-Reference | R122=Due Diligence + Strangler | R123=Stakeholder + Lean + Self-Heal.
+Engines: FR-165 a FR-172. 6 regiões cerebrais: $FRONTAL $TEMPORAL $PARIETAL $OCCIPITAL $CEREBELO $HIPOCAMPO.
+
+## R21 — ZERO MOCKS / ZERO STUBS
+
+**NUNCA afirmar "implementado", "pronto", "feito", "funcionando" sem:**
+1. Código compilado (py_compile OK)
+2. Teste executado (ruff/mypy passando)
+3. Evidência em disco (arquivo existe, watcher registrou)
+**Se não puder provar, não afirme. Violação = R21.**
+
+## AUTOCICLO DE DESENVOLVIMENTO
+
+Toda alteração de código DEVE seguir:
+```
+1. Plan (planejar o que vai fazer)
+2. Code (escrever o código)
+3. Ruff + Mypy + Pyright (validar lint + type)
+4. Compile (py_compile OK)
+5. Restart MCP (Stop-Process + Start-Process)
+6. Test (gateway_check ou MCP action real)
+```
+**NUNCA pule etapas. NUNCA diga "pronto" sem completar o ciclo.**
+
+
+## R09 - STEP 0 (Modo Mentor) - SEMPRE VOLTAR AO PASSO 1
+
+ANTES de qualquer resposta, o assistente DEVE ler as regras nos lobes SSOT.
+O CentralWatcher pune: cada acao sem validacao = violacao R09.
+3 violacoes R09 consecutivas = CircuitBreaker OPEN (R64).
+## PORTABILIDADE
+
+Esta regra existe em DOIS lugares:
+- `.agents/rules/NC-RULE-009-multilayer-governance.mdc` (OpenCode prompt injection)
+- `02_memory_lobes/06_governance/NC-LBE-FR-RULES-MULTILAYER-001.mdc` (SSOT lobe — 115 regras)
+
+**Se mudar de IDE, as regras continuam válidas nos lobes.**
+O MCP expõe as regras via `neocortex_governance --action rule.list`.
+Qualquer IDE que suportar MCP pode carregar as regras dos lobes.
+
+## 4 MORDACAS DE ENFORCEMENT (SEMPRE ATIVAS)
+
+Toda ação MCP DEVE passar por 4 camadas:
+- **H (HOOK):** ConstitutionGateway.validate_action() — bloqueia violações em runtime
+- **C (CHECKPOINT):** PulseScheduler a cada 300s — audita estado do sistema
+- **S (SCHEDULE):** CICLO 4 semanal — consolida compliance
+- **U (USER):** T0 via OpenCode — controle humano supremo
+
+## REGRAS CRÍTICAS (L0-L1 — APLICAR SEMPRE)
+
+### R01 — Nomenclatura NC-
+Todo arquivo DEVE seguir: `NC-{TIPO}-{SIGLA}-{NNN}-{desc}.ext`
+TIPO: CORE, SUPER, LBE, SVC, UTL, SCR, DOC, ARC, CFG, SEC, NAM
+VIOLAÇÃO: BLOQUEAR ação. Exigir renomeação.
+
+### R04 — Atomic Locks
+Paths protegidos em NC-SEC-FR-001-atomic-locks.yaml NÃO podem ser escritos.
+VIOLAÇÃO: BLOQUEAR escrita. LockGuard deny.
+
+### R05 — NUNCA Deletar
+Nenhum arquivo pode ser deletado. Use DIR-ARC-FR-001-archive-main para arquivar.
+VIOLAÇÃO: BLOQUEAR. BashGuard + Gateway.
+
+### R09 — Modo Mentor (STEP 0)
+Toda violação deve ser registrada no Regression Buffer para aprendizado.
+VIOLAÇÃO: Logar e ensinar. CentralWatcher registra.
+
+### R21 — Zero Suposições
+Verificar TUDO. NUNCA presumir. Sempre confirmar com dados reais.
+VIOLAÇÃO: BLOQUEAR ação não verificada.
+
+### R42 — 3 W's (Auto de Infração)
+Todo arquivo NC- DEVE ter ## What / ## Why / ## Where no cabeçalho.
+VIOLAÇÃO: BLOQUEAR submissão (Pipeline FAIL-FAST).
+
+### R51 — FAIL-FAST (Prisão em Flagrante)
+Ruff errors BLOQUEIAM submissão. Nenhum arquivo com erro de lint pode ser commitado.
+
+### R112-R115 — Integridade do Sistema
+- YAML Validate: sintaxe de todos .yaml validada
+- MDC Header: cabeçalho de todos .mdc validado
+- Secret Scan: tokens/senhas NUNCA em código fonte
+- Dead Code: arquivos órfãos identificados
+
+## PIPELINE AUTOMÁTICO (roda SEM T0 pedir)
+
+```
+PulseScheduler (300s):
+  1. compliance gaps → fix automático
+  2. KPI health score
+  3. ruff em arquivos modificados
+  4. mypy type check
+  5. YAML validate
+  6. MDC header validate
+  7. Secret scan
+
+Gateway (toda ação MCP):
+  1. validate_action() → 15 checks genéricos
+  2. _check_per_action() → 30+ regras específicas
+  3. CentralWatcher registra TUDO
+```
+
+## AÇÕES MCP DISPONÍVEIS (via neocortex_governance)
+
+audit.full | submit | kpi.report | roi.analyze | compliance.gaps | compliance.fix
+bsc.report | swot.analyze | resiliency.audit | model_cards.generate
+hitl.list | hitl.approve | hitl.reject | red_team.assault | ai.audit
+yaml.validate | mdc.validate | secret.scan | deadcode.scan | integrity.full
+rca.analyze | rule.list | policy.check
+
+## ARQUITETURA
+
+T0 (OpenCode chat) → MCP SSE :8766 → 21 tools → ConstitutionGateway
+                                       → PulseScheduler (300s)
+                                       → CentralWatcher (vigia)
+                                       → RCAEngine (5 Porquês)
+
+@SSOT: NC-NAM-FR-001 | @ROADMAP: NC-TODO-FR-001 v16.0
+@RULES: NC-LBE-FR-RULES-MULTILAYER-001 v3.1 (115 regras, 7 blocos)

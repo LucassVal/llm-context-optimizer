@@ -1,0 +1,185 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-FR-LITELLM-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-LITELLM-001-v1 ja esta no contexto desta sessao, SALTE. -->
+title: NC-LBE-FR-LITELLM-001
+version: v1.0
+created: 2026-04-18
+created_by: T0-Antigravity
+tags: litellm, proxy, llm-routing, unified-gateway, qwen, deepseek, architecture
+status: active
+module: llm-infrastructure
+temperature: 0
+status: archived
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-LITELLM-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-LITELLM-001-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+## What
+Módulo: NC LBE FR LITELLM 001
+
+## Why
+Criado em 2026-04-26 — arquivo do ecossistema NeoCortex
+
+## Where
+02_memory_lobes/01_framework
+
+---
+
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-LITELLM-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-LITELLM-001-v1 ja esta no contexto desta sessao, SALTE. -->
+# NC-LBE-FR-LITELLM-001 — LiteLLM Unified Gateway
+
+## Visão Geral
+
+O LiteLLM é o **sistema nervoso central de LLMs** do NeoCortex.
+Roda em `localhost:4000` e expõe uma API OpenAI-compatible que unifica
+TODOS os modelos em um único endpoint com roteamento, fallback, budget e logging.
+
+```
+MASTER KEY: sk-my-master-key-123
+ENDPOINT:   http://localhost:4000/v1
+HEALTH:     http://localhost:4000/health
+MODELS:     http://localhost:4000/v1/models
+```
+
+## Hierarquia de Execução
+
+```
+T0 Antigravity (Soberano)
+  └── Decide estratégia, orquestra, revisa
+        │
+        ▼  via MCP neocortex_local_llm
+   LiteLLM :4000 (Gateway Unificado)
+        │
+        ├── deepseek-v4-pro  (STF/STJ — raciocínio complexo)
+        │     Uso: análise constitucional, planejamento multi-step, ADRs
+        │     Custo: $0.435/M input, $0.87/M output — reservar para necessidade real
+        │
+        ├── deepseek-v4-flash      (TJ — orquestração técnica)
+        │     Uso: T1 orquestrador, delegação de subtarefas, reviews, execução
+        │     Custo: $0.14/M input, $0.28/M output — padrão para tasks técnicas
+        │
+        └── qwen2.5-coder:1.5b × N workers  (Fórum — braçal)
+              Uso: boilerplate, formatação, validação NC-, YAMLs, compactação
+              Custo: zero — iGPU, 24/7, replicável até limite do hardware
+```
+
+## Modelos Configurados
+
+| Alias LiteLLM | Provider Real | Tier | Caso de Uso |
+|---------------|---------------|------|-------------|
+| `deepseek-v4-pro` | deepseek/deepseek-v4-pro API | STF/STJ | Raciocínio profundo |
+| `deepseek-v4-flash` | deepseek/deepseek-v4-flash API | TJ | Orquestração técnica + execução |
+| `qwen-1.5b` | ollama/qwen2.5-coder:1.5b | Fórum | Trabalho braçal |
+| `qwen-3b` | ollama/qwen2.5-coder:3b | TJ local | Técnico offline |
+
+## Poderes que o LiteLLM Confere à Cloud LLM (T0)
+
+Sem LiteLLM, T0 (Antigravity/Gemini) só vê o MCP.
+Com LiteLLM :4000 ativo, T0 pode, via `neocortex_local_llm`, chamar:
+
+1. **deepseek-v4-flash como sub-orquestrador** — T0 delega planejamento técnico
+   ao DeepSeek-chat (mais barato que reasoner, mais capaz que Qwen)
+2. **deepseek-v4-pro on-demand** — para análise de governança complexa
+   sem precisar do PicoClaw estar online
+3. **Qwen 1.5b worker pool** — N chamadas paralelas para tarefas braçais
+4. **Fallback automático** — se DeepSeek API cair, LiteLLM redireciona para
+   Qwen local automaticamente (sem intervenção)
+5. **Budget tracking** — LiteLLM registra tokens/custo por modelo/sessão
+6. **Model swap sem código** — trocar deepseek-v4-flash por outro modelo sem
+   alterar nenhum arquivo Python, só o config.yaml
+
+## Pool de Workers Qwen 1.5b
+
+### Modelo de Replicação
+```
+PulseScheduler → spawn N instâncias Qwen via neocortex_subserver
+                  (limitado pelo hardware: 3-6 workers recomendados)
+
+Cada worker via LiteLLM:
+  - Recebe task via neocortex_local_llm.ollama.ask
+  - Executa de forma independente
+  - Retorna resultado para T0 revisar
+  - SEM acesso ao SSOT, SEM acesso a locks
+```
+
+### Tarefas Elegíveis (Braçal Tier)
+- Compactação de docstrings Python
+- Formatação e padronização de YAMLs
+- Validação de naming NC-TIPO-SIGLA-NUM
+- Geração de stubs de lobes com estrutura padrão
+- Resumo de logs de auditoria
+- Verificação de conformidade NC-RULE-006
+
+### Tarefas PROIBIDAS para Workers
+- Qualquer escrita em SSOT primário
+- Modificação de arquivos em @LOCKS
+- Decisões de governança ou arquitetura
+- Leitura de API keys ou secrets
+- Spawn de outros agentes
+
+## Fluxo de Chamada Padrão
+
+```
+1. T0 identifica tarefa
+2. T0 classifica complexidade: OPERACIONAL | TECNICO | RACIOCINIO
+3. neocortex_local_llm.llm.route(complexity=X, prompt=Y)
+4. LiteLLM :4000 recebe → roteia para modelo correto
+5. Modelo executa
+6. Se OPERACIONAL: resultado retorna direto com DryRun check
+   Se TECNICO/RACIOCINIO: T0 revisa antes de aplicar
+```
+
+## Integração com Boot
+
+### Checklist de Startup
+```yaml
+litellm_gateway:
+  endpoint: http://localhost:4000/v1
+  health_check: http://localhost:4000/health
+  master_key: sk-my-master-key-123
+  startup_cmd: "litellm --config config.yaml --port 4000"
+  models_required:
+    - deepseek-v4-flash
+    - deepseek-v4-pro
+  ollama_models:
+    - qwen2.5-coder:1.5b   # worker pool braçal
+    - qwen2.5-coder:3b     # técnico offline
+```
+
+### Verificação de Saúde (tool MCP)
+```
+neocortex_health.metrics.live
+  → verifica porta 4000 (LiteLLM)
+  → verifica porta 11434 (Ollama)
+  → retorna status de cada tier do roteamento
+```
+
+## Aliases
+
+| Símbolo | Referência |
+|---------|-----------|
+| `$LITELLM` | Este lobe |
+| `$LLMGW` | LiteLLM Gateway :4000 |
+| `$WORKERS` | Pool de workers Qwen 1.5b |
+| `$DS-CHAT` | deepseek-v4-flash via LiteLLM |
+| `$DS-REASON` | deepseek-v4-pro via LiteLLM |
+
+## Referências
+
+- Config: `config.yaml` (raiz do projeto)
+- Tool: `NC-TOOL-FR-042-local-llm.py` (bridge MCP ↔ LiteLLM/Ollama)
+- Roteamento: `NC-TOOL-FR-025-system.py` config.set_model
+- Boot: `DIR-BOOT-FR-001-bootup-main/NC-BOOT-FR-001-system-manifest.md`
+- Roadmap: COG-001, PICOCLAW-003, SEC-403-A (relacionados)
+
+---
+
+<!-- NC-READ-HASH: NC-LBE-FR-LITELLM-001-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-LITELLM-001-v1 ja esta no contexto desta sessao, SALTE. -->
+*"O LiteLLM é o corpo caloso do NeoCortex — faz hemisfério local e nuvem trabalharem como um só."*

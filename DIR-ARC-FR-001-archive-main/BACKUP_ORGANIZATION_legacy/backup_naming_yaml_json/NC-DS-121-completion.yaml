@@ -1,0 +1,73 @@
+ticket_id: NC-DS-121
+status: COMPLETED
+completed_at: '2026-04-20T20:45:00-03:00'
+agent: opencode-agent-5
+files_created:
+- path: NC-SCR-FR-146-hook-boot-loader.py
+  lines: 192
+test_results:
+  ruff_F_E9: PASS
+  py_compile: PASS
+  import_via_importlib: PASS
+  lexico_step0_registered: PASS
+  no_print_T201: PASS
+  full_output: '=== Testes executados ===
+
+
+    Teste 1: ruff check F,E9
+
+    All checks passed!
+
+
+    Teste 2: py_compile
+
+    OK
+
+
+    Teste 3: import via importlib
+
+    IMPORT OK True
+
+
+    Teste 4: lexico_step0 registrado
+
+    PASS — Hook lexico_step0 registrado com sucesso
+
+    Output: 2026-04-21 10:31:57,531 - hook_registry - INFO - Hook registrado: lexico_step0
+    para evento PreToolUse
+
+    2026-04-21 10:31:57,533 - hook_registry - INFO - Carregados 1 hooks de C:\Users\Lucas
+    Valério\Desktop\TURBOQUANT_V42\01_neocortex_framework\neocortex\core\hooks\NC-CFG-HK-001-hooks.yaml
+
+
+    Teste 5: no print() T201
+
+    All checks passed!
+
+    '
+constraints_verified:
+  server_py_untouched: true
+  sub_server_py_untouched: true
+  hook_registry_untouched: true
+  get_config_used: true
+  importlib_used: true
+  logger_used: true
+errors: []
+warnings:
+- Script ajustado para usar caminho correto do framework (C:/Users/Lucas Valério/Desktop/TURBOQUANT_V42/01_neocortex_framework)
+- Todos os testes passaram após correcao de paths
+checklist_r20:
+  naming_convention: true
+  no_print_statements: true
+  handoff_yaml_complete: true
+  locks_respected: true
+  write_zone_respected: true
+title: Ticket NC-DS-121
+description: Descrição do ticket NC-DS-121
+priority: MEDIUM
+created_at: '2026-04-22T13:11:14.916685Z'
+metadata:
+  roadmap_sync:
+    synced_at: '2026-04-22T15:14:28.093637Z'
+    phases: FASE_1
+    v69_mapping: TKT-302

@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+"""---
+NC-SCR-FR-115 — Guardian Daemon (COG-001)
+---
+"""
+
+"""---
+NC-SCR-FR-115 — Guardian Daemon (COG-001)
+---
+"""
+
 """
 NC-SCR-FR-115 — Guardian Daemon (COG-001)
 Qwen 1.5b como "Cerebelo" permanente do NeoCortex.

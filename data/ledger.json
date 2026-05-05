@@ -1,0 +1,698 @@
+{
+  "session_metrics": {
+    "total_interactions": 33,
+    "compactions_executed": 0,
+    "token_budget_warnings": 0,
+    "interaction_types": {
+      "heartbeat": 33
+    },
+    "total_tokens_used": 0
+  },
+  "memory_cortex": {
+    "consolidation_sessions": [
+      {
+        "id": "session_pulse_20260504_213140_4bd86b0e",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-05-04T21-31-36-716679+00-00Z",
+        "summary": "Sess\u00e3o finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260504_213254_d97323bb",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-05-04T21-32-51-964448+00-00Z",
+        "summary": "Sess\u00e3o finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260504_214839_c5396b54",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-05-04T21-48-36-325030+00-00Z",
+        "summary": "Sess\u00e3o finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260504_215143_68350220",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-05-04T21-51-41-373466+00-00Z",
+        "summary": "Sess\u00e3o finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260504_215211_d153afa8",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260504_215915_2e94bf66",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260504_220520_baf35514",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260504_222519_69fa7745",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260504_223040_45ca63c0",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260504_223317_e80a8bbc",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260504_223914_1410713d",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260504_224106_d0b84acc",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260504_224320_cf716939",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-05-04T22-43-43-485248+00-00Z",
+        "summary": "Sess\u00e3o finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-05-04T22-48-01-814769+00-00Z",
+        "summary": "Sess\u00e3o finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260504_224917_87eeeef8",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260505_025229_7771181f",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260505_025642_b0d85567",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260505_025904_1989048a",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260505_030555_f19648ca",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260505_030651_4de81207",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260505_030853_82bbcbfd",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-05-05T03-09-30-240217+00-00Z",
+        "summary": "Sess\u00e3o finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260505_031056_6b605063",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260505_031248_565182e4",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260505_031847_a9487763",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260505_033345_2dd8b101",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260505_035119_b7d4d589",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260505_035700_c0bde6b5",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260505_042701_042bc328",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      }
+    ],
+    "synapses": {
+      "current_context": {
+        "lobe_id": "NC-LBE-FR-002-claude-assistant",
+        "checkpoint_id": "CP-AUTO-20260505-014201-8825bc81",
+        "set_at": "2026-05-05T01:42:01.324800"
+      }
+    },
+    "global_checkpoint_index": {
+      "checkpoints": [
+        "CP-AUTO-20260504-183140-97c96d69",
+        "CP-AUTO-20260504-183142-9656201c",
+        "CP-AUTO-20260504-183254-963807c4",
+        "CP-AUTO-20260504-183257-aab1978e",
+        "CP-AUTO-20260504-184839-a798fc74",
+        "CP-AUTO-20260504-184841-9e36c4c9",
+        "CP-AUTO-20260504-185143-5d3fc1eb",
+        "CP-AUTO-20260504-185147-281a8dc3",
+        "CP-AUTO-20260504-185211-3eb6fb14",
+        "CP-AUTO-20260504-185915-44ae38df",
+        "CP-AUTO-20260504-190520-60600cf7",
+        "CP-AUTO-20260504-191020-1731b40d",
+        "CP-AUTO-20260504-191520-e451fcfb",
+        "CP-AUTO-20260504-192020-f44767f5",
+        "CP-AUTO-20260504-192519-0f5f8c2e",
+        "CP-AUTO-20260504-193019-67744069",
+        "CP-AUTO-20260504-193040-5a42a153",
+        "CP-AUTO-20260504-193317-bc6e1b14",
+        "CP-AUTO-20260504-193914-c38e6005",
+        "CP-AUTO-20260504-194106-088b7648",
+        "CP-AUTO-20260504-194320-29b241c1",
+        "CP-AUTO-20260504-194343-7579d202",
+        "CP-AUTO-20260504-194801-5c9f961f",
+        "CP-AUTO-20260504-194917-fbb52f93",
+        "CP-AUTO-20260504-235229-971c817a",
+        "CP-AUTO-20260504-235642-f70b3eb2",
+        "CP-AUTO-20260504-235904-a3dd4b0c",
+        "CP-AUTO-20260505-000404-37820947",
+        "CP-AUTO-20260505-000555-cf2bba5d",
+        "CP-AUTO-20260505-000651-c03a4411",
+        "CP-AUTO-20260505-000853-09c776c5",
+        "CP-AUTO-20260505-000930-a9b2aca7",
+        "CP-AUTO-20260505-001056-05213d5f",
+        "CP-AUTO-20260505-001248-fa6064ec",
+        "CP-AUTO-20260505-001748-54a27649",
+        "CP-AUTO-20260505-001847-dbb17705",
+        "CP-AUTO-20260505-002347-9641f3d3",
+        "CP-AUTO-20260505-002847-08c0efc3",
+        "CP-AUTO-20260505-003345-a62ef32d",
+        "CP-AUTO-20260505-003845-5aa799f4",
+        "CP-AUTO-20260505-004345-7d5fa3a1",
+        "CP-AUTO-20260505-004845-04e794e7",
+        "CP-AUTO-20260505-005119-0a7e0abd",
+        "CP-AUTO-20260505-005620-179d2204",
+        "CP-AUTO-20260505-005700-639d5fcd",
+        "CP-AUTO-20260505-010200-a814ae3a",
+        "CP-AUTO-20260505-010701-c3301245",
+        "CP-AUTO-20260505-011201-eb4d5576",
+        "CP-AUTO-20260505-011701-731f65dc",
+        "CP-AUTO-20260505-012201-a315d6ad",
+        "CP-AUTO-20260505-012701-ba8c1a32",
+        "CP-AUTO-20260505-013201-5aa5e9c4",
+        "CP-AUTO-20260505-013701-eaf3388a",
+        "CP-AUTO-20260505-014201-8825bc81"
+      ]
+    }
+  },
+  "session_timeline": [
+    {
+      "timestamp": "2026-05-04T18:31:40.999744",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260504-183140-97c96d69",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-04T18:31:42.344580",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260504-183142-9656201c",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-04T18:32:55.002629",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260504-183254-963807c4",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-04T18:32:57.628623",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260504-183257-aab1978e",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-04T18:48:39.595093",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260504-184839-a798fc74",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-04T18:48:41.978127",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260504-184841-9e36c4c9",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-04T18:51:43.802508",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260504-185143-5d3fc1eb",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-04T18:51:47.207874",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260504-185147-281a8dc3",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-04T18:52:11.704594",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260504-185211-3eb6fb14",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-04T18:59:15.980012",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260504-185915-44ae38df",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-04T19:05:20.477429",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260504-190520-60600cf7",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-04T19:10:20.502255",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260504-191020-1731b40d",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-04T19:15:20.520010",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260504-191520-e451fcfb",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-04T19:20:20.757156",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260504-192020-f44767f5",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-04T19:25:19.470538",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260504-192519-0f5f8c2e",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-04T19:30:19.492560",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260504-193019-67744069",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-04T19:30:40.814495",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260504-193040-5a42a153",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-04T19:33:17.214693",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260504-193317-bc6e1b14",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-04T19:39:14.274468",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260504-193914-c38e6005",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-04T19:41:06.654519",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260504-194106-088b7648",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-04T19:43:20.277519",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260504-194320-29b241c1",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-04T19:43:43.767509",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260504-194343-7579d202",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-04T19:48:01.876404",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260504-194801-5c9f961f",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-04T19:49:17.499525",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260504-194917-fbb52f93",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-04T23:52:29.763992",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260504-235229-971c817a",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-04T23:56:42.796833",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260504-235642-f70b3eb2",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-04T23:59:04.300561",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260504-235904-a3dd4b0c",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-05T00:04:04.327514",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260505-000404-37820947",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-05T00:05:55.364052",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260505-000555-cf2bba5d",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-05T00:06:51.357508",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260505-000651-c03a4411",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-05T00:08:53.707324",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260505-000853-09c776c5",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-05T00:09:30.272194",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260505-000930-a9b2aca7",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-05T00:10:56.860581",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260505-001056-05213d5f",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-05T00:12:48.536455",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260505-001248-fa6064ec",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-05T00:17:48.556453",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260505-001748-54a27649",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-05T00:18:47.071625",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260505-001847-dbb17705",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-05T00:23:47.090731",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260505-002347-9641f3d3",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-05T00:28:47.113724",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260505-002847-08c0efc3",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-05T00:33:45.693974",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260505-003345-a62ef32d",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-05T00:38:45.719451",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260505-003845-5aa799f4",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-05T00:43:45.739099",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260505-004345-7d5fa3a1",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-05T00:48:45.802031",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260505-004845-04e794e7",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-05T00:51:19.996743",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260505-005119-0a7e0abd",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-05T00:56:20.018741",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260505-005620-179d2204",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-05T00:57:00.988881",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260505-005700-639d5fcd",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-05T01:02:00.997602",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260505-010200-a814ae3a",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-05T01:07:01.047066",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260505-010701-c3301245",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-05T01:12:01.099097",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260505-011201-eb4d5576",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-05T01:17:01.117568",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260505-011701-731f65dc",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-05T01:22:01.140179",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260505-012201-a315d6ad",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-05T01:27:01.206644",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260505-012701-ba8c1a32",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-05T01:32:01.224796",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260505-013201-5aa5e9c4",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-05T01:37:01.245672",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260505-013701-eaf3388a",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-05T01:42:01.324800",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260505-014201-8825bc81",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    }
+  ]
+}

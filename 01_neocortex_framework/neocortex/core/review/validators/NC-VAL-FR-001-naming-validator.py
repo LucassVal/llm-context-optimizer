@@ -1,17 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:58.440377'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-parent_ssot: NC-VAL-FR-001-naming-validator
-tags:
-  - neocortex-other
-  - level-0
-  - nc-prefix
-  - python
----"""
+@Module  mcp _genealogy:   injected_at: '2026-04-16T00:23:58.44
+---
+"""
+
+
 """
 NC-VAL-FR-001-naming-validator.py
 Validador de naming: verifica se arquivos seguem padro NC-TIPO-SIGLA-NUM.

@@ -1,0 +1,161 @@
+# NC-LBE-CC-005  KAIROS, ULTRAPLAN, BUDDY, Flags Futuras
+
+**Data da anlise:** 20260412  
+**Fonte:** `freecode/src/` (grep global)  
+**Ticket:** NCDS009 (CC001B)
+
+---
+
+## 1. KAIROS  Sistema de Tick Proativo
+
+### 1.1 Estatsticas
+- **61 arquivos** contm a string `KAIROS` (casesensitive).
+- **105 arquivos** contm `tick` (provavelmente relacionado).
+- **Arquivos notveis:**
+  - `src/commands.ts` (lista de comandos)
+  - `src/interactiveHelpers.tsx`
+  - `src/main.tsx`
+  - `src/tools.ts`
+  - `src/bridge/bridgeMain.ts`
+
+### 1.2 Localizao
+- **No est em `src/assistant/`** (apenas 2 arquivos l).
+- **Provavelmente**  um **mdulo global** que dispara aes peridicas.
+
+### 1.3 Possvel Implementao (inferncia)
+- **`tick`** pode ser uma funo chamada em intervalos regulares.
+- **KAIROS** decide se o agente deve **agir** ou **ficar quieto** com base em:
+  - Eventos do usurio (inatividade, comandos especficos).
+  - Estado da sesso (bridge, voice, buddy).
+  - Flags de feature (growthbook).
+
+### 1.4 Trecho Encontrado (`src/interactiveHelpers.tsx`)
+```typescript
+// (a extrair aps leitura completa)
+```
+**Ao pendente:** Ler os 61 arquivos com KAIROS para extrair a lgica exata.
+
+---
+
+## 2. ULTRAPLAN  Modo de Alto Desempenho
+
+### 2.1 Estatsticas
+- **28 arquivos** contm `ULTRAPLAN`.
+- **`__ULTRAPLAN_TELEPORT_LOCAL__`**  flag de teleporte local (0 arquivos).
+- **Localizao:** `src/remote/`, `src/commands/` (a confirmar).
+
+### 2.2 Hiptese
+- **Modo ultraplano** para execuo de comandos sem overhead de UI.
+- **Teleporte local** talvez seja uma forma de mover sesses entre instncias.
+
+---
+
+## 3. BRIDGE_MODE  Sesses Remotas
+
+### 3.1 Estatsticas
+- **14 arquivos** com `BRIDGE_MODE`.
+- **31 arquivos** em `src/bridge/` (implementao completa).
+
+### 3.2 Componentes (extrados de `bridgeMain.ts`)
+- **`BridgeApiClient`**  comunicao com backend.
+- **`SessionSpawner`**  cria sesses remotas.
+- **`BridgeLogger`**  logging especfico.
+- **`CapacityWake`**  gerencia limite de concorrncia.
+
+### 3.3 Fluxo
+1. **Cliente conecta** via token JWT.
+2. **Sesso  spawnada** em sandbox remota.
+3. **Comandos so roteados** atravs do bridge.
+4. **Timeout** padro: `DEFAULT_SESSION_TIMEOUT_MS`.
+
+---
+
+## 4. VOICE_MODE  Interface por Voz
+
+### 4.1 Estatsticas
+- **17 arquivos** com `VOICE_MODE`.
+- **1 arquivo** em `src/voice/` (a ler).
+
+### 4.2 Suposio
+- **Integrao com ASR/TTS** (automatic speech recognition / texttospeech).
+- **Ativao por comando** (`/voice`).
+
+---
+
+## 5. BUDDY  Tamagotchi / Sistema de Companheiro
+
+### 5.1 Estatsticas
+- **6 arquivos** em `src/buddy/` (gacha, stats, sprites ASCII).
+- **Termos:** `gacha`, `stats`, `sprites`.
+
+### 5.2 Funcionalidade
+- **Companheiro virtual** que evolui com uso do Claude Code.
+- **Sistema de gacha** (obteno de itens/aparncias).
+- **Estatsticas** de sesso (tempo, comandos, acertos).
+
+---
+
+## 6. FEATURE FLAGS (Growthbook)
+
+### 6.1 Encontrado
+- **`checkGate_CACHED_OR_BLOCKING`** em `src/services/analytics/growthbook.js`.
+- **`isEnvTruthy`** em `src/utils/envUtils.js`.
+
+### 6.2 Padro
+- **Flags armazenadas** no Growthbook (servio externo).
+- **Cache local** para performance.
+- **Deciso** de habilitar/desabilitar funcionalidades por usurio, org, rollout %.
+
+---
+
+## 7. SENDUSERFILE, PUSHNOTIFICATION, SUBSCRIBEPR
+
+### 7.1 Estatsticas
+- **`SendUserFile`:** 4 arquivos.
+- **`PushNotification`:** 0 arquivos.
+- **`SubscribePR`:** 2 arquivos.
+
+### 7.2 Propsito
+- **`SendUserFile`**  enviar arquivo para o usurio (download?).
+- **`SubscribePR`**  inscreverse em eventos de Pull Request.
+
+---
+
+## 8. AFK  Away From Keyboard
+
+### 8.1 Estatsticas
+- **5 arquivos** com `AFK`.
+- **Provvel** detector de inatividade para ativar KAIROS.
+
+---
+
+## 9. RECOMENDAES PARA O NEOCORTEX
+
+### 9.1 Adotar
+- **Sistema de tick (KAIROS)** para aes proativas (ex.: limpeza de lobe, backup).
+- **Feature flags via Growthbook** (j temos `checkGate`).
+- **Modo Buddy** como gamificao para devs (nveis, conquistas).
+
+### 9.2 Investigar
+- **ULTRAPLAN** como modo headless para execuo de scripts longos.
+- **BRIDGE_MODE** para sandbox remota (segurana extra).
+
+### 9.3 Ignorar
+- **VOICE_MODE** (fora do escopo atual).
+- **AFK** (j temos timeout de sesso).
+
+---
+
+## 10. PRXIMOS PASSOS (T0)
+
+1. **Ler os 61 arquivos com KAIROS** (ticket subsequente).
+2. **Extrair lgica de tick** de `src/interactiveHelpers.tsx` e `src/tools.ts`.
+3. **Analisar `src/buddy/`** para gamificao.
+4. **Crosscheck com leakedclaudecode** para confirmar implementaes.
+
+---
+
+**Status:** Mapeamento inicial baseado em grep.  
+**Confiana:** Mdia  necessidade de leitura dos arquivos fonte.
+
+**Prximo ticket:** NCDS010 (CC001C) para anlise de cdigo de produo.

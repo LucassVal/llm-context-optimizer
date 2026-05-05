@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+"""---
+NC-SCR-FR-112 — Gerador de .manifest.json por Lobe (NC-DS-142)
+---
+"""
+
+"""---
+NC-SCR-FR-112 — Gerador de .manifest.json por Lobe (NC-DS-142)
+---
+"""
+
 """
 NC-SCR-FR-112 — Gerador de .manifest.json por Lobe (NC-DS-142)
 Dual-Representation: cria/atualiza NC-MANIFEST-*.json para cada lobe .mdc

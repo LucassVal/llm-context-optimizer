@@ -1,0 +1,40 @@
+{
+  "handoffs": [
+    {
+      "handoff_id": "HANDOFF_CYCLE_TO_CYCLE_20260422_150744",
+      "type": "cycle_to_cycle",
+      "timestamp": "2026-04-22T15:07:44.779201Z",
+      "from": "CYCLE_CICLO_1",
+      "to": "CYCLE_CICLO_2",
+      "status": "PENDING",
+      "summary": "Transição de CICLO_1 para CICLO_2"
+    },
+    {
+      "handoff_id": "HANDOFF_CYCLE_TO_CYCLE_20260422_150800",
+      "type": "cycle_to_cycle",
+      "timestamp": "2026-04-22T15:08:01.012547Z",
+      "from": "CYCLE_CICLO_1",
+      "to": "CYCLE_CICLO_2",
+      "status": "PENDING",
+      "summary": "Transição de CICLO_1 para CICLO_2"
+    },
+    {
+      "handoff_id": "HANDOFF_CYCLE_TO_CYCLE_20260422_150817",
+      "type": "cycle_to_cycle",
+      "timestamp": "2026-04-22T15:08:18.049549Z",
+      "from": "CYCLE_CICLO_1",
+      "to": "CYCLE_CICLO_2",
+      "status": "COMPLETED",
+      "summary": "Transição de CICLO_1 para CICLO_2"
+    },
+    {
+      "handoff_id": "HANDOFF_CYCLE_TO_CYCLE_20260422_163230",
+      "type": "cycle_to_cycle",
+      "timestamp": "2026-04-22T16:32:30.822213Z",
+      "from": "CYCLE_CICLO_1",
+      "to": "CYCLE_CICLO_2",
+      "status": "COMPLETED",
+      "summary": "Transição de CICLO_1 para CICLO_2"
+    }
+  ]
+}

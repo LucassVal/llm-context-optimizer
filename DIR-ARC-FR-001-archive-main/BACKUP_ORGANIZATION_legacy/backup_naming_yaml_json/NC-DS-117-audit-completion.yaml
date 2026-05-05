@@ -1,0 +1,61 @@
+ticket_id: NC-DS-117
+status: COMPLETED
+completion_date: '2026-04-20T19:25:00-03:00'
+executed_by: opencode-agent-1
+tier: T1
+audit_summary:
+  total_files_analyzed: 26
+  classification_results:
+    KEEP_NC: 20
+    ARCHIVE: 5
+    DUPLICATE: 1
+  output_file: 05_examples/NC-RPT-117-core-audit-report.json
+  script_used: analyze_imports.py
+  script_compilation: python -m py_compile analyze_imports.py ✓
+  linting: ruff check analyze_imports.py ✓
+files_to_archive:
+- __init__.py (0 importers)
+- agent_policy_enforcer.py (0 importers)
+- cascade_consolidator.py (0 importers)
+- circuit_breaker.py (0 importers)
+- logging_config.py (0 importers)
+duplicate_found:
+- lexico_service.py → NC-SVC-FR-020-lexico-service.py
+files_to_rename_with_nc_prefix:
+- agent_service.py (1 importador)
+- akl_service.py (1 importador)
+- benchmark_service.py (1 importador)
+- checkpoint_service.py (1 importador)
+- config_service.py (1 importador)
+- consolidation_service.py (1 importador)
+- cortex_service.py (1 importador)
+- export_service.py (1 importador)
+- file_utils.py (2 importadores)
+- init_service.py (1 importador)
+- kg_service.py (1 importador)
+- ledger_service.py (2 importadores)
+- lobe_service.py (1 importador)
+- manifest_service.py (1 importador)
+- peers_service.py (1 importador)
+- profile_manager.py (1 importador)
+- profile_service.py (1 importador)
+- pulse_scheduler.py (2 importadores)
+- regression_service.py (1 importador)
+- security_service.py (1 importador)
+constraints_respected:
+- ✓ NÃO modificar nenhum arquivo em neocortex/
+- ✓ NÃO criar novos arquivos em core/
+- ✓ NÃO tocar @SSOT, @ROADMAP, @LOCKS
+- '✓ Seguir R21: rodar python -m py_compile em qualquer script criado'
+next_steps:
+- T0 revisar relatório JSON e aprovar ações
+- T0 atualizar @SSOT com classificações
+- Equipe de desenvolvimento executar renomeações (KEEP_NC)
+- Equipe de arquivamento mover arquivos ARCHIVE
+- Remover duplicate lexico_service.py após migração
+handoff_ready: true
+handoff_target: DIR-DS-002-audit-logs/
+title: Ticket NC-DS-117
+description: Descrição do ticket NC-DS-117
+priority: MEDIUM
+created_at: '2026-04-22T13:11:14.789651Z'

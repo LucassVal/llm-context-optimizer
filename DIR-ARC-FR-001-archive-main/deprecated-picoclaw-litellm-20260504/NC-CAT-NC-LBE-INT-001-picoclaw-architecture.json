@@ -1,0 +1,16 @@
+{
+  "category": "09_documentation",
+  "tags": [
+    "picoclaw",
+    "orchestration",
+    "gateway",
+    "mcp",
+    "integration",
+    "deepseek"
+  ],
+  "summary": "Documentação completa do PicoClaw para integração com NeoCortex",
+  "priority_score": 8,
+  "file": "NC-LBE-INT-001-picoclaw-architecture.mdc",
+  "lobe_id": "NC-LBE-INT-001-picoclaw-architecture",
+  "classified": "2026-04-21T10:36:57"
+}

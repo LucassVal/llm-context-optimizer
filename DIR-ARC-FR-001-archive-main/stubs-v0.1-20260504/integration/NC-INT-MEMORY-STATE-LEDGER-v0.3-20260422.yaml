@@ -1,0 +1,212 @@
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC INT MEMORY STATE LEDGER v0.3 20260422
+# Why:  ção da regra R25: Integração entre Sistemas
+# Where: 01_neocortex_framework/integration/NC-INT-MEMORY-STATE-LEDGER-v0.3-20260422.yaml
+
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC INT MEMORY STATE LEDGER v0.3 20260422
+# Why:  ção da regra R25: Integração entre Sistemas
+# Where: 01_neocortex_framework/integration/NC-INT-MEMORY-STATE-LEDGER-v0.3-20260422.yaml
+
+# NEOCORTEX MEMORY-STATE-LEDGER INTEGRATION v0.3
+# Data: 2026-04-22
+# Status: IMPLEMENTANDO
+# Implementação da regra R25: Integração entre Sistemas
+
+integration_config:
+  name: "Memory-State-Ledger Integration System"
+  version: "v0.3"
+  rule_implemented: "R25"
+  scope: "Sincronização entre memory, state e ledger"
+  frequency: "Checkpoints a cada handoff"
+  trigger: "Handoff creation, checkpoint save, state change"
+
+architecture:
+  data_flow: "Memory → State → Ledger"
+  consistency_model: "Transacional com rollback"
+  synchronization: "Checkpoints coordenados"
+  recovery: "Rollback coordenado em caso de falha"
+
+components:
+  memory_system:
+    tools:
+      - "neocortex_memory.cortex.get/set"
+      - "neocortex_memory.lobe.get/activate"
+      - "neocortex_memory.knowledge.search/store"
+      - "neocortex_memory_auto.turn.record"
+    responsibilities:
+      - "Armazenamento de conhecimento de longo prazo"
+      - "Categorização semântica (lobes)"
+      - "Busca e recuperação de informação"
+      - "Registro automático de interações"
+
+  state_system:
+    tools:
+      - "neocortex_state.checkpoint.get/set"
+      - "neocortex_state.savepoint.create/rollback"
+      - "neocortex_state.session.heartbeat/status"
+      - "neocortex_state.ledger.read/update"
+    responsibilities:
+      - "Estado da sessão atual"
+      - "Checkpoints e savepoints"
+      - "Recuperação de estado"
+      - "Persistência transacional"
+
+  ledger_system:
+    tools:
+      - "neocortex_ledger.ledger.read/update"
+      - "neocortex_ledger.ledger.stats"
+      - "neocortex_ledger.agent.register/identity"
+    responsibilities:
+      - "Registro imutável de interações"
+      - "Identidade de agentes"
+      - "Métricas e estatísticas"
+      - "Auditoria transacional"
+
+integration_workflows:
+  workflow_1_handoff_synchronization:
+    trigger: "neocortex_governance.handoff.create"
+    steps:
+      - "State: Criar checkpoint do estado atual"
+      - "Memory: Registrar handoff no knowledge base"
+      - "Ledger: Registrar criação de handoff"
+      - "Validar: Verificar sincronização entre sistemas"
+    output: "Handoff registrado em todos os sistemas"
+
+  workflow_2_compliance_audit:
+    trigger: "neocortex_governance.cf.audit"
+    steps:
+      - "Memory: Buscar histórico de auditorias"
+      - "State: Verificar estado atual de compliance"
+      - "Ledger: Registrar nova auditoria"
+      - "Integrar: Consolidar dados dos três sistemas"
+    output: "Relatório de compliance integrado"
+
+  workflow_3_state_recovery:
+    trigger: "System failure or manual recovery"
+    steps:
+      - "State: Identificar último checkpoint válido"
+      - "Memory: Restaurar conhecimento do período"
+      - "Ledger: Verificar integridade transacional"
+      - "Sincronizar: Aplicar rollback coordenado"
+    output: "Sistema restaurado com consistência"
+
+  workflow_4_agent_identity_flow:
+    trigger: "Agent spawn or task assignment"
+    steps:
+      - "Ledger: Registrar identidade do agente"
+      - "State: Atualizar estado da sessão"
+      - "Memory: Armazenar perfil do agente"
+      - "Sincronizar: Manter consistência entre sistemas"
+    output: "Agente registrado e rastreável"
+
+synchronization_rules:
+  rule_1_consistency:
+    description: "Dados devem ser consistentes entre memory, state e ledger"
+    validation: "Hash comparison between systems"
+    tolerance: "Zero tolerance for inconsistencies"
+
+  rule_2_transactional:
+    description: "Operações críticas devem ser transacionais"
+    validation: "All-or-nothing commit across systems"
+    recovery: "Rollback completo em caso de falha"
+
+  rule_3_checkpoint_coordination:
+    description: "Checkpoints devem ser coordenados entre sistemas"
+    validation: "Checkpoint timestamps must match"
+    frequency: "A cada handoff ou mudança de estado significativa"
+
+  rule_4_audit_trail:
+    description: "Trilha de auditoria deve ser mantida em todos os sistemas"
+    validation: "Audit logs must exist in memory, state, and ledger"
+    retention: "7 dias mínimo"
+
+implementation_status:
+  memory_integration: "PARTIAL"
+  state_integration: "PARTIAL"
+  ledger_integration: "PARTIAL"
+  synchronization: "IN_PROGRESS"
+  last_sync_check: "2026-04-22T09:49:00"
+  next_sync_check: "2026-04-22T12:00:00"
+
+monitoring:
+  health_checks:
+    - "Memory service availability"
+    - "State service consistency"
+    - "Ledger service integrity"
+    - "Synchronization status"
+  frequency: "30 segundos"
+  alerts: "Notificações para dessincronização"
+
+  metrics:
+    - "sync_latency_ms"
+    - "consistency_score"
+    - "checkpoint_success_rate"
+    - "recovery_time_ms"
+
+testing_validation:
+  unit_tests:
+    - "Individual system functionality"
+    - "Integration point validation"
+    - "Error handling and recovery"
+
+  integration_tests:
+    - "End-to-end synchronization"
+    - "Failure recovery scenarios"
+    - "Performance under load"
+    - "Consistency validation"
+
+  validation_criteria:
+    - "100% data consistency across systems"
+    - "< 100ms synchronization latency"
+    - "Zero data loss in recovery scenarios"
+    - "Real-time monitoring and alerts"
+
+backup_recovery:
+  coordinated_backup:
+    frequency: "A cada checkpoint"
+    retention: "Últimos 7 checkpoints"
+    location: "DIR-BACKUP/integration/"
+
+  disaster_recovery:
+    recovery_point_objective: "Último checkpoint válido"
+    recovery_time_objective: "< 5 minutos"
+    validation: "Post-recovery consistency check"
+
+maintenance:
+  daily: "Log rotation and cleanup"
+  weekly: "Consistency validation"
+  monthly: "Performance optimization"
+  quarterly: "Architecture review"
+
+roadmap:
+  phase_1_current:
+    - "Implementar workflows básicos de sincronização"
+    - "Configurar monitoramento de consistência"
+    - "Estabelecer checkpoints coordenados"
+    status: "IN_PROGRESS"
+
+  phase_2_next:
+    - "Implementar recovery automatizado"
+    - "Otimizar performance de sincronização"
+    - "Expandir integração para mais sistemas"
+    status: "PLANNED"
+
+  phase_3_future:
+    - "Implementar replicação em tempo real"
+    - "Adicionar criptografia end-to-end"
+    - "Expandir para multi-node deployment"
+    status: "FUTURE"
+
+compliance:
+  rule_R25: "IMPLEMENTING"
+  validation_method: "Automated consistency checks"
+  reporting: "Integrated compliance reports"
+  escalation: "T0 notification for inconsistencies"
+
+signature:
+  implemented_by: "T0 Soberano"
+  implementation_date: "2026-04-22T09:49:00"
+  review_date: "2026-04-29"
+  status: "IMPLEMENTING"
+  constitution_version: "v0.3"

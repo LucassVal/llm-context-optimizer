@@ -1,0 +1,109 @@
+{
+  "total_files_scanned": 488,
+  "files_with_references": 0,
+  "total_replacements": 0,
+  "replacements_by_pattern": {
+    "NC-RPT-(\\d{3}-)": 0,
+    "NC-TEST-(\\d{3}-)": 0,
+    "NC-DS-(\\d{3}-)": 0,
+    "NC-NAM-FR-001a-": 0,
+    "NC-NAM-FR-001b-": 0,
+    "NC-NAM-FR-001c-": 0,
+    "NC-NAM-FR-001d-": 0,
+    "NC-CMD-EXAMPLE\\.md": 0,
+    "NC-HK-EXAMPLE\\.py": 0,
+    "NC-SCR-FR-103b-": 0
+  },
+  "updated_files": [],
+  "errors": [],
+  "timestamp": "2026-04-21T23:22:00.228686",
+  "files": [
+    {
+      "path": "LICENSE",
+      "type": "file",
+      "added": "2026-04-22T01:23:35.644892",
+      "source": "alpha_testing_2026-04-22",
+      "description": "Criado durante alpha testing do NeoCortex"
+    },
+    {
+      "path": ".gitignore",
+      "type": "file",
+      "added": "2026-04-22T01:23:35.644892",
+      "source": "alpha_testing_2026-04-22",
+      "description": "Criado durante alpha testing do NeoCortex"
+    },
+    {
+      "path": "README.md",
+      "type": "file",
+      "added": "2026-04-22T01:23:35.644892",
+      "source": "alpha_testing_2026-04-22",
+      "description": "Criado durante alpha testing do NeoCortex"
+    },
+    {
+      "path": "NC-SCR-FR-122-white-label-anonymizer.py",
+      "type": "file",
+      "added": "2026-04-22T01:23:35.644892",
+      "source": "alpha_testing_2026-04-22",
+      "description": "Criado durante alpha testing do NeoCortex"
+    },
+    {
+      "path": "NC-PAPER-FR-001-fractal-memory-architecture.md",
+      "type": "file",
+      "added": "2026-04-22T01:23:35.644892",
+      "source": "alpha_testing_2026-04-22",
+      "description": "Criado durante alpha testing do NeoCortex"
+    },
+    {
+      "path": "05_examples/NC-TEST-FR-150-smoke-test-40-tools.py",
+      "type": "file",
+      "added": "2026-04-22T01:23:35.644892",
+      "source": "alpha_testing_2026-04-22",
+      "description": "Criado durante alpha testing do NeoCortex"
+    },
+    {
+      "path": "05_examples/NC-RPT-150-smoke-test-results.json",
+      "type": "file",
+      "added": "2026-04-22T01:23:35.644892",
+      "source": "alpha_testing_2026-04-22",
+      "description": "Criado durante alpha testing do NeoCortex"
+    },
+    {
+      "path": "01_neocortex_framework/neocortex/core/hooks/NC-HK-FR-004-conversation-hook.py",
+      "type": "file",
+      "added": "2026-04-22T01:23:35.644892",
+      "source": "alpha_testing_2026-04-22",
+      "description": "Criado durante alpha testing do NeoCortex"
+    },
+    {
+      "path": "01_neocortex_framework/scripts/NC-SCR-FR-152-activate-memory-hook.py",
+      "type": "file",
+      "added": "2026-04-22T01:23:35.644892",
+      "source": "alpha_testing_2026-04-22",
+      "description": "Criado durante alpha testing do NeoCortex"
+    },
+    {
+      "path": "01_neocortex_framework/scripts/NC-BOOT-FR-002-memory-hook.py",
+      "type": "file",
+      "added": "2026-04-22T01:23:35.644892",
+      "source": "alpha_testing_2026-04-22",
+      "description": "Criado durante alpha testing do NeoCortex"
+    },
+    {
+      "path": "05_examples/NC-SCR-FR-153-checkpoint-alpha.py",
+      "type": "file",
+      "added": "2026-04-22T01:23:35.644892",
+      "source": "alpha_testing_2026-04-22",
+      "description": "Criado durante alpha testing do NeoCortex"
+    },
+    {
+      "path": "05_examples/NC-SCR-FR-154-update-ssot.py",
+      "type": "file",
+      "added": "2026-04-22T01:23:35.644892",
+      "source": "alpha_testing_2026-04-22",
+      "description": "Criado durante alpha testing do NeoCortex"
+    }
+  ],
+  "last_updated": "2026-04-22T01:23:35.644892",
+  "update_reason": "Alpha testing completion - new files added",
+  "total_files": 12
+}

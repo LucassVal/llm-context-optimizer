@@ -1,0 +1,490 @@
+{
+  "success": true,
+  "timestamp": "2026-04-22T01:14:12.894604",
+  "tools_directory": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools",
+  "summary": {
+    "total": 60,
+    "pass": 42,
+    "fail": 15,
+    "skip": 3
+  },
+  "results": [
+    {
+      "tool_name": "NC-SUPER-001-governance.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-001-governance.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 26
+    },
+    {
+      "tool_name": "NC-SUPER-002-orchestration.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-002-orchestration.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 21
+    },
+    {
+      "tool_name": "NC-SUPER-003-memory.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-003-memory.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 23
+    },
+    {
+      "tool_name": "NC-SUPER-004-state.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-004-state.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 22
+    },
+    {
+      "tool_name": "NC-SUPER-005-llm-router.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-005-llm-router.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 29
+    },
+    {
+      "tool_name": "NC-SUPER-006-system.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-006-system.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 25
+    },
+    {
+      "tool_name": "NC-SUPER-007-brain.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-007-brain.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 16
+    },
+    {
+      "tool_name": "NC-SUPER-008-context.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-008-context.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 20
+    },
+    {
+      "tool_name": "NC-SUPER-009-security.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-009-security.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 21
+    },
+    {
+      "tool_name": "NC-SUPER-010-benchmark.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-010-benchmark.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 19
+    },
+    {
+      "tool_name": "NC-SUPER-011-notification.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-011-notification.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 17
+    },
+    {
+      "tool_name": "NC-SUPER-012-akl.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-012-akl.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 17
+    },
+    {
+      "tool_name": "NC-SUPER-013-health.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-013-health.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 21
+    },
+    {
+      "tool_name": "NC-SUPER-014-ledger.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-014-ledger.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 17
+    },
+    {
+      "tool_name": "NC-SUPER-015-memory-auto.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-015-memory-auto.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 17
+    },
+    {
+      "tool_name": "NC-SUPER-016-picoclaw.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-SUPER-016-picoclaw.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 67
+    },
+    {
+      "tool_name": "NC-TOOL-FR-000-brain.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-000-brain.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 13
+    },
+    {
+      "tool_name": "NC-TOOL-FR-013-report.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-013-report.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 27
+    },
+    {
+      "tool_name": "NC-TOOL-FR-016-subserver.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-016-subserver.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 27
+    },
+    {
+      "tool_name": "NC-TOOL-FR-018-push-notification.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-018-push-notification.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 294
+    },
+    {
+      "tool_name": "NC-TOOL-FR-019-project-manifest.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-019-project-manifest.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 18
+    },
+    {
+      "tool_name": "NC-TOOL-FR-021-memory.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-021-memory.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 19
+    },
+    {
+      "tool_name": "NC-TOOL-FR-022-session.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-022-session.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 17
+    },
+    {
+      "tool_name": "NC-TOOL-FR-023-orchestration.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-023-orchestration.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 26
+    },
+    {
+      "tool_name": "NC-TOOL-FR-024-governance.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-024-governance.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 27
+    },
+    {
+      "tool_name": "NC-TOOL-FR-025-system.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-025-system.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 20
+    },
+    {
+      "tool_name": "NC-TOOL-FR-026-intelligence.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-026-intelligence.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 16
+    },
+    {
+      "tool_name": "NC-TOOL-FR-027-knowledge.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-027-knowledge.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 16
+    },
+    {
+      "tool_name": "NC-TOOL-FR-029-health.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-029-health.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 19
+    },
+    {
+      "tool_name": "NC-TOOL-FR-030-context.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-030-context.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 22
+    },
+    {
+      "tool_name": "NC-TOOL-FR-031-savepoint.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-031-savepoint.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 18
+    },
+    {
+      "tool_name": "NC-TOOL-FR-034-dry-run.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-034-dry-run.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 22
+    },
+    {
+      "tool_name": "NC-TOOL-FR-035-task.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-035-task.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 29
+    },
+    {
+      "tool_name": "NC-TOOL-FR-036-picoclaw.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-036-picoclaw.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 31
+    },
+    {
+      "tool_name": "NC-TOOL-FR-037-hooks.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-037-hooks.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 26
+    },
+    {
+      "tool_name": "NC-TOOL-FR-038-handoff.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-038-handoff.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 18
+    },
+    {
+      "tool_name": "NC-TOOL-FR-039-tickets.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-039-tickets.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 19
+    },
+    {
+      "tool_name": "NC-TOOL-FR-040-governance-ops.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-040-governance-ops.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 21
+    },
+    {
+      "tool_name": "NC-TOOL-FR-041-constitution.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-041-constitution.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 28
+    },
+    {
+      "tool_name": "NC-TOOL-FR-042-local-llm.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-042-local-llm.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 24
+    },
+    {
+      "tool_name": "NC-TOOL-FR-043-litellm.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-043-litellm.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 191
+    },
+    {
+      "tool_name": "NC-TOOL-FR-044-memory-auto.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-044-memory-auto.py",
+      "status": "PASS",
+      "error": null,
+      "has_register_tool": true,
+      "import_time_ms": 17
+    },
+    {
+      "tool_name": "NC-TOOL-FR-001-cortex.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-001-cortex.py",
+      "status": "FAIL",
+      "error": "Erro de importação: attempted relative import with no known parent package",
+      "has_register_tool": false,
+      "import_time_ms": 18
+    },
+    {
+      "tool_name": "NC-TOOL-FR-002-agent.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-002-agent.py",
+      "status": "FAIL",
+      "error": "Erro de importação: attempted relative import with no known parent package",
+      "has_register_tool": false,
+      "import_time_ms": 15
+    },
+    {
+      "tool_name": "NC-TOOL-FR-003-benchmark.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-003-benchmark.py",
+      "status": "FAIL",
+      "error": "Erro de importação: attempted relative import with no known parent package",
+      "has_register_tool": false,
+      "import_time_ms": 15
+    },
+    {
+      "tool_name": "NC-TOOL-FR-004-checkpoint.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-004-checkpoint.py",
+      "status": "FAIL",
+      "error": "Erro de importação: attempted relative import with no known parent package",
+      "has_register_tool": false,
+      "import_time_ms": 15
+    },
+    {
+      "tool_name": "NC-TOOL-FR-005-config.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-005-config.py",
+      "status": "FAIL",
+      "error": "Erro de importação: attempted relative import with no known parent package",
+      "has_register_tool": false,
+      "import_time_ms": 17
+    },
+    {
+      "tool_name": "NC-TOOL-FR-006-export.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-006-export.py",
+      "status": "FAIL",
+      "error": "Erro de importação: attempted relative import with no known parent package",
+      "has_register_tool": false,
+      "import_time_ms": 14
+    },
+    {
+      "tool_name": "NC-TOOL-FR-007-init.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-007-init.py",
+      "status": "FAIL",
+      "error": "Erro de importação: attempted relative import with no known parent package",
+      "has_register_tool": false,
+      "import_time_ms": 13
+    },
+    {
+      "tool_name": "NC-TOOL-FR-008-ledger.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-008-ledger.py",
+      "status": "FAIL",
+      "error": "Erro de importação: attempted relative import with no known parent package",
+      "has_register_tool": false,
+      "import_time_ms": 14
+    },
+    {
+      "tool_name": "NC-TOOL-FR-009-lobes.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-009-lobes.py",
+      "status": "FAIL",
+      "error": "Erro de importação: attempted relative import with no known parent package",
+      "has_register_tool": false,
+      "import_time_ms": 5
+    },
+    {
+      "tool_name": "NC-TOOL-FR-010-peers.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-010-peers.py",
+      "status": "FAIL",
+      "error": "Erro de importação: attempted relative import with no known parent package",
+      "has_register_tool": false,
+      "import_time_ms": 15
+    },
+    {
+      "tool_name": "NC-TOOL-FR-012-regression.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-012-regression.py",
+      "status": "FAIL",
+      "error": "Erro de importação: attempted relative import with no known parent package",
+      "has_register_tool": false,
+      "import_time_ms": 15
+    },
+    {
+      "tool_name": "NC-TOOL-FR-014-search.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-014-search.py",
+      "status": "FAIL",
+      "error": "Erro de importação: attempted relative import with no known parent package",
+      "has_register_tool": false,
+      "import_time_ms": 14
+    },
+    {
+      "tool_name": "NC-TOOL-FR-015-security.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-015-security.py",
+      "status": "FAIL",
+      "error": "Erro de importação: attempted relative import with no known parent package",
+      "has_register_tool": false,
+      "import_time_ms": 15
+    },
+    {
+      "tool_name": "NC-TOOL-FR-017-task.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-017-task.py",
+      "status": "FAIL",
+      "error": "Erro de importação: attempted relative import with no known parent package",
+      "has_register_tool": false,
+      "import_time_ms": 21
+    },
+    {
+      "tool_name": "NC-TOOL-FR-020-knowledge.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-020-knowledge.py",
+      "status": "FAIL",
+      "error": "Erro de importação: attempted relative import with no known parent package",
+      "has_register_tool": false,
+      "import_time_ms": 20
+    },
+    {
+      "tool_name": "pulse.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\pulse.py",
+      "status": "SKIP",
+      "reason": "skip_pattern",
+      "import_time_ms": 0
+    },
+    {
+      "tool_name": "__init__.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\__init__.py",
+      "status": "SKIP",
+      "reason": "skip_pattern",
+      "import_time_ms": 0
+    },
+    {
+      "tool_name": "NC-TOOL-FR-011-pulse.py",
+      "tool_path": "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\v1\\NC-TOOL-FR-011-pulse.py",
+      "status": "SKIP",
+      "reason": "skip_pattern",
+      "import_time_ms": 0
+    }
+  ]
+}

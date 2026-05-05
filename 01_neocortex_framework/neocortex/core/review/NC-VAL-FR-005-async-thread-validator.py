@@ -1,17 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:58.397316'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-parent_ssot: NC-VAL-FR-005-async-thread-validator
-tags:
-  - neocortex-other
-  - level-0
-  - nc-prefix
-  - python
----"""
+@Module  mcp _genealogy:   injected_at: '2026-04-16T00:23:58.39
+---
+"""
+
+
 
 """---
 domain: "core"

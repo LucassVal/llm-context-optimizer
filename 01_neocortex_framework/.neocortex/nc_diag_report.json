@@ -1,0 +1,56 @@
+{
+  "score": 88.57142857142857,
+  "ok": 31,
+  "fail": 4,
+  "ok_list": [
+    "DB existe",
+    "DB tables",
+    "DB row counts",
+    "FTS lobe_fts MATCH guardian",
+    "FTS lobe_fts MATCH lexico",
+    "FTS lobe_fts MATCH frontal",
+    "LEXICO file",
+    "LexicoService.search('guardian')",
+    "LobeService.list_lobes()",
+    "LobeService.search_lobes('guardian')",
+    "LobeService.search_lobes('cerebelo frontal temporal')",
+    "compile NC-SUPER-001-governance.py",
+    "compile NC-SUPER-002-orchestration.py",
+    "compile NC-SUPER-003-memory.py",
+    "compile NC-SUPER-004-state.py",
+    "compile NC-SUPER-005-llm-router.py",
+    "compile NC-SUPER-006-system.py",
+    "compile NC-SUPER-007-brain.py",
+    "compile NC-SUPER-008-context.py",
+    "compile NC-SUPER-009-security.py",
+    "compile NC-SUPER-010-benchmark.py",
+    "compile NC-SUPER-011-notification.py",
+    "compile NC-SUPER-012-akl.py",
+    "compile NC-SUPER-013-health.py",
+    "compile NC-SUPER-014-ledger.py",
+    "compile NC-SUPER-015-memory-auto.py",
+    "compile NC-SCR-FR-001-populate-lobes-ssot.p",
+    "compile NC-SCR-FR-115-guardian-daemon.py",
+    "compile NC-SCR-FR-134-smoke-test-tools.py",
+    "compile NC-SCR-FR-113-kg-populate-lobes.py",
+    "compile NC-SCR-FR-114-auto-categorize-lobes"
+  ],
+  "fail_list": [
+    {
+      "label": "KGService.query('NeoCortex')",
+      "error": "'KGService' object has no attribute 'query'"
+    },
+    {
+      "label": "AKLService.get_stats()",
+      "error": "'AKLService' object has no attribute 'get_stats'"
+    },
+    {
+      "label": "CortexService.get_context()",
+      "error": "'CortexService' object has no attribute 'get_context'"
+    },
+    {
+      "label": "LedgerService.read()",
+      "error": "'LedgerService' object has no attribute 'read'"
+    }
+  ]
+}

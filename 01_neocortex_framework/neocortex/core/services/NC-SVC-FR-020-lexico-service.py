@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+"""---
+NC-SVC-FR-020 - LexicoService
+---
+"""
+
+"""---
+NC-SVC-FR-020 - LexicoService
+---
+"""
+
 """
 NC-SVC-FR-020 - LexicoService
 Serviço de dicionário de átomos semânticos para compressão de contexto.
@@ -6,7 +16,7 @@ Serviço de dicionário de átomos semânticos para compressão de contexto.
 Objetivo: Manter dicionário de ~200 átomos semânticos (versão reduzida para bootstrap)
 para redução futura de tokens em 50-90% (referência: Lexico, DAST, TokenSpan papers).
 
-Conforme: NC-DS-151-lexico-service-base.yaml (LEXICO-001)
+Conforme: NC-DS-FR-151-lexico-service-base.yaml (LEXICO-001)
 """
 
 import json

@@ -1,16 +1,9 @@
-"""
+"""---
 NC-SVC-FR-018-tag-normalizer.py
-FR-018 — TagNormalizerService: Central Universal de Sanitização de Tags.
-
-Valida e normaliza símbolos ubíquos (@, $, %) contra o dicionário SSOT
-NC-DOC-FR-001-ubiquitous-language-dictionary.md.
-
-Recursos:
-  - scan()          → localiza símbolos em arquivo/diretório
-  - normalize()     → corrige casing de tags em frontmatter YAML
-  - validate_lobe() → valida campos obrigatórios e símbolos de arquivos .mdc
-  - CLI             → scan / fix / validate / stats
+---
 """
+
+
 
 from __future__ import annotations
 

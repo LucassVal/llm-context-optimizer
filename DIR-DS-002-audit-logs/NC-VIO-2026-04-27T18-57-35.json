@@ -1,0 +1,6 @@
+{
+  "timestamp": "2026-04-27T18:57:35",
+  "violation": "R05_VIOLATION",
+  "role": "T0",
+  "details": "Test: tentativa de delete bloqueada pelo STEP 0"
+}

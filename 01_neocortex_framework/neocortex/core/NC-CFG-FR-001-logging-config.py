@@ -1,10 +1,9 @@
 """---
-domain: "core"
-layer: "core"
-type: "file"
-tags: ["cfg", "001", "logging", "config"]
-hash: "auto-generated"
----"""
+@Module NC-CFG-FR-001-logging-config mcp domain: "core" layer: "core" type: "file" tags: ["
+---
+"""
+
+
 """
 logging_config.py
 Default logging configuration for NeoCortex.

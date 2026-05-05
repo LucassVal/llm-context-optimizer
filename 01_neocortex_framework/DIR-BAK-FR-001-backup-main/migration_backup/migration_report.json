@@ -1,0 +1,20 @@
+{
+  "timestamp": "2026-04-10T21:27:09.317196",
+  "stats": {
+    "ledger_entries": 0,
+    "manifests": 23,
+    "lobes": 23,
+    "errors": 0,
+    "start_time": "2026-04-10T21:27:08.784936",
+    "end_time": "2026-04-10T21:27:09.168644",
+    "duration_seconds": 0
+  },
+  "backup_location": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup",
+  "stores_initialized": {
+    "ledger_store": true,
+    "manifest_store": true,
+    "lobe_index": true
+  },
+  "verification": true,
+  "duration_seconds": 0.383708
+}

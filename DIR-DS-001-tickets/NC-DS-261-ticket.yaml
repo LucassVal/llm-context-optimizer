@@ -1,0 +1,18 @@
+id: "NC-DS-261"
+title: "R130 POSTEL — Validacao de input/output nos hooks"
+status: "OPEN"
+priority: "P1"
+assignee: "opencode"
+created: "2026-05-05"
+description: |
+  Adicionar validacao de input schema nos hooks PreToolUse. Rejeitar args inesperados ou malformados. Validar output contra schema esperado.
+context:
+  - "Reference: NC-LBE-FR-RULES-MULTILAYER-001 §16"
+  - "27 Regras de Governanca — Tabela-Mestra"
+  - "Constitution §4 — R126 Structural Boundary"
+task: |
+  1. No _gateway_hook, validar ctx['args'] contra schema esperado da tool. 2. Rejeitar tool call se args invalidos. 3. Log no hook_activity.log.
+write_zone: "PROD -> 01_neocortex_framework/neocortex/mcp/server.py"
+locks:
+  - "01_neocortex_framework/neocortex/mcp/server.py -> MODIFICAR SOMENTE COM APROVACAO T0"
+  - "01_neocortex_framework/neocortex/mcp/sub_server.py -> NUNCA MODIFICAR"

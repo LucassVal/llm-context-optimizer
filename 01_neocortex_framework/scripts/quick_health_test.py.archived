@@ -1,0 +1,101 @@
+#!/usr/bin/env python3
+"""
+Quick test that starts health wrapper in a thread, tests endpoints, then stops.
+"""
+
+import sys
+import threading
+import time
+import urllib.request
+import json
+import signal
+import os
+
+# Add the script directory to path
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+# Import the health wrapper main function
+from NC_SCR_FR_098_health_wrapper import main
+
+
+def run_wrapper_in_thread(port):
+    """Run the health wrapper in a thread."""
+
+    def wrapper():
+        sys.argv = ["NC-SCR-FR-098-health-wrapper.py", "--port", str(port)]
+        try:
+            main()
+        except SystemExit:
+            pass
+        except Exception as e:
+            print(f"Wrapper thread error: {e}")
+
+    thread = threading.Thread(target=wrapper, daemon=True)
+    thread.start()
+    return thread
+
+
+def test_health_wrapper():
+    port = 8767  # Use different port to avoid conflicts
+    print(f"Testing health wrapper on port {port}")
+
+    # Start wrapper in thread
+    thread = run_wrapper_in_thread(port)
+
+    # Wait for server to start
+    time.sleep(3)
+
+    try:
+        # Test /health endpoint
+        health_url = f"http://localhost:{port}/health"
+        print(f"Testing {health_url}")
+        try:
+            req = urllib.request.urlopen(health_url, timeout=5)
+            data = json.load(req)
+            print(f"✓ /health response (status {req.status}):")
+            print(json.dumps(data, indent=2))
+            assert req.status == 200
+            assert data.get("status") == "healthy"
+        except Exception as e:
+            print(f"✗ /health failed: {e}")
+            return False
+
+        # Test /ready endpoint
+        ready_url = f"http://localhost:{port}/ready"
+        print(f"Testing {ready_url}")
+        try:
+            req = urllib.request.urlopen(ready_url, timeout=5)
+            if req.status == 200:
+                data = json.load(req)
+                print(f"✓ /ready (MCP alive): {json.dumps(data, indent=2)}")
+            else:
+                print(f"✓ /ready returned {req.status} (expected)")
+        except urllib.error.HTTPError as e:
+            if e.code == 503:
+                print("✓ /ready correctly returns 503 (MCP not alive)")
+            else:
+                print(f"✗ /ready unexpected HTTP error: {e.code}")
+                return False
+        except Exception as e:
+            print(f"✗ /ready error: {e}")
+            return False
+
+        print("All tests passed!")
+        return True
+    finally:
+        # Thread is daemon, will exit when main thread exits
+        print("Test complete")
+
+
+if __name__ == "__main__":
+    # Import the module directly
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location(
+        "health_wrapper", "NC-SCR-FR-098-health-wrapper.py"
+    )
+    module = importlib.util.module_from_spec(spec)
+    sys.modules["NC_SCR_FR_098_health_wrapper"] = module
+    spec.loader.exec_module(module)
+
+    test_health_wrapper()

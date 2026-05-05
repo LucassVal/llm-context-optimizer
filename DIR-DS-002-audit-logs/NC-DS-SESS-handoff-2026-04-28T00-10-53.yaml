@@ -1,0 +1,7 @@
+ticket_id: "NC-DS-SESS"
+status: "APPROVED"
+timestamp: "2026-04-28T00:10:53"
+agent: "T0"
+summary: |
+  Implementar regras duras: bootup.sync deve atualizar changelog automaticamente; naming.check deve rodar em todo write. Sem depender de ação manual do T0.
+data: {}

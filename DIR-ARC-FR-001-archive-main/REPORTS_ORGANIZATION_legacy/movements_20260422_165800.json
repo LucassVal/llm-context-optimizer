@@ -1,0 +1,260 @@
+[
+  {
+    "file": "audit_output.txt",
+    "from": "raiz",
+    "to": "03_DOCS",
+    "action": "would_move"
+  },
+  {
+    "file": "audit_results.json",
+    "from": "raiz",
+    "to": "04_DATA",
+    "action": "would_move"
+  },
+  {
+    "file": "audit_system.py",
+    "from": "raiz",
+    "to": "01_SRC_CORE",
+    "action": "would_move"
+  },
+  {
+    "file": "compliance_dashboard.html",
+    "from": "raiz",
+    "to": "07_ASSETS",
+    "action": "would_move"
+  },
+  {
+    "file": "config.yaml",
+    "from": "raiz",
+    "to": "00_CONFIG",
+    "action": "would_move"
+  },
+  {
+    "file": "METRICS.md",
+    "from": "raiz",
+    "to": "03_DOCS",
+    "action": "would_move"
+  },
+  {
+    "file": "METRICS_PT.md",
+    "from": "raiz",
+    "to": "03_DOCS",
+    "action": "would_move"
+  },
+  {
+    "file": "NC-PAPER-FR-001-fractal-memory-architecture.md",
+    "from": "raiz",
+    "to": "03_DOCS",
+    "action": "would_move"
+  },
+  {
+    "file": "NC-REF-UPDATE-REPORT-20260421_232151.json",
+    "from": "raiz",
+    "to": "04_DATA",
+    "action": "would_move"
+  },
+  {
+    "file": "NC-REF-UPDATE-REPORT-20260421_232200.json",
+    "from": "raiz",
+    "to": "04_DATA",
+    "action": "would_move"
+  },
+  {
+    "file": "NC-REF-UPDATE-REPORT-20260421_232321.json",
+    "from": "raiz",
+    "to": "04_DATA",
+    "action": "would_move"
+  },
+  {
+    "file": "NC-REF-UPDATE-REPORT-20260421_232513.json",
+    "from": "raiz",
+    "to": "04_DATA",
+    "action": "would_move"
+  },
+  {
+    "file": "NC-REF-UPDATE-REPORT-20260422_012335.json",
+    "from": "raiz",
+    "to": "04_DATA",
+    "action": "would_move"
+  },
+  {
+    "file": "NC-REF-UPDATE-REPORT-20260422_012353.json",
+    "from": "raiz",
+    "to": "04_DATA",
+    "action": "would_move"
+  },
+  {
+    "file": "NC-RENAME-REPORT-20260421_225843.json",
+    "from": "raiz",
+    "to": "04_DATA",
+    "action": "would_move"
+  },
+  {
+    "file": "NC-RENAME-REPORT-20260421_230221.json",
+    "from": "raiz",
+    "to": "04_DATA",
+    "action": "would_move"
+  },
+  {
+    "file": "NC-RENAME-REPORT-20260421_231141.json",
+    "from": "raiz",
+    "to": "04_DATA",
+    "action": "would_move"
+  },
+  {
+    "file": "NC-RENAME-REPORT-20260421_231308.json",
+    "from": "raiz",
+    "to": "04_DATA",
+    "action": "would_move"
+  },
+  {
+    "file": "NC-RENAME-REPORT-20260421_231438.json",
+    "from": "raiz",
+    "to": "04_DATA",
+    "action": "would_move"
+  },
+  {
+    "file": "NC-RENAME-REPORT-20260421_231746.json",
+    "from": "raiz",
+    "to": "04_DATA",
+    "action": "would_move"
+  },
+  {
+    "file": "NC-SCR-FR-104-neocortex-launcher.bat",
+    "from": "raiz",
+    "to": "06_TEMP",
+    "action": "would_move"
+  },
+  {
+    "file": "NC-SCR-FR-120-batch-rename-fix.py",
+    "from": "raiz",
+    "to": "01_SRC_CORE",
+    "action": "would_move"
+  },
+  {
+    "file": "NC-SCR-FR-121-update-references.py",
+    "from": "raiz",
+    "to": "01_SRC_CORE",
+    "action": "would_move"
+  },
+  {
+    "file": "NC-SCR-FR-122-white-label-anonymizer.py",
+    "from": "raiz",
+    "to": "01_SRC_CORE",
+    "action": "would_move"
+  },
+  {
+    "file": "NC-TEST-FR-200-alpha-testing-plan.md",
+    "from": "raiz",
+    "to": "03_DOCS",
+    "action": "would_move"
+  },
+  {
+    "file": "NC-TEST-FR-201-health-tool-test.py",
+    "from": "raiz",
+    "to": "01_SRC_CORE",
+    "action": "would_move"
+  },
+  {
+    "file": "NC-TEST-FR-202-token-efficiency-analysis.md",
+    "from": "raiz",
+    "to": "03_DOCS",
+    "action": "would_move"
+  },
+  {
+    "file": "package-lock.json",
+    "from": "raiz",
+    "to": "04_DATA",
+    "action": "would_move"
+  },
+  {
+    "file": "package.json",
+    "from": "raiz",
+    "to": "04_DATA",
+    "action": "would_move"
+  },
+  {
+    "file": "pre-commit-validation-report.txt",
+    "from": "raiz",
+    "to": "03_DOCS",
+    "action": "would_move"
+  },
+  {
+    "file": "README.md",
+    "from": "raiz",
+    "to": "03_DOCS",
+    "action": "would_move"
+  },
+  {
+    "file": "README_GITHUB_EN.md",
+    "from": "raiz",
+    "to": "03_DOCS",
+    "action": "would_move"
+  },
+  {
+    "file": "README_GITHUB_PT.md",
+    "from": "raiz",
+    "to": "03_DOCS",
+    "action": "would_move"
+  },
+  {
+    "file": "README_LEGACY_MVP.md",
+    "from": "raiz",
+    "to": "03_DOCS",
+    "action": "would_move"
+  },
+  {
+    "file": "README_PRESENTATION_EN.md",
+    "from": "raiz",
+    "to": "03_DOCS",
+    "action": "would_move"
+  },
+  {
+    "file": "README_PRESENTATION_PT.md",
+    "from": "raiz",
+    "to": "03_DOCS",
+    "action": "would_move"
+  },
+  {
+    "file": "ROADMAP_2026.md",
+    "from": "raiz",
+    "to": "03_DOCS",
+    "action": "would_move"
+  },
+  {
+    "file": "ROADMAP_2026_PT.md",
+    "from": "raiz",
+    "to": "03_DOCS",
+    "action": "would_move"
+  },
+  {
+    "file": "run_mcp_daemon.py",
+    "from": "raiz",
+    "to": "01_SRC_CORE",
+    "action": "would_move"
+  },
+  {
+    "file": "start_mcp_server.py",
+    "from": "raiz",
+    "to": "01_SRC_CORE",
+    "action": "would_move"
+  },
+  {
+    "file": "start_neocortex_mcp.ps1",
+    "from": "raiz",
+    "to": "06_TEMP",
+    "action": "would_move"
+  },
+  {
+    "file": "validate_gov.py",
+    "from": "raiz",
+    "to": "01_SRC_CORE",
+    "action": "would_move"
+  },
+  {
+    "file": "_ciclo1_orphans.txt",
+    "from": "raiz",
+    "to": "03_DOCS",
+    "action": "would_move"
+  }
+]

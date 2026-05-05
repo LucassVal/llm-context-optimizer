@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+"""---
+NC-SUPER-009 — neocortex_security
+---
+"""
+
+"""---
+NC-SUPER-009 — neocortex_security
+---
+"""
+
 """
 NC-SUPER-009 — neocortex_security
 FÓRUM — Segurança e Hooks
@@ -54,6 +64,15 @@ def register_tool(mcp) -> None:
                  audit.log_event, auth.issue_token
         """
         ts = _ts()
+        # ── GATEWAY VALIDATION ──────────────────────────────
+        try:
+            from neocortex.core.utils.gateway_bridge import gateway_check
+            _ok, _report = gateway_check(action, root)
+            if not _ok:
+                return _report
+        except Exception:
+            pass
+
         root = _root()
 
         # ── ACCESS ────────────────────────────────────────────────────────────
@@ -68,15 +87,15 @@ def register_tool(mcp) -> None:
 
             restricted = ["atomic_locks", "server.py", "sub_server.py", "NC-NAM-FR-001"]
             is_restricted = any(r in resource for r in restricted)
-            
+
             if is_restricted:
                 if not auth_token:
                     return {"success": False, "allowed": False, "reason": "RESTRICTED_ZERO_TRUST (Missing auth_token)", "timestamp": ts}
-                
+
                 dec = hub.decrypt(auth_token)
                 if not dec.success:
                     return {"success": False, "allowed": False, "reason": f"INVALID_TOKEN: {dec.error}", "timestamp": ts}
-                
+
                 # Payload format: role=T0|issued=YYYY-MM-DD...
                 if "role=T0" not in dec.plaintext:
                     return {"success": False, "allowed": False, "reason": "INSUFFICIENT_PRIVILEGES_ZERO_TRUST", "timestamp": ts}
@@ -84,7 +103,7 @@ def register_tool(mcp) -> None:
             return {"success": True, "action": action, "resource": resource,
                     "agent_role": agent_role, "allowed": True,
                     "reason": "OK_ZERO_TRUST", "timestamp": ts}
-        
+
         elif action == "auth.issue_token":
             if agent_role.upper() != "T0":
                 return {"success": False, "error": "Apenas T0 pode emitir tokens na root", "timestamp": ts}
@@ -94,7 +113,7 @@ def register_tool(mcp) -> None:
             ch_mod = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(ch_mod)
             hub = ch_mod.CryptoHub()
-            
+
             payload = f"role={agent_role.upper()}|resource={resource}|issued={ts}"
             res = hub.encrypt(payload)
             if not res.success:
@@ -120,7 +139,7 @@ def register_tool(mcp) -> None:
             try:
                 import yaml
                 data = yaml.safe_load(locks_file.read_text(encoding="utf-8"))
-                locks = data.get("locked_files", []) if isinstance(data, dict) else []
+                locks = data.get("atomic_locks", {}) if isinstance(data, dict) else {}
                 return {"success": True, "action": action, "locks": locks,
                         "count": len(locks), "timestamp": ts}
             except Exception as e:
@@ -144,7 +163,7 @@ def register_tool(mcp) -> None:
                     "hooks_triggered": len(triggered), "hooks": triggered, "timestamp": ts}
 
         elif action == "hook.list":
-            all_hooks = {event: hooks for event, hooks in _HOOKS.items()}
+            all_hooks = dict(_HOOKS.items())
             total = sum(len(v) for v in all_hooks.values())
             return {"success": True, "action": action, "hooks_by_event": all_hooks,
                     "total": total, "timestamp": ts}
@@ -242,6 +261,19 @@ def register_tool(mcp) -> None:
                         "reason": str(e), "timestamp": ts}
             except Exception as e:
                 return {"success": False, "error": str(e), "timestamp": ts}
+
+        # ── ORBITAL BRIDGE: delegar ações jurídicas ─────────────────────────
+        _orbital_result = None
+        try:
+            import importlib.util
+            _spec = importlib.util.spec_from_file_location("orbital_bridge", str(root / "01_neocortex_framework" / "neocortex" / "core" / "NC-CORE-FR-139-orbital-bridge.py"))
+            _mod = importlib.util.module_from_spec(_spec)
+            _spec.loader.exec_module(_mod)
+            _orbital_result = _mod.orbital_dispatch(action, root, agent_id=agent_role or "T0")
+        except Exception:
+            pass
+        if _orbital_result is not None:
+            return _orbital_result
 
         else:
             return {"success": False, "error": f"action desconhecida: {action}",

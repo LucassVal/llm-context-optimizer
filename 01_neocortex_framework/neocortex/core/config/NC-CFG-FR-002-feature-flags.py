@@ -1,17 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:58.184436'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-parent_ssot: NC-CFG-FR-002-feature-flags
-tags:
-  - neocortex-other
-  - level-0
-  - nc-prefix
-  - python
----"""
+@Module NC-CFG-FR-002-feature-flags mcp _genealogy:   injected_at: '2026-04-16T00:23:58.18
+---
+"""
+
+
 """
 NC-CFG-FR-002-feature-flags.py
 FR-CFG-002  FeatureFlagService: Flags de funcionalidade com cache TTL 1h.

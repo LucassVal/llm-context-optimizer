@@ -1,0 +1,8 @@
+{
+  "name": "ciclo_1_correcao_mcp_health",
+  "summary": "checkpoint",
+  "created": "2026-04-21T19:48:04",
+  "files_snapshot": {
+    "guardian_state.json": "{\n  \"cycle\": 1,\n  \"ts\": \"2026-04-19T06:15:56\",\n  \"health\": {\n    \"online\": 3,\n    \"total\": 4,\n    \"services\": {\n      \"ollama_cuda\": true,\n      \"ollama_igpu\": true,\n      \"litellm\": true,\n      \"picoclaw\": false\n    },\n    \"alerts\": [\n      {\n        \"service\": \"picoclaw\",\n        \"port\": 18790,\n        \"diagnosis\": \"Verifique se há problemas de rede ou firewall na porta 18790. Se não for possível, tente reiniciar o serviço Picoclaw.\"\n      }\n    ]\n  },\n  \"semantic\": {\n    \"cycle\": 1,\n    \"akl_rules\": 0,\n    \"kg_entities\": 27,\n    \"kg_relations\": 34\n  },\n  \"context\": {\n    \"auto_pause\": false\n  },\n  \"circuit_breakers\": {\n    \"breakers\": 5,\n    \"open\": []\n  }\n}"
+  }
+}

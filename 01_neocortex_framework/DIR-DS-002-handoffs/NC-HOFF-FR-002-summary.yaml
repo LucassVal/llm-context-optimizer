@@ -1,0 +1,25 @@
+# NC-HOFF-FR-002-SUMMARY: Handoff CICLO_2 -> CICLO_3 (Resumo)
+# frozen: false
+# generated: 2026-04-27
+
+metadata:
+  handoff_id: NC-HOFF-FR-002
+  title: "Handoff CICLO_2 -> CICLO_3"
+  date: 2026-04-27
+  status: ACTIVE
+
+delivered:
+  NC-DS-118: "DESIGN - Fix F841 metrics store"
+  NC-DS-119: "COMPLETED - Picoclaw integration test (4/5 checks)"
+  NC-DS-120: "COMPLETED - Tool autoloader (nao integrado ao boot)"
+  NC-DS-121: "COMPLETED - Completion & handoff prep"
+  NC-DS-121-lexico: "COMPLETED - Lexico hooks + boot loader (nao integrado ao boot)"
+
+critical_pending:
+  - "Wire-up autoloader + hook-boot-loader no server.py"
+  - "Fix F841 metrics store (NC-DS-118)"
+  - "Health check timing fix (test_health)"
+
+next_milestone:
+  - "CICLO_3: Integracao Lexico & Multi-lobe no boot"
+  - "Documento completo: DIR-DS-002-handoffs/NC-HOFF-FR-002-ciclo2-ciclo3-handoff.yaml"

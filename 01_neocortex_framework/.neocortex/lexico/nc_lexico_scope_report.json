@@ -1,0 +1,14 @@
+{
+  "total_terms": 1041,
+  "keyword_classified": 516,
+  "llm_classified": 525,
+  "region_distribution": {
+    "$parietal": 290,
+    "$frontal": 438,
+    "$cerebelo": 46,
+    "$occipital": 207,
+    "$hipocampo": 46,
+    "$temporal": 14
+  },
+  "version": "LEXICO-002"
+}

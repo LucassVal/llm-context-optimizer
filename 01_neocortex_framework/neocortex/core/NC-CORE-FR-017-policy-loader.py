@@ -1,19 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:57.849342'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-parent_ssot: NC-CFG-FR-001-agent-policy-template
-related_ssot:
-  - NC-SRV-FR-002
-tags:
-  - neocortex-other
-  - level-0
-  - nc-prefix
-  - python
----"""
+@Module NC-CORE-FR-017-policy-loader mcp _genealogy:   injected_at: '2026-04-16T00:23:57.84
+---
+"""
+
+
 #!/usr/bin/env python3
 """
 NC-SRV-FR-002  PolicyLoader: Reads NC-CFG-FR-001-agent-policy-template.yaml at runtime.
@@ -93,7 +83,7 @@ class PolicyLoader:
             self._loaded = False
             return
         try:
-            with open(self._yaml_path, "r", encoding="utf-8") as f:
+            with open(self._yaml_path, encoding="utf-8") as f:
                 self._raw = yaml.safe_load(f) or {}
             self._loaded = True
             self._last_load = time.monotonic()

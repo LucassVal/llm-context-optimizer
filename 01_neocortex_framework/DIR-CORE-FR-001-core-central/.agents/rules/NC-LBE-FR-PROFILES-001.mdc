@@ -4,6 +4,7 @@
 
 <!-- source: NC-PRF-FR-001-developer-schema.md -->
 <!-- tags: ssot, profile, developer, schema -->
+<!-- deepseek_capabilities: chat -->
 <!-- auto-generated: true -->
 
 #  NC-PRF-FR-001 - Developer Profile Schema (Hierarchical)
@@ -326,6 +327,7 @@ python DIR-PRF-FR-001-profiles-main/NC-PRF-FR-003-profile-loader.py \
 
 <!-- source: NC-PRF-FR-002-team-schema.md -->
 <!-- tags: ssot, profile, team, schema -->
+<!-- deepseek_capabilities: chat -->
 <!-- auto-generated: true -->
 
 #  NC-PRF-FR-002 - Team Profile Schema (Hierarchical)

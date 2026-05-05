@@ -1,17 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:59.232901'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-parent_ssot: NC-WKR-FR-001-persistent-worker
-tags:
-  - neocortex-other
-  - level-0
-  - nc-prefix
-  - python
----"""
+@Module  mcp _genealogy:   injected_at: '2026-04-16T00:23:59.23
+---
+"""
+
+
 """
 NC-WKR-FR-001-persistent-worker.py
 FR-WKR-001  PersistentWorker: Worker assncrono persistente para processar

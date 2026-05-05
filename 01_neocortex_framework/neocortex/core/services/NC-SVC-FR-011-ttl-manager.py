@@ -1,19 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:58.934068'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-parent_ssot: NC-SVC-FR-005-event-bus
-related_ssot:
-  - NC-SVC-FR-011-ttl-manager
-tags:
-  - neocortex-other
-  - level-0
-  - nc-prefix
-  - python
----"""
+@Module NC-SVC-FR-011-ttl-manager mcp _genealogy:   injected_at: '2026-04-16T00:23:58.93
+---
+"""
+
+
 """
 NC-SVC-FR-011-ttl-manager.py
 FR-011  TTL Manager: Time-to-live manager with cachetools.TTLCache for granular entity expiration.

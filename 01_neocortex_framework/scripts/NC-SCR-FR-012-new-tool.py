@@ -1,6 +1,30 @@
 #!/usr/bin/env python3
 
 # Fix encoding for Windows (UTF-8)
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:24:01.671041'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+parent_ssot: NC-CFG-FR-001-plugin
+related
+---
+"""
+
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:24:01.671041'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+parent_ssot: NC-CFG-FR-001-plugin
+related
+---
+"""
+
 if sys.platform == "win32":
     import io
     import sys
@@ -90,8 +114,8 @@ def copy_template(dest_dir: Path, tool_name: str) -> None:
 
     # Renomeia arquivos de exemplo (opcional)
     example_files = [
-        dest_dir / "commands" / "NC-CMD-EXAMPLE.md",
-        dest_dir / "hooks" / "NC-HK-EXAMPLE.py",
+        dest_dir / "commands" / "NC-CMD-FR-001-example.md",
+        dest_dir / "hooks" / "NC-HK-FR-001-example.py",
         dest_dir / "tests" / "test_example.py",
     ]
     for old_path in example_files:

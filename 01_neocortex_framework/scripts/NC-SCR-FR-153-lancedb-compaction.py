@@ -1,5 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+"""---
+NC-SCR-FR-153-lancedb-compaction.py
+---
+"""
+
+"""---
+NC-SCR-FR-153-lancedb-compaction.py
+---
+"""
+
 """
 NC-SCR-FR-153-lancedb-compaction.py
 Phase 2.2: LanceDB Optimization and Compaction

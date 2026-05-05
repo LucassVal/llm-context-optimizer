@@ -1,0 +1,122 @@
+{
+  "fix_date": "2026-04-22T16:32:30.030238Z",
+  "directory": "C:\\Users\\Lucas Valério\\.gemini\\antigravity\\brain",
+  "total_tickets": 16,
+  "fixed_tickets": 16,
+  "added_fields": {},
+  "standardized_fields": {},
+  "details": [
+    {
+      "file": "C:\\Users\\Lucas Valério\\.gemini\\antigravity\\brain\\NC-DS-117-audit-completion.yaml",
+      "fixed": true,
+      "added_fields": [],
+      "standardized_fields": [],
+      "errors": []
+    },
+    {
+      "file": "C:\\Users\\Lucas Valério\\.gemini\\antigravity\\brain\\NC-DS-118-fix-f841-metrics-store.yaml",
+      "fixed": true,
+      "added_fields": [],
+      "standardized_fields": [],
+      "errors": []
+    },
+    {
+      "file": "C:\\Users\\Lucas Valério\\.gemini\\antigravity\\brain\\NC-DS-119-execution-result.yaml",
+      "fixed": true,
+      "added_fields": [],
+      "standardized_fields": [],
+      "errors": []
+    },
+    {
+      "file": "C:\\Users\\Lucas Valério\\.gemini\\antigravity\\brain\\NC-DS-119-picoclaw-integration-test.yaml",
+      "fixed": true,
+      "added_fields": [],
+      "standardized_fields": [],
+      "errors": []
+    },
+    {
+      "file": "C:\\Users\\Lucas Valério\\.gemini\\antigravity\\brain\\NC-DS-121-completion.yaml",
+      "fixed": true,
+      "added_fields": [],
+      "standardized_fields": [],
+      "errors": []
+    },
+    {
+      "file": "C:\\Users\\Lucas Valério\\.gemini\\antigravity\\brain\\NC-DS-121-lexico-hook-boot-loader.yaml",
+      "fixed": true,
+      "added_fields": [],
+      "standardized_fields": [],
+      "errors": []
+    },
+    {
+      "file": "C:\\Users\\Lucas Valério\\.gemini\\antigravity\\brain\\backup_naming_yaml_json\\NC-DS-117-audit-completion.yaml",
+      "fixed": true,
+      "added_fields": [],
+      "standardized_fields": [],
+      "errors": []
+    },
+    {
+      "file": "C:\\Users\\Lucas Valério\\.gemini\\antigravity\\brain\\backup_naming_yaml_json\\NC-DS-118-fix-f841-metrics-store.yaml",
+      "fixed": true,
+      "added_fields": [],
+      "standardized_fields": [],
+      "errors": []
+    },
+    {
+      "file": "C:\\Users\\Lucas Valério\\.gemini\\antigravity\\brain\\backup_naming_yaml_json\\NC-DS-119-execution-result.yaml",
+      "fixed": true,
+      "added_fields": [],
+      "standardized_fields": [],
+      "errors": []
+    },
+    {
+      "file": "C:\\Users\\Lucas Valério\\.gemini\\antigravity\\brain\\backup_naming_yaml_json\\NC-DS-119-picoclaw-integration-test.yaml",
+      "fixed": true,
+      "added_fields": [],
+      "standardized_fields": [],
+      "errors": []
+    },
+    {
+      "file": "C:\\Users\\Lucas Valério\\.gemini\\antigravity\\brain\\backup_naming_yaml_json\\NC-DS-121-completion.yaml",
+      "fixed": true,
+      "added_fields": [],
+      "standardized_fields": [],
+      "errors": []
+    },
+    {
+      "file": "C:\\Users\\Lucas Valério\\.gemini\\antigravity\\brain\\backup_naming_yaml_json\\NC-DS-121-lexico-hook-boot-loader.yaml",
+      "fixed": true,
+      "added_fields": [],
+      "standardized_fields": [],
+      "errors": []
+    },
+    {
+      "file": "C:\\Users\\Lucas Valério\\.gemini\\antigravity\\brain\\tasks\\NC-DS-117-audit-core-noprefix.yaml",
+      "fixed": true,
+      "added_fields": [],
+      "standardized_fields": [],
+      "errors": []
+    },
+    {
+      "file": "C:\\Users\\Lucas Valério\\.gemini\\antigravity\\brain\\tasks\\NC-DS-118-fix-f841-metrics-store.yaml",
+      "fixed": true,
+      "added_fields": [],
+      "standardized_fields": [],
+      "errors": []
+    },
+    {
+      "file": "C:\\Users\\Lucas Valério\\.gemini\\antigravity\\brain\\tasks\\NC-DS-119-picoclaw-integration-test.yaml",
+      "fixed": true,
+      "added_fields": [],
+      "standardized_fields": [],
+      "errors": []
+    },
+    {
+      "file": "C:\\Users\\Lucas Valério\\.gemini\\antigravity\\brain\\tasks\\NC-DS-121-lexico-hook-boot-loader.yaml",
+      "fixed": true,
+      "added_fields": [],
+      "standardized_fields": [],
+      "errors": []
+    }
+  ]
+}

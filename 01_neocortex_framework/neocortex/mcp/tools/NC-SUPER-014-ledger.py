@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+"""---
+NC-SUPER-014 — neocortex_ledger
+---
+"""
+
+"""---
+NC-SUPER-014 — neocortex_ledger
+---
+"""
+
 """
 NC-SUPER-014 — neocortex_ledger
 FÓRUM — Ledger + Agent Identity
@@ -44,6 +54,17 @@ def register_tool(mcp) -> None:
         """
         ts = _ts()
 
+        # ── UBL Gateway (Kernel 0) ──────────────────────────────────────────
+        try:
+            import pathlib
+
+            from neocortex.core.utils.gateway_bridge import gateway_check
+            _ok, _report = gateway_check(action, pathlib.Path(__file__).parents[4])
+            if not _ok:
+                return _report
+        except Exception:
+            pass
+
         if action == "ledger.read":
             try:
                 from neocortex.core.file_utils import read_ledger
@@ -76,7 +97,9 @@ def register_tool(mcp) -> None:
 
         elif action == "ledger.metrics":
             try:
-                from neocortex.mcp.server import get_metrics_store
+                from neocortex.infra.metrics_store import (
+                    create_metrics_store as get_metrics_store,  # R26 orbital
+                )
                 ms = get_metrics_store()
                 if ms:
                     metrics = ms.get_all()

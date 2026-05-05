@@ -1,0 +1,23 @@
+{
+  "ticket_id": "NC-DS-002",
+  "phase": "FASE_1_PLANEJAR",
+  "risk_level": "LOW",
+  "files_to_create": [
+    "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-026-intelligence.py"
+  ],
+  "files_to_modify": [
+    "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
+  ],
+  "dependencies": [
+    "NC-TOOL-FR-029-health.py (template)",
+    "NC-TOOL-FR-000-brain.py (absorver)"
+  ],
+  "actions_required": [
+    "brain.think",
+    "brain.plan",
+    "brain.orchestrate",
+    "brain.critique",
+    "brain.feedback"
+  ],
+  "validation_barriers": ["B1", "B2", "B3", "B4", "B5", "B6"]
+}

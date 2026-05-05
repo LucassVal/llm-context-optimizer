@@ -1,0 +1,36 @@
+# NC-LBE-USR-002 — OpenClaude Integration
+
+## Metadata
+- **ID:** NC-LBE-USR-002
+- **Title:** OpenClaude Project Lobe
+- **Category:** USER_PROJECT
+- **Repository:** https://github.com/Gitlawb/openclaude
+- **Status:** CICLO_1_PLANNING
+- **Maintainer:** Antigravity T0
+- **Created:** 2026-04-25
+
+## 1. Vision
+OpenClaude is an open-source coding-agent CLI designed to facilitate interaction with multiple LLMs (OpenAI, Gemini, DeepSeek, Ollama, etc.) through a unified interface. The goal of this integration is to align OpenClaude's capabilities with the NeoCortex execution engine for hybrid local/cloud coding tasks.
+
+## 2. Architecture Quick-View
+- **Core:** Python-based coding agent.
+- **Service Layer:** Headless gRPC server (port 50051 potentially).
+- **Client Layer:** CLI and VS Code Extension (planned/existing).
+- **Execution:** Plan-and-Execute pattern similar to NeoCortex Cycle workflow.
+
+## 3. Deployment & Environment (Ciclo 1)
+- **Path:** `C:\Users\Lucas Valério\Desktop\TURBOQUANT_V42\03_external_integrations\openclaude` (Recommended)
+- **Runtime:** Python 3.10+
+- **Key Files:**
+  - `README.md`: Overall guidance.
+  - `openclaude/`: Core logic.
+  - `server/`: gRPC implementation.
+
+## 4. Current Sprint: Ciclo 1 (Startup)
+- [ ] Clone repository to `03_external_integrations/`.
+- [ ] Analyze `pyproject.toml` or `requirements.txt`.
+- [ ] Validate gRPC server connectivity.
+- [ ] Connect with NeoCortex `@LOCK` protocol.
+
+## 5. Timeline
+- **2026-04-25:** Initiation as per user request. Lobe created.

@@ -1,0 +1,109 @@
+{
+  "sync_date": "2026-04-22T15:14:27.986819Z",
+  "tickets_analyzed": 7,
+  "tickets_mapped": 1,
+  "mapping_details": [
+    {
+      "ticket_id": "NC-DS-117",
+      "ticket_title": "Ticket NC-DS-117",
+      "file": "NC-DS-117-audit-completion.yaml",
+      "v69_phase_mapping": [],
+      "v69_ticket_mapping": [],
+      "recommended_phase": null,
+      "sync_actions": []
+    },
+    {
+      "ticket_id": "NC-DS-118",
+      "ticket_title": "Fix F841 metrics store implementation",
+      "file": "NC-DS-118-fix-f841-metrics-store.yaml",
+      "v69_phase_mapping": [],
+      "v69_ticket_mapping": [],
+      "recommended_phase": "FASE_4",
+      "sync_actions": []
+    },
+    {
+      "ticket_id": "NC-DS-119",
+      "ticket_title": "Ticket NC-DS-119",
+      "file": "NC-DS-119-execution-result.yaml",
+      "v69_phase_mapping": [],
+      "v69_ticket_mapping": [],
+      "recommended_phase": null,
+      "sync_actions": []
+    },
+    {
+      "ticket_id": "NC-DS-119",
+      "ticket_title": "Ticket NC-DS-119",
+      "file": "NC-DS-119-picoclaw-integration-test.yaml",
+      "v69_phase_mapping": [],
+      "v69_ticket_mapping": [],
+      "recommended_phase": null,
+      "sync_actions": []
+    },
+    {
+      "ticket_id": "",
+      "ticket_title": "",
+      "file": "NC-DS-120-picoclaw-tool-autoloader.yaml",
+      "v69_phase_mapping": [],
+      "v69_ticket_mapping": [],
+      "recommended_phase": null,
+      "sync_actions": []
+    },
+    {
+      "ticket_id": "NC-DS-121",
+      "ticket_title": "Ticket NC-DS-121",
+      "file": "NC-DS-121-completion.yaml",
+      "v69_phase_mapping": [],
+      "v69_ticket_mapping": [],
+      "recommended_phase": null,
+      "sync_actions": []
+    },
+    {
+      "ticket_id": "NC-DS-121",
+      "ticket_title": "Lexico Hook Boot Loader Implementation",
+      "file": "NC-DS-121-lexico-hook-boot-loader.yaml",
+      "v69_phase_mapping": [
+        "FASE_1",
+        "FASE_3"
+      ],
+      "v69_ticket_mapping": [
+        "TKT-302",
+        "TKT-102",
+        "TKT-105"
+      ],
+      "recommended_phase": "FASE_2",
+      "sync_actions": [
+        {
+          "type": "UPDATE_TICKET_YAML",
+          "ticket_id": "NC-DS-121",
+          "fields_to_add": {
+            "roadmap_phase": "FASE_1",
+            "v69_mapping": "TKT-302",
+            "sync_date": "2026-04-22T15:14:28.088623Z"
+          }
+        },
+        {
+          "type": "UPDATE_ROADMAP_MAPPING",
+          "v69_ticket": "TKT-302",
+          "nc_ds_ticket": "NC-DS-121",
+          "action": "add_mapping"
+        },
+        {
+          "type": "UPDATE_ROADMAP_MAPPING",
+          "v69_ticket": "TKT-102",
+          "nc_ds_ticket": "NC-DS-121",
+          "action": "add_mapping"
+        },
+        {
+          "type": "UPDATE_ROADMAP_MAPPING",
+          "v69_ticket": "TKT-105",
+          "nc_ds_ticket": "NC-DS-121",
+          "action": "add_mapping"
+        }
+      ]
+    }
+  ],
+  "recommendations": [
+    "Baixa taxa de mapeamento. Considerar revisão dos títulos/descrições dos tickets.",
+    "6 tickets não mapeados. Revisar manualmente."
+  ]
+}

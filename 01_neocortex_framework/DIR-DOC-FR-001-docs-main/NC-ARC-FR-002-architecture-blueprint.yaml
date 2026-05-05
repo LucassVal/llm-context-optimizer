@@ -1,0 +1,126 @@
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC ARC FR 002 architecture blueprint
+# Why:  Criado em 2026-04-27 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-ARC-FR-002-architecture-blueprint.yaml
+
+meta:
+  architecture: Shared Kernel DDD + 6 Orbitals
+  gateway: NC-CORE-FR-129-shared-kernel-gateway.py -> validate_action()
+  principle: Central Constitution -> Orbitals -> Children -> Sub-children
+  version: '3.0'
+  updated: 2026-04-30
+  ulq_centered: true
+  ssot_validated:
+    total_ulq_symbols: 67
+    verified_ok: 17
+    remapped: 2  # @PROMPT -> launcher, @VISION -> este blueprint
+    new_files:
+      - ".agents/rules/NC-RULE-010-semantic-architecture.mdc"
+      - "DIR-DS-000-agent-config/NC-CFG-DS-001-agent-session.yaml"
+      - "DIR-DS-000-agent-config/NC-CFG-FR-001-multi-agent-policies.yaml"
+      - "01_neocortex_framework/.neocortex/lexico/NC-LEXICO-LATEST.json"
+      - "01_neocortex_framework/.neocortex/lexico/NC-ULQ-TAG-INDEX.json"
+      - "DIR-DOC-FR-001-docs-main/mcp_tools_inventory.json"
+      - "DIR-DS-002-audit-logs/NC-AUDIT-FR-001-consolidation-plan.yaml"
+minimum_governance:
+  child:
+  - Naming
+  - Logger
+  - py_compile
+  - ruff
+  kernel:
+  - STEP_0
+  - Atomic_Locks
+  - WAL
+  - Naming_NC
+  orbital:
+  - ToolGuard_pipeline
+  - Handoff
+  - Write_Zone
+  sub_child:
+  - Handoff
+  - Ticket_ref
+  - WAL
+  - Regression_update
+orbitals:
+- children:
+  - think
+  - plan
+  - critique
+  - orchestrate
+  domain: PODER MODERADOR
+  id: stf
+  tool: neocortex_brain
+- children:
+  - gateway
+  - route
+  - ollama
+  domain: TRIBUNAL SUPERIOR
+  id: stj
+  tool: neocortex_llm_router
+- children:
+  - cortex
+  - lobes
+  - checkpoint
+  - regression
+  - savepoint
+  - session
+  - ledger
+  domain: TRIBUNAL DE JUSTICA
+  id: tj
+  tools:
+  - memory
+  - state
+  - context
+  - memory_auto
+- children:
+  - config
+  - pulse
+  - locks
+  - hooks
+  - metrics
+  domain: ADMINISTRACAO
+  id: forum
+  tools:
+  - system
+  - security
+  - health
+  - benchmark
+  - notification
+  - akl
+  - ledger
+- depends: OpenCode (orquestração nativa)
+  domain: PODER EXECUTIVO
+  id: executivo
+  status: ativo
+  tool: opencode_agents (nc-courier, nc-engineer, nc-guardian, nc-auditor)
+- defines_rules_for_all: true
+  domain: PODER LEGISLATIVO
+  id: legislativo
+  tool: neocortex_governance
+replication:
+  rules:
+  - inherit_100_percent
+  - no_rule_removal
+  - domain_specific_additions
+  - own_audit_trail
+  - max_5_per_hour
+  - BSL1_sandbox
+  - SHA256_integrity
+shared_kernel:
+  gateway: validate_action(action, target_path, agent_id, agent_role)
+  immutable: true
+  lobe: NC-LBE-FR-CONSTITUTION-001
+  pipeline:
+  - STEP0
+  - ATOMIC_LOCKS
+  - WRITE_ZONES
+  - NAMING
+  semantic_router:
+    architecture: '2-level: CentralSemanticIndex -> DomainRouters -> Modules/Lobes'
+    central: NC-CORE-FR-166-domain-routers.py
+    domains_indexed: 8
+    principle: 'DDD-compliant: Shared Kernel infra, not orbital domain'
+    rule: R118
+    total_items: 763
+    version: v2.0

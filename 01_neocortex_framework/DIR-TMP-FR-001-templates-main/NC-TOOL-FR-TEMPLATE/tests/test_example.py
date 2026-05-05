@@ -7,10 +7,11 @@ topology: templates
 level: 3
 parent_ssot: NC-CFG-FR-001-plugin
 tags:
-  - templates
-  - level-3
-  - python
----"""
+  - tem
+---
+"""
+
+
 
 """
 test_example.py  Template de testes unitrios para plugins do NeoCortex.

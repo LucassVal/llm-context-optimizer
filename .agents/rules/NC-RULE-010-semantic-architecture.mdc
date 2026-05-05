@@ -1,0 +1,153 @@
+---
+description: "NC-RULE-010 | Semantic Architecture R116-R123 | Decay Pattern + Brain Regions | alwaysApply"
+globs: ["*"]
+alwaysApply: true
+priority: L1
+ssot: "02_memory_lobes/06_governance/NC-LBE-FR-RULES-MULTILAYER-001.mdc"
+xref_ulq: "@ULQ → @PREP → $TEMPORAL → #LEXICO → #KG → #AKL"
+---
+
+<!-- NC-READ-HASH: RULE010-SEMANTIC-v1 -->
+<!-- DEDUP: Se RULE010-SEMANTIC-v1 ja esta no contexto, SALTE. -->
+
+# NeoCortex — Semantic Architecture (R116-R123)
+
+> Bloco 8 das 123 regras. Fecha o gap: OpenCode/Claude agora recebe a arquitetura semantica completa.
+
+---
+
+## REGIOES CEREBRAIS ($ — 6 regioes funcionais)
+
+| Simbolo | Regiao | Funcao | Path |
+|---------|--------|--------|------|
+| `$FRONTAL` | Cortex Pre-Frontal | Planejamento, decisao, roadmap | `02_memory_lobes/` |
+| `$TEMPORAL` | Lobo Temporal | Memoria semantica: lexico + KG + AKL | `02_memory_lobes/` |
+| `$PARIETAL` | Lobo Parietal | Integracao: MCP patterns, health, APIs | `02_memory_lobes/` |
+| `$OCCIPITAL` | Lobo Occipital | Padroes estruturais: manifests, naming | `02_memory_lobes/` |
+| `$CEREBELO` | Cerebelo | Controle motor: Guardian, automacao | `02_memory_lobes/` |
+| `$HIPOCAMPO` | Hipocampo | Memoria episodica: sessoes, savepoints | `02_memory_lobes/` |
+
+---
+
+## R116 — Memory Auto-Record (H/C/S/U)
+Toda acao MCP registrada automaticamente. Gateway `_auto_turn_record()` salva no WAL + session JSONL.
+- **H**: Gateway intercepta toda acao e registra
+- **C**: PulseScheduler audita integridade do log
+- **S**: Consolidacao semanal no Cascade
+- **U**: `neocortex_memory_auto --action turn.record`
+
+---
+
+## R117 — SSOT Header Obrigatorio (H/C/S/U)
+Toda resposta DEVE incluir o header de status de 20 linhas:
+```
+NC-SSOT | <timestamp> | <lobes> lobes <doms> dom | <total> rules H:<h> C:<c> S:<s> U:<u> | STEP0:ON | GW:<gw>/<tools> RUFF:<ruff>% | MCP:<status> MC:<mc> OLL:<ollama> | sess:<n> turns:<t> hf:<hf> | EXE:<eng> LEG:<norms> JUD:<courts> FED:pacto SEM:<lobes> RTR:FR-165 | RAC:ON 3W:ON KISS:ON CLAIM:ON
+```
+- **H**: CentralWatcher `validate_ssot_header()` — bloqueia resposta sem header
+- **C**: PulseScheduler audita headers a cada 300s
+- **S**: FR-163 SSOT Reporter gera header dinamico
+- **U**: T0 revisa no chat
+
+---
+
+## R118 — Domain Routers 2-Level (H/S/U)
+Arquitetura DDD-compliant: CentralSemanticIndex -> DomainRouters -> Modules/Lobes.
+- **8 dominios**, **763 itens** indexados via FR-166
+- Central: `NC-CORE-FR-166-domain-routers.py`
+- **H**: Gateway roteia busca pelo dominio correto
+- **S**: Reindexacao semanal
+- **U**: `neocortex_memory --action search.advanced`
+
+---
+
+## R119 — Semantic Guardian (H/C/S/U)
+Vigia da saude semantica a cada 300s (FR-167).
+- Detecta: orfaos, fragmentos, refs quebradas, tags stale
+- **H**: Bloqueia acao em arquivo com ref quebrada
+- **C**: Scan a cada 300s
+- **S**: Relatorio semanal de saude semantica
+- **U**: `neocortex_governance --action integrity.full`
+
+---
+
+## R120 — Semantic Boot (H/C/S/U)
+Sequencia obrigatoria de boot: **ULQ → TAGS → PREP** (FR-170).
+```
+1. ULQ (NC-DOC-FR-001)         → traduz "o que e?"
+2. TAGS (NC-ULQ-TAG-INDEX)     → localiza "onde esta?"
+3. PREP (Domain Routers)       → planeja "o que fazer?"
+```
+- Auto-registry: novos arquivos .py/.mdc/.yaml registrados automaticamente
+- DECAY: tags nao referenciadas → STALE (7d) → REMOVED (30d)
+- **H/C/S/U** completo
+
+---
+
+## R121 — ULQ Cross-Reference (H/S/U)
+Detecta duplicatas, orfaos, refs quebradas, fragmentos (FR-169).
+- Auto-registry de novos artefatos no ULQ vivo
+- **H**: Bloqueia criacao de arquivo com nome duplicado
+- **S**: Scan semanal de cross-reference
+- **U**: `neocortex_governance --action yaml.validate`
+
+---
+
+## R122 — Due Diligence + Strangler Fig (H/S/U)
+Hash validation (R59) + migration tracker (R68) — FR-171.
+- SHA-256 integrity check em migracoes
+- Strangler Fig: substituicao gradual de modulos legados
+- **H**: Bloqueia migracao sem hash validation
+- **S**: Tracking de progresso de migracao
+- **U**: `neocortex_evolution --action drift.status`
+
+---
+
+## R123 — Stakeholder + Lean + Self-Heal (H/C/S/U)
+Privilege map (R60) + context pruner (R62) + auto-restart (R95) — FR-172.
+- **H**: Validacao de privilegios por stakeholder
+- **C**: Context pruner — remove contexto obsoleto
+- **S**: Auto-restart de servicos com falha
+- **U**: `neocortex_system --action health.agent`
+
+---
+
+## DECAY PATTERN — Busca em 3 Niveis com Fallback
+
+```
+1. ULQ lookup      → encontrou? retorna definicao + regra
+   └─ nao → decay += 1, vai p/ 2
+2. TAG INDEX       → encontrou? retorna path + NC-ID
+   └─ nao → decay += 1, vai p/ 3
+3. PREP regex scan → encontrou? registra @Untagged
+   └─ nao → STALE → retorna None
+```
+
+- 7 dias sem acesso → STALE (warning)
+- 30 dias sem acesso → REMOVED (mantido no historico)
+- Tags com 0 hits em 30 dias → arquivadas
+
+---
+
+## ENGINES ATIVOS (FR-165 a FR-172)
+
+| Engine | Regra | Funcao |
+|--------|-------|--------|
+| FR-165 | R118 | Semantic Router + RAG — catalogo universal |
+| FR-166 | R118 | Domain Routers — 8 dominios, 763 itens |
+| FR-167 | R119 | Semantic Guardian — saude semantica 300s |
+| FR-168 | — | Semantic Audit — redundancia, orfaos, fragmentos |
+| FR-169 | R121 | ULQ Cross-Reference + Auto-Registry |
+| FR-170 | R120 | Semantic Boot Sequence (ULQ→TAGS→PREP) |
+| FR-171 | R122 | Due Diligence + Strangler Fig wire |
+| FR-172 | R123 | Stakeholder Map + Lean + Self-Healing |
+
+---
+
+## CICLOS DO ULQ
+
+| Ciclo | Acao | Quando |
+|-------|------|--------|
+| CICLO 1 | ULQ + TAGS carregados no boot | Sessao inicial |
+| CICLO 2 | Auto-registry de novos arquivos | Toda criacao |
+| CICLO 3 | Semantic Guardian scan (300s) | Continuo |
+| CICLO 4 | Consolidacao semanal + Cascade | Semanal |

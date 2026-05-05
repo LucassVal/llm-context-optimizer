@@ -1,15 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:57.922343'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-tags:
-  - neocortex-other
-  - level-0
-  - python
----"""
+@Module NC-CORE-FR-119-peers-service mcp _genealogy:   injected_at: '2026-04-16T00:23:57.92
+---
+"""
+
+
 #!/usr/bin/env python3
 """
 Peers Service - Business logic for peer coordination.

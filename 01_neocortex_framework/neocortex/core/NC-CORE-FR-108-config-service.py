@@ -1,15 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:57.450283'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-tags:
-  - neocortex-other
-  - level-0
-  - python
----"""
+@Module NC-CORE-FR-108-config-service mcp _genealogy:   injected_at: '2026-04-16T00:23:57.45
+---
+"""
+
+
 #!/usr/bin/env python3
 """
 Config Service - Business logic for system configuration.
@@ -93,12 +87,23 @@ class ConfigService:
             },
         }
 
+    def set(self, key: str, value: Any) -> Dict[str, Any]:
+        """Set a configuration value in the ledger."""
+        try:
+            ledger = self.repository.read_ledger()
+            ledger[key] = value
+            ledger["last_modified"] = datetime.now().isoformat()
+            self.repository.write_ledger(ledger)
+            return {"success": True, "key": key, "value": str(value)[:200]}
+        except Exception as e:
+            return {"success": False, "error": str(e)}
+
     def set_model(self, model_id: str) -> Dict[str, Any]:
         """
         Set LLM model in agent session.
 
         Args:
-            model_id: Model ID (e.g., "deepseek-reasoner", "gpt-4")
+            model_id: Model ID (e.g., "deepseek-v4-pro", "gpt-4")
 
         Returns:
             Dictionary with operation result
@@ -162,8 +167,8 @@ class ConfigService:
         # Define available models with metadata
         models = [
             {
-                "id": "deepseek-reasoner",
-                "name": "DeepSeek Reasoner",
+                "id": "deepseek-v4-pro",
+                "name": "DeepSeek v4-Pro",
                 "provider": "DeepSeek",
                 "context_window": 128000,
                 "capabilities": ["reasoning", "code", "planning"],

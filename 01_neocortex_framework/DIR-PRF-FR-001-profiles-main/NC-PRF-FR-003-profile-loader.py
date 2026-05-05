@@ -7,6 +7,30 @@ _genealogy:
 topology: profiles
 level: 3
 parent_ssot: NC-PRF-FR-003-profile-loader
+relate
+---
+"""
+
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:57.100946'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: profiles
+level: 3
+parent_ssot: NC-PRF-FR-003-profile-loader
+relate
+---
+"""
+
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:23:57.100946'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: profiles
+level: 3
+parent_ssot: NC-PRF-FR-003-profile-loader
 related_ssot:
   - NC-PRF-FR-003
 tags:

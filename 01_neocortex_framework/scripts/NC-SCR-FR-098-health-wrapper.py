@@ -1,5 +1,29 @@
 #!/usr/bin/env python3
 
+"""---
+_genealogy:
+  injected_at: '2026-04-16T11:30:00.000000'
+  injected_by: NC-SCR-FR-098-health-wrapper.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+parent_ssot: NC-SCR-FR-098-health-wrapper
+tag
+---
+"""
+
+"""---
+_genealogy:
+  injected_at: '2026-04-16T11:30:00.000000'
+  injected_by: NC-SCR-FR-098-health-wrapper.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+parent_ssot: NC-SCR-FR-098-health-wrapper
+tag
+---
+"""
+
 import io
 import sys
 

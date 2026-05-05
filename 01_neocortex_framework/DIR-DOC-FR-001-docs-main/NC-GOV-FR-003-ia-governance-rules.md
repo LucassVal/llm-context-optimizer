@@ -1,14 +1,38 @@
-# NC-GOV-FR-003  Regras de Governana de IA para NeoCortex
+# NC-GOV-FR-003 — Regras de Governança de IA para NeoCortex
 
-**Domnio**: governance  
+**Domínio**: governance  
 **Camada**: infra  
 **Tipo**: GOV  
-**Tags**: ['governana', 'ia', 'regras', 'segurana', 'auditoria']  
-**Hash**: `IA-GOVERNANCE-RULES-v1.0`
+**Tags**: ['governança', 'ia', 'regras', 'segurança', 'auditoria', 'compliance']  
+**Hash**: `IA-GOVERNANCE-RULES-v1.3-20260421`  
+**Status Compliance**: `REQUIRES_ATTENTION`  
+**Última Auditoria**: 2026-04-21  
+**Score Compliance**: 19.7%  
+**Issues Críticos**: 2
 
 ---
 
-## 1. VISO GERAL
+## ⚠️ STATUS DE AUDITORIA (2026-04-21)
+
+**ALERTA CRÍTICO**: Auditoria revelou falhas graves de conformidade:
+
+| Métrica | Status | Impacto |
+|---------|--------|---------|
+| **Conformidade R04 (Nomenclatura)** | 19.7% | ❌ CRÍTICO |
+| **Arquivos NC-* não conformes** | 485/604 | ❌ ALTO |
+| **Governança atualizada** | >120h | ⚠️ MÉDIO |
+| **Progresso Roadmap** | 71.4% | ✅ BOM |
+
+**Ações Imediatas Necessárias**:
+1. Executar `NC-SCR-FR-120-batch-rename-fix.py` para corrigir nomenclatura
+2. Revisar e atualizar todas as regras de governança
+3. Implementar auditoria contínua automatizada
+
+**Relatório Completo**: `NC-AUDIT-FR-001-governance-ssot-audit-20260421.yaml`
+
+---
+
+## 1. VISÃO GERAL
 
 Este documento estabelece as **20 regras de governana de IA** que regem a operao do framework NeoCortex. As regras so organizadas em 5 categorias e implementam os princpios de **segurana por design**, **rastreabilidade completa** e **melhoria contnua** necessrios para operao autnoma segura de agentes de IA.
 
@@ -35,7 +59,7 @@ As regras so auditadas automaticamente pelo script `NC-SCR-FR-080-governance-aud
 | **R01** | **Inventrio de Ativos de IA** | Manter catlogo completo de modelos, ferramentas, agentes e fontes de dados |  Implementado | `artifact_catalog.json`, `genealogy_graph.json` |
 | **R02** | **Poltica Formalizada** | Polticas escritas, versionadas e acessveis como cdigo/documentos SSOT |  Implementado | `NC-NAM-FR-001.md`, `NC-SEC-FR-001.yaml` |
 | **R03** | **Estrutura de Diretrios Cannica** | Impor estrutura padronizada de diretrios |  Implementado | `NC-NAM-FR-001.md` (seo diretrios) |
-| **R04** | **Nomenclatura Padronizada** | Todos os arquivos seguem `NC-<TIPO>-<SIGLA>-<NUM>-<desc>.ext` |  Implementado | Regex `^NC-[A-Z]+-[A-Z]+-[0-9]{3}-.+\\..+` |
+| **R04** | **Nomenclatura Padronizada** | Todos os arquivos seguem `NC-<TIPO>-<SIGLA>-<NUM>-<desc>.ext` | ⚠️ **Implementado mas NÃO CONFORME** (19.7%) | Regex `^NC-[A-Z]+-[A-Z]+-[0-9]{3}-.+\\..+`<br>**Problema**: 485/604 arquivos não conformes<br>**Solução**: `NC-SCR-FR-120-batch-rename-fix.py` |
 | **R05** | **Segregao de Ambientes** | Manter ambientes separados (produo/teste) |  Implementado | `01_neocortex_framework/` (prod) vs `01_neocortex_framework_RENAMED/` (teste) |
 
 ###  2.2. CONTROLE DE ACESSO E IDENTIDADE

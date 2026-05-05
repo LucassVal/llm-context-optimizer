@@ -1,0 +1,60 @@
+# NC-LBE-USR-001-signore-mobili.mdc
+
+> Lobe de projeto específico para geração de leads e inteligência de mercado - Signore Mobili.
+
+---
+tags: signore-mobili, leads, architects, market-intelligence
+user: 001-lucas
+project: Signore Mobili
+status: ACTIVE
+---
+
+# 🛋️ Signore Mobili - Estratégia de Leads (Arquitetos)
+
+## 1. Escopo do Projeto
+Geração de lista qualificada de arquitetos e profissionais de design de interiores para prospecção comercial da Signore Mobili.
+
+### 1.1 Áreas Geográficas (SP) e Metas
+- **São Paulo:** Meta > 200 leads.
+- **Campinas:** Meta > 200 leads.
+- **Eixo Interior:** Americana (OK), Nova Odessa, Sumaré, Hortolândia, Paulínia, Valinhos, Vinhedo, Jundiaí.
+
+### 1.2 Filtros de Qualificação e Formatação
+- **Profissão:** Arquitetos e Urbanistas.
+- **Contato:** Apenas números de celular (verificação via nono dígito `9`).
+- **Formatação do Nome (CSV):** `[NOME] ARQUITETO [CIDADE]` (ex: "LUCAS ARQUITETO AMERICANA").
+- **Formatação do Telefone (CSV):** `XX XXXXX-XXXX` (DDD + Celular).
+- **Formato Final:** CSV consolidado para Google Contacts.
+
+---
+
+## 2. Metodologia de Captura (Scraping)
+
+### 2.1 Ferramentas Recomendadas
+- **Motor:** Python + Playwright (Headless Browser).
+- **Fonte Principal:** Google Maps (GMB - Google My Business).
+- **Justificativa:** É a fonte mais atualizada de telefones comerciais e categorias profissionais verificadas.
+
+### 2.2 Algoritmo de Extração
+1. **Iteração por Cidade:** Loop automático para cada cidade da lista.
+2. **Busca Semântica:** Keyword "Arquitetos em [Cidade]".
+3. **Scroll Infinito:** Carregamento de todos os resultados disponíveis na lateral do Google Maps.
+4. **Parsing de Dados:** 
+   - Nome do Profissional/Escritório.
+   - Telefone.
+   - Website (se houver).
+   - Avaliações (Rating).
+5. **Filtro de Celular:** Regex para identificar celulares brasileiros.
+
+---
+
+## 3. Estrutura do CSV (Google Contacts)
+O arquivo final deve seguir o header padrão:
+`Name,Given Name,Family Name,Phone 1 - Type,Phone 1 - Value,Organization 1 - Name,Location`
+
+---
+
+## 4. Próximos Passos
+1. Validar script `NC-SCR-FR-090-lead-scraper.py`.
+2. Executar amostragem em **Americana** para validação de dados.
+3. Consolidar lista completa em `DIR-DAT-FR-001-data-main/signore_mobili/leads_arquitetos.csv`.

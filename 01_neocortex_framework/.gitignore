@@ -1,0 +1,28 @@
+# NeoCortex
+
+# LEGACY FILES (non-NC, actively referenced)
+neocortex/core/agent_policy_enforcer.py
+neocortex/core/agent_service.py
+neocortex/core/akl_service.py
+neocortex/core/benchmark_service.py
+neocortex/core/cascade_consolidator.py
+neocortex/core/checkpoint_service.py
+neocortex/core/circuit_breaker.py
+neocortex/core/config_service.py
+neocortex/core/consolidation_service.py
+neocortex/core/cortex_service.py
+neocortex/core/export_service.py
+neocortex/core/file_utils.py
+neocortex/core/init_service.py
+neocortex/core/kg_service.py
+neocortex/core/ledger_service.py
+neocortex/core/lexico_service.py
+neocortex/core/lobe_service.py
+neocortex/core/logging_config.py
+neocortex/core/manifest_service.py
+neocortex/core/peers_service.py
+neocortex/core/profile_manager.py
+neocortex/core/profile_service.py
+neocortex/core/pulse_scheduler.py
+neocortex/core/regression_service.py
+neocortex/core/security_service.py

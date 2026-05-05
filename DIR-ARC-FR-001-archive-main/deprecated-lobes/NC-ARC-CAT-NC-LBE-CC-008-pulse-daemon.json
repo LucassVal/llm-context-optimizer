@@ -1,0 +1,12 @@
+{
+  "category": "09_documentation",
+  "tags": [
+    "mdc",
+    "pulse-daemon"
+  ],
+  "summary": "Documentação do Pulse Daemon, arquitetura KAIROS no Claude Code e TTLs.",
+  "priority_score": 8,
+  "file": "NC-LBE-CC-008-pulse-daemon.mdc",
+  "lobe_id": "NC-LBE-CC-008-pulse-daemon",
+  "classified": "2026-04-21T10:36:15"
+}

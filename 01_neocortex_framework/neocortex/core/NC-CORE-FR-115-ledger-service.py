@@ -1,15 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:57.700591'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-tags:
-  - neocortex-other
-  - level-0
-  - python
----"""
+@Module NC-CORE-FR-115-ledger-service mcp _genealogy:   injected_at: '2026-04-16T00:23:57.70
+---
+"""
+
+
 #!/usr/bin/env python3
 """
 Ledger Service - Business logic for ledger operations.
@@ -43,6 +37,10 @@ class LedgerService:
             self.repository = LedgerStore()
         else:
             self.repository = repository
+
+    def read(self) -> Dict[str, Any]:
+        """Alias for get_full_ledger."""
+        return self.get_full_ledger()
 
     def get_full_ledger(self) -> Dict[str, Any]:
         """
@@ -315,7 +313,7 @@ class LedgerService:
 
         # Check for token budget warnings
         constraints = ledger.get("system_constraints", {})
-        max_tokens = constraints.get("max_json_size_tokens", 8000)
+        constraints.get("max_json_size_tokens", 8000)
         warning_threshold = constraints.get("warning_threshold_tokens", 6000)
 
         if tokens_used > warning_threshold:

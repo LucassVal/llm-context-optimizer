@@ -152,7 +152,7 @@ python 01_neocortex_framework\scripts\NC-SCR-FR-001-populate-lobes-ssot.py --dry
 | `@ROADMAP` | `DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md` | Roadmap unificado (FR + DS) |
 | `@LOCKS` | `DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml` | Arquivos protegidos DENY |
 | `@POLICY` | `DIR-DOC-FR-001-docs-main/NC-CFG-FR-002-rules-policy.yaml` | Regras machine-readable |
-| `@GOVERNANCE` | `DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.yaml` | 20 regras de governana de IA + auditoria |
+| `@GOVERNANCE` | `DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.yaml` | 133 regras de governanca (R01-R133, v4.0, 27 regras integradas) |a de IA + auditoria |
 | `@BOOT` | `DIR-BOOT-FR-001-bootup-main/NC-BOOT-FR-001-system-manifest.md` | **Este arquivo** |
 | `@SOP` | `DIR-DOC-FR-001-docs-main/NC-SOP-FR-001-session-startup.md` | SOP de sesso |
 | `@POPULATE` | `scripts/NC-SCR-FR-001-populate-lobes-ssot.py` | Popula lobos |

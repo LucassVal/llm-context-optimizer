@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
-"""
-NC-CORE-FR-023-lexico-service.py — LEXICO-001
+"""---
+NC-CORE-FR-116-lexico-service.py — LEXICO-001
 "Neuroplasticidade" do NeoCortex: dicionário semântico evolutivo.
 
 Analogia neuro: Re-wiring sináptico baseado em experiência —
 o sistema aprende novos termos e relações com o uso, sem intervenção manual.
 
 Responsabilidades:
-  1. Extrair termos técnicos únicos dos lobes .mdc  
+  1. Extrair termos técnicos únicos dos lobes .mdc
   2. Construir glossário com definições via Qwen 1.5b
   3. Detectar drift semântico (termos novos vs histórico)
   4. Exportar LEXICO.json para consumo por outros serviços
 
 Storage: .neocortex/lexico/NC-LEXICO-{version}.json
-"""
+---"""
 from __future__ import annotations
 
 import json
@@ -23,7 +23,7 @@ import re
 import urllib.request
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Set
+from typing import Any, Dict, List, Set
 
 logger = logging.getLogger(__name__)
 
@@ -84,8 +84,8 @@ def _extract_terms(text: str) -> Set[str]:
     camel = set(re.findall(r'\b[A-Z][a-z]+(?:[A-Z][a-z]+)+\b', text))
 
     # Snake_case técnico (funções/variáveis de módulo)
-    snake = set(w for w in re.findall(r'\b[a-z][a-z_]{4,}\b', text)
-                if '_' in w and w.lower() not in STOP_TERMS)
+    snake = {w for w in re.findall(r'\b[a-z][a-z_]{4,}\b', text)
+                if '_' in w and w.lower() not in STOP_TERMS}
 
     all_terms = compound | acronyms | camel | snake
     # Filtrar stop-words e termos muito curtos
@@ -126,7 +126,7 @@ def _define_term(term: str, contexts: List[str]) -> str:
 
 # ── Drift detection ────────────────────────────────────────────────────────────
 
-def _detect_drift(current: Dict[str, Any], previous: Optional[Dict[str, Any]]) -> Dict[str, Any]:
+def _detect_drift(current: Dict[str, Any], previous: Dict[str, Any] | None) -> Dict[str, Any]:
     """Detecta termos novos, removidos e alterados entre versões."""
     if not previous:
         return {"new": list(current.keys()), "removed": [], "changed": []}
@@ -161,7 +161,7 @@ class LexicoService:
         self.version  = datetime.now().strftime("%Y%m%d-%H%M%S")
         self._lexico: Dict[str, Any] = {}
 
-    def _load_previous(self) -> Optional[Dict]:
+    def _load_previous(self) -> Dict | None:
         """Carrega versão anterior do lexico (se existir)."""
         existing = sorted(LEX_DIR.glob("NC-LEXICO-*.json"))
         if not existing:
@@ -295,7 +295,7 @@ class LexicoService:
 
 # ── Singleton ──────────────────────────────────────────────────────────────────
 
-_service: Optional[LexicoService] = None
+_service: LexicoService | None = None
 
 
 def get_lexico_service() -> LexicoService:

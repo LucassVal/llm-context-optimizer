@@ -1,0 +1,82 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-FR-MACHINE-001-machine-memory-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MACHINE-001-machine-memory-v1 ja esta no contexto desta sessao, SALTE. -->
+lobe_id: NC-LBE-FR-MACHINE-001
+name: machine_memory
+category: 05_machine_learning
+description: Centraliza histórico de inferências, patterns aprendidos e auto-feedback dos agentes locais (Qwen 1.5b/3b).
+tags: [machine-learning, qwen, feedback, inference, patterns]
+status: active
+created: 2026-04-18
+temperature: 0
+status: archived
+---
+
+@UBL $MACHINE_MEMORY
+LEXICO: #machine #memory #qwen #inference #feedback
+
+<!-- NC-READ-HASH: NC-LBE-FR-MACHINE-001-machine-memory-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MACHINE-001-machine-memory-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+
+@UBL 3Ws
+LEXICO: #3W #what #why #where
+
+## What
+Módulo: NC LBE FR MACHINE 001 machine memory
+
+## Why
+Criado em 2026-04-18 — arquivo do ecossistema NeoCortex
+
+## Where
+02_memory_lobes/lobes
+
+---
+
+
+
+<!-- NC-READ-HASH: NC-LBE-FR-MACHINE-001-machine-memory-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MACHINE-001-machine-memory-v1 ja esta no contexto desta sessao, SALTE. -->
+
+@UBL MachineMemoryLobe
+LEXICO: #machine #memory #lobe #qwen #local
+
+# 1. Machine Memory Lobe
+
+@UBL Proposito
+LEXICO: #proposito #conhecimento #emergente #qwen #feedback
+
+## Propósito
+Centralizar conhecimento emergente dos LLMs locais:
+- Padrões de resposta bem-sucedidos (Qwen 1.5b / Qwen 3b)
+- Histórico de inferências com métricas de qualidade
+- Auto-feedback registrado via brain.feedback
+- Estratégias de prompt que funcionaram
+
+@UBL EstruturaML
+LEXICO: #estrutura #patterns #feedback #benchmarks
+
+## Estrutura
+`
+machine_memory/
+├── patterns/       ← prompts + respostas arquivadas
+├── feedback/       ← avaliações registradas
+└── benchmarks/     ← resultados NC-SCR-FR-048 (titanomachy/drift)
+`
+
+@UBL Regras
+LEXICO: #regras #escrita #leitura #retencao
+
+## Regras
+- Escrita: apenas agentes T2/T3 via brain.feedback ou AKLService.add()
+- Leitura: qualquer tier
+- Retenção: 90 dias, depois sugerir archival via AKL decay
+
+@UBL IntegracaoML
+LEXICO: #integracao #brain #feedback #akl #benchmark
+
+## Integração
+- brain.feedback → grava aqui via ledger
+- akl.add(tag="machine_memory") → persistência cross-session
+- NC-SCR-FR-048 (benchmark) → popula benchmarks/

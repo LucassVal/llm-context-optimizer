@@ -1,0 +1,7 @@
+ticket_id: "NC-DS-SESS"
+status: "APPROVED"
+timestamp: "2026-04-27T22:52:29"
+agent: "T0"
+summary: |
+  G1: LockGuard wire-up no state.py writes
+data: {}

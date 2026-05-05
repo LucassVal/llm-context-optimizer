@@ -1,4 +1,16 @@
 #!/usr/bin/env python3
+"""---
+alwaysApply: true
+description: "Central Cortex  {project_name}. NeoCortex v4.2-Cortex."
+---
+"""
+
+"""---
+alwaysApply: true
+description: "Central Cortex  {project_name}. NeoCortex v4.2-Cortex."
+---
+"""
+
 """
 NeoCortex MCP Server
 

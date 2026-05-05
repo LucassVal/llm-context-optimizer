@@ -1,0 +1,631 @@
+=== interactiveHelpers.tsx lines 186-190 ===
+  // Initialize telemetry after env vars are applied so OTEL endpoint env vars and
+  // otelHeadersHelper (which requires trust to execute) are available.
+  // Defer to next tick so the OTel dynamic import resolves after first render
+  // instead of during the pre-render microtask queue.
+  setImmediate(() => initializeTelemetryAfterTrust());
+
+
+=== interactiveHelpers.tsx lines 239-243 ===
+  // is NOT bypassed — gateChannelServer() still runs; this flag only exists
+  // to sidestep the --channels approved-server allowlist.
+  if (feature('KAIROS') || feature('KAIROS_CHANNELS')) {
+    // gateChannelServer and ChannelsNotice read tengu_harbor after this
+    // function returns. A cold disk cache (fresh install, or first run after
+
+
+=== tools.ts lines 24-28 ===
+    : null
+const SleepTool =
+  feature('PROACTIVE') || feature('KAIROS')
+    ? require('./tools/SleepTool/SleepTool.js').SleepTool
+    : null
+
+
+=== tools.ts lines 40-44 ===
+  ? require('./tools/MonitorTool/MonitorTool.js').MonitorTool
+  : null
+const SendUserFileTool = feature('KAIROS')
+  ? require('./tools/SendUserFileTool/SendUserFileTool.js').SendUserFileTool
+  : null
+
+
+=== tools.ts lines 44-48 ===
+  : null
+const PushNotificationTool =
+  feature('KAIROS') || feature('KAIROS_PUSH_NOTIFICATION')
+    ? require('./tools/PushNotificationTool/PushNotificationTool.js')
+        .PushNotificationTool
+
+
+=== bridgeMain.ts lines 170-174 ===
+  // Session ingress JWTs for heartbeat auth, keyed by sessionId.
+  // Stored separately from handle.accessToken because the token refresh
+  // scheduler overwrites that field with the OAuth token (~3h55m in).
+  const sessionIngressTokens = new Map<string, string>()
+  const sessionTimers = new Map<string, ReturnType<typeof setTimeout>>()
+
+
+=== bridgeMain.ts lines 277-281 ===
+  const v2Sessions = new Set<string>()
+
+  // Proactive token refresh: schedules a timer 5min before the session
+  // ingress JWT expires. v1 delivers OAuth directly; v2 calls
+  // reconnectSession to trigger server re-dispatch (CC-1263: without
+
+
+=== bridgeMain.ts lines 280-284 ===
+  // ingress JWT expires. v1 delivers OAuth directly; v2 calls
+  // reconnectSession to trigger server re-dispatch (CC-1263: without
+  // this, v2 daemon sessions silently die at ~5h since the server does
+  // not auto-re-dispatch ACK'd work on lease expiry).
+  const tokenRefresh = getAccessToken
+
+
+=== bridgeMain.ts lines 372-376 ===
+  function updateStatusDisplay(): void {
+    // Push the session count (no-op when maxSessions === 1) so the
+    // next renderStatusLine tick shows the current count.
+    logger.updateSessionCount(
+      activeSessions.size,
+
+
+=== bridgeMain.ts lines 424-428 ===
+    stopStatusUpdates()
+    // Call immediately so the first transition (e.g. Connecting → Ready)
+    // happens without delay, avoiding concurrent timer races.
+    updateStatusDisplay()
+    statusUpdateTimer = setInterval(
+
+
+=== bridgeMain.ts lines 456-460 ===
+      titledSessions.delete(compatId)
+      v2Sessions.delete(sessionId)
+      // Clear per-session timeout timer
+      const timer = sessionTimers.get(sessionId)
+      if (timer) {
+
+
+=== bridgeMain.ts lines 457-461 ===
+      v2Sessions.delete(sessionId)
+      // Clear per-session timeout timer
+      const timer = sessionTimers.get(sessionId)
+      if (timer) {
+        clearTimeout(timer)
+
+
+=== bridgeMain.ts lines 458-462 ===
+      // Clear per-session timeout timer
+      const timer = sessionTimers.get(sessionId)
+      if (timer) {
+        clearTimeout(timer)
+        sessionTimers.delete(sessionId)
+
+
+=== bridgeMain.ts lines 459-463 ===
+      const timer = sessionTimers.get(sessionId)
+      if (timer) {
+        clearTimeout(timer)
+        sessionTimers.delete(sessionId)
+      }
+
+
+=== bridgeMain.ts lines 462-466 ===
+        sessionTimers.delete(sessionId)
+      }
+      // Clear token refresh timer
+      tokenRefresh?.cancel(sessionId)
+      // Wake the at-capacity sleep so the bridge can accept new work immediately
+
+
+=== bridgeMain.ts lines 1146-1150 ===
+
+          // Register in the sessions Map before starting status updates so the
+          // first render tick shows the correct count and bullet list in sync.
+          logger.addSession(
+            compatSessionId,
+
+
+=== bridgeMain.ts lines 1181-1185 ===
+            config.sessionTimeoutMs ?? DEFAULT_SESSION_TIMEOUT_MS
+          if (timeoutMs > 0) {
+            const timer = setTimeout(
+              onSessionTimeout,
+              timeoutMs,
+
+
+=== bridgeMain.ts lines 1190-1194 ===
+              handle,
+            )
+            sessionTimers.set(sessionId, timer)
+          }
+
+
+
+=== bridgeMain.ts lines 1464-1468 ===
+
+    // Clear any remaining session timeout and refresh timers
+    for (const timer of sessionTimers.values()) {
+      clearTimeout(timer)
+    }
+
+
+=== bridgeMain.ts lines 1465-1469 ===
+    // Clear any remaining session timeout and refresh timers
+    for (const timer of sessionTimers.values()) {
+      clearTimeout(timer)
+    }
+    sessionTimers.clear()
+
+
+=== bridgeMain.ts lines 1521-1525 ===
+  // resume is impossible in those cases and the message would contradict the
+  // error already printed.
+  // feature('KAIROS') gate: --session-id is ant-only; without the gate,
+  // revert to the pre-PR behavior (archive + deregister on every shutdown).
+  if (
+
+
+=== bridgeMain.ts lines 1524-1528 ===
+  // revert to the pre-PR behavior (archive + deregister on every shutdown).
+  if (
+    feature('KAIROS') &&
+    config.spawnMode === 'single-session' &&
+    initialSessionId &&
+
+
+=== bridgeMain.ts lines 1777-1781 ===
+      name = arg.slice('--name='.length)
+    } else if (
+      feature('KAIROS') &&
+      arg === '--session-id' &&
+      i + 1 < args.length
+
+
+=== bridgeMain.ts lines 1785-1789 ===
+        return makeError('--session-id requires a value')
+      }
+    } else if (feature('KAIROS') && arg.startsWith('--session-id=')) {
+      sessionId = arg.slice('--session-id='.length)
+      if (!sessionId) {
+
+
+=== bridgeMain.ts lines 1790-1794 ===
+        return makeError('--session-id requires a value')
+      }
+    } else if (feature('KAIROS') && (arg === '--continue' || arg === '-c')) {
+      continueSession = true
+    } else if (arg === '--spawn' || arg.startsWith('--spawn=')) {
+
+
+=== bridgeMain.ts lines 1926-1930 ===
+  --name <name>                    Name for the session (shown in claude.ai/code)
+${
+  feature('KAIROS')
+    ? `  -c, --continue                   Resume the last session in this directory
+  --session-id <id>                Resume a specific session by ID (cannot be
+
+
+=== bridgeMain.ts lines 2062-2066 ===
+    // logEventAsync only enqueues — process.exit() discards buffered events.
+    // Flush explicitly, capped at 500ms to match gracefulShutdown.ts.
+    // (sleep() doesn't unref its timer, but process.exit() follows immediately
+    // so the ref'd timer can't delay shutdown.)
+    await Promise.race([
+
+
+=== bridgeMain.ts lines 2063-2067 ===
+    // Flush explicitly, capped at 500ms to match gracefulShutdown.ts.
+    // (sleep() doesn't unref its timer, but process.exit() follows immediately
+    // so the ref'd timer can't delay shutdown.)
+    await Promise.race([
+      Promise.all([shutdown1PEventLogging(), shutdownDatadog()]),
+
+
+=== bridgeMain.ts lines 2145-2149 ===
+  // getOriginalCwd() which EnterWorktreeTool/activeWorktreeSession can
+  // point at a worktree while the user's shell is at the repo root.
+  // KAIROS-gated at parseArgs — continueSession is always false in external
+  // builds, so this block tree-shakes.
+  if (feature('KAIROS') && continueSession) {
+
+
+=== bridgeMain.ts lines 2147-2151 ===
+  // KAIROS-gated at parseArgs — continueSession is always false in external
+  // builds, so this block tree-shakes.
+  if (feature('KAIROS') && continueSession) {
+    const { readBridgePointerAcrossWorktrees } = await import(
+      './bridgePointer.js'
+
+
+=== bridgeMain.ts lines 2357-2361 ===
+  // backend). Left undefined otherwise — the backend rejects
+  // client-generated UUIDs and will allocate a fresh environment.
+  // feature('KAIROS') gate: --session-id is ant-only; parseArgs already
+  // rejects the flag when the gate is off, so resumeSessionId is always
+  // undefined here in external builds — this guard is for tree-shaking.
+
+
+=== bridgeMain.ts lines 2361-2365 ===
+  // undefined here in external builds — this guard is for tree-shaking.
+  let reuseEnvironmentId: string | undefined
+  if (feature('KAIROS') && resumeSessionId) {
+    try {
+      validateBridgeId(resumeSessionId, 'sessionId')
+
+
+=== bridgeMain.ts lines 2471-2475 ===
+  // Cleared on env mismatch so we gracefully fall back to a new session.
+  let effectiveResumeSessionId: string | undefined
+  if (feature('KAIROS') && resumeSessionId) {
+    if (reuseEnvironmentId && environmentId !== reuseEnvironmentId) {
+      // Backend returned a different environment_id — the original env
+
+
+=== bridgeMain.ts lines 2669-2673 ===
+  // "Creating a fresh session instead" warning printed above).
+  let initialSessionId: string | null =
+    feature('KAIROS') && effectiveResumeSessionId
+      ? effectiveResumeSessionId
+      : null
+
+
+=== bridgeMain.ts lines 2672-2676 ===
+      ? effectiveResumeSessionId
+      : null
+  if (preCreateSession && !(feature('KAIROS') && effectiveResumeSessionId)) {
+    const { createBridgeSession } = await import('./createSession.js')
+    try {
+
+
+=== bridgeMain.ts lines 2768-2772 ===
+}
+
+// ─── Headless bridge (daemon worker) ────────────────────────────────────────
+
+/**
+
+
+=== bridgeMain.ts lines 2773-2777 ===
+ * Thrown by runBridgeHeadless for configuration issues the supervisor should
+ * NOT retry (trust not accepted, worktree unavailable, http-not-https). The
+ * daemon worker catches this and exits with EXIT_CODE_PERMANENT so the
+ * supervisor parks the worker instead of respawning it on backoff.
+ */
+
+
+=== bridgeMain.ts lines 2798-2802 ===
+
+/**
+ * Non-interactive bridge entrypoint for the `remoteControl` daemon worker.
+ *
+ * Linear subset of bridgeMain(): no readline dialogs, no stdin key handlers,
+
+
+=== bridgeMain.ts lines 2801-2805 ===
+ *
+ * Linear subset of bridgeMain(): no readline dialogs, no stdin key handlers,
+ * no TUI, no process.exit(). Config comes from the caller (daemon.json), auth
+ * comes via IPC (supervisor's AuthManager), logs go to the worker's stdout
+ * pipe. Throws on fatal errors — the worker catches and maps permanent vs
+
+
+=== main.tsx lines 76-80 ===
+const coordinatorModeModule = feature('COORDINATOR_MODE') ? require('./coordinator/coordinatorMode.js') as typeof import('./coordinator/coordinatorMode.js') : null;
+/* eslint-enable @typescript-eslint/no-require-imports */
+// Dead code elimination: conditional import for KAIROS (assistant mode)
+/* eslint-disable @typescript-eslint/no-require-imports */
+const assistantModule = feature('KAIROS') ? require('./assistant/index.js') as typeof import('./assistant/index.js') : null;
+
+
+=== main.tsx lines 78-82 ===
+// Dead code elimination: conditional import for KAIROS (assistant mode)
+/* eslint-disable @typescript-eslint/no-require-imports */
+const assistantModule = feature('KAIROS') ? require('./assistant/index.js') as typeof import('./assistant/index.js') : null;
+const kairosGate = feature('KAIROS') ? require('./assistant/gate.js') as typeof import('./assistant/gate.js') : null;
+import { relative, resolve } from 'path';
+
+
+=== main.tsx lines 79-83 ===
+/* eslint-disable @typescript-eslint/no-require-imports */
+const assistantModule = feature('KAIROS') ? require('./assistant/index.js') as typeof import('./assistant/index.js') : null;
+const kairosGate = feature('KAIROS') ? require('./assistant/gate.js') as typeof import('./assistant/gate.js') : null;
+import { relative, resolve } from 'path';
+import { isAnalyticsDisabled } from 'src/services/analytics/config.js';
+
+
+=== main.tsx lines 557-561 ===
+  discover: boolean;
+};
+const _pendingAssistantChat: PendingAssistantChat | undefined = feature('KAIROS') ? {
+  sessionId: undefined,
+  discover: false
+
+
+=== main.tsx lines 683-687 ===
+  // (e.g. `--debug assistant`) falls through to the stub, which
+  // prints usage.
+  if (feature('KAIROS') && _pendingAssistantChat) {
+    const rawArgs = process.argv.slice(2);
+    if (rawArgs[0] === 'assistant') {
+
+
+=== main.tsx lines 998-1002 ===
+    }
+    return value;
+  })).option('--agent <agent>', `Agent for the current session. Overrides the 'agent' setting.`).option('--betas <betas...>', 'Beta headers to include in API requests (API key users only)').option('--fallback-model <model>', 'Enable automatic fallback to specified model when default model is overloaded (only works with --print)').addOption(new Option('--workload <tag>', 'Workload tag for billing-header attribution (cc_workload). Process-scoped; set by SDK daemon callers that spawn subprocesses for cron work. (only works with --print)').hideHelp()).option('--settings <file-or-json>', 'Path to a settings JSON file or a JSON string to load additional settings from').option('--add-dir <directories...>', 'Additional directories to allow tool access to').option('--ide', 'Automatically connect to IDE on startup if exactly one valid IDE is available', () => true).option('--strict-mcp-config', 'Only use MCP servers from --mcp-config, ignoring all other MCP configurations', () => true).option('--session-id <uuid>', 'Use a specific session ID for the conversation (must be a valid UUID)').option('-n, --name <name>', 'Set a display name for this session (shown in /resume and terminal title)').option('--agents <json>', 'JSON object defining custom agents (e.g. \'{"reviewer": {"description": "Reviews code", "prompt": "You are a code reviewer"}}\')').option('--setting-sources <sources>', 'Comma-separated list of setting sources to load (user, project, local).')
+  // gh-33508: <paths...> (variadic) consumed everything until the next
+  // --flag. `claude --plugin-dir /path mcp add --transport http` swallowed
+
+
+=== main.tsx lines 1048-1052 ===
+    let kairosEnabled = false;
+    let assistantTeamContext: Awaited<ReturnType<NonNullable<typeof assistantModule>['initializeAssistantTeam']>> | undefined;
+    if (feature('KAIROS') && (options as {
+      assistant?: boolean;
+    }).assistant && assistantModule) {
+
+
+=== main.tsx lines 1051-1055 ===
+      assistant?: boolean;
+    }).assistant && assistantModule) {
+      // --assistant (Agent SDK daemon mode): force the latch before
+      // isAssistantMode() runs below. The daemon has already checked
+      // entitlement — don't make the child re-check tengu_kairos.
+
+
+=== main.tsx lines 1052-1056 ===
+    }).assistant && assistantModule) {
+      // --assistant (Agent SDK daemon mode): force the latch before
+      // isAssistantMode() runs below. The daemon has already checked
+      // entitlement — don't make the child re-check tengu_kairos.
+      assistantModule.markAssistantForced();
+
+
+=== main.tsx lines 1056-1060 ===
+      assistantModule.markAssistantForced();
+    }
+    if (feature('KAIROS') && assistantModule?.isAssistantMode() &&
+    // Spawned teammates share the leader's cwd + settings.json, so
+    // isAssistantMode() is true for them too. --agent-id being set
+
+
+=== main.tsx lines 1071-1075 ===
+        // Blocking gate check — returns cached `true` instantly; if disk
+        // cache is false/missing, lazily inits GrowthBook and fetches fresh
+        // (max ~5s). --assistant skips the gate entirely (daemon is
+        // pre-entitled).
+        kairosEnabled = assistantModule.isAssistantForced() || (await kairosGate.isKairosEnabled());
+
+
+=== main.tsx lines 1640-1644 ===
+    // and only appends to allowedChannels on accept.
+    let devChannels: ChannelEntry[] | undefined;
+    if (feature('KAIROS') || feature('KAIROS_CHANNELS')) {
+      // Parse plugin:name@marketplace / server:Y tags into typed entries.
+      // Tag decides trust model downstream: plugin-kind hits marketplace
+
+
+=== main.tsx lines 1726-1730 ===
+    // Conditional require avoids leaking the tool-name string into
+    // external builds.
+    if ((feature('KAIROS') || feature('KAIROS_BRIEF')) && baseTools.length > 0) {
+      /* eslint-disable @typescript-eslint/no-require-imports */
+      const {
+
+
+=== main.tsx lines 2182-2186 ===
+    // briefVisibility). A persisted 'chat' after a GB kill-switch falls
+    // through (entitlement fails).
+    if ((feature('KAIROS') || feature('KAIROS_BRIEF')) && !getIsNonInteractiveSession() && !getUserMsgOptIn() && getInitialSettings().defaultView === 'chat') {
+      /* eslint-disable @typescript-eslint/no-require-imports */
+      const {
+
+
+=== main.tsx lines 2195-2199 ===
+    // the generic proactive prompt would tell it to call a tool it can't
+    // access and conflict with delegation instructions.
+    if ((feature('PROACTIVE') || feature('KAIROS')) && ((options as {
+      proactive?: boolean;
+    }).proactive || isEnvTruthy(process.env.CLAUDE_CODE_PROACTIVE)) && !coordinatorModeModule?.isCoordinatorMode()) {
+
+
+=== main.tsx lines 2199-2203 ===
+    }).proactive || isEnvTruthy(process.env.CLAUDE_CODE_PROACTIVE)) && !coordinatorModeModule?.isCoordinatorMode()) {
+      /* eslint-disable @typescript-eslint/no-require-imports */
+      const briefVisibility = feature('KAIROS') || feature('KAIROS_BRIEF') ? (require('./tools/BriefTool/BriefTool.js') as typeof import('./tools/BriefTool/BriefTool.js')).isBriefEnabled() ? 'Call SendUserMessage at checkpoints to mark where things stand.' : 'The user will see any text you output.' : 'The user will see any text you output.';
+      /* eslint-enable @typescript-eslint/no-require-imports */
+      const proactivePrompt = `\n# Proactive Mode\n\nYou are in proactive mode. Take initiative — explore, act, and make progress without waiting for instructions.\n\nStart by briefly greeting the user.\n\nYou will receive periodic <tick> prompts. These are check-ins. Do whatever seems most useful, or call Sleep if there's nothing to do. ${briefVisibility}`;
+
+
+=== main.tsx lines 2201-2205 ===
+      const briefVisibility = feature('KAIROS') || feature('KAIROS_BRIEF') ? (require('./tools/BriefTool/BriefTool.js') as typeof import('./tools/BriefTool/BriefTool.js')).isBriefEnabled() ? 'Call SendUserMessage at checkpoints to mark where things stand.' : 'The user will see any text you output.' : 'The user will see any text you output.';
+      /* eslint-enable @typescript-eslint/no-require-imports */
+      const proactivePrompt = `\n# Proactive Mode\n\nYou are in proactive mode. Take initiative — explore, act, and make progress without waiting for instructions.\n\nStart by briefly greeting the user.\n\nYou will receive periodic <tick> prompts. These are check-ins. Do whatever seems most useful, or call Sleep if there's nothing to do. ${briefVisibility}`;
+      appendSystemPrompt = appendSystemPrompt ? `${appendSystemPrompt}\n\n${proactivePrompt}` : proactivePrompt;
+    }
+
+
+=== main.tsx lines 2204-2208 ===
+      appendSystemPrompt = appendSystemPrompt ? `${appendSystemPrompt}\n\n${proactivePrompt}` : proactivePrompt;
+    }
+    if (feature('KAIROS') && kairosEnabled && assistantModule) {
+      const assistantAddendum = assistantModule.getAssistantSystemPromptAddendum();
+      appendSystemPrompt = appendSystemPrompt ? `${appendSystemPrompt}\n\n${assistantAddendum}` : assistantAddendum;
+
+
+=== main.tsx lines 2516-2520 ===
+      appendSystemPromptFlag: appendSystemPrompt ? options.appendSystemPromptFile ? 'file' : 'flag' : undefined,
+      thinkingConfig,
+      assistantActivationPath: feature('KAIROS') && kairosEnabled ? assistantModule?.getAssistantActivationPath() : undefined
+    });
+
+
+
+=== main.tsx lines 2641-2645 ===
+        // executeForkedSlashCommand (processSlashCommand.tsx:132) and
+        // AgentTool's shouldRunAsync. The REPL initialState sets this at
+        // ~3459; headless was defaulting to false, so the daemon child's
+        // scheduled tasks and Agent-tool calls ran synchronously — N
+        // overdue cron tasks on spawn = N serial subagent turns blocking
+
+
+=== main.tsx lines 2645-2649 ===
+        // overdue cron tasks on spawn = N serial subagent turns blocking
+        // user input. Computed at :1620, well before this branch.
+        ...(feature('KAIROS') ? {
+          kairosEnabled
+        } : {})
+
+
+=== main.tsx lines 2913-2917 ===
+    // All startup opt-in paths (--tools, --brief, defaultView) have fired
+    // above; initialIsBriefOnly just reads the resulting state.
+    const initialIsBriefOnly = feature('KAIROS') || feature('KAIROS_BRIEF') ? getUserMsgOptIn() : false;
+    const fullRemoteControl = remoteControl || getRemoteControlAtStartup() || kairosEnabled;
+    let ccrMirrorEnabled = false;
+
+
+=== main.tsx lines 3029-3033 ===
+      }),
+      // Compute teamContext synchronously to avoid useEffect setState during render.
+      // KAIROS: assistantTeamContext takes precedence — set earlier in the
+      // KAIROS block so Agent(name: "foo") can spawn in-process teammates
+      // without TeamCreate. computeInitialTeamContext() is for tmux-spawned
+
+
+=== main.tsx lines 3030-3034 ===
+      // Compute teamContext synchronously to avoid useEffect setState during render.
+      // KAIROS: assistantTeamContext takes precedence — set earlier in the
+      // KAIROS block so Agent(name: "foo") can spawn in-process teammates
+      // without TeamCreate. computeInitialTeamContext() is for tmux-spawned
+      // teammates reading their own identity, not the assistant-mode leader.
+
+
+=== main.tsx lines 3033-3037 ===
+      // without TeamCreate. computeInitialTeamContext() is for tmux-spawned
+      // teammates reading their own identity, not the assistant-mode leader.
+      teamContext: feature('KAIROS') ? assistantTeamContext ?? computeInitialTeamContext?.() : computeInitialTeamContext?.()
+    };
+
+
+
+=== main.tsx lines 3257-3261 ===
+      }, renderAndRun);
+      return;
+    } else if (feature('KAIROS') && _pendingAssistantChat && (_pendingAssistantChat.sessionId || _pendingAssistantChat.discover)) {
+      // `claude assistant [sessionId]` — REPL as a pure viewer client
+      // of a remote assistant session. The agentic loop runs remotely; this
+
+
+=== main.tsx lines 3286-3290 ===
+            process.exit(0);
+          }
+          // The daemon needs a few seconds to spin up its worker and
+          // establish a bridge session before discovery will find it.
+          return await exitWithMessage(root, `Assistant installed in ${installedDir}. The daemon is starting up — run \`claude assistant\` again in a few seconds to connect.`, {
+
+
+=== main.tsx lines 3288-3292 ===
+          // The daemon needs a few seconds to spin up its worker and
+          // establish a bridge session before discovery will find it.
+          return await exitWithMessage(root, `Assistant installed in ${installedDir}. The daemon is starting up — run \`claude assistant\` again in a few seconds to connect.`, {
+            exitCode: 0,
+            beforeExit: () => gracefulShutdown(0)
+
+
+=== main.tsx lines 3830-3834 ===
+    program.addOption(new Option('--enable-auto-mode', 'Opt in to auto mode').hideHelp());
+  }
+  if (feature('PROACTIVE') || feature('KAIROS')) {
+    program.addOption(new Option('--proactive', 'Start in proactive autonomous mode'));
+  }
+
+
+=== main.tsx lines 3836-3840 ===
+    program.addOption(new Option('--messaging-socket-path <path>', 'Unix domain socket path for the UDS messaging server (defaults to a tmp path)'));
+  }
+  if (feature('KAIROS') || feature('KAIROS_BRIEF')) {
+    program.addOption(new Option('--brief', 'Enable SendUserMessage tool for agent-to-user communication'));
+  }
+
+
+=== main.tsx lines 3839-3843 ===
+    program.addOption(new Option('--brief', 'Enable SendUserMessage tool for agent-to-user communication'));
+  }
+  if (feature('KAIROS')) {
+    program.addOption(new Option('--assistant', 'Force assistant mode (Agent SDK daemon use)').hideHelp());
+  }
+
+
+=== main.tsx lines 3840-3844 ===
+  }
+  if (feature('KAIROS')) {
+    program.addOption(new Option('--assistant', 'Force assistant mode (Agent SDK daemon use)').hideHelp());
+  }
+  if (feature('KAIROS') || feature('KAIROS_CHANNELS')) {
+
+
+=== main.tsx lines 3842-3846 ===
+    program.addOption(new Option('--assistant', 'Force assistant mode (Agent SDK daemon use)').hideHelp());
+  }
+  if (feature('KAIROS') || feature('KAIROS_CHANNELS')) {
+    program.addOption(new Option('--channels <servers...>', 'MCP servers whose channel notifications (inbound push) should register this session. Space-separated server names.').hideHelp());
+    program.addOption(new Option('--dangerously-load-development-channels <servers...>', 'Load channel servers not on the approved allowlist. For local channel development only. Shows a confirmation dialog at startup.').hideHelp());
+
+
+=== main.tsx lines 4332-4336 ===
+    });
+  }
+  if (feature('KAIROS')) {
+    program.command('assistant [sessionId]').description('Attach the REPL as a client to a running bridge session. Discovers sessions via API if no sessionId given.').action(() => {
+      // Argv rewriting above should have consumed `assistant [id]`
+
+
+=== main.tsx lines 4610-4614 ===
+}
+function maybeActivateProactive(options: unknown): void {
+  if ((feature('PROACTIVE') || feature('KAIROS')) && ((options as {
+    proactive?: boolean;
+  }).proactive || isEnvTruthy(process.env.CLAUDE_CODE_PROACTIVE))) {
+
+
+=== main.tsx lines 4621-4625 ===
+}
+function maybeActivateBrief(options: unknown): void {
+  if (!(feature('KAIROS') || feature('KAIROS_BRIEF'))) return;
+  const briefFlag = (options as {
+    brief?: boolean;
+
+
+=== commands.ts lines 61-65 ===
+/* eslint-disable @typescript-eslint/no-require-imports */
+const proactive =
+  feature('PROACTIVE') || feature('KAIROS')
+    ? require('./commands/proactive.js').default
+    : null
+
+
+=== commands.ts lines 65-69 ===
+    : null
+const briefCommand =
+  feature('KAIROS') || feature('KAIROS_BRIEF')
+    ? require('./commands/brief.js').default
+    : null
+
+
+=== commands.ts lines 68-72 ===
+    ? require('./commands/brief.js').default
+    : null
+const assistantCommand = feature('KAIROS')
+  ? require('./commands/assistant/index.js').default
+  : null
+
+
+=== commands.ts lines 75-79 ===
+  : null
+const remoteControlServerCommand =
+  feature('DAEMON') && feature('BRIDGE_MODE')
+    ? require('./commands/remoteControlServer/index.js').default
+    : null
+

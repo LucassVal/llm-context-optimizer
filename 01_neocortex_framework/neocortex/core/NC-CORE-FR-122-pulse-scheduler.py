@@ -1,15 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:57.998783'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-tags:
-  - neocortex-other
-  - level-0
-  - python
----"""
+@Module NC-CORE-FR-122-pulse-scheduler mcp _genealogy:   injected_at: '2026-04-16T00:23:57.99
+---
+"""
+
+
 #!/usr/bin/env python3
 """
 Pulse Scheduler - Autonomous maintenance scheduler for NeoCortex.
@@ -119,13 +113,13 @@ class PulseScheduler:
             root = Path(__file__).parents[3] # TURBOQUANT_V42
             lobes_dir = root / "02_memory_lobes"
             archived_count, decayed_count = 0, 0
-            
+
             if lobes_dir.exists():
                 for mdc in lobes_dir.rglob("*.mdc"):
                     content = mdc.read_text(encoding="utf-8")
                     temp_match = re.search(r"^temperature:\s*(\d+)$", content, re.MULTILINE)
                     current_temp = int(temp_match.group(1)) if temp_match else 100
-                    
+
                     if current_temp > 0:
                         new_temp = max(0, current_temp - 5) # decai 5 pts
                         if temp_match:
@@ -133,12 +127,12 @@ class PulseScheduler:
                         else:
                             content = re.sub(r"^(---[\s\S]*?)(\n---)", f"\\1\ntemperature: {new_temp}\\2", content, count=1)
                         if new_temp == 0:
-                            content = re.sub(r"^(---[\s\S]*?)(\n---)", f"\\1\nstatus: archived\\2", content, count=1)
+                            content = re.sub(r"^(---[\s\S]*?)(\n---)", "\\1\nstatus: archived\\2", content, count=1)
                             archived_count += 1
-                        
+
                         mdc.write_text(content, encoding="utf-8")
                         decayed_count += 1
-                        
+
             details = {"lobes_decayed": decayed_count, "lobes_archived": archived_count}
             logger.info(f"[Pulse] Thermal Decay GC concluido: {details}")
         except Exception as e:

@@ -1,5 +1,27 @@
 #!/usr/bin/env python3
 
+"""---
+_genealogy:
+  injected_at: '2026-04-16T11:45:00.000000'
+  injected_by: NC-SCR-FR-101-tools-smoke-test.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+parent_ssot: NC-SCR-FR-101-tools-smoke-test
+---
+"""
+
+"""---
+_genealogy:
+  injected_at: '2026-04-16T11:45:00.000000'
+  injected_by: NC-SCR-FR-101-tools-smoke-test.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+parent_ssot: NC-SCR-FR-101-tools-smoke-test
+---
+"""
+
 import io
 import sys
 

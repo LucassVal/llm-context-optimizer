@@ -5,7 +5,8 @@ type: SESSION_MEMORY
 created: 2026-04-30T19:30:00
 status: COMPLETED
 lifecycle: PERMANENT
-temperature: 35
+temperature: 0
+status: archived
 ---
 
 

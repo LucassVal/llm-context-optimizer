@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+"""---
+NC-SUPER-003 — neocortex_memory
+---
+"""
+
+"""---
+NC-SUPER-003 — neocortex_memory
+---
+"""
+
 """
 NC-SUPER-003 — neocortex_memory
 CORTE TJ — Memória e Conhecimento
@@ -85,6 +95,15 @@ def register_tool(mcp) -> None:
         """
         ts = _ts()
         root = _root()
+
+        # ── UBL Gateway (Kernel 0) ──────────────────────────────────────────
+        try:
+            from neocortex.core.utils.gateway_bridge import gateway_check
+            _ok, _report = gateway_check(action, root)
+            if not _ok:
+                return _report
+        except Exception:
+            pass
 
         # ── CORTEX ────────────────────────────────────────────────────────────
         if action == "cortex.get":
@@ -189,7 +208,17 @@ def register_tool(mcp) -> None:
                             "count": len(results), "timestamp": ts}
                 except Exception as e:
                     return {"success": False, "error": str(e), "timestamp": ts}
-            # Fallback: search em lobes
+            # GAP-005: fallback to real SearchService
+            try:
+                from neocortex.core import get_search_service
+                search_svc = get_search_service()
+                if search_svc:
+                    result = search_svc.search_knowledge(query, limit)
+                    return {"success": True, "action": action,
+                            "results": result.get("results", []),
+                            "total_found": result.get("total_found", 0), "timestamp": ts}
+            except Exception:
+                pass
             return {"success": True, "action": action,
                     "note": "KnowledgeService indisponível — use lobe.search", "timestamp": ts}
 
@@ -212,9 +241,10 @@ def register_tool(mcp) -> None:
             try:
                 from neocortex.core import get_search_service
                 svc = get_search_service()
-                results = svc.search(query, limit=limit, category=category)
+                results = svc.search_advanced(query, limit=limit)
                 return {"success": True, "action": action, "query": query,
-                        "results": results, "count": len(results), "timestamp": ts}
+                        "results": results.get("results", []),
+                        "total_found": results.get("total_found", 0), "timestamp": ts}
             except Exception as e:
                 # Fallback: SearchService indisponível
                 return {"success": True, "action": action, "query": query,

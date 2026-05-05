@@ -1,15 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:58.035114'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-tags:
-  - neocortex-other
-  - level-0
-  - python
----"""
+@Module NC-CORE-FR-123-regression-service mcp _genealogy:   injected_at: '2026-04-16T00:23:58.03
+---
+"""
+
+
 #!/usr/bin/env python3
 """
 Regression Service - Business logic for regression buffer and STEP 0 operations.
@@ -225,6 +219,58 @@ class RegressionService:
             }
         else:
             return {"success": False, "error": "Failed to write to ledger"}
+
+    def set_baseline(self) -> Dict[str, Any]:
+        """
+        Set a regression baseline — snapshot current state for regression comparison.
+
+        Returns:
+            Dictionary with baseline metadata
+        """
+        timestamp = datetime.now().isoformat()
+        ledger = self.repository.read_ledger()
+
+        if "hierarchical_validation" not in ledger:
+            ledger["hierarchical_validation"] = {}
+
+        hierarchical_validation = ledger["hierarchical_validation"]
+        regression_buffer = hierarchical_validation.get("regression_buffer", {})
+        failed_attempts = regression_buffer.get("failed_attempts", [])
+
+        hierarchical_validation["regression_baseline"] = {
+            "timestamp": timestamp,
+            "last_checkpoint": hierarchical_validation.get("last_checkpoint", "unknown"),
+            "buffer_size": len(failed_attempts),
+            "total_entries": len(failed_attempts),
+        }
+
+        ledger["hierarchical_validation"] = hierarchical_validation
+        success = self.repository.write_ledger(ledger)
+
+        if success:
+            return {
+                "success": True,
+                "baseline_set": True,
+                "timestamp": timestamp,
+                "baseline": hierarchical_validation["regression_baseline"],
+            }
+        else:
+            return {"success": False, "error": "Failed to write baseline to ledger"}
+
+    def check(self) -> Dict[str, Any]:
+        """Check regression buffer status (STEP 0 compliance)."""
+        try:
+            stats = self.get_buffer_stats()
+            entries = self.list_all_entries()
+            return {
+                "success": True,
+                "buffer_size": stats.get("total_entries", 0),
+                "failed_attempts": stats.get("failed_attempts", 0),
+                "recent_errors": [e.get("error", "")[:80] for e in entries.get("entries", [])[-5:]],
+                "baseline_exists": stats.get("has_baseline", False),
+            }
+        except Exception as e:
+            return {"success": False, "error": str(e)}
 
     def get_buffer_stats(self) -> Dict[str, Any]:
         """

@@ -63,8 +63,8 @@ O roadmap menciona "LLM-003: OllamaBackend" e "LLM-004: DeepSeekBackend", mas no
 | :--- | :--- | :--- | :--- |
 | `qwen2.5-coder:1.5b-instruct` | Ollama | Agente Courier (tarefas braais 24/7) |  Configurado |
 | `qwen2.5-coder:3b-instruct` | Ollama | Agente Engineer (desenvolvimento) |  Configurado |
-| `deepseek-reasoner` | DeepSeek API | Tarefas transacionais, respostas rpidas |  Configurado |
-| `deepseek-reasoner` | DeepSeek API | Raciocnio complexo, depurao |  Configurado |
+| `deepseek-v4-flash` | DeepSeek API | Tarefas transacionais, respostas rápidas | ✅ Configurado |
+| `deepseek-v4-pro` | DeepSeek API | Raciocínio complexo, depuração | ✅ Configurado |
 
 ---
 
@@ -76,10 +76,10 @@ O roadmap menciona "LLM-006: LLMFactory" e "LLM-009: backend_override", mas no d
 
 | Poltica | Descrio | Exemplo |
 | :--- | :--- | :--- |
-| **Roteamento por Complexidade** | Tarefas simples  modelo local/barato; complexas  cloud. | Prompt < 500 tokens  `qwen2.5-coder:1.5b`; > 2000 tokens  `deepseek-reasoner`. |
+| **Roteamento por Complexidade** | Tarefas simples → modelo local/barato; complexas → cloud. | Prompt < 500 tokens → `qwen2.5-coder:1.5b`; > 2000 tokens → `deepseek-v4-pro`. |
 | **Roteamento por Custo** | Limite dirio de tokens para APIs pagas. | Se `daily_cost > $1.00`, rotear para modelos locais. |
 | **Roteamento por Latncia** | Tarefas urgentes  local; no urgentes  cloud batch. | `timeout < 2s`  `qwen2.5-coder:3b`. |
-| **Fallback Chain** | Se modelo primrio falhar, tentar prximo. | `ollama`  `deepseek-chat`  `deepseek-reasoner`  `gpt-4o`. |
+| **Fallback Chain** | Se modelo primário falhar, tentar próximo. | `ollama` → `deepseek-v4-flash` → `deepseek-v4-pro` → `gpt-4o`. |
 | **Roteamento por Role** | Agente especfico  backend fixo. | `guardian`  `qwen2.5-coder:1.5b`; `engineer`  `qwen2.5-coder:3b`. |
 
 ---

@@ -1,17 +1,9 @@
-"""
+"""---
 NC-SVC-FR-016-wal-service.py
-FR-016 — WALService: Write-Ahead Log imutável via SQLite.
-
-Registra TODA operação de escrita no filesystem realizada por agentes NeoCortex.
-Fornece: auditoria, rollback por sessão, TTL automático de entradas antigas.
-
-Recursos SQLite utilizados:
-  - WAL journal mode   → leituras concorrentes durante escrita (seguro para multi-agente)
-  - Transações ACID    → rollback automático em caso de falha parcial
-  - stdlib sqlite3     → zero dependências externas
-
-DB path padrão: {project_root}/DIR-DS-003-wal/neocortex_wal.db
+---
 """
+
+
 
 import hashlib
 import sqlite3

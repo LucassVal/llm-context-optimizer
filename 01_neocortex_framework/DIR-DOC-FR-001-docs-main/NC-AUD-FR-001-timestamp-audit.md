@@ -2,7 +2,7 @@
 ## Auditoria de padronizao ISO 8601 (GOV-013)
 
 **Data da auditoria:** 2026-04-12T17:36:00  
-**Agente executor:** DS-C (T1 deepseek-chat)  
+**Agente executor:** DS-C (T1 deepseek-v4-flash)  
 **Ticket:** NC-DS-013 / GOV-013  
 **Escopo:** DIR-DOC-FR-001-docs-main/NC-NAM-FR-001[a-d]*.md
 
@@ -26,13 +26,13 @@ Todos os timestamps nos sub-registros agora seguem ISO 8601 completo (`YYYY-MM-D
 
 ##  Detalhamento por Arquivo
 
-### 1. NC-NAM-FR-001a-tools-registry.md
+### 1. NC-NAM-FR-001-tools-registry.md
 - **Status inicial:** 1 timestamp correto (changelog)
 - **Problemas encontrados:** 0
 - **Aes:** Nenhuma correo necessria
 - **Status final:**  Conformidade total
 
-### 2. NC-NAM-FR-001b-lobes-registry.md
+### 2. NC-NAM-FR-001-lobes-registry.md
 - **Status inicial:** 1 timestamp correto (changelog) + 3 timestamps incorretos
 - **Problemas encontrados:**
   - Linha 8: `[2026-04-12]`  `[2026-04-12T00:00:00]`
@@ -41,7 +41,7 @@ Todos os timestamps nos sub-registros agora seguem ISO 8601 completo (`YYYY-MM-D
 - **Aes:** 3 substituies realizadas
 - **Status final:**  Conformidade total
 
-### 3. NC-NAM-FR-001c-config-registry.md
+### 3. NC-NAM-FR-001-config-registry.md
 - **Status inicial:** 1 timestamp correto (changelog) + 3 timestamps incorretos
 - **Problemas encontrados:**
   - Linha 8: `[2026-04-12]`  `[2026-04-12T00:00:00]`
@@ -50,7 +50,7 @@ Todos os timestamps nos sub-registros agora seguem ISO 8601 completo (`YYYY-MM-D
 - **Aes:** 3 substituies realizadas
 - **Status final:**  Conformidade total
 
-### 4. NC-NAM-FR-001d-prompts-registry.md
+### 4. NC-NAM-FR-001-prompts-registry.md
 - **Status inicial:** 1 timestamp correto (changelog) + 4 timestamps incorretos
 - **Problemas encontrados:**
   - Linha 8: `[2026-04-12]`  `[2026-04-12T00:00:00]`

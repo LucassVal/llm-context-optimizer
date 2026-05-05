@@ -358,16 +358,16 @@
 ### `DIR-DOC-FR-001-docs-main\NC-NAM-FR-001-naming-convention.md`
 - **Erro de Diretrio / Fallback:** Arquivo em 'DIR-DOC-FR-001-docs-main', mas deveria estar preferencialmente em '01_neocortex_framework/DIR-DOC-FR-001-docs-main'
 
-### `DIR-DOC-FR-001-docs-main\NC-NAM-FR-001a-tools-registry.md`
+### `DIR-DOC-FR-001-docs-main\NC-NAM-FR-001-tools-registry.md`
 - **Erro de Nomenclatura:** Nome no segue o padro NC-<TIPO>-<SIGLA>-<NUM>-<desc>.ext
 
-### `DIR-DOC-FR-001-docs-main\NC-NAM-FR-001b-lobes-registry.md`
+### `DIR-DOC-FR-001-docs-main\NC-NAM-FR-001-lobes-registry.md`
 - **Erro de Nomenclatura:** Nome no segue o padro NC-<TIPO>-<SIGLA>-<NUM>-<desc>.ext
 
-### `DIR-DOC-FR-001-docs-main\NC-NAM-FR-001c-config-registry.md`
+### `DIR-DOC-FR-001-docs-main\NC-NAM-FR-001-config-registry.md`
 - **Erro de Nomenclatura:** Nome no segue o padro NC-<TIPO>-<SIGLA>-<NUM>-<desc>.ext
 
-### `DIR-DOC-FR-001-docs-main\NC-NAM-FR-001d-prompts-registry.md`
+### `DIR-DOC-FR-001-docs-main\NC-NAM-FR-001-prompts-registry.md`
 - **Erro de Nomenclatura:** Nome no segue o padro NC-<TIPO>-<SIGLA>-<NUM>-<desc>.ext
 
 ### `DIR-DOC-FR-001-docs-main\NC-REPORT-FR-001-consolidated-results.md`

@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+"""---
+NC-SUPER-012 — neocortex_akl
+---
+"""
+
+"""---
+NC-SUPER-012 — neocortex_akl
+---
+"""
+
 """
 NC-SUPER-012 — neocortex_akl
 FÓRUM — AKL + Knowledge Graph + Consolidation
@@ -49,6 +59,13 @@ def register_tool(mcp) -> None:
         """
         ts = _ts()
 
+
+        # UBL Gateway (Kernel 0)
+        try:
+            from neocortex.core.utils.gateway_bridge import gateway_check
+            _ok, _report = gateway_check(action, root)
+            if not _ok: return _report
+        except Exception: pass
         # ── AKL ───────────────────────────────────────────────────────────────
         if action == "akl.add":
             if not content:
@@ -176,6 +193,18 @@ def register_tool(mcp) -> None:
                 return {"success": True, "action": action, "result": result, "timestamp": ts}
             except Exception as e:
                 return {"success": False, "error": str(e), "timestamp": ts}
+        # ORBITAL BRIDGE
+        _orbital_result = None
+        try:
+            import importlib.util
+            _spec = importlib.util.spec_from_file_location("orbital_bridge", str(root / "01_neocortex_framework" / "neocortex" / "core" / "NC-CORE-FR-139-orbital-bridge.py"))
+            _mod = importlib.util.module_from_spec(_spec)
+            _spec.loader.exec_module(_mod)
+            _orbital_result = _mod.orbital_dispatch(action, root)
+        except Exception: pass
+        if _orbital_result is not None: return _orbital_result
+
+
         else:
             return {"success": False, "error": f"action desconhecida: {action}",
                     "available": ["akl.add", "akl.search", "akl.export",

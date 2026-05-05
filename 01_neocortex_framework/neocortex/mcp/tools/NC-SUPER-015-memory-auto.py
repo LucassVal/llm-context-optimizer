@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+"""---
+NC-SUPER-015 — neocortex_memory_auto
+---
+"""
+
+"""---
+NC-SUPER-015 — neocortex_memory_auto
+---
+"""
+
 """
 NC-SUPER-015 — neocortex_memory_auto
 FÓRUM — Auto-Memória e Catalogação Semântica
@@ -36,17 +46,20 @@ def _root() -> Path:
 
 def _get_writer():
     root = _root()
-    svc_path = root / "01_neocortex_framework" / "neocortex" / "core" / "services"
-    writer_file = svc_path / "NC-SVC-FR-021-session-memory-writer.py"
+    # Correct path: NC-CORE-FR-128 in core/ directory (not services/)
+    writer_file = root / "01_neocortex_framework" / "neocortex" / "core" / "NC-CORE-FR-128-session-memory-writer.py"
+    if not writer_file.exists():
+        # Fallback: old path
+        writer_file = root / "01_neocortex_framework" / "neocortex" / "core" / "services" / "NC-SVC-FR-021-session-memory-writer.py"
     if not writer_file.exists():
         return None
     try:
-        spec = importlib.util.spec_from_file_location("session_memory_writer", writer_file)
+        spec = importlib.util.spec_from_file_location("session_memory_writer", str(writer_file))
         mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
         return mod.SessionMemoryWriter()
     except Exception as e:
-        logger.warning(f"SessionMemoryWriter indisponível: {e}")
+        logger.warning(f"SessionMemoryWriter indisponivel: {e}")
         return None
 
 
@@ -72,20 +85,21 @@ def register_tool(mcp) -> None:
         ts = _ts()
         root = _root()
 
+        # ── GATEWAY VALIDATION ──────────────────────────────
+        try:
+            from neocortex.core.utils.gateway_bridge import gateway_check
+            _ok, _report = gateway_check(action, root)
+            if not _ok:
+                return _report
+        except Exception:
+            pass
+
         # ── TURN.RECORD ───────────────────────────────────────────────────────
         if action == "turn.record":
             if not user_message:
                 return {"success": False, "error": "user_message obrigatório", "timestamp": ts}
-            writer = _get_writer()
-            if writer:
-                result = writer.record_turn(
-                    user_message=user_message,
-                    ai_response=ai_response,
-                    session_id=session_id or None,
-                )
-                return {"success": True, "action": action, "turn": result, "timestamp": ts}
-            # Fallback: gravação direta em JSONL
-            memory_dir = root / "memory" / "sessions"
+            # Fallback directo: sempre grava JSONL local (mais confiável)
+            memory_dir = root / ".neocortex" / "memory" / "sessions"
             memory_dir.mkdir(parents=True, exist_ok=True)
             sid = session_id or datetime.now().strftime("%Y%m%d")
             jsonl_file = memory_dir / f"{sid}.jsonl"
@@ -112,11 +126,7 @@ def register_tool(mcp) -> None:
 
         # ── SESSION.STATS ─────────────────────────────────────────────────────
         elif action == "session.stats":
-            writer = _get_writer()
-            if writer:
-                stats = writer.get_session_stats() if hasattr(writer, "get_session_stats") else {}
-                return {"success": True, "action": action, "stats": stats, "timestamp": ts}
-            memory_dir = root / "memory" / "sessions"
+            memory_dir = root / ".neocortex" / "memory" / "sessions"
             if not memory_dir.exists():
                 return {"success": True, "action": action,
                         "stats": {"sessions": 0, "total_turns": 0}, "timestamp": ts}
@@ -149,7 +159,7 @@ def register_tool(mcp) -> None:
             # Gerar nome NC- compliant
             clean_name = lobe_name.upper().replace(" ", "-")
             num = len(list(lobes_dir.glob("*.mdc"))) + 1
-            norm_cat = lobe_category.split("_")[-1].upper()[:3]
+            lobe_category.rsplit("_", maxsplit=1)[-1].upper()[:3]
             nc_name = f"NC-LBE-DS-{num:03d}-{clean_name[:30]}.mdc"
             lobe_file = lobes_dir / nc_name
             header = (
@@ -169,38 +179,34 @@ def register_tool(mcp) -> None:
             lobes_dir = root / "02_memory_lobes"
             if not lobes_dir.exists():
                 return {"success": True, "action": action, "decayed": 0, "timestamp": ts}
-                
+
             import re
             decayed_count = 0
             archived_count = 0
-            
+
             for mdc in lobes_dir.rglob("*.mdc"):
                 content = mdc.read_text(encoding="utf-8")
-                
+
                 # Só decair se a temperatura não estiver já hardcoded como zero ou não existir
                 # Assumindo temperatura default de 100
                 temp_match = re.search(r"^temperature:\s*(\d+)$", content, re.MULTILINE)
                 current_temp = int(temp_match.group(1)) if temp_match else 100
-                
+
                 if current_temp > 0:
                     new_temp = max(0, current_temp - decay_amount)
-                    
+
                     if temp_match:
                         content = re.sub(r"^temperature:\s*\d+$", f"temperature: {new_temp}", content, flags=re.MULTILINE)
                     else:
                         content = re.sub(r"^(---[\s\S]*?)(\n---)", f"\\1\ntemperature: {new_temp}\\2", content, count=1)
-                        
                     if new_temp == 0:
-                        content = re.sub(r"^(---[\s\S]*?)(\n---)", f"\\1\nstatus: archived\\2", content, count=1)
+                        content = re.sub(r"^(---[\s\S]*?)(\n---)", "\\1\nstatus: archived\\2", content, count=1)
                         archived_count += 1
-                        
                     mdc.write_text(content, encoding="utf-8")
                     decayed_count += 1
-                    
-            return {"success": True, "action": action, "lobes_decayed": decayed_count, 
+            return {"success": True, "action": action, "lobes_decayed": decayed_count,
                     "lobes_frozen": archived_count, "amount": decay_amount, "timestamp": ts}
 
-        # ── CATALOG.NOW ───────────────────────────────────────────────────────
         elif action == "catalog.now":
             memory_dir = root / "memory" / "sessions"
             sessions = list(memory_dir.glob("*.jsonl")) if memory_dir.exists() else []
@@ -227,6 +233,19 @@ def register_tool(mcp) -> None:
                     break
             return {"success": True, "action": action, "catalog_entry": catalog_entry,
                     "catalog_file": str(catalog_file), "timestamp": ts}
+        # ── ORBITAL BRIDGE: delegar ações ──────────────────────────────────
+        _orbital_result = None
+        try:
+            import importlib.util
+            _spec = importlib.util.spec_from_file_location("orbital_bridge", str(root / "01_neocortex_framework" / "neocortex" / "core" / "NC-CORE-FR-139-orbital-bridge.py"))
+            _mod = importlib.util.module_from_spec(_spec)
+            _spec.loader.exec_module(_mod)
+            _orbital_result = _mod.orbital_dispatch(action, root)
+        except Exception:
+            pass
+        if _orbital_result is not None:
+            return _orbital_result
+
 
         else:
             return {"success": False, "error": f"action desconhecida: {action}",

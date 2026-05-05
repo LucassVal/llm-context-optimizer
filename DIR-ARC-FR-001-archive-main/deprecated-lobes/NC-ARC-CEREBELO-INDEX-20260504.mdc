@@ -1,0 +1,85 @@
+---
+
+<!-- NC-READ-HASH: _INDEX-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: _INDEX-v1 ja esta no contexto desta sessao, SALTE. -->
+lobe: $CEREBELO
+region: Cerebelo
+function: Controle motor automático — Guardian Daemon, ciclos, automação, benchmark, deployment
+symbols: $CEREBELO
+cycles:
+  ciclo3: "catalog.refresh → bootup.sync → yaml.sanitize → lexico.build → cascade.consolidate"
+  ciclo4: "governance.full_audit → archive_handoffs → lobe.populate → kg.enrich → semantic.categorize → smoke_test"
+guardian_script: NC-SCR-FR-115-guardian-daemon.py
+temperature: 0
+status: archived
+---
+
+
+<!-- NC-READ-HASH: _INDEX-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: _INDEX-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+## What
+Módulo: _INDEX
+
+## Why
+Criado em 2026-04-20 — arquivo do ecossistema NeoCortex
+
+## Where
+02_memory_lobes/$cerebelo
+
+---
+
+
+
+<!-- NC-READ-HASH: _INDEX-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: _INDEX-v1 ja esta no contexto desta sessao, SALTE. -->
+# $CEREBELO — Cerebelo
+
+## Função
+Esta região controla **ações automáticas e repetitivas**:
+- Guardian Daemon — 11 steps automáticos/dia (#GUARDIAN)
+- Ciclos de manutenção (Ciclo3/hora, Ciclo4/dia)
+- Benchmarks e testes de sanidade
+- Deployment e inicialização do sistema
+
+## Lobes desta Região
+- `NC-LBE-FR-BENCHMARKS-001.mdc` — Resultados de benchmark
+- `NC-LBE-FR-DEPLOYMENT-001.mdc` — Deployment procedures
+- Guardian state e configuração
+- Smoke test reports
+
+## ⚙️ Ciclos Automáticos (Guardian Daemon — NC-SCR-FR-115)
+
+### Ciclo 3 — Horário (a cada 60 min)
+| Step | Action | O que faz |
+|------|--------|-----------|
+| 1 | `catalog.refresh` | Reindexia artefatos no FTS5 |
+| 2 | `bootup.sync` | Sincroniza NC-BOOT-FR-001 com estado atual |
+| 3 | `yaml.sanitize` | Limpa tickets YAML expirados |
+| 4 | `lexico.build` | Reconstrói NC-LEXICO-LATEST.json (neuroplasticidade) |
+| 5 | `cascade.consolidate` | Consolida padrões de sessão → lobes permanentes |
+
+### Ciclo 4 — Diário (a cada 24h)
+| Step | Action | O que faz |
+|------|--------|-----------|
+| 1 | `governance.full_audit` | Auditoria completa de compliance |
+| 2 | `archive_handoffs` | Move handoffs >7d para DIR-ARC |
+| 3 | `lobe.populate` | Repopula lobes via @POPULATE |
+| 4 | `kg.enrich` | Enriquece Knowledge Graph |
+| 5 | `semantic.categorize` | Categoriza lobes com Qwen 1.5b (NC-SCR-FR-114) |
+| 6 | `smoke_test` | Valida 40 MCP tools (NC-SCR-FR-134) |
+
+## Scripts deste Cerebelo
+- `NC-SCR-FR-115-guardian-daemon.py` — Motor principal (Ciclo3 + Ciclo4)
+- `NC-SCR-FR-134-smoke-test-tools.py` — Smoke test 40 MCP tools
+- `NC-SCR-FR-114-auto-categorize-lobes.py` — Categorização semântica Qwen
+- `NC-SCR-FR-113-kg-populate-lobes.py` — KG enrichment
+- `NC-SCR-FR-066-bootup-sync.py` — Boot automático
+- `NC-SCR-FR-064-artifact-catalog.py` — Catalogação de artefatos
+
+## Analogia Neural
+O cerebelo humano coordena movimentos automáticos sem atenção consciente.
+Aqui, coordina todas as **tarefas automáticas** que rodam sem intervenção T0.
+
+## Tags
+guardian, automacao, ciclos, benchmark, deployment, startup, smoke-test, daemon

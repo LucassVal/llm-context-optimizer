@@ -1,10 +1,9 @@
 """---
-domain: "core"
-layer: "core"
-type: "file"
-tags: ["cfg", "004", "project", "config"]
-hash: "auto-generated"
----"""
+@Module NC-CFG-FR-004-project-config mcp domain: "core" layer: "core" type: "file" tags: ["
+---
+"""
+
+
 #!/usr/bin/env python3
 """
 NC-CFG-FR-004-project-config.py

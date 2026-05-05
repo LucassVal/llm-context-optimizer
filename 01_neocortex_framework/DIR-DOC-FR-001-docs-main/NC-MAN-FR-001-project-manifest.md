@@ -7,10 +7,10 @@
 | NC-ID | Path | Size |
 |---|---|---|
 | `NC-NAM-FR-001-naming-convention` | `DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md` | 90.5 KB |
-| `NC-NAM-FR-001a-tools-registry` | `DIR-DOC-FR-001-docs-main/NC-NAM-FR-001a-tools-registry.md` | 5.3 KB |
-| `NC-NAM-FR-001b-lobes-registry` | `DIR-DOC-FR-001-docs-main/NC-NAM-FR-001b-lobes-registry.md` | 5.9 KB |
-| `NC-NAM-FR-001c-config-registry` | `DIR-DOC-FR-001-docs-main/NC-NAM-FR-001c-config-registry.md` | 1.2 KB |
-| `NC-NAM-FR-001d-prompts-registry` | `DIR-DOC-FR-001-docs-main/NC-NAM-FR-001d-prompts-registry.md` | 4.5 KB |
+| `NC-NAM-FR-001-tools-registry` | `DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-tools-registry.md` | 5.3 KB |
+| `NC-NAM-FR-001-lobes-registry` | `DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-lobes-registry.md` | 5.9 KB |
+| `NC-NAM-FR-001-config-registry` | `DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-config-registry.md` | 1.2 KB |
+| `NC-NAM-FR-001-prompts-registry` | `DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-prompts-registry.md` | 4.5 KB |
 | `NC-SEC-FR-001-atomic-locks` | `DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml` | 4.9 KB |
 | `NC-TODO-DS-001-roadmap-pre-mcp` | `DIR-DOC-FR-001-docs-main/NC-TODO-DS-001-roadmap-pre-mcp.md` | 16.3 KB |
 | `NC-TODO-FR-001-project-roadmap-consolidated` | `DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md` | 29.6 KB |
@@ -31,7 +31,7 @@
 | `NC-CFG-FR-004-project-config` | `neocortex/core/config/NC-CFG-FR-004-project-config.py` | Arquivo de configurao  | 10.0 KB |
 | `NC-CFG-FR-004-project-config-schema` | `neocortex/core/config/NC-CFG-FR-004-project-config-schema.yaml` | Arquivo de configurao  | 5.8 KB |
 | `NC-CFG-FR-004-project-loader` | `neocortex/core/config/NC-CFG-FR-004-project-loader.py` | Arquivo de configurao  | 8.6 KB |
-| `NC-CMD-EXAMPLE` | `DIR-TMP-FR-001-templates-main/NC-TOOL-FR-TEMPLATE/commands/NC-CMD-EXAMPLE.md` |   | 1.4 KB |
+| `NC-CMD-EXAMPLE` | `DIR-TMP-FR-001-templates-main/NC-TOOL-FR-TEMPLATE/commands/NC-CMD-FR-001-example.md` |   | 1.4 KB |
 | `NC-CORE-FR-014-lock-guard` | `neocortex/core/NC-CORE-FR-014-lock-guard.py` | Servio core do framework  | 10.7 KB |
 | `NC-CORE-FR-017-policy-loader` | `neocortex/core/NC-CORE-FR-017-policy-loader.py` | Servio core do framework  | 7.6 KB |
 | `NC-CORE-FR-022-save-point-service` | `neocortex/core/NC-CORE-FR-022-save-point-service.py` | Servio core do framework  | 11.5 KB |
@@ -39,7 +39,7 @@
 | `NC-DOC-FR-002-dev-environment-standard` | `DIR-DOC-FR-001-docs-main/NC-DOC-FR-002-dev-environment-standard.md` | Documentao  | 5.5 KB |
 | `NC-DOC-FR-002-directory-convention` | `DIR-DOC-FR-001-docs-main/NC-DOC-FR-002-directory-convention.md` | Documentao  | 5.3 KB |
 | `NC-GOV-FR-001-nworker-protocol` | `DIR-DOC-FR-001-docs-main/NC-GOV-FR-001-nworker-protocol.md` |   | 6.6 KB |
-| `NC-HK-EXAMPLE` | `DIR-TMP-FR-001-templates-main/NC-TOOL-FR-TEMPLATE/hooks/NC-HK-EXAMPLE.py` |   | 0.6 KB |
+| `NC-HK-EXAMPLE` | `DIR-TMP-FR-001-templates-main/NC-TOOL-FR-TEMPLATE/hooks/NC-HK-FR-001-example.py` |   | 0.6 KB |
 | `NC-HK-FR-001-hook-registry` | `neocortex/core/hooks/NC-HK-FR-001-hook-registry.py` |   | 10.1 KB |
 | `NC-HK-FR-002-simple-hook` | `neocortex/core/hooks/NC-HK-FR-002-simple-hook.py` |   | 6.1 KB |
 | `NC-HUB-FR-001-mcp-hub` | `DIR-MCP-FR-001-mcp-server/NC-HUB-FR-001-mcp-hub.py` |   | 9.7 KB |
@@ -48,10 +48,10 @@
 | `NC-LED-FR-001-framework-ledger` | `DIR-CORE-FR-001-core-central/NC-LED-FR-001-framework-ledger.json` |   | 84.6 KB |
 | `NC-MAN-FR-001-project-manifest` | `DIR-DOC-FR-001-docs-main/NC-MAN-FR-001-project-manifest.md` | Manifesto de projeto  | 28.9 KB |
 | `NC-NAM-FR-001-naming-convention` | `DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md` | Conveno de nomenclatura (SSOT)  | 90.5 KB |
-| `NC-NAM-FR-001a-tools-registry` | `DIR-DOC-FR-001-docs-main/NC-NAM-FR-001a-tools-registry.md` | Conveno de nomenclatura (SSOT)  | 5.3 KB |
-| `NC-NAM-FR-001b-lobes-registry` | `DIR-DOC-FR-001-docs-main/NC-NAM-FR-001b-lobes-registry.md` | Conveno de nomenclatura (SSOT)  | 5.9 KB |
-| `NC-NAM-FR-001c-config-registry` | `DIR-DOC-FR-001-docs-main/NC-NAM-FR-001c-config-registry.md` | Conveno de nomenclatura (SSOT)  | 1.2 KB |
-| `NC-NAM-FR-001d-prompts-registry` | `DIR-DOC-FR-001-docs-main/NC-NAM-FR-001d-prompts-registry.md` | Conveno de nomenclatura (SSOT)  | 4.5 KB |
+| `NC-NAM-FR-001-tools-registry` | `DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-tools-registry.md` | Conveno de nomenclatura (SSOT)  | 5.3 KB |
+| `NC-NAM-FR-001-lobes-registry` | `DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-lobes-registry.md` | Conveno de nomenclatura (SSOT)  | 5.9 KB |
+| `NC-NAM-FR-001-config-registry` | `DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-config-registry.md` | Conveno de nomenclatura (SSOT)  | 1.2 KB |
+| `NC-NAM-FR-001-prompts-registry` | `DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-prompts-registry.md` | Conveno de nomenclatura (SSOT)  | 4.5 KB |
 | `NC-PRF-FR-001-developer-schema` | `DIR-PRF-FR-001-profiles-main/NC-PRF-FR-001-developer-schema.md` |   | 10.4 KB |
 | `NC-PRF-FR-002-team-schema` | `DIR-PRF-FR-001-profiles-main/NC-PRF-FR-002-team-schema.md` |   | 12.8 KB |
 | `NC-PRF-FR-003-profile-loader` | `DIR-PRF-FR-001-profiles-main/NC-PRF-FR-003-profile-loader.py` |   | 19.5 KB |
@@ -180,10 +180,10 @@
 | `NC-MAN-FR-001-project-manifest.json` | `.json` | 104.9 KB | `98f2d897` |
 | `NC-MAN-FR-001-project-manifest.md` | `.md` | 28.9 KB | `6bc51bff` |
 |  `NC-NAM-FR-001-naming-convention.md` | `.md` | 90.5 KB | `2478dcbb` |
-|  `NC-NAM-FR-001a-tools-registry.md` | `.md` | 5.3 KB | `f7cb7977` |
-|  `NC-NAM-FR-001b-lobes-registry.md` | `.md` | 5.9 KB | `3c9d31c9` |
-|  `NC-NAM-FR-001c-config-registry.md` | `.md` | 1.2 KB | `08ac3505` |
-|  `NC-NAM-FR-001d-prompts-registry.md` | `.md` | 4.5 KB | `6a15916f` |
+|  `NC-NAM-FR-001-tools-registry.md` | `.md` | 5.3 KB | `f7cb7977` |
+|  `NC-NAM-FR-001-lobes-registry.md` | `.md` | 5.9 KB | `3c9d31c9` |
+|  `NC-NAM-FR-001-config-registry.md` | `.md` | 1.2 KB | `08ac3505` |
+|  `NC-NAM-FR-001-prompts-registry.md` | `.md` | 4.5 KB | `6a15916f` |
 |  `NC-SEC-FR-001-atomic-locks.yaml` | `.yaml` | 4.9 KB | `4f1add00` |
 | `NC-SEC-FR-002-entry-lock-protocol.md` | `.md` | 3.1 KB | `7edf0304` |
 | `NC-SOP-FR-001-session-startup.md` | `.md` | 4.7 KB | `095ab7c7` |
@@ -266,12 +266,12 @@
 ### `DIR-TMP-FR-001-templates-main/NC-TOOL-FR-TEMPLATE/commands/`
 | Arquivo | Tipo | Size | Hash |
 |---|---|---|---|
-| `NC-CMD-EXAMPLE.md` | `.md` | 1.4 KB | `814dad6c` |
+| `NC-CMD-FR-001-example.md` | `.md` | 1.4 KB | `814dad6c` |
 
 ### `DIR-TMP-FR-001-templates-main/NC-TOOL-FR-TEMPLATE/hooks/`
 | Arquivo | Tipo | Size | Hash |
 |---|---|---|---|
-| `NC-HK-EXAMPLE.py` | `.py` | 0.6 KB | `c9ce4df7` |
+| `NC-HK-FR-001-example.py` | `.py` | 0.6 KB | `c9ce4df7` |
 
 ### `DIR-TMP-FR-001-templates-main/NC-TOOL-FR-TEMPLATE/tests/`
 | Arquivo | Tipo | Size | Hash |
@@ -528,10 +528,10 @@
 
 ## SSOT Critical Files
   NC-NAM-FR-001-naming-convention  DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md
-  NC-NAM-FR-001a-tools-registry   DIR-DOC-FR-001-docs-main/NC-NAM-FR-001a-tools-registry.md
-  NC-NAM-FR-001b-lobes-registry   DIR-DOC-FR-001-docs-main/NC-NAM-FR-001b-lobes-registry.md
-  NC-NAM-FR-001c-config-registry  DIR-DOC-FR-001-docs-main/NC-NAM-FR-001c-config-registry.md
-  NC-NAM-FR-001d-prompts-registry  DIR-DOC-FR-001-docs-main/NC-NAM-FR-001d-prompts-registry.md
+  NC-NAM-FR-001-tools-registry   DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-tools-registry.md
+  NC-NAM-FR-001-lobes-registry   DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-lobes-registry.md
+  NC-NAM-FR-001-config-registry  DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-config-registry.md
+  NC-NAM-FR-001-prompts-registry  DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-prompts-registry.md
   NC-SEC-FR-001-atomic-locks      DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml
   NC-TODO-DS-001-roadmap-pre-mcp  DIR-DOC-FR-001-docs-main/NC-TODO-DS-001-roadmap-pre-mcp.md
   NC-TODO-FR-001-project-roadmap-consolidated  DIR-DOC-FR-001-docs-main/NC-TODO-FR-001-project-roadmap-consolidated.md
@@ -550,7 +550,7 @@
   NC-CFG-FR-004-project-config        neocortex/core/config/NC-CFG-FR-004-project-config.py
   NC-CFG-FR-004-project-config-schema neocortex/core/config/NC-CFG-FR-004-project-config-schema.yaml
   NC-CFG-FR-004-project-loader        neocortex/core/config/NC-CFG-FR-004-project-loader.py
-  NC-CMD-EXAMPLE                      DIR-TMP-FR-001-templates-main/NC-TOOL-FR-TEMPLATE/commands/NC-CMD-EXAMPLE.md
+  NC-CMD-EXAMPLE                      DIR-TMP-FR-001-templates-main/NC-TOOL-FR-TEMPLATE/commands/NC-CMD-FR-001-example.md
   NC-CORE-FR-014-lock-guard           neocortex/core/NC-CORE-FR-014-lock-guard.py
   NC-CORE-FR-017-policy-loader        neocortex/core/NC-CORE-FR-017-policy-loader.py
   NC-CORE-FR-022-save-point-service   neocortex/core/NC-CORE-FR-022-save-point-service.py
@@ -558,7 +558,7 @@
   NC-DOC-FR-002-dev-environment-standard DIR-DOC-FR-001-docs-main/NC-DOC-FR-002-dev-environment-standard.md
   NC-DOC-FR-002-directory-convention  DIR-DOC-FR-001-docs-main/NC-DOC-FR-002-directory-convention.md
   NC-GOV-FR-001-nworker-protocol      DIR-DOC-FR-001-docs-main/NC-GOV-FR-001-nworker-protocol.md
-  NC-HK-EXAMPLE                       DIR-TMP-FR-001-templates-main/NC-TOOL-FR-TEMPLATE/hooks/NC-HK-EXAMPLE.py
+  NC-HK-EXAMPLE                       DIR-TMP-FR-001-templates-main/NC-TOOL-FR-TEMPLATE/hooks/NC-HK-FR-001-example.py
   NC-HK-FR-001-hook-registry          neocortex/core/hooks/NC-HK-FR-001-hook-registry.py
   NC-HK-FR-002-simple-hook            neocortex/core/hooks/NC-HK-FR-002-simple-hook.py
   NC-HUB-FR-001-mcp-hub               DIR-MCP-FR-001-mcp-server/NC-HUB-FR-001-mcp-hub.py
@@ -567,10 +567,10 @@
   NC-LED-FR-001-framework-ledger      DIR-CORE-FR-001-core-central/NC-LED-FR-001-framework-ledger.json
   NC-MAN-FR-001-project-manifest      DIR-DOC-FR-001-docs-main/NC-MAN-FR-001-project-manifest.md
   NC-NAM-FR-001-naming-convention     DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md
-  NC-NAM-FR-001a-tools-registry       DIR-DOC-FR-001-docs-main/NC-NAM-FR-001a-tools-registry.md
-  NC-NAM-FR-001b-lobes-registry       DIR-DOC-FR-001-docs-main/NC-NAM-FR-001b-lobes-registry.md
-  NC-NAM-FR-001c-config-registry      DIR-DOC-FR-001-docs-main/NC-NAM-FR-001c-config-registry.md
-  NC-NAM-FR-001d-prompts-registry     DIR-DOC-FR-001-docs-main/NC-NAM-FR-001d-prompts-registry.md
+  NC-NAM-FR-001-tools-registry       DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-tools-registry.md
+  NC-NAM-FR-001-lobes-registry       DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-lobes-registry.md
+  NC-NAM-FR-001-config-registry      DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-config-registry.md
+  NC-NAM-FR-001-prompts-registry     DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-prompts-registry.md
   NC-PRF-FR-001-developer-schema      DIR-PRF-FR-001-profiles-main/NC-PRF-FR-001-developer-schema.md
   NC-PRF-FR-002-team-schema           DIR-PRF-FR-001-profiles-main/NC-PRF-FR-002-team-schema.md
   NC-PRF-FR-003-profile-loader        DIR-PRF-FR-001-profiles-main/NC-PRF-FR-003-profile-loader.py
@@ -725,9 +725,9 @@
            NC-CFG-FR-001-plugin.json
            README.md
   DIR-TMP-FR-001-templates-main/NC-TOOL-FR-TEMPLATE/commands/
-           NC-CMD-EXAMPLE.md
+           NC-CMD-FR-001-example.md
   DIR-TMP-FR-001-templates-main/NC-TOOL-FR-TEMPLATE/hooks/
-           NC-HK-EXAMPLE.py
+           NC-HK-FR-001-example.py
   DIR-TMP-FR-001-templates-main/NC-TOOL-FR-TEMPLATE/tests/
            test_example.py
   neocortex/

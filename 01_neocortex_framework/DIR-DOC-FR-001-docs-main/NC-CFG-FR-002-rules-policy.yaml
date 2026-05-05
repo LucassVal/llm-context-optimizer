@@ -1,3 +1,13 @@
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC CFG FR 002 rules policy
+# Why:  Criado em 2026-04-26 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-CFG-FR-002-rules-policy.yaml
+
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC CFG FR 002 rules policy
+# Why:  Criado em 2026-04-26 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-CFG-FR-002-rules-policy.yaml
+
 # NC-CFG-FR-002-rules-policy.yaml
 # Companion YAML para os arquivos MDC de regras.
 # Este arquivo é a versão machine-readable das regras de governança.
@@ -150,7 +160,7 @@ ubiquitous_language:
 llm_tiers:
   T0:
     name: "Orquestrador"
-    models: ["deepseek-reasoner", "claude-3-5-sonnet"]
+    models: ["deepseek-v4-pro", "claude-3-5-sonnet"]
     cost: "expensive"
     role: "Orquestra e decide APENAS. Nunca faz trabalho braçal."
   T2:

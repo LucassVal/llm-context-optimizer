@@ -1,0 +1,89 @@
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: neocortex_config_dev
+# Why:  Criado em 2026-04-26 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/DIR-CFG-FR-001-config-main/neocortex_config_dev.yaml
+
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: neocortex_config_dev
+# Why:  Criado em 2026-04-26 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/DIR-CFG-FR-001-config-main/neocortex_config_dev.yaml
+
+_meta:
+  domain: configuration
+  hash: auto-generated
+  layer: config
+  tags:
+  - config
+  - yaml
+  - configuration
+  type: CFG
+cache:
+  cache_dir: .neocortex_dev
+  hot_cache_default_ttl: 60
+  hot_cache_size_mb: 50
+  hot_cache_use_memory: true
+  ledger_size_gb: 0.5
+  manifest_size_gb: 0.5
+llm:
+  agent_backends:
+    courier:
+      base_url: http://localhost:11434
+      model: qwen2.5-coder:1.5b-instruct
+      provider: ollama
+    default:
+      api_key: sk-cc547db836f04d58a9aa651f1b0279c2
+      base_url: https://api.deepseek.com
+      model: deepseek-v4-flash
+      provider: deepseek
+    engineer:
+      base_url: http://localhost:11434
+      model: qwen2.5-coder:3b-instruct
+      provider: ollama
+    t0:
+      api_key: sk-cc547db836f04d58a9aa651f1b0279c2
+      base_url: https://api.deepseek.com
+      model: deepseek-v4-flash
+      provider: deepseek
+  api_key: sk-cc547db836f04d58a9aa651f1b0279c2
+  base_url: https://api.deepseek.com
+  fallback_chain:
+  - api_key: sk-cc547db836f04d58a9aa651f1b0279c2
+    base_url: https://api.deepseek.com
+    model: deepseek-v4-flash
+    provider: deepseek
+  - base_url: http://localhost:11434
+    model: qwen2.5-coder:1.5b-instruct
+    provider: ollama
+  max_tokens: 4096
+  model: deepseek-v4-flash
+  provider: deepseek
+  temperature: 0.7
+monitoring:
+  enable_metrics: true
+  health_check_interval_seconds: 30
+  metrics_store: sqlite
+paths:
+  archive: DIR-ARC-FR-001-archive-main
+  backup: DIR-BAK-FR-001-backup-main
+  core_central: DIR-CORE-FR-001-core-central
+  docs: DIR-DOC-FR-001-docs-main
+  lobes: 02_memory_lobes_dev
+  mcp_server: DIR-MCP-FR-001-mcp-server
+  profiles: DIR-PRF-FR-001-profiles-main
+  source: DIR-SRC-FR-001-source-main
+  templates: DIR-TMP-FR-001-templates-main
+scheduler:
+  akl_assessment_interval_hours: 24
+  akl_assessment_target_hour: 0
+  backup_interval_hours: 24
+  backup_target_hour: 3
+  checkpoint_interval_minutes: 2
+  consolidation_interval_minutes: 10
+  pruning_interval_minutes: 5
+search:
+  engine: sqlite_fts5
+  max_results: 50
+server:
+  env: development
+  port: 8766
+  transport: stdio

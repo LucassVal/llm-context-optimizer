@@ -1,3 +1,13 @@
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC CFG FR 005 tool autoload
+# Why:  Criado em 2026-04-20 — arquivo do ecossistema NeoCortex
+# Where: neocortex/mcp/NC-CFG-FR-005-tool-autoload.yaml
+
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC CFG FR 005 tool autoload
+# Why:  Criado em 2026-04-20 — arquivo do ecossistema NeoCortex
+# Where: neocortex/mcp/NC-CFG-FR-005-tool-autoload.yaml
+
 # NC-CFG-FR-005: Configuração de auto-loader de ferramentas extras
 # Este arquivo define ferramentas adicionais que não estão no TOOL_MODULE_MAP padrão
 # O script NC-SCR-FR-145-tool-autoloader.py carrega estas ferramentas dinamicamente

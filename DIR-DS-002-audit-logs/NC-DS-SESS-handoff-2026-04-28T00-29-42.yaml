@@ -1,0 +1,7 @@
+ticket_id: "NC-DS-SESS"
+status: "APPROVED"
+timestamp: "2026-04-28T00:29:42"
+agent: "T0"
+summary: |
+  Implementar sistema de replicação: DNA.json (imutável) + RNA.json (estado) + fork filesystem + sandbox BSL-1
+data: {}

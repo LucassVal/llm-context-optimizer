@@ -1,0 +1,6 @@
+{
+  "timestamp": "2026-04-22T09:26:19",
+  "violation": "governance_gap_analysis",
+  "role": "T0",
+  "details": "Identificadas lacunas na governança atual:\n1. Falta de regras para integração entre sistemas (memory, state, ledger)\n2. Processos de compliance não automatizados\n3. Ausência de regras para evolução constitucional\n4. Falta de normas para handoffs entre tiers\n5. Sem políticas para backup/restore de estado"
+}

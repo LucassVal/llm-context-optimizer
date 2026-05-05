@@ -1,0 +1,16 @@
+{
+  "ticket_id": "NC-DS-001",
+  "phase": "FASE_3_VALIDAR",
+  "validation_round": 1,
+  "barriers_passed": ["B1", "B2", "B3", "B4", "B5", "B6"],
+  "checks": [
+    {"id": "B1", "check": "naming_convention", "result": "PASS", "details": "Arquivo criado: NC-TOOL-FR-025-system.py"},
+    {"id": "B2", "check": "lock_guard", "result": "PASS", "details": "Nenhum arquivo protegido modificado"},
+    {"id": "B3", "check": "compile", "result": "PASS", "details": "py_compile NC-TOOL-FR-025-system.py exit code 0"},
+    {"id": "B4", "check": "ssot_entry", "result": "PASS", "details": "NC-NAM-FR-001 atualizado com entrada [2026-04-12]"},
+    {"id": "B5", "check": "no_hardcode", "result": "PASS", "details": "Nenhum path C:\\ ou /home/ hardcoded"},
+    {"id": "B6", "check": "no_print", "result": "PASS", "details": "Nenhum print() encontrado"}
+  ],
+  "warnings": [],
+  "overall": "SUCCESS"
+}

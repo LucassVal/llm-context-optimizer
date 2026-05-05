@@ -1,0 +1,33 @@
+{
+  "yaml_validation": {
+    "success": 10,
+    "errors": 0
+  },
+  "python_validation": {
+    "success": 60,
+    "errors": 1
+  },
+  "json_validation": {
+    "success": 14,
+    "errors": 0
+  },
+  "naming_convention": {
+    "nc_files": 51,
+    "non_nc_files": 18,
+    "exceptions": 22,
+    "conformity_rate": 73.91304347826086
+  },
+  "critical_scripts": {
+    "success": 8,
+    "errors": 0
+  },
+  "timestamp": "2026-04-22T16:32:31.185840Z",
+  "summary": {
+    "total_validations": 93,
+    "successful_validations": 92,
+    "failed_validations": 1,
+    "success_rate": 98.9247311827957,
+    "naming_conformity": 73.91304347826086,
+    "system_status": "NEEDS_MINOR_FIXES"
+  }
+}

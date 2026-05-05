@@ -1,16 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:57.774267'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-parent_ssot: NC-IDX-FR-001-graph-extraction
-tags:
-  - neocortex-other
-  - level-0
-  - python
----"""
+@Module NC-CORE-FR-118-manifest-service mcp _genealogy:   injected_at: '2026-04-16T00:23:57.77
+---
+"""
+
+
 
 #!/usr/bin/env python3
 """
@@ -81,9 +74,7 @@ def _parse_yaml_string(yaml_str: str) -> Dict[str, Any]:
                 value = int(value_str)
             elif re.match(r"^-?\d+\.\d+$", value_str):
                 value = float(value_str)
-            elif value_str.startswith('"') and value_str.endswith('"'):
-                value = value_str[1:-1]
-            elif value_str.startswith("'") and value_str.endswith("'"):
+            elif (value_str.startswith('"') and value_str.endswith('"')) or (value_str.startswith("'") and value_str.endswith("'")):
                 value = value_str[1:-1]
             else:
                 value = value_str
@@ -218,6 +209,10 @@ class ManifestService:
             memory_cortex["manifests"] = {}
 
         return ledger
+
+    def generate(self, target: str = "") -> Dict[str, Any]:
+        """Alias for generate_manifest."""
+        return self.generate_manifest(target or "all")
 
     def generate_manifest(self, target: str) -> Dict[str, Any]:
         """
@@ -806,7 +801,7 @@ class ManifestService:
                     relative_path = os.path.relpath(file_path, root_dir)
 
                     try:
-                        with open(file_path, "r", encoding="utf-8") as f:
+                        with open(file_path, encoding="utf-8") as f:
                             content = f.read()
 
                         frontmatter = _extract_frontmatter(content)
@@ -1079,7 +1074,7 @@ Cortex content.
         ledger_repository=ledger_repo, cortex_repository=cortex_repo
     )
     result = service.generate_manifest("cortex")
-    assert result["success"] == True
+    assert result["success"]
     manifest = result["manifest"]
     print("Generated manifest:", manifest)
     assert manifest["domain"] == "core"

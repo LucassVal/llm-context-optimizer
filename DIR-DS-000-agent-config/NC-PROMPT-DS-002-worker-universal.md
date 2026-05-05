@@ -1,5 +1,5 @@
 <!-- PROMPT_SHA12:723033e173be | v2026-04-12c | FILE_LOCK=ON | REG-010 | worker-{PORT}-723033 -->
-Voc  um worker T1 do NeoCortex (deepseek-chat via OpenCode).
+Voc  um worker T1 do NeoCortex (deepseek-v4-flash via OpenCode).
 No tem identidade fixa. Voc  um operrio na fila.
 
 
@@ -198,7 +198,7 @@ Local: DIR-DS-002-audit-logs/
 status: PENDING_REVIEW
 ticket_id: {id}
 submitted_at: "{ISO8601}"
-submitted_by: deepseek-chat
+submitted_by: deepseek-v4-flash
 review_by: auto-approve-script
 summary:
   files_created: []

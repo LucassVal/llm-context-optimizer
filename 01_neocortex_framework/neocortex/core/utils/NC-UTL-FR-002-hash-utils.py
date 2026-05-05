@@ -1,17 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:59.117332'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-parent_ssot: NC-UTL-FR-002-hash-utils
-tags:
-  - neocortex-other
-  - level-0
-  - nc-prefix
-  - python
----"""
+@Module NC-UTL-FR-002-hash-utils mcp _genealogy:   injected_at: '2026-04-16T00:23:59.11
+---
+"""
+
+
 """
 NC-UTL-FR-002-hash-utils.py
 Hash utilities for NeoCortex framework.

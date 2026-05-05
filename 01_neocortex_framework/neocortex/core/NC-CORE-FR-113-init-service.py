@@ -1,15 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:57.629720'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-tags:
-  - neocortex-other
-  - level-0
-  - python
----"""
+@Module NC-CORE-FR-113-init-service mcp _genealogy:   injected_at: '2026-04-16T00:23:57.62
+---
+"""
+
+
 #!/usr/bin/env python3
 """
 Init Service - Business logic for project initialization.
@@ -54,6 +48,10 @@ class InitService:
             self.lobe_repository = FileSystemLobeRepository()
         else:
             self.lobe_repository = lobe_repository
+
+    def initialize(self) -> Dict[str, Any]:
+        """Alias: inicializa workspace (wrapper para scan_project)."""
+        return self.scan_project()
 
     def scan_project(self, project_path: Optional[str] = None) -> Dict[str, Any]:
         """

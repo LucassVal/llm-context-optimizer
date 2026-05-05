@@ -1,0 +1,8 @@
+{
+  "name": "mega_test",
+  "summary": "checkpoint",
+  "created": "2026-04-27T18:30:04",
+  "files_snapshot": {
+    "guardian_state.json": "{\n  \"cycle\": 1,\n  \"ts\": \"2026-04-25T23:58:00\",\n  \"health\": {\n    \"online\": 3,\n    \"total\": 4,\n    \"services\": {\n      \"neocortex_mcp\": true,\n      \"ollama_cuda\": true,\n      \"litellm\": true,\n      \"picoclaw\": false\n    },\n    \"alerts\": [\n      {\n        \"service\": \"picoclaw\",\n        \"port\": 18790,\n        \"diagnosis\": \"PicoClaw offline desde 2026-04-19. Verificar firewall ou reiniciar serviço.\"\n      }\n    ]\n  },\n  \"semantic\": {\n    \"cycle\": 1,\n    \"catalog_refresh\": \"2026-04-25T23:55:46\",\n    \"total_py\": 664,\n    \"total_yaml\": 523,\n    \"akl_rules\": 0,\n    \"kg_entities\": 27,\n    \"kg_relations\": 34\n  },\n  \"integrations\": {\n    \"openclaude\": \"integrated\",\n    \"openclaude_path\": \"03_external_integrations/openclaude\",\n    \"openclaude_version\": \"2.0.0\",\n    \"mcp_server_port\": 8765,\n    \"mcp_server_status\": \"running\"\n  },\n  \"context\": {\n    \"auto_pause\": false\n  },\n  \"circuit_breakers\": {\n    \"breakers\": 5,\n    \"open\": []\n  }\n}\n"
+  }
+}

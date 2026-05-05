@@ -1,0 +1,45 @@
+<!-- module: core -->
+<!-- status: active -->
+
+# NC-LBE-FR-CORE-001
+
+Lobe para o módulo core do framework NeoCortex.
+
+## Propósito
+Gerenciar conhecimento específico do módulo core.
+
+## Status
+Ativo
+
+## Tags
+#core, #framework, #neocortex
+
+## Checkpoints
+- CP-CORE-001: Criação inicial
+
+
+# NC-LBE-FR-CORE-001
+
+Núcleo do framework
+
+## Status
+Ativo (povoado automaticamente)
+
+## Tags
+#core, #framework, #neocortex, #auto_populated
+
+## Checkpoints
+- CP-CORE-001: Criação inicial
+- CP-CORE-002: Povoamento automático
+
+## Análise do Diretório
+- **Total de arquivos**: 0
+
+## Contexto do Projeto
+- **Nome do projeto**: N/A
+- **Total de arquivos no projeto**: 0
+
+## Notas de Povoamento
+- Povoado automaticamente por OpenCode
+- Data: 2026-04-10 15:57:55
+- Foco da análise: core_components, foundation, essential_services

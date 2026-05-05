@@ -1,0 +1,49 @@
+{
+  "checks": [
+    {
+      "timestamp": "2026-04-22T15:18:38.267948Z",
+      "overall_score": 84.45956160241874,
+      "status": "WARNING",
+      "alerts": 0,
+      "components": {
+        "yaml_security": "WARN",
+        "json_security": "WARN",
+        "naming_convention": "FAIL",
+        "ticket_structure": "WARN",
+        "checkpoint_system": "PASS",
+        "handoff_system": "PASS",
+        "roadmap_sync": "PASS"
+      }
+    },
+    {
+      "timestamp": "2026-04-22T15:19:26.356321Z",
+      "overall_score": 84.45956160241874,
+      "status": "WARNING",
+      "alerts": 0,
+      "components": {
+        "yaml_security": "WARN",
+        "json_security": "WARN",
+        "naming_convention": "FAIL",
+        "ticket_structure": "WARN",
+        "checkpoint_system": "PASS",
+        "handoff_system": "PASS",
+        "roadmap_sync": "PASS"
+      }
+    },
+    {
+      "timestamp": "2026-04-22T16:32:31.043473Z",
+      "overall_score": 83.29931972789116,
+      "status": "WARNING",
+      "alerts": 0,
+      "components": {
+        "yaml_security": "WARN",
+        "json_security": "FAIL",
+        "naming_convention": "FAIL",
+        "ticket_structure": "WARN",
+        "checkpoint_system": "PASS",
+        "handoff_system": "PASS",
+        "roadmap_sync": "PASS"
+      }
+    }
+  ]
+}

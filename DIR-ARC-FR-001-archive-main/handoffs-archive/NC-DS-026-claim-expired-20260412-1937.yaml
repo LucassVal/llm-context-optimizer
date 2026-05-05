@@ -22,7 +22,7 @@ expired_by_seconds: 38
 
 # Worker decision
 action: STOPPED_NO_CLAIM
-reason: Claim expired (beyond 300s timeout). Worker following protocol: 'pare se não tiver claim e de o log para o t-0'
+reason: "Claim expired (beyond 300s timeout). Worker following protocol: 'pare se não tiver claim e de o log para o t-0'"
 
 # Systemic issue identified (for T-0 attention)
 systemic_issue: |

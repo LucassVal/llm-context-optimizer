@@ -1,3 +1,13 @@
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC CFG FR 001 agent policy template
+# Why:  Criado em 2026-04-11 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-CFG-FR-001-agent-policy-template.yaml
+
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC CFG FR 001 agent policy template
+# Why:  Criado em 2026-04-11 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-CFG-FR-001-agent-policy-template.yaml
+
 # NC-CFG-FR-001 — Template de Política de Agente NeoCortex
 # Single Source of Truth para configuração de segurança e limites de cada agente.
 # Copie este template e renomeie para: NC-CFG-<ROLE>-001-agent-policy.yaml
@@ -75,27 +85,3 @@ agent:
     # O agente só pode ler/escrever dentro do seu lobe_dir
     strict_isolation: true
 
----
-# ─────────────────────────────────────────────────────────────────────────────
-# POLÍTICAS POR ROLE (Exemplos de Customização)
-# ─────────────────────────────────────────────────────────────────────────────
-
-# COURIER (Qwen 1.5B — tarefas braçais 24/7)
-# allowed_tools: lobes, search, ledger (read), task, regression
-# limits.max_tokens_per_task: 2048
-# limits.daily_budget_usd: $0.50
-
-# ENGINEER (Qwen 3B — desenvolvimento)
-# allowed_tools: lobes, search, ledger, task, regression, cortex, checkpoint
-# limits.max_tokens_per_task: 4096
-# limits.daily_budget_usd: $2.00
-
-# GUARDIAN (Qwen 1.5B — validação e auditoria)
-# allowed_tools: lobes, search, ledger (read only), regression, security
-# forbidden_actions: TODOS (guardian só lê e reporta, nunca escreve)
-# limits.max_tokens_per_task: 1024
-
-# T0 / BACKEND_DEV (DeepSeek API — orquestração e decisão)
-# allowed_tools: TODAS (sem whitelist — acesso total)
-# limits.max_tokens_per_task: 8192
-# limits.daily_budget_usd: $5.00

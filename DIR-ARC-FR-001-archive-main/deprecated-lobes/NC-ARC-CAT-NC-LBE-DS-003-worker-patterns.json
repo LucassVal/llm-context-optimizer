@@ -1,0 +1,12 @@
+{
+  "category": "09_documentation",
+  "tags": [
+    "mdc",
+    "worker-patterns"
+  ],
+  "summary": "Documentação do worker patterns protocolo, com regras para gerenciamento de contexto.",
+  "priority_score": 8,
+  "file": "NC-LBE-DS-003-worker-patterns.mdc",
+  "lobe_id": "NC-LBE-DS-003-worker-patterns",
+  "classified": "2026-04-21T10:36:16"
+}

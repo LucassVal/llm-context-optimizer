@@ -1,17 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:59.004238'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-parent_ssot: NC-SVC-FR-014-dry-run-preview
-tags:
-  - neocortex-other
-  - level-0
-  - nc-prefix
-  - python
----"""
+@Module NC-SVC-FR-014-dry-run-preview mcp _genealogy:   injected_at: '2026-04-16T00:23:59.00
+---
+"""
+
+
 #!/usr/bin/env python3
 """
 NC-SVC-FR-014-dry-run-preview.py

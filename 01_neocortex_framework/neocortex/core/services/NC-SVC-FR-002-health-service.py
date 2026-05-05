@@ -1,17 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:58.596687'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-parent_ssot: NC-SVC-FR-002-health-service
-tags:
-  - neocortex-other
-  - level-0
-  - nc-prefix
-  - python
----"""
+@Service NC-SVC-FR-002-health-service mcp _genealogy:   injected_at: '2026-04-16T00:23:58.59
+---
+"""
+
+
 
 """
 NC-SVC-FR-002-health-service.py

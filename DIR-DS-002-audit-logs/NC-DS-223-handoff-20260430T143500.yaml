@@ -1,0 +1,19 @@
+status: APPROVED
+ticket_id: NC-DS-223
+title: "Atualizar requirements.txt (2 deps -> 14 reais)"
+submitted_at: "2026-04-30T14:35:00"
+submitted_by: T0-Antigravity
+summary:
+  what: "requirements.txt atualizado com 14 dependencias reais (ground truth do STEP 0)."
+  why: "Tinha apenas 2 deps (mcp, cryptography). Faltavam fastmcp, ruamel, rich, cachetools, diskcache, duckdb, msgspec, psutil, PyYAML, jsonschema, aiohttp, notifypy."
+  where: "01_neocortex_framework/requirements.txt (ZONE:DOCS)"
+  files_modified: ["01_neocortex_framework/requirements.txt"]
+  files_created: []
+  validation_rounds: 1
+  barriers_passed: ["content_verified"]
+  locks_violated: []
+t0_review:
+  compile_ok: true
+  naming_ok: true
+  locks_clean: true
+  roadmap_done: false

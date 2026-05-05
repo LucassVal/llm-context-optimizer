@@ -1,4 +1,26 @@
 # Fix encoding for Windows (UTF-8)
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:24:01.557602'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+parent_ssot: NC-ANL-FR-001-full-audit-202
+---
+"""
+
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:24:01.557602'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+parent_ssot: NC-ANL-FR-001-full-audit-202
+---
+"""
+
 if sys.platform == "win32":
     import io
     import sys

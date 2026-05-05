@@ -1,3 +1,13 @@
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC GOV FR 005 governance ecosystem
+# Why:  Criado em 2026-04-14 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-005-governance-ecosystem.yaml
+
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC GOV FR 005 governance ecosystem
+# Why:  Criado em 2026-04-14 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-005-governance-ecosystem.yaml
+
 # NC-GOV-FR-005 — Mapa do Ecossistema de Governança NeoCortex
 # Visão hierárquica e cíclica completa da governança, integrando:
 # 1. 20 regras de governança de IA (NC-GOV-FR-003)
@@ -731,7 +741,6 @@ conclusion:
 
   next_immediate_action: "Criar NC-SCR-FR-081-config-migrator.py para migração configuração por projeto"
 
----
 # Hash final: GOV-ECOSYSTEM-MAP-v1.0-20260414
 # Mantido por: T0 (Orchestration)
 # Atualizado em: Ciclo 4 (semanal) via NC-SCR-FR-080-governance-auditor.py

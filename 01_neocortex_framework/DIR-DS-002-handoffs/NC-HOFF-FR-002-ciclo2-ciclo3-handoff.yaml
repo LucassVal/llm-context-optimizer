@@ -1,0 +1,156 @@
+# NC-HOFF-FR-002: Handoff Formal CICLO_2 -> CICLO_3
+# NeoCortex Framework — Transição de Ciclo
+# frozen: false
+# generated: 2026-04-27T12:00:00-03:00
+
+metadata:
+  handoff_id: NC-HOFF-FR-002
+  title: "Handoff CICLO_2 (Picoclaw & Language Server) -> CICLO_3 (Lexico & Multi-lobe)"
+  from_cycle: CICLO_2
+  to_cycle: CICLO_3
+  transfer_date: 2026-04-27
+  author: governance-scan
+  status: ACTIVE
+
+delivered:
+  - ticket: NC-DS-118
+    title: "Fix F841 — metrics store"
+    status: DESIGN
+    artifacts:
+      - "01_neocortex_framework/DIR-DS-001-tickets/NC-DS-FR-118-fix-f841-metrics-store.yaml"
+      - "01_neocortex_framework/neocortex/infra/metrics_store.py"
+    notes: "Design completo. Store existe com bugs documentados. Ticket aberto aguardando implementacao."
+
+  - ticket: NC-DS-119
+    title: "Picoclaw Integration Test Suite"
+    status: COMPLETED
+    artifacts:
+      - "01_neocortex_framework/DIR-DS-001-tickets/NC-DS-FR-119-picoclaw-integration-test.yaml"
+      - "01_neocortex_framework/05_examples/NC-TEST-FR-119-picoclaw-integration.py"
+      - "01_neocortex_framework/05_examples/NC-TEST-FR-119-picoclaw-integration-fixed.py"
+      - "01_neocortex_framework/DIR-DS-001-tickets/NC-DS-FR-119-execution-result.yaml"
+    checks: "4/5 passing. 1 check pendente (timing no health check)."
+    notes: "Suite de teste existe e funcional. Nao integrado ao boot automatico."
+
+  - ticket: NC-DS-120
+    title: "Picoclaw Tool Autoloader"
+    status: COMPLETED
+    artifacts:
+      - "01_neocortex_framework/DIR-DS-001-tickets/NC-DS-FR-120-picoclaw-tool-autoloader.yaml"
+      - "01_neocortex_framework/scripts/NC-SCR-FR-145-tool-autoloader.py"
+      - "01_neocortex_framework/neocortex/mcp/NC-CFG-FR-005-tool-autoload.yaml"
+    notes: "Script autoloader + config YAML existem. NAO sao chamados no boot do server.py."
+
+  - ticket: NC-DS-121
+    title: "Completion & Handoff Preparacao"
+    status: COMPLETED
+    artifacts:
+      - "01_neocortex_framework/DIR-DS-001-tickets/NC-DS-FR-121-completion.yaml"
+    notes: "Ticket de completude fechado."
+
+  - ticket: NC-DS-121-lexico
+    title: "Lexico Hook Boot Loader"
+    status: COMPLETED
+    artifacts:
+      - "01_neocortex_framework/DIR-DS-001-tickets/NC-DS-FR-121-lexico-hook-boot-loader.yaml"
+      - "01_neocortex_framework/scripts/NC-SCR-FR-146-hook-boot-loader.py"
+      - "01_neocortex_framework/neocortex/core/hooks/NC-HK-FR-004-lexico-step0-hook.py"
+      - "01_neocortex_framework/neocortex/core/hooks/NC-HK-FR-005-lexico-boot-loader.py"
+      - "01_neocortex_framework/neocortex/core/hooks/NC-HK-FR-006-lexico-hook-chain.py"
+      - "01_neocortex_framework/neocortex/core/hooks/NC-HK-FR-007-lexico-integration.py"
+      - "01_neocortex_framework/neocortex/core/hooks/NC-CFG-HK-001-hooks.yaml"
+    notes: "4 hooks lexico implementados. NC-SCR-FR-146 existe. NAO chamado no boot do server.py."
+
+pending_integration:
+  - item: "autoloader_wire_up"
+    description: "Chamar autoload() no bootstrap do server.py para carregar NC-SUPER-016-picoclaw"
+    blocking: false
+    requires:
+      - "Editar server.py para importar e chamar NC_SCR_FR_145_tool_autoloader.autoload(mcp)"
+    effort: SMALL
+
+  - item: "hook_boot_loader_wire_up"
+    description: "Chamar hook-boot-loader no bootstrap do server.py para registrar NC-HK-FR-004-lexico-step0-hook"
+    blocking: false
+    requires:
+      - "Editar server.py para importar e chamar NC_SCR_FR_146_hook_boot_loader.boot_load()"
+    effort: SMALL
+
+  - item: "health_check_timing_fix"
+    description: "Ajustar sleep de 1s para 2s no NC-TEST-FR-119 (test_health) para fechar 5/5"
+    blocking: false
+    effort: TRIVIAL
+
+  - item: "pyproject_toml_or_env"
+    description: "Garantir que PYTHONPATH inclui 01_neocortex_framework/ para scripts acharem modulos neocortex.*"
+    blocking: true
+    effort: SMALL
+
+known_issues:
+  - severity: MEDIUM
+    description: "F841 metrics store tem bugs de serializacao e missing error handling"
+    ticket_ref: NC-DS-118
+    workaround: "N/A — precisa implementar fixes"
+
+  - severity: LOW
+    description: "NC-TEST-FR-119 tem 1/5 checks pendente (timing)"
+    ticket_ref: NC-DS-119
+    workaround: "Aumentar sleep de 1s para 2s"
+
+  - severity: LOW
+    description: "NC-SCR-FR-145 e NC-SCR-FR-146 nao sao chamados no boot"
+    workaround: "N/A — precisa wire-up manual"
+
+  - severity: INFO
+    description: "MDC loader injeta regras mas .agents/rules/ tem 8 regras — revisar completude"
+    workaround: "N/A"
+
+next_actions:
+  - order: 1
+    action: "Wire up autoloader no server.py"
+    effort: SMALL
+    owner: "CICLO_3"
+    depends_on: []
+    constraint: "Respeitar @LOCK em server.py — usar import dinamico"
+
+  - order: 2
+    action: "Wire up hook-boot-loader no server.py"
+    effort: SMALL
+    owner: "CICLO_3"
+    depends_on: [1]
+    constraint: "Respeitar @LOCK em server.py — usar import dinamico"
+
+  - order: 3
+    action: "Fix timing do health check no NC-TEST-FR-119"
+    effort: TRIVIAL
+    owner: "CICLO_3"
+    depends_on: []
+    constraint: "N/A"
+
+  - order: 4
+    action: "Implementar NC-DS-118 fixes no metrics_store.py"
+    effort: MEDIUM
+    owner: "CICLO_3"
+    depends_on: []
+    constraint: "Nao quebrar interface existente"
+
+  - order: 5
+    action: "Revisar e complementar regras .mdc em .agents/rules/"
+    effort: MEDIUM
+    owner: "CICLO_3"
+    depends_on: []
+    constraint: "N/A"
+
+  - order: 6
+    action: "Fechar CICLO_2 formalmente e atualizar roadmap"
+    effort: SMALL
+    owner: "CICLO_3"
+    depends_on: [1, 2, 3, 4]
+    constraint: "Apos todas as acoes acima"
+
+roadmap_sync:
+  current_roadmap: "NC-TODO-FR-001-roadmap.yaml"
+  updates_needed:
+    - "Marcar CICLO_2 como COMPLETED apos wire-ups"
+    - "Mover NC-DS-118 para CICLO_3 backlog"
+    - "Adicionar tarefa de revisao de regras .mdc no CICLO_3"

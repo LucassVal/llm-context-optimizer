@@ -8,6 +8,31 @@ topology: neocortex-other
 level: 0
 parent_ssot: NC-SCR-FR-064
 related_ssot:
+---
+"""
+
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:24:01.772647'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+parent_ssot: NC-SCR-FR-064
+related_ssot:
+
+---
+"""
+
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:24:01.772647'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+parent_ssot: NC-SCR-FR-064
+related_ssot:
   - NC-SCR-FR-065-rename-impact-analyzer
 tags:
   - neocortex-other

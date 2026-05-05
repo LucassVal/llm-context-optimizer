@@ -1,0 +1,7 @@
+ticket_id: "NC-DS-SESS"
+status: "APPROVED"
+timestamp: "2026-04-28T15:39:18"
+agent: "T0"
+summary: |
+  neocortex_replication (019) + neocortex_evolution (020) criadas. Precisam registro SSOT + changelog + DDD orbital.
+data: {}

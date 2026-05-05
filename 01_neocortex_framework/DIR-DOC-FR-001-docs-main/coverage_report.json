@@ -3124,7 +3124,7 @@
       ]
     },
     {
-      "path": "DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001a-tools-registry.md",
+      "path": "DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001-tools-registry.md",
       "status": "RECRUTADO (Indexado)",
       "matched_terms": [
         "list_active",
@@ -3152,7 +3152,7 @@
       ]
     },
     {
-      "path": "DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001b-lobes-registry.md",
+      "path": "DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001-lobes-registry.md",
       "status": "RECRUTADO (Indexado)",
       "matched_terms": [
         "NAM",
@@ -3172,7 +3172,7 @@
       ]
     },
     {
-      "path": "DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001c-config-registry.md",
+      "path": "DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001-config-registry.md",
       "status": "RECRUTADO (Indexado)",
       "matched_terms": [
         "discover",
@@ -3187,7 +3187,7 @@
       ]
     },
     {
-      "path": "DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001d-prompts-registry.md",
+      "path": "DIR-DOC-FR-001-docs-main\\NC-NAM-FR-001-prompts-registry.md",
       "status": "RECRUTADO (Indexado)",
       "matched_terms": [
         "NAM",

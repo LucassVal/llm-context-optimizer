@@ -1,4 +1,22 @@
 #!/usr/bin/env python3
+"""---
+domain: "orchestration"
+layer: "infra"
+type: "SCR"
+tags: ['script', 'automation', 'bootup', 'sync']
+hash: "auto-generated"
+---
+"""
+
+"""---
+domain: "orchestration"
+layer: "infra"
+type: "SCR"
+tags: ['script', 'automation', 'bootup', 'sync']
+hash: "auto-generated"
+---
+"""
+
 import re
 import sys
 

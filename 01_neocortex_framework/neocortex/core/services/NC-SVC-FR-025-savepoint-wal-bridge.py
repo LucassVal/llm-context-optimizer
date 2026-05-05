@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+"""---
+NC-SVC-FR-025-savepoint-wal-bridge.py
+---
+"""
+
+"""---
+NC-SVC-FR-025-savepoint-wal-bridge.py
+---
+"""
+
 """
 NC-SVC-FR-025-savepoint-wal-bridge.py
 FR-025 — SavePoint-WAL Bridge Service
@@ -6,7 +16,7 @@ FR-025 — SavePoint-WAL Bridge Service
 Connects SavePointService (NC-SVC-FR-003) with WALService (NC-SVC-FR-016).
 When a savepoint is created or restored, it's logged to the WAL for audit trail.
 
-Ticket: NC-DS-152-savepoint-wal-bridge.yaml
+Ticket: NC-DS-FR-152-savepoint-wal-bridge.yaml
 """
 
 import importlib.util

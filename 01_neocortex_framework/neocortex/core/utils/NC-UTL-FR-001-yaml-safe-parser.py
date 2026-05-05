@@ -1,17 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:59.082369'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-parent_ssot: NC-UTL-FR-001-yaml-safe-parser
-tags:
-  - neocortex-other
-  - level-0
-  - nc-prefix
-  - python
----"""
+@Module NC-UTL-FR-001-yaml-safe-parser mcp _genealogy:   injected_at: '2026-04-16T00:23:59.08
+---
+"""
+
+
 """
 NC-UTL-FR-001-yaml-safe-parser.py
 FR-001  YAML safe parser with regex fallback.

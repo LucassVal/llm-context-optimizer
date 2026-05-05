@@ -1,15 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:57.519155'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-tags:
-  - neocortex-other
-  - level-0
-  - python
----"""
+@Module NC-CORE-FR-110-cortex-service mcp _genealogy:   injected_at: '2026-04-16T00:23:57.51
+---
+"""
+
+
 #!/usr/bin/env python3
 """
 Cortex Service - Business logic for cortex operations.
@@ -41,6 +35,16 @@ class CortexService:
             self.repository = FileSystemCortexRepository()
         else:
             self.repository = repository
+
+    def read(self) -> Dict[str, Any]:
+        """
+        Read the current cortex state.
+        Alias for get_full_cortex for MCP tool compatibility.
+
+        Returns:
+            Dictionary with cortex content and metadata
+        """
+        return self.get_full_cortex()
 
     def get_full_cortex(self) -> Dict[str, Any]:
         """
@@ -195,11 +199,9 @@ class CortexService:
         content = self.repository.read_cortex()
 
         if case_sensitive:
-            matches = [match for match in re.finditer(re.escape(query), content)]
+            matches = list(re.finditer(re.escape(query), content))
         else:
-            matches = [
-                match for match in re.finditer(re.escape(query), content, re.IGNORECASE)
-            ]
+            matches = list(re.finditer(re.escape(query), content, re.IGNORECASE))
 
         results = []
         for match in matches:

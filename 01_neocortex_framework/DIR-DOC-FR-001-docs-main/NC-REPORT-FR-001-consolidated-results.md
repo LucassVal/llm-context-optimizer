@@ -75,7 +75,7 @@ Consolidao dos resultados de **6 scripts** executados no contexto do projeto Neo
 
 ## Handoffs YAML (Fornecidos pelo usurio)
 
-### 1. NC-DS-062-handoff-20260414-100000.yaml
+### 1. NC-DS-FR-062-handoff-20260414-100000.yaml
 **Foco**: Anlise profunda do script de testes `NC-SCR-FR-062-tester-vector.py` e dos testes gerados.
 
 **Pontos crticos**:
@@ -112,7 +112,7 @@ Consolidao dos resultados de **6 scripts** executados no contexto do projeto Neo
 
 **Status**: `PENDING_REVIEW`
 
-### 3. NC-DS-063-handoff-20260414T121130.yaml
+### 3. NC-DS-FR-063-handoff-20260414T121130.yaml
 **Foco**: Correo de encoding UTF8 para ambiente Windows no script `NCSCRFR061engineerdocumentacao.py`.
 
 **Alteraes aplicadas**:
@@ -223,9 +223,9 @@ Consolidao dos resultados de **6 scripts** executados no contexto do projeto Neo
 ### Handoffs Analticos
 | Caminho | Descrio |
 |---------|-----------|
-| `DIR-DS-002-audit-logs/NC-DS-062-handoff-20260414-100000.yaml` | Anlise crtica dos testes VectorEngine |
+| `DIR-DS-002-audit-logs/NC-DS-FR-062-handoff-20260414-100000.yaml` | Anlise crtica dos testes VectorEngine |
 | `01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-ANALYSIS-FR-001-renaming-plan-review.yaml` | Anlise do plano de renomeao |
-| `DIR-DS-002-audit-logs/NC-DS-063-handoff-20260414T121130.yaml` | Correo de encoding no script Engineer |
+| `DIR-DS-002-audit-logs/NC-DS-FR-063-handoff-20260414T121130.yaml` | Correo de encoding no script Engineer |
 
 ---
 

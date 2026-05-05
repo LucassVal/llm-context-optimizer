@@ -7,7 +7,8 @@ domain: 02_memory_lobes
 type: legacy
 created: 2024-01-01
 status: active
-temperature: 30
+temperature: 0
+status: archived
 ---
 
 

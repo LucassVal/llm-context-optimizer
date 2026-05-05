@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+"""---
+Sub-MCP Server for NeoCortex Framework
+---
+"""
+
+"""---
+Sub-MCP Server for NeoCortex Framework
+---
+"""
+
 """
 Sub-MCP Server for NeoCortex Framework
 

@@ -1,0 +1,62 @@
+# NC-CFG-DS-002-session-contract.yaml
+# Contrato de sessão do agente T1 (DeepSeek)
+# Lido automaticamente após NC-PROMPT-DS-000-launcher.md
+# Define: o que ler, o que executar, quando parar
+
+session:
+  agent: deepseek-v4-flash
+  role: T1-executor
+  policy_file: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-CFG-DS-001-agent-policy.yaml"
+  instructions_file: "NC-PROMPT-DS-001-deepseek-subordinate.md"
+  lobe_file: "01_neocortex_framework/DIR-TMP-FR-001-templates-main/NC-LBE-DS-001-deepseek-agent.mdc"
+
+# O que ler ao iniciar (em ordem)
+boot_sequence:
+  - file: "NC-PROMPT-DS-001-deepseek-subordinate.md"
+    purpose: "Regras invioláveis + ciclo 6 fases + schema handoff"
+  - file: "01_neocortex_framework/DIR-TMP-FR-001-templates-main/NC-LBE-DS-001-deepseek-agent.mdc"
+    purpose: "Contexto do lobe isolado: Regression Buffer + Current State"
+  - file: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml"
+    purpose: "Lista de @LOCKS — confirmar antes de executar"
+
+# Como encontrar o próximo ticket
+ticket_discovery:
+  directory: "DIR-DS-001-tickets/"
+  pattern: "NC-DS-[0-9]*.yaml"
+  exclude: ["NC-DS-HANDOFF-TEMPLATE.yaml"]     # nunca executar o template
+  selection: "menor número sem handoff correspondente em DIR-DS-002-audit-logs/"
+  handoff_check:
+    directory: "DIR-DS-002-audit-logs/"
+    pending_status: "PENDING_REVIEW"
+    rule: "SE houver PENDING_REVIEW → NÃO iniciar novo ticket, reportar bloqueio e parar"
+
+# Condições de STOP (parar após cada uma)
+stop_conditions:
+  - trigger: "handoff YAML depositado em DIR-DS-002-audit-logs/ com status=PENDING_REVIEW"
+    action: "Parar. Aguardar aprovação T0 (Antigravity)."
+  - trigger: "risk_level=HIGH detectado na FASE 1"
+    action: "Depositar handoff com status=ESCALATED. Parar imediatamente."
+  - trigger: "3 falhas de validação (self-refine esgotado)"
+    action: "Depositar handoff com status=ESCALATED. Parar imediatamente."
+  - trigger: "PENDING_REVIEW encontrado no boot"
+    action: "Reportar: 'Há handoff pendente: [ID]. Aguardando aprovação antes de continuar.' Parar."
+  - trigger: "Nenhum ticket em aberto encontrado"
+    action: "Reportar: 'Nenhum ticket disponível. Sprint concluído.' Parar."
+
+# O que NÃO fazer nunca (reforço)
+prohibited:
+  - "Executar mais de 1 ticket por sessão sem aprovação T0"
+  - "Continuar após depositar handoff"
+  - "Perguntar ao usuário durante a execução — seguir o ticket"
+  - "Modificar qualquer arquivo listado em NC-SEC-FR-001-atomic-locks.yaml"
+  - "Criar mais de 3 arquivos por ticket"
+
+# Output final obrigatório (após FASE 5)
+session_report:
+  format: |
+    ✅ Ticket {ticket_id} executado.
+    📁 Arquivos: {files_created}
+    💰 Custo estimado: USD {cost_usd}
+    🔄 Handoff: DIR-DS-002-audit-logs/{handoff_filename}
+    ⏸️  Status: PENDING_REVIEW — aguardando T0 (Antigravity).
+    🛑 PARANDO. Não execute mais nada até aprovação.

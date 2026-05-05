@@ -1,20 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:58.970831'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-parent_ssot: NC-SVC-FR-005
-related_ssot:
-  - NC-SVC-FR-005-event-bus
-  - NC-SVC-FR-012-channel-notifier
-tags:
-  - neocortex-other
-  - level-0
-  - nc-prefix
-  - python
----"""
+@Module NC-SVC-FR-012-channel-notifier mcp _genealogy:   injected_at: '2026-04-16T00:23:58.97
+---
+"""
+
+
 """
 NC-SVC-FR-012-channel-notifier.py
 FR-012  ChannelNotifier: Sistema de canais de notificao para NeoCortex.

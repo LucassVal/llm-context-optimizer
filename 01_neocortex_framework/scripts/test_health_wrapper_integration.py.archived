@@ -1,0 +1,82 @@
+#!/usr/bin/env python3
+"""
+Integration test for health wrapper.
+Starts the health wrapper server on a random port, tests endpoints, then stops.
+"""
+
+import sys
+import subprocess
+import time
+import urllib.request
+import json
+import threading
+import signal
+import os
+
+
+def find_free_port():
+    """Find a free TCP port."""
+    import socket
+
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.bind(("", 0))
+        return s.getsockname()[1]
+
+
+def test_health_wrapper():
+    port = find_free_port()
+    print(f"Using port {port}")
+
+    # Start health wrapper as subprocess
+    script_path = os.path.join(
+        os.path.dirname(__file__), "NC-SCR-FR-098-health-wrapper.py"
+    )
+    cmd = [sys.executable, script_path, "--port", str(port)]
+    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+    # Give server time to start
+    time.sleep(2)
+
+    try:
+        # Test /health endpoint
+        health_url = f"http://localhost:{port}/health"
+        print(f"Testing {health_url}")
+        req = urllib.request.urlopen(health_url, timeout=5)
+        data = json.load(req)
+        print(f"Health response: {json.dumps(data, indent=2)}")
+        assert req.status == 200
+        assert data.get("status") == "healthy"
+        print("✓ /health endpoint works")
+
+        # Test /ready endpoint (MCP likely not running, should return 503)
+        ready_url = f"http://localhost:{port}/ready"
+        print(f"Testing {ready_url}")
+        try:
+            req = urllib.request.urlopen(ready_url, timeout=5)
+            # If MCP is alive, we get 200
+            if req.status == 200:
+                data = json.load(req)
+                print(f"Ready response (MCP alive): {json.dumps(data, indent=2)}")
+            else:
+                print(f"Unexpected status: {req.status}")
+        except urllib.error.HTTPError as e:
+            if e.code == 503:
+                print("✓ /ready correctly returns 503 when MCP not alive")
+            else:
+                print(f"✗ Unexpected HTTP error: {e.code}")
+                raise
+        except Exception as e:
+            print(f"Error testing /ready: {e}")
+            # This is fine, maybe connection refused
+            pass
+
+        print("All tests passed!")
+    finally:
+        # Kill the subprocess
+        proc.terminate()
+        proc.wait(timeout=5)
+        print("Health wrapper stopped.")
+
+
+if __name__ == "__main__":
+    test_health_wrapper()

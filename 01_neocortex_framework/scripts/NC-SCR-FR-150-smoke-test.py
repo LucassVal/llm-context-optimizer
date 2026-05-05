@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+"""---
+NC-SCR-FR-150: Smoke Test para 40+ ferramentas MCP NeoCortex
+---
+"""
+
+"""---
+NC-SCR-FR-150: Smoke Test para 40+ ferramentas MCP NeoCortex
+---
+"""
+
 """
 NC-SCR-FR-150: Smoke Test para 40+ ferramentas MCP NeoCortex
 
@@ -318,8 +328,8 @@ def main():
     results['timestamp'] = datetime.now().isoformat()
     
     # Gerar relatórios
-    json_report = output_dir / "NC-RPT-150-smoke-test-report.json"
-    gaps_report = output_dir / "NC-RPT-150-coverage-gaps.md"
+    json_report = output_dir / "NC-RPT-FR-150-smoke-test-report.json"
+    gaps_report = output_dir / "NC-RPT-FR-150-coverage-gaps.md"
     
     tester.generate_json_report(results, json_report)
     tester.generate_gaps_report(results, gaps_report)

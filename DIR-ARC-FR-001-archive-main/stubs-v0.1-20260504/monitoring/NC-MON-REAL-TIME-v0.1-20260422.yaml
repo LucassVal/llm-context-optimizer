@@ -1,0 +1,390 @@
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC MON REAL TIME v0.1 20260422
+# Why:  Criado em 2026-04-22 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/monitoring/NC-MON-REAL-TIME-v0.1-20260422.yaml
+
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC MON REAL TIME v0.1 20260422
+# Why:  Criado em 2026-04-22 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/monitoring/NC-MON-REAL-TIME-v0.1-20260422.yaml
+
+# NEOCORTEX REAL-TIME RULE MONITORING v0.1
+# Data: 2026-04-22
+# Status: IMPLEMENTED
+# Monitoramento em tempo real das 30 regras de governança
+
+monitoring_config:
+  name: "Real-Time Rule Monitoring System"
+  version: "v0.1"
+  scope: "30 governance rules"
+  monitoring_type: "Continuous + event-driven"
+  alert_channels: ["system", "notification", "dashboard"]
+
+real_time_monitors:
+  # Categoria 1: Fundação e Estrutura
+  R01_inventory_monitor:
+    rule: "Inventário de Ativos de IA"
+    check: "Asset catalog completeness"
+    tool: "neocortex_memory.cortex.get"
+    key: "asset_catalog"
+    frequency: "On session start"
+    alert: "If catalog missing or outdated"
+  
+  R02_policy_monitor:
+    rule: "Política Formalizada"
+    check: "Policy document availability"
+    tool: "neocortex_governance.policy.check"
+    policy_name: "NC-GOV-FR-003"
+    frequency: "Real-time"
+    alert: "If policy missing or invalid"
+  
+  R03_directory_monitor:
+    rule: "Estrutura de Diretórios Canônica"
+    check: "Directory structure compliance"
+    tool: "neocortex_system.env_check"
+    validation: "Directory hierarchy"
+    frequency: "On file operations"
+    alert: "If structure violation"
+  
+  R04_naming_monitor:
+    rule: "Nomenclatura Padronizada"
+    check: "File naming convention"
+    tool: "neocortex_governance.naming.check"
+    pattern: "NC-<TIPO>-<SIGLA>-<NUM>-<desc>.ext"
+    frequency: "On file creation/modification"
+    alert: "If naming violation"
+
+  # Categoria 2: Segurança e Controle
+  R05_environment_monitor:
+    rule: "Segregação de Ambientes"
+    check: "Environment isolation"
+    tool: "neocortex_system.config.get"
+    key: "environment"
+    frequency: "Continuous"
+    alert: "If environment mixing"
+  
+  R06_identity_monitor:
+    rule: "Identidade para Agentes"
+    check: "Agent identity verification"
+    tool: "neocortex_ledger.agent.identity"
+    agent_id: "current"
+    frequency: "On agent spawn"
+    alert: "If identity invalid"
+  
+  R07_polp_monitor:
+    rule: "Privilégio Mínimo (PoLP)"
+    check: "Least privilege enforcement"
+    tool: "neocortex_security.access.validate"
+    resource: "current_operation"
+    frequency: "Pre-operation"
+    alert: "If privilege violation"
+  
+  R08_lock_monitor:
+    rule: "Atomic Locks (Path-Based)"
+    check: "File lock status"
+    tool: "neocortex_security.lock.check"
+    lock_path: "critical_files"
+    frequency: "On access attempts"
+    alert: "If lock violation"
+  
+  R09_zone_monitor:
+    rule: "Segregação de Zonas de Escrita"
+    check: "Write zone isolation"
+    tool: "neocortex_security.access.validate"
+    agent_role: "current"
+    frequency: "On write operations"
+    alert: "If zone violation"
+  
+  R10_audit_monitor:
+    rule: "Trilha de Auditoria Imutável"
+    check: "Audit log integrity"
+    tool: "neocortex_ledger.read"
+    detail_key: "audit_trail"
+    frequency: "Post-operation"
+    alert: "If audit missing or tampered"
+
+  # Categoria 3: Ciclo de Vida e Estado
+  R11_versioning_monitor:
+    rule: "Versionamento de Artefatos"
+    check: "Artifact versioning"
+    tool: "neocortex_state.checkpoint.get"
+    checkpoint_key: "artifact_versions"
+    frequency: "On artifact creation"
+    alert: "If version missing"
+  
+  R12_handoff_monitor:
+    rule: "Handoffs Formais"
+    check: "Handoff documentation"
+    tool: "neocortex_governance.handoff.list"
+    session_id: "current"
+    frequency: "On task delegation"
+    alert: "If handoff missing"
+  
+  R13_checkpoint_monitor:
+    rule: "Checkpoints e Save Points"
+    check: "State preservation"
+    tool: "neocortex_state.savepoint.list"
+    limit: 5
+    frequency: "Every 30 minutes"
+    alert: "If checkpoint missing"
+  
+  R14_step0_monitor:
+    rule: "STEP 0 (Validação Pré-Ação)"
+    check: "Pre-action validation"
+    tool: "neocortex_governance.cf.pre_check"
+    action_name: "current"
+    frequency: "Pre-action"
+    alert: "If validation skipped"
+  
+  R15_step_minus1_monitor:
+    rule: "STEP -1 (Save Point)"
+    check: "Pre-write state save"
+    tool: "neocortex_state.savepoint.create"
+    savepoint_name: "auto_pre_write"
+    frequency: "Before file writes"
+    alert: "If save point skipped"
+  
+  R16_circuit_breaker_monitor:
+    rule: "Circuit Breaker"
+    check: "Failure detection"
+    tool: "neocortex_governance.cf.stj"
+    threshold: 3
+    frequency: "On operation failure"
+    alert: "If circuit breaker triggered"
+  
+  R17_regression_monitor:
+    rule: "Regression Buffer"
+    check: "Regression prevention"
+    tool: "neocortex_state.regression.check"
+    baseline: "last_stable"
+    frequency: "After changes"
+    alert: "If regression detected"
+  
+  R18_ticket_monitor:
+    rule: "Ciclo de Vida de Tickets"
+    check: "Ticket lifecycle"
+    tool: "neocortex_governance.ticket.list"
+    status: "OPEN"
+    frequency: "Continuous"
+    alert: "If ticket stuck or orphaned"
+  
+  R19_cycle_monitor:
+    rule: "Rotina de 4 Ciclos"
+    check: "Cycle adherence"
+    tool: "neocortex_governance.cycle.check"
+    cycle_type: "current"
+    frequency: "Daily"
+    alert: "If cycle violation"
+  
+  R20_archive_monitor:
+    rule: "Revisão e Arquivo de Artefatos"
+    check: "Artifact archiving"
+    tool: "neocortex_governance.roadmap.done"
+    category: "archive"
+    frequency: "Daily"
+    alert: "If archiving overdue"
+
+  # Categoria 4: Operações Inteligentes (Novas)
+  R21_zero_assumptions_monitor:
+    rule: "Zero Suposições"
+    check: "Assumption validation"
+    tool: "neocortex_brain.critique"
+    mode: "assumption_check"
+    frequency: "Pre-decision"
+    alert: "If unvalidated assumptions"
+  
+  R22_token_economy_monitor:
+    rule: "Economia de Tokens"
+    check: "Token usage optimization"
+    tool: "neocortex_context.budget_status"
+    max_tokens: 4096
+    frequency: "Real-time"
+    alert: "If token limit exceeded"
+  
+  R23_single_task_monitor:
+    rule: "Uma Tarefa por Sessão"
+    check: "Task focus"
+    tool: "neocortex_state.session.status"
+    validation: "single_task"
+    frequency: "Session monitoring"
+    alert: "If task switching"
+  
+  R24_step0_enhanced_monitor:
+    rule: "STEP 0 - Validação Pré-Ação"
+    check: "Enhanced validation"
+    tool: "neocortex_brain.think"
+    complexity: "RACIOCINIO"
+    frequency: "Critical operations"
+    alert: "If enhanced validation skipped"
+  
+  R25_savepoint_enhanced_monitor:
+    rule: "STEP -1 - Save Point"
+    check: "Enhanced state preservation"
+    tool: "neocortex_state.savepoint.create"
+    with_validation: true
+    frequency: "Critical writes"
+    alert: "If enhanced save point skipped"
+  
+  R26_circuit_breaker_enhanced_monitor:
+    rule: "Circuit Breaker"
+    check: "Enhanced failure handling"
+    tool: "neocortex_governance.cf.tj"
+    role: "T0"
+    frequency: "System failures"
+    alert: "If enhanced circuit breaker needed"
+  
+  R27_regression_enhanced_monitor:
+    rule: "Regression Buffer"
+    check: "Enhanced regression prevention"
+    tool: "neocortex_state.regression.baseline"
+    with_analysis: true
+    frequency: "Major changes"
+    alert: "If regression risk high"
+  
+  R28_handoff_enhanced_monitor:
+    rule: "Handoffs Formais"
+    check: "Enhanced handoff quality"
+    tool: "neocortex_governance.handoff.create"
+    with_validation: true
+    frequency: "Complex delegations"
+    alert: "If handoff quality insufficient"
+  
+  R29_checkpoint_enhanced_monitor:
+    rule: "Checkpoints"
+    check: "Enhanced state checkpoints"
+    tool: "neocortex_state.checkpoint.set"
+    with_metadata: true
+    frequency: "Critical milestones"
+    alert: "If checkpoint missing metadata"
+  
+  R30_archive_enhanced_monitor:
+    rule: "Revisão e Arquivo"
+    check: "Enhanced artifact management"
+    tool: "neocortex_akl.add"
+    category: "artifact_review"
+    frequency: "Artifact completion"
+    alert: "If artifact not reviewed"
+
+alerting_system:
+  severity_levels:
+    CRITICAL:
+      - "R08 (Atomic Locks)"
+      - "R16 (Circuit Breaker)"
+      - "R26 (Circuit Breaker Enhanced)"
+      response: "Immediate intervention + system pause"
+    
+    HIGH:
+      - "R07 (PoLP)"
+      - "R09 (Write Zones)"
+      - "R14 (STEP 0)"
+      response: "Immediate notification + auto-fix attempt"
+    
+    MEDIUM:
+      - "R04 (Naming)"
+      - "R12 (Handoffs)"
+      - "R18 (Tickets)"
+      response: "Notification + scheduled fix"
+    
+    LOW:
+      - "R20 (Archive)"
+      - "R30 (Archive Enhanced)"
+      - "R19 (Cycles)"
+      response: "Daily report + manual fix"
+
+  notification_channels:
+    system_alerts:
+      tool: "neocortex_notification.push.send"
+      channel: "system"
+      level: "ALL"
+    
+    dashboard_updates:
+      tool: "neocortex_context.report.generate"
+      format: "dashboard"
+      update_frequency: "Real-time"
+    
+    audit_logs:
+      tool: "neocortex_ledger.write"
+      interaction_type: "monitoring_alert"
+      detail_key: "rule_violation"
+
+integration:
+  with_automation:
+    - tool: "neocortex_governance.cf.audit"
+      trigger: "Multiple violations detected"
+      action: "Full system audit"
+    
+    - tool: "neocortex_governance.violation.log"
+      trigger: "Any violation"
+      action: "Log violation"
+    
+    - tool: "neocortex_governance.ticket.create"
+      trigger: "Unresolved violation"
+      action: "Create fix ticket"
+
+  with_state_management:
+    - tool: "neocortex_state.session.heartbeat"
+      frequency: "Every 30 seconds"
+      purpose: "Session health + rule compliance"
+    
+    - tool: "neocortex_state.checkpoint.set"
+      trigger: "Rule compliance change"
+      purpose: "State preservation"
+
+  with_memory:
+    - tool: "neocortex_memory.lobe.auto"
+      trigger: "Rule pattern detection"
+      purpose: "Pattern learning"
+    
+    - tool: "neocortex_akl.search"
+      trigger: "Historical violation"
+      purpose: "Context for decision making"
+
+performance_metrics:
+  monitoring_latency:
+    target: "< 100ms detection"
+    measurement: "neocortex_health.metrics.live"
+    frequency: "Continuous"
+  
+  alert_accuracy:
+    target: "> 95% true positive rate"
+    measurement: "neocortex_benchmark.last_report"
+    frequency: "Daily"
+  
+  system_overhead:
+    target: "< 5% CPU usage"
+    measurement: "neocortex_system.diagnostics"
+    frequency: "Hourly"
+
+deployment:
+  phase_1: "Basic monitors (R01-R20)"
+  phase_2: "Enhanced monitors (R21-R30)"
+  phase_3: "Alerting system"
+  phase_4: "Integration points"
+  phase_5: "Performance optimization"
+
+maintenance:
+  daily:
+    - "Alert review and cleanup"
+    - "Performance monitoring"
+    - "Rule effectiveness analysis"
+  
+  weekly:
+    - "False positive analysis"
+    - "Rule tuning"
+    - "Integration validation"
+  
+  monthly:
+    - "System audit"
+    - "Rule expansion planning"
+    - "Stakeholder review"
+
+signature:
+  implemented_by: "T0 Soberano"
+  implementation_date: "2026-04-22T11:00:00"
+  review_date: "2026-04-29"
+  status: "OPERATIONAL"
+  dependencies:
+    - "neocortex_governance v1.0+"
+    - "neocortex_state v1.0+"
+    - "neocortex_security v1.0+"
+    - "neocortex_notification v1.0+"

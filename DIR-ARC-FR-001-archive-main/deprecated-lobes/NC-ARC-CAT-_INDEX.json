@@ -1,0 +1,12 @@
+{
+  "category": "07_governance",
+  "tags": [
+    "benchmark",
+    "deployment"
+  ],
+  "summary": "Esta região controla a automação e benchmarking do sistema, incluindo o Guardian Daemon e Ciclos de manutenção.",
+  "priority_score": 8,
+  "file": "_INDEX.mdc",
+  "lobe_id": "_INDEX",
+  "classified": "2026-04-21T10:36:13"
+}

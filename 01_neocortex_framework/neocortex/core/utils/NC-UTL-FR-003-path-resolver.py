@@ -1,17 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:59.156854'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-parent_ssot: NC-UTL-FR-003-path-resolver
-tags:
-  - neocortex-other
-  - level-0
-  - nc-prefix
-  - python
----"""
+@Module NC-UTL-FR-003-path-resolver mcp _genealogy:   injected_at: '2026-04-16T00:23:59.15
+---
+"""
+
+
 """
 NC-UTL-FR-003-path-resolver.py
 UTIL-003  PathResolver: resoluo de paths respeitando get_config()

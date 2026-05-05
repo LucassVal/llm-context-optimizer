@@ -1,0 +1,11 @@
+{
+  "agent": "T0-Antigravity",
+  "status": "PRE-FLIGHT",
+  "started_at": "2026-04-30T12:31:27",
+  "log_structure": {
+    "by_function": "T0/T1/T2/PULSE/GUARDIAN",
+    "by_category": "audit/verify/handoff/build/checkpoint/error",
+    "by_cycle": "C0/C1/C2/C3/C4"
+  },
+  "session_id": "SESS-20260430-001"
+}

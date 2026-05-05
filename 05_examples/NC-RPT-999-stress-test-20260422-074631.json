@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-04-22T07:46:31.255935",
+  "elapsed_seconds": 13.89,
+  "passed": 6,
+  "failed": 0,
+  "success_rate": 100.0,
+  "metrics": {
+    "tools_carregadas": 17,
+    "actions_testadas": 0,
+    "mdc_naming_ok": 189,
+    "mdc_naming_fail": 52,
+    "cache_files": 12,
+    "cache_size_kb": 7396.3
+  },
+  "errors": []
+}

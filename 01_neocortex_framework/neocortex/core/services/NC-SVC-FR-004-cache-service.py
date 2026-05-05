@@ -1,17 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:58.674526'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-parent_ssot: NC-SVC-FR-004-cache-service
-tags:
-  - neocortex-other
-  - level-0
-  - nc-prefix
-  - python
----"""
+@Service NC-SVC-FR-004-cache-service mcp _genealogy:   injected_at: '2026-04-16T00:23:58.67
+---
+"""
+
+
 """
 NC-SVC-FR-004-cache-service.py
 FR-004  HotCache Service: In-memory cache with TTL for NeoCortex.

@@ -1,0 +1,76 @@
+{
+  "timestamp": "2026-04-22T16:07:20.063931Z",
+  "operation": "naming_conflicts_fix",
+  "summary": {
+    "files_analyzed": 12,
+    "files_fixed": 11,
+    "files_failed": 1,
+    "remaining_conflicts": 0,
+    "completion_rate": "91.7%"
+  },
+  "fixed_files": [
+    {
+      "old_name": "activate_mcp_simple.py",
+      "new_name": "NC-SVC-MCP-221607206861-integration.py",
+      "reason": "Integração MCP (hash único)"
+    },
+    {
+      "old_name": "checkpoint_system.py",
+      "new_name": "NC-SVC-CHK-221607203818-checkpoint-system.py",
+      "reason": "Sistema de checkpoints (hash único)"
+    },
+    {
+      "old_name": "compliance_monitor.py",
+      "new_name": "NC-SVC-CMP-221607209006-compliance-monitor.py",
+      "reason": "Monitor de compliance (hash único)"
+    },
+    {
+      "old_name": "fix_naming_conflicts.py",
+      "new_name": "NC-SCR-GEN-22160720097594-fix_naming_conflicts.py",
+      "reason": "Script Python genérico (hash único)"
+    },
+    {
+      "old_name": "mcp_http_proxy.py",
+      "new_name": "NC-SVC-MCP-22160720-http-proxy.py",
+      "reason": "Proxy HTTP MCP"
+    },
+    {
+      "old_name": "mcp_server_fixed.py",
+      "new_name": "NC-SVC-MCP-22160720-server-fixed.py",
+      "reason": "Servidor MCP corrigido"
+    },
+    {
+      "old_name": "mcp_server_simple.py",
+      "new_name": "NC-SVC-MCP-22160720-server-simple.py",
+      "reason": "Servidor MCP simples"
+    },
+    {
+      "old_name": "start_mcp_proper.py",
+      "new_name": "NC-SVC-MCP-221607204186-integration.py",
+      "reason": "Integração MCP (hash único)"
+    },
+    {
+      "old_name": "test_hook_loader.py",
+      "new_name": "NC-SCR-TST-22160720-hook-loader-test.py",
+      "reason": "Teste de loader de hooks"
+    },
+    {
+      "old_name": "test_mcp.py",
+      "new_name": "NC-SVC-MCP-221607207264-integration.py",
+      "reason": "Integração MCP (hash único)"
+    },
+    {
+      "old_name": "test_mcp_http.py",
+      "new_name": "NC-SVC-MCP-22160720-http-proxy.py",
+      "reason": "Proxy HTTP MCP"
+    },
+    {
+      "old_name": "test_picoclaw_server.py",
+      "new_name": "NC-SCR-TST-221607203766-test-script.py",
+      "reason": "Script de teste (hash único)"
+    }
+  ],
+  "remaining_conflicts": [],
+  "backup_available": "C:\\Users\\Lucas Valério\\.gemini\\antigravity\\brain\\backup_naming_fix_python",
+  "notes": "Correção de conflitos de naming convention - nomes únicos gerados com hash/timestamp"
+}

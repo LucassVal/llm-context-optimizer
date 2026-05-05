@@ -3,12 +3,12 @@
 <!-- NC-READ-HASH: NC-LBE-FR-RULES-MULTILAYER-001-v1 -->
 <!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-RULES-MULTILAYER-001-v1 ja esta no contexto desta sessao, SALTE. -->
 title: NC-LBE-FR-RULES-MULTILAYER-001
-version: v3.0
+version: v4.0
 created: 2026-04-28
-updated: 2026-04-28 18:30
+updated: 2026-05-05
 status: active
 priority: L0
-rules_total: 111
+rules_total: 133
 temperature: 0
 status: archived
 ---
@@ -16,7 +16,7 @@ status: archived
 
 <!-- NC-READ-HASH: NC-LBE-FR-RULES-MULTILAYER-001-v1 -->
 <!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-RULES-MULTILAYER-001-v1 ja esta no contexto desta sessao, SALTE. -->
-# 4 MORDAÇAS DE GOVERNANÇA — 111 REGRAS (R01-R111)
+# 4 MORDAÇAS DE GOVERNANÇA — 133 REGRAS (R01-R133)
 
 Cada regra deve ser coberta por 4 camadas cumulativas:
   H = HOOK       (instantâneo, Gateway validate_action 17 checks)
@@ -443,3 +443,47 @@ LEXICO: #matriz #bloco8 #r116-r123 #semantic #memory-auto #ssot-header #domain-r
 | R121 | ULQ Cross-Reference | H | ❌ | S | U | FR-169 — detecta duplicatas, orfaos, refs quebradas, fragmentos |
 | R122 | Due Diligence + Strangler | H | ❌ | S | U | FR-171 — hash validation (R59) + migration tracker (R68) |
 | R123 | Stakeholder + Lean + Self-Heal | H | C | S | U | FR-172 — privilege map (R60) + context pruner (R62) + auto-restart (R95) |
+
+---
+@UBL matriz-bloco-operational
+# 15. MATRIZ — Bloco 9: Operational Hardening (R124-R126)
+LEXICO: #matriz #bloco9 #r124-r126 #operational #paths #structural-boundary #accents
+
+| # | Regra | H | C | S | U | Implementação |
+|---|-------|---|---|---|---|------------------|
+| R124 | Session UUID Crypto | ❌ | ✅ | ✅ | ✅ | `uuid.uuid4()` no SessionManager. Implementado 2026-05-04. |
+| R125 | Path Sem Acentos | ✅ | ❌ | ❌ | ✅ | Windows: paths com acento quebram Python/PowerShell. Verificar antes de criar. |
+| R126 | Structural Boundary | ✅ | ✅ | ✅ | ✅ | T0-only em @LOCKS files. Constitution §4. Hook Gateway.validate_action(). Implementado 2026-05-04. |
+
+---
+@UBL matriz-bloco-governance-27
+# 16. MATRIZ — Bloco 10: Regras de Governança Expandida (R127-R130)
+LEXICO: #matriz #bloco10 #r127-r130 #governanca #murphy #pareto #itil #postel
+
+**Contexto:** Das 27 regras de governança (KISS→Ranganathan), 15 já são cobertas por R01-R126. 5 são parciais (culturais). 3 foram selecionadas para implementação imediata. 4 não se aplicam agora (Impessoal, Moralidade, Eficiência P. — culturais).
+
+| # | Regra | Origem | Pergunta | H | C | S | U | Status REAL |
+|---|-------|--------|----------|---|---|---|---|-------------|
+| R127 | **MURPHY** | Eng. Resiliência | "O que pode falhar?" | ❌ | ❌ | ❌ | ✅ | **NÃO IMPLEMENTADO.** Proposto: health_check testa hook_registry. Ticket NC-DS-259. |
+| R128 | **PARETO** | Economia | "Qual o mínimo de máximo impacto?" | ❌ | ❌ | ✅ | ✅ | **APLICADO.** Priorização P0>P3 nesta sessão. Sem enforcement automático. |
+| R129 | **ITIL** | Gov. Corporativa | "Tem rollback?" | ❌ | ❌ | ✅ | ✅ | **PARCIAL.** Savepoints existem (BOOT-*). Falta pre-commit hook. Ticket NC-DS-260. |
+| R130 | **POSTEL** | Redes | "Estrito na saída, tolerante na entrada?" | ❌ | ❌ | ❌ | ✅ | **NÃO IMPLEMENTADO.** Proposto: validação de input schema nos hooks. Ticket NC-DS-261. |
+| R131 | **PREMATURE** | Eng. Software | "Tenho dados de que é gargalo?" | ❌ | ❌ | ❌ | ✅ | **NÃO IMPLEMENTADO.** Evita otimização sem profiling. Planejado Ciclo 6. |
+| R132 | **COBIT** | Gov. Corporativa | "Entrega valor alinhado ao roadmap?" | ❌ | ❌ | ✅ | ✅ | **NÃO IMPLEMENTADO.** Métrica de alinhamento estratégico. Planejado Ciclo 6. |
+| R133 | **BSC** | Gov. Corporativa | "Melhora ou piora meus KPIs?" | ❌ | ❌ | ✅ | ✅ | **NÃO IMPLEMENTADO.** Scorecard com custo/cache/compliance. Planejado Ciclo 6. |
+
+**Regras com cobertura implícita (não precisam de regra dedicada):**
+- **YAGNI (#3):** Aplicado via Pareto (R128) + Eisenhower. Gatilho formal: "Se não resolve problema ativo com ticket, adiar." Ex: NC-DS-255 (cache) adiado corretamente.
+- **Impessoal (#19), Moralidade (#20), Eficiência P. (#22):** Culturais. Cobertos indiretamente por LIMPE (R126) + Transparência (R08).
+
+---
+@UBL super-rules-expanded
+# 17. SUPER RULES — Tabela de Ativação (133 regras)
+LEXICO: #super-rules #ativacao #runtime #133-regras
+
+| Camada | O que roda | Quando | Regras cobertas |
+|--------|-----------|--------|----------------|
+| **H (Hook)** | Gateway.validate_action() + hooks | Toda tool call | R01,R04-R09,R11-R15,R21-R24,R27-R35,R42-R43,R46-R47,R54,R56,R58-R65,R73-R74,R76-R81,R83-R111,R116-R123,R124,R126 |
+| **C (Checkpoint)** | PulseScheduler orbital (300s) | 5 min | R01-R02,R04,R09-R10,R13,R17,R21,R42-R53,R66-R76,R83,R112-R120,R123-R124,R126 |
+| **S (Schedule)** | CICLO 4 semanal | Semanal | R01-R03,R05-R09,R11-R15,R18-R27,R37-R42,R44-R53,R55-R63,R65-R72,R74-R82,R112-R123,R124,R126,R128,R129 |
+| **U (User/T0)** | T0 via OpenCode | Manual | **TODAS as 133 regras** |

@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+"""---
+NC-SUPER-010 — neocortex_benchmark
+---
+"""
+
+"""---
+NC-SUPER-010 — neocortex_benchmark
+---
+"""
+
 """
 NC-SUPER-010 — neocortex_benchmark
 FÓRUM — Benchmark e Workers
@@ -45,6 +55,13 @@ def register_tool(mcp) -> None:
         """
         ts = _ts()
 
+
+        # UBL Gateway (Kernel 0)
+        try:
+            from neocortex.core.utils.gateway_bridge import gateway_check
+            _ok, _report = gateway_check(action, root)
+            if not _ok: return _report
+        except Exception: pass
         def _run_benchmark_test(test_name: str, prompt: str) -> Dict:
             if dry_run:
                 return {"test": test_name, "dry_run": True, "result": "skipped"}
@@ -126,6 +143,18 @@ def register_tool(mcp) -> None:
                 models = []
             return {"success": True, "action": action, "ollama_online": online,
                     "available_models": models, "benchmark_model": model, "timestamp": ts}
+        # ORBITAL BRIDGE
+        _orbital_result = None
+        try:
+            import importlib.util
+            _spec = importlib.util.spec_from_file_location("orbital_bridge", str(root / "01_neocortex_framework" / "neocortex" / "core" / "NC-CORE-FR-139-orbital-bridge.py"))
+            _mod = importlib.util.module_from_spec(_spec)
+            _spec.loader.exec_module(_mod)
+            _orbital_result = _mod.orbital_dispatch(action, root)
+        except Exception: pass
+        if _orbital_result is not None: return _orbital_result
+
+
 
         else:
             return {"success": False, "error": f"action desconhecida: {action}",

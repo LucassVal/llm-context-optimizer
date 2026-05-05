@@ -1,0 +1,43 @@
+<!-- module: benchmarks -->
+<!-- status: active -->
+
+# NC-LBE-FR-BENCHMARKS-001
+
+Lobe para o módulo benchmarks do framework NeoCortex.
+
+## Propósito
+Gerenciar conhecimento específico do módulo benchmarks.
+
+## Status
+Ativo
+
+## Tags
+#benchmarks, #framework, #neocortex
+
+## Checkpoints
+- CP-BENCHMARKS-001: Criação inicial
+
+
+# NC-LBE-FR-BENCHMARKS-001
+
+Benchmarks, testes de performance
+
+## Status
+Ativo (povoado automaticamente)
+
+## Tags
+#benchmarks, #framework, #neocortex, #auto_populated
+
+## Checkpoints
+- CP-BENCHMARKS-001: Criação inicial
+- CP-BENCHMARKS-002: Povoamento automático
+
+
+## Contexto do Projeto
+- **Nome do projeto**: N/A
+- **Total de arquivos no projeto**: 0
+
+## Notas de Povoamento
+- Povoado automaticamente por OpenCode
+- Data: 2026-04-10 15:57:55
+- Foco da análise: benchmark_results, performance_tests, metrics

@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-04-10T21:27:08.826350",
+  "backup_files": [
+    [
+      "ledger",
+      "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\ledger_20260410_212708.json"
+    ],
+    [
+      "mdc_files",
+      "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\neocortex_framework\\DIR-BAK-FR-001-backup-main\\migration_backup\\mdc_files"
+    ]
+  ],
+  "original_paths": {
+    "ledger": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\neocortex_framework\\DIR-CORE-FR-001-core-central\\NC-LED-FR-001-framework-ledger.json",
+    "core_central": "C:\\Users\\Lucas Val\u00e9rio\\Desktop\\TURBOQUANT_V42\\neocortex_framework\\DIR-CORE-FR-001-core-central"
+  }
+}

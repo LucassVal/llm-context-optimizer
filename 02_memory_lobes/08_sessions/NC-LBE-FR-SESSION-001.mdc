@@ -7,7 +7,8 @@ domain: 08_sessions
 type: SESSION_RECORD
 created: 2026-04-29
 status: closed
-temperature: 30
+temperature: 0
+status: archived
 ---
 
 @UBL $SESSION_001

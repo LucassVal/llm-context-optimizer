@@ -1,0 +1,45 @@
+{
+  "timestamp": "2026-04-20T23:31:23",
+  "total_tests": 6,
+  "passed": 1,
+  "failed": 5,
+  "success_rate": 16.666666666666664,
+  "results": [
+    {
+      "tool": "neocortex_governance",
+      "method": "rule.list",
+      "status": "PASS",
+      "details": "OK"
+    },
+    {
+      "tool": "neocortex_orchestration",
+      "method": "task.list",
+      "status": "FAIL",
+      "details": "[WinError 10053] Uma conexão estabelecida foi anulada pelo software no computador host"
+    },
+    {
+      "tool": "neocortex_memory",
+      "method": "cortex.get",
+      "status": "FAIL",
+      "details": "[WinError 10053] Uma conexão estabelecida foi anulada pelo software no computador host"
+    },
+    {
+      "tool": "neocortex_state",
+      "method": "checkpoint.list",
+      "status": "FAIL",
+      "details": "[WinError 10053] Uma conexão estabelecida foi anulada pelo software no computador host"
+    },
+    {
+      "tool": "neocortex_system",
+      "method": "config.get",
+      "status": "FAIL",
+      "details": "[WinError 10053] Uma conexão estabelecida foi anulada pelo software no computador host"
+    },
+    {
+      "tool": "neocortex_brain",
+      "method": "brain.think",
+      "status": "FAIL",
+      "details": "[WinError 10053] Uma conexão estabelecida foi anulada pelo software no computador host"
+    }
+  ]
+}

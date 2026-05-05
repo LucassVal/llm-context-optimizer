@@ -1,4 +1,29 @@
 #!/usr/bin/env python3
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:24:01.701690'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+parent_ssot: NC-SCR-FR-022
+related_ssot:
+---
+"""
+
+"""---
+_genealogy:
+  injected_at: '2026-04-16T00:24:01.701690'
+  injected_by: NC-SCR-FR-075-genealogy-injector.py
+  version: '1.0'
+topology: neocortex-other
+level: 0
+parent_ssot: NC-SCR-FR-022
+related_ssot:
+
+---
+"""
+
 import io
 import sys
 

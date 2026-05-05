@@ -1,0 +1,86 @@
+# Configuração de hooks de pre-commit para NeoCortex
+# Validação e sanitização de YAML/JSON antes de commits
+
+repos:
+  - repo: local
+    hooks:
+      - id: validate-yaml-json
+        name: Validate YAML/JSON security
+        entry: python pre_commit_hook.py
+        language: system
+        types: [yaml, yml, json]
+        stages: [pre-commit]
+        pass_filenames: false
+        always_run: true
+        
+      - id: check-naming-convention
+        name: Check NC- naming convention
+        entry: python -c "
+import sys
+import json
+import yaml
+from pathlib import Path
+
+def check_naming(file_path):
+    '''Verifica convenção de nomenclatura NC-'''
+    path = Path(file_path)
+    
+    if path.name == 'opencode.json':
+        try:
+            with open(path, 'r') as f:
+                data = json.load(f)
+                if 'config_id' not in data or not data['config_id'].startswith('NC-'):
+                    print(f'ERROR: opencode.json must have config_id with NC- prefix')
+                    return False
+        except:
+            pass
+        return True
+    
+    # Verificar tickets YAML
+    if path.suffix in ['.yaml', '.yml'] and path.name.startswith('NC-DS-'):
+        try:
+            with open(path, 'r') as f:
+                data = yaml.safe_load(f)
+                if data and 'ticket_id' in data:
+                    if not data['ticket_id'].startswith('NC-DS-'):
+                        print(f'ERROR: {path.name}: ticket_id must start with NC-DS-')
+                        return False
+        except:
+            pass
+    
+    return True
+
+# Verificar arquivos passados
+all_ok = True
+for file in sys.argv[1:]:
+    if not check_naming(file):
+        all_ok = False
+
+sys.exit(0 if all_ok else 1)
+"
+        language: system
+        types: [yaml, yml, json]
+        stages: [pre-commit]
+        
+      - id: yaml-syntax-check
+        name: Check YAML syntax
+        entry: python -m py_compile
+        language: system
+        types: [python]
+        stages: [pre-commit]
+        args: [--validate-only]
+
+# Configurações globais
+default_install_hook_types: [pre-commit]
+default_stages: [pre-commit]
+fail_fast: false
+
+# Exclusões
+exclude: |
+  (?x)^(
+    .*\.metadata\.json$|
+    .*\.log$|
+    .*\.tmp$|
+    .*test.*\.yaml$|
+    .*test.*\.json$
+  )$

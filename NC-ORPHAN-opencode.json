@@ -1,0 +1,120 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama (local iGPU)",
+      "options": {
+        "baseURL": "http://localhost:11434/v1"
+      },
+      "models": {
+        "qwen2.5-coder:1.5b-instruct": {
+          "name": "Qwen 1.5B Courier (braçal)"
+        },
+        "qwen2.5-coder:3b-instruct": {
+          "name": "Qwen 3B Engineer (técnico)"
+        }
+      }
+    }
+  },
+  "agent": {
+    "build": {
+      "model": "deepseek/deepseek-v4-pro",
+      "steps": 30,
+      "permission": {
+        "edit": "ask",
+        "bash": "ask",
+        "task": {
+          "nc-courier": "allow",
+          "nc-auditor": "allow",
+          "nc-guardian": "allow",
+          "general": "allow",
+          "explore": "allow",
+          "plan": "allow",
+          "*": "ask"
+        }
+      }
+    },
+    "plan": {
+      "model": "ollama/qwen2.5-coder:3b-instruct",
+      "permission": {
+        "edit": "deny",
+        "bash": "deny"
+      }
+    },
+    "nc-courier": {
+      "model": "ollama/qwen2.5-coder:1.5b-instruct"
+    },
+    "nc-engineer": {
+      "model": "ollama/qwen2.5-coder:3b-instruct",
+      "permission": {
+        "edit": "ask",
+        "write": "ask",
+        "bash": {
+          "*": "ask",
+          "git status*": "allow",
+          "git log*": "allow",
+          "git diff*": "allow",
+          "python *": "ask",
+          "ruff *": "allow"
+        },
+        "task": {
+          "nc-courier": "allow",
+          "*": "deny"
+        },
+        "webfetch": "ask"
+      }
+    },
+    "nc-guardian": {
+      "model": "ollama/qwen2.5-coder:1.5b-instruct"
+    },
+    "nc-auditor": {
+      "model": "deepseek/deepseek-v4-pro",
+      "permission": {
+        "edit": "deny",
+        "write": "ask",
+        "bash": {
+          "*": "ask",
+          "git status*": "allow",
+          "git log*": "allow",
+          "git diff*": "allow",
+          "ruff *": "allow",
+          "python *audit*": "allow",
+          "python *validate*": "allow"
+        }
+      }
+    }
+  },
+  "mcp": {
+    "neocortex": {
+      "type": "local",
+      "command": [
+        "C:/Program Files/Python312/python.exe",
+        "-m",
+        "neocortex.mcp.server",
+        "--transport",
+        "stdio"
+      ],
+      "enabled": true,
+      "timeout": 60000,
+      "environment": {
+        "PYTHONUTF8": "1",
+        "PYTHONPATH": "C:/Users/Lucas Valério/Desktop/TURBOQUANT_V42/01_neocortex_framework",
+        "NEOCORTEX_PROJECT_ROOT": "C:/Users/Lucas Valério/Desktop/TURBOQUANT_V42",
+        "NC_ROOT": "C:/Users/Lucas Valério/Desktop/TURBOQUANT_V42",
+        "NEOCORTEX_LOG_LEVEL": "ERROR"
+      }
+    }
+  },
+  "permission": {
+    "edit": "ask",
+    "write": "ask",
+    "bash": {
+      "*": "ask",
+      "git status*": "allow",
+      "git log*": "allow",
+      "git diff*": "allow",
+      "ruff *": "allow"
+    }
+  }
+}

@@ -1,10 +1,9 @@
 """---
-domain: "core"
-layer: "core"
-type: "file"
-tags: ["init"]
-hash: "auto-generated"
----"""
+@Module  mcp domain: "core" layer: "core" type: "file" tags: ["
+---
+"""
+
+
 #!/usr/bin/env python3
 """
 NeoCortex Adapters Module

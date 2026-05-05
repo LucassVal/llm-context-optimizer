@@ -6,148 +6,51 @@
 <!-- tags: occipital, adr, decisoes, arquitetura, patterns -->
 <!-- auto-generated: true -->
 
-# NC-ARC-FR-001 — Architecture Decision Records (ADR)
+# NC-ARC-FR-001 — Architecture Decision Log
+# @ADR — Registro de decisões arquiteturais do NeoCortex
+# Hash: ADR-v1.0-20260427
 
-> **Propósito:** Registrar TODAS as decisões arquiteturais do NeoCortex com contexto, alternativas consideradas e justificativa. Essencial para onboarding de novos desenvolvedores e para que a IA entenda o histórico sem precisar re-explorar o código.
+## ADR-001: MCP via SSE remoto, não stdio local
+- **Data:** 2026-04-27
+- **Decisão:** OpenCode conecta ao MCP via SSE remoto (http://localhost:8766/sse)
+- **Alternativa rejeitada:** stdio local (uv_spawn incompatível com paths com espaço no Windows)
+- **Consequência:** Servidor MCP precisa estar rodando antes do OpenCode iniciar
 
----
+## ADR-002: PYTHONPATH via Junction C:\TQ
+- **Data:** 2026-04-27
+- **Decisão:** Usar C:\TQ como junction para C:\Users\Lucas Valério\Desktop\TURBOQUANT_V42
+- **Motivo:** Acento em "Valério" corrompia em múltiplas ferramentas
+- **Consequência:** Todos os paths internos referenciam C:\TQ
 
-## ADR-001 — RocksDB via pyspeedb (ao invés de RocksDB puro)
+## ADR-003: PulseScheduler desabilitado no SSE
+- **Data:** 2026-04-27
+- **Decisão:** Desabilitar PulseScheduler.start() e SessionManager no modo SSE
+- **Motivo:** Background threads causavam crash do servidor após ~30s
+- **Consequência:** Auto-checkpoints, pruning, TTL parados. Operações manuais via MCP.
 
-**Data:** 2026-04  
-**Status:** ✅ Implementado
+## ADR-004: ToolGuard como middleware central
+- **Data:** 2026-04-27
+- **Decisão:** Criar NC-CORE-FR-125-tool-guard.py como middleware único de governança
+- **Pipeline:** STEP 0 → LockGuard → Naming (@ULQ) → SavePoint → CryptoSign → Audit
+- **Alternativa rejeitada:** Middleware em cada tool separadamente (código duplicado)
 
-**Contexto:** Precisávamos de um key-value store ACID para o LedgerStore e ManifestStore com alta performance em Windows.
+## ADR-005: Super Tools consolidam 38 tools em 17
+- **Data:** 2026-04-20
+- **Decisão:** Consolidar 38 NC-TOOL-FR-* em 17 NC-SUPER-* (uma por domínio DDD)
+- **Motivo:** Reduzir chamadas MCP e unificar ações relacionadas
+- **Consequência:** Tools antigas arquivadas em v1/, Super Tools respondem por múltiplas ações
 
-**Decisão:** Usar `pyspeedb` (fork do RocksDB com patch de latência de compactação).
+## ADR-006: DDD com 6 camadas (STF, STJ, TJ, FÓRUM, EXECUTIVO, LEGISLATIVO)
+- **Data:** 2026-04-18
+- **Decisão:** Arquitetura em 6 camadas inspirada na divisão dos poderes
+- **Blueprint:** NC-ARC-FR-002-architecture-blueprint.yaml
+- **Consequência:** Cada camada tem responsabilidades bem definidas e isoladas
 
-**Alternativas consideradas:**
-- RocksDB puro: latências imprevisíveis durante compactação em Windows.
-- LMDB: bom para leitura, ruim para escrita intensa.
-- SQLite: overhead relacional desnecessário para KV puro.
-
-**Justificativa:** `pyspeedb` elimina as pausas de compactação do RocksDB mantendo compatibilidade total de API.
-
----
-
-## ADR-002 — SQLite + FTS5 como Motor de Busca Principal
-
-**Data:** 2026-04  
-**Status:** ✅ Implementado
-
-**Contexto:** O LobeIndex precisava de busca textual rápida sem dependências externas.
-
-**Decisão:** SQLite com extensão FTS5 nativa.
-
-**Alternativas consideradas:**
-- Xapian (`xapian-bindings`): excelente performance mas dependência C++ complexa no Windows.
-- Tantivy (Rust): ainda melhor performance, mas bindings Python instáveis.
-- Elasticsearch: overkill para uso local, dependência de JVM.
-
-**Justificativa:** FTS5 é built-in no Python, zero dependências extras, performance adequada para até ~100k documentos.
-
----
-
-## ADR-003 — DuckDB para MetricsStore (ao invés de InfluxDB/TimescaleDB)
-
-**Data:** 2026-04  
-**Status:** ✅ Implementado
-
-**Contexto:** Precisávamos de analytics de métricas (tokens, custos, performance) com SQL.
-
-**Decisão:** DuckDB como banco embarcado OLAP.
-
-**Alternativas consideradas:**
-- InfluxDB: excelente para time-series mas requer servidor separado.
-- TimescaleDB: extensão PostgreSQL, overhead desnecessário para uso local.
-- SQLite: baixa performance para queries analíticas agregadas.
-
-**Justificativa:** DuckDB é embarcado (zero servidor), performance OLAP superior ao SQLite, suporte nativo a Parquet e Arrow.
-
----
-
-## ADR-004 — diskcache-rs para HotCache (ao invés de Redis local)
-
-**Data:** 2026-04  
-**Status:** ✅ Implementado
-
-**Contexto:** PulseScheduler precisava de cache volátil de alta performance para `hot_context`.
-
-**Decisão:** `diskcache-rs` (implementação Rust com bindings Python).
-
-**Alternativas consideradas:**
-- Redis (local): mais features mas requer daemon separado.
-- `functools.lru_cache`: in-memory puro, não persiste entre reinicializações.
-- Shelve/pickle: lento e sem TTL nativo.
-
-**Justificativa:** Performance Rust, TTL nativo, persiste no disco entre sessões, zero daemon externo.
-
----
-
-## ADR-005 — FastMCP como Framework do Servidor MCP
-
-**Data:** 2026-04  
-**Status:** ✅ Implementado
-
-**Contexto:** Precisávamos de um framework Python para expor ferramentas via protocolo MCP.
-
-**Decisão:** FastMCP com transporte WebSocket via uvicorn.
-
-**Alternativas consideradas:**
-- MCP SDK oficial Python: menos maduro, menos ferramentas de conveniência.
-- Implementação manual do protocolo: trabalho excessivo, risco de bugs.
-- FastAPI com endpoints REST: não compatível com o protocolo MCP nativo.
-
-**Justificativa:** FastMCP encapsula o protocolo MCP com decorator `@mcp.tool()`, reduzindo boilerplate. WebSocket escolhido sobre STDIO para compatibilidade com múltiplos clientes IDE simultâneos.
-
----
-
-## ADR-006 — Qwen2.5-Coder 1.5B como Agente Local Principal
-
-**Data:** 2026-04  
-**Status:** ✅ Implementado
-
-**Contexto:** Precisávamos de um modelo local para execução de tarefas braçais 24/7 sem custo de API.
-
-**Decisão:** Qwen2.5-Coder 1.5B via Ollama para o agente Courier.
-
-**Alternativas consideradas:**
-- TinyLlama 1.1B: menor, mas qualidade de código inferior.
-- Phi-3 Mini: bom raciocínio, mas menos otimizado para código.
-- CodeGemma 2B: bom mas maior consumo de VRAM.
-
-**Justificativa:** Qwen2.5-Coder tem o melhor benchmark de código na faixa de 1-2B parâmetros, roda em 4GB RAM/VRAM, custo zero de API.
-
----
-
-## ADR-007 — msgspec ao invés de Pydantic para Validação
-
-**Data:** 2026-04  
-**Status:** ✅ Implementado
-
-**Contexto:** Precisávamos de serialização/validação de schemas JSON de alta performance.
-
-**Decisão:** `msgspec` para serialização e validação de schemas internos.
-
-**Alternativas consideradas:**
-- Pydantic v2: excelente mas overhead maior em validação de alta frequência.
-- json (stdlib): sem validação de schema.
-- orjson: rápido para serialização mas sem validação.
-
-**Justificativa:** msgspec é 10-50x mais rápido que Pydantic para serialização pura, com zero dependências extras.
-
----
-
-## ADR-008 — Arquitetura de Lobos como Memória de Longo Prazo
-
-**Data:** 2026-04  
-**Status:** ✅ Design implementado, FTS5 indexado
-
-**Contexto:** Como persistir contexto entre sessões sem enviar contexto completo a cada requisição?
-
-**Decisão:** Lobos MDC como unidades atômicas de memória, indexados via FTS5, buscáveis via `neocortex_lobes.search`.
-
-**Justificativa:** Permite que o T0 recupere knowledge específico sem tokens desnecessários, reduzindo custo de API em estimados 60-80% para tarefas recorrentes.
+## ADR-007: Junction @SSOT em DIR-DOC-FR-001-docs-main/
+- **Data:** 2026-04-13
+- **Decisão:** Centralizar documentação SSOT em DIR-DOC-FR-001-docs-main/
+- **Arquivos:** NC-NAM-FR-001, NC-TODO-FR-001, NC-SEC-FR-001, NC-ARC-FR-002
+- **Consequência:** Único ponto de verdade para documentação do sistema
 
 
 ---
@@ -233,17 +136,17 @@
 | :--- | :--- | :--- |
 | `qwen2.5-coder:1.5b-instruct` | Ollama | Agente Courier (tarefas braçais 24/7) |
 | `qwen2.5-coder:3b-instruct` | Ollama | Agente Engineer (desenvolvimento) |
-| `deepseek-reasoner` | DeepSeek API | Raciocínio complexo, T0 principal |
-| `deepseek-chat` | DeepSeek API | Tarefas transacionais, respostas rápidas |
+| `deepseek-v4-pro` | DeepSeek API | Raciocínio complexo, T0 principal |
+| `deepseek-v4-flash` | DeepSeek API | Tarefas transacionais, respostas rápidas |
 
 ### Políticas de Roteamento (A Implementar)
 
 | Política | Regra | Ticket |
 | :--- | :--- | :--- |
-| Por Complexidade | `< 500 tokens → qwen:1.5b`; `> 2000 tokens → deepseek-reasoner` | neocortex_brain |
+| Por Complexidade | `< 500 tokens → qwen:1.5b`; `> 2000 tokens → deepseek-v4-pro` | neocortex_brain |
 | Por Custo | Se `daily_cost > $1.00`, rotear para locais | SEC-403 |
 | Por Latência | `timeout < 2s → local` | neocortex_brain |
-| Fallback Chain | `ollama → deepseek-chat → deepseek-reasoner` | ✅ LLM-006 |
+| Fallback Chain | `ollama → deepseek-v4-flash → deepseek-v4-pro` | ✅ LLM-006 |
 | Por Role | `guardian → qwen:1.5b`; `engineer → qwen:3b` | sub_server.py |
 
 ---

@@ -1,0 +1,471 @@
+# NC-MAP-FR-001 — Mapas Estruturais Consolidados v1.0
+# generated_at: 2026-04-30T11:00:00 | generated_by: T0 Antigravity
+# objective: Unificar todos os mapas estruturais em um unico documento ASCII
+
+# ╔══════════════════════════════════════════════════════════════╗
+# ║  MAPA 1: ORGANOGRAMA DE AGENTES (Hierarquia + Delegacao)   ║
+# ╚══════════════════════════════════════════════════════════════╝
+
+agent_organogram:
+  description: "Hierarquia completa de agentes, seus papeis, ferramentas e fluxo de delegacao"
+  
+  ascii: |
+    ┌─────────────────────────────────────────────────────────────┐
+    │                    T0 — SUPREME JUDGE                       │
+    │              Lucas Valerio (OpenCode chat)                  │
+    │   Pensa, decide, aprova, orquestra. NUNCA braçal.          │
+    │   Tools: TODAS (17 MCP tools)                              │
+    │   Interface: MCP SSE :8766                                 │
+    │   Keywords: @CICLO2 @AUDIT @STEP0 @CHECKPOINT @SUBMIT      │
+    └──────┬──────────────┬──────────────┬───────────────────────┘
+           │              │              │
+    ┌──────▼──────┐ ┌─────▼──────┐ ┌─────▼──────────────────────┐
+    │  GUARDIAN   │ │  ENGINEER  │ │   DEEPSEEK T1 (via API)    │
+    │  T1 Senior  │ │  T2 Medio  │ │   Executor subordinado     │
+    │  Supervisao │ │  Tecnico   │ │   6 fases REBACT           │
+    │  +Seguranca │ │            │ │   Handoff obrigatorio       │
+    │             │ │            │ │                             │
+    │ Tools: SEC  │ │ Tools: MEM │ │   Launch: NC-PROMPT-DS-000 │
+    │ +MEM+AKL    │ │ +AKL+LEDG  │ │   Policy: NC-CFG-DS-001    │
+    │ +LEDG+ORCH  │ │ +ORCH+HLTH │ │                             │
+    │ +HLTH+NOTIF │ │ +NOTIF+BNCH│ │   Reports to: T0            │
+    │ +GOV        │ │            │ │   Handoff to: DIR-DS-002    │
+    │             │ │ Deleg->    │ └─────────────────────────────┘
+    │ Reports: T0 │ │ COURIER    │
+    │ Monitors:   │ └─────┬──────┘
+    │ COURIER     │       │
+    │ ENGINEER    │  ┌────▼─────────┐
+    │             │  │   COURIER    │
+    │ Writes to:  │  │   T2 Braçal  │
+    │ SECURITY    │  │   Tarefas    │
+    └─────────────┘  │   simples    │
+                     │              │
+    ┌────────────────┤ Tools: MEM   │
+    │                │ +AKL+LEDG    │
+    │                │ +HLTH+NOTIF  │
+    │                │              │
+    │                │ Reports: T0  │
+    │                │ Deleg-> []   │
+    │                │ Writes:      │
+    │                │ machine_mem  │
+    │                └──────────────┘
+    │
+    ├── PULSE SCHEDULER (T2 — Automatico, 300s)
+    │   │  14 auto-checks
+    │   │  compliance + KPI + ruff + mypy + YAML + MDC
+    │   │  + Secrets + bias + handoff + semantic + kaizen
+    │   │  + ALCOA + auto-submit + semantic boot + self-healing
+    │   │  Reports to: T0
+    │
+    └── T3 OBSERVERS (Read-Only)
+        │  rule.list, audit.replay, session.stats
+        │  CANNOT: create, modify, delete, approve
+        │  (No concrete instances yet)
+
+  delegation_flow: |
+    T0 ──dispatch──► ENGINEER ──delegate──► COURIER
+    T0 ──dispatch──► GUARDIAN (no delegation)
+    T0 ──dispatch──► DEEPSEEK T1 (via PicoClaw :18790 ou API direta)
+    ENGINEER ──reports──► T0
+    COURIER ──reports──► T0
+    GUARDIAN ──monitors──► ENGINEER, COURIER
+    PULSE ──reports──► T0 (auto, 300s)
+
+  write_zones_by_role:
+    T0: "ALL except @LOCKS"
+    GUARDIAN: "NC-LBE-FR-SECURITY-001"
+    ENGINEER: "machine_memory + NC-LBE-FR-DEVELOPMENT-001"
+    COURIER: "machine_memory only"
+    DEEPSEEK_T1: "05_examples/ + DIR-DS-001-tickets/ + DIR-DS-002-audit-logs/"
+
+# ╔══════════════════════════════════════════════════════════════╗
+# ║  MAPA 2: FLUXO DE DADOS (Savepoints, WAL, Sessoes, Lobes) ║
+# ╚══════════════════════════════════════════════════════════════╝
+
+data_flow_map:
+  description: "Caminho completo dos dados: origem -> validacao -> persistencia -> consolidacao"
+
+  ascii: |
+    ┌──────────────────────────────────────────────────────────┐
+    │ ORIGEM: T0 Chat / MCP Tool / PulseScheduler / API        │
+    └────────────────────────┬─────────────────────────────────┘
+                             │
+                             ▼
+    ┌──────────────────────────────────────────────────────────┐
+    │ GATEWAY (validate_action)                                │
+    │ ├─ 35 H-hooks (block invalid BEFORE execution)           │
+    │ ├─ LockGuard (block @LOCKS)                              │
+    │ ├─ BashGuard (block rm/del)                              │
+    │ ├─ CentralWatcher (record EVERYTHING)                    │
+    │ └─ RCA Engine (5 Porques auto-trigger on violation)      │
+    └────────────────────────┬─────────────────────────────────┘
+                             │
+              ┌──────────────┼──────────────┐
+              ▼              ▼              ▼
+    ┌─────────────┐ ┌─────────────┐ ┌─────────────┐
+    │   WAL DB    │ │  SAVEPOINT  │ │  SESSION    │
+    │ SQLite      │ │  .neocortex │ │  DIR-DS-002 │
+    │             │ │  /savepoints│ │  /audit-logs│
+    │ IMMUTABLE   │ │  ROLLBACK   │ │  HEARTBEAT  │
+    │ Every action│ │  Before     │ │  Start/End  │
+    │ is logged   │ │  any write  │ │  with TTL   │
+    └──────┬──────┘ └──────┬──────┘ └──────┬──────┘
+           │               │               │
+           └───────────────┼───────────────┘
+                           │
+                           ▼
+    ┌──────────────────────────────────────────────────────────┐
+    │ HANDOFF (DIR-DS-002-audit-logs/)                         │
+    │ Format: NC-DS-{ID}-handoff-{YYYYMMDDTHHMMSS}.yaml       │
+    │ Status: APPROVED | PARTIALLY | FAILED | ESCALATED        │
+    │ T0 Review: py_compile + ruff + grep print()              │
+    │ TTL: >7d -> archive (CICLO 4)                            │
+    └────────────────────────┬─────────────────────────────────┘
+                             │
+                             ▼
+    ┌──────────────────────────────────────────────────────────┐
+    │ LOBES (02_memory_lobes/) — Long-term Memory              │
+    │ 75 lobes, 17 dominios, 6 regioes cerebrais               │
+    │ $FRONTAL(planejamento) $TEMPORAL(semantica)              │
+    │ $PARIETAL(integracao) $OCCIPITAL(padroes)                │
+    │ $CEREBELO(automacao) $HIPOCAMPO(episodica)               │
+    │ Consolidation: Cascade (AKL -> Lobes -> Archive)         │
+    └────────────────────────┬─────────────────────────────────┘
+                             │
+                             ▼
+    ┌──────────────────────────────────────────────────────────┐
+    │ CATALOG + SSOT UPDATE                                    │
+    │ artifact_catalog.json + NC-NAM-FR-001 updated            │
+    │ Boot sync: NC-SCR-FR-066-bootup-sync.py                  │
+    │ Decay: 7d STALE -> 30d REMOVED -> archive                │
+    └──────────────────────────────────────────────────────────┘
+
+  persistence_tiers:
+    hot: "WAL (SQLite, every action, real-time)"
+    warm: "Savepoints + Sessions (per task, rollback-ready)"
+    cold: "Lobes (permanent, domain-organized, searchable)"
+    frozen: "Archive (DIR-ARC-FR-001, historical, read-only)"
+
+  key_paths:
+    wal_db: "DIR-DS-003-wal/neocortex_wal.db"
+    wal_jsonl: "DIR-DS-002-audit-logs/NC-WAL-*.jsonl"
+    savepoints: "01_neocortex_framework/.neocortex/savepoints/"
+    sessions: "DIR-DS-002-audit-logs/NC-DS-SESS-*.yaml"
+    handoffs: "DIR-DS-002-audit-logs/NC-DS-*-handoff-*.yaml"
+    lobes: "02_memory_lobes/{01..09}_*/"
+    catalog: "DIR-DOC-FR-001-docs-main/artifact_catalog.json"
+    archive: "DIR-ARC-FR-001-archive-main/"
+
+# ╔══════════════════════════════════════════════════════════╗
+# ║  MAPA 3: 6 ORBITAIS + SHARED KERNEL (Poderes do MCP)  ║
+# ╚══════════════════════════════════════════════════════════╝
+
+orbitals_map:
+  description: "Arquitetura DDD com 6 orbitais independentes + Shared Kernel central"
+
+  ascii: |
+    ┌───────────────────────────────────────────────────────────────┐
+    │                   SHARED KERNEL                               │
+    │  Gateway: validate_action(action, target_path, agent_id, role)│
+    │  Pipeline: STEP0 -> ATOMIC_LOCKS -> WRITE_ZONES -> NAMING     │
+    │  Immutable: true                                              │
+    │  Semantic Router: 2-level, 8 domains, 763 items (FR-166)      │
+    └──────┬──────────┬──────────┬──────────┬──────────┬────────────┘
+           │          │          │          │          │
+    ┌──────▼──┐ ┌─────▼───┐ ┌───▼────┐ ┌───▼────┐ ┌───▼──────────┐
+    │   STF   │ │   STJ   │ │   TJ   │ │  FORUM │ │  EXECUTIVO   │
+    │ MODERAD │ │ SUPERIOR│ │ JUSTICA│ │ ADMIN  │ │  (OpenCode)   │
+    │         │ │         │ │        │ │        │ │              │
+    │ brain   │ │ llm     │ │ memory │ │ system │ │ nc-courier   │
+    │ think   │ │ gateway │ │ state  │ │ secur. │ │ nc-engineer  │
+    │ plan    │ │ route   │ │ context│ │ health │ │ nc-guardian  │
+    │ critique│ │ ollama  │ │ memory │ │ benchm │ │ nc-auditor   │
+    │ orchstr │ │         │ │  auto  │ │ notif  │ │              │
+    │         │ │         │ │        │ │ akl    │ │              │
+    │         │ │         │ │        │ │ ledger │ │              │
+    └─────────┘ └─────────┘ └────────┘ └────────┘ └──────────────┘
+                                             │
+                                    ┌────────▼──────────┐
+                                    │   LEGISLATIVO     │
+                                    │   Governance      │
+                                    │   Define rules    │
+                                    │   for ALL above   │
+                                    │   46 actions MCP  │
+                                    └───────────────────┘
+
+  orbital_details:
+    STF_PODER_MODERADOR:
+      tool: "neocortex_brain"
+      domain: "Pensamento e decisao suprema"
+      actions: ["think", "plan", "critique", "orchestrate"]
+    STJ_TRIBUNAL_SUPERIOR:
+      tool: "neocortex_llm_router"
+      domain: "Roteamento LLM (DeepSeek + Ollama)"
+      actions: ["gateway.health", "route.call", "ollama.ask"]
+      status: "Fase 5 — parcialmente wired"
+    TJ_TRIBUNAL_DE_JUSTICA:
+      tools: ["memory", "state", "context", "memory_auto"]
+      domain: "Memoria e estado do sistema"
+    FORUM_ADMINISTRACAO:
+      tools: ["system", "security", "health", "benchmark", "notification", "akl", "ledger"]
+      domain: "Administracao e operacao"
+    EXECUTIVO:
+      tool: "opencode_agents"
+      domain: "Execucao via OpenCode multi-agente"
+      agents: ["nc-courier (Qwen 1.5B)", "nc-engineer (Qwen 3B)", "nc-guardian (Qwen 1.5B)", "nc-auditor (DeepSeek V4 Pro)"]
+      status: "ATIVO — orquestracao nativa OpenCode"
+    LEGISLATIVO:
+      tool: "neocortex_governance"
+      domain: "Regras e compliance para todos os orbitais"
+
+# ╔══════════════════════════════════════════════════════════════╗
+# ║  MAPA 4: ROTINAS DE PENSAMENTO (70 Conceitos -> Acao IA)  ║
+# ╚══════════════════════════════════════════════════════════════╝
+
+thinking_routines:
+  description: >
+    Rotinas de raciocinio obrigatorias para o assistente IA.
+    Baseadas nos 70 conceitos do Mapeamento Linear + regras NeoCortex.
+    Toda resposta DEVE passar por estas rotinas na ordem.
+
+  # ─── ROTINA 0: BOOT (antes de qualquer acao) ───
+  routine_0_boot:
+    name: "STEP 0 — Verificacao de Ambiente"
+    concepts: [R21, R09]
+    steps:
+      - "python --version (verificar)"
+      - "Test-Path arquivo_alvo (R21: nao supor que existe)"
+      - "python -m ruff --version (verificar)"
+      - "Carregar @ULQ (dicionario de simbolos)"
+      - "Carregar @BOOT (manifesto do sistema)"
+    gate: "FAIL se qualquer verificacao falhar"
+
+  # ─── ROTINA 1: RECEBER (entender o pedido) ───
+  routine_1_receive:
+    name: "3W — What / Why / Where"
+    concepts: [R42]
+    steps:
+      - "WHAT: O que o usuario esta pedindo exatamente?"
+      - "WHY: Qual a evidencia? O que ja existe sobre isso?"
+      - "WHERE: Onde se aplica no sistema? Qual dominio ULQ?"
+    gate: "NAO avancar sem responder os 3 W's"
+
+  # ─── ROTINA 2: PRIORIZAR ───
+  routine_2_prioritize:
+    name: "Eisenhower + Pareto"
+    concepts: [R45, R46]
+    decision_matrix: |
+      URGENTE+IMPORTANTE -> Fazer agora (HIGH)
+      IMPORTANTE+NAO_URG -> Agendar (MEDIUM)
+      URGENTE+NAO_IMPORT -> Delegar (COURIER/ENGINEER)
+      NAO_URG+NAO_IMPORT -> Eliminar ou LOW
+    pareto_check: "20% das causas = 80% dos problemas? Focar nos 20%."
+
+  # ─── ROTINA 3: INVESTIGAR (se algo parece errado) ───
+  routine_3_investigate:
+    name: "5 Porques (RCA)"
+    concepts: [R41]
+    steps:
+      - "Por que X aconteceu? -> Y"
+      - "Por que Y? -> Z"
+      - "Por que Z? -> W"
+      - "Por que W? -> V"
+      - "Por que V? -> CAUSA RAIZ"
+    gate: "NAO parar antes de chegar a causa raiz"
+
+  # ─── ROTINA 4: PLANEJAR (antes de codificar) ───
+  routine_4_plan:
+    name: "KISS + DRY + Fail-Fast"
+    concepts: [R53, R50, R51]
+    kiss_check: "Minha solucao tem < 2500 caracteres? Se nao, esta complexa demais."
+    dry_check: "Este codigo/arquivo ja existe em outro lugar? DRY: nao duplicar."
+    failfast_check: "Validar inputs ANTES de processar. Rejeitar invalidos imediatamente."
+    idempotency_check: "Se rodar 2x, o resultado e o mesmo? Sem efeitos colaterais duplicados."
+
+  # ─── ROTINA 5: EXECUTAR ───
+  routine_5_execute:
+    name: "PDCA + Kaizen"
+    concepts: [R48, R52]
+    steps:
+      - "Plan: O que vou fazer?"
+      - "Do: Executar"
+      - "Check: Ruff passou? Compilou? Teste rodou?"
+      - "Act: Se falhou, corrigir. Se passou, registrar no Kaizen."
+    kaizen: "Micro-melhoria registrada? O que aprendi?"
+
+  # ─── ROTINA 6: VERIFICAR ───
+  routine_6_verify:
+    name: "Pipeline de Verificacao por Tipo"
+    concepts: [R124, R112, R113, R114, R115]
+    matrix:
+      py: "ruff -> ruff format -> mypy -> py_compile -> bandit -> secret scan"
+      yaml: "yaml.safe_load -> naming -> secret scan"
+      mdc: "frontmatter YAML -> NC-READ-HASH -> naming"
+    gate: "FAIL-FAST: qualquer erro BLOQUEIA"
+
+  # ─── ROTINA 7: ENTREGAR ───
+  routine_7_deliver:
+    name: "Handoff + 3W + SSOT Header"
+    concepts: [R12, R42, R117]
+    steps:
+      - "Gerar handoff YAML em DIR-DS-002-audit-logs/"
+      - "3W no summary: What foi feito? Why (evidencia)? Where (dominio ULQ)?"
+      - "Atualizar @SSOT se criou/modificou arquivos"
+      - "Marcar %DONE no @ROADMAP"
+      - "Emitir SSOT Header"
+    gate: "NAO encerrar sem handoff"
+
+  # ─── ROTINA 8: REFLETIR (pos-acao) ───
+  routine_8_reflect:
+    name: "OKRs + ROI + BSC"
+    concepts: [R47, R57, R54]
+    okr_check: "Essa acao avancou algum Objective? Qual Key Result foi impactado?"
+    roi_check: "O custo (tokens/tempo) justificou o resultado?"
+    bsc_check: "Impacto em: Custo? Usuario? Processo? Aprendizado?"
+
+  # ─── ORDEM DE EXECUCAO DAS ROTINAS ───
+  execution_order:
+    always: ["R0_BOOT", "R1_3W"]
+    on_receive: ["R0_BOOT", "R1_3W", "R2_EISENHOWER"]
+    on_investigate: ["R0_BOOT", "R1_3W", "R3_RCA"]
+    on_plan: ["R0_BOOT", "R1_3W", "R4_KISS_DRY"]
+    on_execute: ["R0_BOOT", "R5_PDCA", "R6_VERIFY"]
+    on_deliver: ["R7_HANDOFF", "R8_OKR_ROI"]
+    on_error: ["R0_BOOT", "R3_RCA", "R5_PDCA"]
+
+# ╔══════════════════════════════════════════════════════════════╗
+# ║  MAPA 5: PIPELINE DE EXECUCAO (Ciclo de Vida do Ticket)   ║
+# ╚══════════════════════════════════════════════════════════════╝
+
+execution_pipeline_map:
+  description: "Ciclo completo: ticket -> execucao -> verificacao -> handoff -> consolidacao"
+
+  ascii: |
+    ┌─────────────────────────────────────────────────────────────┐
+    │ CICLO 0: BOOT                                              │
+    │ @BOOT + @ULQ + @LOCKS + @RULES carregados                  │
+    │ LiteLLM :4000 UP? MCP :8765 UP? PicoClaw :18790 UP?        │
+    └────────────────────────┬────────────────────────────────────┘
+                             │
+                             ▼
+    ┌─────────────────────────────────────────────────────────────┐
+    │ CICLO 1: BASELINE                                          │
+    │ Catalogo < 24h? Tickets sem handoff? Yamls validos?        │
+    │ BLOQUEANTE: 0 tickets ativos sem handoff                    │
+    └────────────────────────┬────────────────────────────────────┘
+                             │
+                             ▼
+    ┌─────────────────────────────────────────────────────────────┐
+    │ CICLO 2: EXECUCAO (por ticket)                             │
+    │                                                             │
+    │  TICKET -> R0_BOOT -> R1_3W -> R2_PRIORIZE                │
+    │         -> R4_PLAN -> R5_EXECUTE -> R6_VERIFY              │
+    │         -> R7_HANDOFF -> R8_REFLECT                         │
+    │                                                             │
+    │  VERIFY (por tipo de arquivo):                              │
+    │    .py   -> ruff + mypy + pyright + bandit + py_compile   │
+    │    .yaml -> yaml.safe_load + naming + secret scan          │
+    │    .mdc  -> frontmatter YAML + NC-READ-HASH + naming       │
+    │    .json -> json.loads                                     │
+    │    .md   -> naming + secret scan                           │
+    │    .ps1  -> AST Parser                                     │
+    │    .jsonl-> json.loads por linha                           │
+    │                                                             │
+    │  AUDIT.FULL (apos cada task):                              │
+    │    19 secoes (FR-149) -> score -> gate                     │
+    │                                                             │
+    │  HANDOFF (obrigatorio):                                     │
+    │    NC-DS-{ID}-handoff-{TS}.yaml -> DIR-DS-002              │
+    └────────────────────────┬────────────────────────────────────┘
+                             │
+                             ▼
+    ┌─────────────────────────────────────────────────────────────┐
+    │ CICLO 3: CONSOLIDACAO (fim de sessao)                      │
+    │ Catalogo atualizado -> Bootup sync -> Yamls sanitized       │
+    │ WAL pruning >30d -> Baseline orfaos                         │
+    │ AUDIT.FULL score >= 60%                                     │
+    │ Auto-memory: session.summarize + catalog.now                │
+    └────────────────────────┬────────────────────────────────────┘
+                             │
+                             ▼
+    ┌─────────────────────────────────────────────────────────────┐
+    │ CICLO 4: LIMPEZA (semanal)                                  │
+    │ Auditoria governanca >80% -> Hash Yamls -> Archive >7d      │
+    │ Tickets >30d archived -> NC- compliance 100%                │
+    │ Lobes re-populados -> AUDIT.FULL score >= 50%               │
+    └─────────────────────────────────────────────────────────────┘
+
+# ╔══════════════════════════════════════════════════════════════╗
+# ║  MAPA 6: PASTAS — HIERARQUIA COMPLETA                      ║
+# ╚══════════════════════════════════════════════════════════════╝
+
+folder_hierarchy:
+  ascii: |
+    TURBOQUANT_V42/
+    │
+    ├── .agents/                          ← Rules + Workflows (OpenCode prompt injection)
+    │   ├── rules/ (10 arquivos .mdc)
+    │   └── workflows/ (NC-WF-001)
+    │
+    ├── 01_neocortex_framework/           ← ══ CORE DO SISTEMA ══
+    │   ├── neocortex/
+    │   │   ├── core/     (FR-107 a FR-172, 20 engines)
+    │   │   ├── infra/    (DB, cache, repositories)
+    │   │   ├── agent/    (Courier, Engineer isolados)
+    │   │   └── mcp/
+    │   │       ├── server.py       ← @LOCKS
+    │   │       ├── sub_server.py   ← @LOCKS
+    │   │       └── tools/ (18 NC-SUPER-*.py)
+    │   ├── DIR-DOC-FR-001-docs-main/   ← @SSOT @ROADMAP @LOCKS @POLICY @ULQ
+    │   ├── DIR-CFG-FR-001-config-main/ ← @CONFIG
+    │   ├── DIR-TEST-FR-001-tests-main/
+    │   ├── DIR-TMP-FR-001-templates-main/
+    │   ├── .neocortex/                 ← runtime data (git-ignored)
+    │   │   ├── lexico/    (LEXICO + TAG INDEX)
+    │   │   ├── savepoints/
+    │   │   ├── cache/
+    │   │   └── metrics/
+    │   └── scripts/ (NC-SCR-FR-*)
+    │
+    ├── 02_memory_lobes/                 ← ══ MEMORIA PERSISTENTE ══
+    │   ├── 01_architecture/
+    │   ├── 01_framework/
+    │   ├── 02_integrations/
+    │   ├── 03_agents/
+    │   ├── 04_cc_patterns/
+    │   ├── 05_user/
+    │   ├── 06_governance/    ← MASTER-MAP, NEURAL-MAP, RULES, CONSTITUTION
+    │   ├── 07_lexicon/
+    │   ├── 08_sessions/
+    │   └── 09_framework/
+    │
+    ├── 03_external_integrations/        ← Mission Control, OpenClaude
+    ├── 03_white_label_templates/
+    ├── 04_user_docs/
+    ├── 05_examples/                     ← ZONE:TEST
+    │
+    ├── DIR-BOOT-FR-001-bootup-main/     ← NC-BOOT-FR-001
+    ├── DIR-DS-000-agent-config/         ← Agent policies, prompts, roadmap YAML
+    ├── DIR-DS-001-tickets/              ← Active tickets (169 YAMLs)
+    ├── DIR-DS-002-audit-logs/           ← Handoffs + Sessions + WAL logs
+    ├── DIR-DS-003-wal/                  ← WAL database
+    ├── DIR-ARC-FR-001-archive-main/     ← Archive
+    │
+    ├── memory/sessions/                 ← Runtime session data
+    ├── lobes/                           ← Agent isolation (courier/engineer/guardian)
+    ├── data/                            ← Runtime data
+    └── reports/                         ← Generated reports
+
+# ╔══════════════════════════════════════════════════════════════╗
+# ║  INTEGRACAO: TODOS OS MAPAS REFERENCIAM O ULQ              ║
+# ╚══════════════════════════════════════════════════════════════╝
+
+ulq_integration:
+  description: "Todo mapa acima referencia o ULQ como tradutor universal"
+  cross_references:
+    organogram: "$COURIER $ENGINEER $GUARDIAN → agentes-lobes no ULQ"
+    data_flow: "#WAL #SAVES #SESSION #AUDIT → paths no ULQ"
+    orbitals: "#BRAIN #LLM #MEM #STATE #SYS #SEC #GOV → tools no ULQ"
+    thinking: "@ULQ @BOOT @RULES @LOCKS → SSOT files no ULQ"
+    pipeline: "%DONE %NOW %NEXT → tickets no ULQ"
+    folders: "01_* 02_* DIR-* → naming convention no @SSOT"

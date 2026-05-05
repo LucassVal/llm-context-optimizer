@@ -1,17 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:57.886808'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-parent_ssot: NC-SVC-FR-001-save-point-service
-tags:
-  - neocortex-other
-  - level-0
-  - nc-prefix
-  - python
----"""
+@Module NC-CORE-FR-022-save-point-service mcp _genealogy:   injected_at: '2026-04-16T00:23:57.88
+---
+"""
+
+
 #!/usr/bin/env python3
 """
 NC-SVC-FR-001-save-point-service.py
@@ -63,8 +55,13 @@ class SavePoint:
     """Representa um snapshot de estado antes de uma write operation."""
 
     __slots__ = (
-        "save_id", "action", "agent_role", "context",
-        "created_at", "expires_at", "status"
+        "action",
+        "agent_role",
+        "context",
+        "created_at",
+        "expires_at",
+        "save_id",
+        "status"
     )
 
     def __init__(self, action: str, agent_role: str, context: Dict[str, Any]):

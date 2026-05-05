@@ -1,0 +1,112 @@
+# NC-LBE-CC-004  Governance Patterns from Claude Code Leak
+
+**Data da anlise:** 20260412  
+**Fonte:** `freecode/`, `officialclaudecode/plugins/`  
+**Ticket:** NCDS009 (CC001B)
+
+---
+
+## 1. PLUGIN SYSTEM (officialclaudecode)
+
+### 1.1 Arquitetura de Plugins
+- **13 plugins oficiais** no marketplace interno da Anthropic.
+- Cada plugin reside em `plugins/<nome>/` com `README.md` e eventualmente `index.py`/`index.ts`.
+- **Autodiscovery** via `cc --plugindir /path/to/plugin`.
+- **Formato de configurao:** Markdown com frontmatter YAML (hookify) ou JSON (outros).
+- **Hooks de evento:** `bash`, `file`, `stop`, `prompt`, `all`.
+
+### 1.2 Hookify  Sistema de Hooks Leves
+- **Propsito:** Criar regras de governana sem editar `hooks.json`.
+- **Arquivo de regra:** `.claude/hookify.<nome>.local.md` (Markdown + YAML frontmatter).
+- **Campos obrigatrios:**
+  ```yaml
+  name: blockdangerousrm
+  enabled: true
+  event: bash
+  pattern: rm\s+rf
+  action: block   # ou warn
+  ```
+- **Condies mltiplas:** Combinam campos (`file_path`, `new_text`, ) com operadores (`regex_match`, `contains`, ).
+- **Ao imediata:** No requer restart; entra em vigor no prximo tool use.
+
+### 1.3 AgentSDKDev  Scaffolding de Agentes
+- **Comando `/newsdkapp`** cria projeto completo de Agent SDK (TypeScript/Python).
+- **Verificador automtico:** `agentsdkverifierpy` / `ts` valida o projeto contra best practices.
+- **Instala a ltima verso do SDK** e configura ambiente (`.env.example`, `.gitignore`).
+
+### 1.4 Outros Plugins Relevantes
+- **securityguidance:** Padres de segurana (ex.: no hardcodar credenciais).
+- **prreviewtoolkit:** Fluxo de reviso de PRs.
+- **codereview:** Padres de code review.
+- **commitcommands:** Padres de commits semnticos.
+- **featuredev:** Fluxo de desenvolvimento de features.
+
+### 1.5 Padro Comum de Configurao
+- **Diretrio `.claude/`** na raiz do projeto armazena configuraes por plugin.
+- **Exemplos** em `officialclaudecode/examples/settings/`.
+- **Configurao por projeto,** no global.
+
+---
+
+## 2. DRM / LICENA / TELEMETRIA
+
+### 2.1 Termos Encontrados (`grep` em freecode)
+- **`license`:** 7 arquivos (principalmente em `src/constants/license.ts`).
+- **`telemetry`:** 85 arquivos (sistema extensivo de coleta de eventos).
+- **`DRM`:** 0 arquivos  no encontrado no cdigo vazado.
+- **`obfuscat`:** 0 arquivos.
+
+### 2.2 Concluso
+- **DRM original** provavelmente removido aps a janela de 24h (conforme documentado).
+- **Sistema de telemetria robusto** (Datadog, firstparty logging, growthbook para feature flags).
+- **Licena** parece ser um mdulo de verificao de subscription (no analisado em profundidade).
+
+---
+
+## 3. AUDIT TRAIL & LOCKS
+
+### 3.1 Atomic Locks (padro NeoCortex)
+- **NO** encontrado no cdigo da Anthropic.
+- Eles confiam em **hooks reativos** (hookify) em vez de bloqueios proativos.
+
+### 3.2 Auditoria
+- **`logEvent` / `logEventAsync`** em `src/services/analytics/`.
+- **Eventos de sesso** armazenados via API (`/v1/sessions/{id}/events`).
+- **Histrico de pgina** (`sessionHistory.ts`) com paginao.
+
+### 3.3 Bridge Mode  Sesses Remotas
+- **`BRIDGE_MODE`** encontrado em 14 arquivos.
+- Conecta a **sesses remotas** (provavelmente infraestrutura de sandbox).
+- **`bridgeMain.ts`** (2999 linhas) gerencia ciclo de vida da sesso.
+
+---
+
+## 4. RECOMENDAES PARA O NEOCORTEX
+
+### 4.1 Adotar do Claude Code
+- **Formato Markdown+YAML para hooks** (hookify)  mais legvel que JSON.
+- **Diretrio `.claude/`** para configuraes por projeto.
+- **Plugin de securityguidance** como template de polticas.
+
+### 4.2 No Adotar
+- **Telemetria intrusiva** (85 arquivos)  manter privacidade.
+- **Complexidade do Bridge** (31 arquivos)  nosso isolamento  via lobe.
+
+### 4.3 Implementar
+- **`/newsdkapp` adaptado** para gerar lobos NeoCortex (NCLBE*).
+- **Verificador de best practices** para templates de lobe.
+
+---
+
+## 5. PRXIMOS PASSOS (T0)
+
+1. **Criar plugin hookifylike** para NeoCortex (NCTOOLFR022).
+2. **Extrair padres de commitcommands** para nosso `NCSCRFR001`.
+3. **Analisar `src/constants/license.ts`** para entender modelo de subscription.
+4. **Crosscheck com leakedclaudecode** para confirmar ausncia de DRM.
+
+---
+
+**Status:** Anlise preliminar  FALTAM validao cruzada (FASE5) e leitura de todos os 13 READMEs.
+
+**Prximo ticket:** NCDS010 (CC001C) para anlise de cdigo de produo.

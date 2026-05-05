@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+"""---
+NC-DS-122 — Executor de renomeação segura de neocortex/core/ KEEP_NON_NC
+---
+"""
+
+"""---
+NC-DS-122 — Executor de renomeação segura de neocortex/core/ KEEP_NON_NC
+---
+"""
+
 """
 NC-DS-122 — Executor de renomeação segura de neocortex/core/ KEEP_NON_NC
 T0-Antigravity — 2026-04-20

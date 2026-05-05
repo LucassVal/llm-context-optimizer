@@ -1,0 +1,40 @@
+{
+  "error_budget": {
+    "C0": {
+      "desc": "Health check + boot",
+      "max": 5,
+      "current": 0
+    },
+    "C3": {
+      "desc": "Consolidation",
+      "max": 10,
+      "current": 0
+    },
+    "C4": {
+      "desc": "Weekly cleanup",
+      "max": 5,
+      "current": 0
+    },
+    "C1": {
+      "desc": "Baseline + audit",
+      "max": 10,
+      "current": 0
+    },
+    "C2": {
+      "desc": "Execution + verify",
+      "max": 15,
+      "current": 0
+    }
+  },
+  "checkpoints": {},
+  "audit_baseline": null,
+  "session_id": "SESS-20260430-001",
+  "files_touched": [],
+  "status": "PRE-FLIGHT",
+  "started_at": "2026-04-30T12:37:03",
+  "circuit_breaker": {
+    "cooldown_seconds": 300,
+    "max_failures_per_cycle": 3,
+    "escalate_to": "T0"
+  }
+}

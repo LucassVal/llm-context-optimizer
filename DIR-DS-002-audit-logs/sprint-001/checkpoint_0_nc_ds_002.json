@@ -1,0 +1,20 @@
+{
+  "ticket_id": "NC-DS-002",
+  "roadmap_ticket": "FR-026",
+  "phase": "FASE_0_RECEBER",
+  "timestamp": "2026-04-12T00:00:00",
+  "entry_state": {
+    "write_zone": "01_neocortex_framework/neocortex/mcp/tools/",
+    "files_existing": {
+      "NC-TOOL-FR-000-brain.py": true,
+      "NC-TOOL-FR-001-brain.py": false,
+      "NC-TOOL-FR-026-intelligence.py": false
+    },
+    "active_locks_verified": [
+      "server.py",
+      "sub_server.py",
+      "NC-NAM-FR-001",
+      "neocortex_config.yaml"
+    ]
+  }
+}

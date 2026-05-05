@@ -1,0 +1,89 @@
+_meta:
+  domain: configuration
+  hash: auto-generated
+  layer: config
+  tags:
+  - config
+  - yaml
+  - configuration
+  type: CFG
+cache:
+  hot_cache_default_ttl: 300
+  hot_cache_size_mb: 100
+  hot_cache_use_memory: true
+  ledger_size_gb: 1
+  manifest_size_gb: 1
+llm:
+  agent_backends:
+    courier:
+      base_url: http://localhost:11434
+      model: qwen2.5-coder:1.5b-instruct
+      provider: ollama
+    default:
+      api_key: sk-cc547db836f04d58a9aa651f1b0279c2
+      base_url: https://api.deepseek.com
+      model: deepseek-chat
+      provider: deepseek
+    engineer:
+      base_url: http://localhost:11434
+      model: qwen2.5-coder:3b-instruct
+      provider: ollama
+    t0:
+      api_key: sk-cc547db836f04d58a9aa651f1b0279c2
+      base_url: https://api.deepseek.com
+      model: deepseek-reasoner
+      provider: deepseek
+  api_key: sk-cc547db836f04d58a9aa651f1b0279c2
+  base_url: https://api.deepseek.com
+  fallback_chain:
+  - api_key: sk-cc547db836f04d58a9aa651f1b0279c2
+    base_url: https://api.deepseek.com
+    model: deepseek-chat
+    provider: deepseek
+  - api_key: sk-cc547db836f04d58a9aa651f1b0279c2
+    base_url: https://api.deepseek.com
+    model: deepseek-reasoner
+    provider: deepseek
+  - base_url: http://localhost:11434
+    model: qwen2.5-coder:1.5b-instruct
+    provider: ollama
+  - api_key: ${OPENAI_API_KEY}
+    base_url: https://api.openai.com/v1
+    model: gpt-3.5-turbo
+    provider: openai
+  max_tokens: 8192
+  model: deepseek-chat
+  provider: deepseek
+  temperature: 0.7
+monitoring:
+  enable_metrics: true
+  health_check_interval_seconds: 60
+  metrics_store: duckdb
+paths:
+  archive: DIR-ARC-FR-001-archive-main
+  backup: DIR-BAK-FR-001-backup-main
+  core_central: DIR-CORE-FR-001-core-central
+  docs: DIR-DOC-FR-001-docs-main
+  mcp_server: DIR-MCP-FR-001-mcp-server
+  profiles: DIR-PRF-FR-001-profiles-main
+  source: DIR-SRC-FR-001-source-main
+  templates: DIR-TMP-FR-001-templates-main
+  vector_db: DIR-VEC-FR-001-vector-db
+scheduler:
+  akl_assessment_interval_hours: 24
+  akl_assessment_target_hour: 0
+  backup_interval_hours: 24
+  backup_target_hour: 3
+  checkpoint_interval_minutes: 5
+  consolidation_interval_minutes: 30
+  pruning_interval_minutes: 15
+search:
+  engine: xapian
+  max_results: 100
+vector_store:
+  provider: lancedb
+  path: data/vector_db
+  collection_prefix: neocortex_
+  embedding_dimension: 384
+  metric: cosine
+  max_connections: 10

@@ -1,0 +1,23 @@
+status: APPROVED
+ticket_id: NC-DS-210
+title: "Gateway le MCP hook registry - unificar hooks (SSOT unico)"
+submitted_at: "2026-04-30T14:45:00"
+submitted_by: T0-Antigravity
+summary:
+  what: "Adicionado _check_registry_hooks() ao Gateway. Le hooks do MCP registry e executa verificacoes R01,R21,R51,R112,R113,R114,R117. Hardcoded checks mantidos como fallback."
+  why: "py_compile OK, ruff OK. Migracao segura: hooks registrados no MCP agora tem codigo correspondente no Gateway. Hardcoded checks preservados."
+  where: "NC-CORE-FR-129-shared-kernel-gateway.py (@LOCK). FORUM orbital. Afeta toda validacao MCP."
+  files_modified:
+    - "01_neocortex_framework/neocortex/core/NC-CORE-FR-129-shared-kernel-gateway.py"
+  files_created:
+    - "01_neocortex_framework/neocortex/core/NC-CORE-FR-129-sandbox.py"
+  backup: "NC-CORE-FR-129-shared-kernel-gateway.py.backup-20260430"
+  validation_rounds: 1
+  barriers_passed: ["py_compile","ruff","sandbox_tested"]
+  locks_violated: []
+  methodology: "SANDBOX: copia -> edita -> valida -> aplica no real. Rollback via backup disponivel."
+t0_review:
+  compile_ok: true
+  naming_ok: true
+  locks_clean: true
+  roadmap_done: false

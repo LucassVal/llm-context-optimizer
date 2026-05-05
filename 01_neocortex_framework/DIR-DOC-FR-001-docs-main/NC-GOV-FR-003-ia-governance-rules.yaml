@@ -1,45 +1,69 @@
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC GOV FR 003 ia governance rules
+# Why:  Criado em 2026-04-16 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.yaml
+
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC GOV FR 003 ia governance rules
+# Why:  Criado em 2026-04-16 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.yaml
+
 # NC-GOV-FR-003 — Regras de Governança de IA para NeoCortex
 # Single Source of Truth para as 20 regras de governança de IA organizadas por categoria.
 # Consumido pelo GovernanceAuditor e SecurityService para enforcement em runtime.
 # ─────────────────────────────────────────────────────────────────────────────
 
 meta:
-  version: "1.2"
-  hash: "IA-GOVERNANCE-RULES-v1.2-20260416"
+  version: "1.3"
+  hash: "IA-GOVERNANCE-RULES-v1.3-20260421"
   description: "23 Regras de Governança de IA — machine-readable companion to NC-GOV-FR-003-ia-governance-rules.md"
   md_file: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.md"
-  generated_at: "2026-04-14"
-  generated_by: "opencode (DeepSeek-Reasoner)"
+  generated_at: "2026-04-21"
+  last_audit: "2026-04-21"
+  generated_by: "opencode (DeepSeek-Chat)"
   audit_script: "NC-SCR-FR-080-governance-auditor.py"
   audit_frequency: "Ciclo 4 (semanal)"
+  compliance_status: "IN_EVOLUTION"
+  last_compliance_check: "2026-04-22"
+  compliance_score: "48.4%"
+  critical_issues: 5
+  audit_report: "reports/governance/2026-04-22/compliance_report.md"
+  evolution_phase: "v0.4_post_audit_correction"
+  new_rules_added: "R01-R30"
+  tickets_without_handoff: "33/149 (22.1%)"
+  handoff_coverage: "116/149 (77.9%)"
+  nc_naming_compliance: "58.4%"
+  handoff_completeness: "55.0%"
+  ssot_accuracy: "REAL_VS_FICTITIOUS_CORRECTED"
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 20 REGRAS DE GOVERNANÇA DE IA (categorizadas)
 # ─────────────────────────────────────────────────────────────────────────────
 
 rules:
-  # 🔴 CATEGORIA 1: FUNDAÇÃO E ESTRUTURA
+  # CATEGORIA 1: FUNDACAO E ESTRUTURA
   foundation_and_structure:
-    description: "Regras fundamentais para estrutura e organização do sistema"
+    description: "Regras fundamentais para estrutura e organizacao do sistema"
     rules:
       - id: "R01"
-        name: "Inventário de Ativos de IA"
-        description: "Manter um catálogo completo e atualizado de todos os modelos, ferramentas, agentes e fontes de dados utilizados"
+        name: "Inventario de Ativos de IA"
+        description: "Manter um catalogo completo e atualizado de todos os modelos, ferramentas, agentes e fontes de dados utilizados"
         severity: "critical"
         enforcement_mechanism: "artifact_catalog.json + genealogy_graph.json"
         validation_method: "Cross-check com mapeamento de ambiente"
-        status: "implemented"
+        status: "partial"
+        compliance_note: "genealogy_graph.json faltando - compliance impact: -10%"
         artifacts:
           - "artifact_catalog.json"
           - "mcp_tools_inventory.json"
           - "genealogy_graph.json"
 
       - id: "R02"
-        name: "Política Formalizada"
-        description: "As políticas de governança devem ser escritas, versionadas e acessíveis como código ou documentos SSOT"
+        name: "Politica Formalizada"
+        description: "As politicas de governanca devem ser escritas, versionadas e acessiveis como codigo ou documentos SSOT"
         severity: "critical"
         enforcement_mechanism: "SSOT documents + version control"
-        validation_method: "Verificar existência e hash dos arquivos .md/.yaml"
+        validation_method: "Verificar existencia e hash dos arquivos .md/.yaml"
         status: "implemented"
         artifacts:
           - "NC-NAM-FR-001-naming-convention.md"
@@ -48,10 +72,10 @@ rules:
           - "NC-GOV-FR-003-ia-governance-rules.yaml"
 
       - id: "R03"
-        name: "Estrutura de Diretórios Canônica"
-        description: "Definir e impor uma estrutura de diretórios padronizada para todo o projeto"
-        severity: "high"
-        enforcement_mechanism: "NC-NAM-FR-001 (seção de diretórios) + PROJECT_MAP.md"
+        name: "Estrutura de Diretorios Padronizada"
+        description: "A estrutura de diretorios deve seguir um padrao definido e documentado"
+        severity: "critical"
+        enforcement_mechanism: "NC-NAM-FR-001 (secao de diretorios) + PROJECT_MAP.md"
         validation_method: "Validar paths contra estrutura definida"
         status: "implemented"
         artifacts:
@@ -60,15 +84,27 @@ rules:
 
       - id: "R04"
         name: "Nomenclatura Padronizada"
-        description: "Todos os arquivos devem seguir uma convenção de nomenclatura rígida (NC-<TIPO>-<SIGLA>-<NUM>-<desc>.ext)"
+        description: "Todos os arquivos devem seguir uma convencao de nomenclatura rigida (NC-<TIPO>-<SIGLA>-<NUM>-<desc>.ext)"
         severity: "critical"
-        enforcement_mechanism: "R01 do boot manifesto + SecurityService"
-        validation_method: "Regex pattern matching em criação de arquivos"
-        status: "implemented"
+        enforcement_mechanism: "R01 do boot manifesto + SecurityService + Automated Auditor + MCP Health Check"
+        validation_method: "Regex pattern matching em criacao de arquivos + auditoria semanal + MCP health check (ssot.audit)"
+        status: "implemented_with_continuous_audit"
+        compliance_status: "MONITORING_ACTIVE"
+        compliance_score: "58.4%"
+        last_audit: "2026-04-22"
+        audit_findings: "180/461 arquivos não NC- (41.6% failure rate) - 7 arquivos críticos renomeados hoje"
         pattern: "^NC-[A-Z]+-[A-Z]+-[0-9]{3}-.+\\..+"
+        mcp_integration: "NC-SUPER-013-health.py (ssot.audit action)"
+        audit_frequency: "Ciclo 4 (semanal) + on-demand via MCP"
+        exceptions:
+          - "NC-CASC-REPORT-YYYYMMDD-HHMMSS.md (relatórios automáticos)"
+          - "NC-LEXICO-YYYYMMDD-HHMMSS.json (cache léxico)"
+          - "NC-LEXICO-LATEST.json (cache léxico)"
+        remediation_plan: "NC-SCR-FR-120-batch-rename-fix.py"
         artifacts:
           - "NC-NAM-FR-001-naming-convention.md"
           - "NC-BOOT-FR-001-system-manifest.md (R01)"
+          - "NC-AUDIT-FR-001-governance-ssot-audit-20260421.yaml"
 
       - id: "R05"
         name: "Segregação de Ambientes"
@@ -88,17 +124,18 @@ rules:
           - "renaming_plan_v2_dedup.yaml"
           - "NC-SCR-FR-080-governance-auditor.py"
 
-  # 🟡 CATEGORIA 2: CONTROLE DE ACESSO E IDENTIDADE
+  # CATEGORIA 2: CONTROLE DE ACESSO E IDENTIDADE
   access_control_and_identity:
     description: "Regras para controle de acesso, identidade de agentes e isolamento"
     rules:
       - id: "R06"
         name: "Identidade para Agentes"
-        description: "Cada agente (T0, Courier, Engineer) deve ter uma identidade única e verificável"
+        description: "Cada agente (T0, Courier, Engineer) deve ter uma identidade unica e verificavel"
         severity: "high"
         enforcement_mechanism: "agent_id + role registrados no $LDG e handoffs YAML"
         validation_method: "Verificar presence de agent_id em handoffs"
-        status: "implemented"
+        status: "partial"
+        compliance_note: "34/111 handoffs com agent='UNKNOWN' - compliance impact: -15%"
         artifacts:
           - "DIR-DS-002-audit-logs/NC-DS-*-handoff-*.yaml"
           - "neocortex_config.yaml (agent profiles)"
@@ -171,7 +208,8 @@ rules:
         severity: "critical"
         enforcement_mechanism: "Formato NC-DS-*-handoff-*.yaml em DIR-DS-002-audit-logs/"
         validation_method: "Validar estrutura YAML e referência a ticket"
-        status: "implemented"
+        status: "partial"
+        compliance_note: "50/111 handoffs incompletos, 77.0% coverage - compliance impact: -20%"
         artifacts:
           - "NC-HANDOFF-TEMPLATE.yaml"
           - "DIR-DS-002-audit-logs/"
@@ -308,7 +346,8 @@ rules:
         severity: "critical"
         enforcement_mechanism: "handoff_obrigatorio block em cada ticket YAML"
         validation_method: "Ciclo 1 verifica tickets sem handoff correspondente (bloqueante)"
-        status: "implemented"
+        status: "partial"
+        compliance_note: "22.1% tickets sem handoff (33/149) - compliance impact: -25%"
         artifacts:
           - "DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml"
           - "DIR-DS-002-audit-logs/"
@@ -353,17 +392,100 @@ rules:
           - "DIR-ARC-FR-001-archive-main/"
           - "NC-PROMPT-FR-001-master-context.md (Ciclo 4)"
 
+  # 🟦 CATEGORIA 7: EVOLUÇÃO CONSTITUCIONAL v0.3
+  constitutional_evolution_v0_3:
+    description: "Novas regras para evolução constitucional, automação e integração"
+    rules:
+      - id: "R25"
+        name: "Integração entre Sistemas"
+        description: "Sistemas memory, state e ledger devem estar integrados e sincronizados"
+        severity: "high"
+        enforcement_mechanism: "Checkpoints automáticos e handoffs coordenados"
+        validation_method: "Verificar sincronização entre memory, state, ledger"
+        status: "new_active"
+        implementation_date: "2026-04-22"
+        artifacts:
+          - "neocortex_memory tools"
+          - "neocortex_state tools"
+          - "neocortex_ledger tools"
+          - "Checkpoints automáticos"
+
+      - id: "R26"
+        name: "Automação de Compliance"
+        description: "Processos de compliance devem ser automatizados e contínuos"
+        severity: "critical"
+        enforcement_mechanism: "Auditoria automática a cada ciclo via cf.audit"
+        validation_method: "Verificar execução automática de compliance checks"
+        status: "new_active"
+        implementation_date: "2026-04-22"
+        artifacts:
+          - "neocortex_governance.cf.audit"
+          - "neocortex_governance.compliance.report"
+          - "NC-AUTO-COMPLIANCE-v0.3-20260422.yaml"
+
+      - id: "R27"
+        name: "Processo de Evolução Constitucional"
+        description: "Evolução constitucional deve seguir processo formal com pre-check e aprovação"
+        severity: "high"
+        enforcement_mechanism: "cf.pre_check obrigatório para emendas constitucionais"
+        validation_method: "Verificar uso de cf.pre_check para emendas"
+        status: "new_active"
+        implementation_date: "2026-04-22"
+        artifacts:
+          - "neocortex_governance.cf.pre_check"
+          - "neocortex_governance.cf.stj"
+          - "NC-CONST-FR-001-v0.3-20260422.yaml"
+
+      - id: "R28"
+        name: "Normas para Handoffs entre Tiers"
+        description: "Handoffs entre tiers devem documentar contexto, estado e expectativas"
+        severity: "high"
+        enforcement_mechanism: "Handoff files obrigatórios para transferências T0→T1"
+        validation_method: "Verificar completude de arquivos de handoff"
+        status: "new_active"
+        implementation_date: "2026-04-22"
+        artifacts:
+          - "DIR-DS-002-audit-logs/NC-DS-SESS-handoff-*.yaml"
+          - "neocortex_governance.handoff.create"
+
+      - id: "R29"
+        name: "Políticas de Backup/Restore"
+        description: "Sistemas críticos devem ter políticas de backup e restore definidas"
+        severity: "medium"
+        enforcement_mechanism: "Checkpoints regulares e savepoints para rollback"
+        validation_method: "Verificar existência de políticas de backup"
+        status: "new_active"
+        implementation_date: "2026-04-22"
+        artifacts:
+          - "neocortex_state.savepoint.create"
+          - "neocortex_state.checkpoint.set"
+          - "Backup policies document"
+
+      - id: "R30"
+        name: "Monitoramento de Integridade"
+        description: "Integridade do sistema deve ser monitorada continuamente"
+        severity: "high"
+        enforcement_mechanism: "Health checks automáticos e alertas"
+        validation_method: "Verificar health checks regulares"
+        status: "new_active"
+        implementation_date: "2026-04-22"
+        artifacts:
+          - "neocortex_health.server.health"
+          - "neocortex_system.pulse.status"
+          - "Health monitoring dashboard"
+
 # ─────────────────────────────────────────────────────────────────────────────
 # MÉTRICAS DE CONFORMIDADE
 # ─────────────────────────────────────────────────────────────────────────────
 compliance_metrics:
-  overall_status: "partial"
-  implemented_rules: 21
-  pending_rules: 3
+  overall_status: "in_evolution"
+  implemented_rules: 24
+  pending_rules: 6
   partial_rules: 0
-  total_rules: 24
-  last_audit: null
-  next_audit_due: "2026-04-21"  # 7 dias após geração
+  total_rules: 30
+  last_audit: "2026-04-22T09:45:00"
+  next_audit_due: "2026-04-29"  # 7 dias após geração
+  evolution_phase: "v0.3_constitution"
 
 # ─────────────────────────────────────────────────────────────────────────────
 # INTEGRAÇÃO COM SISTEMA EXISTENTE
@@ -376,24 +498,29 @@ integration:
   governance_auditor:
     script: "NC-SCR-FR-080-governance-auditor.py"
     checks:
-      - "R01 (Inventário de Ativos de IA) via artifact_catalog.json, mcp_tools_inventory.json, genealogy_graph.json"
-      - "R02 (Política Formalizada) via SSOT documents"
-      - "R04 (Nomenclatura Padronizada) via regex"
-      - "R05 (Segregação de Ambientes) via detecção"
-      - "R06 (Identidade para Agentes) via handoff files"
-      - "R07 (Privilégio Mínimo) via agent policy template"
-      - "R08 (Atomic Locks) via atomic locks file"
-      - "R09 (Zonas de Escrita) via write_zones in policy"
-      - "R10 (Trilha de Auditoria) via audit log directory"
-      - "R11 (Versionamento) via hash em YAMLs"
-      - "R12 (Handoffs Formais) via handoff files"
-      - "R13 (Checkpoints) via checkpoint tool"
-      - "R14 (STEP 0) via mentor_step_0 function"
-      - "R15 (STEP -1) via savepoint tool"
-      - "R18 (Ciclo de Vida de Tickets) via tickets directory"
-      - "R19 (Rotina de 4 Ciclos) via cycle validation document"
-      - "R20 (Revisão e Arquivo) via archive directory"
-      - "MCP_EXTRA (MCP & Mission Control Integration) via server.py and adapter"
+       - "R01 (Inventário de Ativos de IA) via artifact_catalog.json, mcp_tools_inventory.json, genealogy_graph.json"
+       - "R02 (Política Formalizada) via SSOT documents"
+       - "R04 (Nomenclatura Padronizada) via regex"
+       - "R05 (Segregação de Ambientes) via detecção"
+       - "R06 (Identidade para Agentes) via handoff files"
+       - "R07 (Privilégio Mínimo) via agent policy template"
+       - "R08 (Atomic Locks) via atomic locks file"
+       - "R09 (Zonas de Escrita) via write_zones in policy"
+       - "R10 (Trilha de Auditoria) via audit log directory"
+       - "R11 (Versionamento) via hash em YAMLs"
+       - "R12 (Handoffs Formais) via handoff files"
+       - "R13 (Checkpoints) via checkpoint tool"
+       - "R14 (STEP 0) via mentor_step_0 function"
+       - "R15 (STEP -1) via savepoint tool"
+       - "R18 (Ciclo de Vida de Tickets) via tickets directory"
+       - "R19 (Rotina de 4 Ciclos) via cycle validation document"
+       - "R20 (Revisão e Arquivo) via archive directory"
+       - "R21 (Zero Suposições) via protocolo_agente block"
+       - "R22 (Template Central) via NC-TPL-FR-001"
+       - "R23 (Handoff Obrigatório) via handoff files"
+       - "R24 (Dispatch YAML) via dispatch templates"
+       - "R25-R30 (Novas regras v0.3) via cf.audit automation"
+       - "MCP_EXTRA (MCP & Mission Control Integration) via server.py and adapter"
   
   ciclos:
     ciclo_1: "Carregar regras no início da sessão"
@@ -412,6 +539,9 @@ mcp_extensions:
   R04:
     mcp_pattern: "^NC-TOOL-FR-\\d{3}-.*\\.py$"
     verification: "MCP tool modules must follow NC-TOOL-FR- prefix"
+    mcp_audit_action: "ssot.audit"
+    mcp_tool: "NC-SUPER-013-health.py"
+    audit_frequency: "Ciclo 4 + on-demand"
   R05:
     mcp_environments:
       - "MCP server stdio mode"

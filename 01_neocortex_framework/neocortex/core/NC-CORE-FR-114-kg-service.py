@@ -1,15 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:57.663790'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-tags:
-  - neocortex-other
-  - level-0
-  - python
----"""
+@Module NC-CORE-FR-114-kg-service mcp _genealogy:   injected_at: '2026-04-16T00:23:57.66
+---
+"""
+
+
 #!/usr/bin/env python3
 """
 Knowledge Graph Service - Business logic for knowledge graph operations.

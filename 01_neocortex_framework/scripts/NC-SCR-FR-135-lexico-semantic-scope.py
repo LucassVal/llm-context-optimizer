@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+"""---
+NC-SCR-FR-135-lexico-semantic-scope.py — LEXICO-002
+---
+"""
+
+"""---
+NC-SCR-FR-135-lexico-semantic-scope.py — LEXICO-002
+---
+"""
+
 """
 NC-SCR-FR-135-lexico-semantic-scope.py — LEXICO-002
 

@@ -54,11 +54,11 @@ attempts:
 queue_analysis:
   total_tasks: 15
   by_status:
-    DONE: 6 (NC-DS-015,017,019,020,024,025,027,028)
+    DONE: 8 (NC-DS-015,017,019,020,024,025,027,028)
     ACTIVE: 1 (NC-DS-016)
     AVAILABLE: 5 (NC-DS-018,021,022,023,026)
     BLOCKED: 1 (NC-DS-029)
-    CLAIMED: 0 (note: but see inconsistencies below)
+    CLAIMED: 0 # (note: but see inconsistencies below)
 
 # ============================================================
 # CRITICAL INCONSISTENCIES FOUND

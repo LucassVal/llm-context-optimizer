@@ -1,19 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:59.041572'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-parent_ssot: NC-SVC-FR-015-task-broker
-related_ssot:
-  - NC-TOOL-FR-035-task
-tags:
-  - neocortex-other
-  - level-0
-  - nc-prefix
-  - python
----"""
+@Module NC-SVC-FR-015-task-broker mcp _genealogy:   injected_at: '2026-04-16T00:23:59.04
+---
+"""
+
+
 """
 NC-SVC-FR-015-task-broker.py
 FR-015  TaskBroker: Persistent task tracking with retry and polling.

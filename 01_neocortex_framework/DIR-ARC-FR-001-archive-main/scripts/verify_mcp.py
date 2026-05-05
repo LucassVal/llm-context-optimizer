@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+"""---
+Verify MCP server startup and tool registration.
+---
+"""
+
+"""---
+Verify MCP server startup and tool registration.
+---
+"""
+
 """
 Verify MCP server startup and tool registration.
 """

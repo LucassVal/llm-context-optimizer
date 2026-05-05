@@ -1,0 +1,38 @@
+status: COMPLETED
+session_id: SESS-20260430-002
+agent: T0-Antigravity
+submitted_at: "2026-04-30T19:38:00"
+summary:
+  what: |
+    Correcao de headers truncados, checkpoints de boot, migracao de transporte MCP,
+    resolucao de conflito DuckDB, atualizacao de configs Antigravity + OpenCode.
+  deliveries:
+    - "10 headers YAML restaurados (repos, schemas, pulse, server, FR-101/105/107/116)"
+    - "8 boot checkpoints no server.py"
+    - "Transporte: sse → streamable-http (:8765/mcp)"
+    - "DuckDB: NEOCORTEX_METRICS_MODE=memory para stdio"
+    - "OpenCode mcp.json: type:local, command:[], environment:{}"
+    - "Antigravity: :8765/sse → :8765/mcp"
+    - "Launcher .bat atualizado"
+  verification:
+    py_compile: "ALL clean"
+    ruff: "ALL clean"
+    mcp_http_test: "initialize → neocortex v1.26.0 OK"
+    antigravity: "CONNECTED (POST/GET /mcp 200 OK)"
+    opencode: "Config corrigida, aguarda reload"
+files_modified:
+  - "01_neocortex_framework/neocortex/core/NC-CORE-FR-101,105,107,116"
+  - "01_neocortex_framework/neocortex/mcp/server.py"
+  - "01_neocortex_framework/neocortex/mcp/tools/pulse.py"
+  - "01_neocortex_framework/neocortex/repositories/__init__.py,base.py,file_system_repository.py"
+  - "01_neocortex_framework/neocortex/schemas/__init__.py"
+  - "01_neocortex_framework/neocortex/infra/metrics_store.py"
+  - "01_neocortex_framework/scripts/NC-SCR-FR-104-neocortex-launcher.bat"
+  - "%APPDATA%/Code/User/mcp.json"
+  - "~/.gemini/antigravity/mcp_config.json"
+next_steps:
+  - "1. Rodar .bat → HTTP server :8765"
+  - "2. Abrir OpenCode → stdio auto-inicia"
+  - "3. Reload MCP Servers no OpenCode"
+  - "4. NC-DS-250 Cache Hit Monitor"
+  - "5. Fase 2: NC-DS-211, 216, 217, 222"

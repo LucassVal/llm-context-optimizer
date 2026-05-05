@@ -4,7 +4,8 @@ layer: "infra"
 type: "repository"
 tags: ["init"]
 hash: "auto-generated"
----"""
+----"""
+
 #!/usr/bin/env python3
 """
 Repository Pattern implementations for NeoCortex storage abstraction.
@@ -26,14 +27,14 @@ from .file_system_repository import (
 )
 
 __all__ = [
-    "Repository",
     "CortexRepository",
-    "LedgerRepository",
-    "ProfileRepository",
-    "LobeRepository",
     "FileSystemCortexRepository",
     "FileSystemLedgerRepository",
-    "FileSystemProfileRepository",
     "FileSystemLobeRepository",
+    "FileSystemProfileRepository",
     "FileSystemRepositoryFactory",
+    "LedgerRepository",
+    "LobeRepository",
+    "ProfileRepository",
+    "Repository",
 ]

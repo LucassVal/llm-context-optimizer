@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+"""---
+NC-SCR-FR-113 — NC-DS-143: Popular Knowledge Graph com lobes existentes
+---
+"""
+
+"""---
+NC-SCR-FR-113 — NC-DS-143: Popular Knowledge Graph com lobes existentes
+---
+"""
+
 """
 NC-SCR-FR-113 — NC-DS-143: Popular Knowledge Graph com lobes existentes
 Usa Path(__file__) para evitar problemas com caminhos Unicode (ex: acentos).

@@ -1,17 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:59.192138'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-parent_ssot: NC-UTL-FR-004-id-validator
-tags:
-  - neocortex-other
-  - level-0
-  - nc-prefix
-  - python
----"""
+@Validator NC-UTL-FR-004-id-validator mcp _genealogy:   injected_at: '2026-04-16T00:23:59.19
+---
+"""
+
+
 """
 NC-UTL-FR-004-id-validator.py
 FR-004  ID Validator: Validador de IDs e constantes compartilhadas.

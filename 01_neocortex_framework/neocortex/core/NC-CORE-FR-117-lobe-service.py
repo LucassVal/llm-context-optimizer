@@ -1,15 +1,9 @@
 """---
-_genealogy:
-  injected_at: '2026-04-16T00:23:57.736775'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-tags:
-  - neocortex-other
-  - level-0
-  - python
----"""
+@Module NC-CORE-FR-117-lobe-service mcp _genealogy:   injected_at: '2026-04-16T00:23:57.73
+---
+"""
+
+
 #!/usr/bin/env python3
 """
 Lobe Service - Business logic for lobe operations.
@@ -465,8 +459,17 @@ class LobeService:
         Returns:
             Dictionary with activation result
         """
-        # Check if lobe exists
-        if not self.repository.lobe_exists(lobe_name):
+        # Check if lobe exists (ledger first, then filesystem)
+        exists_in_ledger = self.repository.lobe_exists(lobe_name)
+        exists_on_disk = False
+        if not exists_in_ledger:
+            from pathlib import Path as _P
+            lobes_dir = _P(__file__).parents[3] / "02_memory_lobes"
+            for mdc in lobes_dir.rglob("*.mdc") if lobes_dir.exists() else []:
+                if lobe_name in mdc.stem or mdc.stem == lobe_name:
+                    exists_on_disk = True
+                    break
+        if not exists_in_ledger and not exists_on_disk:
             return {"success": False, "error": f"Lobe '{lobe_name}' does not exist"}
 
         ledger_service = get_ledger_service()
@@ -511,6 +514,14 @@ class LobeService:
             }
         else:
             return {"success": False, "error": "Failed to update ledger"}
+
+    def activate(self, lobe_name: str) -> Dict[str, Any]:
+        """Alias for activate_lobe."""
+        return self.activate_lobe(lobe_name)
+
+    def deactivate(self, lobe_name: str) -> Dict[str, Any]:
+        """Alias for deactivate_lobe."""
+        return self.deactivate_lobe(lobe_name)
 
     def deactivate_lobe(self, lobe_name: str) -> Dict[str, Any]:
         """
@@ -592,13 +603,7 @@ class LobeService:
         for line in lines:
             line = line.strip()
             # Look for checklist items
-            if line.startswith("- [ ]") or line.startswith("- [x]"):
-                checkpoints.append(line)
-            # Also look for numbered checkpoints
-            elif re.match(r"^\d+\.\s+\[[ x]\]", line):
-                checkpoints.append(line)
-            # Look for checkpoint markers
-            elif "CP-" in line.upper():
+            if line.startswith("- [ ]") or line.startswith("- [x]") or re.match(r"^\d+\.\s+\[[ x]\]", line) or "CP-" in line.upper():
                 checkpoints.append(line)
 
         # Extract hierarchy (simplified)

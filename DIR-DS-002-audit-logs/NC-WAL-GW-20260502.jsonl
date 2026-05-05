@@ -1,0 +1,3 @@
+{"operation_id": "gw-20260502115107", "agent": "T0", "role": "T0", "action": "server.health", "target": "", "allowed": true, "violations": [], "timestamp": "2026-05-02T11:51:07.676012"}
+{"operation_id": "gw-20260502115121", "agent": "T0", "role": "T0", "action": "server.tools_count", "target": "", "allowed": true, "violations": [], "timestamp": "2026-05-02T11:51:21.532986"}
+{"operation_id": "gw-20260502115124", "agent": "T0", "role": "T0", "action": "metrics.live", "target": "", "allowed": true, "violations": [], "timestamp": "2026-05-02T11:51:24.716525"}

@@ -1,0 +1,13 @@
+{
+  "category": "09_documentation",
+  "tags": [
+    "mdc",
+    "worker",
+    "persistent"
+  ],
+  "summary": "Documentação do worker persistente RalphWiggum no Claude Code e mapeamento para NeoCortex.",
+  "priority_score": 8,
+  "file": "NC-LBE-CC-003-persistent-worker.mdc",
+  "lobe_id": "NC-LBE-CC-003-persistent-worker",
+  "classified": "2026-04-21T10:36:14"
+}

@@ -1,0 +1,109 @@
+# Picoclaw Tool Autoloader Configuration
+# NC-DS-120 Implementation
+
+# Directories to scan for tool definitions
+scan_directories:
+  - "./tools/system/"      # System tools (highest priority)
+  - "./tools/user/"        # User-defined tools
+  - "./tools/third_party/" # Third-party tools (lowest priority)
+
+# Scanning configuration
+scan_interval: 300          # Rescan interval in seconds (0 = disable periodic scanning)
+enable_hot_reload: true     # Enable file watching for hot reload
+auto_load: true            # Automatically load tool implementations on registration
+
+# Validation settings
+validation_strictness: true # Strict validation (false = lenient)
+conflict_resolution: "last-wins" # Options: "last-wins", "error", "skip"
+
+# Logging
+log_level: "INFO"          # DEBUG, INFO, WARNING, ERROR
+
+# Tool loading settings
+default_timeout: 30        # Default execution timeout in seconds
+max_concurrent_tools: 100  # Maximum number of tools to load concurrently
+
+# Security settings
+enable_sandbox: false      # Enable sandbox for tool execution (requires additional setup)
+require_digital_signatures: false # Require digital signatures for third-party tools
+
+# Performance settings
+cache_tool_metadata: true  # Cache tool metadata for faster lookups
+lazy_loading: true        # Load tool implementations only when needed
+connection_pool_size: 10   # Connection pool size for tool handlers
+
+# API endpoints (exposed via Picoclaw)
+expose_endpoints:
+  - "/tools"              # List all tools
+  - "/tools/{name}"       # Get tool details
+  - "/tools/scan"         # Trigger manual scan
+  - "/tools/reload/{name}" # Reload specific tool
+  - "/tools/status"       # Get autoloader status
+
+# Tool definition schema validation
+schema_validation:
+  enforce_required_fields: true
+  allow_extra_fields: false
+  validate_parameter_types: true
+
+# Hot reload settings
+hot_reload:
+  debounce_delay: 1000    # Delay in ms before processing file changes
+  recursive_watching: true # Watch directories recursively
+  ignore_patterns:
+    - "*.tmp"
+    - "*.bak"
+    - "*.swp"
+    - ".git/*"
+    - "__pycache__/*"
+
+# Tool categories (for organization)
+categories:
+  system: "System tools"
+  utility: "Utility tools"
+  data: "Data processing tools"
+  ai: "AI/ML tools"
+  network: "Network tools"
+  file: "File operations"
+  general: "General purpose"
+
+# Example tool directory structure
+# Each tool should have:
+#   tool.yaml - Tool definition
+#   tool.py   - Implementation (optional, can be in handler)
+#   README.md - Documentation (optional)
+#   test_tool.py - Tests (optional)
+
+# Priority ordering (higher number = higher priority)
+priority_order:
+  system: 100
+  user: 50
+  third_party: 10
+
+# Dependencies (Python packages required by autoloader)
+# Note: These should be installed separately
+dependencies:
+  - "PyYAML>=6.0"
+  - "watchdog>=3.0.0"
+  - "jsonschema>=4.20.0"  # For advanced schema validation
+
+# Integration with existing Picoclaw server
+picoclaw_integration:
+  auto_register: true      # Automatically register with Picoclaw
+  endpoint_prefix: "/autoloader" # URL prefix for autoloader endpoints
+  require_authentication: false # Require authentication for endpoints
+
+# Monitoring and metrics
+metrics:
+  enable: true
+  export_interval: 60      # Export metrics every 60 seconds
+  track_usage: true       # Track tool usage statistics
+  track_errors: true      # Track tool execution errors
+
+# Advanced settings (usually don't need to change)
+advanced:
+  max_tool_name_length: 64
+  max_parameter_count: 20
+  max_description_length: 1000
+  tool_cache_ttl: 3600    # Tool cache TTL in seconds
+  scan_batch_size: 50     # Number of tools to process in each batch

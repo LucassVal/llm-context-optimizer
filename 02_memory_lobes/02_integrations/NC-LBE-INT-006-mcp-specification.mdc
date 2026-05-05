@@ -26,7 +26,8 @@ sources:
   - https://modelcontextprotocol.io/docs/tools/debugging
   - https://modelcontextprotocol.io/clients
   - https://modelcontextprotocol.io/examples
-temperature: 30
+temperature: 0
+status: archived
 ---
 
 # NC-LBE-INT-006 — MCP Specification (COMPLETE REFERENCE v2.0)

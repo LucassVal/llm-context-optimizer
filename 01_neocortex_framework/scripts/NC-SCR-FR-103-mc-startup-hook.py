@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+"""---
+NC-SCR-FR-103-mc-startup-hook.py
+---
+"""
+
+"""---
+NC-SCR-FR-103-mc-startup-hook.py
+---
+"""
+
 """
 NC-SCR-FR-103-mc-startup-hook.py
 

@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+"""---
+Add root sanitization event to ledger.
+---
+"""
+
+"""---
+Add root sanitization event to ledger.
+---
+"""
+
 """
 Add root sanitization event to ledger.
 """

@@ -1,0 +1,345 @@
+{
+  "audit_id": "MCP-AUDIT-3L-20260430-131621",
+  "timestamp": "2026-04-30T13:16:21.294994",
+  "camada_1": {
+    "py": {
+      "total_files": 95,
+      "ruff_ok": 94,
+      "mypy_ok": false,
+      "compile_ok": 91,
+      "compile_fail": [
+        "NC-CORE-FR-101-agent-policy-enforcer.py",
+        "NC-CORE-FR-105-cascade-consolidator.py",
+        "NC-CORE-FR-107-circuit-breaker.py",
+        "NC-CORE-FR-116-lexico-service.py"
+      ],
+      "checks": 191,
+      "passed": 185,
+      "ruff_pct": 98.9
+    },
+    "yaml": {
+      "total": 490,
+      "valid": 194,
+      "invalid": 6,
+      "bad_files": [
+        "NC-DIAG-GOV-001-consolidated-diagnostic.yaml: expected a single document in the stream\n  in \"<unicode stri",
+        "NC-DS-122-rename-core-keep-non-nc.yaml: while parsing a block collection\n  in \"<unicode string>\", li",
+        "NC-DS-170-ticket.yaml: while scanning a simple key\n  in \"<unicode string>\", line 10",
+        "NC-AUDIT-FR-001-consolidation-plan.yaml: while parsing a block collection\n  in \"<unicode string>\", li",
+        "NC-AUDIT-FR-001-governance-ssot-audit-20260421.yaml: expected a single document in the stream\n  in \"<unicode stri",
+        "NC-AUDIT-FR-002-mcp-tools-orphans-audit.yaml: while parsing a block collection\n  in \"<unicode string>\", li"
+      ],
+      "checks": 490,
+      "passed": 194
+    },
+    "mdc": {
+      "total": 226,
+      "frontmatter_ok": 37,
+      "hash_ok": 96,
+      "bad": [
+        "NC-LBE-FR-020-openclaude.mdc: frontmatter YAML invalid",
+        "NC-LBE-INT-006-igpu-ipex-setup.mdc: frontmatter YAML invalid",
+        "NC-RULE-007-tagging-system.mdc: frontmatter YAML invalid",
+        "NC-LBE-CC-003-persistent-worker.mdc: frontmatter YAML invalid",
+        "NC-LBE-CC-008-pulse-daemon.mdc: frontmatter YAML invalid",
+        "NC-LBE-DS-003-worker-patterns.mdc: frontmatter YAML invalid",
+        "NC-LBE-FR-CORE-OPS-001.mdc: frontmatter YAML invalid",
+        "_INDEX.mdc: frontmatter YAML invalid",
+        "NC-AUDIT-001-expanded.mdc: frontmatter YAML invalid",
+        "NC-LBE-FR-CLAUDE-COMPARISON-001.mdc: frontmatter YAML invalid"
+      ],
+      "checks": 452,
+      "passed": 133
+    },
+    "json": {
+      "total": 715,
+      "valid": 100,
+      "invalid": 0,
+      "bad_files": [],
+      "checks": 715,
+      "passed": 100
+    },
+    "md": {
+      "total": 160,
+      "nc_naming": 101,
+      "non_nc": 59,
+      "checks": 160,
+      "passed": 101
+    },
+    "ps1": {
+      "total": 12,
+      "syntax_ok": 12,
+      "checks": 12,
+      "passed": 12
+    },
+    "jsonl": {
+      "total": 31,
+      "valid": 30,
+      "invalid": 1,
+      "checks": 31,
+      "passed": 30
+    },
+    "score": 36.8,
+    "checks": 2051,
+    "passed": 755
+  },
+  "camada_2": {
+    "ulq_cross_ref": {
+      "total": 17,
+      "ok": 17,
+      "fail": [],
+      "checks": 17,
+      "passed": 17
+    },
+    "import_contracts": {
+      "checks": 95,
+      "passed": 95,
+      "modules_scanned": 95
+    },
+    "tool_actions_depth": {
+      "tools": {
+        "001_governance": {
+          "file": "NC-SUPER-001-governance.py",
+          "actions_declared": 17,
+          "if_action_blocks": 45,
+          "has_gateway": true,
+          "has_stub": false
+        },
+        "002_orchestration": {
+          "file": "NC-SUPER-002-orchestration.py",
+          "actions_declared": 12,
+          "if_action_blocks": 17,
+          "has_gateway": true,
+          "has_stub": false
+        },
+        "003_memory": {
+          "file": "NC-SUPER-003-memory.py",
+          "actions_declared": 12,
+          "if_action_blocks": 28,
+          "has_gateway": true,
+          "has_stub": false
+        },
+        "004_state": {
+          "file": "NC-SUPER-004-state.py",
+          "actions_declared": 7,
+          "if_action_blocks": 17,
+          "has_gateway": true,
+          "has_stub": false
+        },
+        "005_llm_router": {
+          "file": "NC-SUPER-005-llm-router.py",
+          "actions_declared": 12,
+          "if_action_blocks": 10,
+          "has_gateway": false,
+          "has_stub": false
+        },
+        "006_system": {
+          "file": "NC-SUPER-006-system.py",
+          "actions_declared": 8,
+          "if_action_blocks": 22,
+          "has_gateway": true,
+          "has_stub": false
+        },
+        "007_brain": {
+          "file": "NC-SUPER-007-brain.py",
+          "actions_declared": 9,
+          "if_action_blocks": 9,
+          "has_gateway": true,
+          "has_stub": false
+        },
+        "008_context": {
+          "file": "NC-SUPER-008-context.py",
+          "actions_declared": 8,
+          "if_action_blocks": 12,
+          "has_gateway": true,
+          "has_stub": false
+        },
+        "009_security": {
+          "file": "NC-SUPER-009-security.py",
+          "actions_declared": 11,
+          "if_action_blocks": 13,
+          "has_gateway": true,
+          "has_stub": false
+        },
+        "010_benchmark": {
+          "file": "NC-SUPER-010-benchmark.py",
+          "actions_declared": 8,
+          "if_action_blocks": 4,
+          "has_gateway": true,
+          "has_stub": false
+        },
+        "011_notification": {
+          "file": "NC-SUPER-011-notification.py",
+          "actions_declared": 8,
+          "if_action_blocks": 7,
+          "has_gateway": true,
+          "has_stub": false
+        },
+        "012_akl": {
+          "file": "NC-SUPER-012-akl.py",
+          "actions_declared": 8,
+          "if_action_blocks": 11,
+          "has_gateway": true,
+          "has_stub": false
+        },
+        "013_health": {
+          "file": "NC-SUPER-013-health.py",
+          "actions_declared": 9,
+          "if_action_blocks": 14,
+          "has_gateway": true,
+          "has_stub": false
+        },
+        "014_ledger": {
+          "file": "NC-SUPER-014-ledger.py",
+          "actions_declared": 10,
+          "if_action_blocks": 6,
+          "has_gateway": true,
+          "has_stub": false
+        },
+        "015_memory_auto": {
+          "file": "NC-SUPER-015-memory-auto.py",
+          "actions_declared": 9,
+          "if_action_blocks": 6,
+          "has_gateway": true,
+          "has_stub": false
+        },
+        "016_picoclaw": {
+          "file": "NC-SUPER-016-picoclaw.py",
+          "actions_declared": 5,
+          "if_action_blocks": 9,
+          "has_gateway": false,
+          "has_stub": false
+        },
+        "019_replication": {
+          "file": "NC-SUPER-019-replication.py",
+          "actions_declared": 6,
+          "if_action_blocks": 4,
+          "has_gateway": true,
+          "has_stub": false
+        },
+        "020_evolution": {
+          "file": "NC-SUPER-020-evolution.py",
+          "actions_declared": 6,
+          "if_action_blocks": 6,
+          "has_gateway": true,
+          "has_stub": false
+        }
+      },
+      "total_actions": 165,
+      "actions_with_code": 240,
+      "stub_actions": [],
+      "checks": 36,
+      "passed": 36
+    },
+    "gateway_wired": {
+      "total": 18,
+      "wired": 16,
+      "not_wired": 2,
+      "checks": 18,
+      "passed": 16
+    },
+    "stubs_mocks_scan": {
+      "total": 126,
+      "stubs": 1,
+      "stub_files": [
+        "NC-CORE-FR-173-mcp-audit-3-levels.py"
+      ],
+      "checks": 126,
+      "passed": 125
+    },
+    "hardcoded_paths": {
+      "total": 95,
+      "hardcoded": 45,
+      "files": [
+        "NC-CORE-FR-014-lock-guard.py: contains 'DIR-DOC-FR-001'",
+        "NC-CORE-FR-017-policy-loader.py: contains 'DIR-DOC-FR-001'",
+        "NC-CORE-FR-101-agent-policy-enforcer.py: contains 'DIR-DS-00'",
+        "NC-CORE-FR-105-cascade-consolidator.py: contains 'DIR-DS-00'",
+        "NC-CORE-FR-116-lexico-service.py: contains '02_memory_lobes'",
+        "NC-CORE-FR-117-lobe-service.py: contains '02_memory_lobes'",
+        "NC-CORE-FR-122-pulse-scheduler.py: contains '02_memory_lobes'",
+        "NC-CORE-FR-124-security-service.py: contains 'NC-SEC-FR-001'",
+        "NC-CORE-FR-126-search-service.py: contains 'DIR-DOC-FR-001'",
+        "NC-CORE-FR-129-shared-kernel-gateway.py: contains 'DIR-DOC-FR-001'",
+        "NC-CORE-FR-130-genome-replicator.py: contains 'DIR-DOC-FR-001'",
+        "NC-CORE-FR-131-federative-pact.py: contains '02_memory_lobes'",
+        "NC-CORE-FR-132-civil-procedure-code.py: contains 'DIR-DS-00'",
+        "NC-CORE-FR-137-vigilant-cycle.py: contains 'NC-SEC-FR-001'",
+        "NC-CORE-FR-138-judicial-organs.py: contains 'DIR-DS-00'",
+        "NC-CORE-FR-142-pulse-scheduler-orbital.py: contains 'DIR-DOC-FR-001'",
+        "NC-CORE-FR-144-bash-guard.py: contains 'DIR-DS-00'",
+        "NC-CORE-FR-146-central-watcher.py: contains 'DIR-DOC-FR-001'",
+        "NC-CORE-FR-147-root-cause-engine.py: contains 'DIR-DS-00'",
+        "NC-CORE-FR-148-submission-pipeline.py: contains 'DIR-DOC-FR-001'"
+      ],
+      "checks": 95,
+      "passed": 50
+    },
+    "score": 87.6,
+    "checks": 387,
+    "passed": 339
+  },
+  "camada_3": {
+    "checkpoint_freshness": {
+      "fresh_24h": true,
+      "last_activity": "2026-04-30T12:49:42.463249",
+      "age_hours": 0.5,
+      "checks": 1,
+      "passed": 1
+    },
+    "wal_freshness": {
+      "exists": true,
+      "fresh_24h": true,
+      "age_hours": 22.2,
+      "checks": 1,
+      "passed": 1
+    },
+    "cortex_health": {
+      "lexico_populated": true,
+      "tag_index_exists": true,
+      "checks": 3,
+      "passed": 3
+    },
+    "savepoint_freshness": {
+      "count": 4,
+      "fresh_7d": true,
+      "age_days": 2.8,
+      "latest": "mega_test.json",
+      "checks": 1,
+      "passed": 1
+    },
+    "handoff_integrity": {
+      "total": 223,
+      "older_than_30d": 0,
+      "needs_archive": 0,
+      "checks": 1,
+      "passed": 1
+    },
+    "pulse_health": {
+      "importable": true,
+      "checks": 1,
+      "passed": 1
+    },
+    "lexico_freshness": {
+      "fresh_24h": true,
+      "age_hours": 2.3,
+      "checks": 1,
+      "passed": 1
+    },
+    "dir_health": {
+      "ok": 6,
+      "fail": [
+        "sessions: exists but empty"
+      ],
+      "checks": 7,
+      "passed": 6
+    },
+    "score": 93.8,
+    "checks": 16,
+    "passed": 15
+  },
+  "overall_score": 72.7,
+  "total_checks": 2454,
+  "total_passed": 1109,
+  "status": "HEALTHY"
+}

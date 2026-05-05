@@ -1,0 +1,76 @@
+{
+  "key_deliveries": [
+    "ULQ CAMADA 0 — 67 simbolos resolvidos, ulq.resolve(@/$/%/#) funcional, 17/17 @ paths validos",
+    "Gateway NC-CORE-FR-129 + hooks MCP unificados (NC-DS-210) — _check_registry_hooks com 9 verificacoes inline",
+    "Pipeline auditoria 3 camadas (NC-CORE-FR-173) — CAMADA 1(compile-time) + 2(runtime) + 3(operational)",
+    "9 hooks MCP registrados via hook.register — file_write x6, action_execute x1, file_create x1, action_complete x1",
+    "PulseScheduler REINICIADO — fix is_running bug, estava parado desde 28/04. Rotinas automaticas voltaram.",
+    "Expurgo raiz completa — 0 arquivos soltos, 18 diretorios limpos, 21 arquivos movidos para locais corretos",
+    "CICLOS 3+4 executados — catalogo atualizado (710 YAMLs), lobos populados, bootup sincronizado, WAL pruned",
+    "197 tickets YAML criados com protocolo completo (RCA+3W+KISS+Sandbox+Handoff+Governance) embedado",
+    "Fase 2 planejada — 5 sistemas paralelos identificados para unificacao (hooks, validation, audit, catalog, config)",
+    "CICLO 5 definido — metodologia de consultoria estrategica (BSC+SWOT+KPI+OKR+ROI+Eisenhower+Pareto+PDCA+MRM)",
+    "6 tickets API eficiencia criados (NC-DS-250 a 255) — Cache Monitor, Pipeline 2 Estagios, Lexicon Injection, Vocab Pruner, Cost-Aware Routing, Semantic Cache"
+  ],
+  "files_modified": [
+    "NC-CORE-FR-129-shared-kernel-gateway.py — @LOCK (backup: .backup-20260430)",
+    "NC-CORE-FR-165-semantic-router.py — ulq.resolve() + resolve_path() + sandbox override/restore",
+    "NC-CORE-FR-173-mcp-audit-3-levels.py — auditoria 3 camadas (NOVO)",
+    "NC-CORE-FR-149-full-system-audit.py — secao 19 (formatos) + secao 20 (3L audit)",
+    "NC-SUPER-006-system.py — PulseScheduler is_running fix",
+    "NC-RULE-001-core-ssot.mdc — R00 ULQ Boot + R00b Thinking Routines (7 rotinas)",
+    "NC-RULE-010-semantic-architecture.mdc — R116-R123 + decay + brain regions (NOVO)",
+    "NC-DOC-FR-001-ubiquitous-language-dictionary.md — @PROMPT, @VISION, @CHANGELOG, @MAPS remapeados",
+    "NC-NAM-FR-001-naming-convention.md — SUPER adicionado a lista de TIPOs",
+    "NC-SEC-FR-001-atomic-locks.yaml — organic_files section (LEXICO, TAG_INDEX, catalog, ULQ, MAPS)",
+    "requirements.txt — 14 dependencias reais",
+    "pyproject.toml — UP038 removido",
+    "__init__.py (tools) — reescrito com mapeamento NC-SUPER real",
+    ".gitignore — !.neocortex/lexico/ exception"
+  ],
+  "re_warming_protocol": [
+    "1. Ler @BOOT (NC-BOOT-FR-001) — secoes 1-5",
+    "2. Ler @ULQ (NC-DOC-FR-001) — 68 simbolos @/$/%/#",
+    "3. Ler @CHANGELOG (NC-CHG-FR-001) — ultimas entradas 2026-04-30",
+    "4. Ler @MAPS (NC-MAP-FR-001) — 6 mapas estruturais",
+    "5. Verificar MCP health (neocortex_health_check)",
+    "6. Verificar se Gateway carregou sem erros (logs do MCP)",
+    "7. Verificar hooks ativos (neocortex_security hook.list)",
+    "8. Verificar PulseScheduler (neocortex_system pulse.status)",
+    "9. Rodar CICLO 1: baseline + tickets sem handoff",
+    "10. Continuar tickets URG+IMP (#2 a #10)"
+  ],
+  "duration_turns": 28,
+  "agent": "T0-Antigravity (DeepSeek-v4-pro)",
+  "date": "2026-04-30",
+  "system_state": {
+    "gateway_backup": "01_neocortex_framework/neocortex/core/NC-CORE-FR-129-shared-kernel-gateway.py.backup-20260430",
+    "hooks_gateway": "24 hardcoded + 9 registry (NC-DS-210)",
+    "root_state": "0 arquivos soltos, 18 diretorios",
+    "engines_total": 77,
+    "hooks_mcp_active": 9,
+    "engines_documented": 23,
+    "gateway_modified": true,
+    "audit_3l_score": "72.7%",
+    "services_up": "3/5 (MCP :8765, Mission Control :3000, Ollama :11434)",
+    "pulse_status": "RUNNING (reiniciado hoje)",
+    "cycles_executed": "CICLOS 1, 2-parcial, 3, 4",
+    "mcp_bridge": "OFFLINE — precisa reconectar OpenCode ao MCP",
+    "services_down": "PicoClaw :18790, LiteLLM :4000"
+  },
+  "tickets": {
+    "created": 203,
+    "pending_urgent": [
+      "NC-DS-211",
+      "NC-DS-216",
+      "NC-DS-217",
+      "NC-DS-222",
+      "NC-DS-250",
+      "NC-DS-251"
+    ],
+    "pending_total": 44,
+    "executed": 5
+  },
+  "session_id": "SESS-20260430-001",
+  "status": "COMPLETED — Aguardando restart MCP para validar Gateway+hooks"
+}

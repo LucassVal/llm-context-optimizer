@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""
-NC-CORE-FR-020-circuit-breaker.py — SEC-403
+"""---
+NC-CORE-FR-107-circuit-breaker.py — SEC-403
 Circuit Breaker para agentes locais (Qwen 1.5b/3b).
 
 Protege contra loops degenerativos monitorando:
@@ -9,7 +9,7 @@ Protege contra loops degenerativos monitorando:
   - Tempo total de execução de uma tarefa
 
 Estados: CLOSED (normal) → OPEN (bloqueado) → HALF_OPEN (testando)
-"""
+---"""
 from __future__ import annotations
 
 import hashlib
@@ -19,7 +19,7 @@ from collections import deque
 from datetime import datetime
 from enum import Enum
 from threading import Lock
-from typing import Any, Callable, Dict, Optional
+from typing import Any, Callable, Dict
 
 logger = logging.getLogger(__name__)
 
@@ -72,7 +72,7 @@ class CircuitBreaker:
         self._lock         = Lock()
         self._call_times:  deque = deque()    # timestamps das chamadas
         self._payload_counts: Dict[str, int] = {}  # hash → count
-        self._opened_at:   Optional[float] = None
+        self._opened_at:   float | None = None
         self._half_open_trials = 0
         self._total_blocked = 0
         self._total_calls   = 0

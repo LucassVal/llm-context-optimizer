@@ -1,0 +1,1010 @@
+{
+  "session_timeline": [
+    {
+      "timestamp": "2026-04-10T15:51:40.862397",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260410-155140-568b0c46",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-10T15:51:40.864226",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260410-155140-969b156e",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-10T15:51:50.840840",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260410-155150-44ecca56",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-04-10T15:51:50.859030",
+      "event": "auto_checkpoint",
+      "checkpoint_id": "CP-AUTO-20260410-155150-44ecca56",
+      "source": "pulse_scheduler",
+      "description": "Automatic checkpoint"
+    },
+    {
+      "timestamp": "2026-04-10T15:57:55.815502",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-POPULATION-20260410-155755",
+      "lobe_id": "NC-LBE-FR-KNOWLEDGE-001.mdc",
+      "description": "Povoamento exaustivo de 18/18 Lobos"
+    }
+  ],
+  "memory_cortex": {
+    "synapses": {
+      "current_context": {
+        "lobe_id": "NC-LBE-FR-KNOWLEDGE-001.mdc",
+        "checkpoint_id": "CP-POPULATION-20260410-155755",
+        "set_at": "2026-04-10T15:57:55.815502"
+      }
+    },
+    "global_checkpoint_index": {
+      "checkpoints": [
+        "CP-AUTO-20260410-155150-44ecca56",
+        "CP-POPULATION-20260410-155755"
+      ]
+    },
+    "consolidation_sessions": [
+      {
+        "id": "session_2026-04-10T18-51-40-662300+00-00Z",
+        "summary": "Sesso finalizada automaticamente via SessionManager",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      }
+    ],
+    "manifests": {
+      "NC-LBE-FR-ARCHITECTURE-001.mdc": {
+        "id": "NC-LBE-FR-ARCHITECTURE-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:54.430426",
+        "last_accessed": "2026-04-10T15:57:54.430426",
+        "last_modified": "2026-04-10T15:57:54.430426",
+        "metadata": {
+          "line_count": 172,
+          "has_checkpoints": false,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": false,
+          "size_chars": 4890,
+          "word_count": 583
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Contedo Inicial",
+          "Notas",
+          "Princpios Arquiteturais do NeoCortex",
+          "Anlise do Diretrio",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-ARCHITECTURE-001"
+      },
+      "NC-LBE-FR-DEVELOPMENT-001.mdc": {
+        "id": "NC-LBE-FR-DEVELOPMENT-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:54.545027",
+        "last_accessed": "2026-04-10T15:57:54.545027",
+        "last_modified": "2026-04-10T15:57:54.545027",
+        "metadata": {
+          "line_count": 163,
+          "has_checkpoints": false,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": false,
+          "size_chars": 4144,
+          "word_count": 502
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Contedo Inicial",
+          "Notas",
+          "Guia de Desenvolvimento NeoCortex",
+          "Anlise do Diretrio",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-DEVELOPMENT-001"
+      },
+      "NC-LBE-FR-TESTING-001.mdc": {
+        "id": "NC-LBE-FR-TESTING-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:54.595510",
+        "last_accessed": "2026-04-10T15:57:54.595510",
+        "last_modified": "2026-04-10T15:57:54.595510",
+        "metadata": {
+          "line_count": 122,
+          "has_checkpoints": false,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": false,
+          "size_chars": 2552,
+          "word_count": 352
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Contedo Inicial",
+          "Notas",
+          "Estratgia de Testes NeoCortex",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-TESTING-001"
+      },
+      "NC-LBE-FR-CLI-001.mdc": {
+        "id": "NC-LBE-FR-CLI-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:54.649957",
+        "last_accessed": "2026-04-10T15:57:54.649957",
+        "last_modified": "2026-04-10T15:57:54.649957",
+        "metadata": {
+          "line_count": 118,
+          "has_checkpoints": false,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": false,
+          "size_chars": 2570,
+          "word_count": 372
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Contedo Inicial",
+          "Notas",
+          "Interface de Linha de Comando (CLI)",
+          "Anlise do Diretrio",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-CLI-001"
+      },
+      "NC-LBE-FR-WHITELABEL-001.mdc": {
+        "id": "NC-LBE-FR-WHITELABEL-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:54.716935",
+        "last_accessed": "2026-04-10T15:57:54.716935",
+        "last_modified": "2026-04-10T15:57:54.716935",
+        "metadata": {
+          "line_count": 116,
+          "has_checkpoints": false,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": false,
+          "size_chars": 2605,
+          "word_count": 332
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Contedo Inicial",
+          "Notas",
+          "White Label e Customizao",
+          "Anlise do Diretrio",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-WHITELABEL-001"
+      },
+      "NC-LBE-FR-KNOWLEDGE-001.mdc": {
+        "id": "NC-LBE-FR-KNOWLEDGE-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:54.785055",
+        "last_accessed": "2026-04-10T15:57:54.785055",
+        "last_modified": "2026-04-10T15:57:54.785055",
+        "metadata": {
+          "line_count": 133,
+          "has_checkpoints": false,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": false,
+          "size_chars": 4010,
+          "word_count": 425
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Contedo Inicial",
+          "Notas",
+          "Gesto de Conhecimento NeoCortex",
+          "Anlise do Diretrio",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-KNOWLEDGE-001"
+      },
+      "NC-LBE-FR-SECURITY-001.mdc": {
+        "id": "NC-LBE-FR-SECURITY-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:54.848076",
+        "last_accessed": "2026-04-10T15:57:54.848076",
+        "last_modified": "2026-04-10T15:57:54.848076",
+        "metadata": {
+          "line_count": 106,
+          "has_checkpoints": false,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": false,
+          "size_chars": 2244,
+          "word_count": 313
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Contedo Inicial",
+          "Notas",
+          "Segurana e Autenticao",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-SECURITY-001"
+      },
+      "NC-LBE-FR-DEPLOYMENT-001.mdc": {
+        "id": "NC-LBE-FR-DEPLOYMENT-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:54.907250",
+        "last_accessed": "2026-04-10T15:57:54.907250",
+        "last_modified": "2026-04-10T15:57:54.907250",
+        "metadata": {
+          "line_count": 113,
+          "has_checkpoints": false,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": false,
+          "size_chars": 2284,
+          "word_count": 317
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Contedo Inicial",
+          "Notas",
+          "Deploy e Operaes",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-DEPLOYMENT-001"
+      },
+      "NC-LBE-FR-DOCUMENTATION-001.mdc": {
+        "id": "NC-LBE-FR-DOCUMENTATION-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:55.104240",
+        "last_accessed": "2026-04-10T15:57:55.104240",
+        "last_modified": "2026-04-10T15:57:55.104240",
+        "metadata": {
+          "line_count": 127,
+          "has_checkpoints": false,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": false,
+          "size_chars": 3345,
+          "word_count": 381
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Contedo Inicial",
+          "Notas",
+          "Documentao",
+          "Anlise do Diretrio",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-DOCUMENTATION-001"
+      },
+      "NC-LBE-FR-INTEGRATION-001.mdc": {
+        "id": "NC-LBE-FR-INTEGRATION-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:55.158820",
+        "last_accessed": "2026-04-10T15:57:55.158820",
+        "last_modified": "2026-04-10T15:57:55.158820",
+        "metadata": {
+          "line_count": 109,
+          "has_checkpoints": false,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": false,
+          "size_chars": 2302,
+          "word_count": 326
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Contedo Inicial",
+          "Notas",
+          "Integraes e APIs",
+          "Anlise do Diretrio",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-INTEGRATION-001"
+      },
+      "NC-LBE-FR-MONITORING-001.mdc": {
+        "id": "NC-LBE-FR-MONITORING-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:55.229203",
+        "last_accessed": "2026-04-10T15:57:55.229203",
+        "last_modified": "2026-04-10T15:57:55.229203",
+        "metadata": {
+          "line_count": 126,
+          "has_checkpoints": false,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": true,
+          "size_chars": 2508,
+          "word_count": 344
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Contedo Inicial",
+          "Notas",
+          "Monitoramento e Logs",
+          "Anlise do Diretrio",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-MONITORING-001"
+      },
+      "NC-LBE-FR-PERFORMANCE-001.mdc": {
+        "id": "NC-LBE-FR-PERFORMANCE-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:55.311390",
+        "last_accessed": "2026-04-10T15:57:55.311390",
+        "last_modified": "2026-04-10T15:57:55.311390",
+        "metadata": {
+          "line_count": 110,
+          "has_checkpoints": false,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": false,
+          "size_chars": 2131,
+          "word_count": 293
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Contedo Inicial",
+          "Notas",
+          "Performance e Otimizao",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-PERFORMANCE-001"
+      },
+      "NC-LBE-FR-LEGACY-001.mdc": {
+        "id": "NC-LBE-FR-LEGACY-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:55.416849",
+        "last_accessed": "2026-04-10T15:57:55.416849",
+        "last_modified": "2026-04-10T15:57:55.416849",
+        "metadata": {
+          "line_count": 213,
+          "has_checkpoints": true,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": false,
+          "size_chars": 9313,
+          "word_count": 1050
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Inventrio de Arquivos Legados",
+          "Plano de Saneamento",
+          "Notas Importantes",
+          "Log de Execuo",
+          "Referncias",
+          "Resultados do Saneamento",
+          "Anlise do Diretrio",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-LEGACY-001"
+      },
+      "NC-LBE-FR-CORE-001.mdc": {
+        "id": "NC-LBE-FR-CORE-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:55.481520",
+        "last_accessed": "2026-04-10T15:57:55.481520",
+        "last_modified": "2026-04-10T15:57:55.481520",
+        "metadata": {
+          "line_count": 46,
+          "has_checkpoints": false,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": false,
+          "size_chars": 810,
+          "word_count": 111
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Anlise do Diretrio",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-CORE-001"
+      },
+      "NC-LBE-FR-MCP-001.mdc": {
+        "id": "NC-LBE-FR-MCP-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:55.558046",
+        "last_accessed": "2026-04-10T15:57:55.558046",
+        "last_modified": "2026-04-10T15:57:55.558046",
+        "metadata": {
+          "line_count": 46,
+          "has_checkpoints": false,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": false,
+          "size_chars": 806,
+          "word_count": 111
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Anlise do Diretrio",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-MCP-001"
+      },
+      "NC-LBE-FR-BENCHMARKS-001.mdc": {
+        "id": "NC-LBE-FR-BENCHMARKS-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:55.625047",
+        "last_accessed": "2026-04-10T15:57:55.625047",
+        "last_modified": "2026-04-10T15:57:55.625047",
+        "metadata": {
+          "line_count": 44,
+          "has_checkpoints": false,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": false,
+          "size_chars": 831,
+          "word_count": 103
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-BENCHMARKS-001"
+      },
+      "NC-LBE-FR-PROFILES-001.mdc": {
+        "id": "NC-LBE-FR-PROFILES-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:55.711509",
+        "last_accessed": "2026-04-10T15:57:55.711509",
+        "last_modified": "2026-04-10T15:57:55.711509",
+        "metadata": {
+          "line_count": 50,
+          "has_checkpoints": false,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": false,
+          "size_chars": 1138,
+          "word_count": 126
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Anlise do Diretrio",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-PROFILES-001"
+      },
+      "NC-LBE-FR-PULSE-001.mdc": {
+        "id": "NC-LBE-FR-PULSE-001.mdc",
+        "type": "lobe",
+        "created_at": "2026-04-10T15:57:55.767088",
+        "last_accessed": "2026-04-10T15:57:55.767088",
+        "last_modified": "2026-04-10T15:57:55.767088",
+        "metadata": {
+          "line_count": 58,
+          "has_checkpoints": false,
+          "has_aliases": false,
+          "has_commands": true,
+          "has_patterns": false,
+          "has_warnings": false,
+          "size_chars": 1144,
+          "word_count": 145
+        },
+        "tags": [
+          "Propsito",
+          "Status",
+          "Tags",
+          "Checkpoints",
+          "Anlise do Diretrio",
+          "Contexto do Projeto",
+          "Notas de Povoamento"
+        ],
+        "entities": [],
+        "dependencies": [],
+        "status": "active",
+        "title": "NC-LBE-FR-PULSE-001"
+      }
+    },
+    "knowledge_graph": {
+      "entities": {
+        "NC-CTX-FR-001-cortex-central.mdc": {
+          "id": "NC-CTX-FR-001-cortex-central.mdc",
+          "type": "cortex",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 18,
+          "metadata": {}
+        },
+        "NC-LBE-FR-ARCHITECTURE-001.mdc": {
+          "id": "NC-LBE-FR-ARCHITECTURE-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        },
+        "NC-LBE-FR-DEVELOPMENT-001.mdc": {
+          "id": "NC-LBE-FR-DEVELOPMENT-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        },
+        "NC-LBE-FR-TESTING-001.mdc": {
+          "id": "NC-LBE-FR-TESTING-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        },
+        "NC-LBE-FR-CLI-001.mdc": {
+          "id": "NC-LBE-FR-CLI-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        },
+        "NC-LBE-FR-WHITELABEL-001.mdc": {
+          "id": "NC-LBE-FR-WHITELABEL-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        },
+        "NC-LBE-FR-KNOWLEDGE-001.mdc": {
+          "id": "NC-LBE-FR-KNOWLEDGE-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        },
+        "NC-LBE-FR-SECURITY-001.mdc": {
+          "id": "NC-LBE-FR-SECURITY-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        },
+        "NC-LBE-FR-DEPLOYMENT-001.mdc": {
+          "id": "NC-LBE-FR-DEPLOYMENT-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        },
+        "NC-LBE-FR-DOCUMENTATION-001.mdc": {
+          "id": "NC-LBE-FR-DOCUMENTATION-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        },
+        "NC-LBE-FR-INTEGRATION-001.mdc": {
+          "id": "NC-LBE-FR-INTEGRATION-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        },
+        "NC-LBE-FR-MONITORING-001.mdc": {
+          "id": "NC-LBE-FR-MONITORING-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        },
+        "NC-LBE-FR-PERFORMANCE-001.mdc": {
+          "id": "NC-LBE-FR-PERFORMANCE-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        },
+        "NC-LBE-FR-LEGACY-001.mdc": {
+          "id": "NC-LBE-FR-LEGACY-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        },
+        "NC-LBE-FR-CORE-001.mdc": {
+          "id": "NC-LBE-FR-CORE-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        },
+        "NC-LBE-FR-MCP-001.mdc": {
+          "id": "NC-LBE-FR-MCP-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        },
+        "NC-LBE-FR-BENCHMARKS-001.mdc": {
+          "id": "NC-LBE-FR-BENCHMARKS-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        },
+        "NC-LBE-FR-PROFILES-001.mdc": {
+          "id": "NC-LBE-FR-PROFILES-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        },
+        "NC-LBE-FR-PULSE-001.mdc": {
+          "id": "NC-LBE-FR-PULSE-001.mdc",
+          "type": "lobe",
+          "created_at": "auto_generated",
+          "last_accessed": "auto_generated",
+          "relations_count": 1,
+          "metadata": {}
+        }
+      },
+      "relations": [
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-ARCHITECTURE-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "architecture",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:54.461565"
+          }
+        },
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-DEVELOPMENT-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "development",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:54.556413"
+          }
+        },
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-TESTING-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "testing",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:54.610212"
+          }
+        },
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-CLI-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "cli",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:54.667109"
+          }
+        },
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-WHITELABEL-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "white_label",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:54.734808"
+          }
+        },
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-KNOWLEDGE-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "knowledge",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:54.806393"
+          }
+        },
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-SECURITY-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "security",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:54.863940"
+          }
+        },
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-DEPLOYMENT-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "deployment",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:54.923403"
+          }
+        },
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-DOCUMENTATION-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "documentation",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:55.119651"
+          }
+        },
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-INTEGRATION-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "integration",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:55.175290"
+          }
+        },
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-MONITORING-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "monitoring",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:55.265403"
+          }
+        },
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-PERFORMANCE-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "performance",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:55.327964"
+          }
+        },
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-LEGACY-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "legacy",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:55.440156"
+          }
+        },
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-CORE-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "core",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:55.499483"
+          }
+        },
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-MCP-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "mcp",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:55.576436"
+          }
+        },
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-BENCHMARKS-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "benchmarks",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:55.642503"
+          }
+        },
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-PROFILES-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "profiles",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:55.730221"
+          }
+        },
+        {
+          "source": "NC-CTX-FR-001-cortex-central.mdc",
+          "relation": "contains",
+          "target": "NC-LBE-FR-PULSE-001.mdc",
+          "created_at": "auto_generated",
+          "metadata": {
+            "module": "pulse",
+            "auto_generated": true,
+            "timestamp": "2026-04-10T15:57:55.790098"
+          }
+        }
+      ],
+      "entity_types": [
+        "lobe",
+        "cortex",
+        "file",
+        "directory",
+        "command",
+        "pattern",
+        "concept"
+      ]
+    }
+  },
+  "test_section": {
+    "foo": "bar"
+  }
+}

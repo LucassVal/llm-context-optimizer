@@ -1,0 +1,173 @@
+---
+alwaysApply: true
+description: "Claude Assistant Lobe – specialized instructions for Claude to help implement NeoCortex framework components. NeoCortex v4.2-Cortex."
+---
+
+# 🧠 Lobe: Claude Assistant
+
+<!-- v4.2-Cortex | LOBE file – Claude-specific implementation rules -->
+
+## 🚨 STEP 0 — REGRESSION + GOAL CHECK (NON-NEGOTIABLE)
+> 1. Read Regression Buffer (cortex + this lobe)
+> 2. If similar to an error → ADVISE before proceeding  
+> 3. Reaffirm goal: "Help implement NeoCortex v5.0-CORTEX framework components"
+> 4. Confirm scope: "I will work on MCP server expansion, manifestos, and KG implementation"
+
+## 📍 Workspace Map (Claude-Specific)
+| File/Dir | Alias | Purpose |
+| :--- | :--- | :--- |
+| `.agents/rules/NC-CTX-FR-001-cortex-central.mdc` | `$ctx` | Central cortex rules |
+| `.agents/rules/NC-LBE-FR-002-claude-assistant.mdc` | `$claude` | This lobe (Claude instructions) |
+| `NC-LED-FR-001-framework-ledger.json` | `$ldg` | State ledger (JSON) |
+| `DIR-MCP-FR-001-mcp-server/NC-MCP-FR-001-mcp-server.py` | `$mcp` | MCP server (10 tools) |
+| `DIR-REF-FR-001-reference-main/Arquivos de referência/` | `@ref` | Reference documentation |
+| `DIR-DOC-FR-001-docs-main/` | `@doc` | Framework documentation |
+| `DIR-TMP-FR-001-templates-main/` | `@tpl` | Template files |
+| `DIR-SRC-FR-001-source-main/` | `@src` | Source code utilities |
+
+## ⚡ Compact Encoding (Claude-Specific)
+| $ = file | @ = directory | ! = command | ? = pattern |
+| :--- | :--- | :--- | :--- |
+| `$ctx` | `@mcp` | `!backup` | `?nc-*` |
+| `$claude` | `@ref` | `!update-ledger` | `?*.mdc` |
+| `$ldg` | `@doc` | `!test-mcp` | `?*.json` |
+| `$mcp` | `@tpl` | `!run-bench` | `?DIR-*` |
+
+**Special Aliases for Implementation:**
+- `$mcp_manifest` = Future: `NC-MCP-FR-002-manifest-tool.py`
+- `$mcp_kg` = Future: `NC-MCP-FR-003-kg-tool.py`
+- `$cli` = Future: `NC-CLI-FR-001-cli-tool.py`
+
+## 🎯 Claude's Role & Responsibilities
+
+### Primary Mission
+Assist in implementing **NeoCortex v5.0-CORTEX** framework expansion, specifically:
+
+1. **PHASE 1**: Manifestos + Mini-KG (2-3 hours)
+   - Implement `neocortex_manifest` tool (3 actions)
+   - Implement `neocortex_kg` tool (5 actions)  
+   - Expand `neocortex_cortex/get_workflows`
+
+2. **PHASE 2**: Consolidação + AKL (2-3 hours)
+   - Implement `neocortex_consolidation` (3 actions)
+   - Implement `neocortex_akl` (3 actions)
+   - Expand `neocortex_regression/consolidate`
+
+3. **PHASE 3**: Peers + Security (2-3 hours)
+   - Implement `neocortex_peers` (3 actions)
+   - Implement `neocortex_security` (3 actions)
+
+### Working Protocol
+1. **Always start with STEP 0** – Check regression buffer, reaffirm goal
+2. **Read $ldg before modifying** – Understand current state
+3. **Use Compact Encoding** – Always use aliases, never full paths
+4. **Minimal diffs** – Edit existing files, don't rewrite
+5. **Update $ldg after each completion** – Timeline, action_queue, metrics
+6. **Backup before major changes** – `!backup` command
+7. **Report progress clearly** – Use checkboxes, timestamps
+
+## ⚙️ Implementation Workflows
+
+### 🔧 Workflow: Add New MCP Tool
+1. **STEP 0** ← MANDATORY
+2. **Analyze existing pattern** – Study `$mcp` structure
+3. **Create tool function** – Follow decorator pattern `@mcp.tool(name="neocortex_X")`
+4. **Implement actions** – Each action returns `Dict[str, Any]` with `success` key
+5. **Test locally** – Run `!test-mcp` (python `$mcp`)
+6. **Update $ldg** – Add to `action_queue.completed`, `session_timeline`
+7. **Update $ctx/$claude** – Mark checkpoint as complete
+
+### 📝 Workflow: Update Documentation
+1. **STEP 0** ← MANDATORY
+2. **Identify target file** – `@doc/NC-DOC-*.md`
+3. **Make minimal changes** – Add sections, don't rewrite
+4. **Update references** – Ensure all aliases are correct
+5. **Update $ldg.changelog** – Record structural change
+
+### 🧪 Workflow: Test Implementation
+1. **STEP 0** ← MANDATORY
+2. **Run MCP in simulation mode** – `cd @mcp && python NC-MCP-FR-001-mcp-server.py`
+3. **Verify tool appears** – Check output includes new tool
+4. **Test individual actions** – Use mock calls if needed
+5. **Update regression buffer** – If errors occur, document lesson
+
+## 🚫 Claude-Specific Constraints
+- ❌ **DO NOT** modify `$ctx` directly – only through consolidation workflow
+- ❌ **DO NOT** create duplicate functionality – check existing tools first
+- ❌ **DO NOT** use hardcoded paths – always use aliases
+- ❌ **DO NOT** skip ledger updates – every change must be tracked
+- ✅ **DO** follow NC- naming convention for new files
+- ✅ **DO** use DIR- convention for new directories
+- ✅ **DO** reference academic models (?memgpt, ?react, ?kg, etc.) when relevant
+
+## 🔗 Integration Points
+
+### With OpenCode (Current Environment)
+- OpenCode is executing these instructions
+- Use `bash`, `read`, `edit`, `write`, `grep` tools as needed
+- Report progress to user via concise updates
+
+### With MCP Server (Target Integration)
+- Tools will be exposed via MCP to IDEs (Antigravity, VS Code, Cursor)
+- Maintain backward compatibility with existing 10 tools
+
+### With Reference Documentation
+- Consult `@ref/` for detailed specifications
+- `structured_elements.md` – 14 core elements
+- `detalhamento_completo.md` – Complete 2056-line analysis
+- `sumario.md` – Executive summary
+
+## 📊 Current Implementation Status (Checkpoint Tree)
+
+### ✅ COMPLETED (v4.2 Base)
+- [x] **CP-CLA-001** – Created central cortex ($ctx) and ledger ($ldg)
+- [x] **CP-CLA-002** – Implemented NC- naming convention standard
+- [x] **CP-CLA-003** – Created DIR- directory structure
+  - [x] **CP-CLA-004** – Implemented MCP server with 10 base tools
+    - [x] **CP-CLA-005** – Updated MCP paths to DIR-CORE-FR-001-core-central
+    - [x] **CP-CLA-006** – Implemented `neocortex_manifest` tool (3 actions: generate, update, query)
+    - [x] **CP-CLA-007** – Implemented `neocortex_kg` tool (5 actions: add_entity, add_relation, query_relations, find_similar, visualize)
+
+### ✅ COMPLETED (PHASE 1 – Manifestos + KG)
+- [x] **CP-CLA-006** – Implemented `neocortex_manifest` tool (3 actions: generate, update, query)
+- [x] **CP-CLA-007** – Implemented `neocortex_kg` tool (5 actions: add_entity, add_relation, query_relations, find_similar, visualize)
+- [x] **CP-CLA-008** – Expanded `neocortex_cortex/get_workflows` action
+
+### ✅ COMPLETED (PHASE 2 – Consolidação + AKL)
+- [x] **CP-CLA-009** – Implemented `neocortex_consolidation` (3 actions)
+  - [x] `summarize_session` – Resume uma sessão em regras concisas
+  - [x] `merge_learnings` – Combina aprendizados de múltiplos agentes
+  - [x] `promote_to_rule` – Promove entrada do Regression Buffer a regra permanente
+
+- [x] **CP-CLA-010** – Implemented `neocortex_akl` (3 actions)
+  - [x] `assess_importance` – Avalia importância de regras com base no uso
+  - [x] `decay_knowledge` – Aplica decaimento a regras não utilizadas
+  - [x] `suggest_cleanup` – Lista regras candidatas a arquivamento
+
+### ✅ COMPLETED (PHASE 3 – Peers + Security)
+- [x] **CP-CLA-011** – Implement `neocortex_peers` (3 actions)
+- [x] **CP-CLA-012** – Implement `neocortex_security` (3 actions)
+
+## 📈 Progress Metrics
+- **Total Tools Target**: 16
+- **Current Tools**: 16 (100%)
+- **Total Actions Target**: 81
+- **Current Actions**: 54 (67%)
+- **Remaining Actions**: 27
+
+## 🎯 Next Phase: Stabilization & Documentation
+**Priority Actions:**
+1. **Test all 16 MCP tools** – Verify functionality in simulation mode
+2. **Document white-label template** – Add practical examples and usage guides
+3. **Generate real benchmark report** – Run benchmark suite and update BENCHMARKS.md
+4. **Add multi-user support** – Extend ledger with user namespaces
+5. **Plan ecosystem expansion** – PyPI publication, documentation website, technical article
+
+**Expected Milestones:**
+- Fully tested MCP server with 16 tools (81 actions)
+- Complete white-label documentation with examples
+- Real benchmark data published
+- Roadmap for ecosystem growth
+
+---
+*Lobe last updated: 2026-04-10 | Next review: After PHASE 3 completion*

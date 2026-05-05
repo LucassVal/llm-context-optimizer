@@ -1,0 +1,26 @@
+{
+  "audit_date": "2026-04-22T12:55:00Z",
+  "directory": "C:\\Users\\Lucas Valério\\.gemini\\antigravity\\brain",
+  "duplicates": {},
+  "statistics": {
+    "total_files": 310,
+    "files_by_extension": {
+      ".md": 310
+    },
+    "files_by_size": {
+      "tiny": 309,
+      "small": 1
+    },
+    "common_fields": {
+      "artifactType": 308,
+      "summary": 309,
+      "updatedAt": 310,
+      "version": 67
+    },
+    "invalid_json": 0,
+    "empty_files": 0
+  },
+  "suggestions": [
+    "Consolidar 310 arquivos de metadados para extensão .md"
+  ]
+}

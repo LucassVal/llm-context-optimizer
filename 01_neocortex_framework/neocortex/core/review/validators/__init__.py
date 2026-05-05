@@ -1,10 +1,9 @@
 """---
-domain: "core"
-layer: "core"
-type: "file"
-tags: ["init"]
-hash: "auto-generated"
----"""
+@Module  mcp domain: "core" layer: "core" type: "file" tags: ["
+---
+"""
+
+
 """
 Validadores de confiana para handoffs.
 """

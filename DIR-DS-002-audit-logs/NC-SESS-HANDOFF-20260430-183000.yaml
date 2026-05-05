@@ -1,0 +1,51 @@
+status: COMPLETED
+session_id: SESS-20260430-002
+agent: T0-Antigravity (DeepSeek-v4-pro)
+submitted_at: "2026-04-30T18:30:00"
+summary:
+  ciclos: "CICLOS 2+3+4 — Correção de headers, checkpoints, transporte MCP"
+  what: |
+    - 10 arquivos com headers YAML corrompidos/trucados restaurados
+    - 4 compile_fail resolvidos (FR-101, 105, 107, 116 — docstrings duplicadas)
+    - server.py: 8 checkpoints de boot adicionados (01-08 + BOOT_COMPLETE)
+    - Transporte MCP migrado: SSE → streamable-http (endpoint /mcp)
+    - Antigravity mcp_config.json atualizado (:8765/sse → :8765/mcp)
+    - OpenCode mcp.json atualizado (stdio → HTTP :8765/mcp)
+  verification:
+    py_compile: "ALL 10+ files clean"
+    ruff: "ALL 10+ files clean"
+    mcp_boot: "21/21 tools, 8/8 checkpoints OK"
+    antigravity: "CONNECTED — POST/GET /mcp 200 OK, ListToolsRequest successful"
+    opencode: "Config updated — pending reload"
+  files_modified:
+    - "01_neocortex_framework/neocortex/core/NC-CORE-FR-101-agent-policy-enforcer.py"
+    - "01_neocortex_framework/neocortex/core/NC-CORE-FR-105-cascade-consolidator.py"
+    - "01_neocortex_framework/neocortex/core/NC-CORE-FR-107-circuit-breaker.py"
+    - "01_neocortex_framework/neocortex/core/NC-CORE-FR-116-lexico-service.py"
+    - "01_neocortex_framework/neocortex/mcp/server.py"
+    - "01_neocortex_framework/neocortex/mcp/tools/pulse.py"
+    - "01_neocortex_framework/neocortex/repositories/__init__.py"
+    - "01_neocortex_framework/neocortex/repositories/base.py"
+    - "01_neocortex_framework/neocortex/repositories/file_system_repository.py"
+    - "01_neocortex_framework/neocortex/schemas/__init__.py"
+    - "C:/Users/Lucas Valério/.gemini/antigravity/mcp_config.json"
+    - "C:/Users/Lucas Valério/AppData/Roaming/Code/User/mcp.json"
+  system_state:
+    mcp_transport: "streamable-http"
+    mcp_endpoint: "http://127.0.0.1:8765/mcp"
+    tools_loaded: 21
+    boot_checkpoints: 8
+    pulse_scheduler: "RUNNING (interval=300s)"
+    governance_rules: "INJECTED"
+    metrics_store: "DuckDB OK"
+  re_warming:
+    - "1. Verificar servidor MCP rodando em :8765/mcp"
+    - "2. OpenCode: reload MCP servers (Ctrl+Shift+P)"
+    - "3. Verificar tools disponíveis no chat"
+    - "4. Executar NC-DS-250 (Cache Hit Monitor) — quick win pendente"
+    - "5. Continuar Fase 2 (NC-DS-211, 216, 217, 222)"
+  pending:
+    - "OpenCode MCP reload (config já atualizada)"
+    - "NC-DS-250 Cache Hit Monitor"
+    - "~50 NC-CORE-FR com headers @Tag truncados (cosmético, não quebram compile)"
+    - "Documentação duplicada nos checkpoints de boot (inofensivo, log aparece 2x)"

@@ -1,0 +1,89 @@
+# NeoCortex Ignore — Falsos positivos do DeadCodeScanner
+# Arquivos referenciados por scripts/tests/docs mas nao pelo Gateway
+# Estes NAO sao orfaos — sao dependencias ativas
+
+neocortex/core/NC-CFG-FR-001-logging-config.py
+neocortex/core/NC-CORE-FR-014-lock-guard.py
+neocortex/core/NC-CORE-FR-016-kg-service.py
+neocortex/core/NC-CORE-FR-017-policy-loader.py
+neocortex/core/NC-CORE-FR-022-save-point-service.py
+neocortex/core/NC-CORE-FR-101-agent-policy-enforcer.py
+neocortex/core/NC-CORE-FR-102-agent-service.py
+neocortex/core/NC-CORE-FR-103-akl-service.py
+neocortex/core/NC-CORE-FR-104-benchmark-service.py
+neocortex/core/NC-CORE-FR-105-cascade-consolidator.py
+neocortex/core/NC-CORE-FR-106-checkpoint-service.py
+neocortex/core/NC-CORE-FR-107-circuit-breaker.py
+neocortex/core/NC-CORE-FR-108-config-service.py
+neocortex/core/NC-CORE-FR-109-consolidation-service.py
+neocortex/core/NC-CORE-FR-110-cortex-service.py
+neocortex/core/NC-CORE-FR-111-export-service.py
+neocortex/core/NC-CORE-FR-112-file-utils.py
+neocortex/core/NC-CORE-FR-113-init-service.py
+neocortex/core/NC-CORE-FR-114-kg-service.py
+neocortex/core/NC-CORE-FR-115-ledger-service.py
+neocortex/core/NC-CORE-FR-116-lexico-service.py
+neocortex/core/NC-CORE-FR-117-lobe-service.py
+neocortex/core/NC-CORE-FR-118-manifest-service.py
+neocortex/core/NC-CORE-FR-119-peers-service.py
+neocortex/core/NC-CORE-FR-120-profile-manager.py
+neocortex/core/NC-CORE-FR-121-profile-service.py
+neocortex/core/NC-CORE-FR-122-pulse-scheduler.py
+neocortex/core/NC-CORE-FR-123-regression-service.py
+neocortex/core/NC-CORE-FR-124-security-service.py
+neocortex/core/NC-CORE-FR-125-tool-guard.py
+neocortex/core/NC-CORE-FR-126-search-service.py
+neocortex/core/NC-CORE-FR-127-knowledge-service.py
+neocortex/core/NC-CORE-FR-128-session-memory-writer.py
+neocortex/core/NC-CORE-FR-131-federative-pact.py
+neocortex/core/NC-CORE-FR-132-civil-procedure-code.py
+neocortex/core/NC-CORE-FR-133-regulatory-agencies.py
+neocortex/core/NC-CORE-FR-134-legislative-process.py
+neocortex/core/NC-CORE-FR-135-criminal-procedure-code.py
+neocortex/core/NC-CORE-FR-137-vigilant-cycle.py
+neocortex/core/NC-CORE-FR-138-judicial-organs.py
+neocortex/core/NC-CORE-FR-140-hierarchy-protocol.py
+neocortex/core/NC-CORE-FR-141-secretariats.py
+neocortex/core/NC-CORE-FR-143-deletion-guard.py
+neocortex/core/NC-CORE-FR-144-bash-guard.py
+neocortex/core/NC-CORE-FR-145-lightweight-instances.py
+neocortex/core/NC-CORE-FR-145-subserver-spawner.py
+
+# MCP tools — registrados pelo servidor (nao se auto-referenciam)
+neocortex/mcp/tools/NC-SUPER-001-governance.py
+neocortex/mcp/tools/NC-SUPER-002-orchestration.py
+neocortex/mcp/tools/NC-SUPER-003-memory.py
+neocortex/mcp/tools/NC-SUPER-004-state.py
+neocortex/mcp/tools/NC-SUPER-005-llm-router.py
+neocortex/mcp/tools/NC-SUPER-006-system.py
+neocortex/mcp/tools/NC-SUPER-007-brain.py
+neocortex/mcp/tools/NC-SUPER-008-context.py
+neocortex/mcp/tools/NC-SUPER-009-security.py
+neocortex/mcp/tools/NC-SUPER-010-benchmark.py
+neocortex/mcp/tools/NC-SUPER-011-notification.py
+neocortex/mcp/tools/NC-SUPER-012-akl.py
+neocortex/mcp/tools/NC-SUPER-013-health.py
+neocortex/mcp/tools/NC-SUPER-014-ledger.py
+neocortex/mcp/tools/NC-SUPER-015-memory-auto.py
+neocortex/mcp/tools/NC-SUPER-016-picoclaw.py
+neocortex/mcp/tools/NC-SUPER-019-replication.py
+neocortex/mcp/tools/NC-SUPER-020-evolution.py
+
+# Novos modulos (referenciados via importlib)
+neocortex/core/NC-CORE-FR-162-strangler-fig.py
+
+# Engines standalone (loaded via importlib on-demand)
+neocortex/core/NC-CORE-FR-149-full-system-audit.py
+neocortex/core/NC-CORE-FR-157-bsc-swot.py
+neocortex/core/NC-CORE-FR-160-advanced-resilience.py
+neocortex/core/NC-CORE-FR-161-regulatory-compliance.py
+# Bridge tools
+neocortex/mcp/tools/NC_TOOL_FR_020_openclaude_bridge.py
+neocortex/mcp/tools/NC_TOOL_FR_021_vscode_bridge.py
+# Helper
+neocortex/mcp/tools/pulse.py
+neocortex/core/NC-CORE-FR-150-techniques-audit.py
+neocortex/core/NC-CORE-FR-159-crypto-integrity.py
+neocortex/core/NC-CORE-FR-166.py
+neocortex/core/NC-CORE-FR-167.py
+neocortex/core/NC-CORE-FR-168.py

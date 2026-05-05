@@ -1,0 +1,27 @@
+# Active Write Zones Registry
+# Reconstruído por NC-SCR-FR-009 (NC-DS-102) em 2026-04-26T10:26:06
+active_zones:
+  scripts:
+    - "01_neocortex_framework/scripts/"
+  services:
+    - "01_neocortex_framework/neocortex/core/services/"
+    - "01_neocortex_framework/neocortex/core/adapters/"
+    - "01_neocortex_framework/neocortex/core/hooks/"
+  tools:
+    - "01_neocortex_framework/neocortex/mcp/tools/"
+  docs:
+    - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/"
+  data_stores:
+    - "DIR-DS-000-agent-config/"
+    - "DIR-DS-001-tickets/"
+    - "DIR-DS-002-audit-logs/"
+    - "DIR-DS-003-wal/"
+    - "DIR-DS-004-patches/"
+  boot:
+    - "DIR-BOOT-FR-001-bootup-main/"
+  archive:
+    - "DIR-ARC-FR-001-archive-main/"
+  reports:
+    - "reports/"
+  config:
+    - "01_neocortex_framework/DIR-CFG-FR-001-config-main/"

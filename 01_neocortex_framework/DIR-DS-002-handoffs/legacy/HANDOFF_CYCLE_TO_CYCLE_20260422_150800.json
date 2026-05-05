@@ -1,0 +1,92 @@
+{
+  "handoff_id": "HANDOFF_CYCLE_TO_CYCLE_20260422_150800",
+  "type": "cycle_to_cycle",
+  "template": "Transferência entre ciclos de trabalho",
+  "timestamp": "2026-04-22T15:08:01.012547Z",
+  "status": "PENDING",
+  "from_entity": "CYCLE_CICLO_1",
+  "to_entity": "CYCLE_CICLO_2",
+  "summary": "Transição de CICLO_1 para CICLO_2",
+  "details": {
+    "from_cycle": "CICLO_1",
+    "to_cycle": "CICLO_2",
+    "summary": "Handoff de CICLO_1 para CICLO_2",
+    "completed_tasks": [
+      "Auditoria de gaps YAML/JSON",
+      "Implementação sistema de checkpoints",
+      "Padronização tickets YAML"
+    ],
+    "pending_tasks": [
+      "Consolidar roadmaps",
+      "Sincronizar tickets com roadmap v69",
+      "Configurar monitoramento compliance"
+    ],
+    "risks": [
+      "Falta de checkpoints regulares",
+      "Roadmaps descentralizados"
+    ],
+    "recommendations": [
+      "Implementar checkpoints automáticos",
+      "Consolidar roadmaps"
+    ],
+    "deliverables": [],
+    "dependencies": [],
+    "context_changes": []
+  },
+  "context": {
+    "recent_checkpoints": [
+      {
+        "id": null,
+        "cycle": null,
+        "timestamp": null
+      },
+      {
+        "id": "CP_CICLO_1_20260422_150433",
+        "cycle": "CICLO_1",
+        "timestamp": "2026-04-22T15:04:34.026052Z"
+      },
+      {
+        "id": "CP_CICLO_1_20260422_150415",
+        "cycle": "CICLO_1",
+        "timestamp": "2026-04-22T15:04:15.808380Z"
+      }
+    ],
+    "active_tickets": [
+      {
+        "id": "NC-DS-118",
+        "title": "Fix F841 metrics store implementation",
+        "status": "OPEN",
+        "priority": "HIGH"
+      },
+      {
+        "id": "NC-DS-119",
+        "title": "Ticket NC-DS-119",
+        "status": "OPEN",
+        "priority": "MEDIUM"
+      },
+      {
+        "id": "NC-DS-119",
+        "title": "Ticket NC-DS-119",
+        "status": "OPEN",
+        "priority": "MEDIUM"
+      }
+    ],
+    "timestamp": "2026-04-22T15:08:01.012547Z"
+  },
+  "metadata": {
+    "cycle_transition": true,
+    "auto_generated": false,
+    "priority": "HIGH"
+  },
+  "acceptance": {
+    "accepted_by": null,
+    "accepted_at": null,
+    "notes": null
+  },
+  "verification": {
+    "verified": false,
+    "verified_by": null,
+    "verified_at": null
+  },
+  "hash": "ebc867b3d411be73a6efd46cf758aa5075902d02452796cdb99a10e2666206aa"
+}

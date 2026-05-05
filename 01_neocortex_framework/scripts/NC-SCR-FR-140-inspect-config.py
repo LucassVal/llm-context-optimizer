@@ -1,6 +1,24 @@
 #!/usr/bin/env python3
 
 # Fix encoding for Windows (UTF-8)
+"""---
+domain: "orchestration"
+layer: "infra"
+type: "SCR"
+tags: ['script', 'automation', 'configuration']
+hash: "auto-generated"
+---
+"""
+
+"""---
+domain: "orchestration"
+layer: "infra"
+type: "SCR"
+tags: ['script', 'automation', 'configuration']
+hash: "auto-generated"
+---
+"""
+
 if sys.platform == "win32":
     import io
     import sys

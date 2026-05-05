@@ -1,0 +1,11 @@
+{
+  "profile": "openai",
+  "env": {
+    "OPENAI_BASE_URL": "http://localhost:4001/v1",
+    "OPENAI_MODEL": "deepseek-v4-pro",
+    "OPENAI_API_KEY": "sk-8e9d655cf8ed4e399c8ca7394bb702f9"
+  },
+  "createdAt": "2026-04-26T02:31:54.041Z",
+  "updatedAt": "2026-04-26T00:15:00.000Z",
+  "note": "Roteado via NC-SVC-FR-102 (gateway local :4001) — modelos: deepseek-v4-pro, deepseek-v4-flash."
+}

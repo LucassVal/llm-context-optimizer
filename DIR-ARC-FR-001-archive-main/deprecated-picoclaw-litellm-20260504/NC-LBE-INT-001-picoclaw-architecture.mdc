@@ -1,0 +1,632 @@
+---
+
+<!-- NC-READ-HASH: NC-LBE-INT-001-picoclaw-architecture-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-001-picoclaw-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
+name: NC-LBE-INT-001-picoclaw-architecture
+description: Documentao arquitetural completa do PicoClaw para integrao com NeoCortex
+tags: [picoclaw, orchestration, gateway, mcp, integration, deepseek]
+status: active
+module: integration
+lobe_name: "$PICOCLAW_ARCHITECTURE"
+lobe_id: NC-LBE-INT-001
+domain: integration
+updated: "2026-04-13T15:30:00-03:00"
+temperature: 0
+status: archived
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-INT-001-picoclaw-architecture-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-001-picoclaw-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
+<!-- 3 W's Auto-Injection -->
+## What
+Módulo: NC LBE INT 001 picoclaw architecture
+
+## Why
+Criado em 2026-04-13 — arquivo do ecossistema NeoCortex
+
+## Where
+02_memory_lobes/02_integrations
+
+---
+
+
+
+<!-- NC-READ-HASH: NC-LBE-INT-001-picoclaw-architecture-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-001-picoclaw-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
+# NC-LBE-INT-001  Arquitetura PicoClaw
+
+## 1. O que  PicoClaw
+
+PicoClaw  um assistente de IA ultra-leve escrito em Go, desenvolvido pela Sipeed como um projeto independente open-source. No  um fork do OpenClaw, NanoBot ou qualquer outro projeto.
+
+**Caractersticas principais:**
+- Framework Go ultra-leve (<10MB RAM, <1s boot)
+- Repositrio: sipeed/picoclaw (28K+ stars)
+- Verso atual: v0.2.6 (lanada em 8 de abril de 2026)
+- Changelog relevante: v0.2.4 trouxe overhaul de arquitetura de agente (SubTurn, Hooks, Steering, EventBus), integrao WeChat/WeCom, hardening de segurana (.security.yml, filtro de dados sensveis), novos providers (AWS Bedrock, Azure, Xiaomi MiMo) e 35 correes de bugs.
+
+**Objetivo:** Executar em hardware de US$10 com menos de 10MB de RAM  99% menos memria que OpenClaw e 98% mais barato que um Mac mini.
+
+**Principais marcos:**
+- 2026-03-31: Suporte Android (APK disponvel em picoclaw.io/download)
+- 2026-03-25: v0.2.4 lanada, alcanando 26K stars
+- 2026-03-17: v0.2.3 com UI de system tray (Windows & Linux), consulta de status de sub-agente (`spawn_status`), hot-reload experimental do Gateway
+- 2026-03-09: v0.2.1 com suporte a protocolo MCP, 4 novos canais (Matrix/IRC/WeCom/Discord Proxy), 3 novos providers (Kimi/Minimax/Avian), pipeline de viso, armazenamento de memria JSONL, roteamento de modelos
+
+**Avisos de segurana:**
+- **SEM CRIPTO:** PicoClaw no emitiu tokens oficiais ou criptomoeda. Qualquer alegao em `pump.fun` ou outras plataformas de trading  **fraude**.
+- **DOMNIO OFICIAL:** O nico site oficial  **[picoclaw.io](https://picoclaw.io)** e o site da empresa  **[sipeed.com](https://sipeed.com)**.
+- **CUIDADO:** Muitos domnios `.ai/.org/.com/.net/...` foram registrados por terceiros. No confie neles.
+- **NOTA:** PicoClaw est em desenvolvimento rpido inicial. Podem existir problemas de segurana no resolvidos. No implante em produo antes da v1.0.
+- **NOTA:** PicoClaw recentemente mergeou muitos PRs. Builds recentes podem usar 10-20MB de RAM. A otimizao de recursos est planejada aps a estabilizao de features.
+
+## 2. Arquitetura Interna
+
+### Gateway (porta 18790)
+O Gateway  o componente central que expe endpoints HTTP para integrao com aplicativos de chat.
+
+**Endpoints principais:**
+- `/health`: verifica sade do servio
+- `/ready`: verifica prontido para receber requisies
+- Roteamento de mensagens: recebe mensagens de diferentes canais e as direciona para o agente apropriado
+
+**Configurao padro:** `gateway.host: "127.0.0.1"`, `gateway.port: 18790`
+**Nvel de log:** controlado por `gateway.log_level` (padro: `warn`). Valores suportados: `debug`, `info`, `warn`, `error`, `fatal`. Tambm pode ser definido via varivel de ambiente `PICOCLAW_LOG_LEVEL`.
+
+### Providers LLM
+PicoClaw suporta 30+ provedores de LLM atravs da configurao `model_list`. Formato: `protocolo/modelo`.
+
+**Provedores principais:**
+- `openai/`: GPT-5.4, GPT-4o, o3, etc. (chave API obrigatria)
+- `anthropic/`: Claude Opus 4.6, Sonnet 4.6, etc.
+- `deepseek/`: DeepSeek-V3, DeepSeek-R1
+- `ollama/`: modelos locais, auto-hospedado (sem chave API)
+- `vllm/`: implantao local, compatvel com OpenAI
+- `litellm/`: proxy para 100+ provedores
+
+**Configurao exemplo:**
+```json
+{
+  "model_list": [
+    {
+      "model_name": "local-llama",
+      "model": "ollama/llama3.1:8b",
+      "api_base": "http://localhost:11434/v1"
+    }
+  ]
+}
+```
+
+### EventBus
+O EventBus  o sistema de eventos interno que permite comunicao entre componentes. Integra-se com MCP para extensibilidade.
+
+**Funcionamento:** Eventos so publicados por componentes e consumidos por subscribers. Suporta hooks pr/ps execuo.
+
+### Sub-agents
+PicoClaw suporta criao de sub-agentes para execuo paralela de tarefas.
+
+**Comandos relacionados:**
+- `spawn`: cria um novo sub-agente para tarefas assncronas
+- `spawn_status`: consulta status de sub-agentes em execuo
+- Delegao de tasks: tarefas longas podem ser delegadas a sub-agentes para no bloquear o agente principal
+
+### Hooks
+Sistema de hooks permite registro de callbacks pr/ps execuo de ferramentas e mensagens.
+
+**Tipos de hooks:**
+- Observers: monitoram eventos sem modificar comportamento
+- Interceptors: podem modificar ou cancelar operaes
+- Approval hooks: requerem aprovao manual para operaes sensveis
+
+**Configurao:** Atravs do arquivo `.security.yml` e configuraes no `config.json`.
+
+## 3. Ferramentas Nativas
+
+### Exec Tool
+Executa comandos de shell com polticas de segurana.
+
+**Configurao:**
+```json
+{
+  "tools": {
+    "exec": {
+      "enabled": true,
+      "enable_deny_patterns": true,
+      "custom_deny_patterns": []
+    }
+  }
+}
+```
+
+**Padres bloqueados por padro:**
+- Comandos de excluso: `rm -rf`, `del /f/q`, `rmdir /s`
+- Operaes de disco: `format`, `mkfs`, `diskpart`, `dd if=`
+- Operaes de sistema: `shutdown`, `reboot`, `poweroff`
+- Substituio de comandos: `$()`, `${}`, backticks
+- Pipe para shell: `| sh`, `| bash`
+- Escalao de privilgios: `sudo`, `chmod`, `chown`
+- Controle de processos: `pkill`, `killall`, `kill -9`
+- Operaes remotas: `curl | sh`, `wget | sh`, `ssh`
+- Gerenciamento de pacotes: `apt`, `yum`, `dnf`, `npm install -g`, `pip install --user`
+- Containers: `docker run`, `docker exec`
+- Git: `git push`, `git force`
+- Outros: `eval`, `source *.sh`
+
+**Limitao arquitetural conhecida:** O guardio de execuo s valida o comando de nvel superior enviado ao PicoClaw. No inspeciona recursivamente processos filhos gerados por ferramentas de build ou scripts aps o incio do comando.
+
+### File I/O
+Leitura e escrita de arquivos com sandboxing opcional.
+
+**Sandbox de filesystem:** Restringe operaes R/W a diretrios especficos.
+
+### Web Search
+Ferramentas de busca web para informaes atualizadas.
+
+**Motores suportados:**
+- DuckDuckGo: integrado, sem chave API, tier ilimitado
+- Brave Search: chave API obrigatria, 2000 consultas/ms
+- Tavily: otimizado para AI Agents, 1000 consultas/ms
+- Perplexity: busca com IA, pago
+- SearXNG: meta-motor de busca auto-hospedado, gratuito
+- GLM Search: busca web da Zhipu, chave API necessria
+- Baidu Search: API Qianfan, otimizado para chins, 1000 consultas/dia
+
+**Configurao exemplo:**
+```json
+{
+  "tools": {
+    "web": {
+      "brave": {
+        "enabled": true,
+        "api_key": "SEU_API_KEY",
+        "max_results": 5
+      }
+    }
+  }
+}
+```
+
+**Parmetros da ferramenta `web_search`:**
+- `query`: string de consulta (obrigatrio)
+- `count`: nmero de resultados (padro: 10, mximo: 10)
+- `range`: filtro de tempo opcional: `d` (dia), `w` (semana), `m` (ms), `y` (ano)
+
+### Cron Tool
+Agendamento de tarefas recorrentes e lembretes.
+
+**Tipos de agendamento:**
+- Lembretes nicos: "Lembre-me em 10 minutos"  dispara uma vez aps 10min
+- Tarefas recorrentes: "Lembre-me a cada 2 horas"  dispara a cada 2 horas
+- Expresses Cron: "Lembre-me s 9h diariamente"  usa expresso cron
+
+**Configurao:**
+```json
+{
+  "tools": {
+    "cron": {
+      "enabled": true,
+      "allow_command": true,
+      "exec_timeout_minutes": 5
+    }
+  }
+}
+```
+
+### Vision Pipeline
+Processamento de imagens e arquivos para LLMs multimodais.
+
+**Funcionamento:** Envio de imagens e arquivos diretamente para o Agente  codificao base64 automtica para LLMs multimodais.
+
+## 4. MCP  Integrao com servidores externos
+
+PicoClaw suporta nativamente o **Model Context Protocol (MCP)**  conecte qualquer servidor MCP para estender as capacidades do Agente com ferramentas e fontes de dados externas.
+
+### Transport Types
+- `stdio`: comunicao via entrada/sada padro (execuo de comando)
+- `sse`: Server-Sent Events (HTTP com eventos)
+- `http`: requisies HTTP padro
+
+### Configurao por servidor
+```json
+{
+  "tools": {
+    "mcp": {
+      "enabled": true,
+      "servers": {
+        "filesystem": {
+          "enabled": true,
+          "command": "npx",
+          "args": ["-y", "@modelcontextprotocol/server-filesystem", "/tmp"]
+        }
+      }
+    }
+  }
+}
+```
+
+### Tool Discovery (Lazy Loading com BM25)
+Quando conectado a mltiplos servidores MCP, expor centenas de ferramentas simultaneamente pode esgotar a janela de contexto do LLM e aumentar custos de API. O recurso **Discovery** resolve isso mantendo as ferramentas MCP *ocultas* por padro.
+
+Em vez de carregar todas as ferramentas, o LLM recebe uma ferramenta de busca leve (usando correspondncia de palavras-chave BM25 ou Regex). Quando o LLM precisa de uma capacidade especfica, ele busca na biblioteca oculta. As ferramentas correspondentes so ento temporariamente "desbloqueadas" e injetadas no contexto por um nmero configurado de turnos (`ttl`).
+
+**Configurao Discovery:**
+```json
+{
+  "tools": {
+    "mcp": {
+      "enabled": true,
+      "discovery": {
+        "enabled": true,
+        "ttl": 5,
+        "max_search_results": 5,
+        "use_bm25": true,
+        "use_regex": false
+      }
+    }
+  }
+}
+```
+
+### Como conectar NeoCortex MCP
+- stdio via `python -m neocortex.mcp.server`
+- Configurao exemplo:
+```json
+{
+  "tools": {
+    "mcp": {
+      "enabled": true,
+      "servers": {
+        "neocortex": {
+          "enabled": true,
+          "command": "python",
+          "args": ["-m", "neocortex.mcp.server"],
+          "env": {
+            "NEOCOORTEX_CONFIG_PATH": "/caminho/para/config.json"
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+### Como conectar OpenCode MCP
+- sse via `http://127.0.0.1:59520/sse`
+- Configurao exemplo:
+```json
+{
+  "tools": {
+    "mcp": {
+      "enabled": true,
+      "servers": {
+        "opencode": {
+          "enabled": true,
+          "type": "sse",
+          "url": "http://127.0.0.1:59520/sse"
+        }
+      }
+    }
+  }
+}
+```
+
+## 5. Skills  opencode-controller especificamente
+
+### O que so Skills
+Skills so capacidades modulares que estendem seu Agente. So carregadas a partir de arquivos `SKILL.md` no workspace.
+
+### ClawHub: marketplace de skills
+ClawHub (clawhub.ai)  um registro versionado para skills de agentes de IA. Funciona como npm para skills.
+
+**Comandos:**
+```bash
+picoclaw skills search "web scraping"
+picoclaw skills install <nome-da-skill>
+```
+
+**Configurao do token ClawHub (opcional, para limites de rate mais altos):**
+```json
+{
+  "tools": {
+    "skills": {
+      "registries": {
+        "clawhub": {
+          "auth_token": "seu-token-clawhub"
+        }
+      }
+    }
+  }
+}
+```
+
+### opencode-controller
+Skill comunitria (no oficial) que oferece comandos slash para integrao com OpenCode.
+
+**Instalao:**
+```bash
+picoclaw skills install opencode-controller
+```
+
+**Comandos slash oferecidos (exemplos):**
+- `/opencode status`: verifica status da conexo
+- `/opencode execute <comando>`: executa comando no workspace
+- `/opencode read <arquivo>`: l arquivo do workspace
+- `/opencode edit <arquivo>`: edita arquivo no workspace
+
+**Como criar skill customizada para NeoCortex:**
+1. Criar arquivo `SKILL.md` no workspace com metadados e implementao
+2. Documentar comandos e funcionalidades
+3. Publicar no ClawHub ou manter localmente
+
+## 6. Gateway como Orquestrador
+
+### Configurao completa do gateway
+```json
+{
+  "gateway": {
+    "host": "127.0.0.1",
+    "port": 18790,
+    "log_level": "warn",
+    "public": false
+  }
+}
+```
+
+**Modo pblico:** Use a flag `-public` ou defina `PICOCLAW_GATEWAY_HOST=0.0.0.0` para escutar em todas as interfaces.
+
+### Roteamento de mensagens
+O gateway atua como roteador central para mensagens de diferentes canais:
+1. Recebe mensagem de um canal (Telegram, Discord, etc.)
+2. Extrai contedo e metadados
+3. Encaminha para o agente apropriado
+4. Retorna resposta ao canal de origem
+
+### Mltiplos agentes em paralelo
+Atravs do sistema de sub-agentes (`spawn`), o gateway pode orquestrar mltiplos agentes executando tarefas em paralelo.
+
+### Como T0 chama o gateway via HTTP POST
+```bash
+curl -X POST http://127.0.0.1:18790/message \
+  -H "Content-Type: application/json" \
+  -d '{
+    "channel": "cli",
+    "user": "T0",
+    "text": "Ol, qual  a verso do PicoClaw?",
+    "metadata": {
+      "session_id": "sessao-001",
+      "agent_id": "T0-Antigravity"
+    }
+  }'
+```
+
+**Resposta esperada:**
+```json
+{
+  "text": "A verso atual do PicoClaw  v0.2.6, lanada em 8 de abril de 2026.",
+  "metadata": {
+    "model": "deepseek/deepseek-v3",
+    "tokens_used": 45
+  }
+}
+```
+
+## 7. Configurao Completa para NeoCortex
+
+Exemplo de `config.json` completo com integrao NeoCortex:
+
+```json
+{
+  "agents": {
+    "defaults": {
+      "model_name": "deepseek-v3",
+      "temperature": 0.7,
+      "max_tokens": 4096
+    }
+  },
+  "model_list": [
+    {
+      "model_name": "deepseek-v3",
+      "model": "deepseek/deepseek-v3",
+      "api_key": "SECRET_DEEPSEEK_API_KEY"
+    },
+    {
+      "model_name": "claude-opus",
+      "model": "anthropic/claude-3-opus-20240229",
+      "api_key": "SECRET_ANTHROPIC_API_KEY"
+    }
+  ],
+  "gateway": {
+    "host": "127.0.0.1",
+    "port": 18790,
+    "log_level": "info",
+    "public": false
+  },
+  "tools": {
+    "exec": {
+      "enabled": true,
+      "enable_deny_patterns": true,
+      "custom_deny_patterns": []
+    },
+    "web": {
+      "enabled": true,
+      "duckduckgo": {
+        "enabled": true,
+        "max_results": 5
+      },
+      "brave": {
+        "enabled": false,
+        "api_key": ""
+      }
+    },
+    "cron": {
+      "enabled": true,
+      "allow_command": true,
+      "exec_timeout_minutes": 5
+    },
+    "mcp": {
+      "enabled": true,
+      "discovery": {
+        "enabled": true,
+        "ttl": 5,
+        "max_search_results": 5,
+        "use_bm25": true
+      },
+      "servers": {
+        "neocortex": {
+          "enabled": true,
+          "command": "python",
+          "args": ["-m", "neocortex.mcp.server"],
+          "env": {
+            "NEOCOORTEX_CONFIG_PATH": "/caminho/para/neocortex_config.json"
+          }
+        },
+        "opencode": {
+          "enabled": true,
+          "type": "sse",
+          "url": "http://127.0.0.1:59520/sse"
+        }
+      }
+    },
+    "skills": {
+      "registries": {
+        "clawhub": {
+          "enabled": true,
+          "base_url": "https://clawhub.ai",
+          "auth_token": ""
+        }
+      }
+    }
+  },
+  "security": {
+    "filter_sensitive_data": true,
+    "filter_min_length": 8
+  }
+}
+```
+
+**Notas:**
+- Chaves API so armazenadas em `.security.yml` (formato verso 1+)
+- O arquivo `config.json` contm apenas dados no sensveis aps migrao automtica
+- Para modificar cdigos manualmente, consulte `docs/security_configuration.md`
+
+## 8. Integrao Windows
+
+### Instalao no Windows (binary ou WSL)
+**Opo 1: Binary nativo**
+1. Baixe `picoclaw-launcher.exe` de [picoclaw.io](https://picoclaw.io)
+2. Execute o arquivo (Windows Defender pode bloquear inicialmente - permita manualmente)
+3. Navegador abrir automaticamente em `http://localhost:18800`
+
+**Opo 2: WSL (Windows Subsystem for Linux)**
+1. Instale WSL2 e uma distribuio Linux (Ubuntu recomendado)
+2. Siga instrues de instalao Linux dentro do WSL
+
+### PATH e variveis de ambiente
+**Adicionar ao PATH:**
+1. Extraia o binary para um diretrio (ex: `C:\Program Files\PicoClaw\`)
+2. Adicione ao PATH do sistema:
+   - Win+X  Sistema  Configuraes avanadas do sistema  Variveis de ambiente
+   - Editar PATH, adicionar `C:\Program Files\PicoClaw\`
+
+**Variveis de ambiente importantes:**
+- `PICOCLAW_GATEWAY_HOST`: host do gateway (padro: 127.0.0.1)
+- `PICOCLAW_GATEWAY_PORT`: porta do gateway (padro: 18790)
+- `PICOCLAW_LOG_LEVEL`: nvel de log (debug, info, warn, error, fatal)
+- `PICOCLAW_TOOLS_EXEC_ENABLED`: habilitar/desabilitar ferramenta exec
+
+### Execuo como servio em background
+**Usando NSSM (Non-Sucking Service Manager):**
+1. Baixe NSSM de https://nssm.cc
+2. Instale como servio:
+   ```
+   nssm install PicoClaw "C:\Program Files\PicoClaw\picoclaw-launcher.exe"
+   nssm set PicoClaw AppParameters "-public"
+   nssm start PicoClaw
+   ```
+
+**Usando Windows Task Scheduler:**
+1. Criar tarefa bsica
+2. Ao: Iniciar programa  `C:\Program Files\PicoClaw\picoclaw-launcher.exe`
+3. Configurar para executar na inicializao do sistema
+
+## 9. Limitaes e Riscos
+
+### Exec tool: riscos de segurana
+- **Limitao arquitetural:** O guardio de execuo s valida comandos de nvel superior
+- **Bypass possvel:** Scripts de build (`make run`, `go run`, `cargo run`, `npm run build`) podem executar cdigo arbitrrio aps a validao inicial
+- **Recomendao:** Use isolamento mais forte (containers, VMs) para pipelines de build no revisados
+
+### opencode-controller: skill comunitria (no oficial)
+- **Status:** Desenvolvida pela comunidade, no mantida oficialmente pela Sipeed
+- **Riscos:** Pode conter vulnerabilidades ou comportamentos inesperados
+- **Recomendao:** Revise o cdigo fonte antes de usar em produo
+
+### Boot time em Windows
+- **Desempenho:** Windows pode ter boot mais lento devido a overhead do sistema
+- **Antivirus:** Windows Defender pode adicionar atraso na primeira execuo
+- **Workaround:** Adicione exceo no antivirus para o diretrio do PicoClaw
+
+### Diferenas PicoClaw vs OpenClaw vs ClawHub
+- **PicoClaw:** Framework ultra-leve em Go, foco em edge computing e hardware barato
+- **OpenClaw:** Ecossistema mais amplo, TypeScript, mais features mas mais pesado
+- **ClawHub:** Marketplace de skills, no  um framework de execuo
+
+## 10. Roadmap PicoClaw
+
+### Prximas features relevantes para NeoCortex
+1. **Otimizao de Memria** (issue #346)
+   - Objetivo: Executar suavemente em placas embedded com 64MB RAM
+   - Processo core consumindo < 20MB
+   - Prioridade mxima para dispositivos edge
+
+2. **Endurecimento de Segurana**
+   - Defesa contra prompt injection
+   - Controle de permisses rigoroso
+   - Sandboxing de filesystem
+   - Isolamento de contexto entre sesses
+   - Redao automtica de informaes sensveis
+
+3. **Arquitetura Protocol-First**
+   - Refatorao de "vendor-based" para "protocol-based"
+   - Suporte profundo a modelos locais (Ollama, vLLM, LM Studio, Mistral)
+   - Expanso de canais (QQ, WeChat Work, DingTalk, Feishu, etc.)
+   - Suporte nativo a anexos (imagens, udio, vdeo)
+
+4. **Capacidades Avanadas**
+   - Suporte MCP nativo (issue #290)
+   - Automao de navegador headless via CDP
+   - Operao de dispositivos Android
+   - Colaborao multi-agente bsica
+   - Model routing inteligente
+   - Modo swarm (colaborao entre instncias PicoClaw)
+
+5. **Experincia do Desenvolvedor**
+   - QuickGuide com zero-config
+   - Documentao abrangente com tutoriais passo a passo
+   - Docs assistidos por IA (com verificao humana)
+
+### Verses planejadas
+- **v0.3.0** (prxima maior): Foco em segurana e otimizao
+- **v1.0.0**: Primeira verso estvel para produo
+- **Roadmap comunitrio:** Disponvel em https://github.com/sipeed/picoclaw/issues/988
+
+---
+
+
+<!-- NC-READ-HASH: NC-LBE-INT-001-picoclaw-architecture-v1 -->
+<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-001-picoclaw-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
+## Referncias
+
+1. **Repositrio oficial:** https://github.com/sipeed/picoclaw
+2. **Site oficial:** https://picoclaw.io
+3. **Documentao:** https://docs.picoclaw.io
+4. **ClawHub (marketplace de skills):** https://clawhub.ai
+5. **Roadmap comunitrio:** https://github.com/sipeed/picoclaw/issues/988
+6. **Model Context Protocol:** https://modelcontextprotocol.io
+
+## Histrico de Revises
+
+- **2026-04-13T15:30:** Criao inicial do lobe NC-LBE-INT-001 por Agente A (porta 59520)
+- **Fonte:** Pesquisa baseada em README.md, docs/tools_configuration.md, ROADMAP.md, picoclaw.io, clawhub.ai
+- **Linhas totais:** 400+ (requisito mnimo atendido)

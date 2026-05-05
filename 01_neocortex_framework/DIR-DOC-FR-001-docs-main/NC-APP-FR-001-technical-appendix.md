@@ -75,17 +75,17 @@
 | :--- | :--- | :--- |
 | `qwen2.5-coder:1.5b-instruct` | Ollama | Agente Courier (tarefas braçais 24/7) |
 | `qwen2.5-coder:3b-instruct` | Ollama | Agente Engineer (desenvolvimento) |
-| `deepseek-reasoner` | DeepSeek API | Raciocínio complexo, T0 principal |
-| `deepseek-chat` | DeepSeek API | Tarefas transacionais, respostas rápidas |
+| `deepseek-v4-pro` | DeepSeek API | Raciocínio complexo, T0 principal |
+| `deepseek-v4-flash` | DeepSeek API | Tarefas transacionais, respostas rápidas |
 
 ### Políticas de Roteamento (A Implementar)
 
 | Política | Regra | Ticket |
 | :--- | :--- | :--- |
-| Por Complexidade | `< 500 tokens → qwen:1.5b`; `> 2000 tokens → deepseek-reasoner` | neocortex_brain |
+| Por Complexidade | `< 500 tokens → qwen:1.5b`; `> 2000 tokens → deepseek-v4-pro` | neocortex_brain |
 | Por Custo | Se `daily_cost > $1.00`, rotear para locais | SEC-403 |
 | Por Latência | `timeout < 2s → local` | neocortex_brain |
-| Fallback Chain | `ollama → deepseek-chat → deepseek-reasoner` | ✅ LLM-006 |
+| Fallback Chain | `ollama → deepseek-v4-flash → deepseek-v4-pro` | ✅ LLM-006 |
 | Por Role | `guardian → qwen:1.5b`; `engineer → qwen:3b` | sub_server.py |
 
 ---
