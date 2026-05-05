@@ -1,42 +1,118 @@
-ticket_id: "NC-DS-071"
-status: "DONE"
-priority: "HIGH"
-title: "SCR-FR-064 — Rastreabilidade: NC-SCR-FR-064-artifact-catalog.py"
-created_at: "2026-04-15T01:08:00-03:00"
-created_by: "T0-Antigravity"
-
+ticket_id: NC-DS-071
+status: DONE
+priority: HIGH
+title: 'SCR-FR-064 — Rastreabilidade: NC-SCR-FR-064-artifact-catalog.py'
+created_at: '2026-04-15T01:08:00-03:00'
+created_by: T0-Antigravity
 context:
-  origin: "Auditoria de scripts orfaos (Ciclo 1, sessao 2026-04-15)"
-  problem: |
-    NC-SCR-FR-064-artifact-catalog.py gera o artifact_catalog.json — base do
-    Ciclo 3 e do catálogo semântico usado para busca contextual. E usado no
-    NC-WF-001 linha 128 mas nao tem ticket formal.
-  scope: "Rastreabilidade + verificacao de saida do catalogo"
+  origin: Auditoria de scripts orfaos (Ciclo 1, sessao 2026-04-15)
+  problem: 'NC-SCR-FR-064-artifact-catalog.py gera o artifact_catalog.json — base
+    do
 
+    Ciclo 3 e do catálogo semântico usado para busca contextual. E usado no
+
+    NC-WF-001 linha 128 mas nao tem ticket formal.
+
+    '
+  scope: Rastreabilidade + verificacao de saida do catalogo
 task:
-  description: |
-    1. Verificar integridade do script (sintaxe, paths de saida, formato JSON).
+  description: '1. Verificar integridade do script (sintaxe, paths de saida, formato
+    JSON).
+
     2. Executar e validar que artifact_catalog.json e gerado corretamente.
+
     3. Verificar que metadata.generated tem timestamp ISO 8601.
+
     4. Documentar parametros e codigos de retorno.
+
     5. Atualizar NC-NAM-FR-001 com entrada do script.
+
     6. Gerar handoff APPROVED.
+
+    '
   action_description:
     utterances:
-      - "Regenerar catalogo semantico do projeto"
-      - "Atualizar artifact_catalog.json com artefatos recentes"
-    input_instructions: "Executar da raiz do projeto. Saida: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/artifact_catalog.json"
-    output_instructions: "JSON com metadata.generated (ISO 8601) e lista de artifacts com file_path, purpose, domain, tags."
-    usage_rules: "Ciclo 3: executar sempre que catalogo > 24h ou houver mudancas significativas."
-
+    - Regenerar catalogo semantico do projeto
+    - Atualizar artifact_catalog.json com artefatos recentes
+    input_instructions: 'Executar da raiz do projeto. Saida: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/artifact_catalog.json'
+    output_instructions: JSON com metadata.generated (ISO 8601) e lista de artifacts
+      com file_path, purpose, domain, tags.
+    usage_rules: 'Ciclo 3: executar sempre que catalogo > 24h ou houver mudancas significativas.'
 write_zone:
-  - "01_neocortex_framework/scripts/"
-  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/artifact_catalog.json"
+- 01_neocortex_framework/scripts/
+- 01_neocortex_framework/DIR-DOC-FR-001-docs-main/artifact_catalog.json
 references:
-  - "01_neocortex_framework/scripts/NC-SCR-FR-064-artifact-catalog.py"
-  - ".agents/workflows/NC-WF-001-workspace-routine.md#L128"
-
-tags: ["ciclo3", "knowledge", "catalog", "semantic", "infra", "SCR"]
-domain: "knowledge"
-layer: "infra"
-type: "SCR"
+- 01_neocortex_framework/scripts/NC-SCR-FR-064-artifact-catalog.py
+- .agents/workflows/NC-WF-001-workspace-routine.md#L128
+tags:
+- ciclo3
+- knowledge
+- catalog
+- semantic
+- infra
+- SCR
+domain: knowledge
+layer: infra
+type: SCR
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: <2500 chars per ticket description
+  validation:
+    py:
+    - ruff check --fix
+    - ruff format
+    - ruff check
+    - mypy --ignore-missing-imports
+    - py_compile
+    - bandit -q
+    yaml:
+    - yaml.safe_load
+    - naming NC- check
+    - secret scan
+    mdc:
+    - frontmatter YAML validate
+    - NC-READ-HASH check
+    - naming NC- check
+    json:
+    - json.loads parse
+    - naming NC- check
+    all:
+    - '@LOCKS check'
+    - Write Zone check
+    - '@SSOT update'
+    - Handoff YAML
+    - 3W check
+    - SSOT Header
+  sandbox_required: true
+  sandbox_steps:
+  - 1. Copiar arquivo alvo para *-sandbox.py
+  - 2. Fazer alteracoes no sandbox
+  - 3. Validar sandbox (ruff+mypy+py_compile)
+  - 4. Testar sandbox
+  - 5. Aplicar no real (com backup)
+  - 6. Rollback via backup se falhar
+  handoff_required: true
+  handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+  handoff_dest: DIR-DS-002-audit-logs/
+  handoff_format: NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+  handoff_fields:
+  - ticket_id
+  - status
+  - submitted_at
+  - submitted_by
+  - summary
+  - files_created
+  - files_modified
+  - validation_rounds
+  - barriers_passed
+  - locks_violated
+  - t0_review
+  governance:
+    eisenhower_applied: true
+    mordaca_h: HOOK — bloqueia acao invalida ANTES de executar (FAIL-FAST)
+    mordaca_c: CHECKPOINT — audita estado a cada 300s (PulseScheduler)
+    mordaca_s: SCHEDULE — consolida no CICLO 4 semanal
+    mordaca_u: USER — T0 aprova/rejeita via handoff review
+    kaizen: Registrar micro-melhoria no @CHANGELOG apos conclusao
+    roadmap: Marcar %DONE no @ROADMAP apos handoff aprovado

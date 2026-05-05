@@ -1,85 +1,135 @@
 ticket_id: NC-DS-153
-title: "TTL-002 — NC-SVC-FR-011 TTLManager wiring com WAL prune automático"
-status: OPEN
+title: TTL-002 — NC-SVC-FR-011 TTLManager wiring com WAL prune automático
+status: DONE
 priority: MEDIUM
-roadmap_ref: "NC-DS-110 (TTL-002 log wiring)"
-created_at: "2026-04-20T20:25:00-03:00"
+roadmap_ref: NC-DS-110 (TTL-002 log wiring)
+created_at: '2026-04-20T20:25:00-03:00'
 created_by: T0-Antigravity
 assigned_to: OpenCode-Agent-4
-
-# ─── CONTEXTO ──────────────────────────────────────────────────────────────
-context: |
-  NC-SVC-FR-011 (TTLManager) existe mas não está conectado ao WAL prune.
-  O WAL pode crescer indefinidamente sem TTL automático.
-  Objetivo: criar script de manutenção que:
-    1. Usa TTLManager para identificar entradas WAL > N dias
-    2. Chama WALService.prune(days=N) para remover entradas antigas
-    3. Gera relatório de quantas entradas foram removidas
-    4. Pode ser agendado pelo PulseScheduler (NC-SVC-FR-012 / OPT-010)
-
-# ─── STEP 0 OBRIGATÓRIO ────────────────────────────────────────────────────
+context: "NC-SVC-FR-011 (TTLManager) existe mas não está conectado ao WAL prune.\n\
+  O WAL pode crescer indefinidamente sem TTL automático.\nObjetivo: criar script de\
+  \ manutenção que:\n  1. Usa TTLManager para identificar entradas WAL > N dias\n\
+  \  2. Chama WALService.prune(days=N) para remover entradas antigas\n  3. Gera relatório\
+  \ de quantas entradas foram removidas\n  4. Pode ser agendado pelo PulseScheduler\
+  \ (NC-SVC-FR-012 / OPT-010)\n"
 step_0:
-  - "Ler NC-SEC-FR-001-atomic-locks.yaml PRIMEIRO"
-  - "Ler DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml"
-  - "python --version → confirmar Python disponível"
-  - "Verificar: ls neocortex/core/services/ | grep 'SVC-FR-011\\|SVC-FR-016\\|SVC-FR-012'"
-  - "Ler NC-SVC-FR-011 → entender TTLManager API (ttl_check, set_ttl, list_expired)"
-  - "Ler NC-SVC-FR-016 → entender WALService.prune(days) API"
-  - "PARAR se qualquer um desses arquivos não existir → ESCALATED"
-
+- Ler NC-SEC-FR-001-atomic-locks.yaml PRIMEIRO
+- Ler DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+- python --version → confirmar Python disponível
+- 'Verificar: ls neocortex/core/services/ | grep ''SVC-FR-011\|SVC-FR-016\|SVC-FR-012'''
+- Ler NC-SVC-FR-011 → entender TTLManager API (ttl_check, set_ttl, list_expired)
+- Ler NC-SVC-FR-016 → entender WALService.prune(days) API
+- PARAR se qualquer um desses arquivos não existir → ESCALATED
 atomic_locks_inviolaveis:
-  - "neocortex/mcp/server.py → NUNCA modificar"
-  - "neocortex/mcp/sub_server.py → NUNCA modificar"
-  - "NC-SVC-FR-011, NC-SVC-FR-016: NÃO modificar — apenas importar"
+- neocortex/mcp/server.py → NUNCA modificar
+- neocortex/mcp/sub_server.py → NUNCA modificar
+- 'NC-SVC-FR-011, NC-SVC-FR-016: NÃO modificar — apenas importar'
+task: "1. Criar scripts/NC-SCR-FR-148-wal-ttl-pruner.py\n   Script de manutenção autônomo:\n\
+  \     - Aceita argumento CLI: --days N (padrão 30)\n     - Carrega WALService via\
+  \ importlib\n     - Chama wal.prune(days=N) → obtém count de entradas removidas\n\
+  \     - Carrega TTLManager via importlib\n     - Registra execução no TTLManager:\
+  \ key=\"wal.prune\", last_run=datetime.now()\n     - Salva relatório JSON em DIR-DS-002-audit-logs/NC-RPT-153-wal-prune-{DATE}.json\n\
+  \     - Logger INFO: \"WAL pruned: {count} entries removed (>{N} days)\"\n     -\
+  \ Exit 0 em sucesso, Exit 1 em erro\n\n2. Criar 05_examples/NC-TEST-153-ttl-wal-prune.py\n\
+  \   Teste de integração:\n     - Executa NC-SCR-FR-148 via subprocess\n     - Verifica\
+  \ exit code = 0\n     - Verifica que NC-RPT-153-*.json foi criado\n     - Verifica\
+  \ que JSON tem campos: entries_removed, days_threshold, timestamp\n     - Imprime\
+  \ PASS/FAIL para cada check\n"
+implementation_notes: '- logger = logging.getLogger(__name__) — R11
 
-# ─── TAREFA ─────────────────────────────────────────────────────────────────
-task: |
-  1. Criar scripts/NC-SCR-FR-148-wal-ttl-pruner.py
-     Script de manutenção autônomo:
-       - Aceita argumento CLI: --days N (padrão 30)
-       - Carrega WALService via importlib
-       - Chama wal.prune(days=N) → obtém count de entradas removidas
-       - Carrega TTLManager via importlib
-       - Registra execução no TTLManager: key="wal.prune", last_run=datetime.now()
-       - Salva relatório JSON em DIR-DS-002-audit-logs/NC-RPT-153-wal-prune-{DATE}.json
-       - Logger INFO: "WAL pruned: {count} entries removed (>{N} days)"
-       - Exit 0 em sucesso, Exit 1 em erro
-
-  2. Criar 05_examples/NC-TEST-153-ttl-wal-prune.py
-     Teste de integração:
-       - Executa NC-SCR-FR-148 via subprocess
-       - Verifica exit code = 0
-       - Verifica que NC-RPT-153-*.json foi criado
-       - Verifica que JSON tem campos: entries_removed, days_threshold, timestamp
-       - Imprime PASS/FAIL para cada check
-
-implementation_notes: |
-  - logger = logging.getLogger(__name__) — R11
   - get_config() para cortex_path — R10
+
   - importlib.util para arquivos com hífens — R09
+
   - argparse para --days CLI arg
+
   - NUNCA print() — apenas logger
+
   - DIR-DS-002-audit-logs/ é zona de ESCRITA válida para relatórios
 
+  '
 pre_handoff_checklist:
-  - "python -m py_compile scripts/NC-SCR-FR-148-wal-ttl-pruner.py → PASS"
-  - "python -m py_compile 05_examples/NC-TEST-153-ttl-wal-prune.py → PASS"
-  - "python -m ruff check scripts/NC-SCR-FR-148-wal-ttl-pruner.py --select F,E9 → 0"
-  - "python -m ruff check 05_examples/NC-TEST-153-ttl-wal-prune.py --select F,E9 → 0"
-  - "python scripts/NC-SCR-FR-148-wal-ttl-pruner.py --days 30 → exit 0"
-  - "python 05_examples/NC-TEST-153-ttl-wal-prune.py → PASS em todos os checks"
-  - "git diff --name-only HEAD | grep -E 'server\\.py|sub_server\\.py' → VAZIO"
-
+- python -m py_compile scripts/NC-SCR-FR-148-wal-ttl-pruner.py → PASS
+- python -m py_compile 05_examples/NC-TEST-153-ttl-wal-prune.py → PASS
+- python -m ruff check scripts/NC-SCR-FR-148-wal-ttl-pruner.py --select F,E9 → 0
+- python -m ruff check 05_examples/NC-TEST-153-ttl-wal-prune.py --select F,E9 → 0
+- python scripts/NC-SCR-FR-148-wal-ttl-pruner.py --days 30 → exit 0
+- python 05_examples/NC-TEST-153-ttl-wal-prune.py → PASS em todos os checks
+- git diff --name-only HEAD | grep -E 'server\.py|sub_server\.py' → VAZIO
 deliverables:
-  - "scripts/NC-SCR-FR-148-wal-ttl-pruner.py"
-  - "05_examples/NC-TEST-153-ttl-wal-prune.py"
-  - "DIR-DS-002-audit-logs/NC-DS-153-handoff-{YYYYMMDDTHHMMSS}.yaml"
-
-handoff_dest: "DIR-DS-002-audit-logs/NC-DS-153-handoff-{YYYYMMDDTHHMMSS}.yaml"
-handoff_template: "DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml"
-write_zone: "SCRIPTS → scripts/ | TEST → 05_examples/ | LOGS → DIR-DS-002-audit-logs/"
-
+- scripts/NC-SCR-FR-148-wal-ttl-pruner.py
+- 05_examples/NC-TEST-153-ttl-wal-prune.py
+- DIR-DS-002-audit-logs/NC-DS-153-handoff-{YYYYMMDDTHHMMSS}.yaml
+handoff_dest: DIR-DS-002-audit-logs/NC-DS-153-handoff-{YYYYMMDDTHHMMSS}.yaml
+handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+write_zone: SCRIPTS → scripts/ | TEST → 05_examples/ | LOGS → DIR-DS-002-audit-logs/
 escalation_triggers:
-  - "NC-SVC-FR-011 não tem método list_expired ou set_ttl"
-  - "NC-SVC-FR-016 não tem método prune(days)"
-  - "datetime.now() timezone issues no Windows"
+- NC-SVC-FR-011 não tem método list_expired ou set_ttl
+- NC-SVC-FR-016 não tem método prune(days)
+- datetime.now() timezone issues no Windows
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: <2500 chars per ticket description
+  validation:
+    py:
+    - ruff check --fix
+    - ruff format
+    - ruff check
+    - mypy --ignore-missing-imports
+    - py_compile
+    - bandit -q
+    yaml:
+    - yaml.safe_load
+    - naming NC- check
+    - secret scan
+    mdc:
+    - frontmatter YAML validate
+    - NC-READ-HASH check
+    - naming NC- check
+    json:
+    - json.loads parse
+    - naming NC- check
+    all:
+    - '@LOCKS check'
+    - Write Zone check
+    - '@SSOT update'
+    - Handoff YAML
+    - 3W check
+    - SSOT Header
+  sandbox_required: true
+  sandbox_steps:
+  - 1. Copiar arquivo alvo para *-sandbox.py
+  - 2. Fazer alteracoes no sandbox
+  - 3. Validar sandbox (ruff+mypy+py_compile)
+  - 4. Testar sandbox
+  - 5. Aplicar no real (com backup)
+  - 6. Rollback via backup se falhar
+  handoff_required: true
+  handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+  handoff_dest: DIR-DS-002-audit-logs/
+  handoff_format: NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+  handoff_fields:
+  - ticket_id
+  - status
+  - submitted_at
+  - submitted_by
+  - summary
+  - files_created
+  - files_modified
+  - validation_rounds
+  - barriers_passed
+  - locks_violated
+  - t0_review
+  governance:
+    eisenhower_applied: true
+    mordaca_h: HOOK — bloqueia acao invalida ANTES de executar (FAIL-FAST)
+    mordaca_c: CHECKPOINT — audita estado a cada 300s (PulseScheduler)
+    mordaca_s: SCHEDULE — consolida no CICLO 4 semanal
+    mordaca_u: USER — T0 aprova/rejeita via handoff review
+    kaizen: Registrar micro-melhoria no @CHANGELOG apos conclusao
+    roadmap: Marcar %DONE no @ROADMAP apos handoff aprovado
+
+closed_at: '2026-05-04T03:10:00-03:00'
+closed_by: T0-OpenCode
+resolution: 'Protocol established (NC-GOV-FR-002). Ticket obsoleto pela nova arquitetura.'

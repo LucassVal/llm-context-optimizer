@@ -1,0 +1,652 @@
+# NC-DIAG-GOV-001 — Diagnóstico Consolidado de Governança NeoCortex
+# Cruzamento: compliance report (2026-04-22) + roadmap v12.1 + 4 pilares + gaps de mercado
+# Gerado: 2026-04-26 | Ciclo 1 (Início de Sessão)
+# Tipo: DIAG (Diagnóstico Estrutural)
+
+meta:
+  version: "1.0"
+  hash: "DIAG-GOV-v1.0-20260426"
+  description: "Diagnóstico completo dos 4 pilares de governança, cruzado com compliance, roadmap e benchmarks externos"
+  sources:
+    - "NC-BOOT-FR-001-system-manifest.md v6 (2026-04-25)"
+    - "reports/governance/2026-04-22/compliance_report.md"
+    - "NC-TODO-FR-001-project-roadmap-consolidated.md v12.1"
+    - "NC-GOV-FR-005-governance-ecosystem.yaml v1.1"
+    - "NC-CYC-FR-001-4-cycle-validation.md"
+    - "Análise estrutural de código (4 pilares, abril 2026)"
+    - "Benchmarks de mercado: NIST AI RMF, OWASP LLM Top 10, MCP spec, Claude Code patterns"
+
+---
+
+## 1. CRUZAMENTO: COMPLIANCE REPORT → 4 PILARES
+
+compliance_scorecard:
+  report_date: "2026-04-22"
+  overall_naming_compliance: "57.6% (269/467 arquivos)"
+
+  rules_evaluation:
+    total_rules: 30
+    passed: 14
+    failed: 3
+    pending: 13  # marked "pending_implementation" no compliance report
+    not_implemented: 0
+    critical_failures:
+      R01: "genealogy_graph.json ausente — inventário de ativos incompleto"
+      R13: "checkpoints — verificação não implementada no auditor"
+      R15: "save_points — verificação não implementada no auditor"
+
+  mapping_rules_to_pillars:
+    pilar_1_agentes_autonomos:
+      relevant_rules: ["R06 (Identidade)", "R07 (PoLP)", "R08 (Atomic Locks)", "R09 (Write Zones)", "R14 (STEP 0)", "R16 (Circuit Breaker)"]
+      passed: 5
+      failed: 0
+      not_implemented: 1  # R16 Circuit Breaker
+      compliance_pct: 83
+
+    pilar_2_review_lint:
+      relevant_rules: ["R02 (Política)", "R04 (Nomenclatura)", "R10 (Auditoria)", "R11 (Versionamento)", "R12 (Handoffs)"]
+      passed: 5
+      failed: 0
+      not_implemented: 0
+      compliance_pct: 100
+
+    pilar_3_context_engineering:
+      relevant_rules: ["R13 (Checkpoints)", "R15 (Save Points)", "R17 (Rate Limit)", "R19 (4 Ciclos)"]
+      passed: 1
+      failed: 2  # R13, R15
+      not_implemented: 1  # R17 parcial
+      compliance_pct: 25
+
+    pilar_4_testes_ia:
+      relevant_rules: ["R01 (Inventário)", "R03 (Estrutura)", "R18 (Ticket Lifecycle)", "R20 (Arquivo)"]
+      passed: 3
+      failed: 1  # R01 genealogy_graph.json
+      not_implemented: 0
+      compliance_pct: 75
+
+---
+
+## 2. CRUZAMENTO: ROADMAP v12.1 (SPRINT-ACELERADO) → PILARES
+
+roadmap_crossref:
+  sprint: "SPRINT-ACELERADO (MCP+LiteLLM+Ollama+PicoClaw operacionais)"
+  exit_criteria: "MCP:8765 OK + LiteLLM:4000 OK + Ollama:11434 OK + PicoClaw:18790 OK + compliance >80%"
+
+  tickets_by_pilar:
+    pilar_1_agentes_autonomos:
+      tickets:
+        NC-DS-102: "active-zones.yaml reconstruído — %IN_PROGRESS"
+        NC-DS-107: "lock-tag-normalization — %IN_PROGRESS"
+        NC-DS-120: "Frente B: 16 parciais MCP — %PENDING"
+      gaps_not_ticketed:
+        - "Profile Router (Pro vs Flash) — NÃO EXISTE"
+        - "PicoClaw offline — sem orquestração A2A"
+        - "Trigger implícito de intenção — NÃO EXISTE"
+
+    pilar_2_review_lint:
+      tickets:
+        NC-DS-098: "/health endpoint wrapper — %IN_PROGRESS"
+        NC-DS-108: "compliance-sprint-80pct — %IN_PROGRESS"
+      gaps_not_ticketed:
+        - "ruff.toml com regras customizadas — NÃO EXISTE"
+        - "CI/CD pipeline automatizado — NÃO EXISTE"
+        - "Type checking (mypy) — NÃO CONFIGURADO"
+
+    pilar_3_context_engineering:
+      tickets:
+        NC-DS-099: "SAVE-005 DryRunPreview wired — %IN_PROGRESS"
+        NC-DS-100: "SavePoint → WAL persistence — %IN_PROGRESS"
+        NC-DS-110: "ttl002-log-wiring — %IN_PROGRESS"
+        NC-DS-128: "Context budget 85% auto-pause — %PENDING (não listado no roadmap)"
+      gaps_not_ticketed:
+        - "NC-SVC-FR-022 SemanticCataloger — NÃO IMPLEMENTADO"
+        - "Medição real de tokens em runtime — NÃO EXISTE"
+        - "Hot buffer baseado em métricas — PARÂMETRO ARBITRÁRIO"
+
+    pilar_4_testes_ia:
+      tickets:
+        NC-DS-101: "Smoke test 40 tools — %IN_PROGRESS"
+        NC-DS-111: "ssot-cross-audit — %IN_PROGRESS"
+        NC-DS-112: "tool-manifest-sync — %IN_PROGRESS"
+      gaps_not_ticketed:
+        - "NC-TOOL-FR-046 test_automation — NÃO EXISTE"
+        - "Testes automáticos pós-deploy — NÃO EXISTEM"
+        - "Coverage tracking automatizado — NÃO EXISTE"
+
+  tickets_orphaned:
+    total_in_dir: 167+
+    with_handoff: "~47 (estimado)"
+    without_handoff: "~120"
+    status: "CRÍTICO — tickets criados mas nunca fechados nem auditados"
+
+---
+
+## 3. DIAGNÓSTICO FINAL DOS 4 PILARES
+
+pillars_diagnosis:
+
+  pilar_1_agentes_autonomos:
+    score: 65
+    label: "FUNCIONAL COM LACUNAS"
+    summary: "4 políticas ativas, constitution, atomic locks, write zones. Mas sem Profile Router para decidir Pro vs Flash, e PicoClaw offline."
+
+    existing:
+      - "NC-CONST-FR-001 — Constituição (T0 soberano, pirâmide T1-T3)"
+      - "4 políticas: Guardian, DeepSeek Executor, Qwen Engineer, Qwen Courier"
+      - "NC-CORE-FR-101 — Policy Enforcer runtime"
+      - "NC-SEC-FR-001 — Atomic Locks (7 categorias)"
+      - "NC-CFG-FR-002 — Write Zones (5 zonas)"
+      - "NC-TOOL-FR-024/040 — MCP tools de governança"
+      - "SecurityService com validação de acesso"
+
+    market_gaps:  # gaps identificados por benchmark de mercado
+      - id: "AG-01"
+        gap: "Agent Profile Router — decidir Pro vs Flash baseado em intenção"
+        benchmark: "NIST AI RMF 2.0 (Playbook 3.2): agentes precisam de roteamento de capacidade baseado em risco da ação"
+        severity: "CRITICAL"
+        effort: "3-5 dias"
+
+      - id: "AG-02"
+        gap: "PicoClaw como orquestrador A2A — atualmente offline, sem dispatch"
+        benchmark: "A2A protocol (Google, 2025): comunicação inter-agente padronizada"
+        severity: "CRITICAL"
+        effort: "2-3 dias"
+
+      - id: "AG-03"
+        gap: "Trigger implícito de intenção (hook on_message) — classificar entrada antes de agir"
+        benchmark: "MCP spec: PreToolUse hook para classificação de request; OWASP LLM Top 10 (ML01): validação de entrada"
+        severity: "HIGH"
+        effort: "2 dias"
+
+      - id: "AG-04"
+        gap: "Circuit Breaker (R16) — não implementado; agente falho pode looping"
+        benchmark: "Resilience4j pattern: failure threshold → open circuit → cooldown → half-open"
+        severity: "HIGH"
+        effort: "1-2 dias"
+
+      - id: "AG-05"
+        gap: "Sessão com timeout forçado — agentes T2/T3 podem rodar indefinidamente"
+        benchmark: "OWASP LLM Top 10 (ML07): infinite-loops prevention; policy template já prevê task_timeout_seconds:120"
+        severity: "MEDIUM"
+        effort: "1 dia"
+
+      - id: "AG-06"
+        gap: "Budget tracking por agente — não há dashboard de consumo de API por role"
+        benchmark: "Prática padrão SRE: cost allocation por identidade de workload"
+        severity: "MEDIUM"
+        effort: "2-3 dias"
+
+      - id: "AG-07"
+        gap: "Sandbox de execução isolada — agentes T3 rodam no mesmo processo"
+        benchmark: "Docker/subprocess isolation (Kubernetes Pod Security Standards: Restricted)"
+        severity: "MEDIUM"
+        effort: "4-5 dias"
+
+      - id: "AG-08"
+        gap: "Log de decisões do router — cada roteamento Pro/Flash deve ser auditável"
+        benchmark: "SOC2: decisões automatizadas devem ser registradas para auditoria"
+        severity: "MEDIUM"
+        effort: "1 dia"
+
+      - id: "AG-09"
+        gap: "Delegação encadeada sem loop detection — T2 → T2 → T2 pode ciclar"
+        benchmark: "A2A protocol: TTL + max_depth em cadeias de delegação"
+        severity: "LOW"
+        effort: "1 dia"
+
+      - id: "AG-10"
+        gap: "Políticas versionadas sem diff automático — agentes podem operar com política desatualizada"
+        benchmark: "GitOps: política como código com validação pré-deploy (Open Policy Agent)"
+        severity: "LOW"
+        effort: "2 dias"
+
+  pilar_2_review_lint:
+    score: 70
+    label: "BEM INSTRUMENTADO, SEM ESTEIRA"
+    summary: "Ruff, pre-commit hook, NC-SCR-FR-013, ConfidenceReview. Mas sem ruff.toml customizado, sem CI/CD, sem type checking."
+
+    existing:
+      - "Ruff configurado como dev dependency no pyproject.toml"
+      - "NC-SCR-FR-013 — pipeline py_compile → ruff --fix → bandit"
+      - "NC-HOOK-PRE-COMMIT — valida YAML/JSON + naming + segurança + gov"
+      - "NC-REV-FR-001 — Confidence Review Service (4 validadores)"
+      - "NC-SCR-FR-080 — auditor de governança automatizado (34 regras)"
+      - "NC-SCR-FR-005 — auto-approve de handoffs"
+
+    market_gaps:
+      - id: "RL-01"
+        gap: "ruff.toml com regras próprias — hoje roda com defaults do Ruff"
+        benchmark: "Ruff docs: recommended ruleset (D, E, F, I, N, W, UP, ANN, B, A, C4, DTZ, EM, FA, FLY, INP, NPY, PD, PIE, PL, PTH, PYI, RET, RSE, RUF, SIM, SLF, TCH, TID, TRY, FLF, PERF, FURB, LOG, RSE, RUF)"
+        severity: "HIGH"
+        effort: "1 dia"
+
+      - id: "RL-02"
+        gap: "Sem CI/CD pipeline — sem validação automática em push/PR"
+        benchmark: "GitHub Actions / GitLab CI: lint → typecheck → test → build em todo push"
+        severity: "HIGH"
+        effort: "2-3 dias"
+
+      - id: "RL-03"
+        gap: "Type checking (mypy / pyright) — não configurado"
+        benchmark: "Microsoft pyright / mypy strict mode: enforces type annotations em código novo"
+        severity: "HIGH"
+        effort: "1-2 dias"
+
+      - id: "RL-04"
+        gap: "Revisão humana obrigatória para arquivos @LOCK — não há gate"
+        benchmark: "GitHub CODEOWNERS: arquivos críticos exigem approvação específica"
+        severity: "HIGH"
+        effort: "1 dia"
+
+      - id: "RL-05"
+        gap: "Security scanning (bandit) — presente no FR-013 mas não como CI gate"
+        benchmark: "OWASP: SAST scanning obrigatório antes de merge (bandit, semgrep)"
+        severity: "HIGH"
+        effort: "1 dia"
+
+      - id: "RL-06"
+        gap: "Dependency scanning — sem verificação de vulns em dependências (pip-audit)"
+        benchmark: "OWASP Dependency-Check / pip-audit / Dependabot: scanning automático de vulns"
+        severity: "MEDIUM"
+        effort: "1 dia"
+
+      - id: "RL-07"
+        gap: "Análise de complexidade ciclomática — funções podem crescer sem alerta"
+        benchmark: "Ruff: mccabe complexity (C901); radon para análise mais profunda"
+        severity: "MEDIUM"
+        effort: "0.5 dia"
+
+      - id: "RL-08"
+        gap: "Qualidade de código como gate de handoff — ConfidenceReview não valida lint"
+        benchmark: "SonarQube: Quality Gate bloqueia se coverage <80% ou duplications >3%"
+        severity: "MEDIUM"
+        effort: "2 dias"
+
+      - id: "RL-09"
+        gap: "Pre-commit hook não instalado por padrão — depende de --install manual"
+        benchmark: "Pre-commit: instalação automática via hooks.install() em setup.py/pyproject"
+        severity: "MEDIUM"
+        effort: "0.5 dia"
+
+      - id: "RL-10"
+        gap: "DRY enforcement — sem detecção de code duplication"
+        benchmark: "SonarQube / Ruff (SIM): detecção de código duplicado em PRs"
+        severity: "LOW"
+        effort: "1 dia"
+
+  pilar_3_context_engineering:
+    score: 60
+    label: "ESTRUTURADO, SEM ORQUESTRAÇÃO FINA"
+    summary: "Teto de 100k tokens, hot buffer, lobe index, WAL, savepoints. Mas sem medição real de tokens e sem SemanticCataloger."
+
+    existing:
+      - "NC-SVC-FR-021 — Session Memory Writer (hot buffer 10 turnos)"
+      - "NC-LBE-FR-QUALITY-002 — Context Compaction (teto 100k tokens)"
+      - "Hot Cache — 100MB LRU/LFU, TTL 300s"
+      - "Lobe Index + Search Engine (FTS5 + Tantivy fallback)"
+      - "NC-SVC-FR-016 — WAL Service (log imutável, TTL 30 dias)"
+      - "NC-SVC-FR-003/025 — SavePoints + WAL Bridge"
+      - "NC-CORE-FR-106 — Checkpoint Service"
+      - "NC-SVC-FR-011 — TTL Manager (sessão 5h, heartbeat 60s)"
+      - "AGENTS.md commands: !compact, !step0"
+
+    market_gaps:
+      - id: "CE-01"
+        gap: "Medição real de tokens em runtime — não há contagem de tokens do contexto ativo"
+        benchmark: "Anthropic / OpenAI: context window tracking; tiktoken para contagem precisa"
+        severity: "CRITICAL"
+        effort: "2-3 dias"
+
+      - id: "CE-02"
+        gap: "Context budget dinâmico — teto de 100k é estático, não adaptativo por modelo"
+        benchmark: "Prática avançada: budget como % do context window do modelo ativo (ex: 70% de 200k)"
+        severity: "HIGH"
+        effort: "2 dias"
+
+      - id: "CE-03"
+        gap: "Compressão seletiva — não há hierarquia: comprimir primeiro o menos relevante"
+        benchmark: "Anthropic: compression strategy com importance score; RAG: relevância baseada em similaridade"
+        severity: "HIGH"
+        effort: "3-4 dias"
+
+      - id: "CE-04"
+        gap: "Auto-tagging de contexto — SessionMemoryWriter extrai tags mas não alimenta retrieval"
+        benchmark: "Mem0 / MemGPT: tagging automático → retrieval por relevância"
+        severity: "HIGH"
+        effort: "2-3 dias"
+
+      - id: "CE-05"
+        gap: "NC-SVC-FR-022 SemanticCataloger — não implementado"
+        benchmark: "LangChain: DocumentTransformer com resumo automático para cada documento"
+        severity: "HIGH"
+        effort: "3-5 dias"
+
+      - id: "CE-06"
+        gap: "Retrieval augmentado por intenção — busca no lobe index não é informada pelo intent do usuário"
+        benchmark: "RAG fusion / HyDE (2024): query rewriting + multi-query retrieval"
+        severity: "MEDIUM"
+        effort: "3-4 dias"
+
+      - id: "CE-07"
+        gap: "Cache preditivo — HotCache é reativo (LRU/LFU), não pré-carrega baseado em padrões"
+        benchmark: "Cache2k / Caffeine: prefetching baseado em padrões de acesso"
+        severity: "MEDIUM"
+        effort: "3-4 dias"
+
+      - id: "CE-08"
+        gap: "Auto-pause >85% budget — ticket NC-DS-128 pendente, sem auto-contenção"
+        benchmark: "Circuit breaker pattern: pausar modelo antes de OOM/truncation"
+        severity: "MEDIUM"
+        effort: "1-2 dias"
+
+      - id: "CE-09"
+        gap: "Janela deslizante de relevância — hot buffer fixo de 10, deveria ser dinâmico por relevância"
+        benchmark: "MemGPT: sliding window com重要性 decay; Claude Code: hot_context size adaptativo"
+        severity: "MEDIUM"
+        effort: "2 dias"
+
+      - id: "CE-10"
+        gap: "Context visual (screenshots, imagens) — não há store para contextos multimodais"
+        benchmark: "GPT-4V / Claude 3.5 Vision: context window multimodal com compression específica"
+        severity: "LOW"
+        effort: "4-5 dias"
+
+  pilar_4_testes_ia:
+    score: 45
+    label: "INCIPIENTE, SEM AUTOMAÇÃO CONTÍNUA"
+    summary: "Smoke tests para MCP tools, gerador vetorial, template. Mas geração não é automatizada, coverage tracking não existe."
+
+    existing:
+      - "NC-SCR-FR-062 — gerador automático de testes (vector engine, ~25 testes)"
+      - "NC-SCR-FR-063 — corretor de testes por AST"
+      - "NC-SCR-FR-101/134/150 — 3 smoke tests (40+ MCP tools)"
+      - "NC-LBE-FR-TESTING-001 — regra de testing (coverage alvo)"
+      - "NC-TOOL-FR-TEMPLATE/tests/test_example.py — template"
+      - "DIR-TEST + DIR-MCP: ~10 testes manuais"
+      - "pytest.ini com asyncio_mode=auto + pytest-cov"
+
+    market_gaps:
+      - id: "TG-01"
+        gap: "Geração automática de testes em todo deploy — não há trigger automático"
+        benchmark: "Diffblue / CodiumAI: geração de testes automática em cada PR"
+        severity: "CRITICAL"
+        effort: "4-5 dias"
+
+      - id: "TG-02"
+        gap: "NC-TOOL-FR-046 test_automation — MCP tool para gerar testes sob demanda"
+        benchmark: "MCP ecosystem: ferramentas especialistas para tarefas específicas (test generation como tool)"
+        severity: "HIGH"
+        effort: "2-3 dias"
+
+      - id: "TG-03"
+        gap: "Coverage tracking automatizado — cov configurado mas não rodado como gate"
+        benchmark: "Codecov / Coveralls: coverage tracking em cada commit com comment em PR"
+        severity: "HIGH"
+        effort: "1-2 dias"
+
+      - id: "TG-04"
+        gap: "Testes de mutação — mutação como métrica de qualidade do teste"
+        benchmark: "Mutmut / Cosmic Ray: mutation testing para validar que testes realmente testam"
+        severity: "MEDIUM"
+        effort: "3-4 dias"
+
+      - id: "TG-05"
+        gap: "Testes de regressão visual — não há para MCP tools que retornam JSON estruturado"
+        benchmark: "Snapshot testing (insta/snapshot): diff de saídas estruturadas entre versões"
+        severity: "MEDIUM"
+        effort: "2 dias"
+
+      - id: "TG-06"
+        gap: "Fuzzing de entrada — MCP tools não testadas com entradas malformadas"
+        benchmark: "OWASP: fuzzing como prática de segurança; hypothesis para property-based testing"
+        severity: "MEDIUM"
+        effort: "3-4 dias"
+
+      - id: "TG-07"
+        gap: "Testes de integração contínua — smoke tests rodam manualmente, não em background"
+        benchmark: "CI/CD: integração rodando em cada commit (github actions: pytest, smoke-test)"
+        severity: "MEDIUM"
+        effort: "2 dias"
+
+      - id: "TG-08"
+        gap: "Testes de performance — benchmark ausente para MCP tools e queries no lobe index"
+        benchmark: "Locust / k6: testes de carga para endpoints; pytest-benchmark para micro-benchmarks"
+        severity: "LOW"
+        effort: "3-4 dias"
+
+      - id: "TG-09"
+        gap: "Testes de segurança — sem pentest automatizado nas tools MCP"
+        benchmark: "OWASP ZAP / Semgrep: scanning automatizado de segurança em pipelines"
+        severity: "LOW"
+        effort: "3 dias"
+
+      - id: "TG-10"
+        gap: "Self-healing tests — quando tool API muda, testes quebram silenciosamente"
+        benchmark: "Testim / Mabl: self-healing test maintenance com AI"
+        severity: "LOW"
+        effort: "4-5 dias"
+
+---
+
+## 4. CRUZAMENTO: TICKETS ABERTOS → GAPS
+
+open_tickets_vs_gaps:
+  sprint_acelerado_status:
+    total_tickets: 43 (SPRINT-ACELERADO + Frente B)
+    in_progress: 15
+    done: 16
+    deferred: 2 (NC-DS-105, NC-DS-106)
+    pending: 10
+    exit_criteria_met: "NÃO — compliance 46.7% (muito abaixo do target >80%), PicoClaw offline"
+
+  tickets_que_cobrem_gaps:
+    pilar_1:
+      NC-DS-102: "active-zones.yaml — cobre AG-01 parcialmente (define zonas mas não roteia)"
+      NC-DS-107: "lock-tag-normalization — cobre AG-01 parcialmente"
+    pilar_2:
+      NC-DS-108: "compliance-sprint-80pct — cobre RL-01/RL-02 parcialmente"
+    pilar_3:
+      NC-DS-099: "DryRunPreview — cobre CE-08 parcialmente"
+      NC-DS-100: "SavePoint→WAL — cobre CE-05 parcialmente"
+    pilar_4:
+      NC-DS-101: "Smoke test 40 tools — cobre TG-01 parcialmente"
+
+  tickets_que_nao_cobrem_gaps_criticos:
+    - "Profile Router (Pro vs Flash) — NENHUM TICKET"
+    - "PicoClaw reactivation — NENHUM TICKET (savepoint mostra offline)"
+    - "ruff.toml — NENHUM TICKET"
+    - "CI/CD pipeline — NENHUM TICKET"
+    - "Medição real de tokens — NENHUM TICKET"
+    - "NC-TOOL-FR-046 test_automation — NENHUM TICKET"
+    - "NC-SVC-FR-022 SemanticCataloger — NENHUM TICKET"
+    - "Circuit Breaker (R16) — NENHUM TICKET (mas está no roadmap como PENDING)"
+
+---
+
+## 5. TIMELINE DE EXECUÇÃO RECOMENDADA
+
+execution_timeline:
+
+  wave_1_imediata:  # Dias 1-3 — FUNDAÇÃO
+    label: "ALTA VELOCIDADE — Fechar gaps críticos"
+    focus: "Profile Router + CI/CD + Activate PicoClaw"
+    tasks:
+      - id: "NC-DIAG-ACT-001"
+        description: "Criar NC-CFG-OP-001-operation-profiles.yaml (definição Pro/Flash/Auto)"
+        effort: "0.5 dia"
+        pilar: "AG"
+        depends_on: []
+
+      - id: "NC-DIAG-ACT-002"
+        description: "Criar NC-SVC-FR-026-profile-router.py (serviço de roteamento de intenção)"
+        effort: "2 dias"
+        pilar: "AG"
+        depends_on: ["NC-DIAG-ACT-001"]
+
+      - id: "NC-DIAG-ACT-003"
+        description: "Ativar PicoClaw (:18790) e verificar orquestração A2A"
+        effort: "1 dia"
+        pilar: "AG"
+        depends_on: []
+
+      - id: "NC-DIAG-ACT-004"
+        description: "Criar ruff.toml com regras customizadas (D, E, F, I, N, W, UP, ANN, B, SIM)"
+        effort: "0.5 dia"
+        pilar: "RL"
+        depends_on: []
+
+      - id: "NC-DIAG-ACT-005"
+        description: "Criar CI/CD workflow (GitHub Actions: lint → typecheck → test → smoke)"
+        effort: "1.5 dias"
+        pilar: "RL"
+        depends_on: ["NC-DIAG-ACT-004"]
+
+      - id: "NC-DIAG-ACT-006"
+        description: "Implementar medição real de tokens (tiktoken) no SessionMemoryWriter"
+        effort: "1.5 dias"
+        pilar: "CE"
+        depends_on: []
+
+  wave_2_curto_prazo:  # Dias 4-7 — REFORÇO
+    label: "MÉDIA VELOCIDADE — Automação e qualidade"
+    focus: "Testes automáticos + Context budget + Quality gates"
+    tasks:
+      - id: "NC-DIAG-ACT-007"
+        description: "Criar NC-TOOL-FR-046 test_automation (MCP tool para gerar testes via IA)"
+        effort: "2 dias"
+        pilar: "TG"
+        depends_on: ["NC-DIAG-ACT-005"]
+
+      - id: "NC-DIAG-ACT-008"
+        description: "Implementar context budget dinâmico (% do window do modelo ativo)"
+        effort: "1.5 dias"
+        pilar: "CE"
+        depends_on: ["NC-DIAG-ACT-006"]
+
+      - id: "NC-DIAG-ACT-009"
+        description: "Criar trigger implícito de intenção (hook on_message)"
+        effort: "1.5 dias"
+        pilar: "AG"
+        depends_on: ["NC-DIAG-ACT-001", "NC-DIAG-ACT-002"]
+
+      - id: "NC-DIAG-ACT-010"
+        description: "Implementar Circuit Breaker (R16) para agentes T2/T3"
+        effort: "1.5 dias"
+        pilar: "AG"
+        depends_on: []
+
+      - id: "NC-DIAG-ACT-011"
+        description: "Configurar CODEOWNERS para arquivos @LOCK"
+        effort: "0.5 dia"
+        pilar: "RL"
+        depends_on: ["NC-DIAG-ACT-005"]
+
+      - id: "NC-DIAG-ACT-012"
+        description: "Implementar coverage tracking como gate (coverage >= 60% MCP tools)"
+        effort: "1 dia"
+        pilar: "TG"
+        depends_on: ["NC-DIAG-ACT-005"]
+
+  wave_3_medio_prazo:  # Dias 8-14 — MATURIDADE
+    label: "VELOCIDADE NORMAL — Robustez e mercado"
+    focus: "SemanticCataloger + Budget tracking + Sandbox"
+    tasks:
+      - id: "NC-DIAG-ACT-013"
+        description: "Implementar NC-SVC-FR-022 SemanticCataloger com Qwen 1.5b"
+        effort: "3 dias"
+        pilar: "CE"
+        depends_on: ["NC-DIAG-ACT-003"]
+
+      - id: "NC-DIAG-ACT-014"
+        description: "Budget tracking por agente (dashboard de tokens/custo)"
+        effort: "2 dias"
+        pilar: "AG"
+        depends_on: ["NC-DIAG-ACT-006"]
+
+      - id: "NC-DIAG-ACT-015"
+        description: "Implementar auto-pause >85% budget (NC-DS-128)"
+        effort: "1.5 dias"
+        pilar: "CE"
+        depends_on: ["NC-DIAG-ACT-008"]
+
+      - id: "NC-DIAG-ACT-016"
+        description: "Criar sandbox de execução isolada para T3 (subprocess/session isolation)"
+        effort: "3 dias"
+        pilar: "AG"
+        depends_on: []
+
+      - id: "NC-DIAG-ACT-017"
+        description: "Adicionar mypy strict mode no CI"
+        effort: "1.5 dias"
+        pilar: "RL"
+        depends_on: ["NC-DIAG-ACT-005"]
+
+      - id: "NC-DIAG-ACT-018"
+        description: "Property-based testing (hypothesis) para MCP tools"
+        effort: "2 dias"
+        pilar: "TG"
+        depends_on: ["NC-DIAG-ACT-007"]
+
+---
+
+## 6. ESTIMATIVA DE ESFORÇO TOTAL
+
+effort_summary:
+  wave_1_imediata:
+    tasks: 6
+    days: "6.5-7"
+    pct_effort: 19
+
+  wave_2_curto_prazo:
+    tasks: 6
+    days: "8-8.5"
+    pct_effort: 24
+
+  wave_3_medio_prazo:
+    tasks: 6
+    days: "13-14"
+    pct_effort: 38
+
+  total_project:
+    tasks: "18 ações concretas"
+    estimated_days: "27.5-29.5"
+    estimated_pipe: "14 dias (execução paralela por pilar)"
+    gov_score_target:
+      pilar_maturity: "60% → 92% (média dos 4 pilares)"
+      rules_compliance: "46.7% → >80% (regras R01-R30)"
+      naming_compliance: "57.6% → >80% (NC- prefixo)"
+    tickets_gerados: "~18 novos tickets NC-DIAG-ACT-*"
+    tickets_orphaned_auditados: "~120 tickets sem handoff"
+
+---
+
+## 7. RECOMENDAÇÃO FINAL
+
+recommendation:
+  priority_order:
+    1: "Profile Router (AG-01) — sem isso, não há como separar Pro de Flash. É a espinha dorsal."
+    2: "Ativar PicoClaw (AG-02) — sem orquestrador, todo dispatch é manual."
+    3: "ruff.toml + CI/CD (RL-01/RL-02) — qualidade automatizada ou não é qualidade."
+    4: "Medição de tokens (CE-01) — sem métrica, todo budget é chute."
+    5: "NC-TOOL-FR-046 test_automation (TG-01/TG-02) — gerar testes precisa ser automático."
+    6: "Circuit Breaker (AG-04) — sem proteção, agente falho derruba o sistema."
+    7: "Trigger implícito de intenção (AG-03) — o router precisa de gatilho automático."
+    8: "Context budget dinâmico (CE-02) — 100k fixo é arbitrário."
+    9: "Coverage tracking (TG-03/TG-04) — teste sem métrica não tem qualidade."
+    10: "SemanticCataloger (CE-05) — catálogo semântico atualizado automaticamente."
+
+  principle: "PRIMEIRO A FUNDAÇÃO → DEPOIS O REFORÇO → DEPOIS A MATURIDADE"
+  note: |
+    As 3 primeiras ações da Wave 1 (Profile Router + ruff.toml + medição tokens) resolvem
+    os 3 maiores gaps dos 4 pilares simultaneamente. São independentes e podem rodar em paralelo.
+
+    Duas métricas distintas no diagnóstico:
+    - Compliance regras (R01-R30): 46.7% (14/30 passaram) — governança formal
+    - Maturidade dos 4 pilares: 60% (média 65+70+60+45 ÷ 4) — nossa avaliação estrutural
+
+    Com 3 dias de trabalho focado, a maturidade salta de 60% para ~78%.
+    Compliance sobe de 46.7% para ~70% com a Wave 1 + Wave 2.
+
+    O segredo não é fazer tudo — é fazer as peças certas na ordem certa.
+
+# Fim: NC-DIAG-GOV-001

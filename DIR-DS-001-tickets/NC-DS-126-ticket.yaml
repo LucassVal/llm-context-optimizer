@@ -1,259 +1,361 @@
-ticket_id: "NC-DS-126"
-title: "OpenCode: Expansão MCP — 16 parciais + integração Constitution Layer"
-status: "OPEN"
-priority: "HIGH"
-created_at: "2026-04-18T10:45:00-03:00"
-supersedes: "NC-DS-120"
-assigned_to: "OpenCode-1-agent"
-mode: "single_agent"
-tags: ["governance", "mcp", "opencode", "frente-b", "constitution"]
-
-# =============================================================================
-# CONTEXTO OBRIGATÓRIO — leia antes de qualquer ação
-# =============================================================================
-context: |
-  NeoCortex MCP está estável e rodando via stdio.
-  Refresh confirmado pelo T0 em 2026-04-18.
-  
-  TOOLS JÁ IMPLEMENTADAS POR T0 (NÃO recriar):
-    FR-038  neocortex_handoff        → handoff.create, handoff.validate, handoff.list
-    FR-039  neocortex_tickets        → ticket.create, ticket.list, ticket.close, roadmap.mark_done
-    FR-040  neocortex_governance_ops → bootup.sync, catalog.refresh, yaml.sanitize, naming.audit
-    FR-041  neocortex_constitution   → STF/STJ/TJ/Fórum pre_check
-    FR-042  neocortex_local_llm     → ollama.ask, llm.route, llm.audit (Qwen 1.5b/3b)
-  
-  LLM LOCAL INTEGRADO AO MCP:
-    Qwen 1.5b rodando na GPU, keepalive=-1.
-    Chamado via FR-042 (neocortex_local_llm → ollama.ask).
-    NÃO chamar ollama diretamente sem passar pelo MCP.
-
-# =============================================================================
-# STEP 0 — obrigatório antes de QUALQUER edição
-# =============================================================================
+ticket_id: NC-DS-126
+title: 'OpenCode: Expansão MCP — 16 parciais + integração Constitution Layer'
+status: DONE
+priority: HIGH
+created_at: '2026-04-18T10:45:00-03:00'
+supersedes: NC-DS-120
+assigned_to: OpenCode-1-agent
+mode: single_agent
+tags:
+- governance
+- mcp
+- opencode
+- frente-b
+- constitution
+context: "NeoCortex MCP está estável e rodando via stdio.\nRefresh confirmado pelo\
+  \ T0 em 2026-04-18.\n\nTOOLS JÁ IMPLEMENTADAS POR T0 (NÃO recriar):\n  FR-038  neocortex_handoff\
+  \        → handoff.create, handoff.validate, handoff.list\n  FR-039  neocortex_tickets\
+  \        → ticket.create, ticket.list, ticket.close, roadmap.mark_done\n  FR-040\
+  \  neocortex_governance_ops → bootup.sync, catalog.refresh, yaml.sanitize, naming.audit\n\
+  \  FR-041  neocortex_constitution   → STF/STJ/TJ/Fórum pre_check\n  FR-042  neocortex_local_llm\
+  \     → ollama.ask, llm.route, llm.audit (Qwen 1.5b/3b)\n\nLLM LOCAL INTEGRADO AO\
+  \ MCP:\n  Qwen 1.5b rodando na GPU, keepalive=-1.\n  Chamado via FR-042 (neocortex_local_llm\
+  \ → ollama.ask).\n  NÃO chamar ollama diretamente sem passar pelo MCP.\n"
 step_0:
-  - "python --version  → confirmar Python 3.12"
-  - "python -m ruff --version → confirmar ruff disponível"
-  - "python -m py_compile <arquivo> → antes de reportar pronto"
-  - "python -m ruff check <arquivo> → zero erros obrigatórios"
-  - "grep 'print(' <arquivo> → zero prints em stdout (só stderr OK)"
-  - "Verificar atomic_locks antes de editar qualquer YAML de governança"
-
-# =============================================================================
-# ATOMIC LOCKS — NUNCA tocar
-# =============================================================================
+- python --version  → confirmar Python 3.12
+- python -m ruff --version → confirmar ruff disponível
+- python -m py_compile <arquivo> → antes de reportar pronto
+- python -m ruff check <arquivo> → zero erros obrigatórios
+- grep 'print(' <arquivo> → zero prints em stdout (só stderr OK)
+- Verificar atomic_locks antes de editar qualquer YAML de governança
 atomic_locks_proibidos:
-  - "neocortex_config.yaml"
-  - "server.py"
-  - "sub_server.py"
-  - "NC-NAM-FR-001-naming-convention.md"
-  - "NC-SEC-FR-001-atomic-locks.yaml"
-
-# =============================================================================
-# TAREFAS — agrupadas por arquivo para eficiência
-# =============================================================================
-
+- neocortex_config.yaml
+- server.py
+- sub_server.py
+- NC-NAM-FR-001-naming-convention.md
+- NC-SEC-FR-001-atomic-locks.yaml
 grupo_1:
-  arquivo: "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-022-governance.py"
-  descricao: "neocortex_governance — o arquivo mais importante deste dispatch"
+  arquivo: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-022-governance.py
+  descricao: neocortex_governance — o arquivo mais importante deste dispatch
   tarefas:
-    - id: "T-01"
-      gap: "compliance.report não compara tickets vs handoffs"
-      acao: |
-        Adicionar action 'compliance.orphan_check':
-        - Listar arquivos em DIR-DS-001-tickets/ (tickets)
-        - Listar arquivos em DIR-DS-002-audit-logs/ (handoffs)
-        - Para cada ticket OPEN, verificar se existe handoff correspondente
-        - Retornar: orphan_tickets[], orphan_handoffs[], total_ok
-      valida_com: "NC-TOOL-FR-038 (neocortex_handoff.handoff.orphan já implementado) — reutilize"
+  - id: T-01
+    gap: compliance.report não compara tickets vs handoffs
+    acao: 'Adicionar action ''compliance.orphan_check'':
 
-    - id: "T-02"
-      gap: "ssot.diff sem hash LockGuard real"
-      acao: |
-        Expandir action 'ssot.diff':
-        - Para cada arquivo em atomic_locks YAML, calcular hashlib.sha256
-        - Comparar com hash armazenado (ou criar baseline na primeira run)
-        - Retornar: files_ok[], files_changed[], baseline_created
-      nota: "Usar try/except em todo hash I/O"
+      - Listar arquivos em DIR-DS-001-tickets/ (tickets)
 
-    - id: "T-03"
-      gap: "audit.replay não cria handoff draft"
-      acao: |
-        Adicionar parâmetro draft=False à action 'audit.replay':
-        - Se draft=True: chamar neocortex_handoff.handoff.create internamente
-        - usar importlib para importar FR-038 sem import direto
-        - Retornar o path do draft criado
+      - Listar arquivos em DIR-DS-002-audit-logs/ (handoffs)
 
-    - id: "T-04"
-      gap: "rule.list não delega naming audit ao filesystem"
-      acao: |
-        Adicionar action 'governance.naming_delegate':
-        - Chamar neocortex_governance_ops via importlib
-        - Delegar para NC-TOOL-FR-040.naming.audit
-        - Retornar resultado consolidado
+      - Para cada ticket OPEN, verificar se existe handoff correspondente
 
-    - id: "T-05"
-      gap: "compliance.report sem checks de código (py_compile+ruff)"
-      acao: |
-        Expandir 'compliance.report' com campo code_quality:
-        - Reutilizar lógica de NC-TOOL-FR-038.handoff.validate
-        - Escanear tools/*.py e rodar py_compile+ruff em cada uma
-        - Retornar: files_ok, files_failed[], compliance_code_score
+      - Retornar: orphan_tickets[], orphan_handoffs[], total_ok
 
-    - id: "T-06"
-      gap: "policy.check sem validação de write_zones por role"
-      acao: |
-        Expandir 'policy.check':
-        - Ler NC-CFG-FR-002-rules-policy.yaml
-        - Para o role fornecido, verificar se target_path está em write_zone permitido
-        - Retornar: allowed=bool, zone=str, rule_source=str
+      '
+    valida_com: NC-TOOL-FR-038 (neocortex_handoff.handoff.orphan já implementado)
+      — reutilize
+  - id: T-02
+    gap: ssot.diff sem hash LockGuard real
+    acao: 'Expandir action ''ssot.diff'':
 
+      - Para cada arquivo em atomic_locks YAML, calcular hashlib.sha256
+
+      - Comparar com hash armazenado (ou criar baseline na primeira run)
+
+      - Retornar: files_ok[], files_changed[], baseline_created
+
+      '
+    nota: Usar try/except em todo hash I/O
+  - id: T-03
+    gap: audit.replay não cria handoff draft
+    acao: 'Adicionar parâmetro draft=False à action ''audit.replay'':
+
+      - Se draft=True: chamar neocortex_handoff.handoff.create internamente
+
+      - usar importlib para importar FR-038 sem import direto
+
+      - Retornar o path do draft criado
+
+      '
+  - id: T-04
+    gap: rule.list não delega naming audit ao filesystem
+    acao: 'Adicionar action ''governance.naming_delegate'':
+
+      - Chamar neocortex_governance_ops via importlib
+
+      - Delegar para NC-TOOL-FR-040.naming.audit
+
+      - Retornar resultado consolidado
+
+      '
+  - id: T-05
+    gap: compliance.report sem checks de código (py_compile+ruff)
+    acao: 'Expandir ''compliance.report'' com campo code_quality:
+
+      - Reutilizar lógica de NC-TOOL-FR-038.handoff.validate
+
+      - Escanear tools/*.py e rodar py_compile+ruff em cada uma
+
+      - Retornar: files_ok, files_failed[], compliance_code_score
+
+      '
+  - id: T-06
+    gap: policy.check sem validação de write_zones por role
+    acao: 'Expandir ''policy.check'':
+
+      - Ler NC-CFG-FR-002-rules-policy.yaml
+
+      - Para o role fornecido, verificar se target_path está em write_zone permitido
+
+      - Retornar: allowed=bool, zone=str, rule_source=str
+
+      '
 grupo_2:
-  arquivo: "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-019-health.py"
+  arquivo: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-019-health.py
   tarefas:
-    - id: "T-07"
-      gap: "metrics.live não verifica portas externas"
-      acao: |
-        Expandir 'metrics.live' para incluir external_services:
-        - Testar conexão TCP em: 3000 (Mission Control), 18790 (PicoClaw), 8767 (Pixel Agents)
-        - Usar socket.connect_ex com timeout=1s
-        - Retornar: internal_ok, external_services={porta: status}
+  - id: T-07
+    gap: metrics.live não verifica portas externas
+    acao: 'Expandir ''metrics.live'' para incluir external_services:
 
+      - Testar conexão TCP em: 3000 (Mission Control), 18790 (PicoClaw), 8767 (Pixel
+      Agents)
+
+      - Usar socket.connect_ex com timeout=1s
+
+      - Retornar: internal_ok, external_services={porta: status}
+
+      '
 grupo_3:
-  arquivo: "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-021-knowledge.py"
+  arquivo: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-021-knowledge.py
   tarefas:
-    - id: "T-08"
-      gap: "update_index não regenera artifact_catalog.json"
-      acao: |
-        Após reindexar lobes, chamar NC-SCR-FR-064:
-        - subprocess.run([python, 'scripts/NC-SCR-FR-064-artifact-catalog.py'])
-        - Retornar resultado do subprocess junto com reindex
-    
-    - id: "T-09"
-      gap: "get_boot_context sem seção de tickets críticos"
-      acao: |
-        Expandir 'get_boot_context':
-        - Ler NC-BOOT-FR-001 e extrair seção 9 (tickets críticos)
-        - Adicionar campo critical_tickets[] ao retorno
-        - Limite: máx 5 tickets mais recentes com status OPEN
+  - id: T-08
+    gap: update_index não regenera artifact_catalog.json
+    acao: 'Após reindexar lobes, chamar NC-SCR-FR-064:
 
+      - subprocess.run([python, ''scripts/NC-SCR-FR-064-artifact-catalog.py''])
+
+      - Retornar resultado do subprocess junto com reindex
+
+      '
+  - id: T-09
+    gap: get_boot_context sem seção de tickets críticos
+    acao: 'Expandir ''get_boot_context'':
+
+      - Ler NC-BOOT-FR-001 e extrair seção 9 (tickets críticos)
+
+      - Adicionar campo critical_tickets[] ao retorno
+
+      - Limite: máx 5 tickets mais recentes com status OPEN
+
+      '
 grupo_4:
-  arquivo: "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-030-context.py"
+  arquivo: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-030-context.py
   tarefas:
-    - id: "T-10"
-      gap: "context.smart_prune não prune WAL SQLite"
-      acao: |
-        Expandir 'context.smart_prune':
-        - Após pruning de ledger, chamar NC-SVC-FR-016 WALService
-        - Importar via importlib: from neocortex.services import NC_SVC_FR_016_wal_service
-        - Deletar entradas WAL com timestamp < (now - 30 days)
-        - Retornar: ledger_pruned, wal_pruned, total_entries_removed
+  - id: T-10
+    gap: context.smart_prune não prune WAL SQLite
+    acao: 'Expandir ''context.smart_prune'':
 
+      - Após pruning de ledger, chamar NC-SVC-FR-016 WALService
+
+      - Importar via importlib: from neocortex.services import NC_SVC_FR_016_wal_service
+
+      - Deletar entradas WAL com timestamp < (now - 30 days)
+
+      - Retornar: ledger_pruned, wal_pruned, total_entries_removed
+
+      '
 grupo_5:
-  arquivo: "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-016-regression.py"
+  arquivo: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-016-regression.py
   tarefas:
-    - id: "T-11"
-      gap: "regression.check não retorna block ativo"
-      acao: |
-        Expandir 'regression.check':
-        - Se encontrar entrada com severity>=CRITICAL, retornar block=True
-        - Campo novo: block (bool), block_reason (str)
-        - Existente: manter compatibilidade retroativa
+  - id: T-11
+    gap: regression.check não retorna block ativo
+    acao: 'Expandir ''regression.check'':
 
+      - Se encontrar entrada com severity>=CRITICAL, retornar block=True
+
+      - Campo novo: block (bool), block_reason (str)
+
+      - Existente: manter compatibilidade retroativa
+
+      '
 grupo_6:
-  arquivo: "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-005-checkpoint.py"
+  arquivo: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-005-checkpoint.py
   tarefas:
-    - id: "T-12"
-      gap: "complete_task não atualiza roadmap externo"
-      acao: |
-        Expandir 'complete_task' com param sync_roadmap=False:
-        - Se sync_roadmap=True, importar NC-TOOL-FR-039 via importlib
-        - Chamar roadmap.mark_done com o ticket_id fornecido
-        - Retornar: checkpoint_ok, roadmap_updated
+  - id: T-12
+    gap: complete_task não atualiza roadmap externo
+    acao: 'Expandir ''complete_task'' com param sync_roadmap=False:
 
+      - Se sync_roadmap=True, importar NC-TOOL-FR-039 via importlib
+
+      - Chamar roadmap.mark_done com o ticket_id fornecido
+
+      - Retornar: checkpoint_ok, roadmap_updated
+
+      '
 grupo_7:
-  arquivo: "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-033-session.py"
+  arquivo: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-033-session.py
   tarefas:
-    - id: "T-13"
-      gap: "checkpoint.set_current não sincroniza roadmap"
-      acao: |
-        Igual ao T-12 mas no NC-TOOL-FR-033:
-        - Adicionar param sync_roadmap=False em checkpoint.set_current
-        - Se sync_roadmap=True: delegar para FR-039.roadmap.mark_done
+  - id: T-13
+    gap: checkpoint.set_current não sincroniza roadmap
+    acao: 'Igual ao T-12 mas no NC-TOOL-FR-033:
 
+      - Adicionar param sync_roadmap=False em checkpoint.set_current
+
+      - Se sync_roadmap=True: delegar para FR-039.roadmap.mark_done
+
+      '
 grupo_8:
-  arquivo: "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-023-orchestration.py"
+  arquivo: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-023-orchestration.py
   tarefas:
-    - id: "T-14"
-      gap: "sem dispatch.create formal"
-      acao: |
-        Adicionar action 'dispatch.create':
-        - Input: ticket_id, task_type, agent_role, payload
-        - Gerar YAML em DIR-DS-001-tickets/NC-DS-AGT-{ticket_id}-dispatch.yaml
-        - Seguir naming NC-NAM-FR-001
-        - Retornar: path_criado, yaml_content
+  - id: T-14
+    gap: sem dispatch.create formal
+    acao: 'Adicionar action ''dispatch.create'':
 
+      - Input: ticket_id, task_type, agent_role, payload
+
+      - Gerar YAML em DIR-DS-001-tickets/NC-DS-AGT-{ticket_id}-dispatch.yaml
+
+      - Seguir naming NC-NAM-FR-001
+
+      - Retornar: path_criado, yaml_content
+
+      '
 grupo_9:
-  arquivo: "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-010-lobes.py"
+  arquivo: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-010-lobes.py
   tarefas:
-    - id: "T-15"
-      gap: "sem auto-load de lobes ativos no boot"
-      acao: |
-        Adicionar action 'boot.load_active':
-        - Ler NC-WF-001 ou NC-BOOT-FR-001 para lista de lobes_ativos
-        - Para cada lobe ativo, chamar get_content
-        - Retornar: lobes_loaded[], conteúdo compacto de cada um
+  - id: T-15
+    gap: sem auto-load de lobes ativos no boot
+    acao: 'Adicionar action ''boot.load_active'':
 
+      - Ler NC-WF-001 ou NC-BOOT-FR-001 para lista de lobes_ativos
+
+      - Para cada lobe ativo, chamar get_content
+
+      - Retornar: lobes_loaded[], conteúdo compacto de cada um
+
+      '
 grupo_10:
-  arquivo: "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-034-report.py"
+  arquivo: 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-034-report.py
   tarefas:
-    - id: "T-16"
-      gap: "generate_daily_summary não persiste em audit-logs"
-      acao: |
-        Adicionar param save_to_audit=False em 'generate_daily_summary':
-        - Se save_to_audit=True: salvar em DIR-DS-002-audit-logs/NC-RPT-DS-{date}-daily.md
-        - Seguir naming convention
-        - Retornar: report_content, saved_path (se salvo)
+  - id: T-16
+    gap: generate_daily_summary não persiste em audit-logs
+    acao: 'Adicionar param save_to_audit=False em ''generate_daily_summary'':
 
-# =============================================================================
-# SEQUÊNCIA RECOMENDADA
-# =============================================================================
+      - Se save_to_audit=True: salvar em DIR-DS-002-audit-logs/NC-RPT-DS-{date}-daily.md
+
+      - Seguir naming convention
+
+      - Retornar: report_content, saved_path (se salvo)
+
+      '
 sequencia:
-  - step: 1
-    tarefas: ["T-07", "T-11", "T-14", "T-15", "T-16"]
-    motivo: "Arquivos independentes, sem dependências entre si"
-
-  - step: 2
-    tarefas: ["T-08", "T-09"]
-    motivo: "knowledge.py — T-09 depende de T-08 concluído"
-
-  - step: 3
-    tarefas: ["T-01", "T-02"]
-    motivo: "governance.py — base para as demais governance tasks"
-
-  - step: 4
-    tarefas: ["T-03", "T-04", "T-05"]
-    motivo: "governance.py — dependem de T-01/T-02"
-
-  - step: 5
-    tarefas: ["T-06"]
-    motivo: "governance.py — finaliza o arquivo"
-
-  - step: 6
-    tarefas: ["T-10", "T-12", "T-13"]
-    motivo: "context/checkpoint/session — integração com FR-039"
-
-# =============================================================================
-# CRITÉRIO DE CONCLUSÃO
-# =============================================================================
+- step: 1
+  tarefas:
+  - T-07
+  - T-11
+  - T-14
+  - T-15
+  - T-16
+  motivo: Arquivos independentes, sem dependências entre si
+- step: 2
+  tarefas:
+  - T-08
+  - T-09
+  motivo: knowledge.py — T-09 depende de T-08 concluído
+- step: 3
+  tarefas:
+  - T-01
+  - T-02
+  motivo: governance.py — base para as demais governance tasks
+- step: 4
+  tarefas:
+  - T-03
+  - T-04
+  - T-05
+  motivo: governance.py — dependem de T-01/T-02
+- step: 5
+  tarefas:
+  - T-06
+  motivo: governance.py — finaliza o arquivo
+- step: 6
+  tarefas:
+  - T-10
+  - T-12
+  - T-13
+  motivo: context/checkpoint/session — integração com FR-039
 done_criteria:
-  por_tarefa: "py_compile OK + ruff OK + zero prints stdout + handoff gerado"
+  por_tarefa: py_compile OK + ruff OK + zero prints stdout + handoff gerado
   global:
-    - "16 tasks concluídas com handoff individual"
-    - "compliance_score > 80% (neocortex_governance.compliance.report)"
-    - "neocortex_constitution.tj_check retorna TJ_APPROVED"
-    - "Ticket NC-DS-126 fechado com roadmap.mark_done"
-
+  - 16 tasks concluídas com handoff individual
+  - compliance_score > 80% (neocortex_governance.compliance.report)
+  - neocortex_constitution.tj_check retorna TJ_APPROVED
+  - Ticket NC-DS-126 fechado com roadmap.mark_done
 resultado_esperado:
   tools_expandidas: 10
   novas_actions: 16
-  cobertura_mcp_wf001_esperada: ">90%"
+  cobertura_mcp_wf001_esperada: '>90%'
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: <2500 chars per ticket description
+  validation:
+    py:
+    - ruff check --fix
+    - ruff format
+    - ruff check
+    - mypy --ignore-missing-imports
+    - py_compile
+    - bandit -q
+    yaml:
+    - yaml.safe_load
+    - naming NC- check
+    - secret scan
+    mdc:
+    - frontmatter YAML validate
+    - NC-READ-HASH check
+    - naming NC- check
+    json:
+    - json.loads parse
+    - naming NC- check
+    all:
+    - '@LOCKS check'
+    - Write Zone check
+    - '@SSOT update'
+    - Handoff YAML
+    - 3W check
+    - SSOT Header
+  sandbox_required: true
+  sandbox_steps:
+  - 1. Copiar arquivo alvo para *-sandbox.py
+  - 2. Fazer alteracoes no sandbox
+  - 3. Validar sandbox (ruff+mypy+py_compile)
+  - 4. Testar sandbox
+  - 5. Aplicar no real (com backup)
+  - 6. Rollback via backup se falhar
+  handoff_required: true
+  handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+  handoff_dest: DIR-DS-002-audit-logs/
+  handoff_format: NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+  handoff_fields:
+  - ticket_id
+  - status
+  - submitted_at
+  - submitted_by
+  - summary
+  - files_created
+  - files_modified
+  - validation_rounds
+  - barriers_passed
+  - locks_violated
+  - t0_review
+  governance:
+    eisenhower_applied: true
+    mordaca_h: HOOK — bloqueia acao invalida ANTES de executar (FAIL-FAST)
+    mordaca_c: CHECKPOINT — audita estado a cada 300s (PulseScheduler)
+    mordaca_s: SCHEDULE — consolida no CICLO 4 semanal
+    mordaca_u: USER — T0 aprova/rejeita via handoff review
+    kaizen: Registrar micro-melhoria no @CHANGELOG apos conclusao
+    roadmap: Marcar %DONE no @ROADMAP apos handoff aprovado
+
+closed_at: '2026-05-04T03:10:00-03:00'
+closed_by: T0-OpenCode
+resolution: 'ADR-008: LEXICO resolve paths. Ticket obsoleto pela nova arquitetura.'

@@ -1,51 +1,105 @@
-ticket_id: "NC-DS-094"
-status: "DONE"
-priority: "HIGH"
-title: "SSOT + Dicionário Ubíquo: adicionar símbolos faltantes + corrigir @LOCKS nos lobes"
-created_at: "2026-04-16T01:26:41-03:00"
-created_by: "T0-Claude-Code"
-
+ticket_id: NC-DS-094
+status: DONE
+priority: HIGH
+title: 'SSOT + Dicionário Ubíquo: adicionar símbolos faltantes + corrigir @LOCKS nos
+  lobes'
+created_at: '2026-04-16T01:26:41-03:00'
+created_by: T0-Claude-Code
 context:
-  origin: "Auditoria tag-normalizer 2026-04-16"
-  problem: |
-    TagNormalizerService.scan() reportou 47 símbolos desconhecidos em 28 lobes.
-    Causas identificadas:
-       1. @LOCKS (sem S) em 11 ocorrências nos cc-leak lobes → canônico é @LOCKS
-       2. @LOCKS em 4 ocorrências → canônico é @LOCKS
-      3. Símbolos $WORKER_PATTERNS, $DEEPSEEK, $PICOCLAW_ARCHITECTURE,
-         $ANTIGRAVITY, $MISSION_CTRL, $PIXEL_AGENTS existem no Boot mas
-         não estão em NC-DOC-FR-001
-      4. sys.modules bug no TagNormalizer dentro de NC-SCR-FR-009
-
+  origin: Auditoria tag-normalizer 2026-04-16
+  problem: "TagNormalizerService.scan() reportou 47 símbolos desconhecidos em 28 lobes.\n\
+    Causas identificadas:\n   1. @LOCKS (sem S) em 11 ocorrências nos cc-leak lobes\
+    \ → canônico é @LOCKS\n   2. @LOCKS em 4 ocorrências → canônico é @LOCKS\n  3.\
+    \ Símbolos $WORKER_PATTERNS, $DEEPSEEK, $PICOCLAW_ARCHITECTURE,\n     $ANTIGRAVITY,\
+    \ $MISSION_CTRL, $PIXEL_AGENTS existem no Boot mas\n     não estão em NC-DOC-FR-001\n\
+    \  4. sys.modules bug no TagNormalizer dentro de NC-SCR-FR-009\n"
 task:
-  description: |
-    1. NC-DOC-FR-001-ubiquitous-language-dictionary.md
-       Adicionar símbolos faltantes na tabela $:
-         $WORKER_PATTERNS, $PICOCLAW_ARCHITECTURE, $ANTIGRAVITY,
-         $MISSION_CTRL, $PIXEL_AGENTS
-
-     2. cc-leak lobes — corrigir @LOCKS → @LOCKS (11x em CC-002, 5x em CC-004)
-        e @LOCKS → @LOCKS (4x em CC-006)
-       Arquivos:
-         01_neocortex_framework/lobes/cc-leak/NC-LBE-CC-002-hooks-system.mdc
-         01_neocortex_framework/lobes/cc-leak/NC-LBE-CC-004-confidence-review.mdc
-         01_neocortex_framework/lobes/cc-leak/NC-LBE-CC-006-project-config.mdc
-
-    3. NC-SCR-FR-009-sanitize-all-yamls.py
-       Fix sys.modules para TagNormalizer (mesmo padrão do crypto-hub):
-         sys.modules['tag_normalizer'] = _norm_mod  # antes do exec_module
-
+  description: "1. NC-DOC-FR-001-ubiquitous-language-dictionary.md\n   Adicionar símbolos\
+    \ faltantes na tabela $:\n     $WORKER_PATTERNS, $PICOCLAW_ARCHITECTURE, $ANTIGRAVITY,\n\
+    \     $MISSION_CTRL, $PIXEL_AGENTS\n\n 2. cc-leak lobes — corrigir @LOCKS → @LOCKS\
+    \ (11x em CC-002, 5x em CC-004)\n    e @LOCKS → @LOCKS (4x em CC-006)\n   Arquivos:\n\
+    \     01_neocortex_framework/lobes/cc-leak/NC-LBE-CC-002-hooks-system.mdc\n  \
+    \   01_neocortex_framework/lobes/cc-leak/NC-LBE-CC-004-confidence-review.mdc\n\
+    \     01_neocortex_framework/lobes/cc-leak/NC-LBE-CC-006-project-config.mdc\n\n\
+    3. NC-SCR-FR-009-sanitize-all-yamls.py\n   Fix sys.modules para TagNormalizer\
+    \ (mesmo padrão do crypto-hub):\n     sys.modules['tag_normalizer'] = _norm_mod\
+    \  # antes do exec_module\n"
 write_zone:
-  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/"
-  - "01_neocortex_framework/lobes/cc-leak/"
-  - "01_neocortex_framework/scripts/"
-  - "DIR-DS-002-audit-logs/"
-
+- 01_neocortex_framework/DIR-DOC-FR-001-docs-main/
+- 01_neocortex_framework/lobes/cc-leak/
+- 01_neocortex_framework/scripts/
+- DIR-DS-002-audit-logs/
 atomic_locks_proibidos:
-  - "01_neocortex_framework/neocortex/server.py"
-  - "01_neocortex_framework/neocortex/sub_server.py"
-
-tags: ["ssot", "ubiquitous-language", "lobes", "tag-normalizer", "governance"]
-domain: "quality"
-layer: "docs"
-type: "FIX"
+- 01_neocortex_framework/neocortex/server.py
+- 01_neocortex_framework/neocortex/sub_server.py
+tags:
+- ssot
+- ubiquitous-language
+- lobes
+- tag-normalizer
+- governance
+domain: quality
+layer: docs
+type: FIX
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: <2500 chars per ticket description
+  validation:
+    py:
+    - ruff check --fix
+    - ruff format
+    - ruff check
+    - mypy --ignore-missing-imports
+    - py_compile
+    - bandit -q
+    yaml:
+    - yaml.safe_load
+    - naming NC- check
+    - secret scan
+    mdc:
+    - frontmatter YAML validate
+    - NC-READ-HASH check
+    - naming NC- check
+    json:
+    - json.loads parse
+    - naming NC- check
+    all:
+    - '@LOCKS check'
+    - Write Zone check
+    - '@SSOT update'
+    - Handoff YAML
+    - 3W check
+    - SSOT Header
+  sandbox_required: true
+  sandbox_steps:
+  - 1. Copiar arquivo alvo para *-sandbox.py
+  - 2. Fazer alteracoes no sandbox
+  - 3. Validar sandbox (ruff+mypy+py_compile)
+  - 4. Testar sandbox
+  - 5. Aplicar no real (com backup)
+  - 6. Rollback via backup se falhar
+  handoff_required: true
+  handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+  handoff_dest: DIR-DS-002-audit-logs/
+  handoff_format: NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+  handoff_fields:
+  - ticket_id
+  - status
+  - submitted_at
+  - submitted_by
+  - summary
+  - files_created
+  - files_modified
+  - validation_rounds
+  - barriers_passed
+  - locks_violated
+  - t0_review
+  governance:
+    eisenhower_applied: true
+    mordaca_h: HOOK — bloqueia acao invalida ANTES de executar (FAIL-FAST)
+    mordaca_c: CHECKPOINT — audita estado a cada 300s (PulseScheduler)
+    mordaca_s: SCHEDULE — consolida no CICLO 4 semanal
+    mordaca_u: USER — T0 aprova/rejeita via handoff review
+    kaizen: Registrar micro-melhoria no @CHANGELOG apos conclusao
+    roadmap: Marcar %DONE no @ROADMAP apos handoff aprovado

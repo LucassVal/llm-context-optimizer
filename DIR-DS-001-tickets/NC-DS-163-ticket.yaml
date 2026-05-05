@@ -1,26 +1,108 @@
-ticket_id: "NC-DS-163"
-title: "Plano Estratégico NeoCortex 2026-2027 Criado"
-status: "OPEN"
-priority: "HIGH"
-created: "2026-04-21T20:17:23"
-agent: "T0"
-description: |
-  Criado lobe NC-LBE-FR-ROADMAP-001 com plano completo de 12 meses:
+ticket_id: NC-DS-163
+title: Plano Estratégico NeoCortex 2026-2027 Criado
+status: DONE
+priority: HIGH
+created: '2026-04-21T20:17:23'
+agent: T0
+description: 'Criado lobe NC-LBE-FR-ROADMAP-001 com plano completo de 12 meses:
 
-FASES:
-1. ESTABILIZAÇÃO (Abril-Maio) - Finalizar MCP server
-2. OPENSOURCE PREP (Junho-Julho) - GitHub prep + paper
-3. LANÇAMENTO ACADÊMICO (Agosto-Setembro) - Outreach universidades
-4. RUST MIGRATION (Outubro-Março) - Performance + segurança
-5. ECOSSISTEMA (Abril 2027+) - Comunidade + enterprise
 
-METAS:
-- 48% redução tokens LLM mantida
-- 64% redução horas humanas
-- 1,000+ GitHub stars em 12 meses
-- 5-10 papers acadêmicos citando
+  FASES:
 
-PRÓXIMOS PASSOS:
-1. Finalizar MCP server (tickets 160-161)
-2. Iniciar opensource prep
-3. Escrever paper draft
+  1. ESTABILIZAÇÃO (Abril-Maio) - Finalizar MCP server
+
+  2. OPENSOURCE PREP (Junho-Julho) - GitHub prep + paper
+
+  3. LANÇAMENTO ACADÊMICO (Agosto-Setembro) - Outreach universidades
+
+  4. RUST MIGRATION (Outubro-Março) - Performance + segurança
+
+  5. ECOSSISTEMA (Abril 2027+) - Comunidade + enterprise
+
+
+  METAS:
+
+  - 48% redução tokens LLM mantida
+
+  - 64% redução horas humanas
+
+  - 1,000+ GitHub stars em 12 meses
+
+  - 5-10 papers acadêmicos citando
+
+
+  PRÓXIMOS PASSOS:
+
+  1. Finalizar MCP server (tickets 160-161)
+
+  2. Iniciar opensource prep
+
+  3. Escrever paper draft
+
+  '
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: <2500 chars per ticket description
+  validation:
+    py:
+    - ruff check --fix
+    - ruff format
+    - ruff check
+    - mypy --ignore-missing-imports
+    - py_compile
+    - bandit -q
+    yaml:
+    - yaml.safe_load
+    - naming NC- check
+    - secret scan
+    mdc:
+    - frontmatter YAML validate
+    - NC-READ-HASH check
+    - naming NC- check
+    json:
+    - json.loads parse
+    - naming NC- check
+    all:
+    - '@LOCKS check'
+    - Write Zone check
+    - '@SSOT update'
+    - Handoff YAML
+    - 3W check
+    - SSOT Header
+  sandbox_required: true
+  sandbox_steps:
+  - 1. Copiar arquivo alvo para *-sandbox.py
+  - 2. Fazer alteracoes no sandbox
+  - 3. Validar sandbox (ruff+mypy+py_compile)
+  - 4. Testar sandbox
+  - 5. Aplicar no real (com backup)
+  - 6. Rollback via backup se falhar
+  handoff_required: true
+  handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+  handoff_dest: DIR-DS-002-audit-logs/
+  handoff_format: NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+  handoff_fields:
+  - ticket_id
+  - status
+  - submitted_at
+  - submitted_by
+  - summary
+  - files_created
+  - files_modified
+  - validation_rounds
+  - barriers_passed
+  - locks_violated
+  - t0_review
+  governance:
+    eisenhower_applied: true
+    mordaca_h: HOOK — bloqueia acao invalida ANTES de executar (FAIL-FAST)
+    mordaca_c: CHECKPOINT — audita estado a cada 300s (PulseScheduler)
+    mordaca_s: SCHEDULE — consolida no CICLO 4 semanal
+    mordaca_u: USER — T0 aprova/rejeita via handoff review
+    kaizen: Registrar micro-melhoria no @CHANGELOG apos conclusao
+    roadmap: Marcar %DONE no @ROADMAP apos handoff aprovado
+
+closed_at: '2026-05-04T03:10:00-03:00'
+closed_by: T0-OpenCode
+resolution: 'Protocol established (NC-GOV-FR-002). Ticket obsoleto pela nova arquitetura.'

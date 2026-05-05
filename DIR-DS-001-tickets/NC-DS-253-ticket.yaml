@@ -1,0 +1,124 @@
+# NC-DS-253 — MCP Capability Negotiation: Declarar capabilities no initialize + outputSchema em 20+ tools
+# WHAT: Adicionar capability negotiation completa e outputSchema em todas as tools registradas
+# WHY: Sem capability declaration, clients não sabem quais features o servidor suporta — é requisito base da spec
+# WHERE: 01_neocortex_framework/neocortex/mcp/server.py (modificação) + todas as definições de tool
+
+ticket_id: NC-DS-253
+title: "MCP Capability Negotiation — Declarar capabilities explícitas no initialize (tools.listChanged=true, resources, prompts, elicitation) + outputSchema em 20+ tools"
+status: "IN_PROGRESS"
+priority: P1
+assignee: opencode
+created: "2026-05-04"
+description: |
+  GAP IDENTIFICADO: O handler `initialize` atual do server.py NÃO declara capabilities 
+  explícitas. A spec MCP (NC-LBE-INT-006 §1.4) define capability negotiation como parte 
+  obrigatória do handshake. Sem isso, o servidor é tratado como "legacy" pelos clients.
+
+  Além disso, NENHUMA das 20+ tools registradas possui `outputSchema` — o schema de saída 
+  é essencial para que clients possam validar e interpretar resultados de tools.
+
+  ESCOPO:
+
+  1. CAPABILITY NEGOTIATION (initialize response):
+     ```json
+     {
+       "capabilities": {
+         "tools": { "listChanged": true },
+         "resources": { "subscribe": true, "listChanged": true },
+         "prompts": { "listChanged": true },
+         "logging": {},
+         "elicitation": {}
+       }
+     }
+     ```
+     - tools.listChanged=true → notificar clients quando tools são registradas/removidas
+     - resources.subscribe=true + resources.listChanged=true → clients podem monitorar Resources
+     - prompts.listChanged=true → notificar quando Prompts mudam
+     - logging → servidor envia logs para client
+     - elicitation → servidor pode pedir confirmação T0 via protocolo (substitui stdout hack)
+
+  2. DECLARAR serverInfo completo:
+     ```json
+     {
+       "serverInfo": {
+         "name": "NeoCortex",
+         "version": "4.2.0",
+         "title": "NeoCortex MCP Server — TURBOQUANT_V42",
+         "description": "Multi-agent orchestration framework with KG, WAL, lobe management, and governance auditing"
+       }
+     }
+     ```
+
+  3. OUTPUT SCHEMA em TODAS as tools (20+ tools):
+     Cada tool registrada deve incluir `outputSchema` no formato JSON Schema 2020-12:
+     - nc_validate → outputSchema: {valid: bool, errors: string[], warnings: string[], file: string}
+     - nc_lint → outputSchema: {passed: bool, issues: [{file, line, code, message}]}
+     - nc_audit → outputSchema: {compliance_score: float, layers: {compile, runtime, operational}, issues: [...]}
+     - nc_handoff → outputSchema: {handoff_path: string, ticket_id: string, status: string}
+     - nc_boot_sync → outputSchema: {synced: bool, catalog_updated: bool, tickets_count: int}
+     - nc_populate_lobes → outputSchema: {lobe_id: string, status: string, entries_added: int}
+     - nc_archive → outputSchema: {files_moved: int, archive_path: string, errors: string[]}
+     - nc_governance_audit → outputSchema: {score: float, violations: [{rule, severity, file}], recommendations: string[]}
+     - nc_ticket_create → outputSchema: {ticket_path: string, ticket_id: string, created: bool}
+     - nc_ssot_update → outputSchema: {updated: bool, changelog_entries: int, file: string}
+     - nc_savepoint → outputSchema: {savepoint_id: string, created_at: string, file_count: int}
+     - nc_regression_check → outputSchema: {last_failure: string|null, root_cause: string|null, status: string}
+     - nc_lock_check → outputSchema: {locked: bool, lock_type: string, message: string}
+     - nc_zone_check → outputSchema: {in_zone: bool, current_zone: string, allowed: bool}
+     - nc_naming_check → outputSchema: {valid: bool, expected_pattern: string, actual: string}
+     - (e assim por diante para todas as tools registradas)
+
+  4. Elicitation capability:
+     - Declarar suporte a elicitation no initialize
+     - Preparar handler para elicitation/create (será implementado em NC-DS-257)
+     - A capability deve ser declarada MESMO que o handler completo venha depois
+
+  PADRÃO DE REFERÊNCIA: NC-LBE-INT-006-mcp-specification.mdc §1.4 (Capability Negotiation, Initialize handshake), 
+  §1.4 (Tool Definition Example com inputSchema), §2.1 (Tools Protocol).
+  SEP-1303: Input Validation as Tool Errors — outputSchema deve refletir erros como isError: true.
+  SEP-1613: JSON Schema 2020-12 as Default.
+
+  IMPACTO: Clients MCP podem descobrir capabilities dinamicamente. outputSchema permite 
+  validação automática de resultados. Sem isso, o servidor é "opaco" para os clients.
+
+context:
+  - "Reference: 02_memory_lobes/02_integrations/NC-LBE-INT-006-mcp-specification.mdc §1.4 (Capability Negotiation), §1.4 (Tool Definition Example), §20.2 (NeoCortex Gap #1: Capability negotiation)"
+  - "Gap found by structural audit 2026-05-04 — initialize handler não declara capabilities"
+  - "SEP-1303: Input Validation as Tool Errors"
+  - "SEP-1613: JSON Schema 2020-12 as Default"
+  - "FastMCP: capabilities são passadas via FastMCP(name=..., capabilities={...})"
+  - "Current server.py: create_mcp_server() não passa capabilities dict"
+
+task: |
+  1. Modificar 01_neocortex_framework/neocortex/mcp/server.py — initialize handler:
+     a. Adicionar capabilities dict completo no create_mcp_server():
+        capabilities = {
+          "tools": {"listChanged": True},
+          "resources": {"subscribe": True, "listChanged": True},
+          "prompts": {"listChanged": True},
+          "logging": {},
+          "elicitation": {}
+        }
+     b. Adicionar serverInfo completo com name, version, title, description
+     c. NÃO modificar sub_server.py (R04)
+     d. Garantir protocolVersion: "2025-06-18" (versão atual da spec)
+
+  2. Adicionar outputSchema em TODAS as tools (20+ tools):
+     a. Auditar todas as tools registradas via @mcp.tool() ou register_tool()
+     b. Para cada tool, definir outputSchema como JSON Schema 2020-12 object
+     c. outputSchema deve refletir a estrutura REAL de retorno da tool
+     d. Incluir campo isError: {type: boolean, description: "true if tool execution failed"}
+     e. Ferramentas de diagnóstico: listar tools sem outputSchema → gerar relatório
+     f. Priorizar tools core: nc_validate, nc_lint, nc_audit, nc_handoff, nc_boot_sync
+
+  3. VALIDAÇÃO:
+     - ruff + mypy + py_compile em server.py após modificação
+     - Testar com MCP Inspector: verificar initialize response contém capabilities
+     - Testar tools/list: verificar cada tool tem outputSchema
+     - Gerar diff: antes/depois do initialize response
+
+write_zone: "PROD → 01_neocortex_framework/neocortex/mcp/server.py (MODIFICAÇÃO CONTROLADA)"
+locks:
+  - "01_neocortex_framework/neocortex/mcp/server.py → MODIFICAR initialize handler + tool registrations, NUNCA REESCREVER ARQUITETURA"
+  - "01_neocortex_framework/neocortex/mcp/sub_server.py → NUNCA MODIFICAR"
+

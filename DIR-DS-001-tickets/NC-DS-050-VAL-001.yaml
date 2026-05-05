@@ -1,27 +1,122 @@
 id: NC-DS-050
 code: VAL-001
-title: "Validação Estrita e Aprimoramento Arquitetural: Mission Control Adapter"
+status: ABANDONED  # pre-standardization, no longer relevant
+title: 'Validação Estrita e Aprimoramento Arquitetural: Mission Control Adapter'
 assignee: Agente OpenCode (Engineer)
 context:
-  - 01_neocortex_framework/neocortex/core/adapters/NC-ADP-FR-001-mission-control.py
-  - .agents/rules/NC-RULE-006-no-assumptions.mdc
-  - DIR-DS-000-agent-config/NC-CFG-DS-005-step0-environment.md
-task: |
-  **OBJETIVO**: Executar o protocolo completo de validação do adaptador Mission Control (Rule 021 - Zero Suposições) e implementar melhorias arquiteturais voltadas para ambientes distribuídos de IA e comunicação MCP.
-  
+- 01_neocortex_framework/neocortex/core/adapters/NC-ADP-FR-001-mission-control.py
+- .agents/rules/NC-RULE-006-no-assumptions.mdc
+- DIR-DS-000-agent-config/NC-CFG-DS-005-step0-environment.md
+task: '**OBJETIVO**: Executar o protocolo completo de validação do adaptador Mission
+  Control (Rule 021 - Zero Suposições) e implementar melhorias arquiteturais voltadas
+  para ambientes distribuídos de IA e comunicação MCP.
+
+
   **ETAPA 1: STEP-0 EXAUSTIVO (Obrigatório)**:
+
   1. Executar `python -m py_compile 01_neocortex_framework/neocortex/core/adapters/NC-ADP-FR-001-mission-control.py`.
-  2. Executar `python -m ruff check 01_neocortex_framework/neocortex/core/adapters/NC-ADP-FR-001-mission-control.py` e resolver 100% dos lints.
-  3. Validar tipagem com `mypy` (se disponível) ou revisar manualmente Type Hints estritos.
-  4. Levantar dependências do adaptador (ex: httpx, websockets) e atestar se estão no `requirements.txt` via `python -c "import httpx; import websockets"`.
-  
+
+  2. Executar `python -m ruff check 01_neocortex_framework/neocortex/core/adapters/NC-ADP-FR-001-mission-control.py`
+  e resolver 100% dos lints.
+
+  3. Validar tipagem com `mypy` (se disponível) ou revisar manualmente Type Hints
+  estritos.
+
+  4. Levantar dependências do adaptador (ex: httpx, websockets) e atestar se estão
+  no `requirements.txt` via `python -c "import httpx; import websockets"`.
+
+
   **ETAPA 2: REVISÃO DE MODULARIDADE E ARQUITETURA DDD (As-Is vs To-Be)**:
-  - **Refatoração Anti-Corruption Layer (ACL)**: O adaptador não deve apenas fazer fetch, ele precisa escutar *Domain Events* do Core e traduzi-los de forma isolada, protegendo o modelo central (DDD) de vazamentos da API externa.
-  - **Implementação do Padrão "Worker/Child" (Separação de Preocupações)**: Eliminar imediatamente a biblioteca síncrona `requests` e `time.sleep()`. Implementar o adaptador rodando em um Message Queue assíncrono interno (Actor Model/Event Loop desacoplado) ou via `aiohttp` Fire-and-Forget, garantindo risco ZERO de *Thread Starvation* ou engarrafamento do loop principal.
-  - **Inversão de Dependências (SOLID)**: Adotar injeção de dependências para o cliente HTTP subjacente. A IA nunca deve depender da implementação de rede, mas de um contrato/interface genérica gerenciado fora do Core.
-  - **Circuit Breaker Avançado & Fail-Fast**: Evoluir de um block binário para a transição completa (CLOSED -> OPEN -> HALF-OPEN), emitindo eventos de erro reais via `HookRegistry`.
-  - **Fallback Caching (Zero-Data-Loss)**: Quando offline ou sob Rate Limit (Backpressure HTTP 429), embandeirar métricas em um log `.wal` temporário/DB local e repassar (replay) em background assim que a porta 3000 retornar ao ar.
-  
+
+  - **Refatoração Anti-Corruption Layer (ACL)**: O adaptador não deve apenas fazer
+  fetch, ele precisa escutar *Domain Events* do Core e traduzi-los de forma isolada,
+  protegendo o modelo central (DDD) de vazamentos da API externa.
+
+  - **Implementação do Padrão "Worker/Child" (Separação de Preocupações)**: Eliminar
+  imediatamente a biblioteca síncrona `requests` e `time.sleep()`. Implementar o adaptador
+  rodando em um Message Queue assíncrono interno (Actor Model/Event Loop desacoplado)
+  ou via `aiohttp` Fire-and-Forget, garantindo risco ZERO de *Thread Starvation* ou
+  engarrafamento do loop principal.
+
+  - **Inversão de Dependências (SOLID)**: Adotar injeção de dependências para o cliente
+  HTTP subjacente. A IA nunca deve depender da implementação de rede, mas de um contrato/interface
+  genérica gerenciado fora do Core.
+
+  - **Circuit Breaker Avançado & Fail-Fast**: Evoluir de um block binário para a transição
+  completa (CLOSED -> OPEN -> HALF-OPEN), emitindo eventos de erro reais via `HookRegistry`.
+
+  - **Fallback Caching (Zero-Data-Loss)**: Quando offline ou sob Rate Limit (Backpressure
+  HTTP 429), embandeirar métricas em um log `.wal` temporário/DB local e repassar
+  (replay) em background assim que a porta 3000 retornar ao ar.
+
+
   **ETAPA 3: APROVAÇÃO (Fim de Sessão)**:
+
   - Commit no SSOT `NC-TODO-DS-001`.
-  - Handoff Logging yaml na raiz de evidências comprovando o `exit code 0` de todas as ferramentas de validação.
+
+  - Handoff Logging yaml na raiz de evidências comprovando o `exit code 0` de todas
+  as ferramentas de validação.
+
+  '
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: <2500 chars per ticket description
+  validation:
+    py:
+    - ruff check --fix
+    - ruff format
+    - ruff check
+    - mypy --ignore-missing-imports
+    - py_compile
+    - bandit -q
+    yaml:
+    - yaml.safe_load
+    - naming NC- check
+    - secret scan
+    mdc:
+    - frontmatter YAML validate
+    - NC-READ-HASH check
+    - naming NC- check
+    json:
+    - json.loads parse
+    - naming NC- check
+    all:
+    - '@LOCKS check'
+    - Write Zone check
+    - '@SSOT update'
+    - Handoff YAML
+    - 3W check
+    - SSOT Header
+  sandbox_required: true
+  sandbox_steps:
+  - 1. Copiar arquivo alvo para *-sandbox.py
+  - 2. Fazer alteracoes no sandbox
+  - 3. Validar sandbox (ruff+mypy+py_compile)
+  - 4. Testar sandbox
+  - 5. Aplicar no real (com backup)
+  - 6. Rollback via backup se falhar
+  handoff_required: true
+  handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+  handoff_dest: DIR-DS-002-audit-logs/
+  handoff_format: NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+  handoff_fields:
+  - ticket_id
+  - status
+  - submitted_at
+  - submitted_by
+  - summary
+  - files_created
+  - files_modified
+  - validation_rounds
+  - barriers_passed
+  - locks_violated
+  - t0_review
+  governance:
+    eisenhower_applied: true
+    mordaca_h: HOOK — bloqueia acao invalida ANTES de executar (FAIL-FAST)
+    mordaca_c: CHECKPOINT — audita estado a cada 300s (PulseScheduler)
+    mordaca_s: SCHEDULE — consolida no CICLO 4 semanal
+    mordaca_u: USER — T0 aprova/rejeita via handoff review
+    kaizen: Registrar micro-melhoria no @CHANGELOG apos conclusao
+    roadmap: Marcar %DONE no @ROADMAP apos handoff aprovado

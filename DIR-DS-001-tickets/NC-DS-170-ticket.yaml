@@ -1,0 +1,16 @@
+ticket_id: "NC-DS-170"
+title: "Investigar gaps críticos YAML/JSON identificados na última análise"
+status: "OPEN"
+priority: "HIGH"
+created: "2026-04-22T12:50:15"
+agent: "T0"
+description: |
+  Na última análise foram identificados gaps críticos relacionados a YAML e JSON. Necessário investigar:
+
+1. Qual foi a análise específica que identificou os gaps?
+2. Quais arquivos YAML/JSON estão com problemas?
+3. Qual a natureza dos gaps (validação, parsing, estrutura, segurança)?
+4. Impacto no sistema
+5. Ações corretivas necessárias
+
+Prioridade: ALTA - gaps críticos podem comprometer integridade do sistema.

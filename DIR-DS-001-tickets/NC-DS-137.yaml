@@ -1,120 +1,170 @@
-# NC-DS-137.yaml
-# Ticket para implementação de NC-TOOL-FR-044 memory_auto MCP tool
-
 ticket_id: NC-DS-137
-title: "NC-TOOL-FR-044 memory_auto MCP tool"
-status: OPEN
+title: NC-TOOL-FR-044 memory_auto MCP tool
+status: DONE
 priority: MEDIUM
-roadmap_ref: "NC-TODO-FR-001-project-roadmap-consolidated.md linha 69"
-created_at: "2026-04-20T23:28:00"
+roadmap_ref: NC-TODO-FR-001-project-roadmap-consolidated.md linha 69
+created_at: '2026-04-20T23:28:00'
 created_by: T0-Antigravity
 assigned_to: OpenCode-Agent
-
-working_directory: "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
-framework_subdir: "01_neocortex_framework"
-note_paths: |
-  TODOS os arquivos Python vivem em:
-    C:\Users\Lucas Valério\Desktop\TURBOQUANT_V42\01_neocortex_framework\
-  O diretório raiz do projeto É esse. Não é o diretório do OpenCode.
-
+working_directory: C:\Users\Lucas Valério\Desktop\TURBOQUANT_V42
+framework_subdir: 01_neocortex_framework
+note_paths: "TODOS os arquivos Python vivem em:\n  C:\\Users\\Lucas Valério\\Desktop\\\
+  TURBOQUANT_V42\\01_neocortex_framework\\\nO diretório raiz do projeto É esse. Não\
+  \ é o diretório do OpenCode.\n"
 step_0:
-  - "cd C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
-  - "python -c \"from pathlib import Path; assert Path('01_neocortex_framework').exists(), 'WRONG DIR'\" → DEVE PASSAR"
-  - "Ler 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml"
-  - "python --version → confirmar Python"
-  - "Verificar se NC-SVC-FR-021-session-memory-writer.py existe (de NC-DS-136)"
-
+- cd C:\Users\Lucas Valério\Desktop\TURBOQUANT_V42
+- python -c "from pathlib import Path; assert Path('01_neocortex_framework').exists(),
+  'WRONG DIR'" → DEVE PASSAR
+- Ler 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml
+- python --version → confirmar Python
+- Verificar se NC-SVC-FR-021-session-memory-writer.py existe (de NC-DS-136)
 atomic_locks_inviolaveis:
-  - "01_neocortex_framework/neocortex/mcp/server.py → NUNCA MODIFICAR"
-  - "01_neocortex_framework/neocortex/mcp/sub_server.py → NUNCA MODIFICAR"
+- 01_neocortex_framework/neocortex/mcp/server.py → NUNCA MODIFICAR
+- 01_neocortex_framework/neocortex/mcp/sub_server.py → NUNCA MODIFICAR
+task: "Implementar NC-TOOL-FR-044 memory_auto MCP tool para expor funcionalidades\
+  \ de memória automática.\n\nObjetivos:\n1. Criar NC-TOOL-FR-044-memory-auto.py que\
+  \ expõe ações MCP:\n   - memory_auto.record: registrar turn de conversação manualmente\n\
+  \   - memory_auto.summarize: gerar hot summary da sessão atual\n   - memory_auto.stats:\
+  \ mostrar estatísticas de uso de memória\n   - memory_auto.export: exportar memória\
+  \ da sessão para formato estruturado\n   - memory_auto.config: configurar parâmetros\
+  \ do SessionMemoryWriter\n\n2. Integrar com:\n   - NC-SVC-FR-021-session-memory-writer.py\
+  \ (serviço core)\n   - HookRegistry para captura automática\n   - LexicoService\
+  \ para compressão\n   - MetricsStore para estatísticas\n\n3. Implementar validações:\n\
+  \   - Verificar se SessionMemoryWriter está ativo\n   - Validar parâmetros de entrada\n\
+  \   - Tratar erros gracefulmente\n   - Logging apropriado para auditoria\n\n4. Criar\
+  \ documentação:\n   - Docstrings completas para cada ação\n   - Exemplos de uso\
+  \ no README da tool\n   - Integração com auto-discovery do MCP\n"
+implementation_notes: 'Regras INVIOLÁVEIS:
 
-task: |
-  Implementar NC-TOOL-FR-044 memory_auto MCP tool para expor funcionalidades de memória automática.
-  
-  Objetivos:
-  1. Criar NC-TOOL-FR-044-memory-auto.py que expõe ações MCP:
-     - memory_auto.record: registrar turn de conversação manualmente
-     - memory_auto.summarize: gerar hot summary da sessão atual
-     - memory_auto.stats: mostrar estatísticas de uso de memória
-     - memory_auto.export: exportar memória da sessão para formato estruturado
-     - memory_auto.config: configurar parâmetros do SessionMemoryWriter
-  
-  2. Integrar com:
-     - NC-SVC-FR-021-session-memory-writer.py (serviço core)
-     - HookRegistry para captura automática
-     - LexicoService para compressão
-     - MetricsStore para estatísticas
-  
-  3. Implementar validações:
-     - Verificar se SessionMemoryWriter está ativo
-     - Validar parâmetros de entrada
-     - Tratar erros gracefulmente
-     - Logging apropriado para auditoria
-  
-  4. Criar documentação:
-     - Docstrings completas para cada ação
-     - Exemplos de uso no README da tool
-     - Integração com auto-discovery do MCP
+  - R09: NUNCA ''import NC-TOOL-FR-XXX''. Usar importlib.util.spec_from_file_location()
 
-implementation_notes: |
-  Regras INVIOLÁVEIS:
-  - R09: NUNCA 'import NC-TOOL-FR-XXX'. Usar importlib.util.spec_from_file_location()
   - R10: NUNCA hardcode paths. Usar get_config() ou Path(__file__).resolve().parent
+
   - R11: NUNCA print() em produção. Usar logger = logging.getLogger(__name__)
+
   - R21: VERIFICAR ambiente real antes de afirmar. Se dúvida → ESCALATED
-  
+
+
   Padrões a seguir:
+
   - Seguir estrutura padrão de tools MCP (ver NC-TOOL-FR-038 como exemplo)
+
   - Usar schema validation para parâmetros
+
   - Retornar resultados estruturados (JSON)
+
   - Suportar both sync e async modes
 
+  '
 pre_handoff_checklist:
-  - "python -m py_compile 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-044-memory-auto.py → PASS"
-  - "python -m ruff check 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-044-memory-auto.py --select F,E9 → 0 erros"
-  - "grep print( 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-044-memory-auto.py (excluindo comentários e __main__) → VAZIO"
-  - "git -C C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework diff --name-only HEAD | Select-String 'server\\.py|sub_server\\.py' → VAZIO"
-  - "Testar cada ação da tool com parâmetros válidos"
-
+- python -m py_compile 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-044-memory-auto.py
+  → PASS
+- python -m ruff check 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-044-memory-auto.py
+  --select F,E9 → 0 erros
+- grep print( 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-044-memory-auto.py
+  (excluindo comentários e __main__) → VAZIO
+- git -C C:\Users\Lucas Valério\Desktop\TURBOQUANT_V42\01_neocortex_framework diff
+  --name-only HEAD | Select-String 'server\.py|sub_server\.py' → VAZIO
+- Testar cada ação da tool com parâmetros válidos
 deliverables:
-  - "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\neocortex\\mcp\\tools\\NC-TOOL-FR-044-memory-auto.py"
-  - "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework\\tests\\test_memory_auto_tool.py"
-  - "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\DIR-DS-002-audit-logs\\NC-DS-137-handoff-<YYYYMMDDTHHMMSS>.yaml"
-
+- C:\Users\Lucas Valério\Desktop\TURBOQUANT_V42\01_neocortex_framework\neocortex\mcp\tools\NC-TOOL-FR-044-memory-auto.py
+- C:\Users\Lucas Valério\Desktop\TURBOQUANT_V42\01_neocortex_framework\tests\test_memory_auto_tool.py
+- C:\Users\Lucas Valério\Desktop\TURBOQUANT_V42\DIR-DS-002-audit-logs\NC-DS-137-handoff-<YYYYMMDDTHHMMSS>.yaml
 handoff_template_inline:
-  ticket_id: "NC-DS-137"
-  status: "PENDING_REVIEW"
-  submitted_at: "<YYYYMMDDTHHMMSS>"
-  submitted_by: "opencode-agent"
-  review_by: "T0-Antigravity"
-
+  ticket_id: NC-DS-137
+  status: DONE
+  submitted_at: <YYYYMMDDTHHMMSS>
+  submitted_by: opencode-agent
+  review_by: T0-Antigravity
   summary:
     files_created: []
     files_modified: []
     lines_added: 0
     validation_rounds: 1
     locks_violated: []
-    overall: "SUCCESS"
-
+    overall: SUCCESS
   t0_review_checklist:
     compile_ok: true
     ruff_ok: true
     no_print: true
     ssot_updated: false
     locks_clean: true
-
   test_results:
     total: 0
     passed: 0
     failed: 0
-    notes: ""
-
+    notes: ''
   escalation:
     escalated: false
-    reason: ""
-
-write_zone: "PROD → neocortex/mcp/tools/"
+    reason: ''
+write_zone: PROD → neocortex/mcp/tools/
 escalation_triggers:
-  - "NC-SVC-FR-021-session-memory-writer.py não existe (dependência)"
-  - "Erro ao integrar com HookRegistry"
-  - "Problema com schema validation de parâmetros"
+- NC-SVC-FR-021-session-memory-writer.py não existe (dependência)
+- Erro ao integrar com HookRegistry
+- Problema com schema validation de parâmetros
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: <2500 chars per ticket description
+  validation:
+    py:
+    - ruff check --fix
+    - ruff format
+    - ruff check
+    - mypy --ignore-missing-imports
+    - py_compile
+    - bandit -q
+    yaml:
+    - yaml.safe_load
+    - naming NC- check
+    - secret scan
+    mdc:
+    - frontmatter YAML validate
+    - NC-READ-HASH check
+    - naming NC- check
+    json:
+    - json.loads parse
+    - naming NC- check
+    all:
+    - '@LOCKS check'
+    - Write Zone check
+    - '@SSOT update'
+    - Handoff YAML
+    - 3W check
+    - SSOT Header
+  sandbox_required: true
+  sandbox_steps:
+  - 1. Copiar arquivo alvo para *-sandbox.py
+  - 2. Fazer alteracoes no sandbox
+  - 3. Validar sandbox (ruff+mypy+py_compile)
+  - 4. Testar sandbox
+  - 5. Aplicar no real (com backup)
+  - 6. Rollback via backup se falhar
+  handoff_required: true
+  handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+  handoff_dest: DIR-DS-002-audit-logs/
+  handoff_format: NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+  handoff_fields:
+  - ticket_id
+  - status
+  - submitted_at
+  - submitted_by
+  - summary
+  - files_created
+  - files_modified
+  - validation_rounds
+  - barriers_passed
+  - locks_violated
+  - t0_review
+  governance:
+    eisenhower_applied: true
+    mordaca_h: HOOK — bloqueia acao invalida ANTES de executar (FAIL-FAST)
+    mordaca_c: CHECKPOINT — audita estado a cada 300s (PulseScheduler)
+    mordaca_s: SCHEDULE — consolida no CICLO 4 semanal
+    mordaca_u: USER — T0 aprova/rejeita via handoff review
+    kaizen: Registrar micro-melhoria no @CHANGELOG apos conclusao
+    roadmap: Marcar %DONE no @ROADMAP apos handoff aprovado
+
+closed_at: '2026-05-04T03:10:00-03:00'
+closed_by: T0-OpenCode
+resolution: 'Protocol established (NC-GOV-FR-002). Ticket obsoleto pela nova arquitetura.'

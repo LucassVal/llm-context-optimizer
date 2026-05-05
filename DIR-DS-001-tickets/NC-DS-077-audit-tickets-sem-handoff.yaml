@@ -1,53 +1,115 @@
-# NC-DS-077-audit-tickets-sem-handoff.yaml
-# Auditoria de tickets sem handoff correspondente
-# Identificado no Ciclo 1 de 2026-04-15 como BLOQUEANTE
-
-ticket_id: "NC-DS-077"
-status: "DONE"
-priority: "HIGH"
-title: "Auditoria de tickets sem handoff correspondente (36 tickets)"
-handoff_ref: "NC-DS-077-handoff-20260415T134500-retrospective.yaml"
-completed_at: "2026-04-15T13:45:00-03:00"
-created_at: "2026-04-15T12:10:00-03:00"
-created_by: "T0-Antigravity"
-
+ticket_id: NC-DS-077
+status: DONE
+priority: HIGH
+title: Auditoria de tickets sem handoff correspondente (36 tickets)
+handoff_ref: NC-DS-077-handoff-20260415T134500-retrospective.yaml
+completed_at: '2026-04-15T13:45:00-03:00'
+created_at: '2026-04-15T12:10:00-03:00'
+created_by: T0-Antigravity
 context:
-  origin: "Ciclo 1 — Auditoria de conformidade (2026-04-15)"
-  problem: |
-    Identificados 36 tickets sem handoff correspondente no sistema:
-    NC-DS-001 a NC-DS-020, NC-DS-021 a NC-DS-029, NC-DS-043 a NC-DS-047, NC-DS-049, NC-DS-050.
-    Conforme NC-CYC-FR-001, handoff sem ticket = BLOQUEANTE no Ciclo 1.
-  scope: "Auditoria completa dos 36 tickets: verificar se trabalho foi realizado, criar handoffs retrospectivos ou arquivar tickets obsoletos."
+  origin: Ciclo 1 — Auditoria de conformidade (2026-04-15)
+  problem: 'Identificados 36 tickets sem handoff correspondente no sistema:
 
+    NC-DS-001 a NC-DS-020, NC-DS-021 a NC-DS-029, NC-DS-043 a NC-DS-047, NC-DS-049,
+    NC-DS-050.
+
+    Conforme NC-CYC-FR-001, handoff sem ticket = BLOQUEANTE no Ciclo 1.
+
+    '
+  scope: 'Auditoria completa dos 36 tickets: verificar se trabalho foi realizado,
+    criar handoffs retrospectivos ou arquivar tickets obsoletos.'
 task:
-  description: |
-    1. Para cada ticket sem handoff (lista acima):
-       a. Verificar se o trabalho descrito foi realizado (inspecionar código, arquivos)
-       b. Se trabalho foi realizado: criar handoff retrospectivo com status APPROVED ou ISSUE
-       c. Se ticket é obsoleto/nunca executado: marcar como ARCHIVED com justificativa
-       d. Atualizar ticket YAML com handoff_ref e status correspondente
-    2. Atualizar NC-NAM-FR-001 (SSOT) com qualquer novo handoff criado
-    3. Executar NC-SCR-FR-009-sanitize-all-yamls.py para sincronizar fila de tasks
-    4. Gerar relatório completo de conformidade
+  description: "1. Para cada ticket sem handoff (lista acima):\n   a. Verificar se\
+    \ o trabalho descrito foi realizado (inspecionar código, arquivos)\n   b. Se trabalho\
+    \ foi realizado: criar handoff retrospectivo com status APPROVED ou ISSUE\n  \
+    \ c. Se ticket é obsoleto/nunca executado: marcar como ARCHIVED com justificativa\n\
+    \   d. Atualizar ticket YAML com handoff_ref e status correspondente\n2. Atualizar\
+    \ NC-NAM-FR-001 (SSOT) com qualquer novo handoff criado\n3. Executar NC-SCR-FR-009-sanitize-all-yamls.py\
+    \ para sincronizar fila de tasks\n4. Gerar relatório completo de conformidade\n"
   action_description:
     utterances:
-      - "Auditoria de tickets sem handoff"
-      - "Resolver bloqueante do Ciclo 1: tickets sem handoff"
-    input_instructions: "Lista de tickets fornecida no contexto"
-    output_instructions: "Relatório com decisão por ticket + handoffs criados/atualizados"
-    usage_rules: "Prioridade HIGH — bloqueante para continuidade do workflow"
-
+    - Auditoria de tickets sem handoff
+    - 'Resolver bloqueante do Ciclo 1: tickets sem handoff'
+    input_instructions: Lista de tickets fornecida no contexto
+    output_instructions: Relatório com decisão por ticket + handoffs criados/atualizados
+    usage_rules: Prioridade HIGH — bloqueante para continuidade do workflow
 write_zone:
-  - "DIR-DS-001-tickets/"
-  - "DIR-DS-002-audit-logs/"
-  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/"
-
+- DIR-DS-001-tickets/
+- DIR-DS-002-audit-logs/
+- 01_neocortex_framework/DIR-DOC-FR-001-docs-main/
 references:
-  - "DIR-DOC-FR-001-docs-main/NC-CYC-FR-001-4-cycle-validation.md"
-  - "DIR-DS-002-audit-logs/NC-DS-069-handoff-ciclo1-governance-audit-20260415.yaml"
-  - "01_neocortex_framework/scripts/NC-SCR-FR-009-sanitize-all-yamls.py"
-
-tags: ["ciclo1", "governance", "audit", "compliance", "blocker", "tickets"]
-domain: "governance"
-layer: "infra"
-type: "AUDIT"
+- DIR-DOC-FR-001-docs-main/NC-CYC-FR-001-4-cycle-validation.md
+- DIR-DS-002-audit-logs/NC-DS-069-handoff-ciclo1-governance-audit-20260415.yaml
+- 01_neocortex_framework/scripts/NC-SCR-FR-009-sanitize-all-yamls.py
+tags:
+- ciclo1
+- governance
+- audit
+- compliance
+- blocker
+- tickets
+domain: governance
+layer: infra
+type: AUDIT
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: <2500 chars per ticket description
+  validation:
+    py:
+    - ruff check --fix
+    - ruff format
+    - ruff check
+    - mypy --ignore-missing-imports
+    - py_compile
+    - bandit -q
+    yaml:
+    - yaml.safe_load
+    - naming NC- check
+    - secret scan
+    mdc:
+    - frontmatter YAML validate
+    - NC-READ-HASH check
+    - naming NC- check
+    json:
+    - json.loads parse
+    - naming NC- check
+    all:
+    - '@LOCKS check'
+    - Write Zone check
+    - '@SSOT update'
+    - Handoff YAML
+    - 3W check
+    - SSOT Header
+  sandbox_required: true
+  sandbox_steps:
+  - 1. Copiar arquivo alvo para *-sandbox.py
+  - 2. Fazer alteracoes no sandbox
+  - 3. Validar sandbox (ruff+mypy+py_compile)
+  - 4. Testar sandbox
+  - 5. Aplicar no real (com backup)
+  - 6. Rollback via backup se falhar
+  handoff_required: true
+  handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+  handoff_dest: DIR-DS-002-audit-logs/
+  handoff_format: NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+  handoff_fields:
+  - ticket_id
+  - status
+  - submitted_at
+  - submitted_by
+  - summary
+  - files_created
+  - files_modified
+  - validation_rounds
+  - barriers_passed
+  - locks_violated
+  - t0_review
+  governance:
+    eisenhower_applied: true
+    mordaca_h: HOOK — bloqueia acao invalida ANTES de executar (FAIL-FAST)
+    mordaca_c: CHECKPOINT — audita estado a cada 300s (PulseScheduler)
+    mordaca_s: SCHEDULE — consolida no CICLO 4 semanal
+    mordaca_u: USER — T0 aprova/rejeita via handoff review
+    kaizen: Registrar micro-melhoria no @CHANGELOG apos conclusao
+    roadmap: Marcar %DONE no @ROADMAP apos handoff aprovado

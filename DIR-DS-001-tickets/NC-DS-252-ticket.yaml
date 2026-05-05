@@ -1,0 +1,193 @@
+# NC-DS-252 — MCP Authorization: Implementar OAuth 2.1 Flow para Streamable HTTP (:8765)
+# WHAT: Adicionar camada de autorização OAuth 2.1 completa ao servidor Streamable HTTP na porta 8765
+# WHY: Porta 8765 atualmente sem auth — qualquer client pode chamar tools sem autorização
+# WHERE: 01_neocortex_framework/neocortex/mcp/auth.py (novo módulo) + modificações em server.py
+
+ticket_id: NC-DS-252
+title: "MCP Authorization — Implementar OAuth 2.1 Flow para Streamable HTTP (:8765) — 401+WWW-Authenticate, PRM, AS Discovery, DCR, Token Validation"
+status: "PENDING_REVIEW"
+priority: P0
+assignee: opencode
+created: "2026-05-04"
+description: |
+  GAP CRÍTICO DE SEGURANÇA: O servidor MCP expõe Streamable HTTP na porta 8765 SEM 
+  QUALQUER AUTENTICAÇÃO. Qualquer cliente na rede pode invocar tools, ler Resources, 
+  e disparar Prompts sem autorização. A spec MCP define OAuth 2.1 como padrão para 
+  servidores remotos (NC-LBE-INT-006 §12).
+
+  ESCOPO COMPLETO (6 passos do OAuth 2.1 MCP):
+
+  1. INITIAL HANDSHAKE (401 + WWW-Authenticate):
+     - Requisições sem token → 401 Unauthorized
+     - Header: WWW-Authenticate: Bearer realm="mcp", resource_metadata="https://localhost:8765/.well-known/oauth-protected-resource"
+     - Manter compatibilidade: stdio transport NÃO requer auth
+
+  2. PROTECTED RESOURCE METADATA (PRM) DISCOVERY (RFC 9728):
+     - Endpoint: GET /.well-known/oauth-protected-resource
+     - Retorna: resource URL, authorization_servers[], scopes_supported[]
+     - Scopes: mcp:tools, mcp:resources, mcp:prompts, mcp:admin
+
+  3. AUTHORIZATION SERVER DISCOVERY (RFC 8414):
+     - Endpoint: GET /.well-known/oauth-authorization-server
+     - Retorna: issuer, authorization_endpoint, token_endpoint, registration_endpoint
+     - Suportar modo DEV (localhost, HTTP) e PROD (HTTPS com certificados)
+
+  4. DYNAMIC CLIENT REGISTRATION (DCR, RFC 7591):
+     - Endpoint: POST /oauth/register
+     - Aceitar: client_name, redirect_uris, grant_types
+     - Retornar: client_id, client_secret (opaco, crypto-random)
+     - Rate-limit DCR para prevenir abuse
+
+  5. USER AUTHORIZATION + TOKEN EXCHANGE:
+     - Endpoint: GET /oauth/authorize → formulário de consentimento T0
+     - Endpoint: POST /oauth/token → exchange auth_code + PKCE → access_token + refresh_token
+     - Suportar PKCE (S256) obrigatório
+     - Access tokens: curta duração (15 min), refresh tokens: longa duração (24h)
+
+  6. TOKEN VALIDATION + AUTHENTICATED REQUESTS:
+     - Middleware que valida Authorization: Bearer <token> em TODAS as rotas
+     - Validação JWT: aud claim, exp, iat, scope
+     - Usar biblioteca padrão (PyJWT + cryptography) — NUNCA implementar validação do zero
+     - Token introspection endpoint: POST /oauth/introspect (RFC 7662)
+
+  SEGURANÇA (NC-LBE-INT-006 §13):
+  - NUNCA logar tokens ou credenciais
+  - Session ID NUNCA usado para autenticação
+  - Scopes mínimos por padrão (least privilege)
+  - Bloquear IPs privados em metadados OAuth (anti-SSRF)
+  - Enforce HTTPS em produção
+  - CSRF protection no fluxo de autorização (state parameter)
+
+  IMPACTO: Sem isso, o NeoCortex NÃO PODE ser exposto como servidor remoto seguro. 
+  É pré-requisito para qualquer uso em produção.
+
+context:
+  - "Reference: 02_memory_lobes/02_integrations/NC-LBE-INT-006-mcp-specification.mdc §12 (Authorization — 6-step OAuth 2.1 flow), §13 (Security Best Practices)"
+  - "Gap found by structural audit 2026-05-04 — Porta 8765 (Streamable HTTP) sem autenticação"
+  - "RFC 9728: OAuth 2.0 Protected Resource Metadata"
+  - "RFC 8414: OAuth 2.0 Authorization Server Metadata"
+  - "RFC 7591: OAuth 2.0 Dynamic Client Registration"
+  - "RFC 7662: OAuth 2.0 Token Introspection"
+  - "SEP-985: Align OAuth with RFC 9728"
+  - "SEP-1046: OAuth Client Credentials Flow"
+  - "Current server.py: transport='stdio' — sem auth layer"
+  - "See NC-MAN-LOBE-001.csv for related security lobes"
+
+task: |
+  1. Criar 01_neocortex_framework/neocortex/mcp/auth.py (~500 linhas)
+     a. Implementar OAuth2Server class com todos os 6 passos do fluxo
+     b. PRM endpoint: /.well-known/oauth-protected-resource (RFC 9728)
+     c. AS Discovery: /.well-known/oauth-authorization-server (RFC 8414)
+     d. DCR endpoint: POST /oauth/register com validação e rate-limit
+     e. Authorization endpoint: GET/POST /oauth/authorize com consent form T0
+     f. Token endpoint: POST /oauth/token com PKCE validation
+     g. Token introspection: POST /oauth/introspect (RFC 7662)
+     h. Auth middleware: validate_bearer_token() aplicado em todas as rotas MCP
+     i. Usar PyJWT + cryptography — NUNCA implementar crypto do zero
+     j. Usar logger = logging.getLogger(__name__) — NUNCA print()
+     k. NUNCA logar tokens, client_secrets ou credenciais
+
+  2. Modificar server.py para integração:
+     a. Adicionar auth middleware condicional (stdio = bypass, http = enforce)
+     b. Configurar rotas OAuth no FastMCP/Starlette app
+     c. NÃO modificar sub_server.py (R04)
+     d. Adicionar configuração em neocortex_config.yaml:
+        - mcp.auth.enabled (bool)
+        - mcp.auth.issuer_url
+        - mcp.auth.token_expiry_seconds
+        - mcp.auth.allowed_scopes
+
+  3. VALIDAÇÃO DE SEGURANÇA:
+     - ruff + mypy + py_compile + bandit (com security rules) em auth.py
+     - Testar fluxo completo com MCP Inspector + cliente OAuth de teste
+     - Verificar: 401 sem token, 403 com token inválido, 200 com token válido
+     - Verificar: DCR rate-limit, PKCE enforcement, token expiry
+
+write_zone: "PROD → 01_neocortex_framework/neocortex/mcp/auth.py"
+locks:
+  - "01_neocortex_framework/neocortex/mcp/server.py → MODIFICAR SOMENTE PARA ADICIONAR MIDDLEWARE DE AUTH"
+  - "01_neocortex_framework/neocortex/mcp/sub_server.py → NUNCA MODIFICAR"
+  - "01_neocortex_framework/neocortex_config.yaml → ADICIONAR SEÇÃO mcp.auth, NÃO REMOVER CONFIG EXISTENTE"
+
+# ── GOVERNANCE CONSTRAINTS (NC-GOV-FR-003) ─────────────────
+gateway_constraint: "ConstitutionGateway.validate_action() BEFORE any file modification"
+sandbox_zone: "01_neocortex_framework/neocortex/mcp/ → T0-review required before merge"
+lock_constraint: "server.py → T0 ONLY | sub_server.py → NEVER MODIFY | tools/*.py → Gateway validates"
+agent_policy: "T1 (courier) → read-only ops only | T2 (engineer) → micro-tasks in sandbox | T3 (guardian) → validation only"
+
+# ── MICRO-TASKS (Fractionated — T2-handleable, 3-10 lines each) ──
+# CRITICAL: auth.py involves crypto — T0 MUST review every micro-task before merge.
+# Dependencies: MT01→MT02→MT03→...→MT10 (sequential OAuth flow steps).
+micro_tasks:
+  - id: "NC-DS-252-MT01"
+    desc: "Create auth.py skeleton with OAuth2Server class stub + logger + PyJWT import. Add SECURITY WARNING header comment."
+    agent: "T2-in-sandbox"
+    files: ["01_neocortex_framework/neocortex/mcp/auth.py"]
+    validation: "py_compile + ruff check"
+
+  - id: "NC-DS-252-MT02"
+    desc: "Implement PRM endpoint: GET /.well-known/oauth-protected-resource → RFC 9728 JSON"
+    agent: "T2-in-sandbox"
+    files: ["01_neocortex_framework/neocortex/mcp/auth.py"]
+    validation: "py_compile + ruff check + URL fetch test"
+
+  - id: "NC-DS-252-MT03"
+    desc: "Implement AS Discovery: GET /.well-known/oauth-authorization-server → RFC 8414 JSON"
+    agent: "T2-in-sandbox"
+    files: ["01_neocortex_framework/neocortex/mcp/auth.py"]
+    validation: "py_compile + ruff check"
+
+  - id: "NC-DS-252-MT04"
+    desc: "Implement DCR endpoint: POST /oauth/register with validation + rate-limit (RFC 7591)"
+    agent: "T2-in-sandbox"
+    files: ["01_neocortex_framework/neocortex/mcp/auth.py"]
+    validation: "py_compile + ruff check"
+
+  - id: "NC-DS-252-MT05"
+    desc: "Implement Authorization endpoint: GET /oauth/authorize → T0 consent form (CSRF state param)"
+    agent: "T2-in-sandbox"
+    files: ["01_neocortex_framework/neocortex/mcp/auth.py"]
+    validation: "py_compile + ruff check"
+
+  - id: "NC-DS-252-MT06"
+    desc: "Implement Token endpoint: POST /oauth/token with PKCE S256 validation"
+    agent: "T2-in-sandbox"
+    files: ["01_neocortex_framework/neocortex/mcp/auth.py"]
+    validation: "py_compile + ruff check + crypto review by T0"
+
+  - id: "NC-DS-252-MT07"
+    desc: "Implement Token introspection: POST /oauth/introspect → RFC 7662 response"
+    agent: "T2-in-sandbox"
+    files: ["01_neocortex_framework/neocortex/mcp/auth.py"]
+    validation: "py_compile + ruff check"
+
+  - id: "NC-DS-252-MT08"
+    desc: "Implement auth middleware: validate_bearer_token() using PyJWT (aud, exp, iat, scope)"
+    agent: "T2-in-sandbox"
+    files: ["01_neocortex_framework/neocortex/mcp/auth.py"]
+    validation: "py_compile + ruff check + T0 crypto review"
+
+  - id: "NC-DS-252-MT09"
+    desc: "Add auth middleware to server.py — conditional: stdio=bypass, http=enforce. Register OAuth routes. T0 ONLY."
+    agent: "T0"
+    files: ["01_neocortex_framework/neocortex/mcp/server.py"]
+    validation: "py_compile + ruff check + diff review"
+
+  - id: "NC-DS-252-MT10"
+    desc: "Add mcp.auth config section to neocortex_config.yaml (enabled, issuer_url, token_expiry, scopes)"
+    agent: "T2-in-sandbox"
+    files: ["01_neocortex_framework/neocortex_config.yaml"]
+    validation: "YAML safe_load + schema check"
+
+  - id: "NC-DS-252-MT11"
+    desc: "ruff + mypy + py_compile + bandit (security rules: B301-B325) on auth.py"
+    agent: "T3 (guardian)"
+    files: ["01_neocortex_framework/neocortex/mcp/auth.py"]
+    validation: "ruff check + mypy + bandit --severity-level high"
+
+  - id: "NC-DS-252-MT12"
+    desc: "Full OAuth flow integration test: 401→PRM→AS→DCR→token→200. Verify PKCE, token expiry, DCR rate-limit."
+    agent: "T3 (guardian)"
+    files: ["01_neocortex_framework/neocortex/mcp/auth.py", "01_neocortex_framework/neocortex/mcp/server.py"]
+    validation: "MCP Inspector + curl OAuth flow test"
+

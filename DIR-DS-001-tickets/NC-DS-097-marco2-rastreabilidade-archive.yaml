@@ -1,45 +1,104 @@
-ticket_id: "NC-DS-097"
-status: "DONE"
-priority: "MEDIUM"
-title: "Marco 2 Rastreabilidade (NC-DS-085) + Arquivo roadmaps obsoletos (NC-DS-088)"
-created_at: "2026-04-16T01:26:41-03:00"
-created_by: "T0-Claude-Code"
-
+ticket_id: NC-DS-097
+status: DONE
+priority: MEDIUM
+title: Marco 2 Rastreabilidade (NC-DS-085) + Arquivo roadmaps obsoletos (NC-DS-088)
+created_at: '2026-04-16T01:26:41-03:00'
+created_by: T0-Claude-Code
 context:
-  origin: "Tickets OPEN remanescentes — NC-DS-085 MEDIUM + NC-DS-088 LOW"
-  problem: |
-    NC-DS-085: NC-SCR-FR-002 (tool-manifest-generator) e NC-SCR-FR-022 (coverage-auditor)
+  origin: Tickets OPEN remanescentes — NC-DS-085 MEDIUM + NC-DS-088 LOW
+  problem: 'NC-DS-085: NC-SCR-FR-002 (tool-manifest-generator) e NC-SCR-FR-022 (coverage-auditor)
+
     nunca foram executados/validados nesta fase.
+
     NC-DS-088: Roadmaps obsoletos v5/v6/v7 ainda presentes em DIR-DOC-FR-001-docs-main/,
+
     ocupando espaço e confundindo contexto.
 
+    '
 task:
-  description: |
-    PARTE A — NC-DS-085 (Marco 2 Rastreabilidade):
-    1. python -m py_compile NC-SCR-FR-002-tool-manifest-generator.py && echo OK
-    2. python NC-SCR-FR-002-tool-manifest-generator.py --dry-run
-    3. python -m py_compile NC-SCR-FR-022-coverage-auditor.py && echo OK
-    4. python NC-SCR-FR-022-coverage-auditor.py
-    Salvar resultado em reports/
-
-    PARTE B — NC-DS-088 (Arquivo roadmaps):
-    Mover para DIR-ARC-FR-001-archive-main/roadmaps-obsoletos-20260416/:
-      - NC-TODO-DS-002-roadmap-v5*.md (se existir)
-      - NC-TODO-DS-003-roadmap-v6*.md (se existir)
-      - Qualquer roadmap marcado como obsoleto/deprecated
-
-    Fechar NC-DS-085 e NC-DS-088 com handoffs APPROVED.
-
+  description: "PARTE A — NC-DS-085 (Marco 2 Rastreabilidade):\n1. python -m py_compile\
+    \ NC-SCR-FR-002-tool-manifest-generator.py && echo OK\n2. python NC-SCR-FR-002-tool-manifest-generator.py\
+    \ --dry-run\n3. python -m py_compile NC-SCR-FR-022-coverage-auditor.py && echo\
+    \ OK\n4. python NC-SCR-FR-022-coverage-auditor.py\nSalvar resultado em reports/\n\
+    \nPARTE B — NC-DS-088 (Arquivo roadmaps):\nMover para DIR-ARC-FR-001-archive-main/roadmaps-obsoletos-20260416/:\n\
+    \  - NC-TODO-DS-002-roadmap-v5*.md (se existir)\n  - NC-TODO-DS-003-roadmap-v6*.md\
+    \ (se existir)\n  - Qualquer roadmap marcado como obsoleto/deprecated\n\nFechar\
+    \ NC-DS-085 e NC-DS-088 com handoffs APPROVED.\n"
 write_zone:
-  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/"
-  - "DIR-ARC-FR-001-archive-main/"
-  - "DIR-DS-002-audit-logs/"
-  - "reports/"
-
+- 01_neocortex_framework/DIR-DOC-FR-001-docs-main/
+- DIR-ARC-FR-001-archive-main/
+- DIR-DS-002-audit-logs/
+- reports/
 atomic_locks_proibidos:
-  - "01_neocortex_framework/neocortex/server.py"
-
-tags: ["marco2", "rastreabilidade", "archive", "roadmap", "coverage"]
-domain: "quality"
-layer: "scripts"
-type: "FEATURE+ARCHIVE"
+- 01_neocortex_framework/neocortex/server.py
+tags:
+- marco2
+- rastreabilidade
+- archive
+- roadmap
+- coverage
+domain: quality
+layer: scripts
+type: FEATURE+ARCHIVE
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: <2500 chars per ticket description
+  validation:
+    py:
+    - ruff check --fix
+    - ruff format
+    - ruff check
+    - mypy --ignore-missing-imports
+    - py_compile
+    - bandit -q
+    yaml:
+    - yaml.safe_load
+    - naming NC- check
+    - secret scan
+    mdc:
+    - frontmatter YAML validate
+    - NC-READ-HASH check
+    - naming NC- check
+    json:
+    - json.loads parse
+    - naming NC- check
+    all:
+    - '@LOCKS check'
+    - Write Zone check
+    - '@SSOT update'
+    - Handoff YAML
+    - 3W check
+    - SSOT Header
+  sandbox_required: true
+  sandbox_steps:
+  - 1. Copiar arquivo alvo para *-sandbox.py
+  - 2. Fazer alteracoes no sandbox
+  - 3. Validar sandbox (ruff+mypy+py_compile)
+  - 4. Testar sandbox
+  - 5. Aplicar no real (com backup)
+  - 6. Rollback via backup se falhar
+  handoff_required: true
+  handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+  handoff_dest: DIR-DS-002-audit-logs/
+  handoff_format: NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+  handoff_fields:
+  - ticket_id
+  - status
+  - submitted_at
+  - submitted_by
+  - summary
+  - files_created
+  - files_modified
+  - validation_rounds
+  - barriers_passed
+  - locks_violated
+  - t0_review
+  governance:
+    eisenhower_applied: true
+    mordaca_h: HOOK — bloqueia acao invalida ANTES de executar (FAIL-FAST)
+    mordaca_c: CHECKPOINT — audita estado a cada 300s (PulseScheduler)
+    mordaca_s: SCHEDULE — consolida no CICLO 4 semanal
+    mordaca_u: USER — T0 aprova/rejeita via handoff review
+    kaizen: Registrar micro-melhoria no @CHANGELOG apos conclusao
+    roadmap: Marcar %DONE no @ROADMAP apos handoff aprovado

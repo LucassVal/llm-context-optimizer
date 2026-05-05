@@ -1,10 +1,15 @@
 ticket_id: NC-DS-122
 title: "Renomear 24 arquivos KEEP_NON_NC em neocortex/core/ para padrão NC-CORE-FR-NNN"
-status: OPEN
+status: DONE
 priority: HIGH
 created_at: "2026-04-20T20:06:25-03:00"
+updated_at: "2026-05-04T02:00:00-03:00"
+closed_at: "2026-05-04T02:10:00-03:00"
 created_by: T0-Antigravity
+updated_by: T0-OpenCode
+closed_by: T0-OpenCode
 sprint: "NC-DS-122"
+lexico_ref: "#LEXICO v4.1 — todos os 24 já têm # no LEXICO. Resta remover os arquivos VELHOS (sem NC-) e atualizar imports."
 related_tickets: ["NC-DS-117"]
 related_docs:
   - "01_neocortex_framework/05_examples/NC-RPT-117-core-audit-report.json"

@@ -1,0 +1,115 @@
+# NC-DS-254 — MCP Notifications: Implementar notifications/tools/list_changed, resources/list_changed, prompts/list_changed
+# WHAT: Wirear hooks do NeoCortex → MCP notifications para clients receberem updates em tempo real
+# WHY: Sem notifications, clients precisam de polling manual para descobrir mudanças em tools/resources/prompts
+# WHERE: 01_neocortex_framework/neocortex/mcp/notifications.py (novo módulo) + wire com hooks
+
+ticket_id: NC-DS-254
+title: "MCP Notifications — Implementar notifications/tools/list_changed, resources/list_changed, prompts/list_changed + Wirear Hooks → MCP Notifications"
+status: "PENDING_REVIEW"
+priority: P1
+assignee: opencode
+created: "2026-05-04"
+description: |
+  GAP IDENTIFICADO: O servidor MCP não envia notifications quando tools, resources ou 
+  prompts são alterados. A spec MCP (NC-LBE-INT-006 §1.4) define notifications como 
+  mecanismo primário para clients manterem estado sincronizado SEM polling.
+
+  O NeoCortex JÁ TEM hooks (NC-HK-FR-001, NC-HK-FR-002) que disparam em eventos 
+  internos. Falta wirear hooks → MCP notifications.
+
+  ESCOPO:
+
+  1. NOTIFICATIONS SERVER→CLIENT:
+     - notifications/tools/list_changed → disparado quando:
+       a. Nova tool é registrada via @mcp.tool() ou register_tool()
+       b. Tool existente é removida ou modificada
+       c. HookRegistry emite evento ToolRegistered/ToolRemoved
+     
+     - notifications/resources/list_changed → disparado quando:
+       a. Novo Resource é registrado
+       b. Lobe é populado/atualizado (NC-SCR-FR-001 @POPULATE)
+       c. KG é modificado (entidades adicionadas/removidas)
+       d. @LOCKS mudam (lock adquirido/liberado)
+       e. Write Zones são alteradas
+       f. @SSOT é atualizado (NC-NAM-FR-001 modificado)
+     
+     - notifications/prompts/list_changed → disparado quando:
+       a. Novo Prompt é registrado
+       b. Template de Prompt é atualizado
+       c. SOP é adicionada/modificada em DIR-DOC-FR-001-docs-main/
+
+  2. WIREAR HOOKS → MCP NOTIFICATIONS:
+     - Importar hook_registry de NC-HK-FR-001
+     - Registrar listeners nos hooks existentes:
+       a. on_tool_registered → send_notification("tools/list_changed")
+       b. on_tool_removed → send_notification("tools/list_changed")
+       c. on_resource_changed → send_notification("resources/list_changed")
+       d. on_prompt_changed → send_notification("prompts/list_changed")
+       e. on_lobe_populated → send_notification("resources/list_changed")
+       f. on_kg_modified → send_notification("resources/list_changed")
+       g. on_lock_changed → send_notification("resources/list_changed")
+       h. on_ssot_updated → send_notification("resources/list_changed")
+     - Cada listener invoca session.send_notification(method, params=None)
+     - FastMCP session gerencia broadcast para todos os clients conectados
+
+  3. COMPORTAMENTO DO CLIENT:
+     - Client recebe notification → re-fetch tools/list, resources/list, ou prompts/list
+     - Client pode ignorar notifications (best-effort delivery)
+     - Notifications são fire-and-forget (sem response do client)
+     - Garantir idempotência: múltiplas notifications para mesma mudança não quebram client
+
+  4. STREAMABLE HTTP vs STDIO:
+     - stdio transport: notifications são enviadas via JSON-RPC na stream stdout
+     - Streamable HTTP (:8765): notifications via SSE (Server-Sent Events) no response stream
+     - Ambos os transports devem suportar notifications
+
+  PADRÃO DE REFERÊNCIA: NC-LBE-INT-006-mcp-specification.mdc §1.4 (Notifications — 
+  tools/list_changed example), §17.2 (Gap #2: notifications não implementado).
+
+  IMPACTO: Clients recebem atualizações em tempo real. Elimina necessidade de polling. 
+  Essencial para UX fluida em clients como OpenCode, Claude Code, VS Code Copilot.
+
+context:
+  - "Reference: 02_memory_lobes/02_integrations/NC-LBE-INT-006-mcp-specification.mdc §1.4 (Notifications — Server→Client JSON-RPC), §17.2 (Gap #2: notifications/tools/list_changed)"
+  - "Gap found by structural audit 2026-05-04 — Zero MCP notifications implementadas"
+  - "Hooks existentes: NC-HK-FR-001 (HookRegistry), NC-HK-FR-002 (Hook types)"
+  - "FastMCP: session.send_notification(method, params=None)"
+  - "MCP Inspector: pode verificar notifications recebidas"
+
+task: |
+  1. Criar 01_neocortex_framework/neocortex/mcp/notifications.py (~300 linhas)
+     a. Implementar MCPNotificationManager class:
+        - send_list_changed(resource_type: str, reason: str)
+        - broadcast(session, method, params) para todos os clients
+        - debounce/throttle para evitar spam de notifications (max 1/sec por tipo)
+     b. Implementar hook_to_notification_mapper:
+        - Mapeia cada hook type → notification method
+        - on_tool_registered → "notifications/tools/list_changed"
+        - on_resource_changed → "notifications/resources/list_changed"
+        - on_prompt_changed → "notifications/prompts/list_changed"
+     c. Wire com HookRegistry:
+        - hook_registry.register("tool_registered", notification_manager.on_tool_changed)
+        - hook_registry.register("lobe_populated", notification_manager.on_resource_changed)
+        - (etc. para todos os hooks relevantes)
+     d. Usar logger = logging.getLogger(__name__) — NUNCA print()
+
+  2. Integrar em server.py:
+     a. Inicializar MCPNotificationManager durante create_mcp_server()
+     b. Passar session para notification_manager após initialize
+     c. Garantir que notifications funcionam em stdio E Streamable HTTP
+     d. NÃO modificar sub_server.py (R04)
+
+  3. VALIDAÇÃO:
+     - ruff + mypy + py_compile + bandit em notifications.py
+     - Testar com MCP Inspector: registrar tool → verificar notification recebida
+     - Testar: @POPULATE → resources/list_changed recebido
+     - Testar: modificar @SSOT → resources/list_changed recebido
+     - Verificar debounce: 5 mudanças rápidas → apenas 1 notification
+
+write_zone: "PROD → 01_neocortex_framework/neocortex/mcp/notifications.py"
+locks:
+  - "01_neocortex_framework/neocortex/mcp/server.py → MODIFICAR SOMENTE PARA INICIALIZAR NOTIFICATION MANAGER"
+  - "01_neocortex_framework/neocortex/mcp/sub_server.py → NUNCA MODIFICAR"
+  - "01_neocortex_framework/neocortex/hooks.py → MODIFICAR SOMENTE PARA EXPOR hook_registry (se necessário)"
+
+

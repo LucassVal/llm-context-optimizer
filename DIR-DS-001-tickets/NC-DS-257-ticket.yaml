@@ -1,0 +1,150 @@
+# NC-DS-257 — MCP Elicitation + Logging: Implementar elicitation/create (substituir stdout hack) + logging/setLevel + notifications/message
+# WHAT: Substituir o workaround atual de stdout para confirmação T0 por elicitation MCP nativo + logging via protocolo
+# WHY: O stdout hack atual é frágil, não-conforme com spec MCP, e quebra clients que usam stdio como canal JSON-RPC
+# WHERE: 01_neocortex_framework/neocortex/mcp/elicitation.py + neocortex/mcp/logging.py (novos módulos)
+
+ticket_id: NC-DS-257
+title: "MCP Elicitation + Logging — Implementar elicitation/create (confirmação T0 nativa, substituir stdout hack) + logging/setLevel + notifications/message"
+status: "PENDING_REVIEW"
+priority: P0
+assignee: opencode
+created: "2026-05-04"
+description: |
+  GAP IDENTIFICADO: O NeoCortex atualmente usa stdout/console prompts para pedir 
+  confirmação do T0 (ex: "T0 must approve this action. Proceed? [y/N]"). Isso VIOLA 
+  a regra fundamental do MCP: em transporte stdio, stdout É o canal JSON-RPC. 
+  Qualquer output não-JSON-RPC corrompe o protocolo.
+
+  A spec MCP define Elicitation como o mecanismo CORRETO para servidores pedirem 
+  input estruturado do usuário (NC-LBE-INT-006 §3.1). Também define Logging como 
+  mecanismo para servidores enviarem logs estruturados para clients (§2.3, §11.2).
+
+  ESCOPE:
+
+  1. ELICITATION/CREATE (substituir stdout hack):
+     - Implementar handler para elicitation/create no servidor
+     - Fluxo: Server → elicitation/create → Client → User (UI) → response → Server
+     - Casos de uso NeoCortex:
+       a. Confirmação T0 para ações destrutivas (archive, delete, overwrite)
+       b. Confirmação T0 para modificações em @LOCKS (server.py, sub_server.py)
+       c. Confirmação T0 para deploy em produção (write_zone PROD)
+       d. Seleção de lobe alvo quando ambíguo
+       e. Confirmação de custo estimado para operações caras (API calls)
+     - Schema do elicitation deve incluir:
+       - message: descrição da ação que requer confirmação
+       - schema: JSON Schema com campos de confirmação (confirm: bool, reason: str opcional)
+       - required: ["confirm"]
+     - Timeout: se T0 não responder em 120s, ação é rejeitada (safe default = deny)
+
+  2. MIGRAÇÃO DOS STDOUT PROMPTS:
+     - Identificar TODOS os pontos no código que usam input()/print() para confirmação
+     - Substituir cada um por elicitation/create
+     - Exemplo de migração:
+       ANTES:  print("T0 must approve. Proceed? [y/N]")
+               response = input()
+       DEPOIS: response = await session.send_elicitation(
+                 message="T0 must approve this action.",
+                 schema={"type": "object", "properties": {"confirm": {"type": "boolean"}}, "required": ["confirm"]}
+               )
+     - Garantir fallback: se client não suporta elicitation → escalar para T0 por outro canal
+
+  3. LOGGING VIA PROTOCOLO:
+     a. logging/setLevel — permitir client ajustar nível de log do servidor:
+        - Níveis RFC 5424: debug, info, notice, warning, error, critical, alert, emergency
+        - Client envia: {"method": "logging/setLevel", "params": {"level": "info"}}
+        - Servidor ajusta nível mínimo de log transmitido
+     
+     b. notifications/message — servidor envia logs estruturados para client:
+        - Formato: {"method": "notifications/message", "params": {"level": "warning", "data": "message", "logger": "neocortex.mcp"}}
+        - Wirear com o sistema de logging Python existente (logging.Logger)
+        - Handler customizado que intercepta log records → notifications/message
+        - Respeitar nível configurado via logging/setLevel
+     
+     c. DUAL OUTPUT:
+        - stderr: SEMPRE (para debugging local, Inspector, Claude Desktop logs)
+        - notifications/message: quando client conectado e suporta logging capability
+        - NUNCA stdout (viola protocolo stdio)
+
+  4. IMPLEMENTAÇÃO DO LOGGING HANDLER:
+     - Criar MCPLogHandler(logging.Handler) que:
+       a. Intercepta LogRecord
+       b. Converte para notifications/message JSON-RPC
+       c. Envia via session.send_notification()
+       d. Respeita level filter configurado pelo client
+     - Adicionar handler ao root logger do NeoCortex durante initialize
+     - Remover handler no shutdown
+
+  PADRÃO DE REFERÊNCIA: NC-LBE-INT-006-mcp-specification.mdc §3.1 (Elicitation — 
+  server requests structured user input), §2.3 (Logging — stderr + notifications/message), 
+  §11.2 (Logging Implementation), §17.2 (Gap #5: Elicitation para confirmação T0, 
+  Gap #3: Logging via notifications/message).
+
+  IMPACTO: Elimina o stdout hack que corrompe o protocolo. Conformidade total com spec 
+  MCP. Logs estruturados permitem debugging remoto. Confirmação T0 via protocolo 
+  padrão funciona em qualquer client MCP.
+
+context:
+  - "Reference: 02_memory_lobes/02_integrations/NC-LBE-INT-006-mcp-specification.mdc §3.1 (Elicitation — structured user input), §2.3 (Logging in MCP Servers), §11.2 (Logging Implementation), §17.2 (Gaps #3 and #5)"
+  - "Gap found by structural audit 2026-05-04 — stdout hack viola protocolo stdio (stdout = JSON-RPC channel)"
+  - "Current workaround: print() prompts + input() para confirmação T0"
+  - "STDIO rule: NEVER write to stdout. stdout = JSON-RPC channel. Use stderr or logging."
+  - "FastMCP: session.send_elicitation(message, schema)"
+  - "RFC 5424: Syslog severity levels (8 levels)"
+  - "SEP-1330: Elicitation Schema Improvements"
+  - "SEP-1036: URL Mode Elicitation"
+
+task: |
+  1. Criar 01_neocortex_framework/neocortex/mcp/elicitation.py (~300 linhas)
+     a. Implementar ElicitationManager class:
+        - request_confirmation(action: str, details: dict, schema: dict = None) → bool
+        - request_input(prompt: str, schema: dict) → dict
+        - Pre-built schemas: T0_CONFIRM_SCHEMA, LOBE_SELECT_SCHEMA, COST_APPROVAL_SCHEMA
+        - Timeout handling (default 120s, configurável)
+        - Safe default: deny on timeout
+     b. Implementar t0_confirm(action_description: str, risk_level: str) → bool:
+        - HIGH risk (PROD write, @LOCKS touch): schema requer reason + confirm
+        - MEDIUM risk (file create): schema requer confirm
+        - LOW risk (read-only): auto-approve (sem elicitation)
+     c. Auditar código existente por stdout prompts:
+        - grep por "input(" e "print(.*T0.*approve" em todo o framework
+        - Listar cada ocorrência para migração
+     d. Usar logger = logging.getLogger(__name__) — NUNCA print()
+
+  2. Criar 01_neocortex_framework/neocortex/mcp/logging.py (~250 linhas)
+     a. Implementar MCPLogHandler(logging.Handler):
+        - emit(record: LogRecord) → session.send_notification("notifications/message", ...)
+        - Mapear Python log levels → RFC 5424: DEBUG→debug, INFO→info, WARNING→warning, ERROR→error, CRITICAL→critical
+        - Formatar data como string estruturada (evitar objetos complexos)
+     b. Implementar LogLevelManager:
+        - set_level(level: str) → ajusta nível mínimo
+        - get_level() → nível atual
+        - Suportar logging/setLevel JSON-RPC method
+     c. Wirear no initialize:
+        - Adicionar MCPLogHandler ao root logger
+        - Configurar logging.basicConfig para stderr (sempre ativo)
+        - Registrar handler para logging/setLevel
+     d. NUNCA escrever em stdout
+
+  3. Integrar em server.py:
+     a. Inicializar ElicitationManager e MCPLogHandler durante create_mcp_server()
+     b. Registrar handlers para elicitation/create e logging/setLevel
+     c. Configurar logging dual (stderr + notifications/message)
+     d. NÃO modificar sub_server.py (R04)
+
+  4. Migrar stdout prompts existentes:
+     a. Listar todas as ocorrências de input()/print() para confirmação
+     b. Substituir por elicitation_manager.t0_confirm()
+     c. Testar cada ponto de migração
+
+  5. VALIDAÇÃO:
+     - ruff + mypy + py_compile + bandit em elicitation.py + logging.py
+     - Testar com MCP Inspector: elicitation/create → verificar prompt aparece
+     - Testar: configurar logging/setLevel("debug") → verificar logs detailhados
+     - Testar: ação destrutiva → elicitation pede confirmação → aprovar/rejeitar
+     - Verificar: NENHUM print() ou input() residual em código de produção
+
+write_zone: "PROD → 01_neocortex_framework/neocortex/mcp/elicitation.py + neocortex/mcp/logging.py"
+locks:
+  - "01_neocortex_framework/neocortex/mcp/server.py → MODIFICAR SOMENTE PARA INICIALIZAR ELICITATION MANAGER E LOG HANDLER"
+  - "01_neocortex_framework/neocortex/mcp/sub_server.py → NUNCA MODIFICAR"
+

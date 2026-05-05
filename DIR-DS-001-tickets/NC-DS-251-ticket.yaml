@@ -1,0 +1,157 @@
+# NC-DS-251 — MCP Prompts: Implementar prompts/list, prompts/get
+# WHAT: Expor SOPs, handoff templates e audit workflows como Prompts MCP parametrizados
+# WHY: Prompts são templates de instrução controlados pelo usuário — sem eles, não há "melhores práticas" expostas via protocolo
+# WHERE: 01_neocortex_framework/neocortex/mcp/prompts.py (novo módulo)
+
+ticket_id: NC-DS-251
+title: "MCP Prompts — Expor SOPs, Handoff Templates e Audit Workflows como Prompts (prompts/list, prompts/get)"
+status: PENDING_REVIEW
+priority: P0
+assignee: opencode
+created: "2026-05-04"
+description: |
+  GAP IDENTIFICADO: O servidor MCP não expõe Prompts. O protocolo MCP define Prompts 
+  como templates de instrução pré-construídos e parametrizados que o USUÁRIO (não o modelo) 
+  controla. Sem Prompts, o NeoCortex perde a capacidade de guiar usuários em workflows 
+  complexos e perde alignment com a spec oficial.
+
+  ESCOPO:
+  1. Implementar prompts/list — retorna todos os Prompts disponíveis:
+     - "nc-audit" → Executa auditoria 3 camadas (compile + runtime + operational)
+     - "nc-handoff" → Gera handoff YAML para conclusão de ticket
+     - "nc-boot-sync" → Sincroniza @BOOT e regenera artifact_catalog.json
+     - "nc-validate" → Pipeline R6 completo para validação de arquivos
+     - "nc-lint" → Verificação rápida (ruff + mypy)
+     - "nc-remediate" → Corrige automaticamente erros de lint/validate
+     - "nc-governance-audit" → Auditoria completa de governance compliance
+     - "nc-populate-lobes" → Popula/atualiza lobes via @POPULATE
+     - "nc-archive" → Move obsoletos para DIR-ARC-FR-001-archive-main/
+     - "nc-ticket-create" → Template para criação de novos tickets NC-DS
+
+  2. Implementar prompts/get — retorna o prompt completo com argumentos preenchidos:
+     - Cada prompt define argumentos tipados (ticket_id, file_path, level, etc.)
+     - Prompt retornado inclui system prompt + user message template
+     - Suporta argumentos obrigatórios e opcionais com defaults
+
+  3. Mapeamento SOP → Prompt:
+     - Cada SOP documentada em DIR-DOC-FR-001-docs-main/ vira um Prompt
+     - Handoff templates (NC-DS-HANDOFF-TEMPLATE.yaml) viram base para prompts/get
+     - Audit workflows (nc-audit skill) viram prompt com parâmetros de escopo
+
+  PADRÃO DE REFERÊNCIA: NC-LBE-INT-006-mcp-specification.mdc §2.1 (Prompts), §2.2 (Multi-Server Orchestration — prompt "plan-vacation" example).
+  FastMCP SDK suporta `@mcp.prompt()` decorator nativamente.
+
+  IMPACTO: Usuários de clients MCP (OpenCode, Claude Desktop) podem invocar workflows 
+  NeoCortex sem memorizar comandos. Alinhamento total com spec oficial.
+
+context:
+  - "Reference: 02_memory_lobes/02_integrations/NC-LBE-INT-006-mcp-specification.mdc §2.1 (Prompts — User-controlled templates), §2.2 (vacation planner prompt example)"
+  - "Gap found by structural audit 2026-05-04 — NeoCortex MCP server: zero Prompts registrados"
+  - "SOPs existentes em DIR-DOC-FR-001-docs-main/ e skills em .opencode/skills/"
+  - "FastMCP: @mcp.prompt() decorator — Python SDK Tier 1"
+  - "MCP Spec §20.2: Prompts não implementado"
+
+task: |
+  1. Criar 01_neocortex_framework/neocortex/mcp/prompts.py (~400 linhas)
+     a. Implementar prompt_registry: dict[str, PromptDefinition] com name → (description, arguments, handler)
+     b. Registrar 10+ Prompts cobrindo todas as skills e SOPs do NeoCortex
+     c. Cada prompt deve retornar messages array [{role, content}] com system prompt + user template
+     d. Usar logger = logging.getLogger(__name__) — NUNCA print()
+     e. Carregar templates de DIR-DOC-FR-001-docs-main/ via LEXICO path resolver
+
+  2. Integrar em server.py (via @mcp.prompt ou register_prompt)
+     a. Importar prompt_registry de prompts.py
+     b. Registrar todos os Prompts no servidor FastMCP
+     c. NÃO modificar sub_server.py (R04)
+
+  3. VALIDAÇÃO: ruff + mypy + py_compile + bandit em prompts.py
+     Testar com MCP Inspector: prompts/list, prompts/get com argumentos
+
+write_zone: "PROD → 01_neocortex_framework/neocortex/mcp/prompts.py"
+locks:
+  - "01_neocortex_framework/neocortex/mcp/server.py → MODIFICAR SOMENTE PARA INTEGRAÇÃO, NUNCA REESCREVER"
+  - "01_neocortex_framework/neocortex/mcp/sub_server.py → NUNCA MODIFICAR"
+
+# ── GOVERNANCE CONSTRAINTS (NC-GOV-FR-003) ─────────────────
+gateway_constraint: "ConstitutionGateway.validate_action() BEFORE any file modification"
+sandbox_zone: "01_neocortex_framework/neocortex/mcp/ → T0-review required before merge"
+lock_constraint: "server.py → T0 ONLY | sub_server.py → NEVER MODIFY | tools/*.py → Gateway validates"
+agent_policy: "T1 (courier) → read-only ops only | T2 (engineer) → micro-tasks in sandbox | T3 (guardian) → validation only"
+
+# ── MICRO-TASKS (Fractionated — T2-handleable, 3-10 lines each) ──
+# Each micro-task = 1 file, passes py_compile + ruff independently.
+# Ordered by dependency. T0 reviews after ALL pass.
+micro_tasks:
+  - id: "NC-DS-251-MT01"
+    desc: "Create prompts.py skeleton with PromptDefinition dataclass + logger config"
+    agent: "T2-in-sandbox"
+    files: ["01_neocortex_framework/neocortex/mcp/prompts.py"]
+    validation: "py_compile + ruff check"
+
+  - id: "NC-DS-251-MT02"
+    desc: "Implement prompt_registry: dict[str, PromptDefinition] with name→(desc, args, handler)"
+    agent: "T2-in-sandbox"
+    files: ["01_neocortex_framework/neocortex/mcp/prompts.py"]
+    validation: "py_compile + ruff check"
+
+  - id: "NC-DS-251-MT03"
+    desc: "Register nc-audit + nc-handoff prompts with typed arguments"
+    agent: "T2-in-sandbox"
+    files: ["01_neocortex_framework/neocortex/mcp/prompts.py"]
+    validation: "py_compile + ruff check"
+
+  - id: "NC-DS-251-MT04"
+    desc: "Register nc-boot-sync + nc-validate + nc-lint prompts"
+    agent: "T2-in-sandbox"
+    files: ["01_neocortex_framework/neocortex/mcp/prompts.py"]
+    validation: "py_compile + ruff check"
+
+  - id: "NC-DS-251-MT05"
+    desc: "Register nc-remediate + nc-governance-audit prompts"
+    agent: "T2-in-sandbox"
+    files: ["01_neocortex_framework/neocortex/mcp/prompts.py"]
+    validation: "py_compile + ruff check"
+
+  - id: "NC-DS-251-MT06"
+    desc: "Register nc-populate-lobes + nc-archive + nc-ticket-create prompts"
+    agent: "T2-in-sandbox"
+    files: ["01_neocortex_framework/neocortex/mcp/prompts.py"]
+    validation: "py_compile + ruff check"
+
+  - id: "NC-DS-251-MT07"
+    desc: "Implement prompts/get handler — resolve prompt by name, interpolate args → messages[]"
+    agent: "T2-in-sandbox"
+    files: ["01_neocortex_framework/neocortex/mcp/prompts.py"]
+    validation: "py_compile + ruff check"
+
+  - id: "NC-DS-251-MT08"
+    desc: "Wire LEXICO path resolver to load SOP templates from DIR-DOC-FR-001-docs-main/"
+    agent: "T2-in-sandbox"
+    files: ["01_neocortex_framework/neocortex/mcp/prompts.py"]
+    validation: "py_compile + ruff check"
+
+  - id: "NC-DS-251-MT09"
+    desc: "Import prompt_registry + register all prompts in server.py (T0-gated — T0 executes)"
+    agent: "T0"
+    files: ["01_neocortex_framework/neocortex/mcp/server.py"]
+    validation: "py_compile + ruff check + diff review"
+
+  - id: "NC-DS-251-MT10"
+    desc: "ruff + mypy + py_compile + bandit full validation on prompts.py"
+    agent: "T3 (guardian)"
+    files: ["01_neocortex_framework/neocortex/mcp/prompts.py"]
+    validation: "ruff check + mypy + bandit"
+
+  - id: "NC-DS-251-MT11"
+    desc: "MCP Inspector test: prompts/list → verify 10+ prompts, prompts/get with args"
+    agent: "T3 (guardian)"
+    files: ["01_neocortex_framework/neocortex/mcp/prompts.py"]
+    validation: "MCP Inspector protocol conformance"
+
+  - id: "NC-DS-251-MT12"
+    desc: "Generate handoff + update @SSOT changelog. Mark ticket DONE."
+    agent: "T0"
+    files: ["DIR-DS-001-tickets/NC-DS-251-ticket.yaml", "DIR-DS-003-lobe-manifest/NC-MAN-LOBE-001.csv"]
+    validation: "YAML safe_load + ssot diff"
+
+

@@ -1,56 +1,129 @@
 id: NC-DS-066
 code: DISCREPANCY-001
-title: "Correção de Discrepância de Escopo no Plano de Renomeação (Courier)"
-assignee: "Agente OpenCode (DeepSeek-Reasoner)"
+status: DONE
+title: Correção de Discrepância de Escopo no Plano de Renomeação (Courier)
+assignee: Agente OpenCode (DeepSeek-Reasoner)
 context:
-  - "01_neocortex_framework/scripts/NC-SCR-FR-061-courier-discrepancy-fix.py"
-  - "DIR-DS-002-audit-logs/NC-DS-066-handoff-courier-discrepancy-fix.yaml"
-task: |
-  **PROBLEMA**: Discrepância de escopo entre o plano de renomeação atual e o relatório de auditoria estrutural. Conjuntos são disjuntos — zero arquivos em comum.
-  
+- 01_neocortex_framework/scripts/NC-SCR-FR-061-courier-discrepancy-fix.py
+- DIR-DS-002-audit-logs/NC-DS-066-handoff-courier-discrepancy-fix.yaml
+task: '**PROBLEMA**: Discrepância de escopo entre o plano de renomeação atual e o
+  relatório de auditoria estrutural. Conjuntos são disjuntos — zero arquivos em comum.
+
+
   **SOLUÇÃO APLICADA**:
+
   1. Extração robusta de 87 arquivos legados do `structural_audit_report.md`
+
   2. Comparação de conjuntos: 87 arquivos faltantes, 87 arquivos extras, 0 comuns
+
   3. Expansão do plano de renomeação de 87 para 174 arquivos (100% de aumento)
+
   4. Geração de relatório de discrepância JSON detalhado
+
   5. Simulação de renomeação (dry run) para detecção de conflitos
+
   6. Validação de imports afetados em todo o códigobase
-  
-  **RESULTADO**: Plano de renomeação corrigido e expandido, pronto para execução real após validação de imports.
-  
-  **IMPACTO**: Evita renomeação incompleta ou inconsistente, garantindo que todos os arquivos legados sejam migrados para padrão NC‑.
-  
+
+
+  **RESULTADO**: Plano de renomeação corrigido e expandido, pronto para execução real
+  após validação de imports.
+
+
+  **IMPACTO**: Evita renomeação incompleta ou inconsistente, garantindo que todos
+  os arquivos legados sejam migrados para padrão NC‑.
+
+
   **EVIDÊNCIAS**: Handoff correspondente em `DIR‑DS‑002‑audit‑logs/NC‑DS‑066‑handoff‑courier‑discrepancy‑fix.yaml`.
 
+  '
 entry_state:
   files_exist:
-    - "01_neocortex_framework/scripts/NC-SCR-FR-061-courier-discrepancy-fix.py"
-    - "structural_audit_report.md"
+  - 01_neocortex_framework/scripts/NC-SCR-FR-061-courier-discrepancy-fix.py
+  - structural_audit_report.md
   files_must_not_exist: []
-
 exit_state:
   files_created:
-    - "renaming_plan_v2.yaml"
-    - "discrepancy_report.json"
-    - "rename_dryrun.log"
+  - renaming_plan_v2.yaml
+  - discrepancy_report.json
+  - rename_dryrun.log
   files_modified: []
   files_deleted: []
   ssot_updated: false
   compiles_ok: true
   roadmap_done: null
-
 barriers:
-  - id: B1
-    check: naming_convention
-    rule: "Arquivos devem seguir padrão NC-"
-    block_if_fail: true
-  - id: B2
-    check: lock_guard
-    rule: "NUNCA modificar: server.py, sub_server.py, NC-NAM-FR-001"
-    block_if_fail: true
-
+- id: B1
+  check: naming_convention
+  rule: Arquivos devem seguir padrão NC-
+  block_if_fail: true
+- id: B2
+  check: lock_guard
+  rule: 'NUNCA modificar: server.py, sub_server.py, NC-NAM-FR-001'
+  block_if_fail: true
 limits:
   max_validation_rounds: 4
   escalate_to_t0_after: 3
   max_tokens_per_phase: 4000
-integrity_hash: "3c2d1e0f9a8b7c6d"  # sha256[:16] de "NC-DS-066|discrepancy|Renaming plan discrepancy fix"
+integrity_hash: 3c2d1e0f9a8b7c6d
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: <2500 chars per ticket description
+  validation:
+    py:
+    - ruff check --fix
+    - ruff format
+    - ruff check
+    - mypy --ignore-missing-imports
+    - py_compile
+    - bandit -q
+    yaml:
+    - yaml.safe_load
+    - naming NC- check
+    - secret scan
+    mdc:
+    - frontmatter YAML validate
+    - NC-READ-HASH check
+    - naming NC- check
+    json:
+    - json.loads parse
+    - naming NC- check
+    all:
+    - '@LOCKS check'
+    - Write Zone check
+    - '@SSOT update'
+    - Handoff YAML
+    - 3W check
+    - SSOT Header
+  sandbox_required: true
+  sandbox_steps:
+  - 1. Copiar arquivo alvo para *-sandbox.py
+  - 2. Fazer alteracoes no sandbox
+  - 3. Validar sandbox (ruff+mypy+py_compile)
+  - 4. Testar sandbox
+  - 5. Aplicar no real (com backup)
+  - 6. Rollback via backup se falhar
+  handoff_required: true
+  handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+  handoff_dest: DIR-DS-002-audit-logs/
+  handoff_format: NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+  handoff_fields:
+  - ticket_id
+  - status
+  - submitted_at
+  - submitted_by
+  - summary
+  - files_created
+  - files_modified
+  - validation_rounds
+  - barriers_passed
+  - locks_violated
+  - t0_review
+  governance:
+    eisenhower_applied: true
+    mordaca_h: HOOK — bloqueia acao invalida ANTES de executar (FAIL-FAST)
+    mordaca_c: CHECKPOINT — audita estado a cada 300s (PulseScheduler)
+    mordaca_s: SCHEDULE — consolida no CICLO 4 semanal
+    mordaca_u: USER — T0 aprova/rejeita via handoff review
+    kaizen: Registrar micro-melhoria no @CHANGELOG apos conclusao
+    roadmap: Marcar %DONE no @ROADMAP apos handoff aprovado

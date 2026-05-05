@@ -1,110 +1,167 @@
-ticket_id: "NC-DS-091"
-status: "DONE"
-priority: "MEDIUM"
-title: "Criar NC-SVC-FR-017-crypto-hub.py — Central de Criptografia Real (Fernet + MASTER_KEY)"
-created_at: "2026-04-16T00:00:00-03:00"
-created_by: "T0-Claude-Code"
-
+ticket_id: NC-DS-091
+status: DONE
+priority: MEDIUM
+title: Criar NC-SVC-FR-017-crypto-hub.py — Central de Criptografia Real (Fernet +
+  MASTER_KEY)
+created_at: '2026-04-16T00:00:00-03:00'
+created_by: T0-Claude-Code
 context:
-  origin: "Diagnóstico sessão 2026-04-16"
-  problem: |
-    security_service.py.encrypt_sensitive() usa method: "simulated_aes256" —
+  origin: Diagnóstico sessão 2026-04-16
+  problem: 'security_service.py.encrypt_sensitive() usa method: "simulated_aes256"
+    —
+
     é um stub que só loga. Nenhuma criptografia real existe no projeto.
+
     config_validation.py detecta segredos em plain text mas não os encripta.
+
     NC-UTL-FR-002-hash-utils.py tem SHA-256/HMAC mas não criptografia simétrica.
+
     Fragmentação: 4 arquivos de segurança sem ponto de entrada único.
-  gap: |
-    encrypt_sensitive = stub (confirmado: "method: simulated_aes256")
+
+    '
+  gap: 'encrypt_sensitive = stub (confirmado: "method: simulated_aes256")
+
     Sem gestão de chave mestra
+
     Sem criptografia real de API keys em config
 
-  key_decision: "NEOCORTEX_MASTER_KEY via variável de ambiente (opção 1 aprovada)"
-
+    '
+  key_decision: NEOCORTEX_MASTER_KEY via variável de ambiente (opção 1 aprovada)
 task:
-  description: |
-    Criar NC-SVC-FR-017-crypto-hub.py em:
-      01_neocortex_framework/neocortex/core/services/
+  description: "Criar NC-SVC-FR-017-crypto-hub.py em:\n  01_neocortex_framework/neocortex/core/services/\n\
+    \nO serviço deve:\n\n1. Carregamento de chave\n   - Lê NEOCORTEX_MASTER_KEY do\
+    \ ambiente (os.environ)\n   - Se ausente: emite warning + usa modo \"hash-only\"\
+    \ (sem encrypt/decrypt)\n   - Deriva chave Fernet via PBKDF2HMAC(SHA256, salt=project_id,\
+    \ iterations=100_000)\n   - Nunca imprime/loga a chave derivada\n\n2. encrypt(plaintext:\
+    \ str) -> str\n   - Retorna token Fernet: base64url(version + ts + iv + ciphertext\
+    \ + hmac)\n   - WAL-logged: registra operação SEM o plaintext/ciphertext (só file_path\
+    \ + sha256(ciphertext))\n\n3. decrypt(token: str) -> str\n   - Valida HMAC antes\
+    \ de decriptar\n   - WAL-logged: registra attempt + outcome (success/fail)\n\n\
+    4. rotate_key(new_master_key: str) -> RotateResult\n   - Re-encripta todos os\
+    \ tokens registrados com nova chave\n   - WAL-logged como session única\n\n5.\
+    \ scan_config(config_path: str | Path) -> ScanResult\n   - Detecta valores marcados\
+    \ com tag !secret no YAML\n   - Retorna lista de campos que precisam ser encriptados\n\
+    \n6. CLI:\n   NEOCORTEX_MASTER_KEY=xxx python NC-SVC-FR-017-crypto-hub.py encrypt\
+    \ \"valor\"\n   NEOCORTEX_MASTER_KEY=xxx python NC-SVC-FR-017-crypto-hub.py decrypt\
+    \ \"token\"\n   NEOCORTEX_MASTER_KEY=xxx python NC-SVC-FR-017-crypto-hub.py scan-config\
+    \ <path>\n   NEOCORTEX_MASTER_KEY=xxx python NC-SVC-FR-017-crypto-hub.py rotate-key\n\
+    \nDependência: cryptography (Fernet) — adicionar ao requirements.txt\nLinha a\
+    \ adicionar: cryptography>=42.0.0  # AES-128-CBC + HMAC via Fernet\n\nIntegração\
+    \ WAL: via import_pattern idêntico ao NC-DS-089 (parents[2])\n"
+  integration_note: 'NÃO modificar security_service.py ainda — isso é escopo do NC-DS-093.
 
-    O serviço deve:
-
-    1. Carregamento de chave
-       - Lê NEOCORTEX_MASTER_KEY do ambiente (os.environ)
-       - Se ausente: emite warning + usa modo "hash-only" (sem encrypt/decrypt)
-       - Deriva chave Fernet via PBKDF2HMAC(SHA256, salt=project_id, iterations=100_000)
-       - Nunca imprime/loga a chave derivada
-
-    2. encrypt(plaintext: str) -> str
-       - Retorna token Fernet: base64url(version + ts + iv + ciphertext + hmac)
-       - WAL-logged: registra operação SEM o plaintext/ciphertext (só file_path + sha256(ciphertext))
-
-    3. decrypt(token: str) -> str
-       - Valida HMAC antes de decriptar
-       - WAL-logged: registra attempt + outcome (success/fail)
-
-    4. rotate_key(new_master_key: str) -> RotateResult
-       - Re-encripta todos os tokens registrados com nova chave
-       - WAL-logged como session única
-
-    5. scan_config(config_path: str | Path) -> ScanResult
-       - Detecta valores marcados com tag !secret no YAML
-       - Retorna lista de campos que precisam ser encriptados
-
-    6. CLI:
-       NEOCORTEX_MASTER_KEY=xxx python NC-SVC-FR-017-crypto-hub.py encrypt "valor"
-       NEOCORTEX_MASTER_KEY=xxx python NC-SVC-FR-017-crypto-hub.py decrypt "token"
-       NEOCORTEX_MASTER_KEY=xxx python NC-SVC-FR-017-crypto-hub.py scan-config <path>
-       NEOCORTEX_MASTER_KEY=xxx python NC-SVC-FR-017-crypto-hub.py rotate-key
-
-    Dependência: cryptography (Fernet) — adicionar ao requirements.txt
-    Linha a adicionar: cryptography>=42.0.0  # AES-128-CBC + HMAC via Fernet
-
-    Integração WAL: via import_pattern idêntico ao NC-DS-089 (parents[2])
-
-  integration_note: |
-    NÃO modificar security_service.py ainda — isso é escopo do NC-DS-093.
     Este ticket cria APENAS o serviço isolado e testa via CLI.
 
-  verification: |
-    pip install cryptography>=42.0.0
+    '
+  verification: 'pip install cryptography>=42.0.0
+
     python -m py_compile NC-SVC-FR-017-crypto-hub.py && echo OK
+
     NEOCORTEX_MASTER_KEY=test123 python NC-SVC-FR-017-crypto-hub.py encrypt "api-key-teste"
+
     # → deve retornar token base64
+
     NEOCORTEX_MASTER_KEY=test123 python NC-SVC-FR-017-crypto-hub.py decrypt "<token>"
+
     # → deve retornar "api-key-teste"
 
-  instrucoes_handoff: |
-    Salvar em: DIR-DS-002-audit-logs/NC-DS-091-handoff-YYYYMMDDTHHMMSS.yaml
+    '
+  instrucoes_handoff: 'Salvar em: DIR-DS-002-audit-logs/NC-DS-091-handoff-YYYYMMDDTHHMMSS.yaml
 
+    '
   checklist_r20:
     naming_convention: true
     no_print_statements: true
     ssot_updated: true
     no_locked_files_modified: true
     handoff_yaml_complete: true
-
 environment:
-  python: "C:\\Program Files\\Python312\\python.exe"
-  project_root: "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
-  wal_service: "01_neocortex_framework/neocortex/core/services/NC-SVC-FR-016-wal-service.py"
-  output_path: "01_neocortex_framework/neocortex/core/services/NC-SVC-FR-017-crypto-hub.py"
-  requirements: "01_neocortex_framework/requirements.txt"
-  master_key_source: "os.environ['NEOCORTEX_MASTER_KEY']"
-
+  python: C:\Program Files\Python312\python.exe
+  project_root: C:\Users\Lucas Valério\Desktop\TURBOQUANT_V42
+  wal_service: 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-016-wal-service.py
+  output_path: 01_neocortex_framework/neocortex/core/services/NC-SVC-FR-017-crypto-hub.py
+  requirements: 01_neocortex_framework/requirements.txt
+  master_key_source: os.environ['NEOCORTEX_MASTER_KEY']
 write_zone:
-  - "01_neocortex_framework/neocortex/core/services/"
-  - "01_neocortex_framework/requirements.txt"
-  - "DIR-DS-002-audit-logs/"
-
+- 01_neocortex_framework/neocortex/core/services/
+- 01_neocortex_framework/requirements.txt
+- DIR-DS-002-audit-logs/
 atomic_locks_proibidos:
-  - "01_neocortex_framework/neocortex/server.py"
-  - "01_neocortex_framework/neocortex/sub_server.py"
-  - "01_neocortex_framework/neocortex_config.yaml"
-  - "01_neocortex_framework/neocortex/core/security_service.py"  # escopo do NC-DS-093
-
-depends_on: "NC-DS-089"   # WAL deve estar integrado
-blocks: "NC-DS-093"       # Wiring/substituição do stub depende deste
-
-tags: ["criptografia", "seguranca", "fernet", "aes", "master-key", "api-keys"]
-domain: "security"
-layer: "infra"
-type: "FEATURE"
+- 01_neocortex_framework/neocortex/server.py
+- 01_neocortex_framework/neocortex/sub_server.py
+- 01_neocortex_framework/neocortex_config.yaml
+- 01_neocortex_framework/neocortex/core/security_service.py
+depends_on: NC-DS-089
+blocks: NC-DS-093
+tags:
+- criptografia
+- seguranca
+- fernet
+- aes
+- master-key
+- api-keys
+domain: security
+layer: infra
+type: FEATURE
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: <2500 chars per ticket description
+  validation:
+    py:
+    - ruff check --fix
+    - ruff format
+    - ruff check
+    - mypy --ignore-missing-imports
+    - py_compile
+    - bandit -q
+    yaml:
+    - yaml.safe_load
+    - naming NC- check
+    - secret scan
+    mdc:
+    - frontmatter YAML validate
+    - NC-READ-HASH check
+    - naming NC- check
+    json:
+    - json.loads parse
+    - naming NC- check
+    all:
+    - '@LOCKS check'
+    - Write Zone check
+    - '@SSOT update'
+    - Handoff YAML
+    - 3W check
+    - SSOT Header
+  sandbox_required: true
+  sandbox_steps:
+  - 1. Copiar arquivo alvo para *-sandbox.py
+  - 2. Fazer alteracoes no sandbox
+  - 3. Validar sandbox (ruff+mypy+py_compile)
+  - 4. Testar sandbox
+  - 5. Aplicar no real (com backup)
+  - 6. Rollback via backup se falhar
+  handoff_required: true
+  handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+  handoff_dest: DIR-DS-002-audit-logs/
+  handoff_format: NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+  handoff_fields:
+  - ticket_id
+  - status
+  - submitted_at
+  - submitted_by
+  - summary
+  - files_created
+  - files_modified
+  - validation_rounds
+  - barriers_passed
+  - locks_violated
+  - t0_review
+  governance:
+    eisenhower_applied: true
+    mordaca_h: HOOK — bloqueia acao invalida ANTES de executar (FAIL-FAST)
+    mordaca_c: CHECKPOINT — audita estado a cada 300s (PulseScheduler)
+    mordaca_s: SCHEDULE — consolida no CICLO 4 semanal
+    mordaca_u: USER — T0 aprova/rejeita via handoff review
+    kaizen: Registrar micro-melhoria no @CHANGELOG apos conclusao
+    roadmap: Marcar %DONE no @ROADMAP apos handoff aprovado

@@ -1,222 +1,263 @@
-# NC-DS-AGT-C-dispatch-108-109-110.yaml
-# Documento de Despacho Oficial — AGENTE C
-# Dupla Mordaça: este YAML + NC-DS-AGT-C-dispatch-108-109-110.md (pendente Ciclo 4)
-# ─────────────────────────────────────────────────────────────────────────────
-
 meta:
-  id: "NC-DS-AGT-C"
-  version: "1.0"
-  hash: "NC-DS-AGT-C-v1.0-20260416"
-  created_at: "2026-04-16T17:30:00-03:00"
-  created_by: "T0-Claude-Code"
-  agent: "AGENTE-C"
-  sprint: "FASE-1-MCP-MC"
-  tickets: ["NC-DS-108", "NC-DS-109", "NC-DS-110"]
-  priority: "MEDIUM"
-  ordem_execucao: "109 → 108 → 110"
-  nota_ordem: |
-    Executar 109 primeiro (saneamento limpa o código) — depois 108 (compliance score
+  id: NC-DS-AGT-C
+  version: '1.0'
+  hash: NC-DS-AGT-C-v1.0-20260416
+  created_at: '2026-04-16T17:30:00-03:00'
+  created_by: T0-Claude-Code
+  agent: AGENTE-C
+  sprint: FASE-1-MCP-MC
+  tickets:
+  - NC-DS-108
+  - NC-DS-109
+  - NC-DS-110
+  priority: MEDIUM
+  ordem_execucao: 109 → 108 → 110
+  nota_ordem: 'Executar 109 primeiro (saneamento limpa o código) — depois 108 (compliance
+    score
+
     será maior com o código sanitizado) — depois 110 (TTL purge é independente).
 
+    '
 identidade:
-  role: "Engenheiro T1 — Qualidade, Compliance e Manutenção"
-  modelo: "DeepSeek (via PicoClaw :18790)"
-  supervisor: "T0-Claude-Code (Antigravity)"
-  escopo: "Compliance >80% + saneamento core + TTL log purge"
-
+  role: Engenheiro T1 — Qualidade, Compliance e Manutenção
+  modelo: DeepSeek (via PicoClaw :18790)
+  supervisor: T0-Claude-Code (Antigravity)
+  escopo: Compliance >80% + saneamento core + TTL log purge
 passo_0_leitura_obrigatoria:
-  instrucao: "Ler TODOS estes recursos antes de escrever uma linha de código."
+  instrucao: Ler TODOS estes recursos antes de escrever uma linha de código.
   recursos:
-    - path: "DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml"
-      motivo: "Template do handoff — gerar um por ticket ao concluir"
-    - path: "01_neocortex_framework/DIR-TMP-FR-001-templates-main/NC-TPL-FR-001-template-central-index.yaml"
-      motivo: "Catálogo de templates — consultar antes de criar artefato"
-    - path: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.yaml"
-      motivo: "23 regras de governança — R21/R22/R23 críticas"
-    - path: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml"
-      motivo: "Arquivos que NUNCA podem ser tocados"
-    - path: "DIR-DS-001-tickets/NC-DS-108-compliance-sprint-80pct.yaml"
-      motivo: "Ticket 1 — compliance 44.8% → >80%"
-    - path: "DIR-DS-001-tickets/NC-DS-109-global-sane-001-core.yaml"
-      motivo: "Ticket 2 — saneamento neocortex/core/ + lobes"
-    - path: "DIR-DS-001-tickets/NC-DS-110-ttl002-log-wiring.yaml"
-      motivo: "Ticket 3 — TTL purge log wiring"
-
+  - path: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+    motivo: Template do handoff — gerar um por ticket ao concluir
+  - path: 01_neocortex_framework/DIR-TMP-FR-001-templates-main/NC-TPL-FR-001-template-central-index.yaml
+    motivo: Catálogo de templates — consultar antes de criar artefato
+  - path: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.yaml
+    motivo: 23 regras de governança — R21/R22/R23 críticas
+  - path: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml
+    motivo: Arquivos que NUNCA podem ser tocados
+  - path: DIR-DS-001-tickets/NC-DS-108-compliance-sprint-80pct.yaml
+    motivo: Ticket 1 — compliance 44.8% → >80%
+  - path: DIR-DS-001-tickets/NC-DS-109-global-sane-001-core.yaml
+    motivo: Ticket 2 — saneamento neocortex/core/ + lobes
+  - path: DIR-DS-001-tickets/NC-DS-110-ttl002-log-wiring.yaml
+    motivo: Ticket 3 — TTL purge log wiring
 regra_zero_suposicoes:
-  lei: "R21 — Em caso de QUALQUER dúvida: PARAR e retornar ao T0."
+  lei: 'R21 — Em caso de QUALQUER dúvida: PARAR e retornar ao T0.'
   nao_fazer:
-    - "NÃO assumir que ruff --fix é seguro em todos os arquivos — verificar antes"
-    - "NÃO remover código que parece morto sem confirmar com T0"
-    - "NÃO alterar interfaces públicas durante saneamento"
-    - "NÃO continuar se mudança toca @LOCK"
-  como_retornar: |
-    Parar. Escrever:
-      (1) O que foi feito até agora
-      (2) Qual é a dúvida exata
-      (3) Quais são as opções que você vê
-
+  - NÃO assumir que ruff --fix é seguro em todos os arquivos — verificar antes
+  - NÃO remover código que parece morto sem confirmar com T0
+  - NÃO alterar interfaces públicas durante saneamento
+  - NÃO continuar se mudança toca @LOCK
+  como_retornar: "Parar. Escrever:\n  (1) O que foi feito até agora\n  (2) Qual é\
+    \ a dúvida exata\n  (3) Quais são as opções que você vê\n"
 atomic_locks_absolutos:
   files:
-    - "01_neocortex_framework/neocortex/mcp/server.py"
-    - "01_neocortex_framework/neocortex/mcp/sub_server.py"
-    - "01_neocortex_framework/DIR-CFG-FR-001-config-main/neocortex_config.yaml"
-    - "antigravity_neocortex_config.json"
-    - "start_neocortex_mcp.ps1"
-    - "01_neocortex_framework/DIR-CORE-FR-001-core-central/NC-LED-FR-001-framework-ledger.json"
-    - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
-    - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml"
-  consequencia: "Violação = BLOQUEIO IMEDIATO. Handoff ESCALATED."
-
+  - 01_neocortex_framework/neocortex/mcp/server.py
+  - 01_neocortex_framework/neocortex/mcp/sub_server.py
+  - 01_neocortex_framework/DIR-CFG-FR-001-config-main/neocortex_config.yaml
+  - antigravity_neocortex_config.json
+  - start_neocortex_mcp.ps1
+  - 01_neocortex_framework/DIR-CORE-FR-001-core-central/NC-LED-FR-001-framework-ledger.json
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml
+  consequencia: Violação = BLOQUEIO IMEDIATO. Handoff ESCALATED.
 write_zones_autorizadas:
-  - "01_neocortex_framework/neocortex/mcp/tools/"
-  - "01_neocortex_framework/neocortex/core/"
-  - "01_neocortex_framework/lobes/"
-  - "01_neocortex_framework/scripts/NC-SCR-FR-110-log-purge.py"
-  - "01_neocortex_framework/scripts/NC-SCR-FR-014-end-of-cycle.ps1"
-  - "reports/"
-  - "DIR-DS-002-audit-logs/"
-
+- 01_neocortex_framework/neocortex/mcp/tools/
+- 01_neocortex_framework/neocortex/core/
+- 01_neocortex_framework/lobes/
+- 01_neocortex_framework/scripts/NC-SCR-FR-110-log-purge.py
+- 01_neocortex_framework/scripts/NC-SCR-FR-014-end-of-cycle.ps1
+- reports/
+- DIR-DS-002-audit-logs/
 tarefas:
-
   ticket_1_executar_primeiro:
-    id: "NC-DS-109"
-    titulo: "GLOBAL-SANE-001 — Saneamento neocortex/core/ + lobes"
-    arquivo_ticket: "DIR-DS-001-tickets/NC-DS-109-global-sane-001-core.yaml"
-    escopo: "neocortex/core/ e 01_neocortex_framework/lobes/"
-
+    id: NC-DS-109
+    titulo: GLOBAL-SANE-001 — Saneamento neocortex/core/ + lobes
+    arquivo_ticket: DIR-DS-001-tickets/NC-DS-109-global-sane-001-core.yaml
+    escopo: neocortex/core/ e 01_neocortex_framework/lobes/
     inicio:
-      - "Ler ticket NC-DS-109 completo"
-      - "Listar todos os .py em neocortex/core/ e lobes/"
-      - "Identificar: BOM UTF-8, arquivos sem _genealogy header, ruff errors"
-
+    - Ler ticket NC-DS-109 completo
+    - Listar todos os .py em neocortex/core/ e lobes/
+    - 'Identificar: BOM UTF-8, arquivos sem _genealogy header, ruff errors'
     meio:
       etapa_1_encoding:
-        - "Detectar BOM UTF-8 nos arquivos .py"
-        - "Remover BOM onde presente (reescrever sem BOM)"
-        - "Garantir encoding UTF-8 sem BOM em todos"
+      - Detectar BOM UTF-8 nos arquivos .py
+      - Remover BOM onde presente (reescrever sem BOM)
+      - Garantir encoding UTF-8 sem BOM em todos
       etapa_2_headers:
-        - "Identificar arquivos sem bloco _genealogy"
-        - "Adicionar header mínimo com: topology, parent_ssot, tags"
-        - "NÃO alterar lógica — apenas adicionar header como comentário no topo"
+      - Identificar arquivos sem bloco _genealogy
+      - 'Adicionar header mínimo com: topology, parent_ssot, tags'
+      - NÃO alterar lógica — apenas adicionar header como comentário no topo
       etapa_3_ruff:
-        - "python -m ruff check 01_neocortex_framework/neocortex/core/ --fix"
-        - "python -m ruff check 01_neocortex_framework/lobes/ --fix"
-        - "Verificar 0 erros restantes após --fix"
-        - "ATENÇÃO: --fix é seguro apenas para auto-fix rules — revisar manualmente E501, etc."
+      - python -m ruff check 01_neocortex_framework/neocortex/core/ --fix
+      - python -m ruff check 01_neocortex_framework/lobes/ --fix
+      - Verificar 0 erros restantes após --fix
+      - 'ATENÇÃO: --fix é seguro apenas para auto-fix rules — revisar manualmente
+        E501, etc.'
       etapa_4_init_py:
-        - "Verificar existência de __init__.py em: neocortex/core/, /adapters/, /hooks/, /services/, /workers/"
-        - "Criar __init__.py vazio onde faltando"
+      - 'Verificar existência de __init__.py em: neocortex/core/, /adapters/, /hooks/,
+        /services/, /workers/'
+      - Criar __init__.py vazio onde faltando
       etapa_5_py_compile:
-        - "python -m py_compile em TODOS os .py do escopo"
-        - "0 erros de sintaxe é obrigatório"
-
+      - python -m py_compile em TODOS os .py do escopo
+      - 0 erros de sintaxe é obrigatório
     validacao_obrigatoria:
-      - cmd: "python -m ruff check 01_neocortex_framework/neocortex/core/"
-        esperado: "0 erros"
-      - cmd: "python -m ruff check 01_neocortex_framework/lobes/"
-        esperado: "0 erros (ou N/A se sem .py)"
-      - "py_compile em todos .py do escopo: 0 erros"
-      - "0 arquivos com BOM UTF-8"
-      - "Todos __init__.py existem nos subpacotes"
-
+    - cmd: python -m ruff check 01_neocortex_framework/neocortex/core/
+      esperado: 0 erros
+    - cmd: python -m ruff check 01_neocortex_framework/lobes/
+      esperado: 0 erros (ou N/A se sem .py)
+    - 'py_compile em todos .py do escopo: 0 erros'
+    - 0 arquivos com BOM UTF-8
+    - Todos __init__.py existem nos subpacotes
     fim:
-      - "Gerar handoff: NC-DS-109-handoff-{YYYYMMDDTHHMMSS}.yaml"
-      - "Incluir: contagem de arquivos sanitizados, ruff errors antes/depois, BOM removidos"
-
+    - 'Gerar handoff: NC-DS-109-handoff-{YYYYMMDDTHHMMSS}.yaml'
+    - 'Incluir: contagem de arquivos sanitizados, ruff errors antes/depois, BOM removidos'
   ticket_2_executar_segundo:
-    id: "NC-DS-108"
-    titulo: "Compliance Sprint — 44.8% → >80%"
-    arquivo_ticket: "DIR-DS-001-tickets/NC-DS-108-compliance-sprint-80pct.yaml"
-
+    id: NC-DS-108
+    titulo: Compliance Sprint — 44.8% → >80%
+    arquivo_ticket: DIR-DS-001-tickets/NC-DS-108-compliance-sprint-80pct.yaml
     inicio:
-      - "Ler ticket NC-DS-108 completo"
-      - "Executar NC-SCR-FR-080-governance-auditor.py e anotar score ANTES"
-      - "Ler relatório em reports/governance/ — identificar top-10 violadores"
-
+    - Ler ticket NC-DS-108 completo
+    - Executar NC-SCR-FR-080-governance-auditor.py e anotar score ANTES
+    - Ler relatório em reports/governance/ — identificar top-10 violadores
     meio:
       etapa_1_auditoria:
-        - "python 01_neocortex_framework/scripts/NC-SCR-FR-080-governance-auditor.py"
-        - "Salvar score inicial (before_score) no handoff"
-        - "Categorizar top-10: (A) print() → logger, (B) hardcoded paths, (C) naming"
+      - python 01_neocortex_framework/scripts/NC-SCR-FR-080-governance-auditor.py
+      - Salvar score inicial (before_score) no handoff
+      - 'Categorizar top-10: (A) print() → logger, (B) hardcoded paths, (C) naming'
       etapa_2_corrigir_print:
-        - "Para cada NC-TOOL-FR-*.py com print():"
-        - "  Substituir print(...) por logger.xxx(...)"
-        - "  Adicionar: logger = logging.getLogger(__name__) se ausente"
-        - "Focar em TOOL e SVC — maior impacto no score"
+      - 'Para cada NC-TOOL-FR-*.py com print():'
+      - '  Substituir print(...) por logger.xxx(...)'
+      - '  Adicionar: logger = logging.getLogger(__name__) se ausente'
+      - Focar em TOOL e SVC — maior impacto no score
       etapa_3_corrigir_paths:
-        - "Hardcoded paths em NC-TOOL-FR-* e NC-SVC-FR-*"
-        - "Substituir por Path(__file__).parent / 'relativo'"
+      - Hardcoded paths em NC-TOOL-FR-* e NC-SVC-FR-*
+      - Substituir por Path(__file__).parent / 'relativo'
       etapa_4_rescore:
-        - "python 01_neocortex_framework/scripts/NC-SCR-FR-080-governance-auditor.py"
-        - "Score DEVE ser >80%"
-        - "Salvar relatório final em reports/governance/"
-
+      - python 01_neocortex_framework/scripts/NC-SCR-FR-080-governance-auditor.py
+      - Score DEVE ser >80%
+      - Salvar relatório final em reports/governance/
     validacao_obrigatoria:
-      - "NC-SCR-FR-080 reporta >80% após correções"
-      - "0 print() em NC-TOOL-FR-* e NC-SVC-FR-*"
-      - "py_compile em todos os .py modificados: 0 erros"
-      - cmd: "python -m ruff check 01_neocortex_framework/neocortex/mcp/tools/"
-        esperado: "0 erros"
-
+    - NC-SCR-FR-080 reporta >80% após correções
+    - 0 print() em NC-TOOL-FR-* e NC-SVC-FR-*
+    - 'py_compile em todos os .py modificados: 0 erros'
+    - cmd: python -m ruff check 01_neocortex_framework/neocortex/mcp/tools/
+      esperado: 0 erros
     fim:
-      - "Gerar handoff: NC-DS-108-handoff-{YYYYMMDDTHHMMSS}.yaml"
-      - "OBRIGATÓRIO: incluir before_score e after_score no summary"
-      - "Salvar relatório final em reports/governance/"
-
+    - 'Gerar handoff: NC-DS-108-handoff-{YYYYMMDDTHHMMSS}.yaml'
+    - 'OBRIGATÓRIO: incluir before_score e after_score no summary'
+    - Salvar relatório final em reports/governance/
   ticket_3_executar_ultimo:
-    id: "NC-DS-110"
-    titulo: "TTL-002 — NC-SCR-FR-110-log-purge.py + wire no end-of-cycle"
-    arquivo_ticket: "DIR-DS-001-tickets/NC-DS-110-ttl002-log-wiring.yaml"
-
+    id: NC-DS-110
+    titulo: TTL-002 — NC-SCR-FR-110-log-purge.py + wire no end-of-cycle
+    arquivo_ticket: DIR-DS-001-tickets/NC-DS-110-ttl002-log-wiring.yaml
     inicio:
-      - "Ler ticket NC-DS-110 completo"
-      - "Ler NC-SVC-FR-011-ttl-manager.py — entender API: purge(days), list_expired()"
-      - "Ler NC-SCR-FR-014-end-of-cycle.ps1 — identificar passo de WAL pruning"
-
+    - Ler ticket NC-DS-110 completo
+    - 'Ler NC-SVC-FR-011-ttl-manager.py — entender API: purge(days), list_expired()'
+    - Ler NC-SCR-FR-014-end-of-cycle.ps1 — identificar passo de WAL pruning
     meio:
       etapa_1_script:
-        - "Criar 01_neocortex_framework/scripts/NC-SCR-FR-110-log-purge.py"
-        - "Carrega NC-SVC-FR-011 via importlib.util (R09 — não import direto)"
-        - "purge(days=30) em: reports/, DIR-DS-002-audit-logs/ (entradas antigas)"
-        - "Registrar via WAL: quantos arquivos purgados, tamanho liberado"
-        - "Flags obrigatórias: --dry-run e --days=N"
-        - "Zero print() — logger apenas"
+      - Criar 01_neocortex_framework/scripts/NC-SCR-FR-110-log-purge.py
+      - Carrega NC-SVC-FR-011 via importlib.util (R09 — não import direto)
+      - 'purge(days=30) em: reports/, DIR-DS-002-audit-logs/ (entradas antigas)'
+      - 'Registrar via WAL: quantos arquivos purgados, tamanho liberado'
+      - 'Flags obrigatórias: --dry-run e --days=N'
+      - Zero print() — logger apenas
       etapa_2_wire_end_of_cycle:
-        - "Atualizar NC-SCR-FR-014-end-of-cycle.ps1"
-        - "Adicionar passo após WAL pruning: chamar NC-SCR-FR-110-log-purge.py"
-        - "Usar detecção de python igual ao padrão do script existente"
-
+      - Atualizar NC-SCR-FR-014-end-of-cycle.ps1
+      - 'Adicionar passo após WAL pruning: chamar NC-SCR-FR-110-log-purge.py'
+      - Usar detecção de python igual ao padrão do script existente
     validacao_obrigatoria:
-      - cmd: "python -m py_compile 01_neocortex_framework/scripts/NC-SCR-FR-110-log-purge.py"
-        esperado: "Sem erros"
-      - cmd: "python -m ruff check 01_neocortex_framework/scripts/NC-SCR-FR-110-log-purge.py"
-        esperado: "0 erros"
-      - cmd: "python 01_neocortex_framework/scripts/NC-SCR-FR-110-log-purge.py --dry-run"
-        esperado: "Lista arquivos candidatos sem deletar — sem exceção"
-
+    - cmd: python -m py_compile 01_neocortex_framework/scripts/NC-SCR-FR-110-log-purge.py
+      esperado: Sem erros
+    - cmd: python -m ruff check 01_neocortex_framework/scripts/NC-SCR-FR-110-log-purge.py
+      esperado: 0 erros
+    - cmd: python 01_neocortex_framework/scripts/NC-SCR-FR-110-log-purge.py --dry-run
+      esperado: Lista arquivos candidatos sem deletar — sem exceção
     fim:
-      - "Gerar handoff: NC-DS-110-handoff-{YYYYMMDDTHHMMSS}.yaml"
-      - "Incluir: output do --dry-run, confirmação do wire no end-of-cycle"
-
-# ─────────────────────────────────────────────────────────────────────────────
-# CHECKLIST R20 — OBRIGATÓRIO EM CADA HANDOFF
-# ─────────────────────────────────────────────────────────────────────────────
+    - 'Gerar handoff: NC-DS-110-handoff-{YYYYMMDDTHHMMSS}.yaml'
+    - 'Incluir: output do --dry-run, confirmação do wire no end-of-cycle'
 checklist_r20_por_handoff:
-  naming_convention: "Todos os arquivos criados seguem NC-<TIPO>-<SIGLA>-<NUM>"
-  no_print_statements: "Zero print() nos arquivos criados/modificados"
-  ssot_updated: "Se criou artefato novo — informar T0 para NC-NAM-FR-001"
-  no_locked_files_modified: "locks_violated: [] obrigatório para APPROVED"
-  handoff_yaml_complete: "Todos os campos do template preenchidos"
-  ruff_ok: "ruff check 0 erros nos arquivos do diff"
-  py_compile_ok: "py_compile sem erros em todos os .py criados/modificados"
-
+  naming_convention: Todos os arquivos criados seguem NC-<TIPO>-<SIGLA>-<NUM>
+  no_print_statements: Zero print() nos arquivos criados/modificados
+  ssot_updated: Se criou artefato novo — informar T0 para NC-NAM-FR-001
+  no_locked_files_modified: 'locks_violated: [] obrigatório para APPROVED'
+  handoff_yaml_complete: Todos os campos do template preenchidos
+  ruff_ok: ruff check 0 erros nos arquivos do diff
+  py_compile_ok: py_compile sem erros em todos os .py criados/modificados
 protocolo_falha:
-  instrucao: |
-    Se falhar ou ficar bloqueado:
+  instrucao: 'Se falhar ou ficar bloqueado:
+
     1. NÃO silenciar o erro
+
     2. Gerar handoff com status: FAILED ou ESCALATED
+
     3. summary: (a) o que foi feito, (b) onde falhou, (c) erro exato
+
     4. Retornar ao T0
 
-entry_state: "Compliance 44.8%. neocortex/core/ não sanitizado. Logs crescem sem controle."
-exit_state: "Compliance >80%. ruff 0 erros. py_compile 0 erros. NC-SCR-FR-110 purga logs >30 dias."
+    '
+entry_state: Compliance 44.8%. neocortex/core/ não sanitizado. Logs crescem sem controle.
+exit_state: Compliance >80%. ruff 0 erros. py_compile 0 erros. NC-SCR-FR-110 purga
+  logs >30 dias.
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: <2500 chars per ticket description
+  validation:
+    py:
+    - ruff check --fix
+    - ruff format
+    - ruff check
+    - mypy --ignore-missing-imports
+    - py_compile
+    - bandit -q
+    yaml:
+    - yaml.safe_load
+    - naming NC- check
+    - secret scan
+    mdc:
+    - frontmatter YAML validate
+    - NC-READ-HASH check
+    - naming NC- check
+    json:
+    - json.loads parse
+    - naming NC- check
+    all:
+    - '@LOCKS check'
+    - Write Zone check
+    - '@SSOT update'
+    - Handoff YAML
+    - 3W check
+    - SSOT Header
+  sandbox_required: true
+  sandbox_steps:
+  - 1. Copiar arquivo alvo para *-sandbox.py
+  - 2. Fazer alteracoes no sandbox
+  - 3. Validar sandbox (ruff+mypy+py_compile)
+  - 4. Testar sandbox
+  - 5. Aplicar no real (com backup)
+  - 6. Rollback via backup se falhar
+  handoff_required: true
+  handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+  handoff_dest: DIR-DS-002-audit-logs/
+  handoff_format: NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+  handoff_fields:
+  - ticket_id
+  - status
+  - submitted_at
+  - submitted_by
+  - summary
+  - files_created
+  - files_modified
+  - validation_rounds
+  - barriers_passed
+  - locks_violated
+  - t0_review
+  governance:
+    eisenhower_applied: true
+    mordaca_h: HOOK — bloqueia acao invalida ANTES de executar (FAIL-FAST)
+    mordaca_c: CHECKPOINT — audita estado a cada 300s (PulseScheduler)
+    mordaca_s: SCHEDULE — consolida no CICLO 4 semanal
+    mordaca_u: USER — T0 aprova/rejeita via handoff review
+    kaizen: Registrar micro-melhoria no @CHANGELOG apos conclusao
+    roadmap: Marcar %DONE no @ROADMAP apos handoff aprovado

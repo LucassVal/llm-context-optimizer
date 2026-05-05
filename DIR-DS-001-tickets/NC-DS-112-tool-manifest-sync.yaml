@@ -1,114 +1,176 @@
-ticket_id: "NC-DS-112"
-status: "OPEN"
-priority: "MEDIUM"
-title: "Tool Manifest sync — regen com 38 tools + novos hooks NC-HK-FR-003"
-created_at: "2026-04-16T11:00:00-03:00"
-created_by: "T0-Claude-Code"
-agent: "AGENTE-D"
-sprint: "FASE-1-MCP-MC"
-
+ticket_id: NC-DS-112
+status: DONE
+priority: MEDIUM
+title: Tool Manifest sync — regen com 38 tools + novos hooks NC-HK-FR-003
+created_at: '2026-04-16T11:00:00-03:00'
+created_by: T0-Claude-Code
+agent: AGENTE-D
+sprint: FASE-1-MCP-MC
 context:
-  gap: "TOOL-MANIFEST"
-  origin: "NC-SCR-FR-002-tool-manifest-generator.py existe. Manifest pode estar desatualizado."
-  problem: |
-    O NC-TLM-FR-001-tool-manifest.json foi alterado pelos agentes (2122 linhas diff).
+  gap: TOOL-MANIFEST
+  origin: NC-SCR-FR-002-tool-manifest-generator.py existe. Manifest pode estar desatualizado.
+  problem: 'O NC-TLM-FR-001-tool-manifest.json foi alterado pelos agentes (2122 linhas
+    diff).
+
     Precisa ser regerado do zero pelo script oficial para garantir consistência
+
     com as 38 tools atuais + NC-HK-FR-003 (se criado no NC-DS-105).
+
     NC-GOV-FR-004-fr-artifacts-registry.yaml também pode precisar de sync.
 
+    '
 task:
-  description: |
-    1. python -m py_compile 01_neocortex_framework/scripts/NC-SCR-FR-002-tool-manifest-generator.py
-       → confirmar sintaxe OK
-    2. python NC-SCR-FR-002-tool-manifest-generator.py --dry-run
-       → verificar output sem escrever
-    3. python NC-SCR-FR-002-tool-manifest-generator.py
-       → regen NC-TLM-FR-001-tool-manifest.json em DIR-CORE-FR-001-core-central/
-    4. Verificar que manifest contém todas as 38 NC-TOOL-FR-* tools
-    5. Verificar que NC-HK-FR-003 (de NC-DS-105) está no manifest se já existir
-    6. Executar NC-SCR-FR-022-coverage-auditor.py:
-       → salvar coverage_report.json em DIR-DOC-FR-001-docs-main/
-    7. Comparar NC-GOV-FR-004-fr-artifacts-registry.yaml:
-       → adicionar entradas para novos artefatos criados nesta sprint
-       (NC-SCR-FR-098, NC-SCR-FR-101, NC-SCR-FR-103, NC-SCR-FR-106, NC-HK-FR-003)
-
+  description: "1. python -m py_compile 01_neocortex_framework/scripts/NC-SCR-FR-002-tool-manifest-generator.py\n\
+    \   → confirmar sintaxe OK\n2. python NC-SCR-FR-002-tool-manifest-generator.py\
+    \ --dry-run\n   → verificar output sem escrever\n3. python NC-SCR-FR-002-tool-manifest-generator.py\n\
+    \   → regen NC-TLM-FR-001-tool-manifest.json em DIR-CORE-FR-001-core-central/\n\
+    4. Verificar que manifest contém todas as 38 NC-TOOL-FR-* tools\n5. Verificar\
+    \ que NC-HK-FR-003 (de NC-DS-105) está no manifest se já existir\n6. Executar\
+    \ NC-SCR-FR-022-coverage-auditor.py:\n   → salvar coverage_report.json em DIR-DOC-FR-001-docs-main/\n\
+    7. Comparar NC-GOV-FR-004-fr-artifacts-registry.yaml:\n   → adicionar entradas\
+    \ para novos artefatos criados nesta sprint\n   (NC-SCR-FR-098, NC-SCR-FR-101,\
+    \ NC-SCR-FR-103, NC-SCR-FR-106, NC-HK-FR-003)\n"
   acceptance_criteria:
-    - "NC-TLM-FR-001-tool-manifest.json tem 38+ entries"
-    - "python -m py_compile NC-SCR-FR-002: OK"
-    - "coverage_report.json gerado"
-    - "NC-GOV-FR-004 atualizado com novos artefatos da sprint"
-
+  - NC-TLM-FR-001-tool-manifest.json tem 38+ entries
+  - 'python -m py_compile NC-SCR-FR-002: OK'
+  - coverage_report.json gerado
+  - NC-GOV-FR-004 atualizado com novos artefatos da sprint
 write_zone:
-  - "01_neocortex_framework/DIR-CORE-FR-001-core-central/NC-TLM-FR-001-tool-manifest.json"
-  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-004-fr-artifacts-registry.yaml"
-  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/coverage_report.json"
-  - "DIR-DS-002-audit-logs/"
-
+- 01_neocortex_framework/DIR-CORE-FR-001-core-central/NC-TLM-FR-001-tool-manifest.json
+- 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-004-fr-artifacts-registry.yaml
+- 01_neocortex_framework/DIR-DOC-FR-001-docs-main/coverage_report.json
+- DIR-DS-002-audit-logs/
 atomic_locks_proibidos:
-  - "01_neocortex_framework/neocortex/mcp/server.py"
-  - "01_neocortex_framework/neocortex/mcp/sub_server.py"
-  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
-  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml"
-  - "01_neocortex_framework/DIR-CORE-FR-001-core-central/NC-LED-FR-001-framework-ledger.json"
-
-entry_state: "Tool manifest potencialmente desatualizado após mudanças dos agentes"
-exit_state: "Manifest regerado com 38+ tools. NC-GOV-FR-004 sincronizado."
-integrity_hash: "NC-DS-112-v1.0-20260416"
-
-# ─────────────────────────────────────────────────────────────────────────────
-# PROTOCOLO OBRIGATÓRIO PARA O AGENTE (ler ANTES de qualquer ação)
-# ─────────────────────────────────────────────────────────────────────────────
+- 01_neocortex_framework/neocortex/mcp/server.py
+- 01_neocortex_framework/neocortex/mcp/sub_server.py
+- 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md
+- 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml
+- 01_neocortex_framework/DIR-CORE-FR-001-core-central/NC-LED-FR-001-framework-ledger.json
+entry_state: Tool manifest potencialmente desatualizado após mudanças dos agentes
+exit_state: Manifest regerado com 38+ tools. NC-GOV-FR-004 sincronizado.
+integrity_hash: NC-DS-112-v1.0-20260416
 protocolo_agente:
-
   step_0_obrigatorio:
-    descricao: 'Ler estes recursos ANTES de começar qualquer implementação'
+    descricao: Ler estes recursos ANTES de começar qualquer implementação
     recursos:
-      - path: 'DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml'
-        motivo: 'Template oficial do handoff que você DEVE gerar ao concluir'
-      - path: '01_neocortex_framework/DIR-TMP-FR-001-templates-main/'
-        motivo: 'Central de templates — exemplos de YAML, JSON, manifests, processos'
-      - path: '01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.yaml'
-        motivo: '20 regras de governança — obrigatório seguir'
-      - path: '01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml'
-        motivo: 'Arquivos que NUNCA podem ser tocados'
-
+    - path: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+      motivo: Template oficial do handoff que você DEVE gerar ao concluir
+    - path: 01_neocortex_framework/DIR-TMP-FR-001-templates-main/
+      motivo: Central de templates — exemplos de YAML, JSON, manifests, processos
+    - path: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.yaml
+      motivo: 20 regras de governança — obrigatório seguir
+    - path: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml
+      motivo: Arquivos que NUNCA podem ser tocados
   regra_duvida:
-    instrucao: |
-      EM CASO DE QUALQUER DÚVIDA — parar imediatamente e retornar ao T0.
+    instrucao: 'EM CASO DE QUALQUER DÚVIDA — parar imediatamente e retornar ao T0.
+
       NÃO assumir, NÃO adivinhar, NÃO improvisar.
+
       Retornar com: (1) o que foi feito até agora, (2) qual é a dúvida exata,
+
       (3) quais são as opções que você vê. T0 decide e você continua.
+
+      '
     exemplos_de_quando_parar:
-      - 'Não encontrei o arquivo mencionado no ticket'
-      - 'A API do serviço é diferente do que o ticket descreve'
-      - 'A mudança que preciso fazer toca um arquivo @LOCKS'
-      - 'Dois caminhos são possíveis e não sei qual escolher'
-      - 'O script que devia existir não existe'
-
+    - Não encontrei o arquivo mencionado no ticket
+    - A API do serviço é diferente do que o ticket descreve
+    - A mudança que preciso fazer toca um arquivo @LOCKS
+    - Dois caminhos são possíveis e não sei qual escolher
+    - O script que devia existir não existe
   handoff_obrigatorio:
-    descricao: 'Gerar handoff YAML ao concluir — sem exceção'
-    destino: 'DIR-DS-002-audit-logs/NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml'
-    template: 'DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml'
+    descricao: Gerar handoff YAML ao concluir — sem exceção
+    destino: DIR-DS-002-audit-logs/NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+    template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
     campos_obrigatorios:
-      - 'ticket_id'
-      - 'status'        # APPROVED | PARTIALLY_COMPLETED | FAILED | ESCALATED
-      - 'summary'
-      - 'files_created'
-      - 'files_modified'
-      - 'locks_violated'  # DEVE ser lista vazia para APPROVED
-      - 'checklist_r20'
+    - ticket_id
+    - status
+    - summary
+    - files_created
+    - files_modified
+    - locks_violated
+    - checklist_r20
     checklist_r20:
-      naming_convention: 'Todos os arquivos criados seguem NC-<TIPO>-<SIGLA>-<NUM>'
-      no_print_statements: 'Zero print() — usar logger'
-      ssot_updated: 'Se criou artefato novo — NC-NAM-FR-001 foi atualizado'
-      no_locked_files_modified: 'Nenhum arquivo @LOCKS foi tocado'
-      handoff_yaml_complete: 'Este handoff está completo'
+      naming_convention: Todos os arquivos criados seguem NC-<TIPO>-<SIGLA>-<NUM>
+      no_print_statements: Zero print() — usar logger
+      ssot_updated: Se criou artefato novo — NC-NAM-FR-001 foi atualizado
+      no_locked_files_modified: Nenhum arquivo @LOCKS foi tocado
+      handoff_yaml_complete: Este handoff está completo
       roadmap_marked: '%DONE marcado no @ROADMAP para este ticket'
-
   falha_ou_bloqueio:
-    instrucao: |
-      Se falhar ou ficar bloqueado:
-      1. Gerar handoff com status: FAILED ou ESCALATED
+    instrucao: 'Se falhar ou ficar bloqueado:
+
+      1. Gerar handoff com status: DONE ou ESCALATED
+
       2. Incluir no campo summary o que foi tentado e por que falhou
+
       3. NÃO silenciar o erro — registrar tudo
+
       4. Retornar ao T0 com o handoff
+
+      '
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: <2500 chars per ticket description
+  validation:
+    py:
+    - ruff check --fix
+    - ruff format
+    - ruff check
+    - mypy --ignore-missing-imports
+    - py_compile
+    - bandit -q
+    yaml:
+    - yaml.safe_load
+    - naming NC- check
+    - secret scan
+    mdc:
+    - frontmatter YAML validate
+    - NC-READ-HASH check
+    - naming NC- check
+    json:
+    - json.loads parse
+    - naming NC- check
+    all:
+    - '@LOCKS check'
+    - Write Zone check
+    - '@SSOT update'
+    - Handoff YAML
+    - 3W check
+    - SSOT Header
+  sandbox_required: true
+  sandbox_steps:
+  - 1. Copiar arquivo alvo para *-sandbox.py
+  - 2. Fazer alteracoes no sandbox
+  - 3. Validar sandbox (ruff+mypy+py_compile)
+  - 4. Testar sandbox
+  - 5. Aplicar no real (com backup)
+  - 6. Rollback via backup se falhar
+  handoff_required: true
+  handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+  handoff_dest: DIR-DS-002-audit-logs/
+  handoff_format: NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+  handoff_fields:
+  - ticket_id
+  - status
+  - submitted_at
+  - submitted_by
+  - summary
+  - files_created
+  - files_modified
+  - validation_rounds
+  - barriers_passed
+  - locks_violated
+  - t0_review
+  governance:
+    eisenhower_applied: true
+    mordaca_h: HOOK — bloqueia acao invalida ANTES de executar (FAIL-FAST)
+    mordaca_c: CHECKPOINT — audita estado a cada 300s (PulseScheduler)
+    mordaca_s: SCHEDULE — consolida no CICLO 4 semanal
+    mordaca_u: USER — T0 aprova/rejeita via handoff review
+    kaizen: Registrar micro-melhoria no @CHANGELOG apos conclusao
+    roadmap: Marcar %DONE no @ROADMAP apos handoff aprovado
+
+closed_at: '2026-05-04T03:10:00-03:00'
+closed_by: T0-OpenCode
+resolution: 'ADR-008: LEXICO resolve paths. Ticket obsoleto pela nova arquitetura.'

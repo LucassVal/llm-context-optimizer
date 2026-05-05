@@ -1,82 +1,132 @@
 ticket_id: NC-DS-009
 ticket_type: FEATURE
-priority: CRITICAL
-assigned_to: deepseek-chat
-created_at: "2026-04-14T00:31:00-03:00"
+status: ABANDONED  # pre-standardization, no longer relevant
+priority: MEDIUM
+assigned_to: deepseek-v4-flash
+created_at: '2026-04-14T00:31:00-03:00'
 created_by: antigravity-t0
-
 context:
   roadmap_ticket: ORCH-300 (visual server stub) + HK-INIT (hooks init)
   active_locks:
-    - server.py
-    - sub_server.py
-    - NC-NAM-FR-001
-    - neocortex_config.yaml
+  - server.py
+  - sub_server.py
+  - NC-NAM-FR-001
+  - neocortex_config.yaml
   write_zones:
-    - "01_neocortex_framework/neocortex/core/hooks/__init__.py"
-    - "01_neocortex_framework/scripts/NC-SCR-FR-017-visual-server.py"
-
+  - 01_neocortex_framework/neocortex/core/hooks/__init__.py
+  - 01_neocortex_framework/scripts/NC-SCR-FR-017-visual-server.py
 task:
-  description: |
-    PARTE 1 — Criar hooks/__init__.py (CONFIRMADO FALTANDO — R21 verificado)
-
-    Arquivo: 01_neocortex_framework/neocortex/core/hooks/__init__.py
-
-    STEP-0 obrigatório:
-      python -m py_compile neocortex/core/hooks/NC-HK-FR-001-hook-registry.py
-      python -m py_compile neocortex/core/hooks/NC-HK-FR-002-simple-hook.py
-
-    Conteúdo do __init__.py: exportar via importação dinâmica (importlib.util)
-    - HookRegistry e constantes de evento de NC-HK-FR-001-hook-registry.py
-    - LoggingHook, TimingHook, RateLimitHook, AuditHook de NC-HK-FR-002-simple-hook.py
-    - __all__ completo
-    - Mínimo: 40 linhas
-    - Deve funcionar: from neocortex.core.hooks import HookRegistry
-
-    PARTE 2 — Criar NC-SCR-FR-017-visual-server.py
-
-    Arquivo: 01_neocortex_framework/scripts/NC-SCR-FR-017-visual-server.py
-
-    Objetivo: processo unificado que sobe Mission Control + Pixel Agents + NeoCortex.
-
-    Interface mínima (stub funcional):
-      class VisualServer:
-          def __init__(self, config: dict) -> None
-          def start_mission_control(self) -> subprocess.Popen  # npm start em :3000
-          def start_pixel_bridge(self) -> threading.Thread    # bridge JSONL polling
-          def start_neocortex(self) -> subprocess.Popen       # python server.py
-          def run_all(self) -> None                           # sobe os 3
-          def stop_all(self) -> None                         # para os 3 gracefully
-          def health_check(self) -> dict                     # status de cada processo
-
-    Constantes:
-      MISSION_CONTROL_PORT = 3000
-      PIXEL_AGENTS_BRIDGE_PORT = 8765
-      NEOCORTEX_MCP_PORT = 8765  # stdio ou SSE
-      PICOCLAW_PORT = 18790
-
-    Também criar CLI entry:
-      if __name__ == "__main__":
-          # argparse: --start / --stop / --health
-          # --start sobe todos os serviços
-
-    Mínimo: 150 linhas
-    Usar: logger = logging.getLogger(__name__)
-    NÃO hardcodar paths — usar get_config()
-
+  description: "PARTE 1 — Criar hooks/__init__.py (CONFIRMADO FALTANDO — R21 verificado)\n\
+    \nArquivo: 01_neocortex_framework/neocortex/core/hooks/__init__.py\n\nSTEP-0 obrigatório:\n\
+    \  python -m py_compile neocortex/core/hooks/NC-HK-FR-001-hook-registry.py\n \
+    \ python -m py_compile neocortex/core/hooks/NC-HK-FR-002-simple-hook.py\n\nConteúdo\
+    \ do __init__.py: exportar via importação dinâmica (importlib.util)\n- HookRegistry\
+    \ e constantes de evento de NC-HK-FR-001-hook-registry.py\n- LoggingHook, TimingHook,\
+    \ RateLimitHook, AuditHook de NC-HK-FR-002-simple-hook.py\n- __all__ completo\n\
+    - Mínimo: 40 linhas\n- Deve funcionar: from neocortex.core.hooks import HookRegistry\n\
+    \nPARTE 2 — Criar NC-SCR-FR-017-visual-server.py\n\nArquivo: 01_neocortex_framework/scripts/NC-SCR-FR-017-visual-server.py\n\
+    \nObjetivo: processo unificado que sobe Mission Control + Pixel Agents + NeoCortex.\n\
+    \nInterface mínima (stub funcional):\n  class VisualServer:\n      def __init__(self,\
+    \ config: dict) -> None\n      def start_mission_control(self) -> subprocess.Popen\
+    \  # npm start em :3000\n      def start_pixel_bridge(self) -> threading.Thread\
+    \    # bridge JSONL polling\n      def start_neocortex(self) -> subprocess.Popen\
+    \       # python server.py\n      def run_all(self) -> None                  \
+    \         # sobe os 3\n      def stop_all(self) -> None                      \
+    \   # para os 3 gracefully\n      def health_check(self) -> dict             \
+    \        # status de cada processo\n\nConstantes:\n  MISSION_CONTROL_PORT = 3000\n\
+    \  PIXEL_AGENTS_BRIDGE_PORT = 8765\n  NEOCORTEX_MCP_PORT = 8765  # stdio ou SSE\n\
+    \  PICOCLAW_PORT = 18790\n\nTambém criar CLI entry:\n  if __name__ == \"__main__\"\
+    :\n      # argparse: --start / --stop / --health\n      # --start sobe todos os\
+    \ serviços\n\nMínimo: 150 linhas\nUsar: logger = logging.getLogger(__name__)\n\
+    NÃO hardcodar paths — usar get_config()\n"
   exit_state:
     files_created:
-      - "01_neocortex_framework/neocortex/core/hooks/__init__.py"
-      - "01_neocortex_framework/scripts/NC-SCR-FR-017-visual-server.py"
+    - 01_neocortex_framework/neocortex/core/hooks/__init__.py
+    - 01_neocortex_framework/scripts/NC-SCR-FR-017-visual-server.py
     compiles_ok: true
-
 barriers:
-  - {id: B1, check: naming, rule: "__init__.py e NC-SCR-FR-017-visual-server.py", block_if_fail: true}
-  - {id: B2, check: lock_guard, rule: "NUNCA modificar server.py|sub_server.py|NC-NAM-FR-001", block_if_fail: true}
-  - {id: B3, check: compile, rule: "python -m py_compile ambos == 0", block_if_fail: true}
-  - {id: B4, check: min_lines, rule: "__init__.py >= 40L | visual-server >= 150L", block_if_fail: true}
-  - {id: B5, check: handoff, rule: "Gerar NC-DS-009-handoff-*.yaml em DIR-DS-002-audit-logs/", block_if_fail: true}
-
+- id: B1
+  check: naming
+  rule: __init__.py e NC-SCR-FR-017-visual-server.py
+  block_if_fail: true
+- id: B2
+  check: lock_guard
+  rule: NUNCA modificar server.py|sub_server.py|NC-NAM-FR-001
+  block_if_fail: true
+- id: B3
+  check: compile
+  rule: python -m py_compile ambos == 0
+  block_if_fail: true
+- id: B4
+  check: min_lines
+  rule: __init__.py >= 40L | visual-server >= 150L
+  block_if_fail: true
+- id: B5
+  check: handoff
+  rule: Gerar NC-DS-009-handoff-*.yaml em DIR-DS-002-audit-logs/
+  block_if_fail: true
 limits:
   max_tokens_per_phase: 5000
-integrity_hash: "d93fc481e726b15f"
+integrity_hash: d93fc481e726b15f
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: <2500 chars per ticket description
+  validation:
+    py:
+    - ruff check --fix
+    - ruff format
+    - ruff check
+    - mypy --ignore-missing-imports
+    - py_compile
+    - bandit -q
+    yaml:
+    - yaml.safe_load
+    - naming NC- check
+    - secret scan
+    mdc:
+    - frontmatter YAML validate
+    - NC-READ-HASH check
+    - naming NC- check
+    json:
+    - json.loads parse
+    - naming NC- check
+    all:
+    - '@LOCKS check'
+    - Write Zone check
+    - '@SSOT update'
+    - Handoff YAML
+    - 3W check
+    - SSOT Header
+  sandbox_required: true
+  sandbox_steps:
+  - 1. Copiar arquivo alvo para *-sandbox.py
+  - 2. Fazer alteracoes no sandbox
+  - 3. Validar sandbox (ruff+mypy+py_compile)
+  - 4. Testar sandbox
+  - 5. Aplicar no real (com backup)
+  - 6. Rollback via backup se falhar
+  handoff_required: true
+  handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+  handoff_dest: DIR-DS-002-audit-logs/
+  handoff_format: NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+  handoff_fields:
+  - ticket_id
+  - status
+  - submitted_at
+  - submitted_by
+  - summary
+  - files_created
+  - files_modified
+  - validation_rounds
+  - barriers_passed
+  - locks_violated
+  - t0_review
+  governance:
+    eisenhower_applied: true
+    mordaca_h: HOOK — bloqueia acao invalida ANTES de executar (FAIL-FAST)
+    mordaca_c: CHECKPOINT — audita estado a cada 300s (PulseScheduler)
+    mordaca_s: SCHEDULE — consolida no CICLO 4 semanal
+    mordaca_u: USER — T0 aprova/rejeita via handoff review
+    kaizen: Registrar micro-melhoria no @CHANGELOG apos conclusao
+    roadmap: Marcar %DONE no @ROADMAP apos handoff aprovado

@@ -1,76 +1,171 @@
 id: NC-DS-064
 code: KG-001
-title: "Implementação do Knowledge Graph Vetorial NeoCortex"
-assignee: "Agente OpenCode (DeepSeek-Reasoner)"
+status: DONE
+title: Implementação do Knowledge Graph Vetorial NeoCortex
+assignee: Agente OpenCode (DeepSeek-Reasoner)
 context:
-  - "01_neocortex_framework/neocortex/infra/vector_engine.py"
-  - "01_neocortex_framework/scripts/NC-SCR-FR-051-knowledge-graph-builder.py"
-  - "DIR-DS-002-audit-logs/NC-DS-064-handoff-knowledge-graph-consolidated.yaml"
-task: |
-  **OBJETIVO**: Construir um Knowledge Graph vetorial para o projeto NeoCortex usando LanceDB como motor de vetorização e ChromaDB para embeddings. Implementar pipeline robusto de indexação semântica dos arquivos do projeto (.py, .md, .json, .yaml, .yml) com extração de metadados YAML frontmatter e chunking otimizado.
-  
+- 01_neocortex_framework/neocortex/infra/vector_engine.py
+- 01_neocortex_framework/scripts/NC-SCR-FR-051-knowledge-graph-builder.py
+- DIR-DS-002-audit-logs/NC-DS-064-handoff-knowledge-graph-consolidated.yaml
+task: '**OBJETIVO**: Construir um Knowledge Graph vetorial para o projeto NeoCortex
+  usando LanceDB como motor de vetorização e ChromaDB para embeddings. Implementar
+  pipeline robusto de indexação semântica dos arquivos do projeto (.py, .md, .json,
+  .yaml, .yml) com extração de metadados YAML frontmatter e chunking otimizado.
+
+
   **CONQUISTAS**:
+
   1. Correção completa do VectorEngine (LanceDBVectorEngine, RAGVectorEngine)
+
   2. Implementação do Knowledge Graph Builder com pipeline batch otimizado
+
   3. Indexação de 258 arquivos → 14.772 chunks vetoriais
+
   4. Resolução de múltiplos problemas técnicos críticos
+
   5. Testes de validação e diagnóstico executados com sucesso
-  
+
+
   **PROBLEMAS IDENTIFICADOS E RESOLVIDOS** (R21 - Zero Suposições):
-  - Problema de serialização JSON no LanceDB: Metadados precisam ser serializados como strings JSON e desserializados na leitura
-  - Função json_extract requer CAST: No LanceDB, a função `json_extract` exige `CAST(metadata AS BLOB)` para trabalhar com strings
-  - Frontmatter parsing inconsistente: Alguns arquivos retornam strings em vez de dicionários do parser YAML
-  - Embedding ChromaDB retorna ndarray: A função de embedding do Chroma retorna `numpy.ndarray` que precisa ser convertido para `list[float]`
-  - Tabela LanceDB pode ser None: Inicialização assíncrona pode deixar `self._table` como None, requerendo método `_ensure_table()`
-  - Índice IVF_PQ falha para tabelas pequenas: LanceDB lança warning quando tenta criar índice em tabelas com poucos vetores
-  
+
+  - Problema de serialização JSON no LanceDB: Metadados precisam ser serializados
+  como strings JSON e desserializados na leitura
+
+  - Função json_extract requer CAST: No LanceDB, a função `json_extract` exige `CAST(metadata
+  AS BLOB)` para trabalhar com strings
+
+  - Frontmatter parsing inconsistente: Alguns arquivos retornam strings em vez de
+  dicionários do parser YAML
+
+  - Embedding ChromaDB retorna ndarray: A função de embedding do Chroma retorna `numpy.ndarray`
+  que precisa ser convertido para `list[float]`
+
+  - Tabela LanceDB pode ser None: Inicialização assíncrona pode deixar `self._table`
+  como None, requerendo método `_ensure_table()`
+
+  - Índice IVF_PQ falha para tabelas pequenas: LanceDB lança warning quando tenta
+  criar índice em tabelas com poucos vetores
+
+
   **AJUSTES APLICADOS**:
+
   - Adicionado método `_ensure_table()` para inicialização robusta do LanceDB
+
   - Corrigida serialização/desserialização JSON de metadados (json.dumps/json.loads)
+
   - Implementado `CAST(metadata AS BLOB)` nas queries com json_extract
+
   - Validação de frontmatter YAML (garantir dict, não string)
+
   - Conversão automática ndarray→list[float] para embeddings ChromaDB
+
   - Pipeline de embedding otimizado com processamento em lotes (batch_size=20)
+
   - Tratamento de warning IVF_PQ para tabelas pequenas
+
   - Logs de progresso detalhados durante indexação
+
   - Respeito à Zona de Quarentena (ignorar diretórios legados)
-  
-  **IMPACTO**: Knowledge Graph vetorial operacional, permitindo buscas semânticas em toda a base de código NeoCortex.
-  
+
+
+  **IMPACTO**: Knowledge Graph vetorial operacional, permitindo buscas semânticas
+  em toda a base de código NeoCortex.
+
+
   **EVIDÊNCIAS**: Handoff correspondente em `DIR-DS-002-audit-logs/NC-DS-064-handoff-knowledge-graph-consolidated.yaml`.
 
+  '
 entry_state:
   files_exist:
-    - "01_neocortex_framework/neocortex/infra/vector_engine.py"
-    - "01_neocortex_framework/scripts/NC-SCR-FR-051-knowledge-graph-builder.py"
+  - 01_neocortex_framework/neocortex/infra/vector_engine.py
+  - 01_neocortex_framework/scripts/NC-SCR-FR-051-knowledge-graph-builder.py
   files_must_not_exist: []
-
 exit_state:
   files_created: []
   files_modified:
-    - "01_neocortex_framework/neocortex/infra/vector_engine.py"
-    - "01_neocortex_framework/scripts/NC-SCR-FR-051-knowledge-graph-builder.py"
+  - 01_neocortex_framework/neocortex/infra/vector_engine.py
+  - 01_neocortex_framework/scripts/NC-SCR-FR-051-knowledge-graph-builder.py
   files_deleted: []
   ssot_updated: false
   compiles_ok: true
   roadmap_done: null
-
 barriers:
-  - id: B1
-    check: naming_convention
-    rule: "Arquivos devem seguir padrão NC-"
-    block_if_fail: true
-  - id: B2
-    check: lock_guard
-    rule: "NUNCA modificar: server.py, sub_server.py, NC-NAM-FR-001"
-    block_if_fail: true
-  - id: B3
-    check: write_zone
-    rule: "Modificações apenas em diretórios permitidos (ZONE_PROD, ZONE_TEST)"
-    block_if_fail: true
-
+- id: B1
+  check: naming_convention
+  rule: Arquivos devem seguir padrão NC-
+  block_if_fail: true
+- id: B2
+  check: lock_guard
+  rule: 'NUNCA modificar: server.py, sub_server.py, NC-NAM-FR-001'
+  block_if_fail: true
+- id: B3
+  check: write_zone
+  rule: Modificações apenas em diretórios permitidos (ZONE_PROD, ZONE_TEST)
+  block_if_fail: true
 limits:
   max_validation_rounds: 5
   escalate_to_t0_after: 3
   max_tokens_per_phase: 5000
-integrity_hash: "8c9d7a6b5c4d3e2f"  # sha256[:16] de "NC-DS-064|knowledge_graph|Vector Knowledge Graph implementation"
+integrity_hash: 8c9d7a6b5c4d3e2f
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: <2500 chars per ticket description
+  validation:
+    py:
+    - ruff check --fix
+    - ruff format
+    - ruff check
+    - mypy --ignore-missing-imports
+    - py_compile
+    - bandit -q
+    yaml:
+    - yaml.safe_load
+    - naming NC- check
+    - secret scan
+    mdc:
+    - frontmatter YAML validate
+    - NC-READ-HASH check
+    - naming NC- check
+    json:
+    - json.loads parse
+    - naming NC- check
+    all:
+    - '@LOCKS check'
+    - Write Zone check
+    - '@SSOT update'
+    - Handoff YAML
+    - 3W check
+    - SSOT Header
+  sandbox_required: true
+  sandbox_steps:
+  - 1. Copiar arquivo alvo para *-sandbox.py
+  - 2. Fazer alteracoes no sandbox
+  - 3. Validar sandbox (ruff+mypy+py_compile)
+  - 4. Testar sandbox
+  - 5. Aplicar no real (com backup)
+  - 6. Rollback via backup se falhar
+  handoff_required: true
+  handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+  handoff_dest: DIR-DS-002-audit-logs/
+  handoff_format: NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+  handoff_fields:
+  - ticket_id
+  - status
+  - submitted_at
+  - submitted_by
+  - summary
+  - files_created
+  - files_modified
+  - validation_rounds
+  - barriers_passed
+  - locks_violated
+  - t0_review
+  governance:
+    eisenhower_applied: true
+    mordaca_h: HOOK — bloqueia acao invalida ANTES de executar (FAIL-FAST)
+    mordaca_c: CHECKPOINT — audita estado a cada 300s (PulseScheduler)
+    mordaca_s: SCHEDULE — consolida no CICLO 4 semanal
+    mordaca_u: USER — T0 aprova/rejeita via handoff review
+    kaizen: Registrar micro-melhoria no @CHANGELOG apos conclusao
+    roadmap: Marcar %DONE no @ROADMAP apos handoff aprovado

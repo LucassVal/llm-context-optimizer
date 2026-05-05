@@ -1,0 +1,102 @@
+ticket_id: NC-DS-167
+title: CRÍTICO — Corrigir YAMLs inválidos de Governança e Config (3 arquivos)
+status: DONE
+priority: CRITICAL
+created_at: '2026-04-22T10:00:00-03:00'
+created_by: T0-Antigravity
+source: audit_system.py — System-Wide YAML Audit 2026-04-22
+description: 'Auditoria detectou 3 YAMLs críticos (governança/config principal) com
+  parse errors.
+
+  Estes arquivos corrompem o auditor NC-SCR-FR-080 e o sistema de governança.
+
+  '
+files_to_fix:
+- path: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.yaml
+  error: 'while parsing a block mapping — line 71 col 9: R04 com indentação errada
+    (filho de R03)'
+  fix: Corrigir indentação de R04 como item independente da lista rules
+  severity: CRITICAL
+  note: Arquivo em edição pelo DeepSeek em 2026-04-22. Verificar após edição.
+- path: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-CFG-FR-001-agent-policy-template.yaml
+  error: expected a single document in the stream
+  fix: Remover múltiplos documentos YAML (--- separadores) ou consolidar em um único
+  severity: HIGH
+- path: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-005-governance-ecosystem.yaml
+  error: expected a single document in the stream
+  fix: Remover múltiplos documentos YAML (--- separadores) ou consolidar em um único
+  severity: HIGH
+acceptance_criteria:
+- yaml.safe_load() retorna sem erro para todos os 3 arquivos
+- 'audit_system.py reporta GOVERNANÇA: 0 ERROS'
+- NC-SCR-FR-080 executa completamente sem exceção
+atomic_locks_check:
+  files_in_lock:
+  - NC-SEC-FR-001-atomic-locks.yaml
+  NC-GOV-FR-003: ATENÇÃO — verificar se está em atomic lock antes de editar
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: <2500 chars per ticket description
+  validation:
+    py:
+    - ruff check --fix
+    - ruff format
+    - ruff check
+    - mypy --ignore-missing-imports
+    - py_compile
+    - bandit -q
+    yaml:
+    - yaml.safe_load
+    - naming NC- check
+    - secret scan
+    mdc:
+    - frontmatter YAML validate
+    - NC-READ-HASH check
+    - naming NC- check
+    json:
+    - json.loads parse
+    - naming NC- check
+    all:
+    - '@LOCKS check'
+    - Write Zone check
+    - '@SSOT update'
+    - Handoff YAML
+    - 3W check
+    - SSOT Header
+  sandbox_required: true
+  sandbox_steps:
+  - 1. Copiar arquivo alvo para *-sandbox.py
+  - 2. Fazer alteracoes no sandbox
+  - 3. Validar sandbox (ruff+mypy+py_compile)
+  - 4. Testar sandbox
+  - 5. Aplicar no real (com backup)
+  - 6. Rollback via backup se falhar
+  handoff_required: true
+  handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+  handoff_dest: DIR-DS-002-audit-logs/
+  handoff_format: NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+  handoff_fields:
+  - ticket_id
+  - status
+  - submitted_at
+  - submitted_by
+  - summary
+  - files_created
+  - files_modified
+  - validation_rounds
+  - barriers_passed
+  - locks_violated
+  - t0_review
+  governance:
+    eisenhower_applied: true
+    mordaca_h: HOOK — bloqueia acao invalida ANTES de executar (FAIL-FAST)
+    mordaca_c: CHECKPOINT — audita estado a cada 300s (PulseScheduler)
+    mordaca_s: SCHEDULE — consolida no CICLO 4 semanal
+    mordaca_u: USER — T0 aprova/rejeita via handoff review
+    kaizen: Registrar micro-melhoria no @CHANGELOG apos conclusao
+    roadmap: Marcar %DONE no @ROADMAP apos handoff aprovado
+
+closed_at: '2026-05-04T03:10:00-03:00'
+closed_by: T0-OpenCode
+resolution: 'Protocol established (NC-GOV-FR-002). Ticket obsoleto pela nova arquitetura.'

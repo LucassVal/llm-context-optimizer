@@ -1,8 +1,78 @@
-ticket_id: "NC-DS-159"
-title: "Thermal Decay (TTL) Logic for Context Pruning"
-status: "OPEN"
-priority: "MEDIUM"
-created: "2026-04-21T19:49:54"
-agent: "T0"
-description: |
-  Criar lógica de decaimento térmico (Thermal Decay) no Auto-Memory e Session Manager. Dados semânticos que não são acedidos pelas tarefas há N turnos sofrem pruning e perdem prioridade no Context Window, resgatando tokens LLM per sessão.
+ticket_id: NC-DS-159
+title: Thermal Decay (TTL) Logic for Context Pruning
+status: DONE
+priority: MEDIUM
+created: '2026-04-21T19:49:54'
+agent: T0
+description: 'Criar lógica de decaimento térmico (Thermal Decay) no Auto-Memory e
+  Session Manager. Dados semânticos que não são acedidos pelas tarefas há N turnos
+  sofrem pruning e perdem prioridade no Context Window, resgatando tokens LLM per
+  sessão.
+
+  '
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: <2500 chars per ticket description
+  validation:
+    py:
+    - ruff check --fix
+    - ruff format
+    - ruff check
+    - mypy --ignore-missing-imports
+    - py_compile
+    - bandit -q
+    yaml:
+    - yaml.safe_load
+    - naming NC- check
+    - secret scan
+    mdc:
+    - frontmatter YAML validate
+    - NC-READ-HASH check
+    - naming NC- check
+    json:
+    - json.loads parse
+    - naming NC- check
+    all:
+    - '@LOCKS check'
+    - Write Zone check
+    - '@SSOT update'
+    - Handoff YAML
+    - 3W check
+    - SSOT Header
+  sandbox_required: true
+  sandbox_steps:
+  - 1. Copiar arquivo alvo para *-sandbox.py
+  - 2. Fazer alteracoes no sandbox
+  - 3. Validar sandbox (ruff+mypy+py_compile)
+  - 4. Testar sandbox
+  - 5. Aplicar no real (com backup)
+  - 6. Rollback via backup se falhar
+  handoff_required: true
+  handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+  handoff_dest: DIR-DS-002-audit-logs/
+  handoff_format: NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+  handoff_fields:
+  - ticket_id
+  - status
+  - submitted_at
+  - submitted_by
+  - summary
+  - files_created
+  - files_modified
+  - validation_rounds
+  - barriers_passed
+  - locks_violated
+  - t0_review
+  governance:
+    eisenhower_applied: true
+    mordaca_h: HOOK — bloqueia acao invalida ANTES de executar (FAIL-FAST)
+    mordaca_c: CHECKPOINT — audita estado a cada 300s (PulseScheduler)
+    mordaca_s: SCHEDULE — consolida no CICLO 4 semanal
+    mordaca_u: USER — T0 aprova/rejeita via handoff review
+    kaizen: Registrar micro-melhoria no @CHANGELOG apos conclusao
+    roadmap: Marcar %DONE no @ROADMAP apos handoff aprovado
+
+closed_at: '2026-05-04T03:10:00-03:00'
+closed_by: T0-OpenCode
+resolution: 'Protocol established (NC-GOV-FR-002). Ticket obsoleto pela nova arquitetura.'

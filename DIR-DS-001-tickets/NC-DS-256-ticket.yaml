@@ -1,0 +1,123 @@
+# NC-DS-256 — MCP Error Protocol: Migrar todas as tools de {"success": false} para isError: true
+# WHAT: Substituir padrão de erro caseiro {"success": false, "error": "..."} pelo protocolo MCP isError: true
+# WHY: Spec MCP define isError: true como mecanismo padrão de erro — o formato atual é não-conforme
+# WHERE: Todas as tools em 01_neocortex_framework/neocortex/tools/ + server.py tool handlers
+
+ticket_id: NC-DS-256
+title: "MCP Error Protocol — Migrar todas as tools de {\"success\": false} para protocolo isError: true + Alinhar com SEP-1303 (Input Validation as Tool Errors)"
+status: "PENDING_REVIEW"
+priority: P0
+assignee: opencode
+created: "2026-05-04"
+description: |
+  GAP CRÍTICO DE CONFORMIDADE: Atualmente, as tools do NeoCortex retornam erros no 
+  formato caseiro `{"success": false, "error": "mensagem"}`. O protocolo MCP especifica 
+  que erros de tool DEVEM usar `isError: true` no content da response (NC-LBE-INT-006 §7.2). 
+  O formato atual quebra a interoperabilidade com clients MCP padrão.
+
+  Além disso, SEP-1303 (Input Validation as Tool Errors) especifica que erros de validação 
+  de input DEVEM ser tratados como tool errors (isError: true), NÃO como transport errors 
+  (JSON-RPC errors).
+
+  ESCOPO:
+
+  1. NOVO FORMATO DE ERRO (MCP-CONFORME):
+     Sucesso:
+     ```json
+     {
+       "content": [{"type": "text", "text": "resultado"}],
+       "isError": false
+     }
+     ```
+     Erro:
+     ```json
+     {
+       "content": [{"type": "text", "text": "Erro: arquivo não encontrado em /path/to/file"}],
+       "isError": true
+     }
+     ```
+
+  2. MIGRAÇÃO DE TODAS AS TOOLS (20+ tools):
+     Auditar cada tool existente e converter o padrão de erro:
+     
+     | Tool | Padrão Atual | Novo Padrão |
+     |------|-------------|-------------|
+     | nc_validate | {"success": bool, "errors": [...]} | isError + content com lista de erros |
+     | nc_lint | {"passed": bool, "issues": [...]} | isError quando passed=false |
+     | nc_audit | {"compliance_score": float} | isError quando score < threshold |
+     | nc_handoff | {"handoff_path": str} | isError quando file não pode ser criado |
+     | nc_boot_sync | {"synced": bool} | isError quando sync falha |
+     | nc_populate_lobes | {"status": str} | isError quando populate falha |
+     | nc_archive | {"files_moved": int} | isError quando arquivo não encontrado |
+     | nc_governance_audit | {"score": float} | isError quando auditoria falha |
+     | nc_ticket_create | {"ticket_path": str} | isError quando ticket já existe |
+     | nc_ssot_update | {"updated": bool} | isError quando SSOT não encontrado |
+     | nc_savepoint | {"savepoint_id": str} | isError quando WAL indisponível |
+     | nc_regression_check | {"last_failure": str} | isError quando regression DB offline |
+     | nc_lock_check | {"locked": bool} | isError quando arquivo não existe |
+     | nc_zone_check | {"in_zone": bool} | isError quando zone config ausente |
+     | nc_naming_check | {"valid": bool} | isError quando padrão não reconhecido |
+
+  3. ALINHAMENTO COM SEP-1303:
+     - Input validation errors → isError: true (NÃO JSON-RPC error -32602)
+     - Exemplo: tool chamada sem argumento obrigatório → isError: true com mensagem descritiva
+     - NÃO usar JSON-RPC errors para validação de input
+     - Mensagens de erro devem ser ACTIONABLE para o LLM (explicar o que corrigir)
+
+  4. PADRÃO DE MENSAGEM DE ERRO:
+     - Formato: "Error: [descrição curta]. [ação sugerida]. Context: [detalhes relevantes]"
+     - SEMPRE incluir o que o LLM/user deve fazer para corrigir
+     - NUNCA expor stack traces ou informações internas em produção
+     - Usar logging.error() para detalhes internos (stderr, não na response)
+
+  5. COMPATIBILIDADE RETROATIVA:
+     - Clients que esperam {"success": false} precisam de período de transição
+     - Opção A: Manter success field + adicionar isError (dual format por 1 sprint)
+     - Opção B (recomendada): Migração direta com changelog e notificação no @SSOT
+     - Decisão: Opção B — migração direta. Clients MCP padrão já esperam isError.
+
+  PADRÃO DE REFERÊNCIA: NC-LBE-INT-006-mcp-specification.mdc §7.2 (Error handling: 
+  isError: true in tool responses), §17.3 (Recomendação #6: Error handling com isError).
+
+  IMPACTO: Conformidade total com spec MCP. Clients padrão (OpenCode, Claude Code, 
+  VS Code Copilot) processam erros corretamente. Elimina confusão entre "tool falhou" 
+  e "tool retornou resultado de erro".
+
+context:
+  - "Reference: 02_memory_lobes/02_integrations/NC-LBE-INT-006-mcp-specification.mdc §7.2 (MCP tool errors are isError: true, not transport failure), §17.3 (Error handling recommendation)"
+  - "Gap found by structural audit 2026-05-04 — Todas as tools usam {\"success\": false}, zero usam isError: true"
+  - "SEP-1303: Input Validation as Tool Errors (Final)"
+  - "Current tool response format: {\"success\": bool, \"error\": str, \"data\": any}"
+  - "MCP Spec §2.1: Tool execution result uses content array + isError flag"
+
+task: |
+  1. Criar utility 01_neocortex_framework/neocortex/mcp/errors.py (~200 linhas)
+     a. Implementar mcp_error(message: str, suggestion: str = None) → dict:
+        Retorna {"content": [{"type": "text", "text": formatted_message}], "isError": True}
+     b. Implementar mcp_success(data: any) → dict:
+        Retorna {"content": [{"type": "text", "text": formatted_data}], "isError": False}
+     c. Implementar format_error_message(error_type, message, suggestion, context):
+        Template: "Error ({error_type}): {message}. Suggestion: {suggestion}. Context: {context}"
+     d. Usar logger = logging.getLogger(__name__) — NUNCA print()
+
+  2. Migrar CADA tool (20+ tools) — lista completa:
+     a. Auditar todas as tools em 01_neocortex_framework/neocortex/tools/
+     b. Para cada tool, substituir return {"success": False, ...} → return mcp_error(...)
+     c. Para cada tool, substituir return {"success": True, ...} → return mcp_success(...)
+     d. Garantir que input validation errors usam isError: true (SEP-1303)
+     e. Adicionar sugestões acionáveis em cada mensagem de erro
+     f. NUNCA expor stack traces em production responses
+     g. Manter logging.error() para debugging interno
+
+  3. VALIDAÇÃO:
+     - ruff + mypy + py_compile + bandit em TODAS as tools modificadas
+     - Testar cada tool com MCP Inspector: verificar isError: true em erros
+     - Testar: tool chamada sem args obrigatórios → isError: true com sugestão
+     - Testar: tool chamada corretamente → isError: false com resultado
+     - Verificar: nenhum {"success": false} residual no código
+
+write_zone: "PROD → 01_neocortex_framework/neocortex/tools/*.py (migração) + neocortex/mcp/errors.py (novo)"
+locks:
+  - "01_neocortex_framework/neocortex/mcp/server.py → MODIFICAR tool response wrapper se necessário"
+  - "01_neocortex_framework/neocortex/mcp/sub_server.py → NUNCA MODIFICAR"
+

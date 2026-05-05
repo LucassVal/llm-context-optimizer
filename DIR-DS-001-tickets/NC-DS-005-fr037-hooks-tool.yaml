@@ -1,68 +1,136 @@
 ticket_id: NC-DS-005
 ticket_type: FEATURE
-priority: HIGH
-assigned_to: deepseek-chat
-created_at: "2026-04-13T21:26:00-03:00"
+status: ABANDONED  # pre-standardization, no longer relevant
+priority: MEDIUM
+assigned_to: deepseek-v4-flash
+created_at: '2026-04-13T21:26:00-03:00'
 created_by: antigravity-t0
-
 context:
   roadmap_ticket: FR-037
   active_locks:
-    - server.py
-    - sub_server.py
-    - NC-NAM-FR-001
-    - neocortex_config.yaml
-  write_zone: "01_neocortex_framework/neocortex/mcp/tools/"
-  naming_rule: "NC-TOOL-FR-037-hooks.py"
-  reference_file: "neocortex/mcp/tools/NC-TOOL-FR-029-health.py"
-  hook_registry_path: "neocortex/core/hooks/NC-HK-FR-001-hook-registry.py"
-
+  - server.py
+  - sub_server.py
+  - NC-NAM-FR-001
+  - neocortex_config.yaml
+  write_zone: 01_neocortex_framework/neocortex/mcp/tools/
+  naming_rule: NC-TOOL-FR-037-hooks.py
+  reference_file: neocortex/mcp/tools/NC-TOOL-FR-029-health.py
+  hook_registry_path: neocortex/core/hooks/NC-HK-FR-001-hook-registry.py
 task:
-  description: |
-    Criar NC-TOOL-FR-037-hooks.py — MCP tool que expõe o HookRegistry como ferramenta chamável.
-
-    Ações a implementar:
-      hook.register   → registra fn em um evento (event, fn_path, priority=0)
-                        como fn_path não é serializável via MCP, registrar hooks pré-fabricados
-                        por nome: "logging", "timing", "ratelimit", "audit"
-      hook.unregister → remove hook de um evento por nome
-      hook.trigger    → trigera manualmente um evento (event, payload=dict)
-      hook.list       → lista todos os eventos e hooks registrados
-      hook.stats      → retorna estatísticas de timing por tool (via TimingHook)
-
-    Importação dos hooks (R09 — usar importlib.util):
-      Importar HookRegistry de neocortex/core/hooks/NC-HK-FR-001-hook-registry.py
-      Importar hooks de neocortex/core/hooks/NC-HK-FR-002-simple-hook.py
-
-    Singleton: o HookRegistry deve ser um singleton — usar _registry global no módulo.
-    Na inicialização, registrar LoggingHook e TimingHook automaticamente.
-
-    Padrão: seguir EXATAMENTE estrutura de NC-TOOL-FR-029-health.py
-    Mínimo: 100 linhas
-
+  description: "Criar NC-TOOL-FR-037-hooks.py — MCP tool que expõe o HookRegistry\
+    \ como ferramenta chamável.\n\nAções a implementar:\n  hook.register   → registra\
+    \ fn em um evento (event, fn_path, priority=0)\n                    como fn_path\
+    \ não é serializável via MCP, registrar hooks pré-fabricados\n               \
+    \     por nome: \"logging\", \"timing\", \"ratelimit\", \"audit\"\n  hook.unregister\
+    \ → remove hook de um evento por nome\n  hook.trigger    → trigera manualmente\
+    \ um evento (event, payload=dict)\n  hook.list       → lista todos os eventos\
+    \ e hooks registrados\n  hook.stats      → retorna estatísticas de timing por\
+    \ tool (via TimingHook)\n\nImportação dos hooks (R09 — usar importlib.util):\n\
+    \  Importar HookRegistry de neocortex/core/hooks/NC-HK-FR-001-hook-registry.py\n\
+    \  Importar hooks de neocortex/core/hooks/NC-HK-FR-002-simple-hook.py\n\nSingleton:\
+    \ o HookRegistry deve ser um singleton — usar _registry global no módulo.\nNa\
+    \ inicialização, registrar LoggingHook e TimingHook automaticamente.\n\nPadrão:\
+    \ seguir EXATAMENTE estrutura de NC-TOOL-FR-029-health.py\nMínimo: 100 linhas\n"
   entry_state:
     files_exist:
-      - "neocortex/core/hooks/NC-HK-FR-001-hook-registry.py"
-      - "neocortex/core/hooks/NC-HK-FR-002-simple-hook.py"
+    - neocortex/core/hooks/NC-HK-FR-001-hook-registry.py
+    - neocortex/core/hooks/NC-HK-FR-002-simple-hook.py
     files_must_not_exist:
-      - "neocortex/mcp/tools/NC-TOOL-FR-037-hooks.py"
-
+    - neocortex/mcp/tools/NC-TOOL-FR-037-hooks.py
   exit_state:
     files_created:
-      - "01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-037-hooks.py"
+    - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-037-hooks.py
     ssot_updated: true
     compiles_ok: true
-
 barriers:
-  - {id: B1, check: naming, rule: "NC-TOOL-FR-037-hooks.py", block_if_fail: true}
-  - {id: B2, check: lock_guard, rule: "NUNCA modificar server.py|sub_server.py|NC-NAM-FR-001", block_if_fail: true}
-  - {id: B3, check: compile, rule: "python -m py_compile == exit 0", block_if_fail: true}
-  - {id: B4, check: register_tool, rule: "def register_tool(mcp) deve existir", block_if_fail: true}
-  - {id: B5, check: min_lines, rule: ">= 100 linhas", block_if_fail: true}
-  - {id: B6, check: no_print, rule: "logger = logging.getLogger(__name__)", block_if_fail: false}
-
+- id: B1
+  check: naming
+  rule: NC-TOOL-FR-037-hooks.py
+  block_if_fail: true
+- id: B2
+  check: lock_guard
+  rule: NUNCA modificar server.py|sub_server.py|NC-NAM-FR-001
+  block_if_fail: true
+- id: B3
+  check: compile
+  rule: python -m py_compile == exit 0
+  block_if_fail: true
+- id: B4
+  check: register_tool
+  rule: def register_tool(mcp) deve existir
+  block_if_fail: true
+- id: B5
+  check: min_lines
+  rule: '>= 100 linhas'
+  block_if_fail: true
+- id: B6
+  check: no_print
+  rule: logger = logging.getLogger(__name__)
+  block_if_fail: false
 limits:
   max_validation_rounds: 5
   escalate_to_t0_after: 3
   max_tokens_per_phase: 4000
-integrity_hash: "c84da271f039b15e"
+integrity_hash: c84da271f039b15e
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: <2500 chars per ticket description
+  validation:
+    py:
+    - ruff check --fix
+    - ruff format
+    - ruff check
+    - mypy --ignore-missing-imports
+    - py_compile
+    - bandit -q
+    yaml:
+    - yaml.safe_load
+    - naming NC- check
+    - secret scan
+    mdc:
+    - frontmatter YAML validate
+    - NC-READ-HASH check
+    - naming NC- check
+    json:
+    - json.loads parse
+    - naming NC- check
+    all:
+    - '@LOCKS check'
+    - Write Zone check
+    - '@SSOT update'
+    - Handoff YAML
+    - 3W check
+    - SSOT Header
+  sandbox_required: true
+  sandbox_steps:
+  - 1. Copiar arquivo alvo para *-sandbox.py
+  - 2. Fazer alteracoes no sandbox
+  - 3. Validar sandbox (ruff+mypy+py_compile)
+  - 4. Testar sandbox
+  - 5. Aplicar no real (com backup)
+  - 6. Rollback via backup se falhar
+  handoff_required: true
+  handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+  handoff_dest: DIR-DS-002-audit-logs/
+  handoff_format: NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+  handoff_fields:
+  - ticket_id
+  - status
+  - submitted_at
+  - submitted_by
+  - summary
+  - files_created
+  - files_modified
+  - validation_rounds
+  - barriers_passed
+  - locks_violated
+  - t0_review
+  governance:
+    eisenhower_applied: true
+    mordaca_h: HOOK — bloqueia acao invalida ANTES de executar (FAIL-FAST)
+    mordaca_c: CHECKPOINT — audita estado a cada 300s (PulseScheduler)
+    mordaca_s: SCHEDULE — consolida no CICLO 4 semanal
+    mordaca_u: USER — T0 aprova/rejeita via handoff review
+    kaizen: Registrar micro-melhoria no @CHANGELOG apos conclusao
+    roadmap: Marcar %DONE no @ROADMAP apos handoff aprovado

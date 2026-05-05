@@ -1,82 +1,147 @@
 ticket_id: NC-DS-006
 ticket_type: FEATURE
+status: ABANDONED  # pre-standardization, no longer relevant
 priority: MEDIUM
-assigned_to: deepseek-chat
-created_at: "2026-04-12T04:19:00"
+assigned_to: deepseek-v4-flash
+created_at: '2026-04-12T04:19:00'
 created_by: antigravity-t0
-
 context:
   roadmap_ticket: FR-021
   active_locks:
-    - server.py
-    - sub_server.py
-    - NC-NAM-FR-001
-    - neocortex_config.yaml
-  write_zone: "01_neocortex_framework/neocortex/mcp/tools/"
-  naming_rule: "NC-<TIPO>-<SIGLA>-<NUM>-<desc>.ext"
-  reference_file: "neocortex/mcp/tools/NC-TOOL-FR-029-health.py"
-  warning: "Tool mais complexa da fila (17 ações). Dividir em 2 tickets se exceder max_tokens_per_phase. Ticket FR-021b pode ser necessário."
-
+  - server.py
+  - sub_server.py
+  - NC-NAM-FR-001
+  - neocortex_config.yaml
+  write_zone: 01_neocortex_framework/neocortex/mcp/tools/
+  naming_rule: NC-<TIPO>-<SIGLA>-<NUM>-<desc>.ext
+  reference_file: neocortex/mcp/tools/NC-TOOL-FR-029-health.py
+  warning: Tool mais complexa da fila (17 ações). Dividir em 2 tickets se exceder
+    max_tokens_per_phase. Ticket FR-021b pode ser necessário.
 task:
-  description: |
-    Criar NC-TOOL-FR-021-memory.py com register_tool(mcp) e ações:
-
-    # Lobes (gestão de memória modular)
-    lobe.list_active      → lista lobes disponíveis e status (ativo/inativo)
-    lobe.get_content      → retorna conteúdo de lobe específico
-    lobe.activate         → ativa lobe pelo nome
-    lobe.deactivate       → desativa lobe
-    lobe.search           → busca texto dentro de lobes (FTS suportado)
-    lobe.list_all         → lista todos os lobes com metadados
-    lobe.get_checkpoint_tree → extrai árvore de checkpoints de um lobe
-
-    # Cortex (memória central)
-    cortex.get_full       → conteúdo completo do cortex com metadados
-    cortex.get_section    → retorna seção específica do cortex
-    cortex.get_aliases    → retorna todos os aliases definidos
-    cortex.get_workflows  → retorna workflows definidos no cortex
-    cortex.validate_alias → valida se alias está correto
-
-    # Manifest (índices leves)
-    manifest.generate     → gera manifesto para lobe ou cortex
-    manifest.update       → atualiza metadados de manifesto existente
-    manifest.query        → filtra manifestos por tags/domain/entities
-    manifest.list         → lista todos os manifestos
-    manifest.generate_all → gera manifestos para todos os lobes
-
-    Absorve: NC-TOOL-FR-003-lobes.py + NC-TOOL-FR-004-cortex.py + NC-TOOL-FR-010-lobes-management.py
-            + NC-TOOL-FR-013-manifest.py + NC-TOOL-FR-007-init.py (parcial)
-    ATENÇÃO: Esta é a tool mais rica. Se exceder 4000 tokens por fase → criar ticket FR-021b
-              para as ações de manifest e ir com lobes+cortex neste.
-    Padrão: seguir estrutura de NC-TOOL-FR-029-health.py
-
+  description: "Criar NC-TOOL-FR-021-memory.py com register_tool(mcp) e ações:\n\n\
+    # Lobes (gestão de memória modular)\nlobe.list_active      → lista lobes disponíveis\
+    \ e status (ativo/inativo)\nlobe.get_content      → retorna conteúdo de lobe específico\n\
+    lobe.activate         → ativa lobe pelo nome\nlobe.deactivate       → desativa\
+    \ lobe\nlobe.search           → busca texto dentro de lobes (FTS suportado)\n\
+    lobe.list_all         → lista todos os lobes com metadados\nlobe.get_checkpoint_tree\
+    \ → extrai árvore de checkpoints de um lobe\n\n# Cortex (memória central)\ncortex.get_full\
+    \       → conteúdo completo do cortex com metadados\ncortex.get_section    → retorna\
+    \ seção específica do cortex\ncortex.get_aliases    → retorna todos os aliases\
+    \ definidos\ncortex.get_workflows  → retorna workflows definidos no cortex\ncortex.validate_alias\
+    \ → valida se alias está correto\n\n# Manifest (índices leves)\nmanifest.generate\
+    \     → gera manifesto para lobe ou cortex\nmanifest.update       → atualiza metadados\
+    \ de manifesto existente\nmanifest.query        → filtra manifestos por tags/domain/entities\n\
+    manifest.list         → lista todos os manifestos\nmanifest.generate_all → gera\
+    \ manifestos para todos os lobes\n\nAbsorve: NC-TOOL-FR-003-lobes.py + NC-TOOL-FR-004-cortex.py\
+    \ + NC-TOOL-FR-010-lobes-management.py\n        + NC-TOOL-FR-013-manifest.py +\
+    \ NC-TOOL-FR-007-init.py (parcial)\nATENÇÃO: Esta é a tool mais rica. Se exceder\
+    \ 4000 tokens por fase → criar ticket FR-021b\n          para as ações de manifest\
+    \ e ir com lobes+cortex neste.\nPadrão: seguir estrutura de NC-TOOL-FR-029-health.py\n"
   entry_state:
     files_exist:
-      - "neocortex/mcp/tools/NC-TOOL-FR-003-lobes.py"
-      - "neocortex/mcp/tools/NC-TOOL-FR-004-cortex.py"
-      - "neocortex/mcp/tools/NC-TOOL-FR-010-lobes-management.py"
+    - neocortex/mcp/tools/NC-TOOL-FR-003-lobes.py
+    - neocortex/mcp/tools/NC-TOOL-FR-004-cortex.py
+    - neocortex/mcp/tools/NC-TOOL-FR-010-lobes-management.py
     files_must_not_exist:
-      - "neocortex/mcp/tools/NC-TOOL-FR-021-memory.py"
-
+    - neocortex/mcp/tools/NC-TOOL-FR-021-memory.py
   exit_state:
     files_created:
-      - "neocortex/mcp/tools/NC-TOOL-FR-021-memory.py"
-    files_modified:
+    - neocortex/mcp/tools/NC-TOOL-FR-021-memory.py
+    files_modified: null
     ssot_updated: true
     compiles_ok: true
     roadmap_done: FR-021
-
 barriers:
-  - {id: B1, check: naming_convention, rule: "NC-TOOL-FR-021-memory.py", block_if_fail: true}
-  - {id: B2, check: lock_guard, rule: "Nenhum @LOCKS modificado", block_if_fail: true}
-  - {id: B3, check: compile, rule: "py_compile OK", block_if_fail: true}
-  - {id: B4, check: ssot_entry, rule: "NC-NAM-FR-001 atualizado [2026-04-12]", block_if_fail: true}
-  - {id: B5, check: no_hardcode, rule: "Usar get_config()", block_if_fail: false}
-  - {id: B6, check: no_print, rule: "Usar logger", block_if_fail: false}
-
+- id: B1
+  check: naming_convention
+  rule: NC-TOOL-FR-021-memory.py
+  block_if_fail: true
+- id: B2
+  check: lock_guard
+  rule: Nenhum @LOCKS modificado
+  block_if_fail: true
+- id: B3
+  check: compile
+  rule: py_compile OK
+  block_if_fail: true
+- id: B4
+  check: ssot_entry
+  rule: NC-NAM-FR-001 atualizado [2026-04-12]
+  block_if_fail: true
+- id: B5
+  check: no_hardcode
+  rule: Usar get_config()
+  block_if_fail: false
+- id: B6
+  check: no_print
+  rule: Usar logger
+  block_if_fail: false
 limits:
   max_validation_rounds: 5
   escalate_to_t0_after: 3
   max_tokens_per_phase: 4000
-  split_note: "SE token limit atingido na FASE 2 → parar, depositar handoff status=ESCALATED com nota 'split needed: FR-021b'"
-integrity_hash: "338ae33fdc64f114"  # sha256[:16] of ticket_id|write_zone|title
+  split_note: 'SE token limit atingido na FASE 2 → parar, depositar handoff status=ESCALATED
+    com nota ''split needed: FR-021b'''
+integrity_hash: 338ae33fdc64f114
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: <2500 chars per ticket description
+  validation:
+    py:
+    - ruff check --fix
+    - ruff format
+    - ruff check
+    - mypy --ignore-missing-imports
+    - py_compile
+    - bandit -q
+    yaml:
+    - yaml.safe_load
+    - naming NC- check
+    - secret scan
+    mdc:
+    - frontmatter YAML validate
+    - NC-READ-HASH check
+    - naming NC- check
+    json:
+    - json.loads parse
+    - naming NC- check
+    all:
+    - '@LOCKS check'
+    - Write Zone check
+    - '@SSOT update'
+    - Handoff YAML
+    - 3W check
+    - SSOT Header
+  sandbox_required: true
+  sandbox_steps:
+  - 1. Copiar arquivo alvo para *-sandbox.py
+  - 2. Fazer alteracoes no sandbox
+  - 3. Validar sandbox (ruff+mypy+py_compile)
+  - 4. Testar sandbox
+  - 5. Aplicar no real (com backup)
+  - 6. Rollback via backup se falhar
+  handoff_required: true
+  handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+  handoff_dest: DIR-DS-002-audit-logs/
+  handoff_format: NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+  handoff_fields:
+  - ticket_id
+  - status
+  - submitted_at
+  - submitted_by
+  - summary
+  - files_created
+  - files_modified
+  - validation_rounds
+  - barriers_passed
+  - locks_violated
+  - t0_review
+  governance:
+    eisenhower_applied: true
+    mordaca_h: HOOK — bloqueia acao invalida ANTES de executar (FAIL-FAST)
+    mordaca_c: CHECKPOINT — audita estado a cada 300s (PulseScheduler)
+    mordaca_s: SCHEDULE — consolida no CICLO 4 semanal
+    mordaca_u: USER — T0 aprova/rejeita via handoff review
+    kaizen: Registrar micro-melhoria no @CHANGELOG apos conclusao
+    roadmap: Marcar %DONE no @ROADMAP apos handoff aprovado

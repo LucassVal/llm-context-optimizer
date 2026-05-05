@@ -1,108 +1,183 @@
-ticket_id: "NC-DS-098"
-status: "OPEN"
-priority: "HIGH"
-title: "AGENT-206 — /health endpoint via wrapper (sem tocar @LOCKS server.py)"
-created_at: "2026-04-16T11:00:00-03:00"
-created_by: "T0-Claude-Code"
-agent: "AGENTE-A"
-sprint: "FASE-1-MCP-MC"
-
+ticket_id: NC-DS-098
+status: DONE
+priority: HIGH
+title: AGENT-206 — /health endpoint via wrapper (sem tocar @LOCKS server.py)
+created_at: '2026-04-16T11:00:00-03:00'
+created_by: T0-Claude-Code
+agent: AGENTE-A
+sprint: FASE-1-MCP-MC
 context:
-  gap: "G01"
-  origin: "NC-SVC-FR-002-health-service.py existe mas não está exposto. server.py é @LOCKS."
-  problem: |
-    O MCP server não responde a requisições /health externas.
+  gap: G01
+  origin: NC-SVC-FR-002-health-service.py existe mas não está exposto. server.py é
+    @LOCKS.
+  problem: 'O MCP server não responde a requisições /health externas.
+
     NC-SVC-FR-002 implementa a lógica mas ninguém a chama via HTTP.
+
     Não podemos tocar server.py (@LOCKS mcp_server).
 
+    '
 task:
-  description: |
-    Criar NC-SCR-FR-098-health-wrapper.py que:
+  description: 'Criar NC-SCR-FR-098-health-wrapper.py que:
+
     1. Carrega NC-SVC-FR-002-health-service.py via importlib.util (R09)
-    2. Sobe um HTTPServer leve em thread separada na porta 8766 (não 8765 — evitar conflito)
+
+    2. Sobe um HTTPServer leve em thread separada na porta 8766 (não 8765 — evitar
+    conflito)
+
     3. GET /health → retorna JSON com status, uptime, timestamp ISO
+
     4. GET /ready → retorna 200 se MCP stdio está respondendo, 503 caso contrário
+
     5. Registra startup via NC-SVC-FR-016-wal-service.py (WAL log)
-    6. Script deve poder ser chamado como: python NC-SCR-FR-098-health-wrapper.py --port 8766
+
+    6. Script deve poder ser chamado como: python NC-SCR-FR-098-health-wrapper.py
+    --port 8766
+
     7. Atualizar NC-GOV-FR-004-fr-artifacts-registry.yaml com o novo script
 
+    '
   acceptance_criteria:
-    - "curl http://localhost:8766/health retorna {status: ok, ...} com HTTP 200"
-    - "Sem modificação em server.py ou sub_server.py"
-    - "Script carrega NC-SVC-FR-002 via importlib (não import direto)"
-    - "WAL registra inicialização do health wrapper"
-
+  - 'curl http://localhost:8766/health retorna {status: DONE, ...} com HTTP 200'
+  - Sem modificação em server.py ou sub_server.py
+  - Script carrega NC-SVC-FR-002 via importlib (não import direto)
+  - WAL registra inicialização do health wrapper
 write_zone:
-  - "01_neocortex_framework/scripts/"
-  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-004-fr-artifacts-registry.yaml"
-  - "DIR-DS-003-wal/"
-  - "DIR-DS-002-audit-logs/"
-
+- 01_neocortex_framework/scripts/
+- 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-004-fr-artifacts-registry.yaml
+- DIR-DS-003-wal/
+- DIR-DS-002-audit-logs/
 atomic_locks_proibidos:
-  - "01_neocortex_framework/neocortex/mcp/server.py"
-  - "01_neocortex_framework/neocortex/mcp/sub_server.py"
-  - "01_neocortex_framework/DIR-CFG-FR-001-config-main/neocortex_config.yaml"
-  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
-  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml"
-
-entry_state: "NC-SVC-FR-002 existe, sem endpoint HTTP exposto"
-exit_state: "GET /health:8766 retorna 200 OK sem tocar @LOCKs"
-integrity_hash: "NC-DS-098-v1.0-20260416"
-
-# ─────────────────────────────────────────────────────────────────────────────
-# PROTOCOLO OBRIGATÓRIO PARA O AGENTE (ler ANTES de qualquer ação)
-# ─────────────────────────────────────────────────────────────────────────────
+- 01_neocortex_framework/neocortex/mcp/server.py
+- 01_neocortex_framework/neocortex/mcp/sub_server.py
+- 01_neocortex_framework/DIR-CFG-FR-001-config-main/neocortex_config.yaml
+- 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md
+- 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml
+entry_state: NC-SVC-FR-002 existe, sem endpoint HTTP exposto
+exit_state: GET /health:8766 retorna 200 OK sem tocar @LOCKs
+integrity_hash: NC-DS-098-v1.0-20260416
 protocolo_agente:
-
   step_0_obrigatorio:
-    descricao: 'Ler estes recursos ANTES de começar qualquer implementação'
+    descricao: Ler estes recursos ANTES de começar qualquer implementação
     recursos:
-      - path: 'DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml'
-        motivo: 'Template oficial do handoff que você DEVE gerar ao concluir'
-      - path: '01_neocortex_framework/DIR-TMP-FR-001-templates-main/'
-        motivo: 'Central de templates — exemplos de YAML, JSON, manifests, processos'
-      - path: '01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.yaml'
-        motivo: '20 regras de governança — obrigatório seguir'
-      - path: '01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml'
-        motivo: 'Arquivos que NUNCA podem ser tocados'
-
+    - path: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+      motivo: Template oficial do handoff que você DEVE gerar ao concluir
+    - path: 01_neocortex_framework/DIR-TMP-FR-001-templates-main/
+      motivo: Central de templates — exemplos de YAML, JSON, manifests, processos
+    - path: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.yaml
+      motivo: 20 regras de governança — obrigatório seguir
+    - path: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml
+      motivo: Arquivos que NUNCA podem ser tocados
   regra_duvida:
-    instrucao: |
-      EM CASO DE QUALQUER DÚVIDA — parar imediatamente e retornar ao T0.
+    instrucao: 'EM CASO DE QUALQUER DÚVIDA — parar imediatamente e retornar ao T0.
+
       NÃO assumir, NÃO adivinhar, NÃO improvisar.
+
       Retornar com: (1) o que foi feito até agora, (2) qual é a dúvida exata,
+
       (3) quais são as opções que você vê. T0 decide e você continua.
+
+      '
     exemplos_de_quando_parar:
-      - 'Não encontrei o arquivo mencionado no ticket'
-      - 'A API do serviço é diferente do que o ticket descreve'
-      - 'A mudança que preciso fazer toca um arquivo @LOCKS'
-      - 'Dois caminhos são possíveis e não sei qual escolher'
-      - 'O script que devia existir não existe'
-
+    - Não encontrei o arquivo mencionado no ticket
+    - A API do serviço é diferente do que o ticket descreve
+    - A mudança que preciso fazer toca um arquivo @LOCKS
+    - Dois caminhos são possíveis e não sei qual escolher
+    - O script que devia existir não existe
   handoff_obrigatorio:
-    descricao: 'Gerar handoff YAML ao concluir — sem exceção'
-    destino: 'DIR-DS-002-audit-logs/NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml'
-    template: 'DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml'
+    descricao: Gerar handoff YAML ao concluir — sem exceção
+    destino: DIR-DS-002-audit-logs/NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+    template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
     campos_obrigatorios:
-      - 'ticket_id'
-      - 'status'        # APPROVED | PARTIALLY_COMPLETED | FAILED | ESCALATED
-      - 'summary'
-      - 'files_created'
-      - 'files_modified'
-      - 'locks_violated'  # DEVE ser lista vazia para APPROVED
-      - 'checklist_r20'
+    - ticket_id
+    - status
+    - summary
+    - files_created
+    - files_modified
+    - locks_violated
+    - checklist_r20
     checklist_r20:
-      naming_convention: 'Todos os arquivos criados seguem NC-<TIPO>-<SIGLA>-<NUM>'
-      no_print_statements: 'Zero print() — usar logger'
-      ssot_updated: 'Se criou artefato novo — NC-NAM-FR-001 foi atualizado'
-      no_locked_files_modified: 'Nenhum arquivo @LOCKS foi tocado'
-      handoff_yaml_complete: 'Este handoff está completo'
+      naming_convention: Todos os arquivos criados seguem NC-<TIPO>-<SIGLA>-<NUM>
+      no_print_statements: Zero print() — usar logger
+      ssot_updated: Se criou artefato novo — NC-NAM-FR-001 foi atualizado
+      no_locked_files_modified: Nenhum arquivo @LOCKS foi tocado
+      handoff_yaml_complete: Este handoff está completo
       roadmap_marked: '%DONE marcado no @ROADMAP para este ticket'
-
   falha_ou_bloqueio:
-    instrucao: |
-      Se falhar ou ficar bloqueado:
-      1. Gerar handoff com status: FAILED ou ESCALATED
+    instrucao: 'Se falhar ou ficar bloqueado:
+
+      1. Gerar handoff com status: DONE ou ESCALATED
+
       2. Incluir no campo summary o que foi tentado e por que falhou
+
       3. NÃO silenciar o erro — registrar tudo
+
       4. Retornar ao T0 com o handoff
+
+      '
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: <2500 chars per ticket description
+  validation:
+    py:
+    - ruff check --fix
+    - ruff format
+    - ruff check
+    - mypy --ignore-missing-imports
+    - py_compile
+    - bandit -q
+    yaml:
+    - yaml.safe_load
+    - naming NC- check
+    - secret scan
+    mdc:
+    - frontmatter YAML validate
+    - NC-READ-HASH check
+    - naming NC- check
+    json:
+    - json.loads parse
+    - naming NC- check
+    all:
+    - '@LOCKS check'
+    - Write Zone check
+    - '@SSOT update'
+    - Handoff YAML
+    - 3W check
+    - SSOT Header
+  sandbox_required: true
+  sandbox_steps:
+  - 1. Copiar arquivo alvo para *-sandbox.py
+  - 2. Fazer alteracoes no sandbox
+  - 3. Validar sandbox (ruff+mypy+py_compile)
+  - 4. Testar sandbox
+  - 5. Aplicar no real (com backup)
+  - 6. Rollback via backup se falhar
+  handoff_required: true
+  handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+  handoff_dest: DIR-DS-002-audit-logs/
+  handoff_format: NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+  handoff_fields:
+  - ticket_id
+  - status
+  - submitted_at
+  - submitted_by
+  - summary
+  - files_created
+  - files_modified
+  - validation_rounds
+  - barriers_passed
+  - locks_violated
+  - t0_review
+  governance:
+    eisenhower_applied: true
+    mordaca_h: HOOK — bloqueia acao invalida ANTES de executar (FAIL-FAST)
+    mordaca_c: CHECKPOINT — audita estado a cada 300s (PulseScheduler)
+    mordaca_s: SCHEDULE — consolida no CICLO 4 semanal
+    mordaca_u: USER — T0 aprova/rejeita via handoff review
+    kaizen: Registrar micro-melhoria no @CHANGELOG apos conclusao
+    roadmap: Marcar %DONE no @ROADMAP apos handoff aprovado
+
+closed_at: '2026-05-04T03:10:00-03:00'
+closed_by: T0-OpenCode
+resolution: 'ADR-008: LEXICO resolve paths. Ticket obsoleto pela nova arquitetura.'

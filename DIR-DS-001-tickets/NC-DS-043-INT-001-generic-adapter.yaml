@@ -3,24 +3,82 @@ code: INT-001
 title: Mission Control Generic Adapter Implementation
 status: DONE
 handoff_ref: NC-DS-043-handoff-20260415T135000-retrospective.yaml
-completed_at: "2026-04-15T13:50:00-03:00"
+completed_at: '2026-04-15T13:50:00-03:00'
 assignee: Agente OpenCode na porta 34363
 context:
-  - 02_memory_lobes/NC-LBE-INT-004-mission-control.mdc
-  - 01_neocortex_framework/neocortex/core/config/neocortex_config.yaml
-task: |
-  **OBJETIVO**: Desenvolver a classe `MissionControlAdapter` conectando NeoCortex ao endpoint local localhost:3000.
-  Este ticket implementa toda a parte de Backend/Orquestração do Mission Control para enviar status das tarefas.
-  
-  **O QUE FAZER**:
-  1. Leia rigorosamente o arquivo `NC-LBE-INT-004-mission-control.mdc` (seção INTEGRAÇÃO COM NEOCORTEX).
-  2. Implemente o adaptador de frameworks no arquivo `01_neocortex_framework/neocortex/core/adapters/NC-ADP-FR-001-mission-control.py`.
-  3. Implemente as funções fundamentais mapeadas no arquivo `.mdc`: 
-      - `register_with_mission_control()`
-      - `send_heartbeat()`
-      - `report_task()`
-      - `fetch_assignments()`
-  4. Utilize a estrutura preexistente de classes Python e faça logs ricos usando o módulo `logging`.
-  5. Garanta que o adapter lide graciosamente com ausências do Mission Control (circuit breaker simplificado via timeout).
-  
-  **ATENÇÃO MASTER RULE R21**: Teste os imports gerando python -m py_compile após a geração e certifique de não usar módulos que não existem.
+- 02_memory_lobes/NC-LBE-INT-004-mission-control.mdc
+- 01_neocortex_framework/neocortex/core/config/neocortex_config.yaml
+task: "**OBJETIVO**: Desenvolver a classe `MissionControlAdapter` conectando NeoCortex\
+  \ ao endpoint local localhost:3000.\nEste ticket implementa toda a parte de Backend/Orquestração\
+  \ do Mission Control para enviar status das tarefas.\n\n**O QUE FAZER**:\n1. Leia\
+  \ rigorosamente o arquivo `NC-LBE-INT-004-mission-control.mdc` (seção INTEGRAÇÃO\
+  \ COM NEOCORTEX).\n2. Implemente o adaptador de frameworks no arquivo `01_neocortex_framework/neocortex/core/adapters/NC-ADP-FR-001-mission-control.py`.\n\
+  3. Implemente as funções fundamentais mapeadas no arquivo `.mdc`: \n    - `register_with_mission_control()`\n\
+  \    - `send_heartbeat()`\n    - `report_task()`\n    - `fetch_assignments()`\n\
+  4. Utilize a estrutura preexistente de classes Python e faça logs ricos usando o\
+  \ módulo `logging`.\n5. Garanta que o adapter lide graciosamente com ausências do\
+  \ Mission Control (circuit breaker simplificado via timeout).\n\n**ATENÇÃO MASTER\
+  \ RULE R21**: Teste os imports gerando python -m py_compile após a geração e certifique\
+  \ de não usar módulos que não existem.\n"
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: <2500 chars per ticket description
+  validation:
+    py:
+    - ruff check --fix
+    - ruff format
+    - ruff check
+    - mypy --ignore-missing-imports
+    - py_compile
+    - bandit -q
+    yaml:
+    - yaml.safe_load
+    - naming NC- check
+    - secret scan
+    mdc:
+    - frontmatter YAML validate
+    - NC-READ-HASH check
+    - naming NC- check
+    json:
+    - json.loads parse
+    - naming NC- check
+    all:
+    - '@LOCKS check'
+    - Write Zone check
+    - '@SSOT update'
+    - Handoff YAML
+    - 3W check
+    - SSOT Header
+  sandbox_required: true
+  sandbox_steps:
+  - 1. Copiar arquivo alvo para *-sandbox.py
+  - 2. Fazer alteracoes no sandbox
+  - 3. Validar sandbox (ruff+mypy+py_compile)
+  - 4. Testar sandbox
+  - 5. Aplicar no real (com backup)
+  - 6. Rollback via backup se falhar
+  handoff_required: true
+  handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+  handoff_dest: DIR-DS-002-audit-logs/
+  handoff_format: NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+  handoff_fields:
+  - ticket_id
+  - status
+  - submitted_at
+  - submitted_by
+  - summary
+  - files_created
+  - files_modified
+  - validation_rounds
+  - barriers_passed
+  - locks_violated
+  - t0_review
+  governance:
+    eisenhower_applied: true
+    mordaca_h: HOOK — bloqueia acao invalida ANTES de executar (FAIL-FAST)
+    mordaca_c: CHECKPOINT — audita estado a cada 300s (PulseScheduler)
+    mordaca_s: SCHEDULE — consolida no CICLO 4 semanal
+    mordaca_u: USER — T0 aprova/rejeita via handoff review
+    kaizen: Registrar micro-melhoria no @CHANGELOG apos conclusao
+    roadmap: Marcar %DONE no @ROADMAP apos handoff aprovado

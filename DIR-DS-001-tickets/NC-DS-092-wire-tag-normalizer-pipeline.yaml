@@ -1,88 +1,141 @@
-ticket_id: "NC-DS-092"
-status: "DONE"
-priority: "MEDIUM"
-title: "Integrar NC-SVC-FR-018-tag-normalizer no pipeline Ciclo 3 e registrar em GOV-FR-004"
-created_at: "2026-04-16T00:00:00-03:00"
-created_by: "T0-Claude-Code"
-
+ticket_id: NC-DS-092
+status: DONE
+priority: MEDIUM
+title: Integrar NC-SVC-FR-018-tag-normalizer no pipeline Ciclo 3 e registrar em GOV-FR-004
+created_at: '2026-04-16T00:00:00-03:00'
+created_by: T0-Claude-Code
 context:
-  origin: "Pós NC-DS-090"
-  problem: |
-    NC-SVC-FR-018-tag-normalizer.py (criado em NC-DS-090) existe mas não está
+  origin: Pós NC-DS-090
+  problem: 'NC-SVC-FR-018-tag-normalizer.py (criado em NC-DS-090) existe mas não está
+
     conectado a nenhum script do pipeline. O Ciclo 3 executa NC-SCR-FR-009 sem
+
     normalização de tags. Lobos gerados pelo populate-lobes podem ter símbolos
+
     inválidos sem detecção.
-  prerequisite: "NC-DS-090 APPROVED"
 
+    '
+  prerequisite: NC-DS-090 APPROVED
 task:
-  description: |
-    Integrar NC-SVC-FR-018-tag-normalizer em 3 pontos:
+  description: "Integrar NC-SVC-FR-018-tag-normalizer em 3 pontos:\n\n1. NC-SCR-FR-009-sanitize-all-yamls.py\n\
+    \   - Adicionar passo 5 ao final do script:\n       from neocortex.core.services.NC-SVC-FR-018-tag-normalizer\
+    \ import TagNormalizer\n       normalizer = TagNormalizer()\n       result = normalizer.scan(BASE\
+    \ / \"DIR-DS-001-tickets\", recursive=True)\n       # Logar violations no relatório\
+    \ final\n   - WAL transaction: logar cada arquivo corrigido\n\n2. NC-SCR-FR-066-bootup-sync.py\n\
+    \   - Antes de escrever o manifesto, chamar:\n       normalizer.validate_lobe(manifest_path)\n\
+    \       # Se violations > 0: logar warning (não bloquear)\n\n3. NC-SCR-FR-001-populate-lobes-ssot.py\
+    \ (se existir)\n   - Chamar normalizer.validate_lobe(lobe_path) para cada lobe\
+    \ gerado\n   - Registrar violations no relatório final\n\n4. NC-GOV-FR-004-fr-artifacts-registry.yaml\n\
+    \   - Adicionar entrada NC-SVC-FR-018 na seção SVC:\n       - id: NC-SVC-FR-018\n\
+    \         name: tag-normalizer\n         path: \"01_neocortex_framework/neocortex/core/services/NC-SVC-FR-018-tag-normalizer.py\"\
+    \n         status: DONE\n         depends_on: [NC-SVC-FR-016, NC-DOC-FR-001]\n\
+    \n5. NC-WF-001-workspace-routine.md\n   - Adicionar \"tag_normalizer\" aos governance_links\n\
+    \   - Adicionar passo em Ciclo 3: \"python scripts/NC-SCR-FR-009-sanitize-all-yamls.py\"\
+    \n     (já inclui a normalização como passo 5)\n"
+  verification: 'python NC-SCR-FR-009-sanitize-all-yamls.py
 
-    1. NC-SCR-FR-009-sanitize-all-yamls.py
-       - Adicionar passo 5 ao final do script:
-           from neocortex.core.services.NC-SVC-FR-018-tag-normalizer import TagNormalizer
-           normalizer = TagNormalizer()
-           result = normalizer.scan(BASE / "DIR-DS-001-tickets", recursive=True)
-           # Logar violations no relatório final
-       - WAL transaction: logar cada arquivo corrigido
-
-    2. NC-SCR-FR-066-bootup-sync.py
-       - Antes de escrever o manifesto, chamar:
-           normalizer.validate_lobe(manifest_path)
-           # Se violations > 0: logar warning (não bloquear)
-
-    3. NC-SCR-FR-001-populate-lobes-ssot.py (se existir)
-       - Chamar normalizer.validate_lobe(lobe_path) para cada lobe gerado
-       - Registrar violations no relatório final
-
-    4. NC-GOV-FR-004-fr-artifacts-registry.yaml
-       - Adicionar entrada NC-SVC-FR-018 na seção SVC:
-           - id: NC-SVC-FR-018
-             name: tag-normalizer
-             path: "01_neocortex_framework/neocortex/core/services/NC-SVC-FR-018-tag-normalizer.py"
-             status: ACTIVE
-             depends_on: [NC-SVC-FR-016, NC-DOC-FR-001]
-
-    5. NC-WF-001-workspace-routine.md
-       - Adicionar "tag_normalizer" aos governance_links
-       - Adicionar passo em Ciclo 3: "python scripts/NC-SCR-FR-009-sanitize-all-yamls.py"
-         (já inclui a normalização como passo 5)
-
-  verification: |
-    python NC-SCR-FR-009-sanitize-all-yamls.py
     # Deve incluir output: "TAG-NORMALIZER: X symbols validated, Y violations"
+
     python NC-SVC-FR-018-tag-normalizer.py scan 01_neocortex_framework/lobes/ --recursive
+
     # Deve mostrar 0 novos arquivos inválidos após integração
 
-  instrucoes_handoff: |
-    Salvar em: DIR-DS-002-audit-logs/NC-DS-092-handoff-YYYYMMDDTHHMMSS.yaml
+    '
+  instrucoes_handoff: 'Salvar em: DIR-DS-002-audit-logs/NC-DS-092-handoff-YYYYMMDDTHHMMSS.yaml
 
+    '
   checklist_r20:
     naming_convention: true
     no_print_statements: true
     ssot_updated: true
     no_locked_files_modified: true
     handoff_yaml_complete: true
-
 environment:
-  python: "C:\\Program Files\\Python312\\python.exe"
-  project_root: "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
-
+  python: C:\Program Files\Python312\python.exe
+  project_root: C:\Users\Lucas Valério\Desktop\TURBOQUANT_V42
 write_zone:
-  - "01_neocortex_framework/scripts/"
-  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/"
-  - ".agents/workflows/"
-  - "DIR-DS-002-audit-logs/"
-
+- 01_neocortex_framework/scripts/
+- 01_neocortex_framework/DIR-DOC-FR-001-docs-main/
+- .agents/workflows/
+- DIR-DS-002-audit-logs/
 atomic_locks_proibidos:
-  - "01_neocortex_framework/neocortex/server.py"
-  - "01_neocortex_framework/neocortex/sub_server.py"
-  - "01_neocortex_framework/neocortex_config.yaml"
-
-depends_on: "NC-DS-090"   # tag-normalizer deve existir
+- 01_neocortex_framework/neocortex/server.py
+- 01_neocortex_framework/neocortex/sub_server.py
+- 01_neocortex_framework/neocortex_config.yaml
+depends_on: NC-DS-090
 blocks: null
+tags:
+- sanitizacao
+- wiring
+- ciclo3
+- pipeline
+- governance
+domain: quality
+layer: integration
+type: INTEGRATION
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: <2500 chars per ticket description
+  validation:
+    py:
+    - ruff check --fix
+    - ruff format
+    - ruff check
+    - mypy --ignore-missing-imports
+    - py_compile
+    - bandit -q
+    yaml:
+    - yaml.safe_load
+    - naming NC- check
+    - secret scan
+    mdc:
+    - frontmatter YAML validate
+    - NC-READ-HASH check
+    - naming NC- check
+    json:
+    - json.loads parse
+    - naming NC- check
+    all:
+    - '@LOCKS check'
+    - Write Zone check
+    - '@SSOT update'
+    - Handoff YAML
+    - 3W check
+    - SSOT Header
+  sandbox_required: true
+  sandbox_steps:
+  - 1. Copiar arquivo alvo para *-sandbox.py
+  - 2. Fazer alteracoes no sandbox
+  - 3. Validar sandbox (ruff+mypy+py_compile)
+  - 4. Testar sandbox
+  - 5. Aplicar no real (com backup)
+  - 6. Rollback via backup se falhar
+  handoff_required: true
+  handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+  handoff_dest: DIR-DS-002-audit-logs/
+  handoff_format: NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+  handoff_fields:
+  - ticket_id
+  - status
+  - submitted_at
+  - submitted_by
+  - summary
+  - files_created
+  - files_modified
+  - validation_rounds
+  - barriers_passed
+  - locks_violated
+  - t0_review
+  governance:
+    eisenhower_applied: true
+    mordaca_h: HOOK — bloqueia acao invalida ANTES de executar (FAIL-FAST)
+    mordaca_c: CHECKPOINT — audita estado a cada 300s (PulseScheduler)
+    mordaca_s: SCHEDULE — consolida no CICLO 4 semanal
+    mordaca_u: USER — T0 aprova/rejeita via handoff review
+    kaizen: Registrar micro-melhoria no @CHANGELOG apos conclusao
+    roadmap: Marcar %DONE no @ROADMAP apos handoff aprovado
 
-tags: ["sanitizacao", "wiring", "ciclo3", "pipeline", "governance"]
-domain: "quality"
-layer: "integration"
-type: "INTEGRATION"
+closed_at: '2026-05-04T03:10:00-03:00'
+closed_by: T0-OpenCode
+resolution: 'Boot v7 updated. Ticket obsoleto pela nova arquitetura.'

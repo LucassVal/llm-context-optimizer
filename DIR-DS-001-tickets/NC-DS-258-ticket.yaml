@@ -1,0 +1,182 @@
+# NC-DS-258 — MCP Utility Primitives: Implementar progress tracking (tools >5s), ping keepalive, cancellation ($/cancelRequest)
+# WHAT: Adicionar primitivas utilitárias do protocolo MCP — progress, ping, cancellation
+# WHY: Tools long-running (>5s) precisam de progress feedback. Conexões precisam de keepalive. Requests precisam ser canceláveis.
+# WHERE: 01_neocortex_framework/neocortex/mcp/utilities.py (novo módulo)
+
+ticket_id: NC-DS-258
+title: "MCP Utility Primitives — Implementar progress tracking (tools >5s), ping keepalive, cancellation ($/cancelRequest)"
+status: "PENDING_REVIEW"
+priority: P1
+assignee: opencode
+created: "2026-05-04"
+description: |
+  GAP IDENTIFICADO: O servidor MCP não implementa as primitivas utilitárias definidas 
+  na spec: progress tracking, ping keepalive, e cancellation. Sem essas primitivas, 
+  tools long-running deixam o client sem feedback, conexões podem ser encerradas por 
+  timeout, e requests em andamento não podem ser cancelados.
+
+  A spec MCP (NC-LBE-INT-006 §1.4) define essas como "Utility Primitives".
+
+  ESCOPO:
+
+  1. PROGRESS TRACKING (tools >5s):
+     - Protocolo: servidor envia notifications/progress durante execução longa
+     - Formato da notification:
+       ```json
+       {
+         "method": "notifications/progress",
+         "params": {
+           "progressToken": "unique-request-token",
+           "progress": 45,        // valor numérico
+           "total": 100,          // opcional, para barras de progresso
+           "message": "Processing lobe 5/12..."  // opcional
+         }
+       }
+       ```
+     - Tool decorator que automaticamente adiciona progress tracking:
+       ```python
+       @mcp.tool()
+       @with_progress(total_steps=100, threshold_seconds=5.0)
+       async def long_running_tool(...):
+           for i in range(100):
+               await process_step(i)
+               await report_progress(i + 1)  # automático via decorator
+       ```
+     - Progress token: client envia `_meta.progressToken` no request params
+     - Servidor usa esse token para enviar notifications/progress
+     - Se client não envia progressToken → tool executa sem progress (compatibilidade)
+
+  2. TOOLS QUE PRECISAM DE PROGRESS:
+     | Tool | Duração Estimada | Total Steps |
+     |------|-----------------|-------------|
+     | nc_audit (full) | 30-120s | 3 layers × N files |
+     | nc_populate_lobes | 10-60s | N lobes to populate |
+     | nc_boot_sync | 15-45s | catalog + tickets + manifest |
+     | nc_validate (full pipeline) | 10-30s | ruff + mypy + pyright + bandit + yaml + json |
+     | nc_governance_audit (full) | 60-180s | all 13 governance rules |
+     | nc_archive (batch) | 5-30s | N files to archive |
+     | nc_regression_check (full) | 10-60s | check all past failures |
+
+  3. PING KEEPALIVE:
+     - Protocolo: client envia `{"method": "ping"}` → servidor responde `{}`
+     - Implementar handler para ping method
+     - Manter contador de pings recebidos (métrica de health)
+     - Timeout detection: se nenhum ping em 300s → log warning
+     - Útil para Streamable HTTP connections que podem ser encerradas por proxy/firewall
+     - stdio transport: ping menos crítico (conexão local), mas ainda suportado
+     - Registrar ping latency como métrica
+
+  4. CANCELLATION ($/cancelRequest):
+     - Protocolo: client envia `{"method": "$/cancelRequest", "params": {"requestId": 42}}`
+     - Servidor tenta cancelar request em andamento (best-effort)
+     - Implementação:
+       a. CancellationTokenRegistry: dict[request_id, asyncio.Event]
+       b. Tool que suporta cancellation verifica periodicamente: `await check_cancelled(request_id)`
+       c. Se cancelado: tool faz cleanup e retorna erro com isError: true + mensagem "Cancelled by client"
+       d. Se tool não suporta cancellation: ignora (best-effort por spec)
+     - Tools que DEVEM suportar cancellation:
+       - nc_audit (longo, cancelável entre layers)
+       - nc_populate_lobes (cancelável entre lobes)
+       - nc_governance_audit (cancelável entre rules)
+       - nc_archive (cancelável entre files)
+     - Padrão de implementação:
+       ```python
+       async def cancellable_tool(request_id: str, ...):
+           token = cancellation_registry.register(request_id)
+           for step in steps:
+               if token.is_cancelled():
+                   return mcp_error("Cancelled by client", "Re-run when ready")
+               await do_work(step)
+           cancellation_registry.unregister(request_id)
+       ```
+
+  5. MÉTRICAS DE UTILIDADE:
+     - Progress events enviados (counter)
+     - Pings recebidos (counter) + P99 latency (histogram)
+     - Cancellations recebidas (counter) + taxa de sucesso (ratio)
+     - Tools que completaram com progress vs sem progress (ratio)
+     - Expor métricas via notifications/message (logging capability)
+
+  PADRÃO DE REFERÊNCIA: NC-LBE-INT-006-mcp-specification.mdc §1.4 (Utility Primitives — 
+  Progress, Ping, Cancellation), §17.2 (Gap #4: Progress tracking, Gap #10: Ping keepalive).
+
+  IMPACTO: UX muito melhor para tools long-running (progress bar no client). Conexões 
+  mais robustas (ping keepalive). Usuários podem cancelar operações longas sem reiniciar 
+  o servidor.
+
+context:
+  - "Reference: 02_memory_lobes/02_integrations/NC-LBE-INT-006-mcp-specification.mdc §1.4 (Utility Primitives — Progress tracking, Ping, Cancellation), §17.2 (Gaps #4 and #10)"
+  - "Gap found by structural audit 2026-05-04 — Zero utility primitives implementadas"
+  - "FastMCP: session.send_progress_notification(progress_token, progress, total, message)"
+  - "FastMCP: ping handler built-in ou custom"
+  - "MCP Spec: $/cancelRequest é método padrão para cancellation"
+  - "SEP-1686: Tasks (Experimental) — relacionado a progress tracking"
+
+task: |
+  1. Criar 01_neocortex_framework/neocortex/mcp/utilities.py (~400 linhas)
+     a. Progress Tracking:
+        - Implementar ProgressTracker class:
+          - report(progress_token, value, total=None, message=None)
+          - wrap_tool(tool_fn, total_steps, threshold_seconds) → decorator
+          - auto_detect: se tool >5s, começa a reportar progress automaticamente
+        - Implementar with_progress decorator:
+          ```python
+          @with_progress(total=100, threshold=5.0)
+          async def my_tool(progress_token: str = None, ...):
+              for i in range(100):
+                  await do_work()
+                  await update_progress(i+1)
+          ```
+        - Usar asyncio.create_task + asyncio.sleep para auto-detection de long-running
+
+     b. Ping Keepalive:
+        - Implementar ping_handler() → responde {} imediatamente
+        - Implementar PingMonitor class:
+          - Track last_ping_time por client
+          - Warning log se >300s sem ping
+          - Métrica: ping_count, ping_latency_p99
+        - Registrar handler para método "ping" no FastMCP
+
+     c. Cancellation:
+        - Implementar CancellationTokenRegistry class:
+          - register(request_id) → CancellationToken
+          - CancellationToken: is_cancelled() → bool, cancel() → void
+          - Cleanup automático após tool completar (finally block)
+        - Implementar cancellable decorator:
+          ```python
+          @cancellable
+          async def my_tool(request_id: str, ...):
+              for step in steps:
+                  await check_cancellation()  # raises CancelledError
+                  await do_work()
+          ```
+        - Handler para $/cancelRequest: cancela token correspondente
+
+     d. Usar logger = logging.getLogger(__name__) — NUNCA print()
+
+  2. Integrar em server.py:
+     a. Inicializar ProgressTracker, PingMonitor, CancellationTokenRegistry
+     b. Registrar handlers: ping, $/cancelRequest
+     c. Wrapar tools long-running com with_progress decorator
+     d. NÃO modificar sub_server.py (R04)
+
+  3. Aplicar progress tracking nas tools identificadas:
+     a. nc_audit: with_progress(total=3, message_template="Audit layer {step}/3...")
+     b. nc_populate_lobes: with_progress(total=N, message_template="Populating lobe {step}/{total}...")
+     c. nc_boot_sync: with_progress(total=3, message_template="Boot sync step {step}/3...")
+     d. nc_governance_audit: with_progress(total=13, message_template="Rule {step}/13...")
+
+  4. VALIDAÇÃO:
+     - ruff + mypy + py_compile + bandit em utilities.py
+     - Testar com MCP Inspector: enviar ping → verificar response {}
+     - Testar: tool long-running com progressToken → verificar notifications/progress
+     - Testar: enviar $/cancelRequest durante tool → verificar tool retorna isError: true
+     - Testar: tool sem progressToken → executa normalmente (sem progress)
+     - Verificar: ping latency < 10ms em localhost
+
+write_zone: "PROD → 01_neocortex_framework/neocortex/mcp/utilities.py"
+locks:
+  - "01_neocortex_framework/neocortex/mcp/server.py → MODIFICAR SOMENTE PARA INICIALIZAR UTILITY MANAGERS"
+  - "01_neocortex_framework/neocortex/mcp/sub_server.py → NUNCA MODIFICAR"
+
+

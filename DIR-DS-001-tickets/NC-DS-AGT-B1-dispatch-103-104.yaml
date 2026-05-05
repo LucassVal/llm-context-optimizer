@@ -1,177 +1,196 @@
-# NC-DS-AGT-B1-dispatch-103-104.yaml
-# Documento de Despacho Oficial — AGENTE B1
-# Dupla Mordaça: este YAML + NC-DS-AGT-B1-dispatch-103-104.md (pendente Ciclo 4)
-# ─────────────────────────────────────────────────────────────────────────────
-
 meta:
-  id: "NC-DS-AGT-B1"
-  version: "1.0"
-  hash: "NC-DS-AGT-B1-v1.0-20260416"
-  created_at: "2026-04-16T17:30:00-03:00"
-  created_by: "T0-Claude-Code"
-  agent: "AGENTE-B1"
-  sprint: "FASE-1-MCP-MC"
-  tickets: ["NC-DS-103", "NC-DS-104"]
-  priority: "HIGH"
-
-# ─────────────────────────────────────────────────────────────────────────────
-# IDENTIDADE E PAPEL
-# ─────────────────────────────────────────────────────────────────────────────
+  id: NC-DS-AGT-B1
+  version: '1.0'
+  hash: NC-DS-AGT-B1-v1.0-20260416
+  created_at: '2026-04-16T17:30:00-03:00'
+  created_by: T0-Claude-Code
+  agent: AGENTE-B1
+  sprint: FASE-1-MCP-MC
+  tickets:
+  - NC-DS-103
+  - NC-DS-104
+  priority: HIGH
 identidade:
-  role: "Engenheiro T1 — MC Adapter Core"
-  modelo: "DeepSeek (via PicoClaw :18790)"
-  supervisor: "T0-Claude-Code (Antigravity)"
-  escopo: "Mission Control adapter + startup hook — sem tocar @LOCKS"
-
-# ─────────────────────────────────────────────────────────────────────────────
-# PASSO 0 — LER ANTES DE QUALQUER AÇÃO (OBRIGATÓRIO)
-# ─────────────────────────────────────────────────────────────────────────────
+  role: Engenheiro T1 — MC Adapter Core
+  modelo: DeepSeek (via PicoClaw :18790)
+  supervisor: T0-Claude-Code (Antigravity)
+  escopo: Mission Control adapter + startup hook — sem tocar @LOCKS
 passo_0_leitura_obrigatoria:
-  instrucao: "Ler TODOS estes recursos antes de escrever uma linha de código."
+  instrucao: Ler TODOS estes recursos antes de escrever uma linha de código.
   recursos:
-    - path: "DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml"
-      motivo: "Template do handoff que você VAI gerar ao concluir cada ticket"
-    - path: "01_neocortex_framework/DIR-TMP-FR-001-templates-main/NC-TPL-FR-001-template-central-index.yaml"
-      motivo: "Catálogo de templates — consultar antes de criar qualquer artefato"
-    - path: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.yaml"
-      motivo: "23 regras de governança — R21/R22/R23 são críticas para você"
-    - path: "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml"
-      motivo: "Lista de arquivos que NUNCA podem ser tocados — memorize"
-    - path: "DIR-DS-001-tickets/NC-DS-103-mc-startup-wiring.yaml"
-      motivo: "Ticket 1 — leia task, write_zone e atomic_locks_proibidos"
-    - path: "DIR-DS-001-tickets/NC-DS-104-mc-adapter-async-refactor.yaml"
-      motivo: "Ticket 2 — leia task, write_zone e atomic_locks_proibidos"
-
-# ─────────────────────────────────────────────────────────────────────────────
-# REGRA DE OURO — ZERO SUPOSIÇÕES (R21)
-# ─────────────────────────────────────────────────────────────────────────────
+  - path: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+    motivo: Template do handoff que você VAI gerar ao concluir cada ticket
+  - path: 01_neocortex_framework/DIR-TMP-FR-001-templates-main/NC-TPL-FR-001-template-central-index.yaml
+    motivo: Catálogo de templates — consultar antes de criar qualquer artefato
+  - path: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.yaml
+    motivo: 23 regras de governança — R21/R22/R23 são críticas para você
+  - path: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml
+    motivo: Lista de arquivos que NUNCA podem ser tocados — memorize
+  - path: DIR-DS-001-tickets/NC-DS-103-mc-startup-wiring.yaml
+    motivo: Ticket 1 — leia task, write_zone e atomic_locks_proibidos
+  - path: DIR-DS-001-tickets/NC-DS-104-mc-adapter-async-refactor.yaml
+    motivo: Ticket 2 — leia task, write_zone e atomic_locks_proibidos
 regra_zero_suposicoes:
-  lei: "R21 — Em caso de QUALQUER dúvida: PARAR e retornar ao T0."
+  lei: 'R21 — Em caso de QUALQUER dúvida: PARAR e retornar ao T0.'
   nao_fazer:
-    - "NÃO assumir que um arquivo existe sem verificar"
-    - "NÃO improvisar API ou estrutura não documentada"
-    - "NÃO continuar se a mudança necessária toca um @LOCK"
-    - "NÃO escolher entre dois caminhos sem confirmação do T0"
-  como_retornar: |
-    Parar. Escrever:
-      (1) O que foi feito até agora
-      (2) Qual é a dúvida exata
-      (3) Quais são as opções que você vê
-    Aguardar decisão do T0. Não prosseguir sem resposta.
-
-# ─────────────────────────────────────────────────────────────────────────────
-# ATOMIC LOCKS — NUNCA TOCAR (sob qualquer circunstância)
-# ─────────────────────────────────────────────────────────────────────────────
+  - NÃO assumir que um arquivo existe sem verificar
+  - NÃO improvisar API ou estrutura não documentada
+  - NÃO continuar se a mudança necessária toca um @LOCK
+  - NÃO escolher entre dois caminhos sem confirmação do T0
+  como_retornar: "Parar. Escrever:\n  (1) O que foi feito até agora\n  (2) Qual é\
+    \ a dúvida exata\n  (3) Quais são as opções que você vê\nAguardar decisão do T0.\
+    \ Não prosseguir sem resposta.\n"
 atomic_locks_absolutos:
   files:
-    - "01_neocortex_framework/neocortex/mcp/server.py"
-    - "01_neocortex_framework/neocortex/mcp/sub_server.py"
-    - "01_neocortex_framework/DIR-CFG-FR-001-config-main/neocortex_config.yaml"
-    - "antigravity_neocortex_config.json"
-    - "start_neocortex_mcp.ps1"
-    - "01_neocortex_framework/DIR-CORE-FR-001-core-central/NC-LED-FR-001-framework-ledger.json"
-    - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md"
-    - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml"
-    - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.yaml"
-  consequencia: "Violação = BLOQUEIO IMEDIATO. Gerar handoff ESCALATED e retornar ao T0."
-
-# ─────────────────────────────────────────────────────────────────────────────
-# WRITE ZONES AUTORIZADAS
-# ─────────────────────────────────────────────────────────────────────────────
+  - 01_neocortex_framework/neocortex/mcp/server.py
+  - 01_neocortex_framework/neocortex/mcp/sub_server.py
+  - 01_neocortex_framework/DIR-CFG-FR-001-config-main/neocortex_config.yaml
+  - antigravity_neocortex_config.json
+  - start_neocortex_mcp.ps1
+  - 01_neocortex_framework/DIR-CORE-FR-001-core-central/NC-LED-FR-001-framework-ledger.json
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-003-ia-governance-rules.yaml
+  consequencia: Violação = BLOQUEIO IMEDIATO. Gerar handoff ESCALATED e retornar ao
+    T0.
 write_zones_autorizadas:
   files:
-    - "01_neocortex_framework/scripts/NC-SCR-FR-103-mc-startup-hook.py"
-    - "01_neocortex_framework/neocortex/core/adapters/"
-    - "DIR-DS-002-audit-logs/"
-  nota: "Qualquer escrita FORA dessas zonas requer aprovação T0 antes."
-
-# ─────────────────────────────────────────────────────────────────────────────
-# TAREFAS — EXECUÇÃO SEQUENCIAL
-# ─────────────────────────────────────────────────────────────────────────────
+  - 01_neocortex_framework/scripts/NC-SCR-FR-103-mc-startup-hook.py
+  - 01_neocortex_framework/neocortex/core/adapters/
+  - DIR-DS-002-audit-logs/
+  nota: Qualquer escrita FORA dessas zonas requer aprovação T0 antes.
 tarefas:
-
   ticket_1:
-    id: "NC-DS-103"
-    titulo: "MC Startup Hook — NC-SCR-FR-103-mc-startup-hook.py"
-    arquivo_ticket: "DIR-DS-001-tickets/NC-DS-103-mc-startup-wiring.yaml"
-
+    id: NC-DS-103
+    titulo: MC Startup Hook — NC-SCR-FR-103-mc-startup-hook.py
+    arquivo_ticket: DIR-DS-001-tickets/NC-DS-103-mc-startup-wiring.yaml
     inicio:
-      - "Ler ticket NC-DS-103 completo (task, acceptance_criteria, write_zone)"
-      - "Verificar se NC-SCR-FR-103-mc-startup-hook.py já existe em scripts/"
-      - "Ler NC-ADP-FR-001-mission-control.py para entender API do adapter"
-
+    - Ler ticket NC-DS-103 completo (task, acceptance_criteria, write_zone)
+    - Verificar se NC-SCR-FR-103-mc-startup-hook.py já existe em scripts/
+    - Ler NC-ADP-FR-001-mission-control.py para entender API do adapter
     meio:
-      - "Criar/atualizar NC-SCR-FR-103-mc-startup-hook.py seguindo as instruções do ticket"
-      - "Zero print() — usar logger = logging.getLogger(__name__)"
-      - "Importar serviços via importlib.util (R09) — não import direto"
-      - "Suporte a --dry-run obrigatório"
-
+    - Criar/atualizar NC-SCR-FR-103-mc-startup-hook.py seguindo as instruções do ticket
+    - Zero print() — usar logger = logging.getLogger(__name__)
+    - Importar serviços via importlib.util (R09) — não import direto
+    - Suporte a --dry-run obrigatório
     validacao_obrigatoria:
-      - cmd: "python -m py_compile 01_neocortex_framework/scripts/NC-SCR-FR-103-mc-startup-hook.py"
-        esperado: "Sem erros de sintaxe"
-      - cmd: "python -m ruff check 01_neocortex_framework/scripts/NC-SCR-FR-103-mc-startup-hook.py"
-        esperado: "0 erros"
-      - cmd: "python 01_neocortex_framework/scripts/NC-SCR-FR-103-mc-startup-hook.py --dry-run"
-        esperado: "Executa sem exceção"
-
+    - cmd: python -m py_compile 01_neocortex_framework/scripts/NC-SCR-FR-103-mc-startup-hook.py
+      esperado: Sem erros de sintaxe
+    - cmd: python -m ruff check 01_neocortex_framework/scripts/NC-SCR-FR-103-mc-startup-hook.py
+      esperado: 0 erros
+    - cmd: python 01_neocortex_framework/scripts/NC-SCR-FR-103-mc-startup-hook.py
+        --dry-run
+      esperado: Executa sem exceção
     fim:
-      - "Gerar handoff YAML em DIR-DS-002-audit-logs/"
-      - "Nome: NC-DS-103-handoff-{YYYYMMDDTHHMMSS}.yaml"
-      - "Template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml"
-      - "Status: APPROVED (se tudo OK) | PARTIALLY_COMPLETED | FAILED"
-
+    - Gerar handoff YAML em DIR-DS-002-audit-logs/
+    - 'Nome: NC-DS-103-handoff-{YYYYMMDDTHHMMSS}.yaml'
+    - 'Template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml'
+    - 'Status: APPROVED (se tudo OK) | PARTIALLY_COMPLETED | FAILED'
   ticket_2:
-    id: "NC-DS-104"
-    titulo: "MC Adapter Async Refactor — NC-ADP-FR-001"
-    arquivo_ticket: "DIR-DS-001-tickets/NC-DS-104-mc-adapter-async-refactor.yaml"
-
+    id: NC-DS-104
+    titulo: MC Adapter Async Refactor — NC-ADP-FR-001
+    arquivo_ticket: DIR-DS-001-tickets/NC-DS-104-mc-adapter-async-refactor.yaml
     inicio:
-      - "Ler ticket NC-DS-104 completo"
-      - "Ler NC-ADP-FR-001-mission-control.py INTEIRO antes de alterar"
-      - "Identificar bloqueios síncronos no adapter"
-
+    - Ler ticket NC-DS-104 completo
+    - Ler NC-ADP-FR-001-mission-control.py INTEIRO antes de alterar
+    - Identificar bloqueios síncronos no adapter
     meio:
-      - "Refatorar chamadas síncronas para async/await onde bloqueiam o loop MCP"
-      - "Manter interface pública idêntica — não quebrar callers"
-      - "Zero print() — logger apenas"
-      - "Não tocar server.py nem sub_server.py (@LOCKS)"
-
+    - Refatorar chamadas síncronas para async/await onde bloqueiam o loop MCP
+    - Manter interface pública idêntica — não quebrar callers
+    - Zero print() — logger apenas
+    - Não tocar server.py nem sub_server.py (@LOCKS)
     validacao_obrigatoria:
-      - cmd: "python -m py_compile 01_neocortex_framework/neocortex/core/adapters/NC-ADP-FR-001-mission-control.py"
-        esperado: "Sem erros"
-      - cmd: "python -m ruff check 01_neocortex_framework/neocortex/core/adapters/NC-ADP-FR-001-mission-control.py"
-        esperado: "0 erros"
-
+    - cmd: python -m py_compile 01_neocortex_framework/neocortex/core/adapters/NC-ADP-FR-001-mission-control.py
+      esperado: Sem erros
+    - cmd: python -m ruff check 01_neocortex_framework/neocortex/core/adapters/NC-ADP-FR-001-mission-control.py
+      esperado: 0 erros
     fim:
-      - "Gerar handoff YAML: NC-DS-104-handoff-{YYYYMMDDTHHMMSS}.yaml"
-      - "Campos obrigatórios: ticket_id, status, summary, files_modified, locks_violated: []"
-
-# ─────────────────────────────────────────────────────────────────────────────
-# CHECKLIST R20 — OBRIGATÓRIO EM CADA HANDOFF
-# ─────────────────────────────────────────────────────────────────────────────
+    - 'Gerar handoff YAML: NC-DS-104-handoff-{YYYYMMDDTHHMMSS}.yaml'
+    - 'Campos obrigatórios: ticket_id, status, summary, files_modified, locks_violated:
+      []'
 checklist_r20_por_handoff:
-  naming_convention: "Todos os arquivos criados seguem NC-<TIPO>-<SIGLA>-<NUM>"
-  no_print_statements: "Zero print() nos arquivos criados/modificados"
-  ssot_updated: "Se criou artefato novo — informar T0 para NC-NAM-FR-001"
-  no_locked_files_modified: "locks_violated: [] obrigatório para APPROVED"
-  handoff_yaml_complete: "Todos os campos do template preenchidos"
-  ruff_ok: "ruff check 0 erros nos arquivos do diff"
-  py_compile_ok: "py_compile sem erros em todos os .py criados/modificados"
-
-# ─────────────────────────────────────────────────────────────────────────────
-# FALHA OU BLOQUEIO
-# ─────────────────────────────────────────────────────────────────────────────
+  naming_convention: Todos os arquivos criados seguem NC-<TIPO>-<SIGLA>-<NUM>
+  no_print_statements: Zero print() nos arquivos criados/modificados
+  ssot_updated: Se criou artefato novo — informar T0 para NC-NAM-FR-001
+  no_locked_files_modified: 'locks_violated: [] obrigatório para APPROVED'
+  handoff_yaml_complete: Todos os campos do template preenchidos
+  ruff_ok: ruff check 0 erros nos arquivos do diff
+  py_compile_ok: py_compile sem erros em todos os .py criados/modificados
 protocolo_falha:
-  instrucao: |
-    Se falhar ou ficar bloqueado em qualquer ponto:
+  instrucao: 'Se falhar ou ficar bloqueado em qualquer ponto:
+
     1. NÃO silenciar o erro
+
     2. NÃO tentar workaround que toque @LOCKS
+
     3. Gerar handoff com status: FAILED ou ESCALATED
+
     4. Campo summary: descrever (a) o que foi feito, (b) onde falhou, (c) erro exato
+
     5. Retornar ao T0 com o handoff
 
-# ─────────────────────────────────────────────────────────────────────────────
-# ESTADO DE ENTRADA E SAÍDA ESPERADO
-# ─────────────────────────────────────────────────────────────────────────────
-entry_state: "MC adapter funcional mas síncrono — startup hook ausente"
-exit_state: "NC-SCR-FR-103 existe e passa --dry-run. NC-ADP-FR-001 async, ruff 0 erros."
+    '
+entry_state: MC adapter funcional mas síncrono — startup hook ausente
+exit_state: NC-SCR-FR-103 existe e passa --dry-run. NC-ADP-FR-001 async, ruff 0 erros.
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: <2500 chars per ticket description
+  validation:
+    py:
+    - ruff check --fix
+    - ruff format
+    - ruff check
+    - mypy --ignore-missing-imports
+    - py_compile
+    - bandit -q
+    yaml:
+    - yaml.safe_load
+    - naming NC- check
+    - secret scan
+    mdc:
+    - frontmatter YAML validate
+    - NC-READ-HASH check
+    - naming NC- check
+    json:
+    - json.loads parse
+    - naming NC- check
+    all:
+    - '@LOCKS check'
+    - Write Zone check
+    - '@SSOT update'
+    - Handoff YAML
+    - 3W check
+    - SSOT Header
+  sandbox_required: true
+  sandbox_steps:
+  - 1. Copiar arquivo alvo para *-sandbox.py
+  - 2. Fazer alteracoes no sandbox
+  - 3. Validar sandbox (ruff+mypy+py_compile)
+  - 4. Testar sandbox
+  - 5. Aplicar no real (com backup)
+  - 6. Rollback via backup se falhar
+  handoff_required: true
+  handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+  handoff_dest: DIR-DS-002-audit-logs/
+  handoff_format: NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+  handoff_fields:
+  - ticket_id
+  - status
+  - submitted_at
+  - submitted_by
+  - summary
+  - files_created
+  - files_modified
+  - validation_rounds
+  - barriers_passed
+  - locks_violated
+  - t0_review
+  governance:
+    eisenhower_applied: true
+    mordaca_h: HOOK — bloqueia acao invalida ANTES de executar (FAIL-FAST)
+    mordaca_c: CHECKPOINT — audita estado a cada 300s (PulseScheduler)
+    mordaca_s: SCHEDULE — consolida no CICLO 4 semanal
+    mordaca_u: USER — T0 aprova/rejeita via handoff review
+    kaizen: Registrar micro-melhoria no @CHANGELOG apos conclusao
+    roadmap: Marcar %DONE no @ROADMAP apos handoff aprovado

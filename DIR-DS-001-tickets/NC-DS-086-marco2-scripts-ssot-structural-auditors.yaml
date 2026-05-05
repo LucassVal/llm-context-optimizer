@@ -1,67 +1,139 @@
-ticket_id: "NC-DS-086"
-status: "CLOSED"
-priority: "HIGH"
-title: "Marco 2 — Rastreabilidade: NC-SCR-FR-023 (ssot-auditor) + NC-SCR-FR-024 (structural-auditor)"
-created_at: "2026-04-16T01:50:00-03:00"
-created_by: "T0-Claude-Code"
-
+ticket_id: NC-DS-086
+status: DONE
+priority: HIGH
+title: 'Marco 2 — Rastreabilidade: NC-SCR-FR-023 (ssot-auditor) + NC-SCR-FR-024 (structural-auditor)'
+created_at: '2026-04-16T01:50:00-03:00'
+created_by: T0-Claude-Code
 context:
-  origin: "Plano Marco 2 (implementation_plan.md, sessao 2026-04-15/16)"
-  problem: |
-    NC-SCR-FR-023-ssot-auditor.py e NC-SCR-FR-024-structural-auditor.py sao scripts
+  origin: Plano Marco 2 (implementation_plan.md, sessao 2026-04-15/16)
+  problem: 'NC-SCR-FR-023-ssot-auditor.py e NC-SCR-FR-024-structural-auditor.py sao
+    scripts
+
     de alta prioridade usados em auditorias de governanca, sem ticket de rastreabilidade.
+
     Compliance alvo: >80%.
-  scope: "Verificacao, documentacao e registro dos 2 scripts no NC-GOV-FR-004"
 
+    '
+  scope: Verificacao, documentacao e registro dos 2 scripts no NC-GOV-FR-004
 task:
-  description: |
-    Para CADA script (NC-SCR-FR-023 e NC-SCR-FR-024):
-    1. Verificar sintaxe:
-       python -m py_compile 01_neocortex_framework/scripts/<nome>.py && echo OK
-    2. Executar --help ou --dry-run:
-       python 01_neocortex_framework/scripts/<nome>.py --help 2>&1
-       python 01_neocortex_framework/scripts/<nome>.py --dry-run 2>&1
-    3. Ler as primeiras 60 linhas para entender proposito e dependencias
-    4. Registrar no NC-GOV-FR-004-fr-artifacts-registry.yaml (secao SCR),
-       seguindo o padrao exato dos outros entries
-    5. Verificar se NC-NAM-FR-001 ja tem entrada — se nao, adicionar
-    6. Gerar handoff APPROVED para este ticket
+  description: "Para CADA script (NC-SCR-FR-023 e NC-SCR-FR-024):\n1. Verificar sintaxe:\n\
+    \   python -m py_compile 01_neocortex_framework/scripts/<nome>.py && echo OK\n\
+    2. Executar --help ou --dry-run:\n   python 01_neocortex_framework/scripts/<nome>.py\
+    \ --help 2>&1\n   python 01_neocortex_framework/scripts/<nome>.py --dry-run 2>&1\n\
+    3. Ler as primeiras 60 linhas para entender proposito e dependencias\n4. Registrar\
+    \ no NC-GOV-FR-004-fr-artifacts-registry.yaml (secao SCR),\n   seguindo o padrao\
+    \ exato dos outros entries\n5. Verificar se NC-NAM-FR-001 ja tem entrada — se\
+    \ nao, adicionar\n6. Gerar handoff APPROVED para este ticket\n"
+  instrucoes_handoff: 'Salvar em: DIR-DS-002-audit-logs/NC-DS-086-handoff-YYYYMMDDTHHMMSS.yaml
 
-  instrucoes_handoff: |
-    Salvar em: DIR-DS-002-audit-logs/NC-DS-086-handoff-YYYYMMDDTHHMMSS.yaml
     Campos obrigatorios: ticket_id, status, timestamp, agent, summary,
+
     files_modified, files_created, checklist_r20
 
+    '
   checklist_r20:
     naming_convention: true
     no_print_statements: true
     ssot_updated: true
     no_locked_files_modified: true
     handoff_yaml_complete: true
-
 environment:
-  python: "C:\\Program Files\\Python312\\python.exe"
-  project_root: "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
-  pythonpath: "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42\\01_neocortex_framework"
-
+  python: C:\Program Files\Python312\python.exe
+  project_root: C:\Users\Lucas Valério\Desktop\TURBOQUANT_V42
+  pythonpath: C:\Users\Lucas Valério\Desktop\TURBOQUANT_V42\01_neocortex_framework
 targets:
-  - script: "01_neocortex_framework/scripts/NC-SCR-FR-023-ssot-auditor.py"
-    registry_section: "SCR"
-    governance_rules_hint: ["R01", "R04", "R05", "R11", "R20"]
-  - script: "01_neocortex_framework/scripts/NC-SCR-FR-024-structural-auditor.py"
-    registry_section: "SCR"
-    governance_rules_hint: ["R01", "R04", "R05", "R11", "R20"]
-
+- script: 01_neocortex_framework/scripts/NC-SCR-FR-023-ssot-auditor.py
+  registry_section: SCR
+  governance_rules_hint:
+  - R01
+  - R04
+  - R05
+  - R11
+  - R20
+- script: 01_neocortex_framework/scripts/NC-SCR-FR-024-structural-auditor.py
+  registry_section: SCR
+  governance_rules_hint:
+  - R01
+  - R04
+  - R05
+  - R11
+  - R20
 write_zone:
-  - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-004-fr-artifacts-registry.yaml"
-  - "DIR-DS-002-audit-logs/"
-
+- 01_neocortex_framework/DIR-DOC-FR-001-docs-main/NC-GOV-FR-004-fr-artifacts-registry.yaml
+- DIR-DS-002-audit-logs/
 atomic_locks_proibidos:
-  - "01_neocortex_framework/neocortex/server.py"
-  - "01_neocortex_framework/neocortex/sub_server.py"
-  - "01_neocortex_framework/neocortex_config.yaml"
-
-tags: ["marco2", "orphan-scripts", "rastreabilidade", "SCR", "governance", "alta-prioridade"]
-domain: "orchestration"
-layer: "infra"
-type: "SCR"
+- 01_neocortex_framework/neocortex/server.py
+- 01_neocortex_framework/neocortex/sub_server.py
+- 01_neocortex_framework/neocortex_config.yaml
+tags:
+- marco2
+- orphan-scripts
+- rastreabilidade
+- SCR
+- governance
+- alta-prioridade
+domain: orchestration
+layer: infra
+type: SCR
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: <2500 chars per ticket description
+  validation:
+    py:
+    - ruff check --fix
+    - ruff format
+    - ruff check
+    - mypy --ignore-missing-imports
+    - py_compile
+    - bandit -q
+    yaml:
+    - yaml.safe_load
+    - naming NC- check
+    - secret scan
+    mdc:
+    - frontmatter YAML validate
+    - NC-READ-HASH check
+    - naming NC- check
+    json:
+    - json.loads parse
+    - naming NC- check
+    all:
+    - '@LOCKS check'
+    - Write Zone check
+    - '@SSOT update'
+    - Handoff YAML
+    - 3W check
+    - SSOT Header
+  sandbox_required: true
+  sandbox_steps:
+  - 1. Copiar arquivo alvo para *-sandbox.py
+  - 2. Fazer alteracoes no sandbox
+  - 3. Validar sandbox (ruff+mypy+py_compile)
+  - 4. Testar sandbox
+  - 5. Aplicar no real (com backup)
+  - 6. Rollback via backup se falhar
+  handoff_required: true
+  handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+  handoff_dest: DIR-DS-002-audit-logs/
+  handoff_format: NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+  handoff_fields:
+  - ticket_id
+  - status
+  - submitted_at
+  - submitted_by
+  - summary
+  - files_created
+  - files_modified
+  - validation_rounds
+  - barriers_passed
+  - locks_violated
+  - t0_review
+  governance:
+    eisenhower_applied: true
+    mordaca_h: HOOK — bloqueia acao invalida ANTES de executar (FAIL-FAST)
+    mordaca_c: CHECKPOINT — audita estado a cada 300s (PulseScheduler)
+    mordaca_s: SCHEDULE — consolida no CICLO 4 semanal
+    mordaca_u: USER — T0 aprova/rejeita via handoff review
+    kaizen: Registrar micro-melhoria no @CHANGELOG apos conclusao
+    roadmap: Marcar %DONE no @ROADMAP apos handoff aprovado

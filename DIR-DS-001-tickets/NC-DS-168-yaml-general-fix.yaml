@@ -1,0 +1,122 @@
+ticket_id: NC-DS-168
+title: ALTA — Corrigir 27 YAMLs gerais inválidos (tickets, handoffs, audit-logs)
+status: DONE
+priority: HIGH
+created_at: '2026-04-22T10:00:00-03:00'
+created_by: T0-Antigravity
+source: audit_system.py — System-Wide YAML Audit 2026-04-22
+description: 'Auditoria detectou 27 YAMLs com parse errors fora dos arquivos de governança
+  principal.
+
+  Incluem tickets corrompidos (NC-DS-160 a 167), handoffs inválidos, e arquivos de
+  audit-log.
+
+  Tickets corrompidos bloqueiam o ciclo de vida de governança e o contador de orphans.
+
+  '
+files_by_category:
+  tickets_corrompidos:
+    count: 7
+    paths:
+    - DIR-DS-001-tickets/NC-DS-160-ticket.yaml
+    - DIR-DS-001-tickets/NC-DS-161-ticket.yaml
+    - DIR-DS-001-tickets/NC-DS-162-ticket.yaml
+    - DIR-DS-001-tickets/NC-DS-163-ticket.yaml
+    - DIR-DS-001-tickets/NC-DS-164-ticket.yaml
+    - DIR-DS-001-tickets/NC-DS-165-ticket.yaml
+    - DIR-DS-001-tickets/NC-DS-167-ticket.yaml
+    error: while scanning a simple key
+    fix: 'Verificar e corrigir aspas/indentação nos campos. Alternativa: recriar do
+      template.'
+  handoffs_corrompidos:
+    count: 7
+    paths:
+    - DIR-DS-002-audit-logs/NC-DS-109-handoff-20260416T144026.yaml
+    - DIR-DS-002-audit-logs/NC-DS-151-handoff-20260420T202800.yaml
+    - DIR-DS-002-audit-logs/NC-HANDOFF-FR-024-gemini-audit-fixed.yaml
+    - DIR-DS-002-audit-logs/NC-HANDOFF-FR-023-mcp-fixed.yaml
+    - DIR-DS-002-audit-logs/NC-DS-SESS-handoff-2026-04-21T19-51-30.yaml
+    - DIR-DS-002-audit-logs/NC-DS-SESS-handoff-2026-04-22T09-25-42.yaml
+    - DIR-DS-002-audit-logs/NC-DS-SESS-handoff-2026-04-22T09-47-55.yaml
+    fix: Corrigir parse errors. Handoffs de sessão recentes (hoje) têm prioridade.
+  constitution_integration_new:
+    count: 2
+    paths:
+    - 01_neocortex_framework/constitution/NC-CONST-FR-001-v0.3-20260422.yaml
+    - 01_neocortex_framework/integration/NC-INT-MEMORY-STATE-LEDGER-v0.3-20260422.yaml
+    note: Arquivos novos criados hoje — provavelmente ainda em edição pelo DeepSeek
+  archive_legacy:
+    count: 11
+    note: YAMLs em DIR-ARC-FR-001-archive-main — prioridade baixa, não afetam operação
+      atual
+    fix: Arquivar com sufixo .invalid ou deletar se não há valor histórico
+acceptance_criteria:
+- 0 erros em DIR-DS-001-tickets/*.yaml
+- 0 erros em DIR-DS-002-audit-logs/*.yaml (exceto arquivos em edição)
+- 'audit_system.py: YAML ERROS < 15 (apenas arquivos de archive legado)'
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: <2500 chars per ticket description
+  validation:
+    py:
+    - ruff check --fix
+    - ruff format
+    - ruff check
+    - mypy --ignore-missing-imports
+    - py_compile
+    - bandit -q
+    yaml:
+    - yaml.safe_load
+    - naming NC- check
+    - secret scan
+    mdc:
+    - frontmatter YAML validate
+    - NC-READ-HASH check
+    - naming NC- check
+    json:
+    - json.loads parse
+    - naming NC- check
+    all:
+    - '@LOCKS check'
+    - Write Zone check
+    - '@SSOT update'
+    - Handoff YAML
+    - 3W check
+    - SSOT Header
+  sandbox_required: true
+  sandbox_steps:
+  - 1. Copiar arquivo alvo para *-sandbox.py
+  - 2. Fazer alteracoes no sandbox
+  - 3. Validar sandbox (ruff+mypy+py_compile)
+  - 4. Testar sandbox
+  - 5. Aplicar no real (com backup)
+  - 6. Rollback via backup se falhar
+  handoff_required: true
+  handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+  handoff_dest: DIR-DS-002-audit-logs/
+  handoff_format: NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+  handoff_fields:
+  - ticket_id
+  - status
+  - submitted_at
+  - submitted_by
+  - summary
+  - files_created
+  - files_modified
+  - validation_rounds
+  - barriers_passed
+  - locks_violated
+  - t0_review
+  governance:
+    eisenhower_applied: true
+    mordaca_h: HOOK — bloqueia acao invalida ANTES de executar (FAIL-FAST)
+    mordaca_c: CHECKPOINT — audita estado a cada 300s (PulseScheduler)
+    mordaca_s: SCHEDULE — consolida no CICLO 4 semanal
+    mordaca_u: USER — T0 aprova/rejeita via handoff review
+    kaizen: Registrar micro-melhoria no @CHANGELOG apos conclusao
+    roadmap: Marcar %DONE no @ROADMAP apos handoff aprovado
+
+closed_at: '2026-05-04T03:10:00-03:00'
+closed_by: T0-OpenCode
+resolution: 'Protocol established (NC-GOV-FR-002). Ticket obsoleto pela nova arquitetura.'

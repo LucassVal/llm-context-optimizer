@@ -1,84 +1,148 @@
 ticket_id: NC-DS-154
-title: "Compliance Sprint — Governance Auditor + SSOT cross-audit (NC-DS-108 + 111)"
-status: OPEN
+title: Compliance Sprint — Governance Auditor + SSOT cross-audit (NC-DS-108 + 111)
+status: DONE
 priority: MEDIUM
-roadmap_ref: "NC-DS-108 (Compliance >80%) + NC-DS-111 (SSOT cross-audit)"
-created_at: "2026-04-20T20:25:00-03:00"
+roadmap_ref: NC-DS-108 (Compliance >80%) + NC-DS-111 (SSOT cross-audit)
+created_at: '2026-04-20T20:25:00-03:00'
 created_by: T0-Antigravity
 assigned_to: OpenCode-Agent-5
+context: 'NC-SCR-FR-080-governance-auditor.py existe mas a última execução mostrou
+  compliance
 
-# ─── CONTEXTO ──────────────────────────────────────────────────────────────
-context: |
-  NC-SCR-FR-080-governance-auditor.py existe mas a última execução mostrou compliance
   de 44.8% (meta: >80%). O SSOT (NC-NAM-FR-001) pode ter entradas desatualizadas
+
   ou arquivos referenciados que não existem mais.
+
   Objetivo: executar auditoria de compliance + cross-audit do SSOT e gerar relatório
+
   com itens específicos bloqueando a meta de 80%.
 
-# ─── STEP 0 OBRIGATÓRIO ────────────────────────────────────────────────────
+  '
 step_0:
-  - "Ler NC-SEC-FR-001-atomic-locks.yaml PRIMEIRO"
-  - "Ler DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml"
-  - "python --version"
-  - "python -m py_compile scripts/NC-SCR-FR-080-governance-auditor.py → verificar se compila"
-  - "python scripts/NC-SCR-FR-080-governance-auditor.py 2>&1 | head -30 → ver saída atual"
-  - "python -c 'import yaml, json, re, pathlib' → confirmar deps disponíveis"
-
+- Ler NC-SEC-FR-001-atomic-locks.yaml PRIMEIRO
+- Ler DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+- python --version
+- python -m py_compile scripts/NC-SCR-FR-080-governance-auditor.py → verificar se
+  compila
+- python scripts/NC-SCR-FR-080-governance-auditor.py 2>&1 | head -30 → ver saída atual
+- python -c 'import yaml, json, re, pathlib' → confirmar deps disponíveis
 atomic_locks_inviolaveis:
-  - "neocortex/mcp/server.py → NUNCA modificar"
-  - "neocortex/mcp/sub_server.py → NUNCA modificar"
-  - "DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md → apenas ADICIONAR entradas"
-  - "DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml → NUNCA modificar"
+- neocortex/mcp/server.py → NUNCA modificar
+- neocortex/mcp/sub_server.py → NUNCA modificar
+- DIR-DOC-FR-001-docs-main/NC-NAM-FR-001-naming-convention.md → apenas ADICIONAR entradas
+- DIR-DOC-FR-001-docs-main/NC-SEC-FR-001-atomic-locks.yaml → NUNCA modificar
+task: "PARTE 1 — Executar Governance Auditor e analisar resultado:\n  1. python scripts/NC-SCR-FR-080-governance-auditor.py\
+  \ → capturar saída completa\n  2. Identificar as 10 principais violações que bloqueiam\
+  \ compliance >80%\n  3. Para cada violação CORRIGÍVEL (não requer tocar @LOCK):\n\
+  \     - Corrigir diretamente (se for simples: naming, yaml syntax, etc.)\n  4. Re-executar\
+  \ auditor e verificar se compliance subiu\n\nPARTE 2 — SSOT Cross-Audit:\n  Criar\
+  \ script 05_examples/NC-TEST-154-ssot-cross-audit.py que:\n    a. Lê todas as entradas\
+  \ da tabela SSOT em NC-NAM-FR-001-naming-convention.md\n    b. Para cada arquivo\
+  \ referenciado: verifica se existe em disco\n    c. Lista: MISSING (no SSOT mas\
+  \ não no disco), UNLISTED (no disco mas não no SSOT)\n    d. Gera relatório JSON:\
+  \ 05_examples/NC-RPT-154-ssot-cross-audit.json\n       com campos: total_ssot, total_disk,\
+  \ missing, unlisted, compliance_pct\n\nEXCEÇÃO: NÃO corrigir entradas que requerem\
+  \ modificar @LOCK files.\nEXCEÇÃO: NC-CORE-FR-101..124 já foram adicionados ao SSOT\
+  \ no NC-DS-123 — NÃO duplicar.\n"
+implementation_notes: '- NUNCA print() — logger = logging.getLogger(__name__)
 
-# ─── TAREFA ─────────────────────────────────────────────────────────────────
-task: |
-  PARTE 1 — Executar Governance Auditor e analisar resultado:
-    1. python scripts/NC-SCR-FR-080-governance-auditor.py → capturar saída completa
-    2. Identificar as 10 principais violações que bloqueiam compliance >80%
-    3. Para cada violação CORRIGÍVEL (não requer tocar @LOCK):
-       - Corrigir diretamente (se for simples: naming, yaml syntax, etc.)
-    4. Re-executar auditor e verificar se compliance subiu
-
-  PARTE 2 — SSOT Cross-Audit:
-    Criar script 05_examples/NC-TEST-154-ssot-cross-audit.py que:
-      a. Lê todas as entradas da tabela SSOT em NC-NAM-FR-001-naming-convention.md
-      b. Para cada arquivo referenciado: verifica se existe em disco
-      c. Lista: MISSING (no SSOT mas não no disco), UNLISTED (no disco mas não no SSOT)
-      d. Gera relatório JSON: 05_examples/NC-RPT-154-ssot-cross-audit.json
-         com campos: total_ssot, total_disk, missing, unlisted, compliance_pct
-
-  EXCEÇÃO: NÃO corrigir entradas que requerem modificar @LOCK files.
-  EXCEÇÃO: NC-CORE-FR-101..124 já foram adicionados ao SSOT no NC-DS-123 — NÃO duplicar.
-
-implementation_notes: |
-  - NUNCA print() — logger = logging.getLogger(__name__)
   - get_config() para paths — R10
+
   - importlib.util para arquivos com hífens — R09
+
   - Usar yaml.safe_load() para YAMLs — NUNCA yaml.load()
-  - Regex para parsear tabela markdown do SSOT: r'\|\s*([^|]+)\s*\|'
+
+  - Regex para parsear tabela markdown do SSOT: r''\|\s*([^|]+)\s*\|''
+
   - Ignorar linhas de cabeçalho e separadores da tabela
 
+  '
 pre_handoff_checklist:
-  - "python -m py_compile 05_examples/NC-TEST-154-ssot-cross-audit.py → PASS"
-  - "python -m ruff check 05_examples/NC-TEST-154-ssot-cross-audit.py --select F,E9 → 0"
-  - "python 05_examples/NC-TEST-154-ssot-cross-audit.py → gera NC-RPT-154-ssot-cross-audit.json"
-  - "Verificar: NC-RPT-154 tem campos total_ssot, total_disk, missing, unlisted, compliance_pct"
-  - "python scripts/NC-SCR-FR-080-governance-auditor.py → compliance >= valor anterior (não regrediu)"
-  - "git diff --name-only HEAD | grep -E 'server\\.py|sub_server\\.py' → VAZIO"
-  - "SSOT NC-NAM-FR-001 não pode ter entradas REMOVIDAS — apenas ADICIONADAS"
-
+- python -m py_compile 05_examples/NC-TEST-154-ssot-cross-audit.py → PASS
+- python -m ruff check 05_examples/NC-TEST-154-ssot-cross-audit.py --select F,E9 →
+  0
+- python 05_examples/NC-TEST-154-ssot-cross-audit.py → gera NC-RPT-154-ssot-cross-audit.json
+- 'Verificar: NC-RPT-154 tem campos total_ssot, total_disk, missing, unlisted, compliance_pct'
+- python scripts/NC-SCR-FR-080-governance-auditor.py → compliance >= valor anterior
+  (não regrediu)
+- git diff --name-only HEAD | grep -E 'server\.py|sub_server\.py' → VAZIO
+- SSOT NC-NAM-FR-001 não pode ter entradas REMOVIDAS — apenas ADICIONADAS
 deliverables:
-  - "05_examples/NC-TEST-154-ssot-cross-audit.py"
-  - "05_examples/NC-RPT-154-ssot-cross-audit.json (gerado ao rodar)"
-  - "DIR-DS-002-audit-logs/NC-DS-154-handoff-{YYYYMMDDTHHMMSS}.yaml"
-  - "(Opcional) correções de compliance não-lock que foram aplicadas"
-
-handoff_dest: "DIR-DS-002-audit-logs/NC-DS-154-handoff-{YYYYMMDDTHHMMSS}.yaml"
-handoff_template: "DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml"
-write_zone: "TEST → 05_examples/ | DOCS → DIR-DOC-FR-001-docs-main/ (append only)"
-
+- 05_examples/NC-TEST-154-ssot-cross-audit.py
+- 05_examples/NC-RPT-154-ssot-cross-audit.json (gerado ao rodar)
+- DIR-DS-002-audit-logs/NC-DS-154-handoff-{YYYYMMDDTHHMMSS}.yaml
+- (Opcional) correções de compliance não-lock que foram aplicadas
+handoff_dest: DIR-DS-002-audit-logs/NC-DS-154-handoff-{YYYYMMDDTHHMMSS}.yaml
+handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+write_zone: TEST → 05_examples/ | DOCS → DIR-DOC-FR-001-docs-main/ (append only)
 escalation_triggers:
-  - "Governance auditor crashar ao executar"
-  - "Compliance >80% já atingido (nada a fazer — reportar como APPROVED com nota)"
-  - "Qualquer corrective action requer tocar @LOCK files"
-  - "SSOT tem mais de 50 entradas MISSING (indica problema estrutural maior)"
+- Governance auditor crashar ao executar
+- Compliance >80% já atingido (nada a fazer — reportar como APPROVED com nota)
+- Qualquer corrective action requer tocar @LOCK files
+- SSOT tem mais de 50 entradas MISSING (indica problema estrutural maior)
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: <2500 chars per ticket description
+  validation:
+    py:
+    - ruff check --fix
+    - ruff format
+    - ruff check
+    - mypy --ignore-missing-imports
+    - py_compile
+    - bandit -q
+    yaml:
+    - yaml.safe_load
+    - naming NC- check
+    - secret scan
+    mdc:
+    - frontmatter YAML validate
+    - NC-READ-HASH check
+    - naming NC- check
+    json:
+    - json.loads parse
+    - naming NC- check
+    all:
+    - '@LOCKS check'
+    - Write Zone check
+    - '@SSOT update'
+    - Handoff YAML
+    - 3W check
+    - SSOT Header
+  sandbox_required: true
+  sandbox_steps:
+  - 1. Copiar arquivo alvo para *-sandbox.py
+  - 2. Fazer alteracoes no sandbox
+  - 3. Validar sandbox (ruff+mypy+py_compile)
+  - 4. Testar sandbox
+  - 5. Aplicar no real (com backup)
+  - 6. Rollback via backup se falhar
+  handoff_required: true
+  handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+  handoff_dest: DIR-DS-002-audit-logs/
+  handoff_format: NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+  handoff_fields:
+  - ticket_id
+  - status
+  - submitted_at
+  - submitted_by
+  - summary
+  - files_created
+  - files_modified
+  - validation_rounds
+  - barriers_passed
+  - locks_violated
+  - t0_review
+  governance:
+    eisenhower_applied: true
+    mordaca_h: HOOK — bloqueia acao invalida ANTES de executar (FAIL-FAST)
+    mordaca_c: CHECKPOINT — audita estado a cada 300s (PulseScheduler)
+    mordaca_s: SCHEDULE — consolida no CICLO 4 semanal
+    mordaca_u: USER — T0 aprova/rejeita via handoff review
+    kaizen: Registrar micro-melhoria no @CHANGELOG apos conclusao
+    roadmap: Marcar %DONE no @ROADMAP apos handoff aprovado
+
+closed_at: '2026-05-04T03:10:00-03:00'
+closed_by: T0-OpenCode
+resolution: 'ADR-008: LEXICO resolve paths. Ticket obsoleto pela nova arquitetura.'

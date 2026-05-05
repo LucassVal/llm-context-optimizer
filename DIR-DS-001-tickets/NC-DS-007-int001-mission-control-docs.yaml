@@ -1,93 +1,143 @@
 ticket_id: NC-DS-007
 ticket_type: RESEARCH + DOCUMENTATION
-priority: HIGH
-assigned_to: deepseek-chat
-created_at: "2026-04-14T00:15:00-03:00"
+status: ABANDONED  # pre-standardization, no longer relevant
+priority: MEDIUM
+assigned_to: deepseek-v4-flash
+created_at: '2026-04-14T00:15:00-03:00'
 created_by: antigravity-t0
-
 context:
   roadmap_ticket: INT-001 (Mission Control Integration)
   active_locks:
-    - server.py
-    - sub_server.py
-    - NC-NAM-FR-001
-    - neocortex_config.yaml
-  write_zone: "02_memory_lobes/"
-  naming_rule: "NC-LBE-INT-004-mission-control.mdc"
-  reference_file: "01_neocortex_framework/lobes/NC-LBE-INT-003-antigravity-integration.mdc"
-
-research_context: |
-  Mission Control é uma plataforma open-source de orquestração de agentes IA.
-  GitHub: https://github.com/builderz-labs/mission-control
-  Repositório clonado localmente em:
-    DIR-RES-CC-001-claude-leak-workzone\external-refs\mission-control\
-
-  FUNCIONALIDADES CONFIRMADAS:
-  - Kanban Board: 6 colunas (inbox→assigned→in progress→review→quality review→done)
-  - Agent Management: descobre agentes em ~/.agents/, ~/.codex/, ~/.claude/agents/
-  - Agent SOUL system: bidirectional workspace sync
-  - Memory Knowledge Graph: filesystem-backed + relationship graph
-  - Skills Hub: instala skills de ClawdHub, skills.sh com scanner de segurança
-  - Cost Tracking: p50/p95/p99 latência por modelo via Recharts
-  - Security Audit: postura 0-100, detecção secrets, MCP tool auditing, trust scores
-  - Agent Eval Framework: output evals, trace evals, component evals, drift detection
-  - Natural Language Recurring Tasks: "every 9am" → cron
-  - Claude Code Integration: lê ~/.claude/projects/ diretamente
-  - Framework Adapters: OpenClaw, CrewAI, LangGraph, AutoGen, Claude SDK, generic fallback
-  - Activity Feed: WebSocket/SSE real-time
-  - Webhooks: HMAC-SHA256, exponential backoff, circuit breaker
-  - Multi-tenant: workspace isolation via /api/super/*
-  - Porta padrão: :3000
-
-  INTEGRAÇÃO COM NEOCORTEX (contexto T0):
-  - Generic adapter registra agentes DeepSeek/OpenCode
-  - MCP tool call auditing ↔ AuditHook (NC-HK-FR-002) já implementado
-  - Porta MCP :8765 (NeoCortex) + porta Mission Control :3000
-  - DDD: Mission Control = Adaptador Primário (porta de entrada de comandos)
-  - neocortex_visual_server.py: processo único que sobe core + Mission Control (:3000)
-
+  - server.py
+  - sub_server.py
+  - NC-NAM-FR-001
+  - neocortex_config.yaml
+  write_zone: 02_memory_lobes/
+  naming_rule: NC-LBE-INT-004-mission-control.mdc
+  reference_file: 01_neocortex_framework/lobes/NC-LBE-INT-003-antigravity-integration.mdc
+research_context: "Mission Control é uma plataforma open-source de orquestração de\
+  \ agentes IA.\nGitHub: https://github.com/builderz-labs/mission-control\nRepositório\
+  \ clonado localmente em:\n  DIR-RES-CC-001-claude-leak-workzone\\external-refs\\\
+  mission-control\\\n\nFUNCIONALIDADES CONFIRMADAS:\n- Kanban Board: 6 colunas (inbox→assigned→in\
+  \ progress→review→quality review→done)\n- Agent Management: descobre agentes em\
+  \ ~/.agents/, ~/.codex/, ~/.claude/agents/\n- Agent SOUL system: bidirectional workspace\
+  \ sync\n- Memory Knowledge Graph: filesystem-backed + relationship graph\n- Skills\
+  \ Hub: instala skills de ClawdHub, skills.sh com scanner de segurança\n- Cost Tracking:\
+  \ p50/p95/p99 latência por modelo via Recharts\n- Security Audit: postura 0-100,\
+  \ detecção secrets, MCP tool auditing, trust scores\n- Agent Eval Framework: output\
+  \ evals, trace evals, component evals, drift detection\n- Natural Language Recurring\
+  \ Tasks: \"every 9am\" → cron\n- Claude Code Integration: lê ~/.claude/projects/\
+  \ diretamente\n- Framework Adapters: OpenClaw, CrewAI, LangGraph, AutoGen, Claude\
+  \ SDK, generic fallback\n- Activity Feed: WebSocket/SSE real-time\n- Webhooks: HMAC-SHA256,\
+  \ exponential backoff, circuit breaker\n- Multi-tenant: workspace isolation via\
+  \ /api/super/*\n- Porta padrão: :3000\n\nINTEGRAÇÃO COM NEOCORTEX (contexto T0):\n\
+  - Generic adapter registra agentes DeepSeek/OpenCode\n- MCP tool call auditing ↔\
+  \ AuditHook (NC-HK-FR-002) já implementado\n- Porta MCP :8765 (NeoCortex) + porta\
+  \ Mission Control :3000\n- DDD: Mission Control = Adaptador Primário (porta de entrada\
+  \ de comandos)\n- neocortex_visual_server.py: processo único que sobe core + Mission\
+  \ Control (:3000)\n"
 task:
-  description: |
-    Com base no contexto de pesquisa acima e nos arquivos do repositório clonado em
-    DIR-RES-CC-001-claude-leak-workzone\external-refs\mission-control\,
-    criar o lobe NC-LBE-INT-004-mission-control.mdc SUPER DETALHADO:
-
-    SEÇÕES OBRIGATÓRIAS (mínimo 300 linhas):
-    1. ## IDENTIDADE
-       - O que é, repositório, licença, stack tecnológica
-    2. ## ARQUITETURA
-       - Como funciona internamente (WebSocket/SSE, adaptadores, workspace isolation)
-       - Estrutura de pastas do repositório clonado
-    3. ## FUNCIONALIDADES DETALHADAS
-       - Cada feature com exemplos de uso e configuração
-    4. ## INTEGRAÇÃO COM NEOCORTEX
-       - Passo a passo de como conectar ao NeoCortex via generic adapter
-       - Como o AuditHook do NeoCortex se integra com o MCP tool auditing
-       - Arquivo neocortex_visual_server.py: como seria o processo unificado
-       - Portas e configuração: :3000 (Mission Control) + :8765 (NeoCortex MCP)
-    5. ## GAPS E RISCOS
-       - O que Mission Control não faz que o NeoCortex já faz
-       - Potenciais conflitos de responsabilidade
-    6. ## PRÓXIMOS PASSOS
-       - Tickets de implementação da integração
-       - Dependências e ordem de execução
-
-    LEIA os arquivos do repo clonado antes de documentar:
-      DIR-RES-CC-001-claude-leak-workzone\external-refs\mission-control\README.md
-      DIR-RES-CC-001-claude-leak-workzone\external-refs\mission-control\package.json
-      (outros arquivos relevantes)
-
+  description: "Com base no contexto de pesquisa acima e nos arquivos do repositório\
+    \ clonado em\nDIR-RES-CC-001-claude-leak-workzone\\external-refs\\mission-control\\\
+    ,\ncriar o lobe NC-LBE-INT-004-mission-control.mdc SUPER DETALHADO:\n\nSEÇÕES\
+    \ OBRIGATÓRIAS (mínimo 300 linhas):\n1. ## IDENTIDADE\n   - O que é, repositório,\
+    \ licença, stack tecnológica\n2. ## ARQUITETURA\n   - Como funciona internamente\
+    \ (WebSocket/SSE, adaptadores, workspace isolation)\n   - Estrutura de pastas\
+    \ do repositório clonado\n3. ## FUNCIONALIDADES DETALHADAS\n   - Cada feature\
+    \ com exemplos de uso e configuração\n4. ## INTEGRAÇÃO COM NEOCORTEX\n   - Passo\
+    \ a passo de como conectar ao NeoCortex via generic adapter\n   - Como o AuditHook\
+    \ do NeoCortex se integra com o MCP tool auditing\n   - Arquivo neocortex_visual_server.py:\
+    \ como seria o processo unificado\n   - Portas e configuração: :3000 (Mission\
+    \ Control) + :8765 (NeoCortex MCP)\n5. ## GAPS E RISCOS\n   - O que Mission Control\
+    \ não faz que o NeoCortex já faz\n   - Potenciais conflitos de responsabilidade\n\
+    6. ## PRÓXIMOS PASSOS\n   - Tickets de implementação da integração\n   - Dependências\
+    \ e ordem de execução\n\nLEIA os arquivos do repo clonado antes de documentar:\n\
+    \  DIR-RES-CC-001-claude-leak-workzone\\external-refs\\mission-control\\README.md\n\
+    \  DIR-RES-CC-001-claude-leak-workzone\\external-refs\\mission-control\\package.json\n\
+    \  (outros arquivos relevantes)\n"
   exit_state:
     files_created:
-      - "02_memory_lobes/NC-LBE-INT-004-mission-control.mdc"
+    - 02_memory_lobes/NC-LBE-INT-004-mission-control.mdc
     min_lines: 300
-
 barriers:
-  - {id: B1, check: naming, rule: "NC-LBE-INT-004-mission-control.mdc em 02_memory_lobes/", block_if_fail: true}
-  - {id: B2, check: min_lines, rule: ">= 300 linhas", block_if_fail: true}
-  - {id: B3, check: sections, rule: "Todas as 6 seções obrigatórias presentes", block_if_fail: true}
-  - {id: B4, check: handoff, rule: "Gerar NC-DS-007-handoff-YYYYMMDD-HHMMSS.yaml em DIR-DS-002-audit-logs/", block_if_fail: true}
-
+- id: B1
+  check: naming
+  rule: NC-LBE-INT-004-mission-control.mdc em 02_memory_lobes/
+  block_if_fail: true
+- id: B2
+  check: min_lines
+  rule: '>= 300 linhas'
+  block_if_fail: true
+- id: B3
+  check: sections
+  rule: Todas as 6 seções obrigatórias presentes
+  block_if_fail: true
+- id: B4
+  check: handoff
+  rule: Gerar NC-DS-007-handoff-YYYYMMDD-HHMMSS.yaml em DIR-DS-002-audit-logs/
+  block_if_fail: true
 limits:
   max_tokens_per_phase: 6000
-integrity_hash: "e49ac271b03df15c"
+integrity_hash: e49ac271b03df15c
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: <2500 chars per ticket description
+  validation:
+    py:
+    - ruff check --fix
+    - ruff format
+    - ruff check
+    - mypy --ignore-missing-imports
+    - py_compile
+    - bandit -q
+    yaml:
+    - yaml.safe_load
+    - naming NC- check
+    - secret scan
+    mdc:
+    - frontmatter YAML validate
+    - NC-READ-HASH check
+    - naming NC- check
+    json:
+    - json.loads parse
+    - naming NC- check
+    all:
+    - '@LOCKS check'
+    - Write Zone check
+    - '@SSOT update'
+    - Handoff YAML
+    - 3W check
+    - SSOT Header
+  sandbox_required: true
+  sandbox_steps:
+  - 1. Copiar arquivo alvo para *-sandbox.py
+  - 2. Fazer alteracoes no sandbox
+  - 3. Validar sandbox (ruff+mypy+py_compile)
+  - 4. Testar sandbox
+  - 5. Aplicar no real (com backup)
+  - 6. Rollback via backup se falhar
+  handoff_required: true
+  handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+  handoff_dest: DIR-DS-002-audit-logs/
+  handoff_format: NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+  handoff_fields:
+  - ticket_id
+  - status
+  - submitted_at
+  - submitted_by
+  - summary
+  - files_created
+  - files_modified
+  - validation_rounds
+  - barriers_passed
+  - locks_violated
+  - t0_review
+  governance:
+    eisenhower_applied: true
+    mordaca_h: HOOK — bloqueia acao invalida ANTES de executar (FAIL-FAST)
+    mordaca_c: CHECKPOINT — audita estado a cada 300s (PulseScheduler)
+    mordaca_s: SCHEDULE — consolida no CICLO 4 semanal
+    mordaca_u: USER — T0 aprova/rejeita via handoff review
+    kaizen: Registrar micro-melhoria no @CHANGELOG apos conclusao
+    roadmap: Marcar %DONE no @ROADMAP apos handoff aprovado

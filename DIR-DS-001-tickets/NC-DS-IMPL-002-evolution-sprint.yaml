@@ -1,0 +1,124 @@
+status: ABANDONED  # pre-standardization sprint plan, no longer relevant
+meta:
+  sprint: SPRINT-EVOLUTION
+  phase: CICLO-REFORMA Wave 1 (repriorizado)
+  priority: P0 — Resiliência sistêmica antes de features
+  alvo: DNA/RNA + Replication Control + Biosafety + Mutation Governance
+  prerequisito: Gateway validate_action() operacional
+tickets:
+  E1_NC-DS-700:
+    titulo: NC-GENOME-FR-001 — DNA/RNA formalizado como YAML imutável
+    descricao: Criar arquivo DNA.json + RNA.json com estrutura de replicação. DNA
+      imutável pelo child, RNA mutável.
+    esforco: 3h
+    validacao: validate_action() bloqueia modificação do DNA por agentes não-T0
+  E2_NC-DS-701:
+    titulo: Replication Control — fork com herança de políticas + R0 limiter
+    descricao: Implementar replication.create via MCP. Child herda 100% das políticas
+      do parent. Limite 5 forks/hora.
+    esforco: 4h
+    validacao: replication.create gera child funcional com todas as políticas herdadas
+  E3_NC-DS-702:
+    titulo: Biosafety Levels (BSL-1 a BSL-4) + Sandbox
+    descricao: Implementar sandbox de replicação com 4 níveis de isolamento. BSL-1
+      default para novos children.
+    esforco: 3h
+    validacao: child em BSL-1 não acessa rede externa; BSL-3 roda air-gapped
+  E4_NC-DS-703:
+    titulo: Mutation Governance — Review Board + Drift Control
+    descricao: Implementar mutation.propose + mutation.review via MCP. T0+Guardian+Engineer
+      como conselho.
+    esforco: 4h
+    validacao: mutação BSL-3+ requer aprovação do conselho; drift >0.68 pausa mutações
+  E5_NC-DS-704:
+    titulo: SHA-256 Integrity Check pós-replicação
+    descricao: Verificar integridade de todos os arquivos essenciais do child via
+      hash SHA-256.
+    esforco: 2h
+    validacao: hash do child confere com hash esperado do template
+  E6_NC-DS-705:
+    titulo: Lineage Tracking — árvore genealógica de replicações
+    descricao: Registrar parent_id, child_id, timestamp, DNA_hash no WAL. Rastreabilidade
+      total.
+    esforco: 2h
+    validacao: query de lineage retorna árvore completa de replicações
+  E7_NC-DS-706:
+    titulo: Ethical Genome + Apoptosis (morte programada)
+    descricao: Ethical genome validado pelo Guardian antes de cada replicação. TTL
+      para auto-destruição de children abandonados.
+    esforco: 2h
+    validacao: child com TTL expirado é automaticamente arquivado
+  E8_NC-DS-707:
+    titulo: Evolution HUD — observatório visual de replicações
+    descricao: Painel mostrando árvore genealógica, fitness de cada instância, mutações
+      ativas.
+    esforco: 3h
+    validacao: HUD acessível via MCP tool neocortex_evolution
+ritual:
+- handoff.create ANTES de cada ticket
+- ruff check --fix + py_compile
+- checkpoint.set
+- validate_action() gateway test
+- bootup.sync ao fim de cada bloco
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: <2500 chars per ticket description
+  validation:
+    py:
+    - ruff check --fix
+    - ruff format
+    - ruff check
+    - mypy --ignore-missing-imports
+    - py_compile
+    - bandit -q
+    yaml:
+    - yaml.safe_load
+    - naming NC- check
+    - secret scan
+    mdc:
+    - frontmatter YAML validate
+    - NC-READ-HASH check
+    - naming NC- check
+    json:
+    - json.loads parse
+    - naming NC- check
+    all:
+    - '@LOCKS check'
+    - Write Zone check
+    - '@SSOT update'
+    - Handoff YAML
+    - 3W check
+    - SSOT Header
+  sandbox_required: true
+  sandbox_steps:
+  - 1. Copiar arquivo alvo para *-sandbox.py
+  - 2. Fazer alteracoes no sandbox
+  - 3. Validar sandbox (ruff+mypy+py_compile)
+  - 4. Testar sandbox
+  - 5. Aplicar no real (com backup)
+  - 6. Rollback via backup se falhar
+  handoff_required: true
+  handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+  handoff_dest: DIR-DS-002-audit-logs/
+  handoff_format: NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+  handoff_fields:
+  - ticket_id
+  - status
+  - submitted_at
+  - submitted_by
+  - summary
+  - files_created
+  - files_modified
+  - validation_rounds
+  - barriers_passed
+  - locks_violated
+  - t0_review
+  governance:
+    eisenhower_applied: true
+    mordaca_h: HOOK — bloqueia acao invalida ANTES de executar (FAIL-FAST)
+    mordaca_c: CHECKPOINT — audita estado a cada 300s (PulseScheduler)
+    mordaca_s: SCHEDULE — consolida no CICLO 4 semanal
+    mordaca_u: USER — T0 aprova/rejeita via handoff review
+    kaizen: Registrar micro-melhoria no @CHANGELOG apos conclusao
+    roadmap: Marcar %DONE no @ROADMAP apos handoff aprovado

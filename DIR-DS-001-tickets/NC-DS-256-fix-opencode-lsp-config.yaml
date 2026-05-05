@@ -1,0 +1,35 @@
+ticket_id: NC-DS-256
+title: FIX — Correção crítica de configuração LSP no opencode.json
+status: DONE
+priority: CRITICAL
+created_at: '2026-05-03T23:17:00-03:00'
+closed_at: '2026-05-04T01:40:00-03:00'
+created_by: Antigravity-T0
+closed_by: T0-OpenCode (Gemini Flash + T0 merge)
+source: User report / ConfigInvalidError audit
+description: 'O arquivo opencode.json estava inválido, impedindo a inicialização do OpenCode. 
+  Dois erros foram detectados e corrigidos:
+  1. Ausência da chave "command" para servidores LSP habilitados.
+  2. Ausência do array "extensions" para servidores LSP configurados como "custom".
+  Além disso, o NEOCORTEX_PROJECT_ROOT estava apontando para um diretório incorreto e o tipo do MCP estava como "local" em vez de "stdio".'
+files_to_fix:
+- path: opencode.json
+  error: 'ConfigInvalidError: Missing key lsp.*.command / extensions array required'
+  severity: CRITICAL
+  fix: Adicionar command e extensions para pyright, yaml_ls, rust, typescript, eslint e oxlint.
+  impact: Bloqueio total da interface OpenCode e diagnósticos LSP.
+acceptance_criteria:
+- opencode.json carrega sem ConfigInvalidError.
+- LSPs (Pyright, etc.) iniciam corretamente via stdio.
+- Caminhos de ambiente alinhados com a raiz real do projeto.
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: true
+  validation:
+    json:
+    - json.loads parse
+    - naming NC- check
+  sandbox_required: false
+  handoff_required: true
+  handoff_dest: DIR-DS-002-audit-logs/

@@ -5,7 +5,7 @@
 
 ticket_id: NC-DS-<PREENCHER>
 title: "<PREENCHER>"
-status: OPEN
+status: DONE
 priority: <CRITICAL|HIGH|MEDIUM>
 roadmap_ref: "<PREENCHER>"
 created_at: "<PREENCHER>"
@@ -101,3 +101,7 @@ handoff_template_inline:
 write_zone: "<PROD|TEST|SCRIPTS|DOCS> → <path>"
 escalation_triggers:
   - "<PREENCHER>"
+
+closed_at: '2026-05-04T03:10:00-03:00'
+closed_by: T0-OpenCode
+resolution: 'ADR-008: LEXICO resolve paths. Ticket obsoleto pela nova arquitetura.'

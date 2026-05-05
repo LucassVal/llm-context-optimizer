@@ -1,49 +1,103 @@
-ticket_id: "NC-DS-096"
-status: "DONE"
-priority: "HIGH"
-title: "ORCH-301 + ORCH-302: send_task() HTTP real + neocortex_task via PicoClaw"
-created_at: "2026-04-16T01:26:41-03:00"
-created_by: "T0-Claude-Code"
-
+ticket_id: NC-DS-096
+status: DONE
+priority: HIGH
+title: 'ORCH-301 + ORCH-302: send_task() HTTP real + neocortex_task via PicoClaw'
+created_at: '2026-04-16T01:26:41-03:00'
+created_by: T0-Claude-Code
 context:
-  origin: "Bloqueante PRÉ-MCP identificado no boot manifest"
-  problem: |
-    Loop A2A está bloqueado:
-      Antigravity → Core → PicoClaw → OpenCode não funciona porque:
-      ORCH-301: send_task() ainda não faz HTTP POST real para PicoClaw :18790
-      ORCH-302: neocortex_task tool não tem integração HTTP/SSE real
-    PicoClaw :18790 está DOWN nesta sessão — implementar código, não testar end-to-end.
-
+  origin: Bloqueante PRÉ-MCP identificado no boot manifest
+  problem: "Loop A2A está bloqueado:\n  Antigravity → Core → PicoClaw → OpenCode não\
+    \ funciona porque:\n  ORCH-301: send_task() ainda não faz HTTP POST real para\
+    \ PicoClaw :18790\n  ORCH-302: neocortex_task tool não tem integração HTTP/SSE\
+    \ real\nPicoClaw :18790 está DOWN nesta sessão — implementar código, não testar\
+    \ end-to-end.\n"
 task:
-  description: |
-    1. NC-TOOL-FR-023-orchestration.py
-       Implementar send_task() real:
-         - HTTP POST para http://localhost:18790/dispatch
-         - Payload: {ticket_id, task_type, payload, agent_id, timeout}
-         - Resposta: {task_id, status, agent_assigned}
-         - Fallback gracioso quando PicoClaw DOWN (retorna status: "queued_offline")
-         - Timeout: 5s (não bloquear o Core)
-
-    2. NC-TOOL-FR-036-picoclaw.py
-       Adicionar endpoint SSE polling:
-         - GET http://localhost:18790/tasks/{task_id}/status
-         - Retorna stream de eventos ou snapshot de status
-         - Fallback: retorna last_known_status quando DOWN
-
-    3. NC-BOOT-FR-001: atualizar seção 8 (caminho crítico):
-       ORCH-301 → DONE, ORCH-302 → DONE
-
+  description: "1. NC-TOOL-FR-023-orchestration.py\n   Implementar send_task() real:\n\
+    \     - HTTP POST para http://localhost:18790/dispatch\n     - Payload: {ticket_id,\
+    \ task_type, payload, agent_id, timeout}\n     - Resposta: {task_id, status, agent_assigned}\n\
+    \     - Fallback gracioso quando PicoClaw DOWN (retorna status: \"queued_offline\"\
+    )\n     - Timeout: 5s (não bloquear o Core)\n\n2. NC-TOOL-FR-036-picoclaw.py\n\
+    \   Adicionar endpoint SSE polling:\n     - GET http://localhost:18790/tasks/{task_id}/status\n\
+    \     - Retorna stream de eventos ou snapshot de status\n     - Fallback: retorna\
+    \ last_known_status quando DOWN\n\n3. NC-BOOT-FR-001: atualizar seção 8 (caminho\
+    \ crítico):\n   ORCH-301 → DONE, ORCH-302 → DONE\n"
 atomic_locks_proibidos:
-  - "01_neocortex_framework/neocortex/server.py"
-  - "01_neocortex_framework/neocortex/sub_server.py"
-  - "01_neocortex_framework/neocortex_config.yaml"
-
+- 01_neocortex_framework/neocortex/server.py
+- 01_neocortex_framework/neocortex/sub_server.py
+- 01_neocortex_framework/neocortex_config.yaml
 write_zone:
-  - "01_neocortex_framework/neocortex/mcp/tools/"
-  - "DIR-BOOT-FR-001-bootup-main/"
-  - "DIR-DS-002-audit-logs/"
-
-tags: ["orch", "picoclaw", "mcp", "send_task", "http", "pre-mcp"]
-domain: "orchestration"
-layer: "mcp"
-type: "FEATURE"
+- 01_neocortex_framework/neocortex/mcp/tools/
+- DIR-BOOT-FR-001-bootup-main/
+- DIR-DS-002-audit-logs/
+tags:
+- orch
+- picoclaw
+- mcp
+- send_task
+- http
+- pre-mcp
+domain: orchestration
+layer: mcp
+type: FEATURE
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: <2500 chars per ticket description
+  validation:
+    py:
+    - ruff check --fix
+    - ruff format
+    - ruff check
+    - mypy --ignore-missing-imports
+    - py_compile
+    - bandit -q
+    yaml:
+    - yaml.safe_load
+    - naming NC- check
+    - secret scan
+    mdc:
+    - frontmatter YAML validate
+    - NC-READ-HASH check
+    - naming NC- check
+    json:
+    - json.loads parse
+    - naming NC- check
+    all:
+    - '@LOCKS check'
+    - Write Zone check
+    - '@SSOT update'
+    - Handoff YAML
+    - 3W check
+    - SSOT Header
+  sandbox_required: true
+  sandbox_steps:
+  - 1. Copiar arquivo alvo para *-sandbox.py
+  - 2. Fazer alteracoes no sandbox
+  - 3. Validar sandbox (ruff+mypy+py_compile)
+  - 4. Testar sandbox
+  - 5. Aplicar no real (com backup)
+  - 6. Rollback via backup se falhar
+  handoff_required: true
+  handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+  handoff_dest: DIR-DS-002-audit-logs/
+  handoff_format: NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+  handoff_fields:
+  - ticket_id
+  - status
+  - submitted_at
+  - submitted_by
+  - summary
+  - files_created
+  - files_modified
+  - validation_rounds
+  - barriers_passed
+  - locks_violated
+  - t0_review
+  governance:
+    eisenhower_applied: true
+    mordaca_h: HOOK — bloqueia acao invalida ANTES de executar (FAIL-FAST)
+    mordaca_c: CHECKPOINT — audita estado a cada 300s (PulseScheduler)
+    mordaca_s: SCHEDULE — consolida no CICLO 4 semanal
+    mordaca_u: USER — T0 aprova/rejeita via handoff review
+    kaizen: Registrar micro-melhoria no @CHANGELOG apos conclusao
+    roadmap: Marcar %DONE no @ROADMAP apos handoff aprovado

@@ -1,0 +1,157 @@
+ticket_id: NC-DS-162
+title: 'Expansão T0: Mentor Mode + Auto-Learning + Auto-Evolve com SOTA 2025/2026'
+status: DONE
+priority: HIGH
+created: '2026-04-22T01:30:00'
+assigned_to: T0
+category: enhancement
+subcategory: agent_capabilities
+references:
+- More Agents Is All You Need (arXiv:2402.05120) - Agent Forest para Mentor Mode
+- 'Self-Discover: Large Language Models Self-Compose Reasoning Structures (arXiv:2402.03620)
+  - Auto-Learning'
+- LATS (Language Agent Tree Search) - Auto-Evolve
+objective: 'Expandir o agente T0 (STOP-0) com 3 novos modos operacionais baseados
+  em SOTA 2025/2026:
+
+  1. MENTOR Mode — T0 ensina sub-agentes ativamente, usando handoff para "broncas"
+  quando detecta erros T1
+
+  2. AUTO-LEARNING Mode — T0 extrai lições de cada sessão com Self-Discover reasoning
+  structures
+
+  3. AUTO-EVOLVE Mode — T0 propõe e aplica melhorias em suas próprias regras/lobos
+  usando LATS
+
+  '
+requirements:
+- 'brain.mentor: Nova action em NC-SUPER-007-brain.py para criticar outputs de sub-agentes'
+- 'brain.auto_learn: Nova action para extrair lições de sessões com Self-Discover'
+- 'brain.auto_evolve: Nova action para evolução controlada de lobos com LATS'
+- 'NC-LBE-FR-MENTOR-001.mdc: Lobe de controle com regras e thresholds'
+- Integração com handoff para registrar 'broncas' quando T0 detecta erros T1
+- Agent Forest sampling para múltiplas perspectivas no Mentor Mode
+- Self-Discover reasoning structures para Auto-Learning
+- LATS tree search para Auto-Evolve com dry-run obrigatório
+acceptance_criteria:
+- brain.mentor deve gerar handoff com tag 'mentor_bronca' quando detectar erro T1
+- brain.auto_learn deve criar lobe NC-LBE-FR-LEARNED-{date}.mdc com lições estruturadas
+- brain.auto_evolve deve funcionar em dry-run mode sem modificar arquivos
+- Todas as evoluções devem ser rastreadas via handoff no DIR-DS-002-audit-logs/
+- Nenhuma regra de governança crítica pode ser modificada pelo Auto-Evolve
+- 'Performance: Mentor Mode deve processar crítica em <5s'
+dependencies:
+- NC-SUPER-007-brain.py existente
+- neocortex_akl tool operacional
+- neocortex_governance tool para handoff.create
+- neocortex_memory_auto para turn.record
+implementation_plan:
+  phase1:
+    name: Mentor Mode com Agent Forest
+    tasks:
+    - Modificar NC-SUPER-007-brain.py para adicionar action brain.mentor
+    - Implementar Agent Forest sampling (3 critics perspectives)
+    - Integrar com handoff.create para broncas T1
+    - Testar com outputs simulados de sub-agentes
+    timeline: 1-2 semanas
+  phase2:
+    name: Auto-Learning com Self-Discover
+    tasks:
+    - Implementar brain.auto_learn action
+    - Integrar Self-Discover reasoning structures
+    - Criar lobe NC-LBE-FR-LEARNED-{date}.mdc automático
+    - Testar com sessões históricas
+    timeline: 2-3 semanas
+  phase3:
+    name: Auto-Evolve com LATS
+    tasks:
+    - Implementar brain.auto_evolve action
+    - Implementar LATS tree search para propostas
+    - Adicionar safeguards e dry-run obrigatório
+    - Criar lobe de controle NC-LBE-FR-MENTOR-001.mdc
+    - Testar evolução controlada
+    timeline: 3-4 semanas
+risks:
+- risk: Over-evolution de regras críticas
+  mitigation: Whitelist de lobos permitidos, nunca modificar regras de governança
+- risk: Performance degradation
+  mitigation: Caching de estruturas de raciocínio, timeouts
+- risk: Feedback loops negativos
+  mitigation: Thresholds conservadores, human-in-the-loop para evoluções maiores
+success_metrics:
+- 'Mentor Mode: +20% qualidade de feedback vs baseline'
+- 'Auto-Learning: Extrair ≥3 lições por sessão de 10 turns'
+- 'Auto-Evolve: Propor ≥1 melhoria válida por semana'
+- Zero modificações em regras críticas de governança
+notes: "OBSERVAÇÃO CRÍTICA: No Self-Reflection, o T0 deve usar handoff para dar \"\
+  bronca\" \ne analisar o agente T1. Exemplo: T0 vendo um erro já coloca no acervo\
+  \ STOP-0.\n\nO handoff deve conter:\n- Agente T1 que cometeu o erro\n- Descrição\
+  \ do erro\n- Correção proposta\n- Severidade (BAIXA, MÉDIA, ALTA)\n- Tag: \"mentor_bronca\"\
+  \n"
+expected_handoff: NC-DS-162-handoff-expansao-t0-completa.yaml
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: <2500 chars per ticket description
+  validation:
+    py:
+    - ruff check --fix
+    - ruff format
+    - ruff check
+    - mypy --ignore-missing-imports
+    - py_compile
+    - bandit -q
+    yaml:
+    - yaml.safe_load
+    - naming NC- check
+    - secret scan
+    mdc:
+    - frontmatter YAML validate
+    - NC-READ-HASH check
+    - naming NC- check
+    json:
+    - json.loads parse
+    - naming NC- check
+    all:
+    - '@LOCKS check'
+    - Write Zone check
+    - '@SSOT update'
+    - Handoff YAML
+    - 3W check
+    - SSOT Header
+  sandbox_required: true
+  sandbox_steps:
+  - 1. Copiar arquivo alvo para *-sandbox.py
+  - 2. Fazer alteracoes no sandbox
+  - 3. Validar sandbox (ruff+mypy+py_compile)
+  - 4. Testar sandbox
+  - 5. Aplicar no real (com backup)
+  - 6. Rollback via backup se falhar
+  handoff_required: true
+  handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+  handoff_dest: DIR-DS-002-audit-logs/
+  handoff_format: NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+  handoff_fields:
+  - ticket_id
+  - status
+  - submitted_at
+  - submitted_by
+  - summary
+  - files_created
+  - files_modified
+  - validation_rounds
+  - barriers_passed
+  - locks_violated
+  - t0_review
+  governance:
+    eisenhower_applied: true
+    mordaca_h: HOOK — bloqueia acao invalida ANTES de executar (FAIL-FAST)
+    mordaca_c: CHECKPOINT — audita estado a cada 300s (PulseScheduler)
+    mordaca_s: SCHEDULE — consolida no CICLO 4 semanal
+    mordaca_u: USER — T0 aprova/rejeita via handoff review
+    kaizen: Registrar micro-melhoria no @CHANGELOG apos conclusao
+    roadmap: Marcar %DONE no @ROADMAP apos handoff aprovado
+
+closed_at: '2026-05-04T03:10:00-03:00'
+closed_by: T0-OpenCode
+resolution: 'Protocol established (NC-GOV-FR-002). Ticket obsoleto pela nova arquitetura.'

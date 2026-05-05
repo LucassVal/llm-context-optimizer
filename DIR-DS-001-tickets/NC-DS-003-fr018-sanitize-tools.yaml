@@ -3,78 +3,144 @@ ticket_type: REFACTOR + FEATURE
 priority: MEDIUM
 status: DONE
 assigned_to: deepseek-v4-flash
-handoff_ref: "NC-DS-003-handoff-20260415T134000-retrospective.yaml"
-completed_at: "2026-04-15T13:40:00-03:00"
-created_at: "2026-04-13T20:06:00-03:00"
+handoff_ref: NC-DS-003-handoff-20260415T134000-retrospective.yaml
+completed_at: '2026-04-15T13:40:00-03:00'
+created_at: '2026-04-13T20:06:00-03:00'
 created_by: antigravity-t0
-
 context:
   roadmap_ticket: FR-018 + SANITIZE-TOOLS
   active_locks:
-    - server.py
-    - sub_server.py
-    - NC-NAM-FR-001
-    - neocortex_config.yaml
-  write_zone: "01_neocortex_framework/neocortex/mcp/tools/"
-  naming_rule: "NC-<TIPO>-<SIGLA>-<NUM>-<desc>.ext"
-  reference_file: "neocortex/mcp/tools/NC-TOOL-FR-029-health.py"
-
+  - server.py
+  - sub_server.py
+  - NC-NAM-FR-001
+  - neocortex_config.yaml
+  write_zone: 01_neocortex_framework/neocortex/mcp/tools/
+  naming_rule: NC-<TIPO>-<SIGLA>-<NUM>-<desc>.ext
+  reference_file: neocortex/mcp/tools/NC-TOOL-FR-029-health.py
 task:
-  description: |
-    PARTE 1 — Criar NC-TOOL-FR-018-push-notification.py (CANÔNICO)
-    O arquivo FR-032-push-notification.py e FR-033-push-notification.py têm COLISÃO de nome.
-    A funcionalidade correta é push notification via notifypy.
-    
-    Ações a implementar:
-      push.send   → envia notificação desktop via notifypy (com feature flag KAIROS_PUSH_NOTIFICATION)
-      push.status → verifica disponibilidade (notifypy instalado + flag ativo)
-    
-    Padrão: seguir EXATAMENTE NC-TOOL-FR-029-health.py
-    Absorve: NC-TOOL-FR-032-push-notification.py e NC-TOOL-FR-033-push-notification.py
-    
-    PARTE 2 — Mover os arquivos colidentes para DIR-ARC-FR-001-archive-main/
-    Arquivar (NÃO DELETAR):
-      - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-032-push-notification.py
-      - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-033-push-notification.py
-      - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-020-categories.py
-        (NC-TOOL-FR-020-knowledge.py é o canônico — manter; categories era alias)
-      - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-028-export.py
-        (NC-TOOL-FR-006-export.py é o canônico — manter; FR-028 é duplicata)
-    
-    PARTE 3 — Criar NC-TOOL-FR-018-picoclaw.py (se push-notification já colidiu com FR-018)
-    IMPORTANTE: verificar se NC-TOOL-FR-018-*.py já existe antes de criar. Se sim, pular.
-    
-    Destino dos arquivados: DIR-ARC-FR-001-archive-main/tools-duplicates-20260413/
-
+  description: "PARTE 1 — Criar NC-TOOL-FR-018-push-notification.py (CANÔNICO)\nO\
+    \ arquivo FR-032-push-notification.py e FR-033-push-notification.py têm COLISÃO\
+    \ de nome.\nA funcionalidade correta é push notification via notifypy.\n\nAções\
+    \ a implementar:\n  push.send   → envia notificação desktop via notifypy (com\
+    \ feature flag KAIROS_PUSH_NOTIFICATION)\n  push.status → verifica disponibilidade\
+    \ (notifypy instalado + flag ativo)\n\nPadrão: seguir EXATAMENTE NC-TOOL-FR-029-health.py\n\
+    Absorve: NC-TOOL-FR-032-push-notification.py e NC-TOOL-FR-033-push-notification.py\n\
+    \nPARTE 2 — Mover os arquivos colidentes para DIR-ARC-FR-001-archive-main/\nArquivar\
+    \ (NÃO DELETAR):\n  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-032-push-notification.py\n\
+    \  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-033-push-notification.py\n\
+    \  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-020-categories.py\n\
+    \    (NC-TOOL-FR-020-knowledge.py é o canônico — manter; categories era alias)\n\
+    \  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-028-export.py\n   \
+    \ (NC-TOOL-FR-006-export.py é o canônico — manter; FR-028 é duplicata)\n\nPARTE\
+    \ 3 — Criar NC-TOOL-FR-018-picoclaw.py (se push-notification já colidiu com FR-018)\n\
+    IMPORTANTE: verificar se NC-TOOL-FR-018-*.py já existe antes de criar. Se sim,\
+    \ pular.\n\nDestino dos arquivados: DIR-ARC-FR-001-archive-main/tools-duplicates-20260413/\n"
   entry_state:
     files_exist:
-      - "neocortex/mcp/tools/NC-TOOL-FR-032-push-notification.py"
-      - "neocortex/mcp/tools/NC-TOOL-FR-033-push-notification.py"
-      - "neocortex/mcp/tools/NC-TOOL-FR-020-knowledge.py"
+    - neocortex/mcp/tools/NC-TOOL-FR-032-push-notification.py
+    - neocortex/mcp/tools/NC-TOOL-FR-033-push-notification.py
+    - neocortex/mcp/tools/NC-TOOL-FR-020-knowledge.py
     files_must_not_exist:
-      - "neocortex/mcp/tools/NC-TOOL-FR-018-push-notification.py"
-
+    - neocortex/mcp/tools/NC-TOOL-FR-018-push-notification.py
   exit_state:
     files_created:
-      - "neocortex/mcp/tools/NC-TOOL-FR-018-push-notification.py"
+    - neocortex/mcp/tools/NC-TOOL-FR-018-push-notification.py
     files_archived:
-      - "DIR-ARC-FR-001-archive-main/tools-duplicates-20260413/NC-TOOL-FR-032-push-notification.py"
-      - "DIR-ARC-FR-001-archive-main/tools-duplicates-20260413/NC-TOOL-FR-033-push-notification.py"
-      - "DIR-ARC-FR-001-archive-main/tools-duplicates-20260413/NC-TOOL-FR-020-categories.py"
-      - "DIR-ARC-FR-001-archive-main/tools-duplicates-20260413/NC-TOOL-FR-028-export.py"
+    - DIR-ARC-FR-001-archive-main/tools-duplicates-20260413/NC-TOOL-FR-032-push-notification.py
+    - DIR-ARC-FR-001-archive-main/tools-duplicates-20260413/NC-TOOL-FR-033-push-notification.py
+    - DIR-ARC-FR-001-archive-main/tools-duplicates-20260413/NC-TOOL-FR-020-categories.py
+    - DIR-ARC-FR-001-archive-main/tools-duplicates-20260413/NC-TOOL-FR-028-export.py
     ssot_updated: true
     compiles_ok: true
-
 barriers:
-  - {id: B1, check: naming_convention, rule: "NC-TOOL-FR-018-push-notification.py", block_if_fail: true}
-  - {id: B2, check: lock_guard, rule: "NUNCA modificar server.py|sub_server.py|NC-NAM-FR-001|neocortex_config.yaml", block_if_fail: true}
-  - {id: B3, check: compile, rule: "python -m py_compile NC-TOOL-FR-018-push-notification.py == 0", block_if_fail: true}
-  - {id: B4, check: no_delete, rule: "NUNCA deletar — usar Move-Item para DIR-ARC-FR-001-archive-main/tools-duplicates-20260413/", block_if_fail: true}
-  - {id: B5, check: no_hardcode, rule: "Usar get_config() para paths", block_if_fail: false}
-  - {id: B6, check: no_print, rule: "Usar logger = logging.getLogger(__name__)", block_if_fail: false}
-
+- id: B1
+  check: naming_convention
+  rule: NC-TOOL-FR-018-push-notification.py
+  block_if_fail: true
+- id: B2
+  check: lock_guard
+  rule: NUNCA modificar server.py|sub_server.py|NC-NAM-FR-001|neocortex_config.yaml
+  block_if_fail: true
+- id: B3
+  check: compile
+  rule: python -m py_compile NC-TOOL-FR-018-push-notification.py == 0
+  block_if_fail: true
+- id: B4
+  check: no_delete
+  rule: NUNCA deletar — usar Move-Item para DIR-ARC-FR-001-archive-main/tools-duplicates-20260413/
+  block_if_fail: true
+- id: B5
+  check: no_hardcode
+  rule: Usar get_config() para paths
+  block_if_fail: false
+- id: B6
+  check: no_print
+  rule: Usar logger = logging.getLogger(__name__)
+  block_if_fail: false
 limits:
   max_validation_rounds: 5
   escalate_to_t0_after: 3
   max_tokens_per_phase: 4000
-integrity_hash: "a91cf3b2d847e1f0"
+integrity_hash: a91cf3b2d847e1f0
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: <2500 chars per ticket description
+  validation:
+    py:
+    - ruff check --fix
+    - ruff format
+    - ruff check
+    - mypy --ignore-missing-imports
+    - py_compile
+    - bandit -q
+    yaml:
+    - yaml.safe_load
+    - naming NC- check
+    - secret scan
+    mdc:
+    - frontmatter YAML validate
+    - NC-READ-HASH check
+    - naming NC- check
+    json:
+    - json.loads parse
+    - naming NC- check
+    all:
+    - '@LOCKS check'
+    - Write Zone check
+    - '@SSOT update'
+    - Handoff YAML
+    - 3W check
+    - SSOT Header
+  sandbox_required: true
+  sandbox_steps:
+  - 1. Copiar arquivo alvo para *-sandbox.py
+  - 2. Fazer alteracoes no sandbox
+  - 3. Validar sandbox (ruff+mypy+py_compile)
+  - 4. Testar sandbox
+  - 5. Aplicar no real (com backup)
+  - 6. Rollback via backup se falhar
+  handoff_required: true
+  handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+  handoff_dest: DIR-DS-002-audit-logs/
+  handoff_format: NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+  handoff_fields:
+  - ticket_id
+  - status
+  - submitted_at
+  - submitted_by
+  - summary
+  - files_created
+  - files_modified
+  - validation_rounds
+  - barriers_passed
+  - locks_violated
+  - t0_review
+  governance:
+    eisenhower_applied: true
+    mordaca_h: HOOK — bloqueia acao invalida ANTES de executar (FAIL-FAST)
+    mordaca_c: CHECKPOINT — audita estado a cada 300s (PulseScheduler)
+    mordaca_s: SCHEDULE — consolida no CICLO 4 semanal
+    mordaca_u: USER — T0 aprova/rejeita via handoff review
+    kaizen: Registrar micro-melhoria no @CHANGELOG apos conclusao
+    roadmap: Marcar %DONE no @ROADMAP apos handoff aprovado

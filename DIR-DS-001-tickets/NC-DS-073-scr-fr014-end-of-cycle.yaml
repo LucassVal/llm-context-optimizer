@@ -1,40 +1,118 @@
-ticket_id: "NC-DS-073"
-status: "DONE"
-priority: "HIGH"
-title: "SCR-FR-014 — Rastreabilidade: NC-SCR-FR-014-end-of-cycle.ps1"
-created_at: "2026-04-15T01:08:00-03:00"
-created_by: "T0-Antigravity"
-
+ticket_id: NC-DS-073
+status: DONE
+priority: HIGH
+title: 'SCR-FR-014 — Rastreabilidade: NC-SCR-FR-014-end-of-cycle.ps1'
+created_at: '2026-04-15T01:08:00-03:00'
+created_by: T0-Antigravity
 context:
-  origin: "Auditoria de scripts orfaos (Ciclo 1, sessao 2026-04-15)"
-  problem: |
-    NC-SCR-FR-014-end-of-cycle.ps1 e a rotina de fim de ciclo PowerShell 7.x.
-    E usado no NC-WF-001 linha 137 (Ciclo 3) sem ticket formal. Esta e a
-    ultima etapa do Ciclo 3 antes de encerrar a sessao.
-  scope: "Rastreabilidade + verificacao de funcionamento no Windows (pwsh 7.x)"
+  origin: Auditoria de scripts orfaos (Ciclo 1, sessao 2026-04-15)
+  problem: 'NC-SCR-FR-014-end-of-cycle.ps1 e a rotina de fim de ciclo PowerShell 7.x.
 
+    E usado no NC-WF-001 linha 137 (Ciclo 3) sem ticket formal. Esta e a
+
+    ultima etapa do Ciclo 3 antes de encerrar a sessao.
+
+    '
+  scope: Rastreabilidade + verificacao de funcionamento no Windows (pwsh 7.x)
 task:
-  description: |
-    1. Verificar integridade do script PowerShell (sintaxe, compatibilidade pwsh 7.x).
+  description: '1. Verificar integridade do script PowerShell (sintaxe, compatibilidade
+    pwsh 7.x).
+
     2. Executar com -WhatIf ou -DryRun para validar sem efeitos colaterais.
+
     3. Documentar parametros (-UpdateCatalog, etc.) e o que o script faz.
+
     4. Verificar se o script ainda e relevante ou se foi substituido por outros.
+
     5. Atualizar NC-NAM-FR-001 com entrada do script.
+
     6. Gerar handoff APPROVED.
+
+    '
   action_description:
     utterances:
-      - "Executar rotina de fim de ciclo"
-      - "Limpar cache e verificar lint antes de encerrar sessao"
-    input_instructions: "Executar com pwsh 7.x da raiz do projeto. Flag -UpdateCatalog atualiza artifact_catalog.json."
-    output_instructions: "Relatorio de limpeza: arquivos removidos, lint issues, status final."
-    usage_rules: "Ciclo 3: ultima etapa. Requer que NC-SCR-FR-064 e NC-SCR-FR-066 ja tenham executado."
-
-write_zone: "01_neocortex_framework/scripts/"
+    - Executar rotina de fim de ciclo
+    - Limpar cache e verificar lint antes de encerrar sessao
+    input_instructions: Executar com pwsh 7.x da raiz do projeto. Flag -UpdateCatalog
+      atualiza artifact_catalog.json.
+    output_instructions: 'Relatorio de limpeza: arquivos removidos, lint issues, status
+      final.'
+    usage_rules: 'Ciclo 3: ultima etapa. Requer que NC-SCR-FR-064 e NC-SCR-FR-066
+      ja tenham executado.'
+write_zone: 01_neocortex_framework/scripts/
 references:
-  - "01_neocortex_framework/scripts/NC-SCR-FR-014-end-of-cycle.ps1"
-  - ".agents/workflows/NC-WF-001-workspace-routine.md#L137"
-
-tags: ["ciclo3", "orchestration", "cleanup", "lint", "powershell", "infra", "SCR"]
-domain: "orchestration"
-layer: "infra"
-type: "SCR"
+- 01_neocortex_framework/scripts/NC-SCR-FR-014-end-of-cycle.ps1
+- .agents/workflows/NC-WF-001-workspace-routine.md#L137
+tags:
+- ciclo3
+- orchestration
+- cleanup
+- lint
+- powershell
+- infra
+- SCR
+domain: orchestration
+layer: infra
+type: SCR
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: <2500 chars per ticket description
+  validation:
+    py:
+    - ruff check --fix
+    - ruff format
+    - ruff check
+    - mypy --ignore-missing-imports
+    - py_compile
+    - bandit -q
+    yaml:
+    - yaml.safe_load
+    - naming NC- check
+    - secret scan
+    mdc:
+    - frontmatter YAML validate
+    - NC-READ-HASH check
+    - naming NC- check
+    json:
+    - json.loads parse
+    - naming NC- check
+    all:
+    - '@LOCKS check'
+    - Write Zone check
+    - '@SSOT update'
+    - Handoff YAML
+    - 3W check
+    - SSOT Header
+  sandbox_required: true
+  sandbox_steps:
+  - 1. Copiar arquivo alvo para *-sandbox.py
+  - 2. Fazer alteracoes no sandbox
+  - 3. Validar sandbox (ruff+mypy+py_compile)
+  - 4. Testar sandbox
+  - 5. Aplicar no real (com backup)
+  - 6. Rollback via backup se falhar
+  handoff_required: true
+  handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+  handoff_dest: DIR-DS-002-audit-logs/
+  handoff_format: NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+  handoff_fields:
+  - ticket_id
+  - status
+  - submitted_at
+  - submitted_by
+  - summary
+  - files_created
+  - files_modified
+  - validation_rounds
+  - barriers_passed
+  - locks_violated
+  - t0_review
+  governance:
+    eisenhower_applied: true
+    mordaca_h: HOOK — bloqueia acao invalida ANTES de executar (FAIL-FAST)
+    mordaca_c: CHECKPOINT — audita estado a cada 300s (PulseScheduler)
+    mordaca_s: SCHEDULE — consolida no CICLO 4 semanal
+    mordaca_u: USER — T0 aprova/rejeita via handoff review
+    kaizen: Registrar micro-melhoria no @CHANGELOG apos conclusao
+    roadmap: Marcar %DONE no @ROADMAP apos handoff aprovado

@@ -1,0 +1,165 @@
+# NC-DS-250 — MCP Resources: Implementar resources/list, resources/read, resources/templates/list, resources/subscribe
+# WHAT: Expor dados de Lobes, KG e manifest como MCP Resources com URIs canônicas
+# WHY: MCP clients (OpenCode, Claude Code, VS Code Copilot) esperam Resources como fonte de contexto passiva e read-only
+# WHERE: 01_neocortex_framework/neocortex/mcp/resources.py (novo módulo)
+
+ticket_id: NC-DS-250
+title: "MCP Resources — Expor Lobes, KG e Manifest como Resources (resources/list, resources/read, resources/templates/list, resources/subscribe)"
+status: PENDING_REVIEW
+priority: P0
+assignee: opencode
+created: "2026-05-04"
+implementation_note: "T0-implemented 2026-05-04: 5 resources added inline to server.py lines 451-526 (LEXICO, Lobe Manifest, Boot Manifest, Active Locks, Lobe by ID template). Uses @server.resource() decorator pattern. resources.py not created — inline implementation chosen for FastMCP compatibility."
+description: |
+  GAP IDENTIFICADO: O servidor MCP atual (server.py) registra apenas Tools via FastMCP. 
+  O protocolo MCP define Resources como primitiva de servidor que expõe dados passivos e 
+  read-only com URIs canônicas. Sem Resources, clients como OpenCode não conseguem 
+  discovery automático dos dados de contexto do NeoCortex (lobes, KG, manifest).
+
+  ESCOPO:
+  1. Implementar resources/list — retorna todos os Resources diretos disponíveis:
+     - neocortex://lobes/manifest → NC-MAN-LOBE-001.csv parseado como JSON
+     - neocortex://kg/schema → schema atual do Knowledge Graph
+     - neocortex://boot/status → estado atual do @BOOT (NC-BOOT-FR-001)
+     - neocortex://locks/active → lista de @LOCKS ativos
+     - neocortex://zones/active → Write Zones ativas
+     - neocortex://ssot/summary → resumo do @SSOT
+
+  2. Implementar resources/templates/list — Resources parametrizados:
+     - neocortex://lobes/{lobe_id} → conteúdo de um lobe específico
+     - neocortex://kg/entity/{entity_id} → entidade KG específica
+     - neocortex://tickets/{ticket_id} → ticket específico por ID
+     - neocortex://audit/{log_id} → log de auditoria específico
+
+  3. Implementar resources/read — retorna o conteúdo do Resource com MIME type:
+     - application/json para dados estruturados
+     - text/markdown para conteúdo .mdc
+     - text/yaml para tickets e manifests
+
+  4. Implementar resources/subscribe — permite clients monitorar mudanças:
+     - Wirear hooks do NeoCortex (HK-001, HK-002) → disparar notifications/resources/updated
+     - Subscribe em lobes (quando @POPULATE roda)
+     - Subscribe em KG (quando entidades são adicionadas/removidas)
+     - Subscribe em locks (quando @LOCKS muda)
+
+  PADRÃO DE REFERÊNCIA: NC-LBE-INT-006-mcp-specification.mdc §2.1 (Server Features — Resources).
+  FastMCP SDK suporta `@mcp.resource("uri://path")` nativamente.
+
+  IMPACTO: Habilita progressive discovery para clients MCP. Sem Resources, o NeoCortex 
+  é um servidor "cego" — clients precisam conhecer tools por documentação externa.
+
+context:
+  - "Reference: 02_memory_lobes/02_integrations/NC-LBE-INT-006-mcp-specification.mdc §2.1 (Resources), §1.4 (Server Primitives: Resources)"
+  - "Gap found by structural audit 2026-05-04 — NeoCortex MCP server expõe apenas Tools, zero Resources"
+  - "See NC-MAN-LOBE-001.csv for lobe IDs to map as Resources"
+  - "FastMCP: @mcp.resource('uri://path') decorator — Python SDK Tier 1"
+  - "MCP Spec §20.2 (Implicações para NeoCortex): Resources não implementado"
+
+task: |
+  1. Criar 01_neocortex_framework/neocortex/mcp/resources.py (~300 linhas)
+     a. Implementar resource_registry: dict[str, ResourceDefinition] com URI → handler
+     b. Registrar Resources diretos: lobes/manifest, kg/schema, boot/status, locks/active, zones/active, ssot/summary
+     c. Registrar Resource templates com URI templates e parâmetros: lobes/{id}, kg/entity/{id}, tickets/{id}, audit/{id}
+     d. Implementar read_handler(uri: str) → tuple[content, mime_type]
+     e. Wirear com LEXICO para resolver paths de lobes e KG
+     f. Usar logger = logging.getLogger(__name__) — NUNCA print()
+
+  2. Integrar em server.py (via @mcp.resource ou register_resource)
+     a. Importar resource_registry de resources.py
+     b. Registrar todos os Resources no servidor FastMCP
+     c. NÃO modificar sub_server.py (R04 — @LOCKS)
+
+  3. Implementar subscribe mechanism
+     a. Criar subscription_registry: dict[str, set[str]] (URI → client_ids)
+     b. Wirear hooks (NC-HK-FR-001) → quando lobe/KG/lock muda → notifications/resources/updated
+     c. Implementar resources/subscribe handler (adiciona client à subscription list)
+
+  4. VALIDAÇÃO: ruff + mypy + py_compile + bandit em resources.py
+     Testar com MCP Inspector: resources/list, resources/read, resources/templates/list
+
+write_zone: "PROD → 01_neocortex_framework/neocortex/mcp/resources.py"
+locks:
+  - "01_neocortex_framework/neocortex/mcp/server.py → MODIFICAR SOMENTE PARA INTEGRAÇÃO, NUNCA REESCREVER"
+  - "01_neocortex_framework/neocortex/mcp/sub_server.py → NUNCA MODIFICAR"
+
+# ── GOVERNANCE CONSTRAINTS (NC-GOV-FR-003) ─────────────────
+gateway_constraint: "ConstitutionGateway.validate_action() BEFORE any file modification"
+sandbox_zone: "01_neocortex_framework/neocortex/mcp/ → T0-review required before merge"
+lock_constraint: "server.py → T0 ONLY | sub_server.py → NEVER MODIFY | tools/*.py → Gateway validates"
+agent_policy: "T1 (courier) → read-only ops only | T2 (engineer) → micro-tasks in sandbox | T3 (guardian) → validation only"
+
+# ── MICRO-TASKS (Fractionated — T0 implemented retrospectively) ──
+# Each micro-task = 1 file, 3-10 lines. Must pass py_compile + ruff independently.
+# Ordered by dependency. T0 reviews after ALL pass.
+micro_tasks:
+  - id: "NC-DS-250-MT01"
+    desc: "Add _safe_read() helper + _fw_root/_prj_root path resolution in server.py"
+    agent: "T0"
+    files: ["01_neocortex_framework/neocortex/mcp/server.py"]
+    validation: "py_compile + ruff check"
+    status: "DONE"
+    lines: "L451-463"
+
+  - id: "NC-DS-250-MT02"
+    desc: "Register neocortex://lexico/latest resource (@server.resource decorator, JSON MIME)"
+    agent: "T0"
+    files: ["01_neocortex_framework/neocortex/mcp/server.py"]
+    validation: "py_compile + ruff check"
+    status: "DONE"
+    lines: "L465-474"
+
+  - id: "NC-DS-250-MT03"
+    desc: "Register neocortex://lobes/manifest resource (CSV MIME, NC-MAN-LOBE-001.csv)"
+    agent: "T0"
+    files: ["01_neocortex_framework/neocortex/mcp/server.py"]
+    validation: "py_compile + ruff check"
+    status: "DONE"
+    lines: "L476-485"
+
+  - id: "NC-DS-250-MT04"
+    desc: "Register neocortex://boot/manifest resource (Markdown MIME, BOOT-FR-001)"
+    agent: "T0"
+    files: ["01_neocortex_framework/neocortex/mcp/server.py"]
+    validation: "py_compile + ruff check"
+    status: "DONE"
+    lines: "L487-496"
+
+  - id: "NC-DS-250-MT05"
+    desc: "Register neocortex://locks/active resource (YAML MIME, NC-SEC-FR-001)"
+    agent: "T0"
+    files: ["01_neocortex_framework/neocortex/mcp/server.py"]
+    validation: "py_compile + ruff check"
+    status: "DONE"
+    lines: "L498-507"
+
+  - id: "NC-DS-250-MT06"
+    desc: "Register neocortex://lobes/{lobe_id} template resource (rglob lookup, exclude archive)"
+    agent: "T0"
+    files: ["01_neocortex_framework/neocortex/mcp/server.py"]
+    validation: "py_compile + ruff check"
+    status: "DONE"
+    lines: "L509-524"
+
+  - id: "NC-DS-250-MT07"
+    desc: "Validation — ruff + mypy + py_compile + MCP Inspector resources/list test"
+    agent: "T3 (guardian)"
+    files: ["01_neocortex_framework/neocortex/mcp/server.py"]
+    validation: "ruff check + mypy + py_compile"
+    status: "DONE"
+
+  - id: "NC-DS-250-MT08"
+    desc: "Generate handoff + mark ticket PENDING_REVIEW. Update @SSOT changelog."
+    agent: "T0"
+    files: ["DIR-DS-001-tickets/NC-DS-250-ticket.yaml"]
+    validation: "YAML safe_load + naming check"
+    status: "DONE"
+
+# ── REMAINING GAPS (post-PENDING_REVIEW) ──
+pending_gaps:
+  - "resources/subscribe not yet implemented (requires NC-DS-254 Notifications)"
+  - "resources.py module not created (inline implementation chosen; evaluate extraction later)"
+  - "KG schema resource (neocortex://kg/schema) not exposed — KG module needs stable schema export"
+  - "SSOT summary resource (neocortex://ssot/summary) not exposed — SSOT parser needed"
+  - "zones/active resource not exposed — WriteZones module needs public API"
+
+

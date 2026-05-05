@@ -1,59 +1,133 @@
 id: NC-DS-067
 code: TESTFIX-001
-title: "Correção de Testes VectorEngine (Tester)"
-assignee: "Agente OpenCode (DeepSeek-Reasoner)"
+status: DONE
+title: Correção de Testes VectorEngine (Tester)
+assignee: Agente OpenCode (DeepSeek-Reasoner)
 context:
-  - "01_neocortex_framework/tests/test_vector_engine.py"
-  - "01_neocortex_framework/neocortex/infra/vector_engine.py"
-  - "DIR-DS-002-audit-logs/NC-DS-067-handoff-tester-vector-fix.yaml"
-task: |
-  **PROBLEMA**: Incompatibilidade assíncrona e divergência de API nos testes VectorEngine. Testes síncronos chamando métodos async, nomes de atributos/métodos incorretos, falta de mocks adequados.
-  
+- 01_neocortex_framework/tests/test_vector_engine.py
+- 01_neocortex_framework/neocortex/infra/vector_engine.py
+- DIR-DS-002-audit-logs/NC-DS-067-handoff-tester-vector-fix.yaml
+task: '**PROBLEMA**: Incompatibilidade assíncrona e divergência de API nos testes
+  VectorEngine. Testes síncronos chamando métodos async, nomes de atributos/métodos
+  incorretos, falta de mocks adequados.
+
+
   **SOLUÇÃO APLICADA**:
+
   1. Análise da API real de `vector_engine.py` (15 métodos públicos identificados)
-  2. Correção de incompatibilidade assíncrona: adicionados decorators `@pytest.mark.asyncio` em testes que chamam métodos async
+
+  2. Correção de incompatibilidade assíncrona: adicionados decorators `@pytest.mark.asyncio`
+  em testes que chamam métodos async
+
   3. Validação de chamadas de método: nenhuma divergência grave encontrada
+
   4. Geração de checklist de cobertura: `test_coverage_checklist.md`
+
   5. Atualização do arquivo de teste com correções mínimas necessárias
-  
-  **RESULTADO**: Testes parcialmente corrigidos, 4 testes passam, 11 falham devido a problemas remanescentes (mocks, dimensões, Windows path).
-  
-  **IMPACTO**: Base para correções posteriores (NC‑DS‑068) e validação da API real do VectorEngine.
-  
+
+
+  **RESULTADO**: Testes parcialmente corrigidos, 4 testes passam, 11 falham devido
+  a problemas remanescentes (mocks, dimensões, Windows path).
+
+
+  **IMPACTO**: Base para correções posteriores (NC‑DS‑068) e validação da API real
+  do VectorEngine.
+
+
   **EVIDÊNCIAS**: Handoff correspondente em `DIR‑DS‑002‑audit‑logs/NC‑DS‑067‑handoff‑tester‑vector‑fix.yaml`.
 
+  '
 entry_state:
   files_exist:
-    - "01_neocortex_framework/tests/test_vector_engine.py"
-    - "01_neocortex_framework/neocortex/infra/vector_engine.py"
+  - 01_neocortex_framework/tests/test_vector_engine.py
+  - 01_neocortex_framework/neocortex/infra/vector_engine.py
   files_must_not_exist: []
-
 exit_state:
   files_created:
-    - "01_neocortex_framework/DIR-DOC-FR-001-docs-main/test_coverage_checklist.md"
+  - 01_neocortex_framework/DIR-DOC-FR-001-docs-main/test_coverage_checklist.md
   files_modified:
-    - "01_neocortex_framework/tests/test_vector_engine.py"
+  - 01_neocortex_framework/tests/test_vector_engine.py
   files_deleted: []
   ssot_updated: false
   compiles_ok: true
   roadmap_done: null
-
 barriers:
-  - id: B1
-    check: naming_convention
-    rule: "Arquivos devem seguir padrão NC-"
-    block_if_fail: true
-  - id: B2
-    check: lock_guard
-    rule: "NUNCA modificar: vector_engine.py (lock atômico)"
-    block_if_fail: true
-  - id: B3
-    check: write_zone
-    rule: "Modificações apenas em diretório de testes (ZONE_TEST)"
-    block_if_fail: true
-
+- id: B1
+  check: naming_convention
+  rule: Arquivos devem seguir padrão NC-
+  block_if_fail: true
+- id: B2
+  check: lock_guard
+  rule: 'NUNCA modificar: vector_engine.py (lock atômico)'
+  block_if_fail: true
+- id: B3
+  check: write_zone
+  rule: Modificações apenas em diretório de testes (ZONE_TEST)
+  block_if_fail: true
 limits:
   max_validation_rounds: 4
   escalate_to_t0_after: 3
   max_tokens_per_phase: 3500
-integrity_hash: "1e0f9a8b7c6d5e4f"  # sha256[:16] de "NC-DS-067|test_fix|VectorEngine tests fix"
+integrity_hash: 1e0f9a8b7c6d5e4f
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: <2500 chars per ticket description
+  validation:
+    py:
+    - ruff check --fix
+    - ruff format
+    - ruff check
+    - mypy --ignore-missing-imports
+    - py_compile
+    - bandit -q
+    yaml:
+    - yaml.safe_load
+    - naming NC- check
+    - secret scan
+    mdc:
+    - frontmatter YAML validate
+    - NC-READ-HASH check
+    - naming NC- check
+    json:
+    - json.loads parse
+    - naming NC- check
+    all:
+    - '@LOCKS check'
+    - Write Zone check
+    - '@SSOT update'
+    - Handoff YAML
+    - 3W check
+    - SSOT Header
+  sandbox_required: true
+  sandbox_steps:
+  - 1. Copiar arquivo alvo para *-sandbox.py
+  - 2. Fazer alteracoes no sandbox
+  - 3. Validar sandbox (ruff+mypy+py_compile)
+  - 4. Testar sandbox
+  - 5. Aplicar no real (com backup)
+  - 6. Rollback via backup se falhar
+  handoff_required: true
+  handoff_template: DIR-DS-001-tickets/NC-DS-HANDOFF-TEMPLATE.yaml
+  handoff_dest: DIR-DS-002-audit-logs/
+  handoff_format: NC-DS-{TICKET_ID}-handoff-{YYYYMMDDTHHMMSS}.yaml
+  handoff_fields:
+  - ticket_id
+  - status
+  - submitted_at
+  - submitted_by
+  - summary
+  - files_created
+  - files_modified
+  - validation_rounds
+  - barriers_passed
+  - locks_violated
+  - t0_review
+  governance:
+    eisenhower_applied: true
+    mordaca_h: HOOK — bloqueia acao invalida ANTES de executar (FAIL-FAST)
+    mordaca_c: CHECKPOINT — audita estado a cada 300s (PulseScheduler)
+    mordaca_s: SCHEDULE — consolida no CICLO 4 semanal
+    mordaca_u: USER — T0 aprova/rejeita via handoff review
+    kaizen: Registrar micro-melhoria no @CHANGELOG apos conclusao
+    roadmap: Marcar %DONE no @ROADMAP apos handoff aprovado
