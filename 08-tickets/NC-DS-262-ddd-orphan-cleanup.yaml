@@ -1,0 +1,23 @@
+ticket_id: "NC-DS-262"
+title: "Pivotação DDD e Saneamento de Órfãos/Duplicatas"
+description: |
+  Refatorar a topologia de importações para obedecer estritamente à regra DDD: 
+  'filho -> pai <-> pai -> filho'. Nenhum módulo filho pode importar ou chamar
+  outro filho de contexto distinto diretamente (cross-domain p2p).
+  Adicionalmente, processar 'orphan_audit_final.txt' e sanear falhas críticas de 
+  unicidade de nomenclatura (IDs duplicados), além de arquivar scripts obsoletos.
+status: "TODO"
+priority: "CRITICAL"
+owner: "OpenCode"
+category: "architecture"
+dependencies: []
+acceptance_criteria:
+  - "1. Unicidade: Todas as duplicações de ID mapeadas no orphan_audit (061, 062, 148, 150, 151) devem ser resolvidas com novos IDs ou arquivadas."
+  - "2. DDD: Zero dependências laterais (imports diretos child-to-child) nas pastas vitais do framework. As dependências devem apontar para a interface pública do Pai (Aggregate Root/Kernel)."
+  - "3. Arquivamento: Ferramentas de correção pontual órfãs devem ser movidas para DIR-ARC-FR-001-archive-main e removidas do runtime."
+  - "4. SSOT: O documento mestre de convenções e rotas deve ser atualizado refletindo as refatorações."
+steps_to_execute:
+  - "STEP 1 (DIAGNÓSTICO): Ler '13-reports/orphan_audit_final.txt' e filtrar explicitamente scripts com numeração conflitante (linhas 89-94, 127-133)."
+  - "STEP 2 (ARQUIVAMENTO/RENOMEAÇÃO): Mover código extinto para DIR-ARC-FR-001. Renomear arquivos mantidos sob IDs sequenciais livres (NC-SCR-FR-XXX)."
+  - "STEP 3 (ENFORCEMENT DDD): Escanear '01_neocortex_framework/neocortex/' via AST ou RegEx para encontrar 'from neocortex.domainA.child import X' dentro de 'domainB.child'. Substituir por interfaces do Pai."
+  - "STEP 4 (CHECKLIST): Validar via mypy/pyright se a pivotação quebrou tipos. Marcar o ticket NC-DS-262 como %DONE em @ROADMAP."

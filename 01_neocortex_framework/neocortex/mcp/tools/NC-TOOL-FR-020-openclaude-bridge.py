@@ -35,8 +35,11 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, Optional
 
-# NeoCortex Imports
-from neocortex.infra.llm.NC_SVC_FR_026_profile_router import ProfileRouter
+import importlib
+try:
+    ProfileRouter = importlib.import_module(".NC-SVC-FR-026-profile-router", package="neocortex.infra.llm").ProfileRouter
+except ImportError:
+    ProfileRouter = None
 
 logger = logging.getLogger(__name__)
 TOOL_NAME = "openclaude_bridge"

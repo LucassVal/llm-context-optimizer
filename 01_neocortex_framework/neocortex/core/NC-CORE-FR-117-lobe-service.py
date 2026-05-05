@@ -15,7 +15,7 @@ using repository interfaces for storage abstraction.
 import re
 from typing import Any, Dict, List, Optional
 
-from ..infra.lobe_index import LobeIndexService
+# from ..infra.lobe_index import LobeIndexService
 from ..repositories import LobeRepository
 from .ledger_service import get_ledger_service
 
@@ -26,7 +26,7 @@ class LobeService:
     def __init__(
         self,
         repository: Optional[LobeRepository] = None,
-        index: Optional[LobeIndexService] = None,
+        index: Optional[Any] = None,
     ):
         """
         Initialize lobe service.
@@ -45,7 +45,7 @@ class LobeService:
             self.repository = repository
 
         if index is None:
-            self.index = LobeIndexService()
+            self.index = None # LobeIndexService is unavailable
         else:
             self.index = index
 
@@ -711,7 +711,7 @@ _default_lobe_service = None
 
 def get_lobe_service(
     repository: Optional[LobeRepository] = None,
-    index: Optional[LobeIndexService] = None,
+    index: Optional[Any] = None,
 ) -> LobeService:
     """
     Get lobe service instance (singleton pattern).

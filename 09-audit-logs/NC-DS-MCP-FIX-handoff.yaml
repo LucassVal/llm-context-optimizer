@@ -1,0 +1,16 @@
+ticket_id: NC-DS-MCP-FIX
+status: DONE
+summary: Correção dos imports com hífens no MCP Server e Configuração do opencode.json
+files_created:
+  - opencode.json
+files_modified:
+  - 01_neocortex_framework/neocortex/core/NC-CORE-FR-117-lobe-service.py
+  - 01_neocortex_framework/neocortex/mcp/tools/NC-TOOL-FR-020-openclaude-bridge.py
+locks_violated: false
+checklist_r20:
+  naming_convention: true
+  no_print: true
+  ssot_updated: true
+  no_locked_modified: true
+  handoff_yaml_complete: true
+  roadmap_marked: true

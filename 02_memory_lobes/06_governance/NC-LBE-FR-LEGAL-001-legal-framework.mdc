@@ -9,7 +9,8 @@ tags: [legal, ddd, constitution, federative-pact, cpc, cpp, judicial-organs, reg
 domain: governance
 layer: legal
 priority: HIGH
-temperature: 10
+temperature: 0
+status: archived
 ---
 
 # NC-LBE-FR-LEGAL-001 — Arcabouço Jurídico NeoCortex (DDD Legal Framework)
