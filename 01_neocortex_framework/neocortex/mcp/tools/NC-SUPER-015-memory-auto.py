@@ -1,31 +1,25 @@
 #!/usr/bin/env python3
 """---
 NC-SUPER-015 — neocortex_memory_auto
----
-"""
-
-"""---
-NC-SUPER-015 — neocortex_memory_auto
----
-"""
-
-"""
-NC-SUPER-015 — neocortex_memory_auto
 FÓRUM — Auto-Memória e Catalogação Semântica
 
-Funde: memory_auto (044), session memory writer (021).
+WHAT: Automatic turn recording to JSONL session files, hot context summary
+      retrieval, session statistics from .neocortex/memory/sessions, session
+      finalization with summary, auto-lobe creation with NC-compliant naming,
+      thermal decay of lobe temperatures (archiving at zero), and catalog
+      snapshotting to catalog.jsonl with hot-context update.
+WHY: Fire-and-forget memory persistence after every conversation turn —
+     implement thermal context decay so stale lobes cool and archive
+     naturally, enabling programmatic memory lobe creation without manual
+     file manipulation.
+WHERE: Registered as 'neocortex_memory_auto' — called after every user-AI
+       interaction turn, by session closure hooks, and by memory maintenance
+       daemons performing decay and cataloging cycles.
 
-Actions:
-  turn.record     — registra turn de conversa em JSONL
-  session.hot     — retorna hot summary dos últimos N turnos
-  session.stats   — stats da sessão atual
-  session.end     — encerra sessão + gera summary
-  lobe.auto       — cria auto-lobe a partir de conteúdo
-  lobe.decay      — aplica decaimento térmico em lóbulos existentes
-  catalog.now     — cataloga semanticamente a sessão atual
+Actions: turn.record, session.hot, session.stats,
+  session.end, lobe.auto, lobe.decay, catalog.now
+---
 """
-import contextlib
-import importlib.util
 import json
 import logging
 from datetime import datetime

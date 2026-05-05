@@ -1,12 +1,19 @@
 #!/usr/bin/env python3
 """---
-pulse.py — Bridge module (obrigatório pelo server.py locked)
+NC-MCP-FR-001 — neocortex_pulse_bridge
+Compatibilidade — use neocortex_system para ações de pulse
 
-server.py linha 384 faz: from .tools import pulse
-server.py linha 386 faz: pulse.set_pulse_scheduler(pulse_scheduler)
+WHAT: Compatibility shim exposing a single 'status' action that returns
+      pulse scheduler running state and task list. Auto-starts Guardian
+      Daemon (NC-SCR-FR-115) upon scheduler registration via server.py.
+WHY: Satisfy hard server.py import dependency (from .tools import pulse /
+     pulse.set_pulse_scheduler()) without duplicating full pulse action set
+     already in NC-SUPER-006-system. Exists for backward compatibility with
+     locked server.py boot sequence.
+WHERE: Registered as 'neocortex_pulse_bridge' — NOT intended for direct
+       agent use. Agents should call neocortex_system for full pulse control.
 
-Este módulo bridge preserva essa interface sem duplicar a tool.
-A lógica de pulse actions está em NC-SUPER-006-system.py.
+Actions: status
 ---"""
 import logging
 from datetime import datetime

@@ -1,7 +1,21 @@
 """---
-NC_TOOL_FR_021_vscode_bridge.py — VS Code IDE Bridge Tool
----
-"""
+NC-TOOL-FR-021 — neocortex_vscode
+VS Code IDE Bridge + DeepSeek Account Tools
+
+WHAT: HTTP JSON-RPC bridge to VS Code extension at localhost:18791 for IDE
+      operations (file tree, file read, diagnostics, active editor, git
+      status/diff, terminal exec, workspace folders) — plus standalone
+      DeepSeek API balance checker (USD/CNY balance + model listing).
+WHY: MCP-accessible VS Code IDE control — agents inspect workspace, check
+     git status, execute terminal commands without leaving MCP ecosystem.
+     DeepSeek balance monitor for cost tracking.
+WHERE: Registered as 'neocortex_vscode' — called by agents needing IDE
+       introspection, CI/CD workflows, and cost-monitoring routines.
+
+Actions: connect, file_tree, file_read, diagnostics, active_editor,
+  git_status, git_diff, terminal_exec, workspace_folders,
+  deepseek_balance
+---"""
 
 
 

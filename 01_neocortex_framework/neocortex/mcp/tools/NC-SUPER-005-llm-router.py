@@ -1,10 +1,23 @@
 #!/usr/bin/env python3
 """---
 NC-SUPER-005 — neocortex_llm_router
-CORTE STJ — Roteamento LLM (Ollama local only — LiteLLM removed 2026-05-04)
+CORTE STJ — Roteamento LLM (Ollama local only)
+
+WHAT: Direct Ollama API integration (localhost:11434) for text generation,
+      model listing and pulling, and worker management via ping-based health
+      probes. Tier-based model selection (OPERACIONAL→qwen-1.5b,
+      TECNICO→deepseek-v4-flash, RACIOCINIO→deepseek-v4-pro).
+WHY: Provide lightweight local-only LLM interface after LiteLLM removal
+     (2026-05-04). Enables T2/T3 agents to route prompts to Ollama models
+     without external API dependencies.
+WHERE: Registered as 'neocortex_llm_router' — called by agents needing local
+       inference, benchmark tools testing model performance, and auto-
+       categorization scripts requiring semantic labeling.
+
+Actions: ollama.ask, ollama.list, ollama.pull,
+  workers.spawn, workers.status
 ---
 """
-
 import logging
 from typing import Any
 

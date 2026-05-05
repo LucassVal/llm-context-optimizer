@@ -1,23 +1,22 @@
 #!/usr/bin/env python3
 """---
 NC-SUPER-010 — neocortex_benchmark
----
-"""
-
-"""---
-NC-SUPER-010 — neocortex_benchmark
----
-"""
-
-"""
-NC-SUPER-010 — neocortex_benchmark
 FÓRUM — Benchmark e Workers
 
-Funde: benchmark (003).
+WHAT: LLM performance testing against Ollama (localhost:11434) via three
+      suites: run.drift (N iterations of code generation), run.titanomachy
+      (reasoning/code_gen/analysis), run.omni (combined drift+reasoning).
+      Report retrieval from reports/benchmark/*.json and model status.
+WHY: Provide quantitative LLM performance verification — measure tokens/sec,
+     test pass rates, and model response times to detect performance drift
+     and validate local Ollama models meet operational requirements.
+WHERE: Registered as 'neocortex_benchmark' — called by health monitoring
+       routines and QA workflows to run periodic tests and publish results
+       to reports/benchmark/.
 
-Actions:
-  run.drift, run.titanomachy, run.omni
+Actions: run.drift, run.titanomachy, run.omni,
   benchmark.last_report, benchmark.status
+---
 """
 import json
 import logging

@@ -1,24 +1,27 @@
 #!/usr/bin/env python3
 """---
 NC-SUPER-009 — neocortex_security
+FÓRUM — Segurança, Locks e Hooks
+
+WHAT: Zero-trust access validation via CryptoHub token encryption, auth token
+      issuance (T0-only), atomic lock file checking against NC-SEC-FR-001,
+      in-memory hook registry (register/trigger/list/remove), audit event
+      logging to DIR-DS-002, and circuit breaker management (status/reset/
+      list/record) with T0-only reset authority.
+WHY: Merge security and hooks into one Forum-tier tool — enforce zero-trust
+     access via cryptographic tokens, provide hook-based extensibility for
+     event-driven workflows, and protect agent call chains with circuit
+     breaker pattern.
+WHERE: Registered as 'neocortex_security' — invoked by gateway validation
+       routines, hook-based automation triggers, and circuit breaker
+       monitoring dashboards to audit and control access.
+
+Actions: access.validate, auth.issue_token,
+  lock.check, lock.list,
+  hook.register, hook.trigger, hook.list, hook.remove,
+  audit.log_event,
+  cb.status, cb.reset, cb.list, cb.record
 ---
-"""
-
-"""---
-NC-SUPER-009 — neocortex_security
----
-"""
-
-"""
-NC-SUPER-009 — neocortex_security
-FÓRUM — Segurança e Hooks
-
-Funde: security (026), hooks (034).
-
-Actions:
-  access.validate, lock.check, lock.list
-  hook.register, hook.trigger, hook.list, hook.remove
-  audit.log_event
 """
 import json
 import logging

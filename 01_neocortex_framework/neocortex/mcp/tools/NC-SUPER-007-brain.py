@@ -1,23 +1,23 @@
 #!/usr/bin/env python3
 """---
 NC-SUPER-007 — neocortex_brain
----
-"""
-
-"""---
-NC-SUPER-007 — neocortex_brain
----
-"""
-
-"""
-NC-SUPER-007 — neocortex_brain
 CORTE STF — Inteligência Soberana
 
-Funde: brain (000), intelligence (027).
+WHAT: LLM-powered reasoning for strategic thinking, planning, critique,
+      orchestration, and knowledge synthesis. Advanced T0 capabilities:
+      mentor feedback with Agent Forest (3 static experts + Chain of
+      Hindsight), auto-learning with Self-Discover modules, and governed
+      auto-evolution with savepoints and constitutional constraints.
+WHY: Serve as STF-tier sovereign reasoning core — T0 strategic analysis,
+     mentor subordinate agents with severity-ranked feedback and auto-
+     generated handoffs, evolve lobe content through controlled mutation.
+WHERE: Registered as 'neocortex_brain' — invoked by T0 governance for high-
+       level reasoning, mentor loops reviewing agent output, and evolution
+       daemons proposing incremental lobe improvements.
 
-Actions:
-  brain.think, brain.plan, brain.critique, brain.orchestrate
-  intelligence.query, intelligence.synthesize
+Actions: brain.think, brain.plan, brain.critique, brain.orchestrate,
+  intelligence.query, intelligence.synthesize,
+  brain.feedback, brain.mentor, brain.auto_learn, brain.auto_evolve
 """
 import logging
 from datetime import datetime

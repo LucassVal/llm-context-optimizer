@@ -1,28 +1,27 @@
 #!/usr/bin/env python3
 """---
 NC-SUPER-006 — neocortex_system
----
-"""
+FÓRUM — Sistema, Config, Pulse, Health, Export, Init
 
-"""---
-NC-SUPER-006 — neocortex_system
----
-"""
+WHAT: Configuration management (get/set/list/reload/diff/model/agent_backend),
+      pulse scheduler control (status/start/stop/schedule/force via
+      NC-CORE-FR-142), health probes for MCP/Ollama/Mission-Control services,
+      system diagnostics and env checks, export snapshots, workspace
+      initialization, and regulatory agency inspections.
+WHY: Fuse 6 infrastructure tools (system, config, pulse, health, export,
+     init) into one Forum-tier entry point for centralized runtime config,
+     scheduled task management, and health monitoring.
+WHERE: Registered as 'neocortex_system' — accessed by T0 governance routines,
+       boot sequences, and health dashboards managing runtime config and
+       monitoring service availability across the framework.
 
-"""
-NC-SUPER-006 — neocortex_system
-FÓRUM — Sistema e Infraestrutura
-
-Funde: system (025), config (005), pulse (015), health (029),
-       export (006), init (007).
-
-Actions:
-  config.get, config.set, config.list
-  pulse.status, pulse.start, pulse.stop, pulse.schedule_custom
-  health.agent, health.full, health.tools_count
-  system.diagnostics, system.env_check
-  export.snapshot, export.list
-  init.workspace
+Actions: config.get/set/list/reload/diff/set_model/list_models/
+  set_agent_backend,
+  pulse.status/start/stop/schedule_custom/force,
+  health.agent/full/tools_count,
+  system.diagnostics/env_check,
+  export.snapshot/list, init.workspace,
+  regulatory.health/audit
 """
 import logging
 from datetime import datetime

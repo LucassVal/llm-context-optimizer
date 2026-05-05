@@ -1,24 +1,27 @@
 #!/usr/bin/env python3
 """---
 NC-SUPER-013 — neocortex_health
----
-"""
+FÓRUM — Health e Monitoramento
 
-"""---
-NC-SUPER-013 — neocortex_health
----
-"""
+WHAT: Aggregated dashboard (tools count, services status, compliance, pulse,
+      bashguard), per-service health probes (mission_control:3000, mcp:8765,
+      ollama:11434, opencode:32879), error log analysis from DIR-DS-002,
+      live metrics from MetricsStore, guardian daemon lifecycle management,
+      watchdog/pulse status, and SSOT naming convention audit.
+WHY: Single health monitoring surface for entire NeoCortex runtime —
+     aggregate service reachability, error logs, metrics, and compliance
+     status into one dashboard. Stale probes removed 2026-05-05.
+WHERE: Registered as 'neocortex_health' — called by boot sequences, watchdog
+       daemons, and dashboard UIs with guardian daemon integration for
+       automated health loop execution.
 
-"""
-NC-SUPER-013 — neocortex_health
-FÓRUM — Health e Monitoramento Ativo
-
-Funde: health (029) + system monitor parts.
-
-Actions:
-  server.health, server.tools_count, log.errors, log.search
-  metrics.live, metrics.tool_stats
-  watchdog.start, watchdog.status
+Actions: dashboard,
+  server.health, server.tools_count, server.status,
+  log.errors, log.search, log.tail, log.purge,
+  metrics.live, metrics.tool_stats,
+  watchdog.start, watchdog.status,
+  guardian.start, guardian.stop, guardian.status,
+  ssot.audit
 """
 import logging
 from datetime import datetime

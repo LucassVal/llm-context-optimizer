@@ -1,23 +1,22 @@
 #!/usr/bin/env python3
 """---
 NC-SUPER-014 — neocortex_ledger
----
-"""
+FÓRUM — Ledger e Agent Identity
 
-"""---
-NC-SUPER-014 — neocortex_ledger
----
-"""
+WHAT: Framework ledger CRUD (read/write/stats) with key-level detail,
+      metrics retrieval from MetricsStore, agent registration with JSON
+      persistence in DIR-DS-002, agent identity resolution with CF-v0.2
+      authority tiers, and token budget tracking (used/remaining/pct).
+WHY: Fuse ledger operations and agent identity into one Forum-tier tool —
+     centralized tracking of session metrics, token consumption, and agent
+     registration for single-source-of-truth framework accounting.
+WHERE: Registered as 'neocortex_ledger' — accessed by session lifecycle
+       handlers, cost-tracking routines, and agent bootstrapping workflows
+       to record interactions and enforce token budgets.
 
-"""
-NC-SUPER-014 — neocortex_ledger
-FÓRUM — Ledger + Agent Identity
-
-Funde: ledger (010), agent (002) identity parts.
-
-Actions:
-  ledger.read, ledger.write, ledger.stats, ledger.metrics
+Actions: ledger.read, ledger.write, ledger.stats, ledger.metrics,
   agent.register, agent.identity, agent.token_budget
+---
 """
 import json
 import logging

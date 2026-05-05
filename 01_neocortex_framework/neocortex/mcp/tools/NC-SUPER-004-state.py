@@ -1,27 +1,25 @@
 #!/usr/bin/env python3
 """---
 NC-SUPER-004 — neocortex_state
----
-"""
-
-"""---
-NC-SUPER-004 — neocortex_state
----
-"""
-
-"""
-NC-SUPER-004 — neocortex_state
 CORTE TJ — Estado e Persistência
 
-Funde: checkpoint (004), regression (016), savepoint (031),
-       session (022), ledger (010).
+WHAT: Checkpoint management (get/set/list from timeline), regression
+      detection with baseline, savepoint create/list/rollback/diff with
+      real file snapshot restoration, session lifecycle (start/status/
+      heartbeat/end), and ledger read/write/stats — with ToolGuard STEP-0
+      and LockGuard validation.
+WHY: Merge 5 fragmented state tools (checkpoint, regression, savepoint,
+     session, ledger) into one consistent persistence layer for atomic
+     rollback via snapshot restore, drift detection, and session-bound
+     state tracking.
+WHERE: Registered as 'neocortex_state' — used by governance workflows,
+       savepoint-based rollbacks, and session-bound agents to persist
+       and recover framework state in .neocortex/savepoints/ and DIR-CORE-FR-001.
 
-Actions:
-  checkpoint.get, checkpoint.set, checkpoint.list
-  regression.check, regression.baseline
-  savepoint.create, savepoint.list, savepoint.rollback
-  session.start, session.end, session.status, session.heartbeat
-  ledger.read, ledger.update, ledger.stats
+Actions: checkpoint.get/set/list, regression.check/baseline/add_entry/
+  list_all, savepoint.create/list/rollback/diff,
+  session.start/status/heartbeat/end, ledger.read/update/stats
+---
 """
 import contextlib
 import logging

@@ -1,7 +1,22 @@
 """---
-@Module NC-SUPER-019-replication mcp NC-SUPER-019-replication.py — neocortex_replicatio
----
-"""
+NC-SUPER-019 — neocortex_replication
+FASE 6 — Replicação governada para agentes
+
+WHAT: Genome forking via NC-CORE-FR-130 (creates child instances inheriting
+      policies with BSL sandboxing), child listing, lightweight instance
+      management via NC-CORE-FR-145 (switch to child sandbox, execute tasks,
+      query current instance status).
+WHY: Phase 6 governed replication — T0 creates sandboxed child agents that
+     inherit parent policies, execute tasks in isolated instance contexts,
+     and switch between parent and child — implementing 'Fork Governado'
+     constitutional rule (R27) with BSL-1 biosafety.
+WHERE: Registered as 'neocortex_replication' — used by T0 governance for
+       agent forking, sandbox testing routines, and instance lifecycle
+       management operations.
+
+Actions: genome.fork, genome.children,
+  instance.switch, instance.execute, instance.status
+---"""
 
 
 from datetime import datetime

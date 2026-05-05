@@ -1,26 +1,23 @@
 #!/usr/bin/env python3
 """---
 NC-SUPER-002 — neocortex_orchestration
----
-"""
-
-"""---
-NC-SUPER-002 — neocortex_orchestration
----
-"""
-
-"""
-NC-SUPER-002 — neocortex_orchestration
 PODER EXECUTIVO
 
-Funde: orchestration (023), agent (002), task (009+018),
-       picoclaw (030), subserver (011), run (033).
+WHAT: Task orchestration (execute/list/cancel/status), agent lifecycle
+      (spawn/heartbeat/consume/list), Ollama worker spawning, cascade
+      consolidation, and agent policy enforcement — with graceful degradation
+      when backend services are unavailable.
+WHY: Fuse 6 fragmented tools (orchestration, agent, task x2, subserver,
+     run) into one executive entry point for T1/T2 task delegation through
+     unified task pipeline. PicoClaw dispatch removed 2026-05-05.
+WHERE: Registered as 'neocortex_orchestration' — used by agent code and CLI
+       workflows to enqueue tasks, monitor agent health, and route work.
 
-Actions:
-  task.execute, task.list, task.cancel, task.status
-  agent.spawn, agent.heartbeat, agent.consume, agent.list
-  dispatch.create, dispatch.status
-  workers.spawn, workers.status
+Actions: task.execute, task.list, task.cancel, task.status,
+  agent.spawn, agent.heartbeat, agent.consume, agent.list,
+  workers.spawn, workers.status, cascade.run, cascade.status,
+  policy.check, policy.list, agent.list_ephemeral, task.get_result
+---
 """
 import json
 import logging

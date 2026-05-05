@@ -1,7 +1,22 @@
 """---
-@Module NC-SUPER-020-evolution mcp NC-SUPER-020-evolution.py — neocortex_evolution (F
----
-"""
+NC-SUPER-020 — neocortex_evolution
+FASE 6 — Evolução governada com sandbox + user approval
+
+WHAT: Sandbox testing via genome replicator fork (BSL-3 default), mutation
+      proposal/voting via auto-amendment engine (NC-CORE-FR-136), drift
+      status via regression service (NC-CORE-FR-123), and constitutional
+      amendment proposals requiring Kernel 0 ratification.
+WHY: Phase 6 governed evolution — T0 tests changes in sandboxed child
+     instances, proposes amendments to Mutation Board, votes on pending
+     mutations, checks system drift against regression baselines, and
+     proposes constitutional amendments.
+WHERE: Registered as 'neocortex_evolution' — used by T0 evolution workflows,
+       sandbox testing pipelines, mutation governance boards, and
+       constitutional amendment ratification processes.
+
+Actions: sandbox.test, mutation.propose, mutation.approve,
+  mutation.reject, mutation.list, drift.status, constitution.amend
+---"""
 
 
 from datetime import datetime

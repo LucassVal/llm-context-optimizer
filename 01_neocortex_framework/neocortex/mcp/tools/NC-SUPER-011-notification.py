@@ -1,22 +1,21 @@
 #!/usr/bin/env python3
 """---
 NC-SUPER-011 — neocortex_notification
----
-"""
-
-"""---
-NC-SUPER-011 — neocortex_notification
----
-"""
-
-"""
-NC-SUPER-011 — neocortex_notification
 FÓRUM — Notificações e Peers
 
-Funde: notification (028), peers (012).
+WHAT: In-memory push notification queue (send/list/clear with channel
+      filtering), peer discovery via port scanning (3000, 8765, 8767, 11434,
+      18790, 4000), peer sync registration, heartbeat checking, and ledger-
+      backed notification status from hot context.
+WHY: Fuse notification and peer discovery into one Forum-tier tool — enable
+     agents to broadcast alerts across channels, discover online services
+     on known ports, and synchronize peer state without external message
+     broker or service registry.
+WHERE: Registered as 'neocortex_notification' — used by watchdog daemons for
+       alerting, peer health monitors for service discovery, and session
+       handlers needing cross-channel notification delivery.
 
-Actions:
-  push.send, push.list, push.clear
+Actions: push.send, push.list, push.clear, push.status,
   peers.discover, peers.sync, peers.list, peers.heartbeat
 """
 import logging

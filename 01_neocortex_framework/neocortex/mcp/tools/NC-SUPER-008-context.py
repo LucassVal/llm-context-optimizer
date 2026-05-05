@@ -1,24 +1,24 @@
 #!/usr/bin/env python3
 """---
 NC-SUPER-008 — neocortex_context
----
-"""
-
-"""---
-NC-SUPER-008 — neocortex_context
----
-"""
-
-"""
-NC-SUPER-008 — neocortex_context
 CORTE TJ — Contexto e Compressão
 
-Funde: context (017), report (013/010).
+WHAT: LLM token budget tracking (cortex size estimation), context compression
+      with archived/temperature-zero node pruning, session summarization via
+      SessionMemoryWriter with hot-context.md updates, report generation and
+      listing, smart pruning, handoff snapshotting, and hot cache statistics.
+WHY: Merge context management and reporting into one TJ-tier tool — keep
+     agents within token budgets, compress stale context, archive completed
+     sessions, and generate compliance reports without scattered logic.
+WHERE: Registered as 'neocortex_context' — called by session lifecycle hooks,
+       context window management routines, and reporting daemons operating
+       on .claude/projects hot-context.md and reports/ directories.
 
-Actions:
-  context.budget_status, context.compress, context.prune
-  session.summarize, session.hot
-  report.generate, report.list, report.compliance
+Actions: context.budget_status, context.compress, context.prune,
+  context.window_used, context.estimate, context.smart_prune,
+  session.summarize, session.hot, session.handoff,
+  report.generate, report.list, report.compliance, cache.stats
+---
 """
 import json
 import logging

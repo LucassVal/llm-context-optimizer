@@ -1,24 +1,27 @@
 #!/usr/bin/env python3
 """---
 NC-SUPER-012 — neocortex_akl
+FÓRUM — AKL, Knowledge Graph e Consolidation
+
+WHAT: Anti-Knowledge Library CRUD (add/search/export), knowledge graph
+      queries and enrichment against genealogy_graph.json, session
+      consolidation (summarize and full run), document listing from
+      04_user_docs, project manifest reading from SSOT, boot context
+      retrieval, and lobe index rebuilding.
+WHY: Merge AKL, knowledge graph, and consolidation services into one Forum-
+     tier tool — store anti-patterns and lessons learned, query genealogical
+     relationship graphs, consolidate session knowledge, and access boot/
+     documentation context without navigating multiple service interfaces.
+WHERE: Registered as 'neocortex_akl' — used by mentor feedback loops to
+       register lessons, consolidation daemons to summarize sessions, and
+       agents needing quick access to boot manifest and SSOT conventions.
+
+Actions: akl.add, akl.search, akl.export,
+  kg.query, kg.enrich, kg.stats,
+  consolidate.session, consolidate.run,
+  knowledge.get_documents, knowledge.project_manifest,
+  knowledge.get_boot_context, knowledge.update_index
 ---
-"""
-
-"""---
-NC-SUPER-012 — neocortex_akl
----
-"""
-
-"""
-NC-SUPER-012 — neocortex_akl
-FÓRUM — AKL + Knowledge Graph + Consolidation
-
-Funde: akl, kg (knowledge graph), consolidation.
-
-Actions:
-  akl.add, akl.search, akl.export
-  kg.query, kg.enrich, kg.stats
-  consolidate.session, consolidate.run
 """
 import json
 import logging

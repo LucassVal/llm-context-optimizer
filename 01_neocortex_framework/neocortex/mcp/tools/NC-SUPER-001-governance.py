@@ -1,28 +1,31 @@
 #!/usr/bin/env python3
 """---
 NC-SUPER-001 — neocortex_governance
+PODER LEGISLATIVO + JUDICIÁRIO + CONSTITUIÇÃO
+
+WHAT: Monolithic governance hub — compliance checks, constitution enforcement,
+      ticket lifecycle, handoffs, boot sync, RCA analysis, AI governance
+      (model cards, HITL, red team), corporate KPIs/ROI, system integrity
+      scans, and submission pipelines — ~50 actions via single if/elif chain.
+WHY: Consolidate 5 legacy tools (governance, constitution, governance_ops,
+     tickets, handoff) into one MCP entry point, enforcing T0 constitutional
+     authority with unified legislative/judicial interface.
+WHERE: Registered as 'neocortex_governance' — any MCP client (OpenCode, IDE)
+       invokes it to perform governance operations against project root.
+
+Actions: policy.check, rule.list, compliance.report, violation.log,
+  naming.check, ssot.diff, cycle.check,
+  cf.status, cf.pre_check, cf.audit, cf.stj, cf.tj, cf.forum,
+  ticket.create, ticket.list, ticket.close, roadmap.done,
+  handoff.create, handoff.list, bootup.sync, catalog.refresh,
+  audit.full, audit.replay, lock.validate, rca.analyze, rca.list,
+  three_w.generate, eisenhower.prioritize, pareto.analyze, okr.report,
+  idempotency.check, kpi.report, roi.analyze, compliance.gaps,
+  compliance.fix, bsc.report, swot.analyze, resiliency.audit,
+  model_cards.generate, hitl.list/approve/reject, red_team.assault,
+  ai.audit, yaml.validate, mdc.validate, secret.scan, deadcode.scan,
+  integrity.full, resilience.advanced, regulatory.check, submit
 ---
-"""
-
-"""---
-NC-SUPER-001 — neocortex_governance
----
-"""
-
-"""
-NC-SUPER-001 — neocortex_governance
-PODER LEGISLATIVO + JUDICIÁRIO
-
-Funde: governance (024), constitution (041), governance_ops (040),
-       tickets (038), handoff (039).
-
-Actions:
-  Legislativo: policy.check, rule.list, compliance.report, violation.log
-               naming.check, ssot.diff, cycle.check
-  Constitucional: cf.status, cf.pre_check, cf.audit, cf.tj, cf.stj, cf.forum
-  Tickets: ticket.create, ticket.list, ticket.close, roadmap.done
-  Handoff: handoff.create, handoff.list, handoff.validate
-  Ops: bootup.sync, catalog.refresh, yaml.sanitize
 """
 import json
 import logging

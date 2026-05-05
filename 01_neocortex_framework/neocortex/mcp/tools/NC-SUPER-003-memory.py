@@ -1,27 +1,26 @@
 #!/usr/bin/env python3
 """---
 NC-SUPER-003 — neocortex_memory
----
-"""
-
-"""---
-NC-SUPER-003 — neocortex_memory
----
-"""
-
-"""
-NC-SUPER-003 — neocortex_memory
 CORTE TJ — Memória e Conhecimento
 
-Funde: cortex (001), lobes (003), search (008), knowledge (019+020),
-       memory (019-mem), manifest (021), brain (000-parcial).
+WHAT: Cortex state CRUD, lobe file system operations (list/get/search/
+      activate/deactivate/populate), semantic knowledge search/store,
+      manifest generation with query/filter, lexico neuroplasticity building,
+      and automated semantic categorization of all memory lobes via Qwen 1.5b.
+WHY: Unify 7 legacy tools (cortex, lobes, search, knowledge x2, memory,
+     manifest) into one TJ-tier memory interface for structured context
+     read/write, lobe file search, and auto-population from SSOT.
+WHERE: Registered as 'neocortex_memory' — manages 02_memory_lobes directory,
+       cortex state, manifest registries under TURBOQUANT_V42 project root.
 
-Actions:
-  cortex.get, cortex.update, cortex.reset
-  lobe.list, lobe.get, lobe.activate, lobe.search
-  knowledge.search, knowledge.store
-  manifest.generate, manifest.list
-  search.advanced
+Actions: cortex.get/update/reset/get_full/get_section/get_aliases/
+  get_workflows/validate_alias,
+  lobe.list/get/activate/search/list_active/list_all/get_content/
+  deactivate/populate,
+  knowledge.search, knowledge.store,
+  manifest.generate/list/update/query/generate_all,
+  search.advanced, lexico.build/search/stats, semantic.categorize
+---
 """
 import contextlib
 import json
