@@ -6,6 +6,7 @@ Este servidor MCP expoe as ferramentas do NeoCortex para agentes.
 """
 
 import asyncio
+import importlib
 import json
 import logging
 import os
@@ -429,7 +430,7 @@ def create_mcp_server(host="127.0.0.1", port=8765):
                 "tools_loaded": 17
             }
         health_check = _wrap_with_hooks(_health_check_impl, "health_check")
-        server.tool()(health_check)
+        server.tool(name="health_check")(health_check)
     else:
         server = MockMCP("neocortex")
 
@@ -557,7 +558,7 @@ def create_mcp_server(host="127.0.0.1", port=8765):
         def _ping_impl() -> dict:
             return {"pong": True, "timestamp": datetime.now(timezone.utc).isoformat() + "Z"}
         ping = _wrap_with_hooks(_ping_impl, "ping")
-        server.tool()(ping)
+        server.tool(name="ping")(ping)
         ping.__doc__ = "Keepalive ping — MCP spec utility primitive"
 
         # Wire PostToolUse hooks to send notifications
@@ -745,7 +746,7 @@ def create_mcp_server(host="127.0.0.1", port=8765):
             return {"success": True, "subscriptions": list(_subscribers.keys())}
         return {"success": False, "error": f"Unknown action: {action}"}
     resources_subscribe = _wrap_with_hooks(_subscribe_impl, "resources_subscribe")
-    server.tool()(resources_subscribe)
+    server.tool(name="resources_subscribe")(resources_subscribe)
 
     return server
 
