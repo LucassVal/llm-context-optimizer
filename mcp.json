@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "neocortex": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["-m", "neocortex.mcp.server", "--transport", "stdio"],
+      "env": {
+        "PYTHONPATH": "01_neocortex_framework"
+      },
+      "enabled": true
+    }
+  }
+}
