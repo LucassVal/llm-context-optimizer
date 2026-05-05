@@ -1,0 +1,144 @@
+ticket_id: NC-DS-264
+title: MCP Tools Full Audit — 3W descriptions + stale cleanup
+status: OPEN
+priority: HIGH
+owner: OpenCode
+category: architecture
+audit_date: 2026-05-05
+audited_by: T0
+
+summary: |
+  Auditoria completa das 20 ferramentas MCP registradas em server.py.
+  Classificacao: 14 ACTIVE, 5 STALE, 1 DUPLICATE, 0 OBSOLETE.
+  Todas as descricoes precisam de injecao de 3W (What/Why/Where).
+  5 ferramentas tem acoes stale referenciando PicoClaw ou LiteLLM.
+
+---
+tools:
+  - file: NC-SUPER-001-governance
+    status: ACTIVE
+    actions: 55
+    stale_refs: none
+    description_3w: OK (docstring tem PODER+actions, mas sem What/Why/Where)
+
+  - file: NC-SUPER-002-orchestration
+    status: STALE
+    actions: 18
+    stale_refs: PicoClaw (dispatch.create/status via localhost:18790)
+    recommendation: Remover dispatch actions ou guard com try/except
+
+  - file: NC-SUPER-003-memory
+    status: ACTIVE
+    actions: 24
+    stale_refs: none
+
+  - file: NC-SUPER-004-state
+    status: ACTIVE
+    actions: 16
+    stale_refs: none
+
+  - file: NC-SUPER-005-llm-router
+    status: ACTIVE
+    actions: 5
+    stale_refs: LiteLLM ja removido (2026-05-04)
+
+  - file: NC-SUPER-006-system
+    status: ACTIVE
+    actions: 23
+    stale_refs: none
+
+  - file: NC-SUPER-007-brain
+    status: ACTIVE
+    actions: 10
+    stale_refs: none
+
+  - file: NC-SUPER-008-context
+    status: ACTIVE
+    actions: 12
+    stale_refs: none
+
+  - file: NC-SUPER-009-security
+    status: STALE
+    actions: 12
+    stale_refs: PicoClaw (gateway.status via port 18790)
+    recommendation: Remover gateway.status
+
+  - file: NC-SUPER-010-benchmark
+    status: ACTIVE
+    actions: 5
+    stale_refs: none
+
+  - file: NC-SUPER-011-notification
+    status: ACTIVE
+    actions: 8
+    stale_refs: none
+
+  - file: NC-SUPER-012-akl
+    status: ACTIVE
+    actions: 12
+    stale_refs: none
+
+  - file: NC-SUPER-013-health
+    status: STALE
+    actions: 16
+    stale_refs: LiteLLM (port 4000) + PicoClaw (port 18790) nos health probes
+    recommendation: Atualizar probes para servicos ativos (DeepSeek :4001, VS Code :18791)
+
+  - file: NC-SUPER-014-ledger
+    status: ACTIVE
+    actions: 7
+    stale_refs: none
+
+  - file: NC-SUPER-015-memory-auto
+    status: ACTIVE
+    actions: 7
+    stale_refs: none
+
+  - file: NC-SUPER-019-replication
+    status: ACTIVE
+    actions: 5
+    stale_refs: none
+
+  - file: NC-SUPER-020-evolution
+    status: STALE
+    actions: 8
+    stale_refs: sandbox.promote documentado mas SEM implementacao
+    recommendation: Implementar promote ou remover do menu
+
+  - file: NC-TOOL-FR-020-openclaude-bridge
+    status: STALE
+    actions: 9
+    stale_refs: hardcoded Windows path + gRPC stubs ausentes
+    recommendation: Generalizar path com env var + try/except no import gRPC
+
+  - file: NC-TOOL-FR-021-vscode-bridge
+    status: ACTIVE
+    actions: 10
+    stale_refs: none
+
+  - file: NC-MCP-FR-001-pulse
+    status: DUPLICATE
+    actions: 1
+    stale_refs: Shim de compatibilidade para server.py:384
+    recommendation: Manter como bridge ate refactor do server.py
+
+---
+stats:
+  total: 20
+  active: 14
+  stale: 5
+  duplicate: 1
+  obsolete: 0
+  total_actions: 268
+
+stale_tickets:
+  - "NC-DS-265: Remover PicoClaw dispatch de NC-SUPER-002-orchestration"
+  - "NC-DS-266: Remover PicoClaw gateway.status de NC-SUPER-009-security"
+  - "NC-DS-267: Atualizar health probes (remover LiteLLM+PicoClaw) em NC-SUPER-013"
+  - "NC-DS-268: Implementar sandbox.promote em NC-SUPER-020 ou remover do menu"
+  - "NC-DS-269: Generalizar NC-TOOL-FR-020-openclaude-bridge (path + gRPC guards)"
+
+description_fix_needed: ALL_20
+  - "Injetar 3W (What/Why/Where) no docstring de cada tool"
+  - "Listar actions disponiveis no docstring"
+  - "Mencionar servicos dependentes (portas, core modules)"
