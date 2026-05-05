@@ -1,10 +1,10 @@
 {
-  "version": "4.4",
+  "version": "4.5",
   "generated_at": "2026-05-05T00:00:00Z",
   "source": "T0 Python scan + R21 verified",
   "total_engines": 0,
   "total_tools": 0,
-  "total_services": 113,
+  "total_services": 114,
   "brain_regions": {},
   "rules_blocos": {},
   "engines": [],
@@ -686,6 +686,12 @@
       "name": "TESTS-MCP",
       "path": "01_neocortex_framework/DIR-TEST-FR-001-tests-main/",
       "desc": "8 NC-TEST tests"
+    },
+    {
+      "symbol": "#",
+      "name": "00-MAPAS",
+      "path": "00-mapas/",
+      "desc": "Mapas de arquitetura"
     }
   ],
   "total_symbols": 105
