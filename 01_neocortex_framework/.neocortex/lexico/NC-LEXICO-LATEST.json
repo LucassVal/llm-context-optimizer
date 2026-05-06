@@ -1,12 +1,12 @@
 {
   "version": "4.6",
-  "generated_at": "2026-05-06T21:42:11.338726+00:00",
-  "source": "disk-scan-deduped",
-  "total_engines": 208,
+  "generated_at": "2026-05-06T22:09:29.610547+00:00",
+  "source": "disk-scan-final",
+  "total_engines": 205,
   "total_tools": 19,
   "total_services": 28,
   "total_scripts": 0,
-  "total_files": 255,
+  "total_files": 252,
   "engines": [
     {
       "id": "NC-CORE-FR-099",
@@ -882,24 +882,6 @@
       "category": "engines"
     },
     {
-      "id": "NC-MCP-FR-001",
-      "name": "NC-MCP-FR-001-mcp-server.py",
-      "desc": "mcp-server",
-      "path": "90-archive-internal/mcp_server_legacy/NC-MCP-FR-001-mcp-server.py",
-      "hash": "9d0d49f53ea5",
-      "size": 64665,
-      "category": "engines"
-    },
-    {
-      "id": "NC-CORE-FR-136",
-      "name": "NC-CORE-FR-136-auto-amendment-engine.py",
-      "desc": "auto-amendment-engine",
-      "path": "90-archive-internal/NC-CORE-FR-136-auto-amendment-engine.py",
-      "hash": "fc2b75641fe0",
-      "size": 8833,
-      "category": "engines"
-    },
-    {
       "id": "NC-AGENT-FR-001",
       "name": "NC-AGENT-FR-001-executor.py",
       "desc": "executor",
@@ -1644,15 +1626,6 @@
       "path": "neocortex/core/NC-CORE-FR-174-response-cache.py",
       "hash": "4232e1cc6a24",
       "size": 7615,
-      "category": "engines"
-    },
-    {
-      "id": "NC-CORE-FR-175",
-      "name": "NC-CORE-FR-175-sandbox.py",
-      "desc": "sandbox",
-      "path": "neocortex/core/NC-CORE-FR-175-sandbox.py",
-      "hash": "f05f58f28088",
-      "size": 51599,
       "category": "engines"
     },
     {

@@ -42,45 +42,89 @@ phases:
     title: "MCP Compliance Final + Governanca 27 Regras + Limpeza Tecnica"
     status: IN_PROGRESS
     started_at: 2026-05-05
-    summary: "3 gaps MCP restantes (sampling+roots+URI concluidos). 3 regras de governanca criticas P0/P1. Cache semantico implementado."
+    summary: "LEXICO v4.6. 19 tools 3W+gateway+mcp_response. 3 gov rules (R127/129/130) DONE. Semantic cache no DeepSeekBackend. mdc_loader fix. LSP 0 errors."
     tickets_done_this_cycle:
-      - id: NC-DS-262
-        title: "Pivotacao DDD e Saneamento de Orfãos/Duplicatas"
-        result: "5 duplicatas arquivadas. DDD zero child-to-child."
-      - id: NC-DS-263
-        title: "MCP Capability Upgrade: Roots, Sampling e URI Remapping"
-        result: "lobe:// alias. Roots dinamicos. Sampling HITL hook. Capability negotiation."
-      - id: NC-DS-264
-        title: "MCP Tools Full Audit — stale cleanup + 3W descriptions"
-        result: "5 stale refs limpos. 19 tools com 3W. openclaude-bridge arquivado."
       - id: NC-DS-255
-        title: "Semantic Response Cache com Embedding Similarity"
-        result: "NC-CORE-FR-174. LanceDB + embeddings. >0.92 cache hit no DeepSeekBackend."
-    tickets_active:
+        title: "Semantic Response Cache"
+        result: "NC-CORE-FR-174. LanceDB + embeddings no DeepSeekBackend."
+      - id: FIX-MDC
+        title: "mdc_loader.py stub"
+        result: "56 regras carregadas. Ghost dependency eliminada."
+      - id: NC-DS-256
+        title: "MCP Error Protocol — @mcp_response decorator"
+        result: "19/19 tools com MCP spec compliance."
       - id: NC-DS-259
-        title: "R127 MURPHY — health_check testa hook_registry ativamente"
-        status: OPEN
-        priority: P0
-        effort: 30min
-        impact: "Elimina Risco 1 (hook_registry fragil)"
+        title: "R127 MURPHY — health_check testa hook_registry"
+        result: "health_check ativo. Degraded[] reporta falhas."
       - id: NC-DS-260
-        title: "R129 ITIL — pre-commit hook bloqueia checkout sem savepoint"
-        status: OPEN
-        priority: P1
-        effort: 1h
-        impact: "Evita desastre de perda de staging"
+        title: "R129 ITIL — pre-commit savepoint hook"
+        result: ".git/hooks/pre-commit + NC-HK-FR-010.ps1"
       - id: NC-DS-261
-        title: "R130 POSTEL — validacao input/output nos hooks"
+        title: "R130 POSTEL — hook input/output validation"
+        result: "_HookProxy com ctx defaults + CancelledError propagation."
+      - id: NC-DS-262
+        title: "Pivotacao DDD + Saneamento Orfãos/Duplicatas"
+        result: "5 dupes arquivadas. DDD zero child-to-child."
+      - id: NC-DS-263
+        title: "MCP Capability Upgrade: Roots, Sampling, URI"
+        result: "lobe:// alias. Roots dinamicos. Sampling HITL hook."
+      - id: NC-DS-264
+        title: "API Contract Validation (NC-DS-206 reaudit)"
+        result: "P0 false positive fix. P1 cortex session. P2 policy YAML."
+      - id: NC-DS-265
+        title: "LSP Config Orphan Fix"
+        result: "pyproject.toml + opencode.json restaurados. .opencode/ criado."
+      - id: NC-DS-266
+        title: "LSP Server Install Verification"
+        result: "6/6 servidores ja instalados. 0 installs necessarios."
+      - id: NC-DS-267
+        title: "Ticket Rules Formalization"
+        result: "T1 lobe OK. T2 SyntaxError fix. T3 protocolo no SSOT."
+      - id: NC-DS-268
+        title: "SSOT + LEXICO Path Audit"
+        result: "9/9 domains OK. lexico-validator.py criado. ULQ paths corrigidos."
+    tickets_active:
+      - id: NC-DS-270
+        title: "Wire Conversation Hook + Kaizen Log (R52)"
+        status: OPEN
+        priority: P1
+        effort: 15min
+        impact: "turn.record automatico. Memoria por conversa."
+      - id: NC-DS-271
+        title: "Wire Corporate Rules — KPI, BSC, SWOT, ROI (FR-157)"
         status: OPEN
         priority: P1
         effort: 1h
-        impact: "Seguranca de inputs"
+        impact: "R52,R54,R55,R56,R57 — 5 regras vivas."
+      - id: NC-DS-272
+        title: "Wire Advanced Resilience (FR-160) + Strangler (FR-171) + Graceful (FR-155)"
+        status: OPEN
+        priority: P2
+        effort: 1h
+        impact: "R59,R68,R71,R83-R111 — 32 regras vivas."
+      - id: NC-DS-273
+        title: "SSOT Registration + Roadmap + BOOT Sync"
+        status: OPEN
+        priority: P1
+        effort: 30min
+        impact: "R24 compliance. Fecha CICLO_6."
+      - id: NC-DS-274
+        title: "Unify pulse-bridge → NC-SUPER-006 + Eliminar Stranglers"
+        status: OPEN
+        priority: P2
+        effort: 30min
+        impact: "R23+R68. -1 duplicata, -2 wrappers."
+      - id: NC-DS-275
+        title: "Wire Lean + Six Sigma + Due Diligence + Self-Healing + PREMATURE + COBIT + BSC"
+        status: OPEN
+        priority: P2
+        effort: 1h
+        impact: "R59,R62,R63,R95,R131,R132,R133 — 7 regras. Fecha 133/133."
     tickets_blocked:
       - id: NC-DS-253
         title: "outputSchema TypedDict nas 20 tools"
         status: BLOCKED
-        priority: P1
-        reason: "FastMCP 3.2.3 nao suporta kwarg outputSchema no decorator"
+        reason: "FastMCP 3.2.3 nao suporta kwarg outputSchema"
 
   # ── NEXT ─────────────────────────────────────────────────────
   - phase: CICLO_7

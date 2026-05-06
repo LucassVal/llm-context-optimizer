@@ -5,7 +5,7 @@
 
 > **LEIA ESTE ARQUIVO PRIMEIRO — e apenas este.** Ele contem TUDO.  
 > Qualquer IA (Antigravity, OpenCode, Cursor, Claude, DeepSeek) comeca aqui.  
-> Ultima atualizacao: 2026-05-05 | **v8** — LEXICO v4.6 | 258 files | gateway 19/19 | 0 LSP errors
+> Ultima atualizacao: 2026-05-06 | **v8** — LEXICO v4.6 | 258 files | 19 tools 3W+gateway+mcp_response | 6 tickets OPEN
 
 ---
 

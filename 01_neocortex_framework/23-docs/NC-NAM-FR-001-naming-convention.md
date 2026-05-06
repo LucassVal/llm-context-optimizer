@@ -1055,3 +1055,21 @@ Resolve para:           neocortex/core/NC-CORE-FR-125-tool-guard.py
 ```
 
 **Regra:** NENHUM código, ticket, agente ou documento deve hardcodar paths. SEMPRE usar `#` + resolver via LEXICO.
+
+---
+
+### 📋 [2026-05-06] — Sessão OpenCode: Industrialização v4.2 + Governança Completa
+- **LEXICO**: v4.1 → v4.6 (regenerado do disco, 258 arquivos, deduped)
+- **MCP tools**: 19/19 com 3W + @mcp_response decorator (NC-DS-256)
+- **Gateway**: 17/19 tools com gateway_check (100% das que precisam)
+- **LSP**: 0 erros pyright, 6 servidores ativos (NC-DS-265/266)
+- **Hooks**: ConversationHook (NC-HK-FR-004) auditado, pronto para wire (NC-DS-270)
+- **Corporate**: Kaizen + KPI restaurados do archive (NC-DS-271)
+- **Governança**: R127 (MURPHY), R129 (ITIL), R130 (POSTEL) implementados (NC-DS-259/260/261)
+- **Cache**: Semantic Response Cache integrado no DeepSeekBackend (NC-DS-255)
+- **API Contract**: regression.baseline false positive fix, session cortex persistence, agent policy YAML (NC-DS-264)
+- **SSOT audit**: ULQ-TAG-INDEX paths corrigidos (#TICKETS→08-tickets/, config→07-agent-config/), lexico-validator criado (NC-DS-268)
+- **Duplicatas resolvidas**: NC-HK-FR-004→009, NC-CORE-FR-129 (sandbox era cópia velha do gateway)
+- **MCP fix**: mdc_loader.py stub (FIX-MDC), FastMCP run() sem kwargs
+- **Tickets**: 6 novos (NC-DS-270 a 275) para wire de hooks, corporate rules, advanced resilience
+- **Template**: v2 expandido com Shared Kernel cross-ref, 3W, RCA, SWOT, KISS obrigatórios
