@@ -31,8 +31,9 @@ import json
 import logging
 import re
 from datetime import datetime
-from pathlib import Path
 from typing import Any
+
+from ..errors import mcp_response
 
 logger = logging.getLogger(__name__)
 TOOL_NAME = "neocortex_governance"
@@ -138,6 +139,7 @@ def _cf_pre_check(action_name: str, role: str) -> dict:
 
 def register_tool(mcp) -> None:
     @mcp.tool(name=TOOL_NAME)
+    @mcp_response
     def neocortex_governance(
         action: str,
         policy_name: str = "",

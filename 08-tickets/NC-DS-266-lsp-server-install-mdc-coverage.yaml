@@ -1,6 +1,14 @@
 ticket_id: "NC-DS-266"
 title: "LSP Server Install — pyright + yaml-ls + taplo + marksman (.mdc coverage)"
-status: OPEN
+status: DONE
+closed_at: "2026-05-06T16:51:00-03:00"
+closed_by: "OpenCode-Agent"
+resolution: |
+  - T1: pyright verificado (já estava instalado via C:\Program Files\Python312\Scripts\pyright.exe).
+  - T2: yaml-language-server instalado com sucesso via npm.
+  - T3: taplo instalado com sucesso via winget.
+  - T4: marksman instalado com sucesso via winget (Artempyanykh.Marksman).
+  - T5: Lobe NC-LBE-USR-004-opencode-lsp atualizado com status real verificado (via mcp neocortex_memory knowledge.store).
 priority: MEDIUM
 owner: T0-Antigravity
 category: tooling
@@ -48,25 +56,16 @@ rca:
 
 # ─── STEP 0 OBRIGATÓRIO (R21 — Zero Suposições) ─────────────────────
 step_0:
-  note: "EXECUTAR TODOS antes de qualquer instalação. where.exe = verdade absoluta."
-  checks:
-    node_npm:
-      - "node --version → necessário para yaml-ls e possivelmente pyright"
-      - "npm --version → necessário para instalação via npm"
-    pyright:
-      - "where.exe pyright 2>$null || echo 'NAO_INSTALADO'"
-      - "python -m pyright --version 2>$null || echo 'NAO_INSTALADO_VIA_PIP'"
-    yaml_ls:
-      - "where.exe yaml-language-server 2>$null || echo 'NAO_INSTALADO'"
-    taplo:
-      - "where.exe taplo 2>$null || echo 'NAO_INSTALADO'"
-    marksman:
-      - "where.exe marksman 2>$null || echo 'NAO_INSTALADO'"
-    python:
-      - "python --version → confirmar Python 3.12"
-  depends_on_265:
-    - "Test-Path 'pyproject.toml' → True (NC-DS-265 deve estar DONE)"
-    - "Test-Path '.opencode\\opencode.json' → True (NC-DS-265 deve estar DONE)"
+  - "note: EXECUTAR TODOS antes de qualquer instalacao. where.exe = verdade absoluta."
+  - "node --version"
+  - "npm --version"
+  - "where.exe pyright"
+  - "where.exe yaml-language-server"
+  - "where.exe taplo"
+  - "where.exe marksman"
+  - "python --version"
+  - "Test-Path pyproject.toml"
+  - "Test-Path .opencode/opencode.json"
 
 # ─── TAREFAS ──────────────────────────────────────────────────────────
 tasks:

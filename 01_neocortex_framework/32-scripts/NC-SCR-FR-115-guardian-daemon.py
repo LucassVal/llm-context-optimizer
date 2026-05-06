@@ -591,9 +591,17 @@ class Ciclo4Runner:
         else:
             logger.warning(f"[CICLO-4] ⚠️ smoke_test: {r6.get('error', '?')}")
 
+        # 7. ticket_audit — Valida formato de todos os tickets (NC-SCR-FR-006)
+        r7 = self._run_script("NC-SCR-FR-006-ticket-validator.py", ["08-tickets"], timeout=120)
+        results["ticket_audit"] = r7
+        if r7["ok"]:
+            logger.info("[CICLO-4] ✅ ticket_audit OK")
+        else:
+            logger.warning(f"[CICLO-4] ⚠️ ticket_audit: Falhas de schema detectadas em alguns tickets.")
+
         ok_count = sum(1 for v in results.values() if v.get("ok"))
-        logger.info(f"[CICLO-4] Concluído — {ok_count}/6 steps OK")
-        return {"ciclo": 4, "steps": ok_count, "total": 6, "details": results}
+        logger.info(f"[CICLO-4] Concluído — {ok_count}/7 steps OK")
+        return {"ciclo": 4, "steps": ok_count, "total": 7, "details": results}
 
 
 class GuardianDaemon:

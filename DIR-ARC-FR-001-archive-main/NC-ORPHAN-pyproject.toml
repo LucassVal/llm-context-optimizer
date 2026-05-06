@@ -21,10 +21,3 @@ target-version = "py312"
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "C4", "W", "SIM", "UP", "RUF", "N", "PLC", "PLE"]
 ignore = ["E402", "N999"]
-
-[tool.pyright]
-pythonVersion = "3.12"
-include = ["01_neocortex_framework"]
-exclude = ["**/__pycache__", "**/node_modules", "98-research", "01_neocortex_framework/DIR-ARC-FR-001-archive-main"]
-reportMissingImports = true
-typeCheckingMode = "basic"

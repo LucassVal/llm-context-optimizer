@@ -28,7 +28,12 @@
       "Bash(\"/c/Program Files/Python312/python.exe\" \"01_neocortex_framework/scripts/NC-SCR-FR-064-artifact-catalog.py\")",
       "Bash(mkdir -p DIR-DS-003-wal)",
       "Bash(\"/c/Program Files/Python312/python.exe\" \"01_neocortex_framework/neocortex/core/services/NC-SVC-FR-016-wal-service.py\" stats)",
-      "Bash(\"/c/Program Files/Python312/python.exe\" -m py_compile \"01_neocortex_framework/neocortex/core/services/NC-SVC-FR-016-wal-service.py\")"
+      "Bash(\"/c/Program Files/Python312/python.exe\" -m py_compile \"01_neocortex_framework/neocortex/core/services/NC-SVC-FR-016-wal-service.py\")",
+      "Bash(\"C:/Program Files/Python312/python.exe\" -c \"import neocortex.mcp.server; print\\('OK'\\)\")",
+      "Bash(PYTHONUTF8=1 PYTHONPATH=\"C:/Users/Lucas Valério/Desktop/TURBOQUANT_V42/01_neocortex_framework\" NEOCORTEX_PROJECT_ROOT=\"C:/Users/Lucas Valério/Desktop/TURBOQUANT_V42\" NC_ROOT=\"C:/Users/Lucas Valério/Desktop/TURBOQUANT_V42\" NEOCORTEX_LOG_LEVEL=ERROR \"C:/Program Files/Python312/python.exe\" -m neocortex.mcp.server --transport stdio)",
+      "Bash(powershell -Command \"Get-Process -Id 22288 | Select-Object Name, Id, Path, CommandLine -ErrorAction SilentlyContinue\")",
+      "Bash(taskkill /PID 22288 /F)",
+      "Bash(C:/Program Files/Python312/python.exe *)"
     ]
   }
 }

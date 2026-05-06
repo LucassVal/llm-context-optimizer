@@ -235,6 +235,11 @@ SSOT_LOBE_MAP = [
         "NC-LBE-CEREBRAL-FRONTAL-001",
         ["frontal", "ssot", "naming", "governance"],
     ),
+    (
+        "../02_memory_lobes/06_governance/NC-LBE-FR-TICKETS-001.mdc",
+        "NC-LBE-FR-TICKETS-001.mdc",
+        ["frontal", "governance", "tickets", "ssot", "validator", "rules"],
+    ),
 
     # $TEMPORAL — Memória Semântica (Léxico + KG + ULQ)
     (

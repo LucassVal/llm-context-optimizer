@@ -22,7 +22,7 @@ Actions: sandbox.test, mutation.propose, mutation.approve,
 from datetime import datetime
 from pathlib import Path
 from typing import Any
-
+from ..errors import mcp_response
 TOOL_NAME = "neocortex_evolution"
 root = Path(__file__).parents[4]
 
@@ -30,6 +30,7 @@ def _ts(): return datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
 
 def register_tool(mcp):
     @mcp.tool(name=TOOL_NAME)
+    @mcp_response
     def neocortex_evolution(
         action: str,
         child_id: str = "",

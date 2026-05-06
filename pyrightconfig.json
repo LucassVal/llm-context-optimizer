@@ -1,28 +1,12 @@
 {
-  "include": ["01_neocortex_framework/neocortex/"],
+  "pythonVersion": "3.12",
+  "include": ["01_neocortex_framework"],
   "exclude": [
     "**/__pycache__",
-    "**/99-archive",
-    "**/.neocortex",
     "**/node_modules",
-    "**/.git"
+    "98-research",
+    "01_neocortex_framework/DIR-ARC-FR-001-archive-main"
   ],
-  "typeCheckingMode": "basic",
-  "reportMissingImports": false,
-  "reportMissingTypeStubs": false,
-  "reportUnknownMemberType": false,
-  "reportUnknownVariableType": false,
-  "reportUnknownArgumentType": false,
-  "reportUnknownParameterType": false,
-  "reportOptionalMemberAccess": false,
-  "reportOptionalSubscript": false,
-  "reportArgumentType": "warning",
-  "reportAttributeAccessIssue": "warning",
-  "reportPossiblyUnboundVariable": "warning",
-  "reportUndefinedVariable": "warning",
-  "reportUnboundVariable": "warning",
-  "reportUnusedImport": "warning",
-  "reportUnusedVariable": "warning",
-  "pythonVersion": "3.12",
-  "pythonPlatform": "Windows"
+  "reportMissingImports": true,
+  "typeCheckingMode": "basic"
 }

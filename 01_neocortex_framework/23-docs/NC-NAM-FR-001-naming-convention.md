@@ -601,6 +601,22 @@ $HIPOCAMPO (mem. episódica) → sessions, savepoints, handoffs, audit
 
 ---
 
+### 🎫 PROTOCOLO DE CRIAÇÃO DE TICKETS
+Os tickets (NC-DS-NNN) governam toda alteração do NeoCortex e devem obedecer regras estritas (formalizado via NC-DS-267):
+
+| Elemento | Regra Inviolável | Referência |
+|---|---|---|
+| **Formato Obrigatório** | Template v2: `NC-DS-TICKET-TEMPLATE-v2.yaml` | `NC-LBE-FR-TICKETS-001` |
+| **Campos Core (v2)** | `ticket_id`, `title`, `status`, `priority`, `working_directory`, `three_w`, `step_0`, `write_zone` | `NC-SCR-FR-006` |
+| **Padrão de Nome** | `NC-DS-NNN-descritivo.yaml` (`[A-Z0-9-]` apenas) | Regra R01 |
+| **Validação Strict** | Falha de formatação = NENHUM agente executa o ticket. | `NC-SCR-FR-006` |
+
+**Fluxo de Validação:**
+Antes de qualquer execução, tickets devem ser validados pelo script central:
+`python 01_neocortex_framework/32-scripts/NC-SCR-FR-006-ticket-validator.py 08-tickets/NC-DS-XXX-ticket.yaml`
+
+---
+
 ### 🏛️ HIERARQUIA DE GOVERNANÇA (P0 a P3)
 Organização lógica das cadeias de comando e regras.
 

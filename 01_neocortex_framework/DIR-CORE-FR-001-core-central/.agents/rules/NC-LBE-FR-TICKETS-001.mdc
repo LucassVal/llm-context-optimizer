@@ -1,0 +1,237 @@
+# NC-LBE-FR-TICKETS-001.mdc
+
+> Lobo SSOT auto-gerado pelo script populate_lobes_from_ssot. No edite manualmente.
+
+<!-- source: NC-LBE-FR-TICKETS-001.mdc -->
+<!-- tags: frontal, governance, tickets, ssot, validator, rules -->
+<!-- auto-generated: true -->
+
+---
+name: NC-LBE-FR-TICKETS-001
+description: >
+  SSOT semântico das regras de criação, validação e ciclo de vida de tickets NeoCortex.
+  Consultar este lobe ANTES de criar qualquer ticket NC-DS-NNN.
+  Inclui: campos obrigatórios, proibições, ciclo de vida, referências e exemplos.
+tags: [tickets, governance, ssot, template, validator, workflow, r01, r21]
+status: active
+module: governance
+temperature: 0
+version: "1.0"
+created: "2026-05-06"
+created_by: T0-Antigravity
+region: $FRONTAL
+roadmap_ref: NC-DS-267
+---
+
+<!-- NC-READ-HASH: NC-LBE-FR-TICKETS-001-v1 -->
+<!-- DEDUP: Se NC-LBE-FR-TICKETS-001-v1 já está no contexto desta sessão, SALTE este bloco. -->
+
+@UBL ticket-what
+LEXICO: #ticket #ssot #governance
+## What
+SSOT semântico para criação e validação de tickets NC-DS-NNN no ecossistema NeoCortex.
+Todo agente (T0, T1, T2) DEVE consultar este lobe antes de criar ou executar um ticket.
+
+@UBL ticket-why
+LEXICO: #ticket #governance #r01 #r21
+## Why
+Sem regras formalizadas, agentes criam tickets inconsistentes, validators falham
+e o rastreamento de trabalho fica comprometido. Este lobe é o contrato único de tickets.
+
+@UBL ticket-where
+LEXICO: #ticket #path #filesystem
+## Where
+`02_memory_lobes/06_governance/` | Domínio: $FRONTAL (planejamento)
+
+---
+
+@UBL ticket-naming
+LEXICO: #ticket #naming #r01 #nc-ds
+# 1. Nomenclatura (R01)
+
+**Formato:** `NC-DS-<NNN>-<desc-kebab>.yaml`
+
+| Elemento | Regra | Exemplo |
+|---|---|---|
+| `NC-DS-` | Prefixo fixo obrigatório | `NC-DS-` |
+| `<NNN>` | Número sequencial 3+ dígitos | `267` |
+| `-<desc-kebab>` | Descrição curta em kebab-case | `-ticket-rules-formalization` |
+| `.yaml` | Extensão obrigatória | `.yaml` |
+
+**Onde criar:** `08-tickets/` (raiz do projeto, não no framework)
+
+**Verificar número disponível antes de criar:**
+```powershell
+Get-ChildItem "08-tickets\" -Filter "NC-DS-[0-9]*.yaml" |
+  ForEach-Object { [int]($_.Name -replace 'NC-DS-(\d+).*','$1') } |
+  Sort-Object -Descending | Select-Object -First 1
+```
+
+---
+
+@UBL ticket-required-fields
+LEXICO: #ticket #fields #template-v2 #mandatory
+# 2. Campos Obrigatórios (Template v2)
+
+Todos os campos abaixo são validados pelo `NC-SCR-FR-006-ticket-validator.py`.
+
+```yaml
+ticket_id: "NC-DS-NNN-desc"          # R01: formato obrigatório
+title: "Título descritivo"            # não vazio
+status: OPEN                          # OPEN|IN_PROGRESS|BLOCKED|DONE|CANCELLED
+priority: HIGH                        # CRITICAL|HIGH|MEDIUM|LOW
+owner: T0-Antigravity
+category: "architecture|tooling|governance|bugfix|feature"
+created_at: "YYYY-MM-DDTHH:MM:00"
+created_by: T0-Antigravity
+roadmap_ref: CICLO_N
+
+working_directory: "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
+framework_subdir: "01_neocortex_framework"
+
+three_w:                              # OBRIGATÓRIO — 3 campos
+  who: "quem é afetado / quem executa"
+  what: "o que precisa ser feito"
+  why: "por que é necessário (benefício sistêmico)"
+
+rca:                                  # OBRIGATÓRIO — causa raiz
+  symptom: "sintoma observado"
+  why_1: "..."
+  why_2: "..."
+  why_3: "..."
+  why_4: "..."
+  why_5: "..."
+  root_cause: "causa raiz identificada"
+  corrective_action: "o que corrigir"
+  preventive_action: "como evitar recorrência"
+
+step_0:                               # OBRIGATÓRIO — R21 verificações
+  - "Test-Path <arquivo> → True/False"
+  - "python --version → confirmar Python"
+  - "<verificações específicas do ticket>"
+
+pre_handoff_checklist:                # OBRIGATÓRIO — critérios verificáveis
+  - "python -m py_compile <arquivo>.py → PASS"
+  - "python -m ruff check <arquivo>.py --select F,E9 → 0 erros"
+  - "Nenhum @LOCK violado"
+
+deliverables:                         # OBRIGATÓRIO — paths ABSOLUTOS
+  - "C:\\Users\\...\\TURBOQUANT_V42\\<path>\\_arquivo_criado.py"
+  - "C:\\Users\\...\\TURBOQUANT_V42\\DIR-DS-002-audit-logs\\NC-DS-NNN-handoff-YYYYMMDDTHHMMSS.yaml"
+
+write_zone: "PROD|DOCS|SCRIPTS|TEST|LOBES → <path>"
+```
+
+---
+
+@UBL ticket-forbidden
+LEXICO: #ticket #forbidden #r05 #locks
+# 3. Proibições Absolutas
+
+| Proibição | Regra | Consequência |
+|---|---|---|
+| Criar sem ticket_id numerado | R01 | Validator FAIL |
+| Criar sem STEP 0 | R21 | Invalida entrega |
+| Criar sem working_directory absoluto | Template v2 | Agente usa dir errado |
+| Modificar @LOCKS sem autorização T0 | R04/R18 | Corrupção de estado |
+| Deletar tickets obsoletos | R05 | Usar archive |
+| Múltiplos tickets por sessão sem checkpoint | R19 | Perda de estado |
+| Referenciar paths relativos em deliverables | Template v2 | Deliverable irrastreável |
+| Criar sem 3W preenchido | NC-WF-002 | Handoff inválido |
+| Criar sem RCA (para bugs/fixes) | NC-PRF-FR-001 | Causa raiz não identificada |
+
+---
+
+@UBL ticket-lifecycle
+LEXICO: #ticket #lifecycle #status #workflow
+# 4. Ciclo de Vida
+
+```
+OPEN → IN_PROGRESS → [BLOCKED] → DONE
+                                    ↓
+                              handoff YAML
+                                    ↓
+                         DIR-DS-002-audit-logs/
+                                    ↓
+                            T0 review → APPROVED/REJECTED
+                                    ↓
+                              %DONE no @ROADMAP
+```
+
+**Transições de status:**
+- `OPEN` → `IN_PROGRESS`: agente inicia execução
+- `IN_PROGRESS` → `BLOCKED`: bloqueio externo (locks, dependência)
+- `BLOCKED` → `IN_PROGRESS`: bloqueio resolvido
+- `IN_PROGRESS` → `DONE`: pré-handoff checklist completo
+- `DONE` → precisa de: commit hash + closed_at + closed_by + handoff path
+
+**Campos ao fechar:**
+```yaml
+commit: "abc1234"
+closed_at: "YYYY-MM-DDTHH:MM:SS-03:00"
+closed_by: "OpenCode-Agent"
+resolution: "descrição do que foi feito"
+handoff: "DIR-DS-002-audit-logs/NC-DS-NNN-handoff-YYYYMMDDTHHMMSS.yaml"
+```
+
+---
+
+@UBL ticket-anatomy
+LEXICO: #ticket #anatomy #sections #optional
+# 5. Seções Opcionais (Mas Recomendadas)
+
+| Seção | Quando usar |
+|---|---|
+| `swot` | Alterações arquiteturais ou de governança |
+| `atomic_locks_check` | Qualquer ticket que envolva @LOCKS |
+| `tasks[]` | Tickets com 2+ subtarefas distintas |
+| `escalation_triggers` | Quando há risco de bloqueio |
+| `depends_on` | Quando o ticket requer outro ticket concluído primeiro |
+| `out_of_scope` | Para delimitar o escopo explicitamente |
+
+---
+
+@UBL ticket-validator
+LEXICO: #ticket #validator #nc-scr-fr-006 #ci
+# 6. Validator Automático
+
+**Script:** `NC-SCR-FR-006-ticket-validator.py` (32-scripts/)
+
+**Execução:**
+```powershell
+# Um ticket:
+python 01_neocortex_framework\32-scripts\NC-SCR-FR-006-ticket-validator.py 08-tickets\NC-DS-267-ticket-rules-formalization.yaml
+
+# Todos os tickets:
+python 01_neocortex_framework\32-scripts\NC-SCR-FR-006-ticket-validator.py 08-tickets\
+```
+
+**Resultado esperado:** `PASS` para todos os tickets v2.
+**Retrocompatibilidade:** tickets v1 (formato antigo) emitem `WARNING`, não `FAIL`.
+
+**Integração Guardian:** Ciclo4 executa validação semanalmente.
+
+---
+
+@UBL ticket-references
+LEXICO: #ticket #references #ssot
+# 7. Referências
+
+| Referência | Path | Papel |
+|---|---|---|
+| Template v2 | `08-tickets/NC-DS-TICKET-TEMPLATE-v2.yaml` | Estrutura base para copiar |
+| Validator | `01_neocortex_framework/32-scripts/NC-SCR-FR-006-ticket-validator.py` | Validação automática |
+| SSOT Naming | `01_neocortex_framework/23-docs/NC-NAM-FR-001-naming-convention.md` | Regras R01 + write zones |
+| Atomic Locks | `01_neocortex_framework/23-docs/NC-SEC-FR-001-atomic-locks.yaml` | @LOCKS a respeitar |
+| Handoff Template | `NC-DS-TICKET-TEMPLATE-v2.yaml` (seção handoff_template_inline) | Estrutura do handoff |
+| Audit Logs | `DIR-DS-002-audit-logs/` | Destino dos handoffs |
+| Roadmap | `DIR-DS-000-agent-config/NC-TODO-FR-001-roadmap.yaml` | Onde marcar %DONE |
+| Governance | `02_memory_lobes/06_governance/NC-LBE-FR-GOVERNANCE-001.mdc` | Framework geral |
+
+---
+
+@UBL changelog
+LEXICO: #changelog
+## Changelog
+- [2026-05-06] v1.0 — Lobe criado. Criado por T0-Antigravity. Ticket: NC-DS-267.
+  Razão: auditoria revelou validator desalinhado com template v2 e ausência de SSOT semântico.

@@ -22,7 +22,7 @@ Actions: brain.think, brain.plan, brain.critique, brain.orchestrate,
 import logging
 from datetime import datetime
 from typing import Any
-
+from ..errors import mcp_response
 logger = logging.getLogger(__name__)
 TOOL_NAME = "neocortex_brain"
 
@@ -33,6 +33,7 @@ def _ts() -> str:
 
 def register_tool(mcp) -> None:
     @mcp.tool(name=TOOL_NAME)
+    @mcp_response
     def neocortex_brain(
         action: str,
         prompt: str = "",

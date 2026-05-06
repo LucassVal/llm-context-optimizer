@@ -27,8 +27,9 @@ import logging
 from datetime import datetime
 from pathlib import Path
 from typing import Any
-
+from ..errors import mcp_response
 logger = logging.getLogger(__name__)
+from ..errors import mcp_error, mcp_success
 TOOL_NAME = "neocortex_system"
 
 
@@ -43,6 +44,7 @@ def _root() -> Path:
 
 def register_tool(mcp) -> None:
     @mcp.tool(name=TOOL_NAME)
+    @mcp_response
     def neocortex_system(
         action: str,
         key: str = "",
@@ -93,41 +95,41 @@ def register_tool(mcp) -> None:
                 cfg = get_config()
                 if key:
                     val = getattr(cfg, key, None)
-                    return {"success": True, "action": action, "key": key, "value": val, "timestamp": ts}
-                return {"success": True, "action": action,
+                    return mcp_success({"action": action, "key": key, "value": val, "timestamp": ts})
+                return mcp_success({"action": action,
                         "config": {k: str(v) for k, v in vars(cfg).items()
-                                   if not k.startswith("_")}, "timestamp": ts}
+                                   if not k.startswith("_")}, "timestamp": ts})
             except Exception as e:
-                return {"success": False, "error": str(e), "timestamp": ts}
+                return mcp_error(str(e), context=f"action: {action}")
 
         elif action == "config.list":
             try:
                 from neocortex.core import get_config
                 cfg = get_config()
                 keys = [k for k in vars(cfg) if not k.startswith("_")]
-                return {"success": True, "action": action, "keys": keys,
-                        "count": len(keys), "timestamp": ts}
+                return mcp_success({"action": action, "keys": keys,
+                        "count": len(keys), "timestamp": ts})
             except Exception as e:
-                return {"success": False, "error": str(e), "timestamp": ts}
+                return mcp_error(str(e), context=f"action: {action}")
 
         elif action == "config.set":
             if not key:
-                return {"success": False, "error": "key obrigatório", "timestamp": ts}
+                return mcp_error("key obrigatório")
             # G1 LockGuard: validate write to config
             if _guard:
                 _ok = _guard.validate_write("DIR-CFG-FR-001-config-main/")
                 if not _ok:
-                    return {"success": False, "error": _guard.last_error, "timestamp": ts}
+                    return mcp_error(_guard.last_error or "LockGuard block")
                 # G3 STEP -1: auto savepoint
                 _guard.savepoint_before_write("config.set")
             try:
                 from neocortex.core import get_config_service
                 svc = get_config_service()
                 result = svc.set(key, value)
-                return {"success": True, "action": action, "key": key, "value": value,
-                        "result": result, "timestamp": ts}
+                return mcp_success({"action": action, "key": key, "value": value,
+                        "result": result, "timestamp": ts})
             except Exception as e:
-                return {"success": False, "error": str(e), "timestamp": ts}
+                return mcp_error(str(e))
 
         # ── PULSE ─────────────────────────────────────────────────────────────
         elif action == "pulse.status":
@@ -138,9 +140,9 @@ def register_tool(mcp) -> None:
                 pulse_scheduler_instance = _m.get_pulse_scheduler()  # R26 orbital
                 if pulse_scheduler_instance and hasattr(pulse_scheduler_instance, "is_running") and pulse_scheduler_instance.is_running():
                     tasks = pulse_scheduler_instance.list_tasks()
-                    return {"success": True, "action": action, "running": True,
-                            "tasks": tasks, "count": len(tasks), "timestamp": ts}
-                return {"success": True, "action": action, "running": False, "timestamp": ts}
+                    return mcp_success({"action": action, "running": True,
+                            "tasks": tasks, "count": len(tasks), "timestamp": ts})
+                return mcp_success({"action": action, "running": False, "timestamp": ts})
             except Exception as e:
                 return {"success": True, "action": action, "note": str(e), "timestamp": ts}
 
@@ -152,11 +154,11 @@ def register_tool(mcp) -> None:
                 pulse_scheduler_instance = _m.get_pulse_scheduler()  # R26 orbital
                 if pulse_scheduler_instance:
                     pulse_scheduler_instance.start()
-                    return {"success": True, "action": action, "running": True,
-                            "message": "PulseScheduler iniciado.", "timestamp": ts}
-                return {"success": False, "error": "PulseScheduler não inicializado", "timestamp": ts}
+                    return mcp_success({"action": action, "running": True,
+                            "message": "PulseScheduler iniciado.", "timestamp": ts})
+                return mcp_error("PulseScheduler não inicializado")
             except Exception as e:
-                return {"success": False, "error": str(e), "timestamp": ts}
+                return mcp_error(str(e))
 
         elif action == "pulse.stop":
             try:
@@ -166,11 +168,11 @@ def register_tool(mcp) -> None:
                 pulse_scheduler_instance = _m.get_pulse_scheduler()  # R26 orbital
                 if pulse_scheduler_instance:
                     pulse_scheduler_instance.stop()
-                    return {"success": True, "action": action, "running": False,
-                            "message": "PulseScheduler parado.", "timestamp": ts}
-                return {"success": False, "error": "PulseScheduler não inicializado", "timestamp": ts}
+                    return mcp_success({"action": action, "running": False,
+                            "message": "PulseScheduler parado.", "timestamp": ts})
+                return mcp_error("PulseScheduler não inicializado")
             except Exception as e:
-                return {"success": False, "error": str(e), "timestamp": ts}
+                return mcp_error(str(e))
 
         elif action == "pulse.schedule_custom":
             if not task_name:
@@ -182,11 +184,11 @@ def register_tool(mcp) -> None:
                 pulse_scheduler_instance = _m.get_pulse_scheduler()  # R26 orbital
                 if pulse_scheduler_instance:
                     pulse_scheduler_instance.schedule_task(task_name, schedule_interval)
-                    return {"success": True, "action": action, "task": task_name,
-                            "interval_sec": schedule_interval, "timestamp": ts}
-                return {"success": False, "error": "PulseScheduler não inicializado", "timestamp": ts}
+                    return mcp_success({"action": action, "task": task_name,
+                            "interval_sec": schedule_interval, "timestamp": ts})
+                return mcp_error("PulseScheduler não inicializado")
             except Exception as e:
-                return {"success": False, "error": str(e), "timestamp": ts}
+                return mcp_error(str(e))
 
         # ── HEALTH ────────────────────────────────────────────────────────────
         elif action == "health.agent":
@@ -205,9 +207,9 @@ def register_tool(mcp) -> None:
                     except Exception:
                         services[name]["reachable"] = False
                         services[name]["status"] = "down"
-                return {"success": True, "action": action, "services": services, "timestamp": ts}
+                return mcp_success({"action": action, "services": services, "timestamp": ts})
             except Exception as e:
-                return {"success": False, "error": str(e), "timestamp": ts}
+                return mcp_error(str(e))
 
         elif action == "health.tools_count":
             tools_dir = Path(__file__).parent
@@ -219,20 +221,20 @@ def register_tool(mcp) -> None:
         elif action == "health.full":
             tools_dir = Path(__file__).parent
             tool_count = len(list(tools_dir.glob("NC-SUPER-*.py")))
-            return {"success": True, "action": action,
+            return mcp_success({"action": action,
                     "super_tools": tool_count, "architecture": "CF-v0.2",
                     "tiers": ["STF", "STJ", "TJ", "FORUM"],
-                    "powers": ["legislativo", "executivo", "judiciario"], "timestamp": ts}
+                    "powers": ["legislativo", "executivo", "judiciario"], "timestamp": ts})
 
         elif action == "system.diagnostics":
             import platform
             import sys
-            return {"success": True, "action": action,
+            return mcp_success({"action": action,
                     "python_version": sys.version.split()[0],
                     "platform": platform.system(),
                     "project_root": str(root),
                     "tools_dir": str(Path(__file__).parent),
-                    "timestamp": ts}
+                    "timestamp": ts})
 
         elif action == "system.env_check":
             checks = {}
@@ -252,8 +254,8 @@ def register_tool(mcp) -> None:
                 checks["neocortex_config"] = True
             except Exception:
                 checks["neocortex_config"] = False
-            return {"success": True, "action": action, "env_checks": checks,
-                    "all_ok": all(checks.values()), "timestamp": ts}
+            return mcp_success({"action": action, "env_checks": checks,
+                    "all_ok": all(checks.values()), "timestamp": ts})
 
         # ── EXPORT ────────────────────────────────────────────────────────────
         elif action == "export.snapshot":
@@ -261,17 +263,17 @@ def register_tool(mcp) -> None:
                 from neocortex.core import get_export_service
                 svc = get_export_service()
                 result = svc.export()
-                return {"success": True, "action": action, "snapshot": result, "timestamp": ts}
+                return mcp_success({"action": action, "snapshot": result, "timestamp": ts})
             except Exception as e:
-                return {"success": False, "error": str(e), "timestamp": ts}
+                return mcp_error(str(e))
 
         elif action == "export.list":
             export_dir = root / "exports"
             if not export_dir.exists():
-                return {"success": True, "action": action, "exports": [], "count": 0, "timestamp": ts}
+                return mcp_success({"action": action, "exports": [], "count": 0, "timestamp": ts})
             exports = [f.name for f in sorted(export_dir.glob("*.json"))]
-            return {"success": True, "action": action, "exports": exports[-20:],
-                    "count": len(exports), "timestamp": ts}
+            return mcp_success({"action": action, "exports": exports[-20:],
+                    "count": len(exports), "timestamp": ts})
 
         # ── INIT ──────────────────────────────────────────────────────────────
         elif action == "init.workspace":
@@ -279,9 +281,9 @@ def register_tool(mcp) -> None:
                 from neocortex.core import get_init_service
                 svc = get_init_service()
                 result = svc.initialize()
-                return {"success": True, "action": action, "result": result, "timestamp": ts}
+                return mcp_success({"action": action, "result": result, "timestamp": ts})
             except Exception as e:
-                return {"success": False, "error": str(e), "timestamp": ts}
+                return mcp_error(str(e))
 
         # ── CONFIG (extended from NC-TOOL-FR-025) ─────────────────────────────
         elif action == "config.reload":
@@ -290,11 +292,11 @@ def register_tool(mcp) -> None:
                 cfg = get_config()
                 if hasattr(cfg, "reload"):
                     cfg.reload()
-                    return {"success": True, "action": action,
-                            "message": "Configuracao recarregada.", "timestamp": ts}
-                return {"success": False, "error": "ConfigProvider nao suporta reload", "timestamp": ts}
+                    return mcp_success({"action": action,
+                            "message": "Configuracao recarregada.", "timestamp": ts})
+                return mcp_error("ConfigProvider nao suporta reload")
             except Exception as e:
-                return {"success": False, "error": str(e), "timestamp": ts}
+                return mcp_error(str(e))
 
         elif action == "config.diff":
             try:
@@ -313,30 +315,29 @@ def register_tool(mcp) -> None:
                 dev  = yaml.safe_load(dev_path.read_text("utf-8"))  or {}
                 diff = {k: {"prod": prod.get(k), "dev": dev.get(k)}
                         for k in set(prod) | set(dev) if prod.get(k) != dev.get(k)}
-                return {"success": True, "action": action, "diff": diff,
-                        "prod_file": str(prod_path), "dev_file": str(dev_path), "timestamp": ts}
+                return mcp_success({"action": action, "diff": diff,
+                        "prod_file": str(prod_path), "dev_file": str(dev_path), "timestamp": ts})
             except Exception as e:
-                return {"success": False, "error": str(e), "timestamp": ts}
+                return mcp_error(str(e))
 
-        elif action == "config.set_model":
-            if not key:
-                return {"success": False, "error": "key (model name) obrigatorio", "timestamp": ts}
             try:
                 from neocortex.core import get_config_service
                 svc = get_config_service()
                 result = svc.set_model(key) if hasattr(svc, "set_model") else {"success": False, "error": "set_model nao disponivel"}
-                return {**result, "action": action, "timestamp": ts}
+                if result.get("success"):
+                    return mcp_success({**result, "action": action, "timestamp": ts})
+                return mcp_error(result.get("error", "set_model failed"))
             except Exception as e:
-                return {"success": False, "error": str(e), "timestamp": ts}
+                return mcp_error(str(e))
 
         elif action == "config.list_models":
             try:
                 from neocortex.core import get_config_service
                 svc = get_config_service()
                 result = svc.list_available_models() if hasattr(svc, "list_available_models") else {"models": []}
-                return {**result, "action": action, "timestamp": ts}
+                return mcp_success({**result, "action": action, "timestamp": ts})
             except Exception as e:
-                return {"success": False, "error": str(e), "timestamp": ts}
+                return mcp_error(str(e))
 
         elif action == "config.set_agent_backend":
             import json as _json
@@ -350,10 +351,10 @@ def register_tool(mcp) -> None:
                 except Exception:
                     backend_config = {"provider": value}
                 cfg.set(f"llm.agent_backends.{key}", backend_config)
-                return {"success": True, "action": action, "role": key,
-                        "backend_config": backend_config, "timestamp": ts}
+                return mcp_success({"action": action, "role": key,
+                        "backend_config": backend_config, "timestamp": ts})
             except Exception as e:
-                return {"success": False, "error": str(e), "timestamp": ts}
+                return mcp_error(str(e))
 
         # ── PULSE (extended) ──────────────────────────────────────────────────
         elif action == "pulse.force":
@@ -366,11 +367,11 @@ def register_tool(mcp) -> None:
                 pulse_scheduler_instance = _m.get_pulse_scheduler()  # R26 orbital
                 if pulse_scheduler_instance and hasattr(pulse_scheduler_instance, "force_task"):
                     result = pulse_scheduler_instance.force_task(task_name)
-                    return {"success": True, "action": action, "task_name": task_name,
-                            "result": result, "timestamp": ts}
-                return {"success": False, "error": "PulseScheduler.force_task nao disponivel", "timestamp": ts}
+                    return mcp_success({"action": action, "task_name": task_name,
+                            "result": result, "timestamp": ts})
+                return mcp_error("PulseScheduler.force_task nao disponivel")
             except Exception as e:
-                return {"success": False, "error": str(e), "timestamp": ts}
+                return mcp_error(str(e))
 
         # ── Regulatory Agencies ─────────────────────────────────────────────
         elif action == "regulatory.health":
@@ -379,8 +380,8 @@ def register_tool(mcp) -> None:
                 spec = importlib.util.spec_from_file_location("reg", str(root / "neocortex" / "core" / "NC-CORE-FR-133-regulatory-agencies.py"))
                 mod = importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
                 r = mod.get_regulatory().anv.inspect(root)
-                return {"success": True, "action": action, "result": r, "timestamp": ts}
-            except Exception as e: return {"success": False, "error": str(e), "timestamp": ts}
+                return mcp_success({"action": action, "result": r, "timestamp": ts})
+            except Exception as e: return mcp_error(str(e))
 
         elif action == "regulatory.audit":
             try:
@@ -388,8 +389,8 @@ def register_tool(mcp) -> None:
                 spec = importlib.util.spec_from_file_location("reg", str(root / "neocortex" / "core" / "NC-CORE-FR-133-regulatory-agencies.py"))
                 mod = importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
                 r = mod.get_regulatory().full_audit(root)
-                return {"success": True, "action": action, "result": r, "timestamp": ts}
-            except Exception as e: return {"success": False, "error": str(e), "timestamp": ts}
+                return mcp_success({"action": action, "result": r, "timestamp": ts})
+            except Exception as e: return mcp_error(str(e))
         # ── ORBITAL BRIDGE: delegar ações ──────────────────────────────────
         _orbital_result = None
         try:
@@ -405,13 +406,5 @@ def register_tool(mcp) -> None:
 
 
         else:
-            return {"success": False, "error": f"action desconhecida: {action}",
-                    "available": ["config.get", "config.set", "config.list",
-                                  "config.reload", "config.diff", "config.set_model",
-                                  "config.list_models", "config.set_agent_backend",
-                                  "pulse.status", "pulse.start", "pulse.stop",
-                                  "pulse.schedule_custom", "pulse.force",
-                                  "health.agent", "health.full", "health.tools_count",
-                                  "system.diagnostics", "system.env_check",
-                                  "export.snapshot", "export.list", "init.workspace"],
-                    "timestamp": ts}
+            return mcp_error(f"action desconhecida: {action}",
+                    suggestion=f"Ações disponíveis: config.get, config.set, pulse.status, etc.")

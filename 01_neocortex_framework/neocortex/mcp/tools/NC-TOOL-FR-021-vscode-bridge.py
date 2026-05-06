@@ -25,7 +25,7 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 from typing import Any
-
+from ..errors import mcp_response
 TOOL_NAME = "neocortex_vscode"
 root = Path(__file__).parents[4]
 
@@ -73,6 +73,7 @@ def register_tool(mcp):
     """Register the VS Code bridge tool with the MCP server."""
 
     @mcp.tool()
+    @mcp_response
     def neocortex_vscode(
         action: str,
         params: str | None = None,

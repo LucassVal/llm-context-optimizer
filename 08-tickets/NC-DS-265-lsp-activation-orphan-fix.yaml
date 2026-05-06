@@ -1,6 +1,13 @@
 ticket_id: "NC-DS-265"
 title: "LSP Config Orphan Fix — pyproject.toml + opencode.json + pyrightconfig.json"
-status: OPEN
+status: DONE
+closed_at: "2026-05-06T16:49:00-03:00"
+closed_by: "OpenCode-Agent"
+resolution: |
+  - T1: NC-ORPHAN-pyproject.toml copiado para raiz, editado e arquivado.
+  - T2: NC-ORPHAN-opencode.json lido, campo lsp inserido, gravado em .opencode/opencode.json e arquivado.
+  - T3: pyrightconfig.json criado na raiz.
+  - T4: exceptions_r01_naming adicionado ao @LOCKS (NC-SEC-FR-001).
 priority: HIGH
 owner: T0-Antigravity
 category: tooling

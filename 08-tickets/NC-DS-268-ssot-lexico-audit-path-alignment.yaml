@@ -1,6 +1,18 @@
 ticket_id: "NC-DS-268"
 title: "Auditoria SSOT + LEXICO: Paths Semânticos, Arquivos Desgarrados, Divergências"
-status: OPEN
+status: DONE
+commit: "fb9f85c"
+closed_at: "2026-05-06T16:38:45-03:00"
+closed_by: "OpenCode-Agent"
+resolution: |
+  NC-ULQ-TAG-INDEX.json corrigido:
+    - config → DIR-DS-000-agent-config/ corrigido para 07-agent-config/
+    - tickets_audit → DIR-DS-001-tickets/ corrigido para 08-tickets/
+  NC-SCR-FR-025-lexico-validator.py criado (não NC-SCR-FR-XXX):
+    9/9 domains verificados: 0 FAIL.
+validation_final:
+  lexico_validator: "9/9 PASS"
+  locks_violated: []
 priority: HIGH
 owner: T0-Antigravity
 category: governance
@@ -77,17 +89,13 @@ swot:
 
 # ─── STEP 0 OBRIGATÓRIO (R21) ────────────────────────────────────────
 step_0:
-  note: |
-    Este ticket USA paths absolutos intencionalmente — porque está auditando
-    os próprios paths semânticos. Não confiar em #TICKETS ou #LEXICO.SCRIPTS
-    até esta auditoria concluir.
-  pre_audit_checks:
-    - "python --version → Python 3.12 disponível"
-    - "Test-Path '01_neocortex_framework\\.neocortex\\lexico\\NC-LEXICO-LATEST.json' → True"
-    - "Test-Path '01_neocortex_framework\\.neocortex\\lexico\\NC-ULQ-TAG-INDEX.json' → True"
-    - "Test-Path '01_neocortex_framework\\23-docs\\NC-NAM-FR-001-naming-convention.md' → True"
-    - "Test-Path '08-tickets\\' → True  (diretório real de tickets)"
-    - "Test-Path 'DIR-DS-001-tickets\\' → False  (confirmar gap #TICKETS)"
+  - "TICKET DONE — checks executados em fb9f85c"
+  - "python --version → Python 3.12 disponivel"
+  - "Test-Path '01_neocortex_framework\\.neocortex\\lexico\\NC-LEXICO-LATEST.json' → True"
+  - "Test-Path '01_neocortex_framework\\.neocortex\\lexico\\NC-ULQ-TAG-INDEX.json' → True"
+  - "Test-Path '08-tickets\\' → True (diretório real de tickets confirmado)"
+  - "Test-Path 'DIR-DS-001-tickets\\' → False (gap #TICKETS confirmado)"
+  - "NC-SCR-FR-025: 9/9 domains PASS apos correccoes"
 
 # ─── TAREFAS ──────────────────────────────────────────────────────────
 tasks:

@@ -143,3 +143,18 @@ exceptions:
   - agent_role: "engineer"
     allowed_write: ["DIR-TEST-FR-001-tests-main/**"]
     reason: "Engineer pode criar e modificar arquivos de teste."
+
+# ─────────────────────────────────────────────────────────────────────────────
+# EXCEÇÕES DE NOMENCLATURA (R01 NAMING)
+# Arquivos de ecossistema externo que NUNCA recebem o prefixo NC-
+# ─────────────────────────────────────────────────────────────────────────────
+exceptions_r01_naming:
+  - "pyproject.toml"
+  - "pyrightconfig.json"
+  - "opencode.json"
+  - ".gitignore"
+  - "package.json"
+  - "tsconfig.json"
+  - "uv.lock"
+  - "poetry.lock"
+  - "requirements.txt"

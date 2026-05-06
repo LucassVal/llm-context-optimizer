@@ -26,7 +26,7 @@ import logging
 from datetime import datetime
 from pathlib import Path
 from typing import Any
-
+from ..errors import mcp_response
 logger = logging.getLogger(__name__)
 TOOL_NAME = "neocortex_state"
 
@@ -42,6 +42,7 @@ def _root() -> Path:
 
 def register_tool(mcp) -> None:
     @mcp.tool(name=TOOL_NAME)
+    @mcp_response
     def neocortex_state(
         action: str,
         checkpoint_key: str = "",

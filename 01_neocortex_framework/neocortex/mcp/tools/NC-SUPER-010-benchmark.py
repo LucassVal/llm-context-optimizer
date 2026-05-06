@@ -24,7 +24,7 @@ import time
 from datetime import datetime
 from pathlib import Path
 from typing import Any
-
+from ..errors import mcp_response
 logger = logging.getLogger(__name__)
 TOOL_NAME = "neocortex_benchmark"
 root = Path(__file__).parents[4]
@@ -40,6 +40,7 @@ def _root() -> Path:
 
 def register_tool(mcp) -> None:
     @mcp.tool(name=TOOL_NAME)
+    @mcp_response
     def neocortex_benchmark(
         action: str,
         model: str = "qwen2.5-coder:1.5b",

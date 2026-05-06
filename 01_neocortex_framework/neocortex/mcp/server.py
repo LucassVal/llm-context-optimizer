@@ -287,8 +287,22 @@ def _wrap_with_hooks(func, tool_name):
             with contextlib.suppress(Exception): hook_registry_instance.trigger("PreToolUse", _ctx)
         try:
             result = func(*args, **kwargs)
-            if isinstance(result, dict) and result.get("success") is False:
-                raise RuntimeError(result.get("error", "unknown tool error"))
+            # NC-DS-256: Support both legacy {"success": False} and MCP {"isError": True}
+            is_error = False
+            error_msg = "unknown tool error"
+            if isinstance(result, dict):
+                if result.get("success") is False:
+                    is_error = True
+                    error_msg = result.get("error", error_msg)
+                elif result.get("isError") is True:
+                    is_error = True
+                    # Tente extrair mensagem do content se disponível
+                    content = result.get("content", [])
+                    if content and isinstance(content, list) and len(content) > 0:
+                        error_msg = content[0].get("text", error_msg)
+
+            if is_error:
+                raise RuntimeError(error_msg)
             if hook_registry_instance:
                 with contextlib.suppress(Exception): hook_registry_instance.trigger("PostToolUse", _ctx)
             return result
@@ -329,11 +343,23 @@ def _wrap_tool_with_metrics(tool_func, tool_name):
             result = tool_func(*args, **kwargs)
 
             # Determine if call was successful
-            if isinstance(result, dict) and result.get("success") is False:
+            # NC-DS-256: MCP Error Protocol — Support both legacy and new formats
+            is_error = False
+            error_msg = "unknown tool error"
+            if isinstance(result, dict):
+                if result.get("success") is False:
+                    is_error = True
+                    error_msg = result.get("error", error_msg)
+                elif result.get("isError") is True:
+                    is_error = True
+                    content = result.get("content", [])
+                    if content and isinstance(content, list) and len(content) > 0:
+                        error_msg = content[0].get("text", error_msg)
+
+            if is_error:
                 status = "failure"
-                details = {"error": result.get("error", "unknown")}
-                # NC-DS-256: MCP Error Protocol — convert to isError:true via FastMCP
-                raise RuntimeError(result.get("error", "unknown tool error"))
+                details = {"error": error_msg}
+                raise RuntimeError(error_msg)
 
             # PostToolUse hooks
             if hook_registry_instance:

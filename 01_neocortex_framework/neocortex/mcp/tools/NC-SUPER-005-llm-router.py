@@ -21,7 +21,7 @@ Actions: ollama.ask, ollama.list, ollama.pull,
 import logging
 from pathlib import Path
 from typing import Any
-
+from ..errors import mcp_response
 logger = logging.getLogger(__name__)
 TOOL_NAME = "neocortex_llm_router"
 root = Path(__file__).parents[4]
@@ -38,6 +38,7 @@ _TIER_MODEL = {
 
 def register_tool(mcp) -> None:
     @mcp.tool(name=TOOL_NAME)
+    @mcp_response
     def neocortex_llm_router(
         action: str,
         model: str = "",

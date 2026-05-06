@@ -1,6 +1,15 @@
 ticket_id: "NC-DS-267"
 title: "Formalizar Regras de Tickets — Lobe SSOT + Validator Sync (template v1→v2)"
-status: OPEN
+status: DONE
+commit: "fb9f85c"
+closed_at: "2026-05-06T16:48:00-03:00"
+closed_by: "OpenCode-Agent"
+resolution: |
+  - T1: Lobe NC-LBE-FR-TICKETS-001.mdc confirmado.
+  - T2: NC-SCR-FR-006 SyntaxError corrigido, template v2 em uso.
+  - T3: SSOT atualizado (NC-NAM-FR-001) com Protocolo de Criação de Tickets.
+  - T4: NC-LBE-FR-TICKETS-001.mdc adicionado ao NC-SCR-FR-001-populate-lobes-ssot.py para o banco FTS5.
+  - T5: Guardian Daemon (NC-SCR-FR-115) atualizado p/ rodar ticket_audit no Ciclo4.
 priority: MEDIUM
 owner: T0-Antigravity
 category: governance

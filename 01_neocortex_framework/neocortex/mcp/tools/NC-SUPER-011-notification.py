@@ -21,7 +21,7 @@ Actions: push.send, push.list, push.clear, push.status,
 import logging
 from datetime import datetime
 from typing import Any
-
+from ..errors import mcp_response
 logger = logging.getLogger(__name__)
 TOOL_NAME = "neocortex_notification"
 
@@ -35,6 +35,7 @@ def _ts() -> str:
 
 def register_tool(mcp) -> None:
     @mcp.tool(name=TOOL_NAME)
+    @mcp_response
     def neocortex_notification(
         action: str,
         message: str = "",

@@ -179,4 +179,5 @@ escalation_triggers:
   - "Arquivo NC-NAM-FR-001 precisar ser modificado de forma não-trivial"
   - "Importação circular detectada após criação do shim"
   - "Qualquer dúvida sobre qual símbolo exportar no shim"
-  escalation_action: "Gerar handoff com status: ESCALATED e parar imediatamente"
+
+escalation_action: "Gerar handoff com status: ESCALATED e parar imediatamente"

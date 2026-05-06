@@ -16,7 +16,7 @@ meta:
     - "Análise estrutural de código (4 pilares, abril 2026)"
     - "Benchmarks de mercado: NIST AI RMF, OWASP LLM Top 10, MCP spec, Claude Code patterns"
 
----
+
 
 ## 1. CRUZAMENTO: COMPLIANCE REPORT → 4 PILARES
 
@@ -64,7 +64,7 @@ compliance_scorecard:
       not_implemented: 0
       compliance_pct: 75
 
----
+
 
 ## 2. CRUZAMENTO: ROADMAP v12.1 (SPRINT-ACELERADO) → PILARES
 
@@ -119,7 +119,7 @@ roadmap_crossref:
     without_handoff: "~120"
     status: "CRÍTICO — tickets criados mas nunca fechados nem auditados"
 
----
+
 
 ## 3. DIAGNÓSTICO FINAL DOS 4 PILARES
 
@@ -426,7 +426,7 @@ pillars_diagnosis:
         severity: "LOW"
         effort: "4-5 dias"
 
----
+
 
 ## 4. CRUZAMENTO: TICKETS ABERTOS → GAPS
 
@@ -461,7 +461,7 @@ open_tickets_vs_gaps:
     - "NC-SVC-FR-022 SemanticCataloger — NENHUM TICKET"
     - "Circuit Breaker (R16) — NENHUM TICKET (mas está no roadmap como PENDING)"
 
----
+
 
 ## 5. TIMELINE DE EXECUÇÃO RECOMENDADA
 
@@ -587,7 +587,7 @@ execution_timeline:
         pilar: "TG"
         depends_on: ["NC-DIAG-ACT-007"]
 
----
+
 
 ## 6. ESTIMATIVA DE ESFORÇO TOTAL
 
@@ -618,7 +618,7 @@ effort_summary:
     tickets_gerados: "~18 novos tickets NC-DIAG-ACT-*"
     tickets_orphaned_auditados: "~120 tickets sem handoff"
 
----
+
 
 ## 7. RECOMENDAÇÃO FINAL
 

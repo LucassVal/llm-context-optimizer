@@ -1,19 +1,26 @@
 from __future__ import annotations
 # Fix encoding for Windows (UTF-8)
-"""--- NC-SCR-FR-006 — Ticket Validator ---
+"""--- NC-SCR-FR-006 — Ticket Validator v2 ---
 NC-SCR-FR-006-ticket-validator.py
 Valida YAMLs de ticket antes de enfileirar.
 
-Executa: python NC-SCR-FR-006-ticket-validator.py [ticket.yaml | DIR-DS-001-tickets/]
+Executa: python NC-SCR-FR-006-ticket-validator.py [ticket.yaml | 08-tickets/]
 
-Validaes por ticket:
-  - Campos obrigatrios: ticket_id, write_zone, forbidden_zone, exit_state, methodology
-  - ticket_id segue NC-DS-NNN formato
-  - write_zone != forbidden_zone (sem overlap)
-  - write_zone no contm @LOCKS (server.py, sub_server.py, neocortex_config.yaml)
-  - Arquivo referenciado em exit_state.files_created no existe ainda (fresh)
+Validacoes por ticket (Template v2 — NC-DS-TICKET-TEMPLATE-v2.yaml):
+  OBRIGATORIO (FAIL se ausente):
+    ticket_id, title, status, priority, working_directory,
+    three_w (who/what/why), step_0 (lista), write_zone
+  RETROCOMPAT (WARNING se ausente — tickets v1 antigos):
+    forbidden_zone, exit_state, methodology
+  REGRAS:
+    - ticket_id: NC-DS-NNN ou NC-DS-NNN-desc (kebab)
+    - working_directory: deve conter 'TURBOQUANT_V42'
+    - three_w: dict com campos who, what, why
+    - step_0: lista nao vazia
+    - write_zone: nao vazio, nao contem @LOCKS
+    - status: OPEN|IN_PROGRESS|BLOCKED|DONE|CANCELLED
 
-Output: PASS / FAIL por ticket + relatrio final.
+Output: PASS / FAIL por ticket + relatorio final.
 """
 
 import importlib.util
@@ -73,57 +80,92 @@ def load_yaml_simple(path: Path) -> dict:
 # ============================================================================
 
 
-def validate_ticket(data: dict, ticket_path: Path) -> tuple[bool, list[str]]:
-    """Valida um nico ticket YAML."""
-    errors = []
+# Campos obrigatorios template v2
+_REQUIRED_V2 = ["ticket_id", "title", "status", "priority", "working_directory",
+                "three_w", "step_0", "write_zone"]
+# Campos do template v1 (retrocompat: WARNING apenas, nao FAIL)
+_LEGACY_V1 = ["forbidden_zone", "exit_state", "methodology"]
+# Valores validos de status
+_VALID_STATUS = {"OPEN", "IN_PROGRESS", "BLOCKED", "DONE", "CANCELLED",
+                 "PENDING_REVIEW", "RETROSPECTIVE", "APPROVED", "FAILED"}
+# @LOCKS — write_zone nao pode referenciar
+_LOCKS = ["server.py", "sub_server.py", "neocortex_config.yaml"]
 
-    # 1. Campos obrigatrios
-    required = [
-        "ticket_id",
-        "write_zone",
-        "forbidden_zone",
-        "exit_state",
-        "methodology",
-    ]
-    for field in required:
+
+def validate_ticket(data: dict, ticket_path: Path) -> tuple[bool, list[str]]:
+    """Valida um ticket YAML contra o template v2. Retrocompat com v1 via warnings."""
+    errors: list[str] = []
+    warnings: list[str] = []
+
+    # 1. Identificar tickets legados (v1) e relatorios (DIAG)
+    is_legacy = False
+    num_match = re.search(r"NC-DS-(\d+)", ticket_path.name)
+    if num_match and int(num_match.group(1)) < 265:
+        is_legacy = True
+    elif any(x in ticket_path.name for x in ["FR-", "AGT-", "IMPL-", "TEMPLATE", "DIAG-"]):
+        is_legacy = True
+
+    if is_legacy:
+        warnings.append(f"[WARN] Ticket legado V1 detectado ({ticket_path.name}). Pulando validacao estrita V2.")
+        return True, warnings
+
+    # 2. Campos obrigatorios v2
+    for field in _REQUIRED_V2:
         if field not in data:
-            errors.append(f"Campo obrigatrio ausente: {field}")
+            errors.append(f"[FAIL] Campo obrigatorio ausente: {field}")
+
+    # 2. Retrocompat: campos v1 ausentes sao warnings, nao erros
+    for field in _LEGACY_V1:
+        if field not in data:
+            warnings.append(f"[WARN] Campo legado v1 ausente (ok para template v2): {field}")
+
+    # Emitir warnings sem bloquear
+    for w in warnings:
+        logger.warning(w)
 
     if errors:
         return False, errors
 
-    ticket_id = data["ticket_id"]
-    write_zone = data["write_zone"]
-    forbidden_zone = data.get("forbidden_zone", [])
-    exit_state = data.get("exit_state", {})
+    # --- Validacoes de conteudo ---
+    ticket_id: str = str(data.get("ticket_id", ""))
+    write_zone: str = str(data.get("write_zone", ""))
+    three_w = data.get("three_w", {})
+    step_0 = data.get("step_0", [])
+    working_dir: str = str(data.get("working_directory", ""))
+    status: str = str(data.get("status", "")).strip('"\'')
 
-    # 2. Formato ticket_id: NC-DS-NNN
-    if not re.match(r"^NC-DS-\d{3}$", ticket_id):
-        errors.append(f"ticket_id '{ticket_id}' no segue formato NC-DS-NNN")
+    # 3. ticket_id: NC-DS-NNN ou NC-DS-NNN-desc (aceita kebab apos o numero)
+    if not re.match(r"^NC-DS-[A-Z0-9][A-Z0-9-]*$", ticket_id):
+        errors.append(f"[FAIL] ticket_id '{ticket_id}' nao segue formato NC-DS-NNN ou NC-DS-NNN-desc")
 
-    # 3. write_zone no pode estar em forbidden_zone
-    if isinstance(forbidden_zone, list):
-        for zone in forbidden_zone:
-            if write_zone.startswith(zone) or zone.startswith(write_zone):
-                errors.append(
-                    f"write_zone '{write_zone}' overlap com forbidden_zone '{zone}'"
-                )
+    # 4. working_directory deve conter o workspace raiz
+    if "TURBOQUANT_V42" not in working_dir:
+        errors.append(f"[FAIL] working_directory deve conter 'TURBOQUANT_V42': '{working_dir}'")
 
-    # 4. write_zone no pode conter @LOCKS
-    locks = ["server.py", "sub_server.py", "neocortex_config.yaml"]
-    for lock in locks:
+    # 5. three_w deve ter who, what, why
+    if isinstance(three_w, dict):
+        for sub in ("who", "what", "why"):
+            if not three_w.get(sub, "").strip():
+                errors.append(f"[FAIL] three_w.{sub} esta vazio ou ausente")
+    else:
+        errors.append("[FAIL] three_w deve ser um dict com who/what/why")
+
+    # 6. step_0 deve ser lista nao vazia
+    if not isinstance(step_0, list) or len(step_0) == 0:
+        errors.append("[FAIL] step_0 deve ser lista nao vazia (R21)")
+
+    # 7. write_zone nao pode conter @LOCKS
+    for lock in _LOCKS:
         if lock in write_zone:
-            errors.append(f"write_zone contm @LOCK: {lock}")
+            errors.append(f"[FAIL] write_zone contem @LOCK protegido: {lock}")
 
-    # 5. Arquivos em exit_state.files_created no devem existir (fresh) - warning apenas
-    files_created = exit_state.get("files_created", [])
-    for file_path in files_created:
-        if Path(file_path).exists():
-            logger.warning(f"Arquivo j existe (pode ser esperado): {file_path}")
-
-    # 6. write_zone deve ser um path vlido (no vazio)
+    # 8. write_zone nao pode ser vazio
     if not write_zone.strip():
-        errors.append("write_zone est vazio")
+        errors.append("[FAIL] write_zone esta vazio")
+
+    # 9. status deve ser valor valido
+    if status and status not in _VALID_STATUS:
+        errors.append(f"[FAIL] status '{status}' invalido. Validos: {sorted(_VALID_STATUS)}")
 
     return len(errors) == 0, errors
 

@@ -28,7 +28,7 @@ import logging
 from datetime import datetime
 from pathlib import Path
 from typing import Any
-
+from ..errors import mcp_response
 logger = logging.getLogger(__name__)
 TOOL_NAME = "neocortex_security"
 
@@ -48,6 +48,7 @@ _HOOKS: dict[str, list] = {}
 
 def register_tool(mcp) -> None:
     @mcp.tool(name=TOOL_NAME)
+    @mcp_response
     def neocortex_security(
         action: str,
         resource: str = "",

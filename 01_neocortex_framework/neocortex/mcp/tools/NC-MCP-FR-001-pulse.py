@@ -19,7 +19,7 @@ import logging
 from datetime import datetime
 from pathlib import Path
 from typing import Any
-
+from ..errors import mcp_response
 logger = logging.getLogger(__name__)
 root = Path(__file__).parents[4]
 
@@ -65,6 +65,7 @@ def register_tool(mcp) -> None:
     com neocortex_system que já expõe pulse.status e pulse.schedule_custom.
     """
     @mcp.tool(name="neocortex_pulse_bridge")
+    @mcp_response
     def neocortex_pulse_bridge(action: str = "status") -> dict[str, Any]:
         """Bridge de compatibilidade — use neocortex_system para ações de pulse.
         Actions: status
