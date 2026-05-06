@@ -53,6 +53,9 @@ except ImportError as e:
     print(f"WARNING: mdc_loader não disponível: {e}", file=_sys_mdc.stderr)
     MDC_LOADER_AVAILABLE = False
 
+# Conversation Hook (NC-DS-270) — lazy import, wire on first use
+_conv_hook = None
+
 # from .tools import (
 #     cortex,
 #     ledger,
@@ -303,6 +306,7 @@ def _wrap_with_hooks(func, tool_name):
 
             if is_error:
                 raise RuntimeError(error_msg)
+            _ctx["result"] = result
             if hook_registry_instance:
                 with contextlib.suppress(Exception): hook_registry_instance.trigger("PostToolUse", _ctx)
             return result
@@ -708,6 +712,22 @@ def create_mcp_server(host="127.0.0.1", port=8765):
     hook_registry_instance = _HookProxy()
     logger.info(f"Hooks: {len(_hooks_pre)}P/{len(_hooks_post)}O/{len(_hooks_err)}E ativos")
 
+    # NC-DS-270: Wire ConversationHook — turn.record automático (R52 Kaizen)
+    try:
+        from ..core.hooks.NC_HK_FR_004_conversation_hook import get_conversation_hook
+        _conv_hook = get_conversation_hook()
+        def _conv_hook_cb(**ctx):
+            try:
+                loop = asyncio.get_event_loop()
+            except RuntimeError:
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+            loop.run_until_complete(_conv_hook.on_response(ctx))
+        _hooks_post.append(_conv_hook_cb)
+        logger.info("ConversationHook wired: turn.record + Kaizen log ativos")
+    except Exception as e:
+        logger.warning(f"ConversationHook não wireado: {e}")
+
     # ── HOOK REGISTRY YAML (NC-HK-FR-008) ──────────────────────────
     _hr_yaml = None
     try:
@@ -760,10 +780,10 @@ def create_mcp_server(host="127.0.0.1", port=8765):
     if FAST_MCP_AVAILABLE:
         server.set_logging_level = lambda level: _handle_set_level(level) if not None else None
 
-    # Register pulse tool with scheduler instance
-    from .tools import pulse
+    # Register pulse tool with scheduler instance (NC-DS-274: unified from system)
+    from .tools.NC_SUPER_006_system import set_pulse_scheduler
 
-    pulse.set_pulse_scheduler(pulse_scheduler)
+    set_pulse_scheduler(pulse_scheduler)
 
     # Dynamically scan the tools directory and load all tools
     tools_dir = Path(__file__).parent / "tools"

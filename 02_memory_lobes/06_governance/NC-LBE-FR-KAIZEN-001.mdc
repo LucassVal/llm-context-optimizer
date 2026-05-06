@@ -5,7 +5,8 @@ type: KAIZEN_LOG
 created: 2026-04-28
 status: ACTIVE
 lifecycle: PERMANENT
-temperature: 10
+temperature: 0
+status: archived
 ---
 
 <!-- 3 W's Auto-Injection -->

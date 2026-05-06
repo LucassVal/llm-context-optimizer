@@ -408,3 +408,27 @@ def register_tool(mcp) -> None:
         else:
             return mcp_error(f"action desconhecida: {action}",
                     suggestion=f"Ações disponíveis: config.get, config.set, pulse.status, etc.")
+
+
+
+# ── NC-DS-274: Pulse Bridge integration (unified from NC-MCP-FR-001) ──
+_scheduler = None
+
+def set_pulse_scheduler(scheduler):
+    global _scheduler
+    _scheduler = scheduler
+    logger.info("[system] PulseScheduler registered")
+    try:
+        import importlib.util
+        script = Path(__file__).parents[2] / "scripts" / "NC-SCR-FR-115-guardian-daemon.py"
+        if script.exists():
+            spec = importlib.util.spec_from_file_location("guardian_daemon", script)
+            mod = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(mod)
+            result = mod.start_guardian(interval=60)
+            logger.info(f"[system] Guardian started: {result.get('session_id')}")
+    except Exception as e:
+        logger.warning(f"[system] Guardian auto-start failed: {e}")
+
+def get_pulse_scheduler():
+    return _scheduler
