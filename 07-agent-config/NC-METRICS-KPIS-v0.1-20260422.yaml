@@ -1,0 +1,352 @@
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC METRICS KPIS v0.1 20260422
+# Why:  Criado em 2026-04-22 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/metrics/NC-METRICS-KPIS-v0.1-20260422.yaml
+
+# ── 3 W's (Auto de Infração) ──
+# What: Módulo: NC METRICS KPIS v0.1 20260422
+# Why:  Criado em 2026-04-22 — arquivo do ecossistema NeoCortex
+# Where: 01_neocortex_framework/metrics/NC-METRICS-KPIS-v0.1-20260422.yaml
+
+# NEOCORTEX GOVERNANCE METRICS & KPIS v0.1
+# Data: 2026-04-22
+# Status: IMPLEMENTED
+# Sistema de métricas e KPIs para governança
+
+metrics_config:
+  name: "Governance Metrics and KPIs System"
+  version: "v0.1"
+  scope: "Comprehensive governance measurement"
+  measurement_frequency: "Real-time + scheduled"
+
+governance_kpis:
+  compliance_kpis:
+    - kpi: "Overall Compliance Score"
+      description: "Percentage of 30 governance rules being followed"
+      calculation: "(Compliant rules / Total rules) * 100"
+      target: "> 90%"
+      current: "48.4%"
+      trend: "Declining"
+      measurement: "neocortex_governance.compliance.report"
+      frequency: "Daily"
+    
+    - kpi: "Rule Compliance Distribution"
+      description: "Breakdown of rule compliance by category"
+      categories:
+        - "Foundation & Structure (R01-R05)"
+        - "Access Control & Identity (R06-R09)"
+        - "Traceability & Audit (R10-R13)"
+        - "Execution & Orchestration (R14-R17)"
+        - "Lifecycle & Improvement (R18-R20)"
+        - "Intelligent Agent Protocol (R21-R24)"
+        - "Constitutional Evolution (R25-R30)"
+      measurement: "neocortex_governance.cf.audit"
+      frequency: "Weekly"
+    
+    - kpi: "Compliance Trend"
+      description: "7-day moving average of compliance score"
+      calculation: "Average of last 7 daily scores"
+      target: "Stable or improving"
+      current_trend: "Declining"
+      measurement: "neocortex_context.report.generate"
+      frequency: "Daily"
+
+  operational_kpis:
+    - kpi: "NC- Naming Convention Compliance"
+      description: "Percentage of files following NC- naming convention"
+      calculation: "(NC- files / Total framework files) * 100"
+      target: "> 95%"
+      current: "58.4%"
+      measurement: "neocortex_governance.naming.check"
+      frequency: "On file creation/modification"
+    
+    - kpi: "Handoff Coverage Rate"
+      description: "Percentage of tickets with corresponding handoffs"
+      calculation: "(Tickets with handoffs / Total tickets) * 100"
+      target: "> 95%"
+      current: "77.0%"
+      measurement: "neocortex_governance.handoff.list"
+      frequency: "Daily"
+    
+    - kpi: "Audit Frequency"
+      description: "Average time between governance audits"
+      calculation: "Days between consecutive audits"
+      target: "≤ 1 day"
+      current: "Every 2-3 days"
+      measurement: "neocortex_system.pulse.status"
+      frequency: "Weekly"
+
+  quality_kpis:
+    - kpi: "Violation Resolution Time"
+      description: "Average time to resolve governance violations"
+      calculation: "Time from detection to resolution"
+      target: "< 24 hours"
+      current: "N/A"
+      measurement: "neocortex_governance.violation.log"
+      frequency: "Daily"
+    
+    - kpi: "False Positive Rate"
+      description: "Percentage of incorrect violation alerts"
+      calculation: "(False positives / Total alerts) * 100"
+      target: "< 5%"
+      current: "N/A"
+      measurement: "neocortex_benchmark.last_report"
+      frequency: "Weekly"
+    
+    - kpi: "Automation Effectiveness"
+      description: "Percentage of governance processes automated"
+      calculation: "(Automated checks / Total checks) * 100"
+      target: "> 80%"
+      current: "60%"
+      measurement: "neocortex_governance.cf.pre_check"
+      frequency: "Monthly"
+
+security_kpis:
+  - kpi: "Security Rule Compliance"
+    description: "Percentage of security rules (R07-R09) being followed"
+    calculation: "(Compliant security rules / Total security rules) * 100"
+    target: "> 95%"
+    current: "100%"
+    measurement: "neocortex_security.access.validate"
+    frequency: "Real-time"
+  
+  - kpi: "Mean Time to Detect (MTTD)"
+    description: "Average time to detect security violations"
+    calculation: "Time from violation to detection"
+    target: "< 5 minutes"
+    current: "N/A"
+    measurement: "neocortex_security.audit.log_event"
+    frequency: "Weekly"
+  
+  - kpi: "Mean Time to Respond (MTTR)"
+    description: "Average time to respond to security incidents"
+    calculation: "Time from detection to response"
+    target: "< 15 minutes"
+    current: "N/A"
+    measurement: "neocortex_security.hook.trigger"
+    frequency: "Weekly"
+
+performance_kpis:
+  - kpi: "System Health Score"
+    description: "Overall system health and availability"
+    calculation: "Weighted average of component health"
+    target: "> 99%"
+    current: "100%"
+    measurement: "neocortex_system.health.full"
+    frequency: "Hourly"
+  
+  - kpi: "Tool Availability"
+    description: "Percentage of time governance tools are available"
+    calculation: "(Uptime / Total time) * 100"
+    target: "> 99.9%"
+    current: "100%"
+    measurement: "neocortex_health_check"
+    frequency: "Continuous"
+  
+  - kpi: "Response Time P95"
+    description: "95th percentile of governance tool response times"
+    calculation: "95th percentile of response times"
+    target: "< 100ms"
+    current: "< 50ms"
+    measurement: "neocortex_health.metrics.live"
+    frequency: "Daily"
+
+predictive_metrics:
+  - metric: "Compliance Forecast"
+    description: "Predicted compliance score for next 7 days"
+    calculation: "Time series forecasting based on historical data"
+    horizon: "7 days"
+    confidence: "80%"
+    tool: "neocortex_brain.think"
+    frequency: "Daily"
+  
+  - metric: "Risk Score"
+    description: "Overall governance risk assessment"
+    calculation: "Weighted combination of risk factors"
+    factors: ["compliance gaps", "security issues", "performance degradation"]
+    scale: "0-100 (lower is better)"
+    tool: "neocortex_brain.plan"
+    frequency: "Weekly"
+  
+  - metric: "Improvement Velocity"
+    description: "Rate of governance improvement over time"
+    calculation: "Change in compliance score per week"
+    target: "> 1% per week"
+    current: "-2% per week"
+    tool: "neocortex_context.report.generate"
+    frequency: "Weekly"
+
+metrics_collection:
+  data_sources:
+    - source: "Governance audits"
+      tool: "neocortex_governance.cf.audit"
+      frequency: "Daily"
+      retention: "90 days"
+    
+    - source: "Security events"
+      tool: "neocortex_security.audit.log_event"
+      frequency: "Real-time"
+      retention: "30 days"
+    
+    - source: "Performance metrics"
+      tool: "neocortex_health.metrics.live"
+      frequency: "5 minutes"
+      retention: "7 days"
+    
+    - source: "Operational data"
+      tool: "neocortex_ledger.stats"
+      frequency: "Hourly"
+      retention: "30 days"
+
+  data_processing:
+    - process: "Aggregation"
+      tool: "neocortex_context.compress"
+      frequency: "Hourly"
+      output: "Rolled-up metrics"
+    
+    - process: "Normalization"
+      tool: "neocortex_brain.critique"
+      frequency: "Daily"
+      output: "Standardized metrics"
+    
+    - process: "Trend analysis"
+      tool: "neocortex_brain.think"
+      frequency: "Daily"
+      output: "Trend insights"
+
+reporting_dashboards:
+  executive_dashboard:
+    audience: "T0 + Stakeholders"
+    frequency: "Daily"
+    metrics:
+      - "Overall Compliance Score"
+      - "Security Rule Compliance"
+      - "System Health Score"
+      - "Top 3 Issues"
+    tool: "neocortex_context.report.generate"
+    format: "Executive summary"
+  
+  operational_dashboard:
+    audience: "Governance team"
+    frequency: "Real-time"
+    metrics:
+      - "All KPIs"
+      - "Real-time alerts"
+      - "Trend charts"
+      - "Detailed breakdowns"
+    tool: "NC-DASH-COMPLIANCE-v0.1-20260422.py"
+    format: "Interactive dashboard"
+  
+  detailed_reports:
+    - report: "Weekly Governance Report"
+      frequency: "Monday 09:00"
+      content: ["KPI performance", "Trend analysis", "Issue deep dives", "Recommendations"]
+      tool: "neocortex_context.report.generate"
+    
+    - report: "Monthly Compliance Review"
+      frequency: "First day of month"
+      content: ["Monthly trends", "Quarterly comparisons", "Improvement initiatives", "Budget impact"]
+      tool: "neocortex_brain.orchestrate"
+    
+    - report: "Quarterly Governance Assessment"
+      frequency: "Quarterly"
+      content: ["Strategic review", "Benchmark comparison", "Roadmap alignment", "Stakeholder feedback"]
+      tool: "neocortex_context.report.generate"
+
+improvement_initiatives:
+  based_on_metrics:
+    - initiative: "Improve NC- naming compliance"
+      trigger: "KPI < 95%"
+      target: "> 95%"
+      actions:
+        - "neocortex_governance.naming.check"
+        - "neocortex_hooks.pre_commit validation"
+        - "Training and documentation"
+    
+    - initiative: "Increase handoff coverage"
+      trigger: "KPI < 95%"
+      target: "> 95%"
+      actions:
+        - "neocortex_governance.handoff.create automation"
+        - "Process enforcement"
+        - "Quality checks"
+    
+    - initiative: "Reduce violation resolution time"
+      trigger: "MTTR > 24 hours"
+      target: "< 24 hours"
+      actions:
+        - "neocortex_governance.ticket.create automation"
+        - "Escalation procedures"
+        - "Resource allocation"
+
+benchmarking:
+  internal_benchmarks:
+    - benchmark: "Historical performance"
+      comparison: "Current vs previous period"
+      periods: ["Week over week", "Month over month", "Quarter over quarter"]
+      tool: "neocortex_state.regression.check"
+    
+    - benchmark: "Best performance"
+      comparison: "Current vs best historical performance"
+      metric: "Peak compliance score"
+      tool: "neocortex_memory.lobe.search"
+  
+  external_benchmarks:
+    - benchmark: "Industry standards"
+      source: "Governance frameworks"
+      comparison: "NeoCortex vs industry best practices"
+      tool: "neocortex_brain.think"
+    
+    - benchmark: "Peer comparison"
+      source: "Similar systems"
+      comparison: "Relative performance"
+      tool: "neocortex_benchmark.run.omni"
+
+continuous_improvement:
+  feedback_loop:
+    - feedback: "Metric performance → Process adjustment"
+      tool: "neocortex_brain.critique"
+      frequency: "Weekly"
+      action: "Adjust governance processes"
+    
+    - feedback: "KPI trends → Target refinement"
+      tool: "neocortex_brain.plan"
+      frequency: "Monthly"
+      action: "Update KPI targets"
+    
+    - feedback: "Stakeholder input → Metric evolution"
+      tool: "neocortex_context.report.generate"
+      frequency: "Quarterly"
+      action: "Evolve metrics system"
+
+maintenance_schedule:
+  daily:
+    - "KPI calculation and validation"
+    - "Dashboard updates"
+    - "Alert threshold checking"
+  
+  weekly:
+    - "Trend analysis"
+    - "Report generation"
+    - "Metric accuracy verification"
+  
+  monthly:
+    - "KPI target review"
+    - "Benchmark comparison"
+    - "System optimization"
+  
+  quarterly:
+    - "Metrics framework review"
+    - "Stakeholder feedback incorporation"
+    - "Strategic alignment check"
+
+signature:
+  implemented_by: "T0 Soberano"
+  implementation_date: "2026-04-22T11:55:00"
+  review_date: "2026-04-29"
+  status: "OPERATIONAL"
+  dependencies:
+    - "neocortex_governance v1.0+"
+    - "neocortex_context v1.0+"
+    - "neocortex_brain v1.0+"
+    - "neocortex_health v1.0+"

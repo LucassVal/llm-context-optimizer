@@ -1,29 +1,904 @@
 {
   "version": "4.6",
-  "generated_at": "2026-05-05T20:30:47.968505+00:00",
-  "source": "disk-scan-regenerated",
-  "total_services": 30,
+  "generated_at": "2026-05-06T21:42:11.338726+00:00",
+  "source": "disk-scan-deduped",
+  "total_engines": 208,
   "total_tools": 19,
-  "total_engines": 110,
+  "total_services": 28,
   "total_scripts": 0,
-  "total_other": 99,
-  "total_files": 258,
-  "category_counts": {
-    "other": 99,
-    "agents": 1,
-    "cli": 1,
-    "engines": 90,
-    "hooks": 8,
-    "services": 20,
-    "utilities": 7,
-    "llm_backends": 6,
-    "infrastructure": 5,
-    "mcp_core": 1,
-    "super_tools": 17,
-    "tools": 1,
-    "repositories": 2
-  },
-  "services": [
+  "total_files": 255,
+  "engines": [
+    {
+      "id": "NC-CORE-FR-099",
+      "name": "NC-CORE-FR-099-update-ledger.py",
+      "desc": "update-ledger",
+      "path": "21-core-central/NC-CORE-FR-099-update-ledger.py",
+      "hash": "df2915b908ef",
+      "size": 1936,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SEC-FR-001",
+      "name": "NC-SEC-FR-001-security-utils.py",
+      "desc": "security-utils",
+      "path": "21-core-central/NC-SEC-FR-001-security-utils.py",
+      "hash": "4533662d549c",
+      "size": 12312,
+      "category": "engines"
+    },
+    {
+      "id": "NC-TEST-FR-002",
+      "name": "NC-TEST-FR-002-security-integration.py",
+      "desc": "security-integration",
+      "path": "21-core-central/NC-TEST-FR-002-security-integration.py",
+      "hash": "3cca085efb65",
+      "size": 3392,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SVC-FR-102",
+      "name": "NC-SVC-FR-102-deepseek-gateway.py",
+      "desc": "deepseek-gateway",
+      "path": "26-mcp-legacy/NC-SVC-FR-102-deepseek-gateway.py",
+      "hash": "34a45db5e6e3",
+      "size": 8353,
+      "category": "engines"
+    },
+    {
+      "id": "NC-PRF-FR-003",
+      "name": "NC-PRF-FR-003-profile-loader.py",
+      "desc": "profile-loader",
+      "path": "27-profiles/NC-PRF-FR-003-profile-loader.py",
+      "hash": "a386619346da",
+      "size": 20732,
+      "category": "engines"
+    },
+    {
+      "id": "NC-PRF-FR-004",
+      "name": "NC-PRF-FR-004-profile-manager.py",
+      "desc": "profile-manager",
+      "path": "27-profiles/NC-PRF-FR-004-profile-manager.py",
+      "hash": "35e97e14ae62",
+      "size": 14868,
+      "category": "engines"
+    },
+    {
+      "id": "NC-TEST-FR-001",
+      "name": "NC-TEST-FR-001-fire-test.py",
+      "desc": "fire-test",
+      "path": "29-tests/NC-TEST-FR-001-fire-test.py",
+      "hash": "6a19fff6b6d0",
+      "size": 10753,
+      "category": "engines"
+    },
+    {
+      "id": "NC-TEST-FR-003",
+      "name": "NC-TEST-FR-003-config-reload.py",
+      "desc": "config-reload",
+      "path": "29-tests/NC-TEST-FR-003-config-reload.py",
+      "hash": "95fa184b6a32",
+      "size": 1881,
+      "category": "engines"
+    },
+    {
+      "id": "NC-TEST-FR-004",
+      "name": "NC-TEST-FR-004-mcp-responsive.py",
+      "desc": "mcp-responsive",
+      "path": "29-tests/NC-TEST-FR-004-mcp-responsive.py",
+      "hash": "8186349a64f4",
+      "size": 2035,
+      "category": "engines"
+    },
+    {
+      "id": "NC-TEST-FR-005",
+      "name": "NC-TEST-FR-005-modular-server.py",
+      "desc": "modular-server",
+      "path": "29-tests/NC-TEST-FR-005-modular-server.py",
+      "hash": "bed4d45b2318",
+      "size": 2385,
+      "category": "engines"
+    },
+    {
+      "id": "NC-TEST-FR-006",
+      "name": "NC-TEST-FR-006-sanity.py",
+      "desc": "sanity",
+      "path": "29-tests/NC-TEST-FR-006-sanity.py",
+      "hash": "65a9fae6ffd0",
+      "size": 11541,
+      "category": "engines"
+    },
+    {
+      "id": "NC-TEST-FR-007",
+      "name": "NC-TEST-FR-007-task.py",
+      "desc": "task",
+      "path": "29-tests/NC-TEST-FR-007-task.py",
+      "hash": "2bae9fdd3002",
+      "size": 1082,
+      "category": "engines"
+    },
+    {
+      "id": "NC-TEST-FR-008",
+      "name": "NC-TEST-FR-008-tools.py",
+      "desc": "tools",
+      "path": "29-tests/NC-TEST-FR-008-tools.py",
+      "hash": "ebc1d7676dc7",
+      "size": 1807,
+      "category": "engines"
+    },
+    {
+      "id": "NC-HK-FR-001",
+      "name": "NC-HK-FR-001-example.py",
+      "desc": "example",
+      "path": "30-templates/NC-TOOL-FR-TEMPLATE/hooks/NC-HK-FR-001-example.py",
+      "hash": "dbb0d279bdb5",
+      "size": 888,
+      "category": "engines"
+    },
+    {
+      "id": "NC-AUD-SSO-001",
+      "name": "NC-AUD-SSO-001-ssot-audit-system.py",
+      "desc": "ssot-audit-system",
+      "path": "32-scripts/NC-AUD-SSO-001-ssot-audit-system.py",
+      "hash": "0816eede4add",
+      "size": 22397,
+      "category": "engines"
+    },
+    {
+      "id": "NC-BOOT-FR-002",
+      "name": "NC-BOOT-FR-002-memory-hook.py",
+      "desc": "memory-hook",
+      "path": "32-scripts/NC-BOOT-FR-002-memory-hook.py",
+      "hash": "c941528c8803",
+      "size": 875,
+      "category": "engines"
+    },
+    {
+      "id": "NC-HLP-VAL-001",
+      "name": "NC-HLP-VAL-001-naming-validator.py",
+      "desc": "naming-validator",
+      "path": "32-scripts/NC-HLP-VAL-001-naming-validator.py",
+      "hash": "fff5956520c5",
+      "size": 12838,
+      "category": "engines"
+    },
+    {
+      "id": "NC-MOD-FR-001",
+      "name": "NC-MOD-FR-001-fix_shims.py",
+      "desc": "fix_shims",
+      "path": "32-scripts/NC-MOD-FR-001-fix_shims.py",
+      "hash": "f672523af6e0",
+      "size": 1413,
+      "category": "engines"
+    },
+    {
+      "id": "NC-MOD-FR-002",
+      "name": "NC-MOD-FR-002-fix_trailing_whitespace.py",
+      "desc": "fix_trailing_whitespace",
+      "path": "32-scripts/NC-MOD-FR-002-fix_trailing_whitespace.py",
+      "hash": "69a563177e10",
+      "size": 1185,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-ACT-22160444",
+      "name": "NC-SCR-ACT-22160444-mcp-activation.py",
+      "desc": "mcp-activation",
+      "path": "32-scripts/NC-SCR-ACT-22160444-mcp-activation.py",
+      "hash": "94f8dd2d0b1a",
+      "size": 5539,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-ANL-22160444",
+      "name": "NC-SCR-ANL-22160444-analysis-tool.py",
+      "desc": "analysis-tool",
+      "path": "32-scripts/NC-SCR-ANL-22160444-analysis-tool.py",
+      "hash": "ab0d5d51eadb",
+      "size": 5492,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-EXM-22160444",
+      "name": "NC-SCR-EXM-22160444-example-tools.py",
+      "desc": "example-tools",
+      "path": "32-scripts/NC-SCR-EXM-22160444-example-tools.py",
+      "hash": "920c07426e5d",
+      "size": 7791,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-001",
+      "name": "NC-SCR-FR-001-populate-lobes-ssot.py",
+      "desc": "populate-lobes-ssot",
+      "path": "32-scripts/NC-SCR-FR-001-populate-lobes-ssot.py",
+      "hash": "1fc1e1e69268",
+      "size": 18663,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-002",
+      "name": "NC-SCR-FR-002-tool-manifest-generator.py",
+      "desc": "tool-manifest-generator",
+      "path": "32-scripts/NC-SCR-FR-002-tool-manifest-generator.py",
+      "hash": "c7da59180877",
+      "size": 19714,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-003",
+      "name": "NC-SCR-FR-003-manifest-factory.py",
+      "desc": "manifest-factory",
+      "path": "32-scripts/NC-SCR-FR-003-manifest-factory.py",
+      "hash": "b8e1744e11ad",
+      "size": 21137,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-004",
+      "name": "NC-SCR-FR-004-governance-validator.py",
+      "desc": "governance-validator",
+      "path": "32-scripts/NC-SCR-FR-004-governance-validator.py",
+      "hash": "a3c0ab990ae9",
+      "size": 6338,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-005",
+      "name": "NC-SCR-FR-005-auto-approve.py",
+      "desc": "auto-approve",
+      "path": "32-scripts/NC-SCR-FR-005-auto-approve.py",
+      "hash": "cb6b810d764b",
+      "size": 8725,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-006",
+      "name": "NC-SCR-FR-006-ticket-validator.py",
+      "desc": "ticket-validator",
+      "path": "32-scripts/NC-SCR-FR-006-ticket-validator.py",
+      "hash": "23aca023a0b4",
+      "size": 8319,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-007",
+      "name": "NC-SCR-FR-007-queue-monitor.py",
+      "desc": "queue-monitor",
+      "path": "32-scripts/NC-SCR-FR-007-queue-monitor.py",
+      "hash": "c0f0e68da7ee",
+      "size": 9697,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-008",
+      "name": "NC-SCR-FR-008-queue-repair.py",
+      "desc": "queue-repair",
+      "path": "32-scripts/NC-SCR-FR-008-queue-repair.py",
+      "hash": "09ea696f3760",
+      "size": 6203,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-009",
+      "name": "NC-SCR-FR-009-sanitize-all-yamls.py",
+      "desc": "sanitize-all-yamls",
+      "path": "32-scripts/NC-SCR-FR-009-sanitize-all-yamls.py",
+      "hash": "7772b9bb05d0",
+      "size": 10089,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-010",
+      "name": "NC-SCR-FR-010-sync-ticket-status.py",
+      "desc": "sync-ticket-status",
+      "path": "32-scripts/NC-SCR-FR-010-sync-ticket-status.py",
+      "hash": "0e1f1b8e1db9",
+      "size": 2666,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-011",
+      "name": "NC-SCR-FR-011-sanitize-handoffs.py",
+      "desc": "sanitize-handoffs",
+      "path": "32-scripts/NC-SCR-FR-011-sanitize-handoffs.py",
+      "hash": "aa0140e976c9",
+      "size": 5914,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-012",
+      "name": "NC-SCR-FR-012-new-tool.py",
+      "desc": "new-tool",
+      "path": "32-scripts/NC-SCR-FR-012-new-tool.py",
+      "hash": "0f1c68b05fb0",
+      "size": 6420,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-013",
+      "name": "NC-SCR-FR-013-validate-file.py",
+      "desc": "validate-file",
+      "path": "32-scripts/NC-SCR-FR-013-validate-file.py",
+      "hash": "44d49e6ef832",
+      "size": 13863,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-017",
+      "name": "NC-SCR-FR-017-visual-server.py",
+      "desc": "visual-server",
+      "path": "32-scripts/NC-SCR-FR-017-visual-server.py",
+      "hash": "2efdf3c70460",
+      "size": 16110,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-020",
+      "name": "NC-SCR-FR-020-yaml-injector.py",
+      "desc": "yaml-injector",
+      "path": "32-scripts/NC-SCR-FR-020-yaml-injector.py",
+      "hash": "ba5ea5a23f70",
+      "size": 5167,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-021",
+      "name": "NC-SCR-FR-021-lexicon-extractor.py",
+      "desc": "lexicon-extractor",
+      "path": "32-scripts/NC-SCR-FR-021-lexicon-extractor.py",
+      "hash": "c7700a8f62d8",
+      "size": 7255,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-022",
+      "name": "NC-SCR-FR-022-coverage-auditor.py",
+      "desc": "coverage-auditor",
+      "path": "32-scripts/NC-SCR-FR-022-coverage-auditor.py",
+      "hash": "8976af030650",
+      "size": 12919,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-023",
+      "name": "NC-SCR-FR-023-ssot-auditor.py",
+      "desc": "ssot-auditor",
+      "path": "32-scripts/NC-SCR-FR-023-ssot-auditor.py",
+      "hash": "133411c343ed",
+      "size": 6277,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-024",
+      "name": "NC-SCR-FR-024-structural-auditor.py",
+      "desc": "structural-auditor",
+      "path": "32-scripts/NC-SCR-FR-024-structural-auditor.py",
+      "hash": "371d8f03a91c",
+      "size": 10114,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-025",
+      "name": "NC-SCR-FR-025-lexico-validator.py",
+      "desc": "lexico-validator",
+      "path": "32-scripts/NC-SCR-FR-025-lexico-validator.py",
+      "hash": "791d5327ab08",
+      "size": 1956,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-051",
+      "name": "NC-SCR-FR-051-knowledge-graph-builder.py",
+      "desc": "knowledge-graph-builder",
+      "path": "32-scripts/NC-SCR-FR-051-knowledge-graph-builder.py",
+      "hash": "a71550a6cb22",
+      "size": 10355,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-060",
+      "name": "NC-SCR-FR-060-courier-saneamento.py",
+      "desc": "courier-saneamento",
+      "path": "32-scripts/NC-SCR-FR-060-courier-saneamento.py",
+      "hash": "3ec920572189",
+      "size": 10716,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-061",
+      "name": "NC-SCR-FR-061-courier-discrepancy-fix.py",
+      "desc": "courier-discrepancy-fix",
+      "path": "32-scripts/NC-SCR-FR-061-courier-discrepancy-fix.py",
+      "hash": "2a637a7bf9e5",
+      "size": 15879,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-062",
+      "name": "NC-SCR-FR-062-engineer-encoding-fix.py",
+      "desc": "engineer-encoding-fix",
+      "path": "32-scripts/NC-SCR-FR-062-engineer-encoding-fix.py",
+      "hash": "e3b4c097f074",
+      "size": 14232,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-063",
+      "name": "NC-SCR-FR-063-tester-vector-fix.py",
+      "desc": "tester-vector-fix",
+      "path": "32-scripts/NC-SCR-FR-063-tester-vector-fix.py",
+      "hash": "020b7342cae4",
+      "size": 18420,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-064",
+      "name": "NC-SCR-FR-064-artifact-catalog.py",
+      "desc": "artifact-catalog",
+      "path": "32-scripts/NC-SCR-FR-064-artifact-catalog.py",
+      "hash": "fe9d1adc8297",
+      "size": 12142,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-065",
+      "name": "NC-SCR-FR-065-rename-impact-analyzer.py",
+      "desc": "rename-impact-analyzer",
+      "path": "32-scripts/NC-SCR-FR-065-rename-impact-analyzer.py",
+      "hash": "f6aa1eb89411",
+      "size": 15298,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-066",
+      "name": "NC-SCR-FR-066-bootup-sync.py",
+      "desc": "bootup-sync",
+      "path": "32-scripts/NC-SCR-FR-066-bootup-sync.py",
+      "hash": "b12a69ecfac4",
+      "size": 19842,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-075",
+      "name": "NC-SCR-FR-075-genealogy-injector.py",
+      "desc": "genealogy-injector",
+      "path": "32-scripts/NC-SCR-FR-075-genealogy-injector.py",
+      "hash": "b034a6e4ed75",
+      "size": 24900,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-080",
+      "name": "NC-SCR-FR-080-governance-auditor.py",
+      "desc": "governance-auditor",
+      "path": "32-scripts/NC-SCR-FR-080-governance-auditor.py",
+      "hash": "2aae1b83a7ba",
+      "size": 38137,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-081",
+      "name": "NC-SCR-FR-081-config-migrator.py",
+      "desc": "config-migrator",
+      "path": "32-scripts/NC-SCR-FR-081-config-migrator.py",
+      "hash": "7775e0fd2b64",
+      "size": 16972,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-090",
+      "name": "NC-SCR-FR-090-lead-scraper.py",
+      "desc": "lead-scraper",
+      "path": "32-scripts/NC-SCR-FR-090-lead-scraper.py",
+      "hash": "8b453db09f11",
+      "size": 4145,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-098",
+      "name": "NC-SCR-FR-098-health-wrapper.py",
+      "desc": "health-wrapper",
+      "path": "32-scripts/NC-SCR-FR-098-health-wrapper.py",
+      "hash": "4b4ac6b4e6ae",
+      "size": 11907,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-101",
+      "name": "NC-SCR-FR-101-tools-smoke-test.py",
+      "desc": "tools-smoke-test",
+      "path": "32-scripts/NC-SCR-FR-101-tools-smoke-test.py",
+      "hash": "c7ac42d81405",
+      "size": 8878,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-103",
+      "name": "NC-SCR-FR-103-mc-startup-hook.py",
+      "desc": "mc-startup-hook",
+      "path": "32-scripts/NC-SCR-FR-103-mc-startup-hook.py",
+      "hash": "95239e1a9080",
+      "size": 11287,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-106",
+      "name": "NC-SCR-FR-106-launcher.py",
+      "desc": "launcher",
+      "path": "32-scripts/NC-SCR-FR-106-launcher.py",
+      "hash": "37883beca4bd",
+      "size": 8439,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-112",
+      "name": "NC-SCR-FR-112-generate-lobe-manifests.py",
+      "desc": "generate-lobe-manifests",
+      "path": "32-scripts/NC-SCR-FR-112-generate-lobe-manifests.py",
+      "hash": "8e8332006ae9",
+      "size": 1943,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-113",
+      "name": "NC-SCR-FR-113-kg-populate-lobes.py",
+      "desc": "kg-populate-lobes",
+      "path": "32-scripts/NC-SCR-FR-113-kg-populate-lobes.py",
+      "hash": "7a197b189de4",
+      "size": 2541,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-114",
+      "name": "NC-SCR-FR-114-auto-categorize-lobes.py",
+      "desc": "auto-categorize-lobes",
+      "path": "32-scripts/NC-SCR-FR-114-auto-categorize-lobes.py",
+      "hash": "22544c207554",
+      "size": 8665,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-115",
+      "name": "NC-SCR-FR-115-guardian-daemon.py",
+      "desc": "guardian-daemon",
+      "path": "32-scripts/NC-SCR-FR-115-guardian-daemon.py",
+      "hash": "89f762da2251",
+      "size": 30897,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-120",
+      "name": "NC-SCR-FR-120-batch-rename-fix.py",
+      "desc": "batch-rename-fix",
+      "path": "32-scripts/NC-SCR-FR-120-batch-rename-fix.py",
+      "hash": "eab0202f4be6",
+      "size": 17599,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-121",
+      "name": "NC-SCR-FR-121-update-references.py",
+      "desc": "update-references",
+      "path": "32-scripts/NC-SCR-FR-121-update-references.py",
+      "hash": "43a3703fd9da",
+      "size": 9059,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-122",
+      "name": "NC-SCR-FR-122-white-label-anonymizer.py",
+      "desc": "white-label-anonymizer",
+      "path": "32-scripts/NC-SCR-FR-122-white-label-anonymizer.py",
+      "hash": "864bf387b83f",
+      "size": 8748,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-134",
+      "name": "NC-SCR-FR-134-smoke-test-tools.py",
+      "desc": "smoke-test-tools",
+      "path": "32-scripts/NC-SCR-FR-134-smoke-test-tools.py",
+      "hash": "5706cf64b3d3",
+      "size": 8635,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-135",
+      "name": "NC-SCR-FR-135-lexico-semantic-scope.py",
+      "desc": "lexico-semantic-scope",
+      "path": "32-scripts/NC-SCR-FR-135-lexico-semantic-scope.py",
+      "hash": "9870afa94925",
+      "size": 9283,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-136",
+      "name": "NC-SCR-FR-136-approve-handoffs.py",
+      "desc": "approve-handoffs",
+      "path": "32-scripts/NC-SCR-FR-136-approve-handoffs.py",
+      "hash": "e17b62dc8b35",
+      "size": 3814,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-137",
+      "name": "NC-SCR-FR-137-audit-reader.py",
+      "desc": "audit-reader",
+      "path": "32-scripts/NC-SCR-FR-137-audit-reader.py",
+      "hash": "344954c8f8b2",
+      "size": 1445,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-138",
+      "name": "NC-SCR-FR-138-batch-approve-handoffs.py",
+      "desc": "batch-approve-handoffs",
+      "path": "32-scripts/NC-SCR-FR-138-batch-approve-handoffs.py",
+      "hash": "c25e2bfc622d",
+      "size": 4838,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-139",
+      "name": "NC-SCR-FR-139-create-session-checkpoint.py",
+      "desc": "create-session-checkpoint",
+      "path": "32-scripts/NC-SCR-FR-139-create-session-checkpoint.py",
+      "hash": "da74a81e6c6d",
+      "size": 1481,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-140",
+      "name": "NC-SCR-FR-140-inspect-config.py",
+      "desc": "inspect-config",
+      "path": "32-scripts/NC-SCR-FR-140-inspect-config.py",
+      "hash": "40b91650c4cd",
+      "size": 1191,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-141",
+      "name": "NC-SCR-FR-141-neocortex-hud.py",
+      "desc": "neocortex-hud",
+      "path": "32-scripts/NC-SCR-FR-141-neocortex-hud.py",
+      "hash": "4f1f461571f7",
+      "size": 45991,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-142",
+      "name": "NC-SCR-FR-142-audit-handoffs-t0.py",
+      "desc": "audit-handoffs-t0",
+      "path": "32-scripts/NC-SCR-FR-142-audit-handoffs-t0.py",
+      "hash": "a846dd8b73ce",
+      "size": 4639,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-143",
+      "name": "NC-SCR-FR-143-extract-tools-robust.py",
+      "desc": "extract-tools-robust",
+      "path": "32-scripts/NC-SCR-FR-143-extract-tools-robust.py",
+      "hash": "ffd11f01939f",
+      "size": 3621,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-144",
+      "name": "NC-SCR-FR-144-update-ledger-tools.py",
+      "desc": "update-ledger-tools",
+      "path": "32-scripts/NC-SCR-FR-144-update-ledger-tools.py",
+      "hash": "4bee77ce819a",
+      "size": 3043,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-145",
+      "name": "NC-SCR-FR-145-tool-autoloader.py",
+      "desc": "tool-autoloader",
+      "path": "32-scripts/NC-SCR-FR-145-tool-autoloader.py",
+      "hash": "1cfc0798e7b3",
+      "size": 7649,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-146",
+      "name": "NC-SCR-FR-146-hook-boot-loader.py",
+      "desc": "hook-boot-loader",
+      "path": "32-scripts/NC-SCR-FR-146-hook-boot-loader.py",
+      "hash": "4a7a70fa30cb",
+      "size": 7954,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-147",
+      "name": "NC-SCR-FR-147-nc-ds-122-executor.py",
+      "desc": "nc-ds-122-executor",
+      "path": "32-scripts/NC-SCR-FR-147-nc-ds-122-executor.py",
+      "hash": "5230840b5f49",
+      "size": 7379,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-148",
+      "name": "NC-SCR-FR-148-organize-lobes.py",
+      "desc": "organize-lobes",
+      "path": "32-scripts/NC-SCR-FR-148-organize-lobes.py",
+      "hash": "e3878519a8a7",
+      "size": 7605,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-149",
+      "name": "NC-SCR-FR-149-update-lobe-registry.py",
+      "desc": "update-lobe-registry",
+      "path": "32-scripts/NC-SCR-FR-149-update-lobe-registry.py",
+      "hash": "08ad270ff232",
+      "size": 4009,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-150",
+      "name": "NC-SCR-FR-150-smoke-test.py",
+      "desc": "smoke-test",
+      "path": "32-scripts/NC-SCR-FR-150-smoke-test.py",
+      "hash": "9356ab124b07",
+      "size": 14003,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-151",
+      "name": "NC-SCR-FR-151-compliance-audit.py",
+      "desc": "compliance-audit",
+      "path": "32-scripts/NC-SCR-FR-151-compliance-audit.py",
+      "hash": "64dab62222f6",
+      "size": 12891,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-153",
+      "name": "NC-SCR-FR-153-lancedb-compaction.py",
+      "desc": "lancedb-compaction",
+      "path": "32-scripts/NC-SCR-FR-153-lancedb-compaction.py",
+      "hash": "0a9111bdd02e",
+      "size": 3253,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-160",
+      "name": "NC-SCR-FR-160-audit-compliance.py",
+      "desc": "audit-compliance",
+      "path": "32-scripts/NC-SCR-FR-160-audit-compliance.py",
+      "hash": "fa408724b79a",
+      "size": 12972,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-161",
+      "name": "NC-SCR-FR-161-fix-antigravity-config.py",
+      "desc": "fix-antigravity-config",
+      "path": "32-scripts/NC-SCR-FR-161-fix-antigravity-config.py",
+      "hash": "826fa32035bc",
+      "size": 8335,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-162",
+      "name": "NC-SCR-FR-162-tray-monitor.py",
+      "desc": "tray-monitor",
+      "path": "32-scripts/NC-SCR-FR-162-tray-monitor.py",
+      "hash": "868acc67b9a9",
+      "size": 3170,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-180",
+      "name": "NC-SCR-FR-180-populate-lexico.py",
+      "desc": "populate-lexico",
+      "path": "32-scripts/NC-SCR-FR-180-populate-lexico.py",
+      "hash": "d29df7f61a9a",
+      "size": 3415,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-200",
+      "name": "NC-SCR-FR-200-test-resolve.py",
+      "desc": "test-resolve",
+      "path": "32-scripts/NC-SCR-FR-200-test-resolve.py",
+      "hash": "fa3eaaf4b52b",
+      "size": 1300,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-201",
+      "name": "NC-SCR-FR-201-run-audit-3l.py",
+      "desc": "run-audit-3l",
+      "path": "32-scripts/NC-SCR-FR-201-run-audit-3l.py",
+      "hash": "756921e8d8d8",
+      "size": 1879,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-245",
+      "name": "NC-SCR-FR-245-create-tickets.py",
+      "desc": "create-tickets",
+      "path": "32-scripts/NC-SCR-FR-245-create-tickets.py",
+      "hash": "a92086dc0825",
+      "size": 7918,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-250",
+      "name": "NC-SCR-FR-250-create-api-tickets.py",
+      "desc": "create-api-tickets",
+      "path": "32-scripts/NC-SCR-FR-250-create-api-tickets.py",
+      "hash": "8c7292d17b29",
+      "size": 6203,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-265",
+      "name": "NC-SCR-FR-265-inject-protocol.py",
+      "desc": "inject-protocol",
+      "path": "32-scripts/NC-SCR-FR-265-inject-protocol.py",
+      "hash": "413471e93462",
+      "size": 2924,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-FR-inject-three-ws.py",
+      "name": "NC-SCR-FR-inject-three-ws.py",
+      "desc": "NC-SCR-FR-inject-three-ws",
+      "path": "32-scripts/NC-SCR-FR-inject-three-ws.py",
+      "hash": "7d385897dcaa",
+      "size": 6163,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-INT-22160444",
+      "name": "NC-SCR-INT-22160444-integration-tool.py",
+      "desc": "integration-tool",
+      "path": "32-scripts/NC-SCR-INT-22160444-integration-tool.py",
+      "hash": "9b5970115992",
+      "size": 13972,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SCR-SET-22160444",
+      "name": "NC-SCR-SET-22160444-setup-script.py",
+      "desc": "setup-script",
+      "path": "32-scripts/NC-SCR-SET-22160444-setup-script.py",
+      "hash": "6586d406f553",
+      "size": 10867,
+      "category": "engines"
+    },
+    {
+      "id": "NC-SVC-CHK-22160444",
+      "name": "NC-SVC-CHK-22160444-checkpoint-system.py",
+      "desc": "checkpoint-system",
+      "path": "32-scripts/NC-SVC-CHK-22160444-checkpoint-system.py",
+      "hash": "20c9c62d0a5b",
+      "size": 5731,
+      "category": "engines"
+    },
+    {
+      "id": "NC-MCP-FR-001",
+      "name": "NC-MCP-FR-001-mcp-server.py",
+      "desc": "mcp-server",
+      "path": "90-archive-internal/mcp_server_legacy/NC-MCP-FR-001-mcp-server.py",
+      "hash": "9d0d49f53ea5",
+      "size": 64665,
+      "category": "engines"
+    },
+    {
+      "id": "NC-CORE-FR-136",
+      "name": "NC-CORE-FR-136-auto-amendment-engine.py",
+      "desc": "auto-amendment-engine",
+      "path": "90-archive-internal/NC-CORE-FR-136-auto-amendment-engine.py",
+      "hash": "fc2b75641fe0",
+      "size": 8833,
+      "category": "engines"
+    },
     {
       "id": "NC-AGENT-FR-001",
       "name": "NC-AGENT-FR-001-executor.py",
@@ -31,7 +906,7 @@
       "path": "neocortex/agent/NC-AGENT-FR-001-executor.py",
       "hash": "bff079732820",
       "size": 15091,
-      "category": "agents"
+      "category": "engines"
     },
     {
       "id": "NC-CLI-FR-001",
@@ -40,435 +915,8 @@
       "path": "neocortex/cli/NC-CLI-FR-001-main.py",
       "hash": "400e1cc2dd8e",
       "size": 5406,
-      "category": "cli"
+      "category": "engines"
     },
-    {
-      "id": "NC-HK-FR-001",
-      "name": "NC-HK-FR-001-hook-registry.py",
-      "desc": "hook-registry",
-      "path": "neocortex/core/hooks/NC-HK-FR-001-hook-registry.py",
-      "hash": "a58850842ac2",
-      "size": 10695,
-      "category": "hooks"
-    },
-    {
-      "id": "NC-HK-FR-002",
-      "name": "NC-HK-FR-002-simple-hook.py",
-      "desc": "simple-hook",
-      "path": "neocortex/core/hooks/NC-HK-FR-002-simple-hook.py",
-      "hash": "52d87ea2b0bf",
-      "size": 7380,
-      "category": "hooks"
-    },
-    {
-      "id": "NC-HK-FR-003",
-      "name": "NC-HK-FR-003-mission-control-hook.py",
-      "desc": "mission-control-hook",
-      "path": "neocortex/core/hooks/NC-HK-FR-003-mission-control-hook.py",
-      "hash": "3a86e0c6271a",
-      "size": 9036,
-      "category": "hooks"
-    },
-    {
-      "id": "NC-HK-FR-004",
-      "name": "NC-HK-FR-004-conversation-hook.py",
-      "desc": "conversation-hook",
-      "path": "neocortex/core/hooks/NC-HK-FR-004-conversation-hook.py",
-      "hash": "699ab27bb66f",
-      "size": 11765,
-      "category": "hooks"
-    },
-    {
-      "id": "NC-HK-FR-005",
-      "name": "NC-HK-FR-005-lexico-boot-loader.py",
-      "desc": "lexico-boot-loader",
-      "path": "neocortex/core/hooks/NC-HK-FR-005-lexico-boot-loader.py",
-      "hash": "3b44bca460ae",
-      "size": 18308,
-      "category": "hooks"
-    },
-    {
-      "id": "NC-HK-FR-006",
-      "name": "NC-HK-FR-006-lexico-hook-chain.py",
-      "desc": "lexico-hook-chain",
-      "path": "neocortex/core/hooks/NC-HK-FR-006-lexico-hook-chain.py",
-      "hash": "c43fcfb1eb30",
-      "size": 31950,
-      "category": "hooks"
-    },
-    {
-      "id": "NC-HK-FR-007",
-      "name": "NC-HK-FR-007-lexico-integration.py",
-      "desc": "lexico-integration",
-      "path": "neocortex/core/hooks/NC-HK-FR-007-lexico-integration.py",
-      "hash": "f585300923bc",
-      "size": 3503,
-      "category": "hooks"
-    },
-    {
-      "id": "NC-HK-FR-009",
-      "name": "NC-HK-FR-009-lexico-step0-hook.py",
-      "desc": "lexico-step0-hook",
-      "path": "neocortex/core/hooks/NC-HK-FR-009-lexico-step0-hook.py",
-      "hash": "f6b100d73d63",
-      "size": 6788,
-      "category": "hooks"
-    },
-    {
-      "id": "NC-SVC-FR-001",
-      "name": "NC-SVC-FR-001-logging-service.py",
-      "desc": "logging-service",
-      "path": "neocortex/core/services/NC-SVC-FR-001-logging-service.py",
-      "hash": "dba0ba8f2f27",
-      "size": 5284,
-      "category": "services"
-    },
-    {
-      "id": "NC-SVC-FR-002",
-      "name": "NC-SVC-FR-002-health-service.py",
-      "desc": "health-service",
-      "path": "neocortex/core/services/NC-SVC-FR-002-health-service.py",
-      "hash": "7f3a13cc8fd6",
-      "size": 6175,
-      "category": "services"
-    },
-    {
-      "id": "NC-SVC-FR-003",
-      "name": "NC-SVC-FR-003-savepoint-stub.py",
-      "desc": "savepoint-stub",
-      "path": "neocortex/core/services/NC-SVC-FR-003-savepoint-stub.py",
-      "hash": "7f5b1b62d5b8",
-      "size": 10900,
-      "category": "services"
-    },
-    {
-      "id": "NC-SVC-FR-004",
-      "name": "NC-SVC-FR-004-cache-service.py",
-      "desc": "cache-service",
-      "path": "neocortex/core/services/NC-SVC-FR-004-cache-service.py",
-      "hash": "9ceb1e80608c",
-      "size": 5813,
-      "category": "services"
-    },
-    {
-      "id": "NC-SVC-FR-005",
-      "name": "NC-SVC-FR-005-event-bus.py",
-      "desc": "event-bus",
-      "path": "neocortex/core/services/NC-SVC-FR-005-event-bus.py",
-      "hash": "c09a07432e7e",
-      "size": 6078,
-      "category": "services"
-    },
-    {
-      "id": "NC-SVC-FR-006",
-      "name": "NC-SVC-FR-006-metrics-collector.py",
-      "desc": "metrics-collector",
-      "path": "neocortex/core/services/NC-SVC-FR-006-metrics-collector.py",
-      "hash": "19868dd59760",
-      "size": 10487,
-      "category": "services"
-    },
-    {
-      "id": "NC-SVC-FR-007",
-      "name": "NC-SVC-FR-007-state-machine.py",
-      "desc": "state-machine",
-      "path": "neocortex/core/services/NC-SVC-FR-007-state-machine.py",
-      "hash": "8cae23f6b004",
-      "size": 7784,
-      "category": "services"
-    },
-    {
-      "id": "NC-SVC-FR-008",
-      "name": "NC-SVC-FR-008-config-validator.py",
-      "desc": "config-validator",
-      "path": "neocortex/core/services/NC-SVC-FR-008-config-validator.py",
-      "hash": "20682b680202",
-      "size": 20029,
-      "category": "services"
-    },
-    {
-      "id": "NC-SVC-FR-009",
-      "name": "NC-SVC-FR-009-session-buddy.py",
-      "desc": "session-buddy",
-      "path": "neocortex/core/services/NC-SVC-FR-009-session-buddy.py",
-      "hash": "910639b11fb5",
-      "size": 16069,
-      "category": "services"
-    },
-    {
-      "id": "NC-SVC-FR-010",
-      "name": "NC-SVC-FR-010-kairos-service.py",
-      "desc": "kairos-service",
-      "path": "neocortex/core/services/NC-SVC-FR-010-kairos-service.py",
-      "hash": "c7c107f96594",
-      "size": 9049,
-      "category": "services"
-    },
-    {
-      "id": "NC-SVC-FR-011",
-      "name": "NC-SVC-FR-011-ttl-manager.py",
-      "desc": "ttl-manager",
-      "path": "neocortex/core/services/NC-SVC-FR-011-ttl-manager.py",
-      "hash": "05891dbe9ba7",
-      "size": 13999,
-      "category": "services"
-    },
-    {
-      "id": "NC-SVC-FR-012",
-      "name": "NC-SVC-FR-012-channel-notifier.py",
-      "desc": "channel-notifier",
-      "path": "neocortex/core/services/NC-SVC-FR-012-channel-notifier.py",
-      "hash": "21343c5d98c0",
-      "size": 6754,
-      "category": "services"
-    },
-    {
-      "id": "NC-SVC-FR-014",
-      "name": "NC-SVC-FR-014-dry-run-preview.py",
-      "desc": "dry-run-preview",
-      "path": "neocortex/core/services/NC-SVC-FR-014-dry-run-preview.py",
-      "hash": "1d733f3e502b",
-      "size": 6070,
-      "category": "services"
-    },
-    {
-      "id": "NC-SVC-FR-015",
-      "name": "NC-SVC-FR-015-task-broker.py",
-      "desc": "task-broker",
-      "path": "neocortex/core/services/NC-SVC-FR-015-task-broker.py",
-      "hash": "f4ca3a2e3844",
-      "size": 12140,
-      "category": "services"
-    },
-    {
-      "id": "NC-SVC-FR-016",
-      "name": "NC-SVC-FR-016-wal-service.py",
-      "desc": "wal-service",
-      "path": "neocortex/core/services/NC-SVC-FR-016-wal-service.py",
-      "hash": "587ced47f292",
-      "size": 15129,
-      "category": "services"
-    },
-    {
-      "id": "NC-SVC-FR-017",
-      "name": "NC-SVC-FR-017-crypto-hub.py",
-      "desc": "crypto-hub",
-      "path": "neocortex/core/services/NC-SVC-FR-017-crypto-hub.py",
-      "hash": "a075b3a51ae3",
-      "size": 14794,
-      "category": "services"
-    },
-    {
-      "id": "NC-SVC-FR-018",
-      "name": "NC-SVC-FR-018-tag-normalizer.py",
-      "desc": "tag-normalizer",
-      "path": "neocortex/core/services/NC-SVC-FR-018-tag-normalizer.py",
-      "hash": "862441787d07",
-      "size": 14551,
-      "category": "services"
-    },
-    {
-      "id": "NC-SVC-FR-020",
-      "name": "NC-SVC-FR-020-lexico-service.py",
-      "desc": "lexico-service",
-      "path": "neocortex/core/services/NC-SVC-FR-020-lexico-service.py",
-      "hash": "cf1ecf05a403",
-      "size": 20178,
-      "category": "services"
-    },
-    {
-      "id": "NC-SVC-FR-021",
-      "name": "NC-SVC-FR-021-session-memory-writer.py",
-      "desc": "session-memory-writer",
-      "path": "neocortex/core/services/NC-SVC-FR-021-session-memory-writer.py",
-      "hash": "c8b66558e891",
-      "size": 6480,
-      "category": "services"
-    },
-    {
-      "id": "NC-SVC-FR-025",
-      "name": "NC-SVC-FR-025-savepoint-wal-bridge.py",
-      "desc": "savepoint-wal-bridge",
-      "path": "neocortex/core/services/NC-SVC-FR-025-savepoint-wal-bridge.py",
-      "hash": "2c17a09e9eb8",
-      "size": 11700,
-      "category": "services"
-    }
-  ],
-  "tools": [
-    {
-      "id": "NC-MCP-FR-001",
-      "name": "NC-MCP-FR-001-pulse.py",
-      "desc": "pulse",
-      "path": "neocortex/mcp/tools/NC-MCP-FR-001-pulse.py",
-      "hash": "36797612cad3",
-      "size": 3730,
-      "category": "mcp_core"
-    },
-    {
-      "id": "NC-SUPER-001",
-      "name": "NC-SUPER-001-governance.py",
-      "desc": "governance",
-      "path": "neocortex/mcp/tools/NC-SUPER-001-governance.py",
-      "hash": "30383e977d5d",
-      "size": 55017,
-      "category": "super_tools"
-    },
-    {
-      "id": "NC-SUPER-002",
-      "name": "NC-SUPER-002-orchestration.py",
-      "desc": "orchestration",
-      "path": "neocortex/mcp/tools/NC-SUPER-002-orchestration.py",
-      "hash": "ab65269586f1",
-      "size": 14823,
-      "category": "super_tools"
-    },
-    {
-      "id": "NC-SUPER-003",
-      "name": "NC-SUPER-003-memory.py",
-      "desc": "memory",
-      "path": "neocortex/mcp/tools/NC-SUPER-003-memory.py",
-      "hash": "53c2f903c29b",
-      "size": 27514,
-      "category": "super_tools"
-    },
-    {
-      "id": "NC-SUPER-004",
-      "name": "NC-SUPER-004-state.py",
-      "desc": "state",
-      "path": "neocortex/mcp/tools/NC-SUPER-004-state.py",
-      "hash": "2087d421a889",
-      "size": 21960,
-      "category": "super_tools"
-    },
-    {
-      "id": "NC-SUPER-005",
-      "name": "NC-SUPER-005-llm-router.py",
-      "desc": "llm-router",
-      "path": "neocortex/mcp/tools/NC-SUPER-005-llm-router.py",
-      "hash": "dad8ba372504",
-      "size": 5195,
-      "category": "super_tools"
-    },
-    {
-      "id": "NC-SUPER-006",
-      "name": "NC-SUPER-006-system.py",
-      "desc": "system",
-      "path": "neocortex/mcp/tools/NC-SUPER-006-system.py",
-      "hash": "479998be0ded",
-      "size": 23066,
-      "category": "super_tools"
-    },
-    {
-      "id": "NC-SUPER-007",
-      "name": "NC-SUPER-007-brain.py",
-      "desc": "brain",
-      "path": "neocortex/mcp/tools/NC-SUPER-007-brain.py",
-      "hash": "d86a8e4a708d",
-      "size": 26870,
-      "category": "super_tools"
-    },
-    {
-      "id": "NC-SUPER-008",
-      "name": "NC-SUPER-008-context.py",
-      "desc": "context",
-      "path": "neocortex/mcp/tools/NC-SUPER-008-context.py",
-      "hash": "ce4342bf4e2d",
-      "size": 13759,
-      "category": "super_tools"
-    },
-    {
-      "id": "NC-SUPER-009",
-      "name": "NC-SUPER-009-security.py",
-      "desc": "security",
-      "path": "neocortex/mcp/tools/NC-SUPER-009-security.py",
-      "hash": "87931f5708bd",
-      "size": 14305,
-      "category": "super_tools"
-    },
-    {
-      "id": "NC-SUPER-010",
-      "name": "NC-SUPER-010-benchmark.py",
-      "desc": "benchmark",
-      "path": "neocortex/mcp/tools/NC-SUPER-010-benchmark.py",
-      "hash": "4536ae0b7bf8",
-      "size": 7515,
-      "category": "super_tools"
-    },
-    {
-      "id": "NC-SUPER-011",
-      "name": "NC-SUPER-011-notification.py",
-      "desc": "notification",
-      "path": "neocortex/mcp/tools/NC-SUPER-011-notification.py",
-      "hash": "9f3ef8bd3289",
-      "size": 6594,
-      "category": "super_tools"
-    },
-    {
-      "id": "NC-SUPER-012",
-      "name": "NC-SUPER-012-akl.py",
-      "desc": "akl",
-      "path": "neocortex/mcp/tools/NC-SUPER-012-akl.py",
-      "hash": "508067cd074d",
-      "size": 10840,
-      "category": "super_tools"
-    },
-    {
-      "id": "NC-SUPER-013",
-      "name": "NC-SUPER-013-health.py",
-      "desc": "health",
-      "path": "neocortex/mcp/tools/NC-SUPER-013-health.py",
-      "hash": "af9a95298d4f",
-      "size": 21093,
-      "category": "super_tools"
-    },
-    {
-      "id": "NC-SUPER-014",
-      "name": "NC-SUPER-014-ledger.py",
-      "desc": "ledger",
-      "path": "neocortex/mcp/tools/NC-SUPER-014-ledger.py",
-      "hash": "bb02dffba6d4",
-      "size": 6847,
-      "category": "super_tools"
-    },
-    {
-      "id": "NC-SUPER-015",
-      "name": "NC-SUPER-015-memory-auto.py",
-      "desc": "memory-auto",
-      "path": "neocortex/mcp/tools/NC-SUPER-015-memory-auto.py",
-      "hash": "a7872f9b72e0",
-      "size": 12712,
-      "category": "super_tools"
-    },
-    {
-      "id": "NC-SUPER-019",
-      "name": "NC-SUPER-019-replication.py",
-      "desc": "replication",
-      "path": "neocortex/mcp/tools/NC-SUPER-019-replication.py",
-      "hash": "0cec8c02d95f",
-      "size": 4816,
-      "category": "super_tools"
-    },
-    {
-      "id": "NC-SUPER-020",
-      "name": "NC-SUPER-020-evolution.py",
-      "desc": "evolution",
-      "path": "neocortex/mcp/tools/NC-SUPER-020-evolution.py",
-      "hash": "8508507c8d62",
-      "size": 6308,
-      "category": "super_tools"
-    },
-    {
-      "id": "NC-TOOL-FR-021",
-      "name": "NC-TOOL-FR-021-vscode-bridge.py",
-      "desc": "vscode-bridge",
-      "path": "neocortex/mcp/tools/NC-TOOL-FR-021-vscode-bridge.py",
-      "hash": "59b08d81d0f9",
-      "size": 5872,
-      "category": "tools"
-    }
-  ],
-  "engines": [
     {
       "id": "NC-ADP-FR-001",
       "name": "NC-ADP-FR-001-mission-control.py",
@@ -494,15 +942,6 @@
       "path": "neocortex/core/config/NC-CFG-FR-004-project-config.py",
       "hash": "fc4637b19899",
       "size": 10405,
-      "category": "engines"
-    },
-    {
-      "id": "NC-CFG-FR-004",
-      "name": "NC-CFG-FR-004-project-loader.py",
-      "desc": "project-loader",
-      "path": "neocortex/core/config/NC-CFG-FR-004-project-loader.py",
-      "hash": "e0220cb67216",
-      "size": 9145,
       "category": "engines"
     },
     {
@@ -804,15 +1243,6 @@
     },
     {
       "id": "NC-CORE-FR-129",
-      "name": "NC-CORE-FR-129-sandbox.py",
-      "desc": "sandbox",
-      "path": "neocortex/core/NC-CORE-FR-129-sandbox.py",
-      "hash": "f05f58f28088",
-      "size": 51599,
-      "category": "engines"
-    },
-    {
-      "id": "NC-CORE-FR-129",
       "name": "NC-CORE-FR-129-shared-kernel-gateway.py",
       "desc": "shared-kernel-gateway",
       "path": "neocortex/core/NC-CORE-FR-129-shared-kernel-gateway.py",
@@ -953,15 +1383,6 @@
       "path": "neocortex/core/NC-CORE-FR-145-lightweight-instances.py",
       "hash": "be252831bad8",
       "size": 3486,
-      "category": "engines"
-    },
-    {
-      "id": "NC-CORE-FR-145",
-      "name": "NC-CORE-FR-145-subserver-spawner.py",
-      "desc": "subserver-spawner",
-      "path": "neocortex/core/NC-CORE-FR-145-subserver-spawner.py",
-      "hash": "7a7b56d98a64",
-      "size": 4256,
       "category": "engines"
     },
     {
@@ -1226,6 +1647,15 @@
       "category": "engines"
     },
     {
+      "id": "NC-CORE-FR-175",
+      "name": "NC-CORE-FR-175-sandbox.py",
+      "desc": "sandbox",
+      "path": "neocortex/core/NC-CORE-FR-175-sandbox.py",
+      "hash": "f05f58f28088",
+      "size": 51599,
+      "category": "engines"
+    },
+    {
       "id": "NC-REV-FR-001",
       "name": "NC-REV-FR-001-confidence-review.py",
       "desc": "confidence-review",
@@ -1277,7 +1707,7 @@
       "path": "neocortex/core/utils/NC-UTL-FR-001-yaml-safe-parser.py",
       "hash": "06d78e19f642",
       "size": 5770,
-      "category": "utilities"
+      "category": "engines"
     },
     {
       "id": "NC-UTL-FR-002",
@@ -1286,7 +1716,7 @@
       "path": "neocortex/core/utils/NC-UTL-FR-002-hash-utils.py",
       "hash": "54dcc4094f51",
       "size": 3190,
-      "category": "utilities"
+      "category": "engines"
     },
     {
       "id": "NC-UTL-FR-003",
@@ -1295,7 +1725,7 @@
       "path": "neocortex/core/utils/NC-UTL-FR-003-path-resolver.py",
       "hash": "45da66994ad4",
       "size": 6124,
-      "category": "utilities"
+      "category": "engines"
     },
     {
       "id": "NC-UTL-FR-004",
@@ -1304,16 +1734,7 @@
       "path": "neocortex/core/utils/NC-UTL-FR-004-gateway-bridge.py",
       "hash": "64e891d3f499",
       "size": 1595,
-      "category": "utilities"
-    },
-    {
-      "id": "NC-UTL-FR-004",
-      "name": "NC-UTL-FR-004-id-validator.py",
-      "desc": "id-validator",
-      "path": "neocortex/core/utils/NC-UTL-FR-004-id-validator.py",
-      "hash": "35cd48a6b4b9",
-      "size": 3542,
-      "category": "utilities"
+      "category": "engines"
     },
     {
       "id": "NC-UTL-FR-005",
@@ -1322,7 +1743,7 @@
       "path": "neocortex/core/utils/NC-UTL-FR-005-yaml-inheritance.py",
       "hash": "4f8105a9a062",
       "size": 9752,
-      "category": "utilities"
+      "category": "engines"
     },
     {
       "id": "NC-UTL-FR-006",
@@ -1331,7 +1752,7 @@
       "path": "neocortex/core/utils/NC-UTL-FR-006-gateway-bridge.py",
       "hash": "b1fe4898a858",
       "size": 1258,
-      "category": "utilities"
+      "category": "engines"
     },
     {
       "id": "NC-WKR-FR-001",
@@ -1349,7 +1770,7 @@
       "path": "neocortex/infra/llm/NC-LLM-FR-001-deepseek-backend.py",
       "hash": "b6254896c6b6",
       "size": 13025,
-      "category": "llm_backends"
+      "category": "engines"
     },
     {
       "id": "NC-LLM-FR-002",
@@ -1358,7 +1779,7 @@
       "path": "neocortex/infra/llm/NC-LLM-FR-002-ollama-backend.py",
       "hash": "6a5fa53a5451",
       "size": 7817,
-      "category": "llm_backends"
+      "category": "engines"
     },
     {
       "id": "NC-LLM-FR-003",
@@ -1367,7 +1788,7 @@
       "path": "neocortex/infra/llm/NC-LLM-FR-003-openai-backend.py",
       "hash": "b5ccc8736de6",
       "size": 8145,
-      "category": "llm_backends"
+      "category": "engines"
     },
     {
       "id": "NC-LLM-FR-004",
@@ -1376,7 +1797,7 @@
       "path": "neocortex/infra/llm/NC-LLM-FR-004-backend.py",
       "hash": "294a91ee244c",
       "size": 5952,
-      "category": "llm_backends"
+      "category": "engines"
     },
     {
       "id": "NC-LLM-FR-005",
@@ -1385,7 +1806,7 @@
       "path": "neocortex/infra/llm/NC-LLM-FR-005-factory.py",
       "hash": "03ede2fee22a",
       "size": 7521,
-      "category": "llm_backends"
+      "category": "engines"
     },
     {
       "id": "NC-SVC-FR-026",
@@ -1394,7 +1815,7 @@
       "path": "neocortex/infra/llm/NC-SVC-FR-026-profile-router.py",
       "hash": "57b7f263bff3",
       "size": 3707,
-      "category": "llm_backends"
+      "category": "engines"
     },
     {
       "id": "NC-INFRA-FR-001",
@@ -1403,7 +1824,7 @@
       "path": "neocortex/infra/NC-INFRA-FR-001-metrics-store.py",
       "hash": "60e48fb00ae2",
       "size": 39463,
-      "category": "infrastructure"
+      "category": "engines"
     },
     {
       "id": "NC-INFRA-FR-006",
@@ -1412,7 +1833,7 @@
       "path": "neocortex/infra/NC-INFRA-FR-006-hot-cache.py",
       "hash": "09fa6166cfb1",
       "size": 17276,
-      "category": "infrastructure"
+      "category": "engines"
     },
     {
       "id": "NC-INFRA-FR-007",
@@ -1421,7 +1842,7 @@
       "path": "neocortex/infra/NC-INFRA-FR-007-profiler.py",
       "hash": "a483ed73b75c",
       "size": 25300,
-      "category": "infrastructure"
+      "category": "engines"
     },
     {
       "id": "NC-INFRA-FR-008",
@@ -1430,7 +1851,7 @@
       "path": "neocortex/infra/NC-INFRA-FR-008-task-queue.py",
       "hash": "117cd2f7c9d0",
       "size": 23145,
-      "category": "infrastructure"
+      "category": "engines"
     },
     {
       "id": "NC-INFRA-FR-009",
@@ -1439,7 +1860,7 @@
       "path": "neocortex/infra/NC-INFRA-FR-009-vector-store.py",
       "hash": "e5b274b41565",
       "size": 7447,
-      "category": "infrastructure"
+      "category": "engines"
     },
     {
       "id": "NC-REP-FR-001",
@@ -1448,7 +1869,7 @@
       "path": "neocortex/repositories/NC-REP-FR-001-file-system-repository.py",
       "hash": "fe8b4ced842c",
       "size": 15749,
-      "category": "repositories"
+      "category": "engines"
     },
     {
       "id": "NC-REP-FR-002",
@@ -1457,901 +1878,435 @@
       "path": "neocortex/repositories/NC-REP-FR-002-base.py",
       "hash": "ff922fdba230",
       "size": 3901,
-      "category": "repositories"
+      "category": "engines"
     }
   ],
-  "scripts": [],
-  "other": [
-    {
-      "id": "NC-CORE-FR-099",
-      "name": "NC-CORE-FR-099-update-ledger.py",
-      "desc": "update-ledger",
-      "path": "21-core-central/NC-CORE-FR-099-update-ledger.py",
-      "hash": "df2915b908ef",
-      "size": 1936,
-      "category": "other"
-    },
-    {
-      "id": "NC-SEC-FR-001",
-      "name": "NC-SEC-FR-001-security-utils.py",
-      "desc": "security-utils",
-      "path": "21-core-central/NC-SEC-FR-001-security-utils.py",
-      "hash": "4533662d549c",
-      "size": 12312,
-      "category": "other"
-    },
-    {
-      "id": "NC-TEST-FR-002",
-      "name": "NC-TEST-FR-002-security-integration.py",
-      "desc": "security-integration",
-      "path": "21-core-central/NC-TEST-FR-002-security-integration.py",
-      "hash": "3cca085efb65",
-      "size": 3392,
-      "category": "other"
-    },
-    {
-      "id": "NC-SVC-FR-102",
-      "name": "NC-SVC-FR-102-deepseek-gateway.py",
-      "desc": "deepseek-gateway",
-      "path": "26-mcp-legacy/NC-SVC-FR-102-deepseek-gateway.py",
-      "hash": "34a45db5e6e3",
-      "size": 8353,
-      "category": "other"
-    },
-    {
-      "id": "NC-PRF-FR-003",
-      "name": "NC-PRF-FR-003-profile-loader.py",
-      "desc": "profile-loader",
-      "path": "27-profiles/NC-PRF-FR-003-profile-loader.py",
-      "hash": "a386619346da",
-      "size": 20732,
-      "category": "other"
-    },
-    {
-      "id": "NC-PRF-FR-004",
-      "name": "NC-PRF-FR-004-profile-manager.py",
-      "desc": "profile-manager",
-      "path": "27-profiles/NC-PRF-FR-004-profile-manager.py",
-      "hash": "35e97e14ae62",
-      "size": 14868,
-      "category": "other"
-    },
-    {
-      "id": "NC-TEST-FR-001",
-      "name": "NC-TEST-FR-001-fire-test.py",
-      "desc": "fire-test",
-      "path": "29-tests/NC-TEST-FR-001-fire-test.py",
-      "hash": "6a19fff6b6d0",
-      "size": 10753,
-      "category": "other"
-    },
-    {
-      "id": "NC-TEST-FR-003",
-      "name": "NC-TEST-FR-003-config-reload.py",
-      "desc": "config-reload",
-      "path": "29-tests/NC-TEST-FR-003-config-reload.py",
-      "hash": "95fa184b6a32",
-      "size": 1881,
-      "category": "other"
-    },
-    {
-      "id": "NC-TEST-FR-004",
-      "name": "NC-TEST-FR-004-mcp-responsive.py",
-      "desc": "mcp-responsive",
-      "path": "29-tests/NC-TEST-FR-004-mcp-responsive.py",
-      "hash": "8186349a64f4",
-      "size": 2035,
-      "category": "other"
-    },
-    {
-      "id": "NC-TEST-FR-005",
-      "name": "NC-TEST-FR-005-modular-server.py",
-      "desc": "modular-server",
-      "path": "29-tests/NC-TEST-FR-005-modular-server.py",
-      "hash": "bed4d45b2318",
-      "size": 2385,
-      "category": "other"
-    },
-    {
-      "id": "NC-TEST-FR-006",
-      "name": "NC-TEST-FR-006-sanity.py",
-      "desc": "sanity",
-      "path": "29-tests/NC-TEST-FR-006-sanity.py",
-      "hash": "65a9fae6ffd0",
-      "size": 11541,
-      "category": "other"
-    },
-    {
-      "id": "NC-TEST-FR-007",
-      "name": "NC-TEST-FR-007-task.py",
-      "desc": "task",
-      "path": "29-tests/NC-TEST-FR-007-task.py",
-      "hash": "2bae9fdd3002",
-      "size": 1082,
-      "category": "other"
-    },
-    {
-      "id": "NC-TEST-FR-008",
-      "name": "NC-TEST-FR-008-tools.py",
-      "desc": "tools",
-      "path": "29-tests/NC-TEST-FR-008-tools.py",
-      "hash": "ebc1d7676dc7",
-      "size": 1807,
-      "category": "other"
-    },
-    {
-      "id": "NC-HK-FR-001",
-      "name": "NC-HK-FR-001-example.py",
-      "desc": "example",
-      "path": "30-templates/NC-TOOL-FR-TEMPLATE/hooks/NC-HK-FR-001-example.py",
-      "hash": "dbb0d279bdb5",
-      "size": 888,
-      "category": "other"
-    },
-    {
-      "id": "NC-AUD-SSO-001",
-      "name": "NC-AUD-SSO-001-ssot-audit-system.py",
-      "desc": "ssot-audit-system",
-      "path": "32-scripts/NC-AUD-SSO-001-ssot-audit-system.py",
-      "hash": "0816eede4add",
-      "size": 22397,
-      "category": "other"
-    },
-    {
-      "id": "NC-BOOT-FR-002",
-      "name": "NC-BOOT-FR-002-memory-hook.py",
-      "desc": "memory-hook",
-      "path": "32-scripts/NC-BOOT-FR-002-memory-hook.py",
-      "hash": "c941528c8803",
-      "size": 875,
-      "category": "other"
-    },
-    {
-      "id": "NC-HLP-VAL-001",
-      "name": "NC-HLP-VAL-001-naming-validator.py",
-      "desc": "naming-validator",
-      "path": "32-scripts/NC-HLP-VAL-001-naming-validator.py",
-      "hash": "fff5956520c5",
-      "size": 12838,
-      "category": "other"
-    },
-    {
-      "id": "NC-MOD-FR-001",
-      "name": "NC-MOD-FR-001-fix_shims.py",
-      "desc": "fix_shims",
-      "path": "32-scripts/NC-MOD-FR-001-fix_shims.py",
-      "hash": "f672523af6e0",
-      "size": 1413,
-      "category": "other"
-    },
-    {
-      "id": "NC-MOD-FR-002",
-      "name": "NC-MOD-FR-002-fix_trailing_whitespace.py",
-      "desc": "fix_trailing_whitespace",
-      "path": "32-scripts/NC-MOD-FR-002-fix_trailing_whitespace.py",
-      "hash": "69a563177e10",
-      "size": 1185,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-ACT-22160444",
-      "name": "NC-SCR-ACT-22160444-mcp-activation.py",
-      "desc": "mcp-activation",
-      "path": "32-scripts/NC-SCR-ACT-22160444-mcp-activation.py",
-      "hash": "94f8dd2d0b1a",
-      "size": 5539,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-ANL-22160444",
-      "name": "NC-SCR-ANL-22160444-analysis-tool.py",
-      "desc": "analysis-tool",
-      "path": "32-scripts/NC-SCR-ANL-22160444-analysis-tool.py",
-      "hash": "ab0d5d51eadb",
-      "size": 5492,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-EXM-22160444",
-      "name": "NC-SCR-EXM-22160444-example-tools.py",
-      "desc": "example-tools",
-      "path": "32-scripts/NC-SCR-EXM-22160444-example-tools.py",
-      "hash": "920c07426e5d",
-      "size": 7791,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-001",
-      "name": "NC-SCR-FR-001-populate-lobes-ssot.py",
-      "desc": "populate-lobes-ssot",
-      "path": "32-scripts/NC-SCR-FR-001-populate-lobes-ssot.py",
-      "hash": "9bbbe60927f6",
-      "size": 18462,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-002",
-      "name": "NC-SCR-FR-002-tool-manifest-generator.py",
-      "desc": "tool-manifest-generator",
-      "path": "32-scripts/NC-SCR-FR-002-tool-manifest-generator.py",
-      "hash": "c7da59180877",
-      "size": 19714,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-003",
-      "name": "NC-SCR-FR-003-manifest-factory.py",
-      "desc": "manifest-factory",
-      "path": "32-scripts/NC-SCR-FR-003-manifest-factory.py",
-      "hash": "b8e1744e11ad",
-      "size": 21137,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-004",
-      "name": "NC-SCR-FR-004-governance-validator.py",
-      "desc": "governance-validator",
-      "path": "32-scripts/NC-SCR-FR-004-governance-validator.py",
-      "hash": "a3c0ab990ae9",
-      "size": 6338,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-005",
-      "name": "NC-SCR-FR-005-auto-approve.py",
-      "desc": "auto-approve",
-      "path": "32-scripts/NC-SCR-FR-005-auto-approve.py",
-      "hash": "cb6b810d764b",
-      "size": 8725,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-006",
-      "name": "NC-SCR-FR-006-ticket-validator.py",
-      "desc": "ticket-validator",
-      "path": "32-scripts/NC-SCR-FR-006-ticket-validator.py",
-      "hash": "0a2222b769bb",
-      "size": 7187,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-007",
-      "name": "NC-SCR-FR-007-queue-monitor.py",
-      "desc": "queue-monitor",
-      "path": "32-scripts/NC-SCR-FR-007-queue-monitor.py",
-      "hash": "c0f0e68da7ee",
-      "size": 9697,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-008",
-      "name": "NC-SCR-FR-008-queue-repair.py",
-      "desc": "queue-repair",
-      "path": "32-scripts/NC-SCR-FR-008-queue-repair.py",
-      "hash": "09ea696f3760",
-      "size": 6203,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-009",
-      "name": "NC-SCR-FR-009-sanitize-all-yamls.py",
-      "desc": "sanitize-all-yamls",
-      "path": "32-scripts/NC-SCR-FR-009-sanitize-all-yamls.py",
-      "hash": "7772b9bb05d0",
-      "size": 10089,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-010",
-      "name": "NC-SCR-FR-010-sync-ticket-status.py",
-      "desc": "sync-ticket-status",
-      "path": "32-scripts/NC-SCR-FR-010-sync-ticket-status.py",
-      "hash": "0e1f1b8e1db9",
-      "size": 2666,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-011",
-      "name": "NC-SCR-FR-011-sanitize-handoffs.py",
-      "desc": "sanitize-handoffs",
-      "path": "32-scripts/NC-SCR-FR-011-sanitize-handoffs.py",
-      "hash": "aa0140e976c9",
-      "size": 5914,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-012",
-      "name": "NC-SCR-FR-012-new-tool.py",
-      "desc": "new-tool",
-      "path": "32-scripts/NC-SCR-FR-012-new-tool.py",
-      "hash": "0f1c68b05fb0",
-      "size": 6420,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-013",
-      "name": "NC-SCR-FR-013-validate-file.py",
-      "desc": "validate-file",
-      "path": "32-scripts/NC-SCR-FR-013-validate-file.py",
-      "hash": "44d49e6ef832",
-      "size": 13863,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-017",
-      "name": "NC-SCR-FR-017-visual-server.py",
-      "desc": "visual-server",
-      "path": "32-scripts/NC-SCR-FR-017-visual-server.py",
-      "hash": "2efdf3c70460",
-      "size": 16110,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-020",
-      "name": "NC-SCR-FR-020-yaml-injector.py",
-      "desc": "yaml-injector",
-      "path": "32-scripts/NC-SCR-FR-020-yaml-injector.py",
-      "hash": "ba5ea5a23f70",
-      "size": 5167,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-021",
-      "name": "NC-SCR-FR-021-lexicon-extractor.py",
-      "desc": "lexicon-extractor",
-      "path": "32-scripts/NC-SCR-FR-021-lexicon-extractor.py",
-      "hash": "c7700a8f62d8",
-      "size": 7255,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-022",
-      "name": "NC-SCR-FR-022-coverage-auditor.py",
-      "desc": "coverage-auditor",
-      "path": "32-scripts/NC-SCR-FR-022-coverage-auditor.py",
-      "hash": "8976af030650",
-      "size": 12919,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-023",
-      "name": "NC-SCR-FR-023-ssot-auditor.py",
-      "desc": "ssot-auditor",
-      "path": "32-scripts/NC-SCR-FR-023-ssot-auditor.py",
-      "hash": "133411c343ed",
-      "size": 6277,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-024",
-      "name": "NC-SCR-FR-024-structural-auditor.py",
-      "desc": "structural-auditor",
-      "path": "32-scripts/NC-SCR-FR-024-structural-auditor.py",
-      "hash": "371d8f03a91c",
-      "size": 10114,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-051",
-      "name": "NC-SCR-FR-051-knowledge-graph-builder.py",
-      "desc": "knowledge-graph-builder",
-      "path": "32-scripts/NC-SCR-FR-051-knowledge-graph-builder.py",
-      "hash": "a71550a6cb22",
-      "size": 10355,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-060",
-      "name": "NC-SCR-FR-060-courier-saneamento.py",
-      "desc": "courier-saneamento",
-      "path": "32-scripts/NC-SCR-FR-060-courier-saneamento.py",
-      "hash": "3ec920572189",
-      "size": 10716,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-061",
-      "name": "NC-SCR-FR-061-courier-discrepancy-fix.py",
-      "desc": "courier-discrepancy-fix",
-      "path": "32-scripts/NC-SCR-FR-061-courier-discrepancy-fix.py",
-      "hash": "2a637a7bf9e5",
-      "size": 15879,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-062",
-      "name": "NC-SCR-FR-062-engineer-encoding-fix.py",
-      "desc": "engineer-encoding-fix",
-      "path": "32-scripts/NC-SCR-FR-062-engineer-encoding-fix.py",
-      "hash": "e3b4c097f074",
-      "size": 14232,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-063",
-      "name": "NC-SCR-FR-063-tester-vector-fix.py",
-      "desc": "tester-vector-fix",
-      "path": "32-scripts/NC-SCR-FR-063-tester-vector-fix.py",
-      "hash": "020b7342cae4",
-      "size": 18420,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-064",
-      "name": "NC-SCR-FR-064-artifact-catalog.py",
-      "desc": "artifact-catalog",
-      "path": "32-scripts/NC-SCR-FR-064-artifact-catalog.py",
-      "hash": "fe9d1adc8297",
-      "size": 12142,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-065",
-      "name": "NC-SCR-FR-065-rename-impact-analyzer.py",
-      "desc": "rename-impact-analyzer",
-      "path": "32-scripts/NC-SCR-FR-065-rename-impact-analyzer.py",
-      "hash": "f6aa1eb89411",
-      "size": 15298,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-066",
-      "name": "NC-SCR-FR-066-bootup-sync.py",
-      "desc": "bootup-sync",
-      "path": "32-scripts/NC-SCR-FR-066-bootup-sync.py",
-      "hash": "b12a69ecfac4",
-      "size": 19842,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-075",
-      "name": "NC-SCR-FR-075-genealogy-injector.py",
-      "desc": "genealogy-injector",
-      "path": "32-scripts/NC-SCR-FR-075-genealogy-injector.py",
-      "hash": "b034a6e4ed75",
-      "size": 24900,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-080",
-      "name": "NC-SCR-FR-080-governance-auditor.py",
-      "desc": "governance-auditor",
-      "path": "32-scripts/NC-SCR-FR-080-governance-auditor.py",
-      "hash": "2aae1b83a7ba",
-      "size": 38137,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-081",
-      "name": "NC-SCR-FR-081-config-migrator.py",
-      "desc": "config-migrator",
-      "path": "32-scripts/NC-SCR-FR-081-config-migrator.py",
-      "hash": "7775e0fd2b64",
-      "size": 16972,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-090",
-      "name": "NC-SCR-FR-090-lead-scraper.py",
-      "desc": "lead-scraper",
-      "path": "32-scripts/NC-SCR-FR-090-lead-scraper.py",
-      "hash": "8b453db09f11",
-      "size": 4145,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-098",
-      "name": "NC-SCR-FR-098-health-wrapper.py",
-      "desc": "health-wrapper",
-      "path": "32-scripts/NC-SCR-FR-098-health-wrapper.py",
-      "hash": "4b4ac6b4e6ae",
-      "size": 11907,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-101",
-      "name": "NC-SCR-FR-101-tools-smoke-test.py",
-      "desc": "tools-smoke-test",
-      "path": "32-scripts/NC-SCR-FR-101-tools-smoke-test.py",
-      "hash": "c7ac42d81405",
-      "size": 8878,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-103",
-      "name": "NC-SCR-FR-103-mc-startup-hook.py",
-      "desc": "mc-startup-hook",
-      "path": "32-scripts/NC-SCR-FR-103-mc-startup-hook.py",
-      "hash": "95239e1a9080",
-      "size": 11287,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-106",
-      "name": "NC-SCR-FR-106-launcher.py",
-      "desc": "launcher",
-      "path": "32-scripts/NC-SCR-FR-106-launcher.py",
-      "hash": "37883beca4bd",
-      "size": 8439,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-112",
-      "name": "NC-SCR-FR-112-generate-lobe-manifests.py",
-      "desc": "generate-lobe-manifests",
-      "path": "32-scripts/NC-SCR-FR-112-generate-lobe-manifests.py",
-      "hash": "8e8332006ae9",
-      "size": 1943,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-113",
-      "name": "NC-SCR-FR-113-kg-populate-lobes.py",
-      "desc": "kg-populate-lobes",
-      "path": "32-scripts/NC-SCR-FR-113-kg-populate-lobes.py",
-      "hash": "7a197b189de4",
-      "size": 2541,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-114",
-      "name": "NC-SCR-FR-114-auto-categorize-lobes.py",
-      "desc": "auto-categorize-lobes",
-      "path": "32-scripts/NC-SCR-FR-114-auto-categorize-lobes.py",
-      "hash": "22544c207554",
-      "size": 8665,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-115",
-      "name": "NC-SCR-FR-115-guardian-daemon.py",
-      "desc": "guardian-daemon",
-      "path": "32-scripts/NC-SCR-FR-115-guardian-daemon.py",
-      "hash": "ade3a1bc1284",
-      "size": 30473,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-120",
-      "name": "NC-SCR-FR-120-batch-rename-fix.py",
-      "desc": "batch-rename-fix",
-      "path": "32-scripts/NC-SCR-FR-120-batch-rename-fix.py",
-      "hash": "eab0202f4be6",
-      "size": 17599,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-121",
-      "name": "NC-SCR-FR-121-update-references.py",
-      "desc": "update-references",
-      "path": "32-scripts/NC-SCR-FR-121-update-references.py",
-      "hash": "43a3703fd9da",
-      "size": 9059,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-122",
-      "name": "NC-SCR-FR-122-white-label-anonymizer.py",
-      "desc": "white-label-anonymizer",
-      "path": "32-scripts/NC-SCR-FR-122-white-label-anonymizer.py",
-      "hash": "864bf387b83f",
-      "size": 8748,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-134",
-      "name": "NC-SCR-FR-134-smoke-test-tools.py",
-      "desc": "smoke-test-tools",
-      "path": "32-scripts/NC-SCR-FR-134-smoke-test-tools.py",
-      "hash": "5706cf64b3d3",
-      "size": 8635,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-135",
-      "name": "NC-SCR-FR-135-lexico-semantic-scope.py",
-      "desc": "lexico-semantic-scope",
-      "path": "32-scripts/NC-SCR-FR-135-lexico-semantic-scope.py",
-      "hash": "9870afa94925",
-      "size": 9283,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-136",
-      "name": "NC-SCR-FR-136-approve-handoffs.py",
-      "desc": "approve-handoffs",
-      "path": "32-scripts/NC-SCR-FR-136-approve-handoffs.py",
-      "hash": "e17b62dc8b35",
-      "size": 3814,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-137",
-      "name": "NC-SCR-FR-137-audit-reader.py",
-      "desc": "audit-reader",
-      "path": "32-scripts/NC-SCR-FR-137-audit-reader.py",
-      "hash": "344954c8f8b2",
-      "size": 1445,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-138",
-      "name": "NC-SCR-FR-138-batch-approve-handoffs.py",
-      "desc": "batch-approve-handoffs",
-      "path": "32-scripts/NC-SCR-FR-138-batch-approve-handoffs.py",
-      "hash": "c25e2bfc622d",
-      "size": 4838,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-139",
-      "name": "NC-SCR-FR-139-create-session-checkpoint.py",
-      "desc": "create-session-checkpoint",
-      "path": "32-scripts/NC-SCR-FR-139-create-session-checkpoint.py",
-      "hash": "da74a81e6c6d",
-      "size": 1481,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-140",
-      "name": "NC-SCR-FR-140-inspect-config.py",
-      "desc": "inspect-config",
-      "path": "32-scripts/NC-SCR-FR-140-inspect-config.py",
-      "hash": "40b91650c4cd",
-      "size": 1191,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-141",
-      "name": "NC-SCR-FR-141-neocortex-hud.py",
-      "desc": "neocortex-hud",
-      "path": "32-scripts/NC-SCR-FR-141-neocortex-hud.py",
-      "hash": "4f1f461571f7",
-      "size": 45991,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-142",
-      "name": "NC-SCR-FR-142-audit-handoffs-t0.py",
-      "desc": "audit-handoffs-t0",
-      "path": "32-scripts/NC-SCR-FR-142-audit-handoffs-t0.py",
-      "hash": "a846dd8b73ce",
-      "size": 4639,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-143",
-      "name": "NC-SCR-FR-143-extract-tools-robust.py",
-      "desc": "extract-tools-robust",
-      "path": "32-scripts/NC-SCR-FR-143-extract-tools-robust.py",
-      "hash": "ffd11f01939f",
-      "size": 3621,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-144",
-      "name": "NC-SCR-FR-144-update-ledger-tools.py",
-      "desc": "update-ledger-tools",
-      "path": "32-scripts/NC-SCR-FR-144-update-ledger-tools.py",
-      "hash": "4bee77ce819a",
-      "size": 3043,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-145",
-      "name": "NC-SCR-FR-145-tool-autoloader.py",
-      "desc": "tool-autoloader",
-      "path": "32-scripts/NC-SCR-FR-145-tool-autoloader.py",
-      "hash": "1cfc0798e7b3",
-      "size": 7649,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-146",
-      "name": "NC-SCR-FR-146-hook-boot-loader.py",
-      "desc": "hook-boot-loader",
-      "path": "32-scripts/NC-SCR-FR-146-hook-boot-loader.py",
-      "hash": "4a7a70fa30cb",
-      "size": 7954,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-147",
-      "name": "NC-SCR-FR-147-nc-ds-122-executor.py",
-      "desc": "nc-ds-122-executor",
-      "path": "32-scripts/NC-SCR-FR-147-nc-ds-122-executor.py",
-      "hash": "5230840b5f49",
-      "size": 7379,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-148",
-      "name": "NC-SCR-FR-148-organize-lobes.py",
-      "desc": "organize-lobes",
-      "path": "32-scripts/NC-SCR-FR-148-organize-lobes.py",
-      "hash": "e3878519a8a7",
-      "size": 7605,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-149",
-      "name": "NC-SCR-FR-149-update-lobe-registry.py",
-      "desc": "update-lobe-registry",
-      "path": "32-scripts/NC-SCR-FR-149-update-lobe-registry.py",
-      "hash": "08ad270ff232",
-      "size": 4009,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-150",
-      "name": "NC-SCR-FR-150-smoke-test.py",
-      "desc": "smoke-test",
-      "path": "32-scripts/NC-SCR-FR-150-smoke-test.py",
-      "hash": "9356ab124b07",
-      "size": 14003,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-151",
-      "name": "NC-SCR-FR-151-compliance-audit.py",
-      "desc": "compliance-audit",
-      "path": "32-scripts/NC-SCR-FR-151-compliance-audit.py",
-      "hash": "64dab62222f6",
-      "size": 12891,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-153",
-      "name": "NC-SCR-FR-153-lancedb-compaction.py",
-      "desc": "lancedb-compaction",
-      "path": "32-scripts/NC-SCR-FR-153-lancedb-compaction.py",
-      "hash": "0a9111bdd02e",
-      "size": 3253,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-160",
-      "name": "NC-SCR-FR-160-audit-compliance.py",
-      "desc": "audit-compliance",
-      "path": "32-scripts/NC-SCR-FR-160-audit-compliance.py",
-      "hash": "fa408724b79a",
-      "size": 12972,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-161",
-      "name": "NC-SCR-FR-161-fix-antigravity-config.py",
-      "desc": "fix-antigravity-config",
-      "path": "32-scripts/NC-SCR-FR-161-fix-antigravity-config.py",
-      "hash": "826fa32035bc",
-      "size": 8335,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-162",
-      "name": "NC-SCR-FR-162-tray-monitor.py",
-      "desc": "tray-monitor",
-      "path": "32-scripts/NC-SCR-FR-162-tray-monitor.py",
-      "hash": "868acc67b9a9",
-      "size": 3170,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-180",
-      "name": "NC-SCR-FR-180-populate-lexico.py",
-      "desc": "populate-lexico",
-      "path": "32-scripts/NC-SCR-FR-180-populate-lexico.py",
-      "hash": "d29df7f61a9a",
-      "size": 3415,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-200",
-      "name": "NC-SCR-FR-200-test-resolve.py",
-      "desc": "test-resolve",
-      "path": "32-scripts/NC-SCR-FR-200-test-resolve.py",
-      "hash": "fa3eaaf4b52b",
-      "size": 1300,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-201",
-      "name": "NC-SCR-FR-201-run-audit-3l.py",
-      "desc": "run-audit-3l",
-      "path": "32-scripts/NC-SCR-FR-201-run-audit-3l.py",
-      "hash": "756921e8d8d8",
-      "size": 1879,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-245",
-      "name": "NC-SCR-FR-245-create-tickets.py",
-      "desc": "create-tickets",
-      "path": "32-scripts/NC-SCR-FR-245-create-tickets.py",
-      "hash": "a92086dc0825",
-      "size": 7918,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-250",
-      "name": "NC-SCR-FR-250-create-api-tickets.py",
-      "desc": "create-api-tickets",
-      "path": "32-scripts/NC-SCR-FR-250-create-api-tickets.py",
-      "hash": "8c7292d17b29",
-      "size": 6203,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-265",
-      "name": "NC-SCR-FR-265-inject-protocol.py",
-      "desc": "inject-protocol",
-      "path": "32-scripts/NC-SCR-FR-265-inject-protocol.py",
-      "hash": "413471e93462",
-      "size": 2924,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-FR-inject-three-ws.py",
-      "name": "NC-SCR-FR-inject-three-ws.py",
-      "desc": "NC-SCR-FR-inject-three-ws",
-      "path": "32-scripts/NC-SCR-FR-inject-three-ws.py",
-      "hash": "7d385897dcaa",
-      "size": 6163,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-INT-22160444",
-      "name": "NC-SCR-INT-22160444-integration-tool.py",
-      "desc": "integration-tool",
-      "path": "32-scripts/NC-SCR-INT-22160444-integration-tool.py",
-      "hash": "9b5970115992",
-      "size": 13972,
-      "category": "other"
-    },
-    {
-      "id": "NC-SCR-SET-22160444",
-      "name": "NC-SCR-SET-22160444-setup-script.py",
-      "desc": "setup-script",
-      "path": "32-scripts/NC-SCR-SET-22160444-setup-script.py",
-      "hash": "6586d406f553",
-      "size": 10867,
-      "category": "other"
-    },
-    {
-      "id": "NC-SVC-CHK-22160444",
-      "name": "NC-SVC-CHK-22160444-checkpoint-system.py",
-      "desc": "checkpoint-system",
-      "path": "32-scripts/NC-SVC-CHK-22160444-checkpoint-system.py",
-      "hash": "20c9c62d0a5b",
-      "size": 5731,
-      "category": "other"
-    },
+  "tools": [
     {
       "id": "NC-MCP-FR-001",
-      "name": "NC-MCP-FR-001-mcp-server.py",
-      "desc": "mcp-server",
-      "path": "90-archive-internal/mcp_server_legacy/NC-MCP-FR-001-mcp-server.py",
-      "hash": "9d0d49f53ea5",
-      "size": 64665,
-      "category": "other"
+      "name": "NC-MCP-FR-001-pulse.py",
+      "desc": "pulse",
+      "path": "neocortex/mcp/tools/NC-MCP-FR-001-pulse.py",
+      "hash": "605f8003ce74",
+      "size": 3842,
+      "category": "tools"
     },
     {
-      "id": "NC-CORE-FR-136",
-      "name": "NC-CORE-FR-136-auto-amendment-engine.py",
-      "desc": "auto-amendment-engine",
-      "path": "90-archive-internal/NC-CORE-FR-136-auto-amendment-engine.py",
-      "hash": "fc2b75641fe0",
-      "size": 8833,
-      "category": "other"
+      "id": "NC-SUPER-001",
+      "name": "NC-SUPER-001-governance.py",
+      "desc": "governance",
+      "path": "neocortex/mcp/tools/NC-SUPER-001-governance.py",
+      "hash": "29dd14a36891",
+      "size": 55046,
+      "category": "tools"
     },
     {
-      "id": "NC-CFG-FR-002",
-      "name": "NC-CFG-FR-002-config.py",
-      "desc": "config",
-      "path": "neocortex/NC-CFG-FR-002-config.py",
-      "hash": "347ba8337b4f",
-      "size": 23098,
-      "category": "other"
+      "id": "NC-SUPER-002",
+      "name": "NC-SUPER-002-orchestration.py",
+      "desc": "orchestration",
+      "path": "neocortex/mcp/tools/NC-SUPER-002-orchestration.py",
+      "hash": "56dda181e75e",
+      "size": 14875,
+      "category": "tools"
+    },
+    {
+      "id": "NC-SUPER-003",
+      "name": "NC-SUPER-003-memory.py",
+      "desc": "memory",
+      "path": "neocortex/mcp/tools/NC-SUPER-003-memory.py",
+      "hash": "6b30debf729c",
+      "size": 27566,
+      "category": "tools"
+    },
+    {
+      "id": "NC-SUPER-004",
+      "name": "NC-SUPER-004-state.py",
+      "desc": "state",
+      "path": "neocortex/mcp/tools/NC-SUPER-004-state.py",
+      "hash": "34b71c8727e6",
+      "size": 22529,
+      "category": "tools"
+    },
+    {
+      "id": "NC-SUPER-005",
+      "name": "NC-SUPER-005-llm-router.py",
+      "desc": "llm-router",
+      "path": "neocortex/mcp/tools/NC-SUPER-005-llm-router.py",
+      "hash": "43f45d7b5a79",
+      "size": 5424,
+      "category": "tools"
+    },
+    {
+      "id": "NC-SUPER-006",
+      "name": "NC-SUPER-006-system.py",
+      "desc": "system",
+      "path": "neocortex/mcp/tools/NC-SUPER-006-system.py",
+      "hash": "265c54f690a6",
+      "size": 21675,
+      "category": "tools"
+    },
+    {
+      "id": "NC-SUPER-007",
+      "name": "NC-SUPER-007-brain.py",
+      "desc": "brain",
+      "path": "neocortex/mcp/tools/NC-SUPER-007-brain.py",
+      "hash": "01115898248c",
+      "size": 26922,
+      "category": "tools"
+    },
+    {
+      "id": "NC-SUPER-008",
+      "name": "NC-SUPER-008-context.py",
+      "desc": "context",
+      "path": "neocortex/mcp/tools/NC-SUPER-008-context.py",
+      "hash": "3553632d5e33",
+      "size": 13812,
+      "category": "tools"
+    },
+    {
+      "id": "NC-SUPER-009",
+      "name": "NC-SUPER-009-security.py",
+      "desc": "security",
+      "path": "neocortex/mcp/tools/NC-SUPER-009-security.py",
+      "hash": "3efb7f921ca9",
+      "size": 14357,
+      "category": "tools"
+    },
+    {
+      "id": "NC-SUPER-010",
+      "name": "NC-SUPER-010-benchmark.py",
+      "desc": "benchmark",
+      "path": "neocortex/mcp/tools/NC-SUPER-010-benchmark.py",
+      "hash": "4f77d4155e70",
+      "size": 7567,
+      "category": "tools"
+    },
+    {
+      "id": "NC-SUPER-011",
+      "name": "NC-SUPER-011-notification.py",
+      "desc": "notification",
+      "path": "neocortex/mcp/tools/NC-SUPER-011-notification.py",
+      "hash": "e95c5dd707cf",
+      "size": 6646,
+      "category": "tools"
+    },
+    {
+      "id": "NC-SUPER-012",
+      "name": "NC-SUPER-012-akl.py",
+      "desc": "akl",
+      "path": "neocortex/mcp/tools/NC-SUPER-012-akl.py",
+      "hash": "0d44254db377",
+      "size": 11574,
+      "category": "tools"
+    },
+    {
+      "id": "NC-SUPER-013",
+      "name": "NC-SUPER-013-health.py",
+      "desc": "health",
+      "path": "neocortex/mcp/tools/NC-SUPER-013-health.py",
+      "hash": "775b9d846783",
+      "size": 21029,
+      "category": "tools"
+    },
+    {
+      "id": "NC-SUPER-014",
+      "name": "NC-SUPER-014-ledger.py",
+      "desc": "ledger",
+      "path": "neocortex/mcp/tools/NC-SUPER-014-ledger.py",
+      "hash": "13f9637d43a2",
+      "size": 6900,
+      "category": "tools"
+    },
+    {
+      "id": "NC-SUPER-015",
+      "name": "NC-SUPER-015-memory-auto.py",
+      "desc": "memory-auto",
+      "path": "neocortex/mcp/tools/NC-SUPER-015-memory-auto.py",
+      "hash": "48d895dd7f04",
+      "size": 12765,
+      "category": "tools"
+    },
+    {
+      "id": "NC-SUPER-019",
+      "name": "NC-SUPER-019-replication.py",
+      "desc": "replication",
+      "path": "neocortex/mcp/tools/NC-SUPER-019-replication.py",
+      "hash": "6ecf2e354388",
+      "size": 4868,
+      "category": "tools"
+    },
+    {
+      "id": "NC-SUPER-020",
+      "name": "NC-SUPER-020-evolution.py",
+      "desc": "evolution",
+      "path": "neocortex/mcp/tools/NC-SUPER-020-evolution.py",
+      "hash": "892bb73c4f86",
+      "size": 6360,
+      "category": "tools"
+    },
+    {
+      "id": "NC-TOOL-FR-021",
+      "name": "NC-TOOL-FR-021-vscode-bridge.py",
+      "desc": "vscode-bridge",
+      "path": "neocortex/mcp/tools/NC-TOOL-FR-021-vscode-bridge.py",
+      "hash": "7ca02806689f",
+      "size": 6215,
+      "category": "tools"
     }
-  ]
+  ],
+  "services": [
+    {
+      "id": "NC-HK-FR-001",
+      "name": "NC-HK-FR-001-hook-registry.py",
+      "desc": "hook-registry",
+      "path": "neocortex/core/hooks/NC-HK-FR-001-hook-registry.py",
+      "hash": "a58850842ac2",
+      "size": 10695,
+      "category": "services"
+    },
+    {
+      "id": "NC-HK-FR-002",
+      "name": "NC-HK-FR-002-simple-hook.py",
+      "desc": "simple-hook",
+      "path": "neocortex/core/hooks/NC-HK-FR-002-simple-hook.py",
+      "hash": "52d87ea2b0bf",
+      "size": 7380,
+      "category": "services"
+    },
+    {
+      "id": "NC-HK-FR-003",
+      "name": "NC-HK-FR-003-mission-control-hook.py",
+      "desc": "mission-control-hook",
+      "path": "neocortex/core/hooks/NC-HK-FR-003-mission-control-hook.py",
+      "hash": "3a86e0c6271a",
+      "size": 9036,
+      "category": "services"
+    },
+    {
+      "id": "NC-HK-FR-004",
+      "name": "NC-HK-FR-004-conversation-hook.py",
+      "desc": "conversation-hook",
+      "path": "neocortex/core/hooks/NC-HK-FR-004-conversation-hook.py",
+      "hash": "699ab27bb66f",
+      "size": 11765,
+      "category": "services"
+    },
+    {
+      "id": "NC-HK-FR-005",
+      "name": "NC-HK-FR-005-lexico-boot-loader.py",
+      "desc": "lexico-boot-loader",
+      "path": "neocortex/core/hooks/NC-HK-FR-005-lexico-boot-loader.py",
+      "hash": "3b44bca460ae",
+      "size": 18308,
+      "category": "services"
+    },
+    {
+      "id": "NC-HK-FR-006",
+      "name": "NC-HK-FR-006-lexico-hook-chain.py",
+      "desc": "lexico-hook-chain",
+      "path": "neocortex/core/hooks/NC-HK-FR-006-lexico-hook-chain.py",
+      "hash": "c43fcfb1eb30",
+      "size": 31950,
+      "category": "services"
+    },
+    {
+      "id": "NC-HK-FR-007",
+      "name": "NC-HK-FR-007-lexico-integration.py",
+      "desc": "lexico-integration",
+      "path": "neocortex/core/hooks/NC-HK-FR-007-lexico-integration.py",
+      "hash": "f585300923bc",
+      "size": 3503,
+      "category": "services"
+    },
+    {
+      "id": "NC-HK-FR-009",
+      "name": "NC-HK-FR-009-lexico-step0-hook.py",
+      "desc": "lexico-step0-hook",
+      "path": "neocortex/core/hooks/NC-HK-FR-009-lexico-step0-hook.py",
+      "hash": "f6b100d73d63",
+      "size": 6788,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-001",
+      "name": "NC-SVC-FR-001-logging-service.py",
+      "desc": "logging-service",
+      "path": "neocortex/core/services/NC-SVC-FR-001-logging-service.py",
+      "hash": "dba0ba8f2f27",
+      "size": 5284,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-002",
+      "name": "NC-SVC-FR-002-health-service.py",
+      "desc": "health-service",
+      "path": "neocortex/core/services/NC-SVC-FR-002-health-service.py",
+      "hash": "7f3a13cc8fd6",
+      "size": 6175,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-003",
+      "name": "NC-SVC-FR-003-savepoint-stub.py",
+      "desc": "savepoint-stub",
+      "path": "neocortex/core/services/NC-SVC-FR-003-savepoint-stub.py",
+      "hash": "7f5b1b62d5b8",
+      "size": 10900,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-004",
+      "name": "NC-SVC-FR-004-cache-service.py",
+      "desc": "cache-service",
+      "path": "neocortex/core/services/NC-SVC-FR-004-cache-service.py",
+      "hash": "9ceb1e80608c",
+      "size": 5813,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-005",
+      "name": "NC-SVC-FR-005-event-bus.py",
+      "desc": "event-bus",
+      "path": "neocortex/core/services/NC-SVC-FR-005-event-bus.py",
+      "hash": "c09a07432e7e",
+      "size": 6078,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-006",
+      "name": "NC-SVC-FR-006-metrics-collector.py",
+      "desc": "metrics-collector",
+      "path": "neocortex/core/services/NC-SVC-FR-006-metrics-collector.py",
+      "hash": "19868dd59760",
+      "size": 10487,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-007",
+      "name": "NC-SVC-FR-007-state-machine.py",
+      "desc": "state-machine",
+      "path": "neocortex/core/services/NC-SVC-FR-007-state-machine.py",
+      "hash": "8cae23f6b004",
+      "size": 7784,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-008",
+      "name": "NC-SVC-FR-008-config-validator.py",
+      "desc": "config-validator",
+      "path": "neocortex/core/services/NC-SVC-FR-008-config-validator.py",
+      "hash": "20682b680202",
+      "size": 20029,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-009",
+      "name": "NC-SVC-FR-009-session-buddy.py",
+      "desc": "session-buddy",
+      "path": "neocortex/core/services/NC-SVC-FR-009-session-buddy.py",
+      "hash": "910639b11fb5",
+      "size": 16069,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-010",
+      "name": "NC-SVC-FR-010-kairos-service.py",
+      "desc": "kairos-service",
+      "path": "neocortex/core/services/NC-SVC-FR-010-kairos-service.py",
+      "hash": "c7c107f96594",
+      "size": 9049,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-011",
+      "name": "NC-SVC-FR-011-ttl-manager.py",
+      "desc": "ttl-manager",
+      "path": "neocortex/core/services/NC-SVC-FR-011-ttl-manager.py",
+      "hash": "05891dbe9ba7",
+      "size": 13999,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-012",
+      "name": "NC-SVC-FR-012-channel-notifier.py",
+      "desc": "channel-notifier",
+      "path": "neocortex/core/services/NC-SVC-FR-012-channel-notifier.py",
+      "hash": "21343c5d98c0",
+      "size": 6754,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-014",
+      "name": "NC-SVC-FR-014-dry-run-preview.py",
+      "desc": "dry-run-preview",
+      "path": "neocortex/core/services/NC-SVC-FR-014-dry-run-preview.py",
+      "hash": "1d733f3e502b",
+      "size": 6070,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-015",
+      "name": "NC-SVC-FR-015-task-broker.py",
+      "desc": "task-broker",
+      "path": "neocortex/core/services/NC-SVC-FR-015-task-broker.py",
+      "hash": "f4ca3a2e3844",
+      "size": 12140,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-016",
+      "name": "NC-SVC-FR-016-wal-service.py",
+      "desc": "wal-service",
+      "path": "neocortex/core/services/NC-SVC-FR-016-wal-service.py",
+      "hash": "587ced47f292",
+      "size": 15129,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-017",
+      "name": "NC-SVC-FR-017-crypto-hub.py",
+      "desc": "crypto-hub",
+      "path": "neocortex/core/services/NC-SVC-FR-017-crypto-hub.py",
+      "hash": "a075b3a51ae3",
+      "size": 14794,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-018",
+      "name": "NC-SVC-FR-018-tag-normalizer.py",
+      "desc": "tag-normalizer",
+      "path": "neocortex/core/services/NC-SVC-FR-018-tag-normalizer.py",
+      "hash": "862441787d07",
+      "size": 14551,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-020",
+      "name": "NC-SVC-FR-020-lexico-service.py",
+      "desc": "lexico-service",
+      "path": "neocortex/core/services/NC-SVC-FR-020-lexico-service.py",
+      "hash": "cf1ecf05a403",
+      "size": 20178,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-021",
+      "name": "NC-SVC-FR-021-session-memory-writer.py",
+      "desc": "session-memory-writer",
+      "path": "neocortex/core/services/NC-SVC-FR-021-session-memory-writer.py",
+      "hash": "c8b66558e891",
+      "size": 6480,
+      "category": "services"
+    },
+    {
+      "id": "NC-SVC-FR-025",
+      "name": "NC-SVC-FR-025-savepoint-wal-bridge.py",
+      "desc": "savepoint-wal-bridge",
+      "path": "neocortex/core/services/NC-SVC-FR-025-savepoint-wal-bridge.py",
+      "hash": "2c17a09e9eb8",
+      "size": 11700,
+      "category": "services"
+    }
+  ],
+  "scripts": []
 }
