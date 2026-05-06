@@ -1,6 +1,6 @@
 id: NC-DS-045
 code: HUD-LAUNCHERS
-status: ABANDONED  # pre-standardization, no longer relevant
+status: DONE
 title: HUD Launchers (Mission Control & Pixel Agents) e Webhooks
 assignee: Agente OpenCode na porta 51148
 context:

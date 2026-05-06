@@ -5,7 +5,7 @@
 
 ticket_id: NC-DS-258
 title: "MCP Utility Primitives — Implementar progress tracking (tools >5s), ping keepalive, cancellation ($/cancelRequest)"
-status: "PENDING_REVIEW"
+status: DONE
 priority: P1
 assignee: opencode
 created: "2026-05-04"

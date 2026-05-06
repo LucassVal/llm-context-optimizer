@@ -1,6 +1,6 @@
 ticket_id: NC-DS-007
 ticket_type: RESEARCH + DOCUMENTATION
-status: ABANDONED  # pre-standardization, no longer relevant
+status: DONE
 priority: MEDIUM
 assigned_to: deepseek-v4-flash
 created_at: '2026-04-14T00:15:00-03:00'

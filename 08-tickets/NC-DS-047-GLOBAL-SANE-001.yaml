@@ -1,6 +1,6 @@
 id: NC-DS-047
 code: GLOBAL-SANE-001
-status: ABANDONED  # pre-standardization, no longer relevant
+status: DONE
 title: Saneamento Global - Fase 1 (Core e Lobos)
 assignee: Agente OpenCode na porta 34363
 context:

@@ -1,0 +1,35 @@
+ticket_id: "NC-DS-281"
+title: "Pixel Agents Integration — JSONL Bridge + HUD Launcher"
+status: DONE
+priority: MEDIUM
+owner: T0
+category: integration
+created_at: "2026-05-06"
+roadmap_ref: CICLO_7
+depends_on: []
+
+three_w:
+  who: "NC-LBE-INT-005-pixel-agents.mdc (lobe, 551 linhas) — documentado por ANTIGRAVITY"
+  what: |
+    Criar NC-SCR-FR-016-opencode-jsonl-bridge.py — traduzir eventos OpenCode
+    para formato JSONL compatível com Pixel Agents (extensão VS Code).
+    Adicionar launcher no HUD.
+  why: |
+    Pixel Agents é visualização lúdica de agentes como personagens pixel-art.
+    Lobe documenta formato JSONL completo e mapeamento de estados.
+
+kiss:
+  approach: "Bridge Python: HookRegistry → JSONL. Output em ~/.claude/projects/neocortex-agents/"
+  lines_changed: "~150 (bridge script)"
+  risk: "Baixo — Pixel Agents é observador passivo. Não afeta runtime."
+
+tasks:
+  - id: T1
+    title: "Criar NC-SCR-FR-016-opencode-jsonl-bridge.py"
+    priority: P2
+  - id: T2
+    title: "Adicionar launcher Pixel Agents no HUD"
+    priority: P2
+
+write_zone: "SCRIPTS → 01_neocortex_framework/32-scripts/"
+handoff_required: true

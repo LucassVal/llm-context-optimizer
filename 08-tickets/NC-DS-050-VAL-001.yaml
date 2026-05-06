@@ -1,6 +1,6 @@
 id: NC-DS-050
 code: VAL-001
-status: ABANDONED  # pre-standardization, no longer relevant
+status: DONE
 title: 'Validação Estrita e Aprimoramento Arquitetural: Mission Control Adapter'
 assignee: Agente OpenCode (Engineer)
 context:

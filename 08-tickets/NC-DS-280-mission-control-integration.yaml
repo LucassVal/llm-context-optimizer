@@ -1,0 +1,38 @@
+ticket_id: "NC-DS-280"
+title: "Mission Control Integration — Generic Adapter + Webhook Bridge"
+status: DONE
+priority: MEDIUM
+owner: T0
+category: integration
+created_at: "2026-05-06"
+roadmap_ref: CICLO_7
+depends_on: []
+
+three_w:
+  who: "NC-LBE-INT-004-mission-control.mdc (lobe, 499 linhas) — documentado por ANTIGRAVITY"
+  what: |
+    Implementar registro de agentes NeoCortex no Mission Control via Generic Adapter.
+    Configurar webhook para audit events. Adicionar aba Mission Control no HUD.
+    7 sub-tickets documentados no lobe: NC-INT-001 a NC-INT-007.
+  why: |
+    Mission Control é dashboard de governança em tempo real — Kanban, custos,
+    health de agentes, security audit. Lobe existe, código do adapter não.
+
+kiss:
+  approach: "POST /api/adapters para registrar agentes. Webhook HMAC-SHA256 para audit."
+  lines_changed: "~200 (adaptador Python + config webhook)"
+  risk: "Baixo — Mission Control é serviço externo. Falha não quebra NeoCortex."
+
+tasks:
+  - id: T1
+    title: "Registrar agentes NeoCortex no Mission Control via Generic Adapter"
+    priority: P1
+  - id: T2
+    title: "Configurar webhook AuditHook → Mission Control (HMAC-SHA256)"
+    priority: P2
+  - id: T3
+    title: "Adicionar aba Mission Control no HUD (launcher)"
+    priority: P2
+
+write_zone: "SCRIPTS → 01_neocortex_framework/32-scripts/"
+handoff_required: true

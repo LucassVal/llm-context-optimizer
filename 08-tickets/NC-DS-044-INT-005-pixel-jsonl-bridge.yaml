@@ -1,6 +1,6 @@
 id: NC-DS-044
 code: INT-002 e INT-003
-status: ABANDONED  # pre-standardization, no longer relevant
+status: DONE
 title: Bridge JSONL do Pixel Agents
 assignee: Agente OpenCode na porta 47730
 context:

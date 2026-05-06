@@ -5,7 +5,7 @@
 
 ticket_id: NC-DS-251
 title: "MCP Prompts — Expor SOPs, Handoff Templates e Audit Workflows como Prompts (prompts/list, prompts/get)"
-status: PENDING_REVIEW
+status: DONE
 priority: P0
 assignee: opencode
 created: "2026-05-04"

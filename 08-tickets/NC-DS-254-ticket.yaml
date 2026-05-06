@@ -5,7 +5,7 @@
 
 ticket_id: NC-DS-254
 title: "MCP Notifications — Implementar notifications/tools/list_changed, resources/list_changed, prompts/list_changed + Wirear Hooks → MCP Notifications"
-status: "PENDING_REVIEW"
+status: DONE
 priority: P1
 assignee: opencode
 created: "2026-05-04"

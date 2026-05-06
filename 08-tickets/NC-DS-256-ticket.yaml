@@ -5,7 +5,7 @@
 
 ticket_id: NC-DS-256
 title: "MCP Error Protocol — Migrar todas as tools de {\"success\": false} para protocolo isError: true + Alinhar com SEP-1303 (Input Validation as Tool Errors)"
-status: "PENDING_REVIEW"
+status: DONE
 priority: P0
 assignee: opencode
 created: "2026-05-04"

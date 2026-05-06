@@ -5,7 +5,7 @@
 
 ticket_id: NC-DS-250
 title: "MCP Resources — Expor Lobes, KG e Manifest como Resources (resources/list, resources/read, resources/templates/list, resources/subscribe)"
-status: PENDING_REVIEW
+status: DONE
 priority: P0
 assignee: opencode
 created: "2026-05-04"

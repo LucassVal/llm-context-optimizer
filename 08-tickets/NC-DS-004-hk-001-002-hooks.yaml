@@ -1,6 +1,6 @@
 ticket_id: NC-DS-004
 ticket_type: FEATURE
-status: ABANDONED  # pre-standardization, no longer relevant
+status: DONE
 priority: MEDIUM
 assigned_to: deepseek-v4-flash
 created_at: '2026-04-13T20:06:00-03:00'

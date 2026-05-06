@@ -1,6 +1,6 @@
 id: NC-DS-048
 code: GLOBAL-SANE-002
-status: ABANDONED  # pre-standardization, no longer relevant
+status: DONE
 title: Saneamento Global - Fase 2 (Infraestrutura, Testes, e Docs periféricos)
 assignee: Agente OpenCode na porta 51148
 context:

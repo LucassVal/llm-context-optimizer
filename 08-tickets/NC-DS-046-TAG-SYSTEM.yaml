@@ -1,6 +1,6 @@
 id: NC-DS-046
 code: TAG-SYSTEM
-status: ABANDONED  # pre-standardization, no longer relevant
+status: DONE
 title: Implementação Universal de Tags no Codebase
 assignee: Fila de Tarefas / Agentes Autônomos
 context:
