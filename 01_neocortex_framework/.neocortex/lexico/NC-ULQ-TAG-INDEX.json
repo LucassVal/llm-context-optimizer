@@ -84,7 +84,7 @@
       "items": 7
     },
     "config": {
-      "path": "DIR-DS-000-agent-config/",
+      "path": "07-agent-config/",
       "tags": [
         "@CONFIG",
         "@PROMPT",
@@ -114,7 +114,7 @@
       "items": 13
     },
     "tickets_audit": {
-      "path": "DIR-DS-001-tickets/",
+      "path": "08-tickets/",
       "tags": [
         "%DONE",
         "%NOW",

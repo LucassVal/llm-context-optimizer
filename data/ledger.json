@@ -1777,11 +1777,11 @@
     }
   ],
   "session_metrics": {
-    "total_interactions": 27,
+    "total_interactions": 28,
     "compactions_executed": 0,
     "token_budget_warnings": 0,
     "interaction_types": {
-      "heartbeat": 27
+      "heartbeat": 28
     },
     "total_tokens_used": 0
   }

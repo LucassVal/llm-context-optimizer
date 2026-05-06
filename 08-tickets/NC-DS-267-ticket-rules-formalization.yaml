@@ -1,0 +1,189 @@
+ticket_id: "NC-DS-267"
+title: "Formalizar Regras de Tickets — Lobe SSOT + Validator Sync (template v1→v2)"
+status: OPEN
+priority: MEDIUM
+owner: T0-Antigravity
+category: governance
+created_at: "2026-05-06T15:32:00"
+created_by: T0-Antigravity
+roadmap_ref: CICLO_5
+assigned_to: OpenCode-Agent-nc-engineer
+
+# ═══════════════════════════════════════════════════════════════════
+# PATHS SEMÂNTICOS — via LEXICO/UBL (ADR-008)
+# Agente resolve via núcleo semântico. Path absoluto = fallback apenas.
+# ATENÇÃO: NC-DS-268 auditará se #TICKETS aponta para path correto.
+# ═══════════════════════════════════════════════════════════════════
+semantic_paths:
+  tickets_dir:    "#TICKETS"           # AVISO: NC-DS-268 confirmará se resolve para 08-tickets/
+  scripts_dir:    "#LEXICO.SCRIPTS"    # resolve: 01_neocortex_framework/32-scripts/
+  governance:     "#GOV"               # resolve: 02_memory_lobes/06_governance/
+  ssot_doc:       "@SSOT"              # resolve: NC-NAM-FR-001-naming-convention.md
+  locks_file:     "@LOCKS"             # resolve: NC-SEC-FR-001-atomic-locks.yaml
+  audit_logs:     "#AUDIT"             # resolve: DIR-DS-002-audit-logs/
+  lobe_tickets:   "lobe.get NC-LBE-FR-TICKETS-001"   # criado por T0 nesta sessão
+
+# Fallback absoluto:
+working_directory: "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
+framework_subdir: "01_neocortex_framework"
+
+# ─── 3W ─────────────────────────────────────────────────────────────
+three_w:
+  who: "Todos os agentes T0/T1/T2 que criam e executam tickets NC-DS-NNN"
+  what: |
+    1. Lobe NC-LBE-FR-TICKETS-001.mdc (SSOT semântico) — já criado por T0 nesta sessão.
+    2. NC-SCR-FR-006-ticket-validator.py: corrigir SyntaxError + sync para template v2.
+    3. Adicionar seção 'Protocolo de Criação de Tickets' ao @SSOT (requer T0).
+    4. Registrar lobe no índice e rodar @POPULATE.
+    5. Integrar validator no Guardian Ciclo4.
+  why: |
+    Auditoria 2026-05-06 revelou 3 gaps críticos:
+    1. Regras de tickets só existiam implicitamente no template YAML
+    2. NC-SCR-FR-006 tem SyntaxError (docstrings genealogy antes de 'from __future__')
+       — confirmado por R21: script não executa atualmente
+    3. Validator valida campos do template v1 (write_zone, forbidden_zone, exit_state,
+       methodology) que não existem no template v2 atual
+
+# ─── RCA (5 Porquês) ─────────────────────────────────────────────────
+rca:
+  symptom: "NC-SCR-FR-006 tem SyntaxError + valida campos inexistentes no template v2"
+  why_1: "Docstrings genealogy (L2-43) foram injetadas antes de 'from __future__ import annotations'"
+  why_2: "NC-SCR-FR-075-genealogy-injector.py inseriu docstrings sem verificar posição do __future__"
+  why_3: "Validator nunca foi atualizado após migração template v1 → v2"
+  why_4: "Sem CI/CD executando NC-SCR-FR-006, SyntaxError passou despercebido"
+  why_5: "Ausência de SSOT semântico de regras de tickets — regras implícitas não são validadas"
+  root_cause: |
+    Duas causas independentes: (a) genealogy injector quebrou a sintaxe Python;
+    (b) template evoluiu de v1 para v2 sem sync do validator.
+  corrective_action: |
+    Mover 'from __future__' para linha 1; substituir campos v1 por campos v2 obrigatórios.
+  preventive_action: |
+    Guardian Ciclo4 inclui 'python -m py_compile NC-SCR-FR-006' como health check.
+
+# ─── STEP 0 OBRIGATÓRIO (R21) ────────────────────────────────────────
+step_0:
+  # Resolver via LEXICO antes de qualquer ação — NC-DS-268 validará esses paths:
+  - "neocortex_memory lobe.get NC-LBE-FR-TICKETS-001 → confirmar lobe existe"
+  # Verificações reais (R21):
+  - "Test-Path '01_neocortex_framework\\32-scripts\\NC-SCR-FR-006-ticket-validator.py' → True"
+  - "python -m py_compile 01_neocortex_framework\\32-scripts\\NC-SCR-FR-006-ticket-validator.py → FAIL esperado (SyntaxError)"
+  - "python NC-SCR-FR-006-ticket-validator.py 08-tickets\\NC-DS-264-mcp-api-contract-validation.yaml → FAIL esperado"
+  - "cat NC-DS-TICKET-TEMPLATE-v2.yaml | Select-String '^[a-z_]+:' → listar campos v2"
+  - "grep -n 'from __future__' NC-SCR-FR-006-ticket-validator.py → confirmar linha do import"
+
+atomic_locks_check:
+  - "@SSOT (NC-NAM-FR-001) → LOCKED (boot_ssot) — T4 requer autorização T0"
+  - "NC-SCR-FR-006-ticket-validator.py → NÃO em @LOCKS → pode ser modificado"
+  - "02_memory_lobes/06_governance/ → ZONE:LOBES → modificar via @POPULATE ou MCP"
+
+# ─── TAREFAS ──────────────────────────────────────────────────────────
+tasks:
+
+  - id: T1
+    title: "Lobe NC-LBE-FR-TICKETS-001.mdc — verificar entrega T0"
+    priority: P0
+    status: DONE_BY_T0
+    write_zone: "LOBES → #GOV"
+    note: "Criado por T0 nesta sessão em 02_memory_lobes/06_governance/NC-LBE-FR-TICKETS-001.mdc"
+    validation:
+      - "Test-Path '02_memory_lobes\\06_governance\\NC-LBE-FR-TICKETS-001.mdc' → True"
+      - "neocortex_memory lobe.get NC-LBE-FR-TICKETS-001 → success: true"
+
+  - id: T2
+    title: "Corrigir NC-SCR-FR-006 — SyntaxError + sync campos template v2"
+    priority: P0
+    write_zone: "SCRIPTS → #LEXICO.SCRIPTS"
+    fix_syntaxerror: |
+      PROBLEMA: docstrings genealogy (L2-43) estão antes de 'from __future__ import annotations'.
+      SOLUÇÃO: mover 'from __future__ import annotations' para linha 1,
+               antes de qualquer docstring ou comentário não-encoding.
+      REGRA Python: __future__ deve ser a 1ª instrução não-comentário do módulo.
+    new_required_fields_v2:
+      - ticket_id        # formato: NC-DS-NNN ou NC-DS-NNN-desc
+      - title
+      - status           # OPEN|IN_PROGRESS|BLOCKED|DONE|CANCELLED
+      - priority         # CRITICAL|HIGH|MEDIUM|LOW
+      - working_directory
+      - three_w          # dict: who, what, why
+      - step_0           # list >= 1 item
+      - write_zone
+    retrocompat_strategy: |
+      Campos v1 ausentes (write_zone como único, forbidden_zone, exit_state, methodology):
+      emitir WARNING (não FAIL) para manter compatibilidade com tickets antigos.
+      FAIL apenas para campos v2 core ausentes.
+    new_naming_rule: "ticket_id regex: ^NC-DS-[A-Z0-9][A-Z0-9-]*$ (aceita NNN-desc)"
+    validation:
+      - "python -m py_compile NC-SCR-FR-006-ticket-validator.py → PASS"
+      - "python -m ruff check NC-SCR-FR-006-ticket-validator.py --select F,E9 → 0 erros"
+      - "python NC-SCR-FR-006 08-tickets\\NC-DS-264-mcp-api-contract-validation.yaml → PASS"
+      - "python NC-SCR-FR-006 08-tickets\\NC-DS-265-lsp-activation-orphan-fix.yaml → PASS"
+      - "python NC-SCR-FR-006 08-tickets\\NC-DS-267-ticket-rules-formalization.yaml → PASS"
+
+  - id: T3
+    title: "Adicionar seção 'Protocolo de Criação de Tickets' ao @SSOT"
+    priority: P1
+    write_zone: "DOCS → @SSOT (requer autorização T0 — boot_ssot)"
+    note: |
+      Append-only em NC-NAM-FR-001-naming-convention.md após '📦 REGISTROS COMPLEMENTARES SSOT'.
+      Conteúdo: tabela de campos obrigatórios + regras invioláveis + referência ao validator.
+      Aguardar NC-DS-268 antes de executar — o audit pode identificar que o @SSOT
+      precisa de ajustes maiores primeiro.
+    validation:
+      - "grep 'PROTOCOLO DE CRIAÇÃO DE TICKETS' @SSOT → linha encontrada"
+
+  - id: T4
+    title: "Registrar NC-LBE-FR-TICKETS-001 e rodar @POPULATE"
+    priority: P1
+    write_zone: "SCRIPTS → @POPULATE"
+    steps:
+      - "neocortex_memory lobe.search 'ticket criação' → NC-LBE-FR-TICKETS-001 nos resultados?"
+      - "Se não: python @POPULATE --dry-run → verificar o que seria populado"
+      - "python @POPULATE → rodar efetivamente"
+      - "neocortex_memory lobe.get NC-LBE-FR-TICKETS-001 → sucesso como confirmação"
+    note: "@POPULATE = NC-SCR-FR-001-populate-lobes-ssot.py — resolver via @LEXICO"
+
+  - id: T5
+    title: "Integrar NC-SCR-FR-006 no Guardian Ciclo4"
+    priority: P2
+    write_zone: "SCRIPTS → #LEXICO.SCRIPTS"
+    note: |
+      Aguardar T2 concluído (validator funcionando) antes de integrar.
+      Verificar NC-SCR-FR-115-guardian-daemon.py para localizar Ciclo4Runner.
+    validation:
+      - "python -m py_compile NC-SCR-FR-115-guardian-daemon.py → PASS"
+
+# ─── CHECKLIST PRÉ-HANDOFF ────────────────────────────────────────────
+pre_handoff_checklist:
+  - "neocortex_memory lobe.get NC-LBE-FR-TICKETS-001 → success: true"
+  - "python -m py_compile NC-SCR-FR-006 → PASS (SyntaxError corrigido)"
+  - "python -m ruff check NC-SCR-FR-006 --select F,E9 → 0 erros"
+  - "NC-SCR-FR-006 PASS nos tickets: NC-DS-264, 265, 266, 267"
+  - "Nenhum @LOCK violado"
+  - "server.py e sub_server.py NÃO modificados"
+
+deliverables:
+  - "#GOV/NC-LBE-FR-TICKETS-001.mdc                     (já entregue por T0)"
+  - "#LEXICO.SCRIPTS/NC-SCR-FR-006-ticket-validator.py  (corrigido)"
+  - "#AUDIT/NC-DS-267-handoff-YYYYMMDDTHHMMSS.yaml"
+
+write_zone: "SCRIPTS → #LEXICO.SCRIPTS | LOBES → #GOV via @POPULATE"
+
+escalation_triggers:
+  - "NC-SCR-FR-006 update quebra tickets antigos → revisar retrocompatibilidade"
+  - "@POPULATE falha → verificar NC-SCR-FR-001 e estado dos lobes"
+  - "@SSOT recusa modificação (T3) → aguardar NC-DS-268 e escalar"
+
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: true
+  r21_verified: true
+  lexico_paths_used: true   # ADR-008
+  savepoint_required: true
+  handoff_required: true
+  handoff_dest: "#AUDIT"
+
+acceptance_criteria:
+  - "neocortex_memory lobe.search 'criação ticket' → NC-LBE-FR-TICKETS-001 retornado"
+  - "NC-SCR-FR-006 PASS em todos tickets NC-DS-264 a NC-DS-268"
+  - "python -m py_compile NC-SCR-FR-006 → PASS (era SyntaxError)"

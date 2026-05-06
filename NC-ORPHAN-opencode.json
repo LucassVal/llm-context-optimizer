@@ -1,0 +1,30 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "lsp": {
+    "pyright": { 
+      "command": ["pyright-langserver", "--stdio"],
+      "extensions": [".py", ".pyi"],
+      "env": { "PYTHONPATH": "01_neocortex_framework" }
+    },
+    "yaml_ls": {
+      "command": ["yaml-language-server", "--stdio"],
+      "extensions": [".yaml", ".yml"]
+    },
+    "rust": {
+      "command": ["rust-analyzer"],
+      "extensions": [".rs"]
+    },
+    "typescript": {
+      "command": ["typescript-language-server", "--stdio"],
+      "extensions": [".ts", ".tsx"]
+    },
+    "eslint": {
+      "command": ["vscode-eslint-language-server", "--stdio"],
+      "extensions": [".ts", ".tsx", ".vue"]
+    },
+    "oxlint": {
+      "command": ["oxc_language_server"],
+      "extensions": [".ts", ".vue", ".astro", ".svelte"]
+    }
+  }
+}

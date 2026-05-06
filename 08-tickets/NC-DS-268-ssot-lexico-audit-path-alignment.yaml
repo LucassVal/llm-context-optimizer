@@ -1,0 +1,231 @@
+ticket_id: "NC-DS-268"
+title: "Auditoria SSOT + LEXICO: Paths Semânticos, Arquivos Desgarrados, Divergências"
+status: OPEN
+priority: HIGH
+owner: T0-Antigravity
+category: governance
+created_at: "2026-05-06T15:39:00"
+created_by: T0-Antigravity
+roadmap_ref: CICLO_5
+assigned_to: OpenCode-Agent-nc-engineer
+
+# ═══════════════════════════════════════════════════════════════════
+# CONTEXTO CRÍTICO
+# Este ticket SÓ usa paths absolutos verificados — porque o objetivo
+# é AUDITAR os paths semânticos, então não podemos confiar neles ainda.
+# ADR-008: após este ticket, paths semânticos serão confiáveis.
+# ═══════════════════════════════════════════════════════════════════
+working_directory: "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
+framework_subdir: "01_neocortex_framework"
+
+# ─── 3W ─────────────────────────────────────────────────────────────
+three_w:
+  who: "SSOT NC-NAM-FR-001 + LEXICO NC-ULQ-TAG-INDEX.json + todos os tickets NC-DS-NNN"
+  what: |
+    Auditoria cruzada completa: verificar se cada path semântico no LEXICO/UBL
+    (símbolos @, $, #) aponta para um path real que existe no filesystem.
+    Identificar arquivos desgarrados (existem no disco mas não no SSOT).
+    Identificar referências quebradas (existem no SSOT mas não no disco).
+    Produzir relatório e plano de correção.
+  why: |
+    Gap confirmado em 2026-05-06 durante NC-DS-265/266/267:
+    - #TICKETS no LEXICO aponta para 'DIR-DS-001-tickets/' — path NÃO EXISTE
+    - Tickets reais estão em '08-tickets/' — não registrado no LEXICO
+    - Suspeita de outros gaps similares: paths semânticos que resolvem para void
+    - Consequência: agentes que confiam no LEXICO chegam a paths errados
+    R21: NUNCA afirmar que o sistema está correto sem verificar cada resolução.
+
+# ─── RCA (5 Porquês) ─────────────────────────────────────────────────
+rca:
+  symptom: "#TICKETS resolve para 'DIR-DS-001-tickets/' que não existe no filesystem"
+  why_1: "LEXICO (NC-ULQ-TAG-INDEX.json) aponta tickets_audit.path = DIR-DS-001-tickets/"
+  why_2: "Pasta real de tickets é '08-tickets/' — divergência entre LEXICO e filesystem"
+  why_3: "Durante renomeação/reorganização de pastas, LEXICO não foi atualizado"
+  why_4: "Não há CI que valide: para cada path no LEXICO → Test-Path → True"
+  why_5: "Causa raiz: LEXICO é documento manual sem validação automática de existência"
+  root_cause: |
+    LEXICO evoluiu manualmente sem sincronização com o filesystem real.
+    Resultado: paths semânticos que parecem válidos mas resolvem para void.
+  corrective_action: |
+    Rodar varredura automatizada (STEP 0) para mapear todos os gaps.
+    Corrigir LEXICO para refletir o filesystem real.
+    Criar NC-SCR-FR-XXX-lexico-validator.py para validação automática.
+  preventive_action: |
+    Guardian Ciclo4 executa lexico-validator.py semanalmente.
+    Qualquer mudança de path no SSOT DEVE atualizar o LEXICO (R02).
+
+# ─── SWOT ─────────────────────────────────────────────────────────────
+swot:
+  strengths:
+    - "NC-ULQ-TAG-INDEX.json existe e tem estrutura clara (domains + symbol_index)"
+    - "NC-NAM-FR-001 é o SSOT estrutural com 306+ arquivos catalogados"
+    - "Arquivos de LEXICO verificáveis via PowerShell (Test-Path em loop)"
+    - "1 gap já confirmado (#TICKETS) — sabemos que o problema existe e é localizável"
+  weaknesses:
+    - "LEXICO é gerado/mantido manualmente — sem validação automática de existência"
+    - "NC-NAM-FR-001 tem 1042 linhas — varredura manual é inviável"
+    - "Tickets em 08-tickets/ não estão em #TICKETS — agentes T2 chegam ao void"
+    - "Suspeita: outros domains podem ter paths obsoletos ou inexistentes"
+  opportunities:
+    - "Script de validação LEXICO pode ser gerado automaticamente (NC-SCR-FR-XXX)"
+    - "Após auditoria, paths semânticos viram fonte confiável — ADR-008 completado"
+    - "Relatório pode revelar arquivos desgarrados que precisam ser arquivados (R05)"
+  threats:
+    - "Correção incorreta do LEXICO pode quebrar agentes que já resolvem corretamente"
+    - "NC-NAM-FR-001 é LOCKED — correções requerem autorização T0"
+    - "Arquivos desgarrados podem incluir dados críticos não versionados"
+
+# ─── STEP 0 OBRIGATÓRIO (R21) ────────────────────────────────────────
+step_0:
+  note: |
+    Este ticket USA paths absolutos intencionalmente — porque está auditando
+    os próprios paths semânticos. Não confiar em #TICKETS ou #LEXICO.SCRIPTS
+    até esta auditoria concluir.
+  pre_audit_checks:
+    - "python --version → Python 3.12 disponível"
+    - "Test-Path '01_neocortex_framework\\.neocortex\\lexico\\NC-LEXICO-LATEST.json' → True"
+    - "Test-Path '01_neocortex_framework\\.neocortex\\lexico\\NC-ULQ-TAG-INDEX.json' → True"
+    - "Test-Path '01_neocortex_framework\\23-docs\\NC-NAM-FR-001-naming-convention.md' → True"
+    - "Test-Path '08-tickets\\' → True  (diretório real de tickets)"
+    - "Test-Path 'DIR-DS-001-tickets\\' → False  (confirmar gap #TICKETS)"
+
+# ─── TAREFAS ──────────────────────────────────────────────────────────
+tasks:
+
+  - id: T1
+    title: "Varredura: validar cada domain.path do NC-ULQ-TAG-INDEX contra filesystem"
+    priority: P0
+    write_zone: "SCRIPTS → 01_neocortex_framework/32-scripts/ (script de varredura)"
+    approach: |
+      Script PowerShell ou Python que:
+      1. Lê NC-ULQ-TAG-INDEX.json
+      2. Para cada domain.path → Test-Path → True/False
+      3. Produz tabela: domain | path_declarado | existe | status
+    expected_domains_to_verify:
+      - "governance → 02_memory_lobes/06_governance/"
+      - "memory → 02_memory_lobes/"
+      - "orchestration → 01_neocortex_framework/neocortex/"
+      - "llm_routing → 01_neocortex_framework/neocortex/mcp/tools/"
+      - "docs → 01_neocortex_framework/DIR-DOC-FR-001-docs-main/"
+      - "config → DIR-DS-000-agent-config/"
+      - "semantic → 02_memory_lobes/06_governance/"
+      - "tickets_audit → DIR-DS-001-tickets/    # GAP CONFIRMADO"
+      - "governance_rules → 02_memory_lobes/06_governance/"
+    one_liner_preview: |
+      $idx = Get-Content '01_neocortex_framework\.neocortex\lexico\NC-ULQ-TAG-INDEX.json' | ConvertFrom-Json
+      $idx.domains.PSObject.Properties | ForEach-Object {
+        $name = $_.Name; $path = $_.Value.path
+        [PSCustomObject]@{Domain=$name; Path=$path; Exists=(Test-Path $path)}
+      } | Format-Table -AutoSize
+    deliverable: "Tabela no handoff: domain | path | exists | action"
+
+  - id: T2
+    title: "Varredura: identificar arquivos desgarrados (no disco, fora do SSOT)"
+    priority: P0
+    write_zone: "SCRIPTS → 01_neocortex_framework/32-scripts/"
+    approach: |
+      Arquivos desgarrados = arquivos .py/.yaml/.mdc/.md que existem no filesystem
+      mas NÃO aparecem no NC-NAM-FR-001-naming-convention.md nem no LEXICO.
+      Foco: pastas 08-tickets/, DIR-DS-002-audit-logs/, 02_memory_lobes/ — maior risco.
+    script_outline: |
+      # PowerShell rápido para detectar .yaml desgarrados em 08-tickets/:
+      $ssot = Get-Content '01_neocortex_framework\23-docs\NC-NAM-FR-001-naming-convention.md' -Raw
+      Get-ChildItem '08-tickets\' -Filter '*.yaml' | ForEach-Object {
+        $inSSot = $ssot -match [regex]::Escape($_.Name)
+        [PSCustomObject]@{File=$_.Name; InSSOT=$inSSot}
+      } | Where-Object { -not $_.InSSOT }
+    scope_priority:
+      - "08-tickets/ → tickets não registrados no SSOT"
+      - "02_memory_lobes/ → lobes não catalogados"
+      - "01_neocortex_framework/32-scripts/ → scripts não catalogados"
+      - "DIR-DS-000-agent-config/ → configs não catalogadas"
+    deliverable: "Lista de arquivos desgarrados com ação recomendada (registrar/arquivar)"
+
+  - id: T3
+    title: "Corrigir gaps confirmados no LEXICO"
+    priority: P1
+    write_zone: "SCRIPTS → 01_neocortex_framework/32-scripts/ (via script gerador)"
+    gaps_confirmed_before_audit:
+      - gap: "#TICKETS → DIR-DS-001-tickets/ (NÃO EXISTE)"
+        fix: "Atualizar tickets_audit.path para '08-tickets/'"
+        note: "NC-ULQ-TAG-INDEX.json não está em @LOCKS — pode ser modificado"
+    gaps_to_discover: "via T1 e T2"
+    approach: |
+      Após T1+T2: lista de gaps é definitiva.
+      Correções em NC-ULQ-TAG-INDEX.json devem ser ATÔMICAS (uma por vez).
+      Cada correção tem verificação: Test-Path + neocortex_memory lobe.search.
+      Se NC-NAM-FR-001 precisa de correção → autorização T0 (LOCKED).
+    validation:
+      - "Após cada fix: Test-Path do path corrigido → True"
+      - "neocortex_memory knowledge.search 'tickets' → resolve para '08-tickets/' correto"
+
+  - id: T4
+    title: "Criar NC-SCR-FR-XXX-lexico-validator.py (prevenção)"
+    priority: P2
+    write_zone: "SCRIPTS → 01_neocortex_framework/32-scripts/"
+    note: |
+      Script que valida NC-ULQ-TAG-INDEX.json + NC-LEXICO-LATEST.json
+      contra o filesystem real. PASS/FAIL por domain.
+      Número do script a ser definido após verificar último NC-SCR-FR-NNN existente.
+    one_liner_behavior: |
+      INPUT: NC-ULQ-TAG-INDEX.json
+      PARA CADA domain.path: Test-Path → PASS ou FAIL
+      OUTPUT: relatório PASS/FAIL + exit 0/1 (para Guardian Ciclo4)
+    validation:
+      - "python -m py_compile NC-SCR-FR-XXX-lexico-validator.py → PASS"
+      - "python NC-SCR-FR-XXX-lexico-validator.py → FAIL (antes de fixes)"
+      - "python NC-SCR-FR-XXX-lexico-validator.py → PASS (após T3)"
+
+  - id: T5
+    title: "Integrar lexico-validator no Guardian Ciclo4"
+    priority: P2
+    note: "Depende de T4. Mesmo padrão da integração do NC-SCR-FR-006 (NC-DS-267 T5)."
+
+# ─── CHECKLIST PRÉ-HANDOFF ────────────────────────────────────────────
+pre_handoff_checklist:
+  - "Tabela T1 completa: todos os domain.path verificados (Test-Path True/False)"
+  - "Lista T2 completa: arquivos desgarrados identificados (com ação por arquivo)"
+  - "Gap #TICKETS corrigido em NC-ULQ-TAG-INDEX.json"
+  - "Todos os outros gaps de T1 corrigidos (ou escalados para T0 se em @LOCKS)"
+  - "NC-SCR-FR-XXX-lexico-validator.py: py_compile PASS + ruff PASS + PASS no filesystem atual"
+  - "Nenhum arquivo DELETADO — apenas arquivado (R05)"
+  - "server.py e sub_server.py NÃO modificados"
+
+deliverables:
+  - "Tabela de auditoria LEXICO (domain | path | exists | action)"
+  - "Lista de arquivos desgarrados (file | location | recommendation)"
+  - "NC-ULQ-TAG-INDEX.json corrigido"
+  - "01_neocortex_framework\\32-scripts\\NC-SCR-FR-XXX-lexico-validator.py"
+  - "DIR-DS-002-audit-logs\\NC-DS-268-handoff-YYYYMMDDTHHMMSS.yaml"
+
+write_zone: |
+  SCRIPTS → 01_neocortex_framework/32-scripts/ (validator)
+  LEXICO  → 01_neocortex_framework/.neocortex/lexico/ (correções)
+  DOCS    → @SSOT (se gaps em NC-NAM-FR-001 — requer T0)
+
+escalation_triggers:
+  - "NC-NAM-FR-001 precisa de correção → escalar para T0 (boot_ssot lock)"
+  - "Gap encontrado em arquivo em @LOCKS → NÃO modificar → documentar como tech debt"
+  - "Mais de 10 arquivos desgarrados → avaliar com T0 antes de agir em massa"
+  - "lexico-validator encontra gaps em todos os domains → escalar antes de T3"
+
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: true
+  swot_applied: true
+  r21_verified: true
+  lexico_paths_used: false  # INTENCIONAL: este ticket audita o LEXICO, não confia nele
+  note_on_lexico: |
+    ADR-008 (paths semânticos como primários) só é confiável APÓS este ticket concluir.
+    Até lá, paths absolutos são a fonte de verdade para este ticket.
+  savepoint_required: true
+  handoff_required: true
+  handoff_dest: "DIR-DS-002-audit-logs/"
+
+acceptance_criteria:
+  - "NC-SCR-FR-XXX-lexico-validator.py → PASS em todos os domains do LEXICO"
+  - "#TICKETS resolve para '08-tickets/' (Test-Path → True)"
+  - "Relatório de arquivos desgarrados entregue e ações documentadas"
+  - "Zero paths quebrados no LEXICO após T3"
+  - "Guardian Ciclo4 inclui lexico-validator.py (T5)"

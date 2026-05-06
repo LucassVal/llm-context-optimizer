@@ -1,48 +1,6 @@
+from __future__ import annotations
 # Fix encoding for Windows (UTF-8)
-"""---
-_genealogy:
-  injected_at: '2026-04-16T00:24:01.635580'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-parent_ssot: NC-SCR-FR-006-ticket-validat
----
-"""
-
-"""---
-_genealogy:
-  injected_at: '2026-04-16T00:24:01.635580'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-parent_ssot: NC-SCR-FR-006-ticket-validat
----
-"""
-
-if sys.platform == "win32":
-    import io
-    import sys
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
-    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
-
-"""---
-_genealogy:
-  injected_at: '2026-04-16T00:24:01.635580'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-parent_ssot: NC-SCR-FR-006-ticket-validator
-tags:
-  - neocortex-other
-  - level-0
-  - nc-prefix
-  - python
----"""
-
-"""
+"""--- NC-SCR-FR-006 — Ticket Validator ---
 NC-SCR-FR-006-ticket-validator.py
 Valida YAMLs de ticket antes de enfileirar.
 
@@ -57,8 +15,6 @@ Validaes por ticket:
 
 Output: PASS / FAIL por ticket + relatrio final.
 """
-
-from __future__ import annotations
 
 import importlib.util
 import logging

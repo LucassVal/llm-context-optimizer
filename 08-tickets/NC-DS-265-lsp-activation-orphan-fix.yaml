@@ -1,0 +1,187 @@
+ticket_id: "NC-DS-265"
+title: "LSP Config Orphan Fix — pyproject.toml + opencode.json + pyrightconfig.json"
+status: OPEN
+priority: HIGH
+owner: T0-Antigravity
+category: tooling
+created_at: "2026-05-06T15:25:00"
+created_by: T0-Antigravity
+roadmap_ref: CICLO_5
+assigned_to: OpenCode-Agent-nc-engineer
+
+# ═══════════════════════════════════════════════════════════════════
+# PATHS SEMÂNTICOS — via LEXICO/UBL (ADR-008)
+# O agente resolve paths SEMPRE pelo núcleo semântico antes de usar
+# o path absoluto. Se o path muda, só o LEXICO precisa ser atualizado.
+# ═══════════════════════════════════════════════════════════════════
+semantic_paths:
+  working_root:   "@LEXICO → NC_ROOT"                        # resolve: C:\Users\Lucas Valério\Desktop\TURBOQUANT_V42
+  tickets_dir:    "#TICKETS"                                  # resolve: 08-tickets/  [gap: LEXICO aponta DIR-DS-001-tickets/ — verificar]
+  framework_dir:  "#LEXICO.FRAMEWORK"                        # resolve: 01_neocortex_framework/
+  docs_dir:       "@SSOT"                                     # resolve: 01_neocortex_framework/DIR-DOC-FR-001-docs-main/
+  governance:     "#GOV"                                      # resolve: 02_memory_lobes/06_governance/
+  locks_file:     "@LOCKS"                                    # resolve: NC-SEC-FR-001-atomic-locks.yaml
+  audit_logs:     "#AUDIT"                                    # resolve: DIR-DS-002-audit-logs/
+  archive:        "@LEXICO → DIR_ARC"                        # resolve: DIR-ARC-FR-001-archive-main/
+  lsp_lobe:       "lobe.get NC-LBE-USR-004-opencode-lsp"    # via MCP semântico
+
+# Fallback absoluto (para agentes sem acesso ao LEXICO resolver):
+working_directory: "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
+framework_subdir: "01_neocortex_framework"
+
+# ─── 3W ─────────────────────────────────────────────────────────────
+three_w:
+  who: |
+    Stack NeoCortex v4.2 — 308 .py, 34 .yaml, 43 .mdc, 73 .md.
+    Editores: Antigravity (primário) + OpenCode (agentes T1/T2).
+  what: |
+    Dois arquivos de configuração LSP existem como ORPHAN em paths errados,
+    tornando os 6 LSPs declarados em (lobe.get NC-LBE-USR-004-opencode-lsp) inativos.
+    Resultado: 0/6 LSPs ativos. 308 .py sem diagnóstico em tempo real.
+  why: |
+    R21 verificado: pyrightconfig.json e opencode.json NÃO EXISTEM nos paths esperados.
+    NC-ORPHAN-pyproject.toml (raiz) → deveria ser pyproject.toml (raiz).
+    13-reports/NC-ORPHAN-opencode.json → deveria estar em .opencode/opencode.json.
+    R01 foi incorretamente aplicada a arquivos de ecossistema externo com nomes FIXOS.
+
+# ─── RCA (5 Porquês) ─────────────────────────────────────────────────
+rca:
+  symptom: "0/6 LSPs ativos apesar de declarados em #GOV/NC-LBE-USR-004-opencode-lsp"
+  why_1: "Arquivos de config têm prefixo NC-ORPHAN- em paths errados"
+  why_2: "Foram renomeados durante sessão de sanitização de nomenclatura"
+  why_3: "R01 (prefixo NC-) aplicada indevidamente a arquivos de ecossistema externo"
+  why_4: "pyproject.toml e opencode.json têm nomes FIXOS — R01 não se aplica"
+  why_5: "Ausência de exceptions_r01_naming em @LOCKS para arquivos externos"
+  root_cause: "R01 aplicada a arquivos de ferramentas externas com nomes imutáveis pelo ecossistema"
+  corrective_action: "Mover ORPHAN para paths corretos + criar exceptions_r01_naming em @LOCKS"
+  preventive_action: "exceptions_r01_naming no @LOCKS lista arquivos externos que NUNCA recebem NC-"
+
+# ─── STEP 0 OBRIGATÓRIO (R21 — Zero Suposições) ─────────────────────
+step_0:
+  # Resolver paths PELO LEXICO antes de qualquer ação:
+  - "neocortex_memory lobe.get NC-LBE-USR-004-opencode-lsp → confirmar LSPs declarados"
+  - "neocortex_security lock.list → confirmar @LOCKS antes de mover arquivos"
+  # Verificações reais no filesystem:
+  - "Test-Path 'NC-ORPHAN-pyproject.toml' → True (arquivo existe como ORPHAN)"
+  - "Test-Path 'pyproject.toml' → False (path correto ainda vazio)"
+  - "Test-Path '13-reports\\NC-ORPHAN-opencode.json' → True"
+  - "Test-Path '.opencode\\opencode.json' → False"
+  - "python -c \"import yaml; yaml.safe_load(open('NC-ORPHAN-pyproject.toml').read())\" → sem erro"
+  # Verificar se @LOCKS bloqueia a operação:
+  - "grep opencode.json @LOCKS → confirmar se path .opencode/ está coberto pelo glob"
+
+atomic_locks_note: |
+  @LOCKS (NC-SEC-FR-001) protege 'opencode.json' em agent_configs.
+  CRIAÇÃO de .opencode/opencode.json é NOVA — não altera arquivo existente.
+  MOVER NC-ORPHAN-pyproject.toml para pyproject.toml é RENAME — verificar se lock cobre.
+  Em caso de dúvida: ESCALAR para T0 antes de prosseguir.
+
+# ─── TAREFAS ──────────────────────────────────────────────────────────
+tasks:
+
+  - id: T1
+    title: "Mover NC-ORPHAN-pyproject.toml → pyproject.toml (raiz)"
+    priority: P0
+    write_zone: "DOCS → {NC_ROOT}/pyproject.toml"         # @LEXICO resolve NC_ROOT
+    steps:
+      - "Copy-Item NC-ORPHAN-pyproject.toml pyproject.toml"
+      - "Adicionar seção [tool.pyright] ao pyproject.toml (ver implementation_notes)"
+      - "Mover NC-ORPHAN-pyproject.toml para {DIR_ARC}/ (R05 — nunca deletar)"
+    implementation_notes: |
+      Adicionar ao pyproject.toml após [tool.ruff.lint]:
+      [tool.pyright]
+      pythonVersion = "3.12"
+      include = ["01_neocortex_framework"]
+      exclude = ["**/__pycache__", "**/node_modules", "98-research",
+                 "01_neocortex_framework/DIR-ARC-FR-001-archive-main"]
+      reportMissingImports = true
+      typeCheckingMode = "basic"
+    validation:
+      - "Test-Path pyproject.toml → True"
+      - "python -c \"import tomllib; tomllib.loads(open('pyproject.toml','rb').read())\" → sem erro"
+
+  - id: T2
+    title: "Criar .opencode/opencode.json com seção lsp"
+    priority: P0
+    write_zone: "DOCS → {NC_ROOT}/.opencode/opencode.json"
+    note: |
+      Conteúdo base: copiar de 13-reports/NC-ORPHAN-opencode.json.
+      Adicionar seção lsp com: pyright, yaml-language-server, taplo, marksman.
+      Mover NC-ORPHAN-opencode.json para {DIR_ARC}/ (R05).
+    lsp_section_to_add: |
+      "lsp": {
+        "pyright": {
+          "env": { "PYTHONPATH": "{FRAMEWORK_DIR}" }
+        },
+        "yaml-language-server": {},
+        "taplo": {},
+        "marksman": { "extensions": [".md", ".mdc"] }
+      }
+    note_semantic: |
+      {FRAMEWORK_DIR} = @LEXICO → NC_ROOT/01_neocortex_framework
+      Agente deve resolver via get_config().framework_path — não hardcode.
+    validation:
+      - "Test-Path '.opencode\\opencode.json' → True"
+      - "python -c \"import json; json.load(open('.opencode/opencode.json','r',encoding='utf-8'))\" → sem erro"
+
+  - id: T3
+    title: "Criar pyrightconfig.json na raiz (fallback para Antigravity)"
+    priority: P1
+    write_zone: "DOCS → {NC_ROOT}/pyrightconfig.json"
+    note: |
+      Antigravity lê pyrightconfig.json automaticamente da raiz do workspace.
+      NÃO usar path hardcoded para pythonPath — usar pythonVersion apenas.
+    validation:
+      - "Test-Path 'pyrightconfig.json' → True"
+      - "python -c \"import json; json.load(open('pyrightconfig.json','r',encoding='utf-8'))\" → sem erro"
+
+  - id: T4
+    title: "Adicionar exceptions_r01_naming ao @LOCKS"
+    priority: P2
+    write_zone: "DOCS → @SSOT (requer autorização T0)"
+    note: |
+      @LOCKS = NC-SEC-FR-001-atomic-locks.yaml — arquivo LOCKED (boot_ssot).
+      Adicionar seção nova exceptions_r01_naming listando arquivos externos
+      que NUNCA recebem prefixo NC-. Append-only — não modifica locks existentes.
+      REQUER autorização T0 explícita antes de executar.
+
+# ─── CHECKLIST PRÉ-HANDOFF ────────────────────────────────────────────
+pre_handoff_checklist:
+  - "pyproject.toml existe (Test-Path → True) + tomllib parse → sem erro"
+  - "pyrightconfig.json existe (Test-Path → True) + json.load → sem erro"
+  - ".opencode/opencode.json existe (Test-Path → True) + json.load → sem erro"
+  - "NC-ORPHAN-pyproject.toml movido para {DIR_ARC}/ (não deletado — R05)"
+  - "13-reports/NC-ORPHAN-opencode.json movido para {DIR_ARC}/ (não deletado — R05)"
+  - "Nenhum @LOCK violado (neocortex_security lock.list → nenhum bloqueio ativo)"
+  - "server.py e sub_server.py NÃO modificados"
+
+deliverables:
+  # Paths semânticos primários (via @LEXICO):
+  - "{NC_ROOT}/pyproject.toml                         # @LEXICO → NC_ROOT"
+  - "{NC_ROOT}/pyrightconfig.json                     # @LEXICO → NC_ROOT"
+  - "{NC_ROOT}/.opencode/opencode.json                # @LEXICO → NC_ROOT"
+  - "#AUDIT/NC-DS-265-handoff-YYYYMMDDTHHMMSS.yaml   # #AUDIT → DIR-DS-002-audit-logs/"
+
+write_zone: "DOCS → {NC_ROOT}/ e {NC_ROOT}/.opencode/"
+
+escalation_triggers:
+  - "@LOCKS cobre 'opencode.json' impedindo criação → escalar para T0"
+  - "pyright reporta 1000+ erros após ativação → PYTHONPATH incorreto"
+  - "pyrightconfig.json não reconhecido por Antigravity → verificar versão do IDE"
+
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: true
+  swot_applied: false       # ticket de tooling, SWOT dispensável para fix simples
+  r21_verified: true
+  lexico_paths_used: true   # ADR-008 — paths via UBL/LEXICO, não hardcode
+  savepoint_required: true
+  handoff_required: true
+  handoff_dest: "#AUDIT"    # DIR-DS-002-audit-logs/
+
+acceptance_criteria:
+  - "pyright ativo: abrir NC-SUPER-003-memory.py e ver diagnostics"
+  - "yaml-ls ativo: abrir @LOCKS e ver validação de schema"
+  - "NC-ORPHAN-* não estão mais na raiz nem em 13-reports/"
+  - "neocortex_memory lobe.get NC-LBE-USR-004-opencode-lsp confirma LSPs como ativos"

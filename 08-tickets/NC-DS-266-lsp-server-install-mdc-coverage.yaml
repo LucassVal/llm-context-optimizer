@@ -1,0 +1,159 @@
+ticket_id: "NC-DS-266"
+title: "LSP Server Install — pyright + yaml-ls + taplo + marksman (.mdc coverage)"
+status: OPEN
+priority: MEDIUM
+owner: T0-Antigravity
+category: tooling
+created_at: "2026-05-06T15:25:00"
+created_by: T0-Antigravity
+roadmap_ref: CICLO_5
+assigned_to: OpenCode-Agent-nc-engineer
+depends_on: "NC-DS-265"   # config files devem existir antes
+
+# ═══════════════════════════════════════════════════════════════════
+# PATHS SEMÂNTICOS — via LEXICO/UBL (ADR-008)
+# ═══════════════════════════════════════════════════════════════════
+semantic_paths:
+  working_root:   "@LEXICO → NC_ROOT"
+  framework_dir:  "#LEXICO.FRAMEWORK"
+  governance:     "#GOV"
+  lsp_lobe:       "lobe.get NC-LBE-USR-004-opencode-lsp"   # via MCP
+  audit_logs:     "#AUDIT"
+
+working_directory: "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
+
+# ─── 3W ─────────────────────────────────────────────────────────────
+three_w:
+  who: "Stack NeoCortex — 43 .mdc (lobes), 34 .yaml, 308 .py, 73 .md. Gap crítico: .mdc sem LSP."
+  what: |
+    Verificar via R21 se os servidores LSP (pyright, yaml-ls, taplo, marksman)
+    estão instalados no sistema. Instalar os ausentes.
+    Configurar marksman para reconhecer .mdc como Markdown.
+  why: |
+    NC-DS-265 corrige os arquivos de config. Este ticket verifica se os SERVIDORES
+    estão instalados. R21 proíbe assumir que existem.
+    Gap crítico: 43 .mdc = ativos mais estratégicos do NeoCortex — editados sem feedback LSP.
+
+# ─── RCA ─────────────────────────────────────────────────────────────
+rca:
+  symptom: "LSPs podem não estar instalados mesmo com config correta (NC-DS-265)"
+  why_1: "Lobe NC-LBE-USR-004 documenta LSPs como configurados sem verificar instalação"
+  why_2: "OpenCode instala alguns LSPs automaticamente, outros precisam instalação manual"
+  why_3: "marksman não é instalado por default em nenhum editor"
+  why_4: ".mdc é extensão proprietária NeoCortex — nenhum LSP a reconhece por padrão"
+  why_5: "Lobe violou R21: documentação assumia instalação sem verificar"
+  root_cause: "Ausência de verificação R21 de instalação real dos servidores LSP"
+  corrective_action: "STEP 0 verifica cada servidor via where.exe antes de instalar"
+  preventive_action: "Atualizar NC-LBE-USR-004 com status_real_verificado após este ticket"
+
+# ─── STEP 0 OBRIGATÓRIO (R21 — Zero Suposições) ─────────────────────
+step_0:
+  note: "EXECUTAR TODOS antes de qualquer instalação. where.exe = verdade absoluta."
+  checks:
+    node_npm:
+      - "node --version → necessário para yaml-ls e possivelmente pyright"
+      - "npm --version → necessário para instalação via npm"
+    pyright:
+      - "where.exe pyright 2>$null || echo 'NAO_INSTALADO'"
+      - "python -m pyright --version 2>$null || echo 'NAO_INSTALADO_VIA_PIP'"
+    yaml_ls:
+      - "where.exe yaml-language-server 2>$null || echo 'NAO_INSTALADO'"
+    taplo:
+      - "where.exe taplo 2>$null || echo 'NAO_INSTALADO'"
+    marksman:
+      - "where.exe marksman 2>$null || echo 'NAO_INSTALADO'"
+    python:
+      - "python --version → confirmar Python 3.12"
+  depends_on_265:
+    - "Test-Path 'pyproject.toml' → True (NC-DS-265 deve estar DONE)"
+    - "Test-Path '.opencode\\opencode.json' → True (NC-DS-265 deve estar DONE)"
+
+# ─── TAREFAS ──────────────────────────────────────────────────────────
+tasks:
+
+  - id: T1
+    title: "Instalar pyright (se ausente)"
+    priority: P0
+    condition: "where.exe pyright retorna vazio"
+    install_options:
+      - "npm install -g pyright   # preferido se npm disponível"
+      - "pip install pyright       # alternativa via pip"
+    post_install: "pyright --version → deve imprimir versão"
+    uses_config: "pyrightconfig.json em {NC_ROOT} (criado em NC-DS-265 T3)"
+
+  - id: T2
+    title: "Instalar yaml-language-server (se ausente)"
+    priority: P0
+    condition: "where.exe yaml-language-server retorna vazio"
+    install_options:
+      - "npm install -g yaml-language-server"
+    post_install: "yaml-language-server --version → deve imprimir versão"
+
+  - id: T3
+    title: "Instalar taplo (se ausente)"
+    priority: P1
+    condition: "where.exe taplo retorna vazio"
+    install_options:
+      - "scoop install taplo    # preferido no Windows"
+      - "cargo install taplo-cli # se Rust disponível"
+      - "winget search taplo    # verificar disponibilidade"
+    post_install: "taplo --version → deve imprimir versão"
+
+  - id: T4
+    title: "Instalar marksman + configurar extensão .mdc"
+    priority: P1
+    condition: "where.exe marksman retorna vazio"
+    install_options:
+      - "winget install Marksman.Marksman   # preferido"
+      - "scoop install marksman"
+    post_install: "marksman --version → deve imprimir versão"
+    mdc_config: |
+      Já configurado em .opencode/opencode.json (NC-DS-265 T2):
+        "marksman": { "extensions": [".md", ".mdc"] }
+      Verificar: abrir qualquer .mdc no OpenCode e ver completions de [[link]].
+
+  - id: T5
+    title: "Atualizar NC-LBE-USR-004 com status_real_verificado (via MCP semântico)"
+    priority: P2
+    write_zone: "LOBES → #GOV via neocortex_memory (NUNCA via path direto)"
+    steps:
+      - "neocortex_memory lobe.get NC-LBE-USR-004-opencode-lsp → ler conteúdo atual"
+      - "neocortex_memory knowledge.store com resultado real de cada LSP"
+      - "Resultado esperado: tabela status_real com ✅/⚠️/❌ por LSP"
+    note: "Acesso via núcleo semântico UBL — NC-PRF-FR-001 v3.0 proíbe path direto para lobes"
+
+# ─── CHECKLIST PRÉ-HANDOFF ────────────────────────────────────────────
+pre_handoff_checklist:
+  - "where.exe pyright → retorna path (ou motivo documentado de indisponibilidade)"
+  - "where.exe yaml-language-server → retorna path (ou motivo)"
+  - "where.exe taplo → retorna path (ou motivo)"
+  - "where.exe marksman → retorna path (ou motivo)"
+  - "neocortex_memory lobe.get NC-LBE-USR-004-opencode-lsp → status_real atualizado"
+  - "Nenhuma instalação feita sem verificar STEP 0 primeiro (R21)"
+
+deliverables:
+  - "Relatório inline no handoff: status de cada LSP (versão ou 'não instalado + motivo')"
+  - "#AUDIT/NC-DS-266-handoff-YYYYMMDDTHHMMSS.yaml"
+
+write_zone: "INSTALAÇÃO via npm/winget/scoop | LOBES → #GOV via MCP semântico"
+
+escalation_triggers:
+  - "npm não disponível → Node.js não instalado → escalar para T0"
+  - "marksman não disponível via winget/scoop → alternativa: mdbook-linkcheck"
+  - "pyright reporta 1000+ erros → PYTHONPATH incorreto → revisar pyrightconfig.json"
+
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: true
+  r21_verified: true
+  lexico_paths_used: true
+  depends_on: "NC-DS-265"
+  handoff_required: true
+  handoff_dest: "#AUDIT"
+
+acceptance_criteria:
+  - "Abrir NC-SUPER-003-memory.py no OpenCode → ver diagnostics pyright"
+  - "Abrir @LOCKS no OpenCode → ver validação yaml-ls"
+  - "Abrir qualquer .mdc no OpenCode → ver marksman ativo (ou escalation documentado)"
+  - "NC-LBE-USR-004 atualizado via MCP semântico com status real"

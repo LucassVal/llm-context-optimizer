@@ -183,3 +183,33 @@ acceptance_criteria:
   - "NC-CFG-T0-001-agent-policy.yaml existe em DIR-DS-000-agent-config/ (Test-Path = True)"
   - "Reauditoria das 15 chamadas: documentada em handoff YAML"
   - "Compliance: >= 72% após correções (trending up)"
+
+# ── RESOLUÇÃO FINAL ──────────────────────────────────────────────────────────
+resolution:
+  commit: "c597169"
+  closed_at: "2026-05-06T18:20:04-03:00"
+  closed_by: "OpenCode-Agent"
+  files_changed: 4
+  contamination: NONE
+  corrections_applied:
+    - priority: P0
+      file: "NC-SUPER-004-state.py"
+      lines: "L158-162"
+      fix: "result.success == False → propaga success: False externo (falso positivo corrigido)"
+    - priority: P0
+      file: "NC-SUPER-012-akl.py"
+      lines: "L96-115"
+      fix: "hasattr(export_svc, 'export_akl') → graceful degradation (crash eliminado)"
+    - priority: P1
+      file: "NC-SUPER-004-state.py"
+      lines: "L281-288"
+      fix: "session_id escrito em .neocortex/cortex.json (persistência ativa)"
+    - priority: P2
+      file: "NC-CFG-T0-001-agent-policy.yaml"
+      lines: "novo arquivo"
+      fix: "AgentPolicyEnforcer agora tem arquivo de política (policy.check funcional)"
+  validation_final:
+    py_compile: PASS
+    yaml_safe_load: PASS
+    locks_violated: []
+  handoff: "DIR-DS-002-audit-logs/NC-DS-264-handoff-20260506T182004.yaml"

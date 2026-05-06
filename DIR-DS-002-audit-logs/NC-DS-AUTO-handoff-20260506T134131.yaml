@@ -1,0 +1,36 @@
+{
+  "timestamp": "2026-05-06T13:41:31.341709",
+  "type": "auto_governance",
+  "stats": {
+    "pulses": 5,
+    "checkpoints": 5,
+    "prunes": 0,
+    "errors": 0,
+    "archive_ok": true,
+    "non_nc_files": 0,
+    "auto_renamed": 8,
+    "children": 0,
+    "pending_mutations": 1,
+    "auto_gov_score": 55.7,
+    "auto_gov_gaps": 0,
+    "files_scanned": 0,
+    "integrity_yaml_pct": -1,
+    "bias_flagged": -1,
+    "handoffs": 3,
+    "semantic_lobe_health": "error",
+    "alcoa_oldest": "2026-05-06T16:18:30",
+    "alcoa_issues": 0,
+    "alcoa_total": 18,
+    "auto_submit": "no_changes"
+  },
+  "checks": {
+    "compliance_gaps": 0,
+    "integrity_yaml": -1,
+    "integrity_mdc": 0,
+    "secrets_leaks": 0,
+    "bias_flagged": -1,
+    "logger_issues": 0,
+    "wal_integrity": 0,
+    "policy_health": 0
+  }
+}
