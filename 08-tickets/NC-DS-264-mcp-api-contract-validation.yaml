@@ -1,0 +1,185 @@
+ticket_id: "NC-DS-264"
+title: "MCP API Contract Validation — Reauditoria NC-DS-206 + Correção Falso Positivo"
+status: DONE
+priority: HIGH
+owner: T0-Antigravity
+category: architecture
+created_at: "2026-05-06T13:26:00"
+created_by: T0-Antigravity
+roadmap_ref: CICLO_5
+
+# ── 3W ──────────────────────────────────────────────────────────────────────
+three_w:
+  who: "MCP NeoCortex v4.2 — 19 SuperTools, 55 lobes. Avaliação: DeepSeek + Antigravity."
+  what: |
+    Reauditoria das 15 chamadas MCP do relatório NC-DS-206 contra o estado atual do sistema.
+    Identificar o que foi corrigido, o que persiste e implementar as 3 correções KISS (P0/P1/P2).
+  why: |
+    NC-DS-206 identificou falso positivo crítico (regression.baseline retorna success:true
+    mascarando falha interna) e crash em akl.export. DeepSeek sinalizou que:
+    - SessionManager pode já ter UUID session (server.py:74) — precisa confirmação R21
+    - Manifesto pode ter sido corrigido (43→19 tools) — confirmado na sessão atual
+    - Compliance levemente melhorou (70.7% → 71%) mas ainda NON_COMPLIANT
+
+# ── RCA (5 Porquês — Causa Raiz do NC-DS-206 preservada) ───────────────────
+rca:
+  symptom: "regression.baseline retorna success:true com result:{success:false} — falso positivo"
+  why_1: "SuperTool prioriza estabilidade do cliente MCP sobre fidelidade de status"
+  why_2: "Migração v1→SuperTool (NC-DS-201-204) não refatorou error handling"
+  why_3: "Plano de industrialização focou em naming/consolidação, não contrato de API"
+  why_4: "Ausência de interface formal (TypedDict/Protocol) entre NC-SUPER-* e NC-CORE-FR-*"
+  why_5: "Causa raiz: sem contrato de API → divergência silenciosa detectável apenas em runtime"
+  root_cause: "Ausência de TypedDict/Protocol formal entre SuperTools e Core Services"
+  related_ticket: "NC-DS-253 (outputSchema — bloqueado pelo FastMCP)"
+  corrective_action: "Implementar as 3 correções KISS abaixo"
+  preventive_action: "Adicionar validação de contrato no ToolGuard pipeline (§9 do NC-PRF-FR-001)"
+
+# ── SWOT (do relatório NC-DS-206) ──────────────────────────────────────────
+swot:
+  strengths:
+    - "19 tools respondendo via :8765"
+    - "55 lobes acessíveis via núcleo semântico UBL"
+    - "knowledge.search funcional (10 resultados relevantes)"
+    - "3/3 serviços UP: mission_control:3000, ollama:11434, mcp:8765"
+    - "config.set, pulse.start, export.snapshot operacionais"
+  weaknesses:
+    - "Cortex vazio (0 aliases, 0 workflows)"
+    - "SessionManager desabilitado (pass-through)"
+    - "regression.baseline: falso positivo (success:true mascarando falha)"
+    - "akl.export: CRASH — ExportService sem método export_akl"
+    - "Compliance 71% — NON_COMPLIANT (threshold: 80%)"
+    - "Hooks asyncio degradados (event loop already running)"
+    - "Manifesto divergente: 43 declarados vs 19 carregados"
+  opportunities:
+    - "55 lobes + knowledge.search → enriquecer Cortex automaticamente"
+    - "pulse.start funcional → automação via PulseScheduler"
+    - "Solução técnica clara: TypedDict/Protocol Python (< 1h de implementação)"
+  threats:
+    - "Falso positivo mascara falhas para T2/T3 → risco de corrupção silenciosa de estado"
+    - "SessionManager desabilitado → auditoria comprometida, sem rastreamento"
+    - "Hooks asyncio quebrados → comportamento reativo imprevisível"
+
+# ── CONFRONTO LOBE vs REAL (atualizado 2026-05-06) ─────────────────────────
+lobe_vs_real:
+  - afirmacao: "43 tools no manifesto"
+    real: "19 carregadas (tools_loaded no health_check)"
+    delta: "DIVERGÊNCIA — manifesto desatualizado"
+    status_atual: "Confirmar se manifesto foi corrigido"
+  - afirmacao: "ExportService.export_akl existe"
+    real: "Método não existe — akl.export CRASH"
+    delta: "QUEBRADO"
+    status_atual: "Pendente verificação no código atual"
+  - afirmacao: "SessionManager ativo"
+    real: "Desabilitado (pass-through)"
+    delta: "DESABILITADO"
+    status_atual: "DeepSeek: UUID session em server.py:74 — verificar R21"
+  - afirmacao: "Compliance > 80%"
+    real: "70.7% → 71% (leve melhora)"
+    delta: "NON_COMPLIANT"
+    status_atual: "Persiste"
+  - afirmacao: "regression.baseline funcional"
+    real: "Falso positivo confirmado"
+    delta: "QUEBRADO"
+    status_atual: "Pendente verificação no código atual"
+  - afirmacao: "PulseScheduler funcional"
+    real: "Confirmado — pulse.start OK"
+    delta: "ALINHADO"
+    status_atual: "OK"
+  - afirmacao: "FastMCP :8765 funcional"
+    real: "Confirmado"
+    delta: "ALINHADO"
+    status_atual: "OK"
+  - afirmacao: "knowledge.search funcional"
+    real: "Confirmado — 10 resultados"
+    delta: "ALINHADO"
+    status_atual: "OK"
+
+# ── KISS — 3 Correções Cirúrgicas (P0/P1/P2) ────────────────────────────────
+kiss_corrections:
+  - priority: P0
+    title: "Falso Positivo — propagar result.success: false para success: false"
+    where: "NC-SUPER-004-state.py L114-122 (regression.baseline) + NC-SUPER-AKL (akl.export)"
+    effort: "1 linha por action afetada"
+    pattern: |
+      # ANTES (falso positivo):
+      return {"success": True, "result": {"success": False, "error": "..."}}
+      # DEPOIS (fidelidade):
+      if not result.get("success"):
+          return {"success": False, "error": result.get("error"), "action": action}
+    validation:
+      - ruff
+      - py_compile
+
+  - priority: P1
+    title: "session.start — persistir session_id no cortex.json"
+    where: "NC-SUPER-004-state.py (action session.start)"
+    effort: "5 linhas"
+    note: |
+      Verificar primeiro se server.py:74 já gera UUID session (R21).
+      Se sim, apenas ler e retornar o UUID existente.
+      Se não, persistir em .neocortex/cortex.json como evento de sessão.
+    validation:
+      - ruff
+      - py_compile
+
+  - priority: P2
+    title: "Criar NC-CFG-T0-001-agent-policy.yaml"
+    where: "DIR-DS-000-agent-config/"
+    effort: "1 arquivo YAML"
+    note: "AgentPolicyEnforcer (NC-CORE-FR-101) já existe e funciona. Falta apenas o arquivo de policy."
+    template: |
+      agent:
+        role: T0
+        tier: T0
+        allowed_tools: ["*"]
+        forbidden_actions: ["delete_all", "drop_database", "rm_rf"]
+        token_budget:
+          max_tokens_per_task: 8192
+          max_tokens_session: 100000
+    validation:
+      - yaml_safe_load
+
+# ── STEP 0 OBRIGATÓRIO (R21) ────────────────────────────────────────────────
+step_0:
+  description: "Antes de implementar qualquer correção, reexecutar as 15 chamadas do NC-DS-206"
+  calls_to_rerun:
+    - "health_check → confirmar tools_loaded (hoje: 19?)"
+    - "neocortex_governance → compliance.report (hoje: 71%?)"
+    - "neocortex_state → regression.baseline (falso positivo persiste?)"
+    - "neocortex_akl → akl.export (crash persiste? ExportService foi corrigido?)"
+    - "neocortex_state → session.start (UUID em server.py:74?)"
+    - "neocortex_memory → cortex.get (ainda vazio?)"
+  r21_verification:
+    - "Test-Path NC-SUPER-004-state.py"
+    - "python -m py_compile NC-SUPER-004-state.py"
+    - "python -m ruff check NC-SUPER-004-state.py"
+
+# ── PROTOCOLO GOVERNANÇA ────────────────────────────────────────────────────
+protocol:
+  rca_applied: true
+  three_w_applied: true
+  kiss_check: true
+  swot_applied: true
+  deepseek_review: true
+  audit_source: "NC-DS-206"
+  related_tickets:
+    - "NC-DS-253 (outputSchema — bloqueado FastMCP — mesmo root cause)"
+    - "NC-DS-206 (audit original)"
+  savepoint_required: true
+  validation:
+    - ruff
+    - mypy
+    - py_compile
+    - yaml_safe_load
+  sandbox_required: false
+  handoff_required: true
+  handoff_dest: "DIR-DS-002-audit-logs/"
+
+# ── ACCEPTANCE CRITERIA ─────────────────────────────────────────────────────
+acceptance_criteria:
+  - "regression.baseline: success:false quando result.success:false (sem falso positivo)"
+  - "akl.export: não crasha — retorna erro estruturado ou método implementado"
+  - "session.start: persiste session_id verificável (R21: confirmar via cortex.get)"
+  - "NC-CFG-T0-001-agent-policy.yaml existe em DIR-DS-000-agent-config/ (Test-Path = True)"
+  - "Reauditoria das 15 chamadas: documentada em handoff YAML"
+  - "Compliance: >= 72% após correções (trending up)"

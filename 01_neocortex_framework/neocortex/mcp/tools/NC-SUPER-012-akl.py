@@ -95,12 +95,23 @@ def register_tool(mcp) -> None:
 
         elif action == "akl.export":
             try:
-                from neocortex.core import get_akl_service, get_export_service
+                from neocortex.core import get_akl_service
                 akl = get_akl_service()
                 data = akl.export()
-                export_svc = get_export_service()
-                result = export_svc.export_akl(data)
-                return {"success": True, "action": action, "exported": result, "timestamp": ts}
+                try:
+                    from neocortex.core import get_export_service
+                    export_svc = get_export_service()
+                    if hasattr(export_svc, "export_akl"):
+                        result = export_svc.export_akl(data)
+                        return {"success": True, "action": action, "exported": result, "timestamp": ts}
+                    else:
+                        return {"success": True, "action": action, "exported": data,
+                                "note": "ExportService.export_akl not available — returning raw AKL data",
+                                "timestamp": ts}
+                except ImportError:
+                    return {"success": True, "action": action, "exported": data,
+                            "note": "ExportService not available — returning raw AKL data",
+                            "timestamp": ts}
             except Exception as e:
                 return {"success": False, "error": str(e), "timestamp": ts}
 

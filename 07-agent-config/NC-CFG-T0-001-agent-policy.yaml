@@ -1,0 +1,39 @@
+# NC-CFG-T0-001-agent-policy.yaml
+# Agent Policy — T0 (OpenCode) default policy
+# AgentPolicyEnforcer: NC-CORE-FR-101
+# Created: 2026-05-06 | NC-DS-264 P2
+
+agent:
+  role: T0
+  tier: T0
+  allowed_tools:
+    - "*"
+  forbidden_actions:
+    - "delete_all"
+    - "drop_database"
+    - "rm_rf"
+    - "format_disk"
+    - "truncate_wal"
+  allowed_paths:
+    - "01_neocortex_framework/"
+    - "02_memory_lobes/"
+    - "06-boot/"
+    - "07-agent-config/"
+    - "08-tickets/"
+    - "09-audit-logs/"
+    - "10-lobe-manifest/"
+    - "13-reports/"
+  locked_paths:
+    - "01_neocortex_framework/neocortex_config.yaml"
+    - "01_neocortex_framework/neocortex/mcp/server.py"
+    - "01_neocortex_framework/neocortex/mcp/sub_server.py"
+    - "01_neocortex_framework/neocortex/core/"
+  token_budget:
+    max_tokens_per_task: 8192
+    max_tokens_session: 100000
+  sandbox:
+    bsl_level: 1
+    max_forks_per_hour: 5
+  compliance:
+    min_score: 80
+    target_score: 92

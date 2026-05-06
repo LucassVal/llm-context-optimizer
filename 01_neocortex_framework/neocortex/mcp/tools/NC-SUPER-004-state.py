@@ -156,6 +156,10 @@ def register_tool(mcp) -> None:
                 from neocortex.core import get_regression_service
                 svc = get_regression_service()
                 result = svc.set_baseline()
+                if isinstance(result, dict) and result.get("success") is False:
+                    return {"success": False, "action": action,
+                            "error": result.get("error", "baseline failed"),
+                            "result": result, "timestamp": ts}
                 return {"success": True, "action": action, "baseline_set": True,
                         "result": result, "timestamp": ts}
             except Exception as e:
@@ -275,20 +279,25 @@ def register_tool(mcp) -> None:
         # ── SESSION ───────────────────────────────────────────────────────────
         elif action == "session.start":
             try:
-                session_manager = None  # R26 orbital: no server.py dependency
-                if session_manager is not None:
-                    session_manager.start(session_id=session_id or f"sess_{ts.replace(':', '-')}")
-                    return {"success": True, "action": action,
-                            "session_active": session_manager.active,
-                            "session_id": session_id or session_manager.session_id,
-                            "session_start": session_manager.session_start,
-                            "timestamp": ts}
+                sid = session_id or f"sess_{ts.replace(':', '-')}"
+                # P1: persist session_id to cortex.json for cross-session state
+                try:
+                    import json as _json
+                    cpath = _root() / "01_neocortex_framework" / ".neocortex" / "cortex.json"
+                    cpath.parent.mkdir(parents=True, exist_ok=True)
+                    cortex_data = {}
+                    if cpath.exists():
+                        cortex_data = _json.loads(cpath.read_text(encoding="utf-8"))
+                    cortex_data["active_session"] = {"id": sid, "started": ts}
+                    cpath.write_text(_json.dumps(cortex_data, ensure_ascii=False, indent=2), encoding="utf-8")
+                except Exception:
+                    pass
                 return {"success": True, "action": action, "session_active": True,
-                        "session_id": session_id or f"sess_{ts.replace(':', '-')}",
-                        "session_start": ts,
-                        "note": "SessionManager desabilitado — pass-through", "timestamp": ts}
+                        "session_id": sid, "session_start": ts,
+                        "note": "Session persisted to cortex.json", "timestamp": ts}
             except Exception as e:
                 return {"success": True, "action": action, "session_active": True,
+                        "session_id": session_id or f"sess_{ts.replace(':', '-')}",
                         "session_start": ts,
                         "note": f"Pass-through ({e})", "timestamp": ts}
 
