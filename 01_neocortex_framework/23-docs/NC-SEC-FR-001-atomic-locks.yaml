@@ -152,6 +152,7 @@ exceptions_r01_naming:
   - "pyproject.toml"
   - "pyrightconfig.json"
   - "opencode.json"
+  - "mcp.json"
   - ".gitignore"
   - "package.json"
   - "tsconfig.json"
