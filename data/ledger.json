@@ -3,8 +3,8 @@
     "synapses": {
       "current_context": {
         "lobe_id": "NC-LBE-FR-002-claude-assistant",
-        "checkpoint_id": "CP-AUTO-20260506-201031-73a5cda3",
-        "set_at": "2026-05-06T20:10:31.982943"
+        "checkpoint_id": "CP-AUTO-20260506-202032-78d8aff7",
+        "set_at": "2026-05-06T20:20:32.090255"
       }
     },
     "global_checkpoint_index": {
@@ -226,7 +226,9 @@
         "CP-AUTO-20260506-195531-3e22fb32",
         "CP-AUTO-20260506-200031-4452f1ef",
         "CP-AUTO-20260506-200531-f3e517d5",
-        "CP-AUTO-20260506-201031-73a5cda3"
+        "CP-AUTO-20260506-201031-73a5cda3",
+        "CP-AUTO-20260506-201531-def5ce59",
+        "CP-AUTO-20260506-202032-78d8aff7"
       ]
     },
     "consolidation_sessions": [
@@ -638,6 +640,13 @@
       },
       {
         "id": "session_pulse_20260506_225031_18c92efc",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260506_232032_584e6d36",
         "summary": "Consolidao automtica via PulseScheduler",
         "created_at": "auto_generated",
         "metadata": {},
@@ -2172,6 +2181,20 @@
       "timestamp": "2026-05-06T20:10:31.982943",
       "event": "checkpoint_set",
       "checkpoint_id": "CP-AUTO-20260506-201031-73a5cda3",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-06T20:15:32.015265",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260506-201531-def5ce59",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-06T20:20:32.090255",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260506-202032-78d8aff7",
       "lobe_id": "NC-LBE-FR-002-claude-assistant",
       "description": "Auto-checkpoint created by PulseScheduler"
     }
