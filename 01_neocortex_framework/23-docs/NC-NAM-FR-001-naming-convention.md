@@ -606,7 +606,7 @@ Os tickets (NC-DS-NNN) governam toda alteração do NeoCortex e devem obedecer r
 
 | Elemento | Regra Inviolável | Referência |
 |---|---|---|
-| **Formato Obrigatório** | Template v2: `NC-DS-TICKET-TEMPLATE-v2.yaml` | `NC-LBE-FR-TICKETS-001` |
+| **Formato Obrigatório** | Template v2 (expandido): `NC-DS-TICKET-TEMPLATE-v2.yaml` — 3W, RCA 5Y, SWOT, KISS, Shared Kernel cross-ref | `NC-LBE-FR-TICKETS-001` |
 | **Campos Core (v2)** | `ticket_id`, `title`, `status`, `priority`, `working_directory`, `three_w`, `step_0`, `write_zone` | `NC-SCR-FR-006` |
 | **Padrão de Nome** | `NC-DS-NNN-descritivo.yaml` (`[A-Z0-9-]` apenas) | Regra R01 |
 | **Validação Strict** | Falha de formatação = NENHUM agente executa o ticket. | `NC-SCR-FR-006` |
