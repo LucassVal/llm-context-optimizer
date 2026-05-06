@@ -1,0 +1,163 @@
+# NC-DS-TICKET-TEMPLATE-v3.yaml
+# Template v3 — expandido pós NC-DS-264/267/268
+# Adicionado: 3W, RCA, SWOT, KISS, Shared Kernel cross-ref, UBL cross-ref, R21 obrigatório
+# Uso: copiar este template e preencher as seções marcadas com <PREENCHER>
+
+ticket_id: NC-DS-<PREENCHER>
+title: "<PREENCHER>"
+status: OPEN
+priority: <CRITICAL|HIGH|MEDIUM|LOW>
+owner: T0
+category: <governance|architecture|tooling|infrastructure>
+created_at: "<YYYY-MM-DD>"
+roadmap_ref: <CICLO_N>
+depends_on: []
+
+# ═══════════════════════════════════════════════════════════════════
+# SHARED KERNEL CROSS-REFERENCE (OBRIGATÓRIO)
+# Todo ticket deve cruzar referências com o núcleo semântico.
+# ═══════════════════════════════════════════════════════════════════
+shared_kernel:
+  ulq_symbols:        # Símbolos @/$/%/# usados no ticket — verificar via ULQ-TAG-INDEX
+    - "<@SSOT | @BOOT | @ROADMAP | @LOCKS | #GOV | #TICKETS | ...>"
+  nc_ids_referenced:   # NC-IDs mencionados — verificar existem no LEXICO v4.6
+    - "<NC-CORE-FR-XXX | NC-SUPER-XXX | NC-HK-FR-XXX | ...>"
+  lexico_validated: false   # R21: executar python xref_check.py antes de marcar true
+  paths_verified: false     # R21: Test-Path em cada path referenciado
+
+# ═══════════════════════════════════════════════════════════════════
+# WORKING DIRECTORY (OBRIGATÓRIO)
+# ═══════════════════════════════════════════════════════════════════
+working_directory: "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
+framework_subdir: "01_neocortex_framework"
+
+# ─── 3W (OBRIGATÓRIO) ──────────────────────────────────────────────
+three_w:
+  who: "<QUEM: agente, sistema, módulo afetado>"
+  what: "<O QUÊ: descrição concreta da mudança, arquivos, linhas>"
+  why: "<POR QUÊ: problema que resolve, gap que fecha, regra que implementa>"
+
+# ─── RCA — 5 PORQUÊS (OBRIGATÓRIO) ─────────────────────────────────
+rca:
+  symptom: "<SINTOMA: o que está quebrado ou ausente>"
+  why_1: "<porquê nível 1>"
+  why_2: "<porquê nível 2>"
+  why_3: "<porquê nível 3>"
+  why_4: "<porquê nível 4>"
+  why_5: "<porquê nível 5 — CAUSA RAIZ>"
+  root_cause: "<CAUSA RAIZ em uma frase>"
+  corrective_action: "<O QUE FAZER para corrigir>"
+  preventive_action: "<O QUE FAZER para evitar recorrência>"
+
+# ─── SWOT (OBRIGATÓRIO para ações estruturais) ─────────────────────
+swot:
+  strengths:
+    - "<S: o que o sistema já faz bem aqui>"
+  weaknesses:
+    - "<W: limitações expostas, código ausente, hooks não wired>"
+  opportunities:
+    - "<O: caminhos abertos, melhorias possíveis>"
+  threats:
+    - "<T: riscos de quebra, dependências, breaking changes>"
+
+# ─── KISS (OBRIGATÓRIO) ────────────────────────────────────────────
+kiss:
+  approach: "<CAMINHO MAIS SIMPLES: 1 frase>"
+  lines_changed: "<estimativa de linhas>"
+  risk: "<Baixo|Médio|Alto> — <justificativa>"
+  no_new_engines: true    # Se true: usa código existente, zero engines novas
+  no_refactor_adjacent: true  # KARPATHY: não refatorar código adjacente não quebrado
+
+# ─── STEP 0 — R21 (OBRIGATÓRIO) ────────────────────────────────────
+step_0:
+  r21_verifications:
+    - "Test-Path <arquivo> → confirmar existe"
+    - "python -m py_compile <arquivo> → PASS"
+    - "python xref_check.py → 0 GAPs no Shared Kernel"
+    - "<PREENCHER: verificações específicas>"
+  atomic_locks:
+    - "01_neocortex_framework/neocortex/mcp/server.py → NUNCA MODIFICAR"
+    - "01_neocortex_framework/neocortex/mcp/sub_server.py → NUNCA MODIFICAR"
+    - "01_neocortex_framework/neocortex_config.yaml → NUNCA MODIFICAR"
+
+# ─── TAREFAS ────────────────────────────────────────────────────────
+tasks:
+  - id: T1
+    title: "<PREENCHER>"
+    priority: <P0|P1|P2>
+    write_zone: "<PROD|TEST|SCRIPTS|DOCS> → <path>"
+    steps:
+      - "<PREENCHER>"
+    validation:
+      - "python -m py_compile → PASS"
+      - "ruff check → 0 erros"
+
+# ─── IMPLEMENTATION NOTES ───────────────────────────────────────────
+implementation_notes: |
+  Regras INVIOLÁVEIS:
+  - R09: NUNCA 'import NC-TOOL-FR-XXX'. Usar importlib.util.spec_from_file_location()
+  - R10: NUNCA hardcode paths. Usar Path(__file__) ou @LEXICO
+  - R11: NUNCA print() em produção. Usar logger = logging.getLogger(__name__)
+  - R21: VERIFICAR ambiente real antes de afirmar. Dúvida → ESCALATED
+  - R23: EXTEND, DON'T CREATE. Não duplicar tools/ações existentes.
+  - R05: NUNCA DELETAR. Mover para 99-archive/.
+  <PREENCHER: notas específicas>
+
+# ─── ACCEPTANCE CRITERIA ────────────────────────────────────────────
+acceptance_criteria:
+  - "<PREENCHER: critério verificável (Test-Path, py_compile, valor retornado)>"
+
+# ─── VALIDATION ─────────────────────────────────────────────────────
+validation:
+  - ruff
+  - py_compile
+  - yaml_safe_load   # se .yaml
+  - "<PREENCHER>"
+
+# ─── CHECKLIST PRÉ-HANDOFF ──────────────────────────────────────────
+pre_handoff_checklist:
+  - "python -m py_compile <ARQUIVO>.py → PASS"
+  - "python -m ruff check <ARQUIVO>.py --select F,E9 → 0 erros"
+  - "Nenhum @LOCK violado (server.py, sub_server.py, neocortex_config.yaml)"
+  - "shared_kernel.paths_verified = true (todos os Test-Path passaram)"
+  - "shared_kernel.lexico_validated = true (todos NC-IDs no LEXICO)"
+  - "SSOT atualizado com changelog (R24)"
+
+# ─── DELIVERABLES ───────────────────────────────────────────────────
+deliverables:
+  - "<PREENCHER: path ABSOLUTO do arquivo principal>"
+  - "DIR-DS-002-audit-logs\\NC-DS-<NNN>-handoff-<YYYYMMDDTHHMMSS>.yaml"
+
+# ═══════════════════════════════════════════════════════════════════
+# HANDOFF INLINE (OBRIGATÓRIO)
+# ═══════════════════════════════════════════════════════════════════
+handoff_template_inline:
+  ticket_id: "NC-DS-<NNN>"
+  status: "PENDING_REVIEW"
+  submitted_at: "<YYYYMMDDTHHMMSS>"
+  submitted_by: "opencode-agent"
+  review_by: "T0-Antigravity"
+  summary:
+    files_created: []
+    files_modified: []
+    lines_added: 0
+    validation_rounds: 1
+    locks_violated: []
+    overall: "SUCCESS"
+  t0_review_checklist:
+    compile_ok: true
+    ruff_ok: true
+    no_print: true
+    ssot_updated: false
+    locks_clean: true
+  test_results:
+    total: 0
+    passed: 0
+    failed: 0
+    notes: ""
+  escalation:
+    escalated: false
+    reason: ""
+
+write_zone: "<PROD|TEST|SCRIPTS|DOCS> → <path>"
+handoff_required: true
