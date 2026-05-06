@@ -1,12 +1,12 @@
 {
   "version": "4.6",
-  "generated_at": "2026-05-06T22:09:29.610547+00:00",
+  "generated_at": "2026-05-06T19:09:29.610547-03:00",
   "source": "disk-scan-final",
   "total_engines": 205,
-  "total_tools": 19,
+  "total_tools": 18,
   "total_services": 28,
   "total_scripts": 0,
-  "total_files": 252,
+  "total_files": 251,
   "engines": [
     {
       "id": "NC-CORE-FR-099",
@@ -1855,15 +1855,6 @@
     }
   ],
   "tools": [
-    {
-      "id": "NC-MCP-FR-001",
-      "name": "NC-MCP-FR-001-pulse.py",
-      "desc": "pulse",
-      "path": "neocortex/mcp/tools/NC-MCP-FR-001-pulse.py",
-      "hash": "605f8003ce74",
-      "size": 3842,
-      "category": "tools"
-    },
     {
       "id": "NC-SUPER-001",
       "name": "NC-SUPER-001-governance.py",
