@@ -1,0 +1,72 @@
+ticket_id: "NC-DS-270"
+title: "Wire Conversation Hook + Kaizen Log (R52) — turn.record automático"
+status: OPEN
+priority: HIGH
+owner: T0
+category: governance
+created_at: "2026-05-06"
+roadmap_ref: CICLO_6
+depends_on: []
+
+three_w:
+  who: "NC-HK-FR-004-conversation-hook.py (318 linhas, auditado R21)"
+  what: |
+    Wire o ConversationHook no PostToolUse chain do server.py.
+    O código existe (core/hooks/), está atualizado, usa paths corretos.
+    Só falta o import + append no _hooks_post.
+    Hook registra turn.record automaticamente após cada tool call.
+    Também serve como base para Kaizen log (R52).
+  why: |
+    R21 confirmado: 9 hook files existem em core/hooks/ (89KB total)
+    mas ZERO estão wired no server.py. O server usa _HookProxy inline
+    com lambdas vazias que só logam em arquivo. Memória por conversa
+    (turn.record, session.hot, lobe.auto) está implementada mas órfã.
+
+rca:
+  symptom: "Memória por conversa não funciona — turn.record nunca chamado"
+  why_1: "ConversationHook existe mas não está importado no server.py"
+  why_2: "server.py tem _HookProxy inline que substituiu HookRegistry real"
+  why_3: "Migração para SuperTools priorizou estabilidade, não funcionalidade"
+  why_4: "Ninguém fez R21: verificar se hooks estavam wired"
+  why_5: "Sem CI/CD validando import de hooks no boot"
+  root_cause: "HookRegistry real substituído por inline lambdas sem migração"
+  corrective_action: "Wire ConversationHook no PostToolUse chain"
+  preventive_action: "Adicionar health_check verify: hooks_wired > 0 real hooks"
+
+kiss:
+  approach: "1 import + 1 append no server.py. O código já existe (318 linhas em core/hooks/). Zero código novo."
+  lines_changed: 5
+  risk: "Baixo — hook tem try/except e exclude_patterns. Se falhar, não quebra o tool."
+
+tasks:
+  - id: T1
+    title: "Wire ConversationHook no server.py PostToolUse chain"
+    priority: P0
+    write_zone: "MCP → server.py"
+    steps:
+      - "Adicionar import: from ..core.hooks.NC_HK_FR_004_conversation_hook import get_conversation_hook"
+      - "Inicializar: _conv_hook = get_conversation_hook() após hook_registry_instance"
+      - "Adicionar PostToolUse: _hooks_post.append(lambda **ctx: _conv_hook.on_response(ctx))"
+      - "Passar result no ctx do _wrap_with_hooks (atualmente ctx não tem result)"
+    validation:
+      - "python -m py_compile server.py → PASS"
+      - "health_check → hooks.real_wired >= 1"
+
+  - id: T2
+    title: "Adicionar Kaizen log action no governance (R52)"
+    priority: P1
+    write_zone: "TOOLS → NC-SUPER-001-governance.py"
+    steps:
+      - "Adicionar action governance.kaizen.log"
+      - "Ler estatísticas do ConversationHook (get_stats())"
+      - "Retornar {turns_this_session, hot_buffer_size, compression_enabled}"
+    validation:
+      - "python -m py_compile NC-SUPER-001 → PASS"
+
+acceptance_criteria:
+  - "Após qualquer tool call → turn.record executado automaticamente"
+  - "health_check reporta hooks.real_wired >= 1"
+  - "governance.kaizen.log retorna estatísticas reais do ConversationHook"
+
+write_zone: "MCP → server.py | TOOLS → NC-SUPER-001"
+handoff_required: true

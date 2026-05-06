@@ -1,0 +1,75 @@
+ticket_id: "NC-DS-273"
+title: "SSOT Registration — registrar tickets NC-DS-255-272 + sync @ROADMAP + @BOOT"
+status: OPEN
+priority: HIGH
+owner: T0
+category: governance
+created_at: "2026-05-06"
+roadmap_ref: CICLO_6
+
+three_w:
+  who: "NC-NAM-FR-001 (SSOT) + NC-TODO-FR-001 (roadmap) + NC-BOOT-FR-001 (boot)"
+  what: |
+    R24 (SSOT Registration Mandatory) violado: tickets concluídos nesta
+    sessão não estão registrados no SSOT. @ROADMAP lista 259/260/261 como
+    OPEN mas já foram implementados. @BOOT diz "LEXICO v4.1" mas é v4.6.
+  why: |
+    Sem registro SSOT, agentes não sabem que tickets foram feitos.
+    Roadmap stale = planejamento cego. Boot stale = agentes carregam
+    informações erradas no startup.
+
+rca:
+  symptom: "Tickets feitos mas invisíveis no SSOT e roadmap"
+  why_1: "Handoffs foram AUTO-gerados, não manuais por ticket"
+  why_2: "nc-handoff tool foi chamada em alguns mas git reset perdeu"
+  why_3: "SSOT (NC-NAM-FR-001) é LOCKED — edição requer cuidado"
+  why_4: "CICLO-3 (consolidação) não foi executado ao fim da sessão"
+  why_5: "Sem automação de registro SSOT pós-handoff"
+  root_cause: "CICLO-3 de consolidação não automatizado"
+  corrective_action: "Registrar tickets no changelog do SSOT + sync roadmap + boot"
+  preventive_action: "Adicionar CICLO-3 ao PulseScheduler como tarefa semanal"
+
+kiss:
+  approach: "Append-only no NC-NAM-FR-001 changelog. Atualizar status no roadmap. Atualizar versões no boot. 3 arquivos, zero refactor."
+  lines_changed: "~30 (changelog entries + status updates)"
+  risk: "Nenhum — append-only no SSOT, não modifica locks existentes"
+
+tasks:
+  - id: T1
+    title: "Registrar tickets concluídos no changelog do SSOT"
+    priority: P0
+    write_zone: "DOCS → NC-NAM-FR-001 (append-only)"
+    tickets_to_register:
+      - "NC-DS-255: Semantic Response Cache"
+      - "FIX-MDC: mdc_loader.py stub"
+      - "NC-DS-259: R127 MURPHY health_check"
+      - "NC-DS-260: R129 ITIL pre-commit hook"
+      - "NC-DS-261: R130 POSTEL hook validation"
+      - "NC-DS-262: DDD Orphan Cleanup"
+      - "NC-DS-263: MCP Capability Upgrade"
+      - "NC-DS-264: API Contract Validation"
+
+  - id: T2
+    title: "Sync @ROADMAP — marcar DONE + adicionar novos"
+    priority: P0
+    steps:
+      - "Marcar 259/260/261 como DONE no roadmap"
+      - "Adicionar 255, 256, 262, 263, 264, 265, 266, 268 como DONE"
+      - "Adicionar 270, 271, 272, 273, 274 como OPEN (CICLO_6)"
+
+  - id: T3
+    title: "Sync @BOOT — atualizar versões e stats"
+    priority: P1
+    steps:
+      - "LEXICO: v4.1 → v4.6"
+      - "MCP tools: 19 com 3W + @mcp_response"
+      - "Gateway: 17/19 wired"
+      - "LSP: pyright 1.1.408 + 6 servers ativos"
+
+acceptance_criteria:
+  - "NC-NAM-FR-001 changelog contém entradas para todos os tickets acima"
+  - "NC-TODO-FR-001-roadmap.yaml: 259/260/261 = DONE, 270-274 = OPEN"
+  - "NC-BOOT-FR-001: LEXICO v4.6, stats atualizados"
+
+write_zone: "DOCS → NC-NAM-FR-001 | ROADMAP → NC-TODO-FR-001 | BOOT → NC-BOOT-FR-001"
+handoff_required: true

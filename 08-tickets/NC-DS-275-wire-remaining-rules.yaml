@@ -1,0 +1,83 @@
+ticket_id: "NC-DS-275"
+title: "Wire Lean (R62) + Six Sigma (R63) + Due Diligence (R59) + Self-Healing (R95) + PREMATURE (R131) + COBIT (R132) + BSC Scorecard (R133)"
+status: OPEN
+priority: MEDIUM
+owner: T0
+category: governance
+created_at: "2026-05-06"
+roadmap_ref: CICLO_6
+depends_on: ["NC-DS-271", "NC-DS-272"]
+
+three_w:
+  who: "NC-SUPER-001-governance + FR-160 + FR-171 + context.prune + Guardian Daemon"
+  what: |
+    Últimas 7 regras mortas. Todas têm implementação parcial ou podem
+    ser mapeadas para código existente. Zero engines novas necessárias.
+  why: |
+    Fechar os últimos gaps de governança corporativa e operacional.
+    Após este ticket, 133/133 regras terão cobertura (H/C/S/U).
+
+rca:
+  symptom: "7 regras sem implementação visível"
+  why_1: "Lean (R62): context.prune já implementa — só falta expor como action"
+  why_2: "Six Sigma (R63): KPI trend + compliance score = DMAIC — só falta agregar"
+  why_3: "Due Diligence (R59): FR-171 hash validation já existe — wire no governance"
+  why_4: "Self-Healing (R95): Guardian Daemon auto-restarta — wire como action"
+  why_5: "PREMATURE/COBIT/BSC: planejados Ciclo 6, código simples (checks + agregação)"
+  root_cause: "Regras de último ciclo nunca priorizadas"
+  corrective_action: "Wire cada regra com 3-5 linhas de código"
+  preventive_action: "Nova regra = ticket imediato, não adiamento"
+
+kiss:
+  approach: "7 actions no governance, cada uma com 3-5 linhas. Todas usam código existente (context.prune, FR-160, FR-171, KPI engine, Guardian). Zero engines novas."
+  lines_changed: "~30 (7 actions × ~4 linhas)"
+  risk: "Baixo — código já existe, só expor"
+
+tasks:
+  - id: T1
+    title: "Wire Lean (R62) → governance.lean.audit"
+    priority: P1
+    approach: "Chamar context.prune() e retornar {pruned_count, tokens_freed}"
+    code_exists: "context.prune já implementado em NC-SUPER-008"
+
+  - id: T2
+    title: "Wire Six Sigma (R63) → governance.sixsigma.dmaic"
+    priority: P2
+    approach: "Agregar KPI trend + compliance score. Retornar {sigma_level, defects_per_million}"
+
+  - id: T3
+    title: "Wire Due Diligence (R59) → governance.due_diligence.check"
+    priority: P1
+    approach: "FR-171 hash validation. Verificar integridade de arquivos críticos."
+
+  - id: T4
+    title: "Wire Self-Healing (R95) → governance.self_heal.status"
+    priority: P1
+    approach: "Guardian Daemon status + auto-restart count. Já implementado em NC-SCR-FR-115."
+
+  - id: T5
+    title: "Wire PREMATURE (R131) no gateway"
+    priority: P2
+    approach: "3 linhas no _gateway_hook: se 'optimize' in action e sem profiling → log warning"
+
+  - id: T6
+    title: "Wire COBIT (R132) → governance.cobit.alignment"
+    priority: P2
+    approach: "Comparar roadmap.done vs LEXICO.total. Retornar alignment_score 0-100."
+
+  - id: T7
+    title: "Wire BSC Scorecard (R133) → governance.bsc.scorecard"
+    priority: P2
+    approach: "Agregar KPI + ROI + compliance + cobit em score único 0-100."
+
+acceptance_criteria:
+  - "governance.lean.audit → retorna pruned_count > 0"
+  - "governance.sixsigma.dmaic → retorna sigma_level numérico"
+  - "governance.due_diligence.check → verifica hashes de arquivos críticos"
+  - "governance.self_heal.status → mostra guardian uptime"
+  - "governance.cobit.alignment → alignment_score 0-100"
+  - "governance.bsc.scorecard → score agregado 0-100"
+  - "133/133 regras com cobertura (H/C/S/U)"
+
+write_zone: "TOOLS → NC-SUPER-001"
+handoff_required: true

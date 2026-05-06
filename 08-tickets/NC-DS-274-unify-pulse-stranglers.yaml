@@ -1,0 +1,83 @@
+ticket_id: "NC-DS-274"
+title: "Unify pulse-bridge (NC-MCP-FR-001) → NC-SUPER-006-system + Eliminar Strangler Wrappers"
+status: OPEN
+priority: HIGH
+owner: T0
+category: architecture
+created_at: "2026-05-06"
+roadmap_ref: CICLO_6
+depends_on: ["NC-DS-270"]
+
+three_w:
+  who: "NC-MCP-FR-001-pulse.py (shim) + NC-SUPER-006-system.py (destino) + 2 stranglers (FR-162, FR-171)"
+  what: |
+    1. Mover set_pulse_scheduler() do pulse-bridge para NC-SUPER-006
+    2. Atualizar server.py:738 de 'from .tools import pulse' para 'from .tools.NC_SUPER_006_system import set_pulse_scheduler'
+    3. Arquivar NC-MCP-FR-001-pulse.py (R05)
+    4. Eliminar 2 strangler wrappers restantes (FR-162, FR-171)
+  why: |
+    pulse-bridge é duplicata conceitual — 1 ação vs 23 no system.
+    Existe só para server.py:738. Stranglers são ponto único de falha
+    (17 wrappers → 2 restantes). R23 (Extend Don't Create) e R68 (Strangler Fig).
+
+rca:
+  symptom: "Shim de compatibilidade sobrevivendo como tool MCP"
+  why_1: "server.py:738 hardcoded 'from .tools import pulse'"
+  why_2: "NC-SUPER-006 não exportava set_pulse_scheduler"
+  why_3: "Stranglers nunca finalizados — ticket NC-DS-STRANGLER ficou parado"
+  why_4: "Prioridade foi MCP core, não limpeza técnica"
+  why_5: "Sem enforcement de R23 (Extend Don't Create) no gateway"
+  root_cause: "Dívida técnica de migração não priorizada"
+  corrective_action: "Mover função + atualizar import + arquivar shim + eliminar stranglers"
+  preventive_action: "Gateway check: se nova tool duplica ação existente → WARNING"
+
+kiss:
+  approach: "1 função movida, 1 import alterado, 1 arquivo arquivado, 2 wrappers substituídos por import direto. Zero lógica nova."
+  lines_changed: "~10 (server.py import + 2 strangler substitutions)"
+  risk: "Baixo — set_pulse_scheduler já existe no system. Stranglers já têm target modules vivos."
+
+tasks:
+  - id: T1
+    title: "Mover set_pulse_scheduler para NC-SUPER-006"
+    priority: P0
+    steps:
+      - "Copiar set_pulse_scheduler() do pulse-bridge para NC-SUPER-006"
+      - "Adicionar get_pulse_scheduler() no system também"
+    validation:
+      - "python -m py_compile NC-SUPER-006 → PASS"
+
+  - id: T2
+    title: "Atualizar import no server.py"
+    priority: P0
+    steps:
+      - "server.py:738: trocar 'from .tools import pulse' por 'from .tools.NC_SUPER_006_system import set_pulse_scheduler'"
+      - "Verificar que pulse.set_pulse_scheduler() → system.set_pulse_scheduler()"
+    validation:
+      - "python -m py_compile server.py → PASS"
+
+  - id: T3
+    title: "Arquivar NC-MCP-FR-001-pulse.py (R05)"
+    priority: P1
+    steps:
+      - "Mover para 99-archive/unified-shims-20260506/"
+    validation:
+      - "Test-Path tools/NC-MCP-FR-001-pulse.py → False"
+
+  - id: T4
+    title: "Eliminar 2 stranglers (FR-162, FR-171)"
+    priority: P1
+    steps:
+      - "FR-162: substituir por import direto do target module"
+      - "FR-171: substituir por import direto (já temos FR-171 como engine real)"
+      - "Mover wrappers para 99-archive/"
+    validation:
+      - "python -m py_compile em todos os importadores → PASS"
+
+acceptance_criteria:
+  - "server.py importa pulse de NC-SUPER-006, não de pulse-bridge"
+  - "NC-MCP-FR-001-pulse.py arquivado em 99-archive/"
+  - "0 strangler wrappers ativos (eram 17, restavam 2)"
+  - "governance strangler.status → remaining_wrappers: 0"
+
+write_zone: "MCP → server.py | TOOLS → NC-SUPER-006 | ARCHIVE → 99-archive/"
+handoff_required: true

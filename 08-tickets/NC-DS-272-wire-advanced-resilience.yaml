@@ -1,0 +1,93 @@
+ticket_id: "NC-DS-272"
+title: "Wire Advanced Resilience (FR-160) + Strangler Fig (FR-171) + Graceful Degradation (FR-155)"
+status: OPEN
+priority: HIGH
+owner: T0
+category: architecture
+created_at: "2026-05-06"
+roadmap_ref: CICLO_6
+depends_on: ["NC-DS-270", "NC-DS-271"]
+
+three_w:
+  who: "FR-160 (29 regras avançadas) + FR-171 (strangler) + FR-155 (resilience). Todos existem, nenhum wired."
+  what: |
+    3 engines críticas têm código mas zero conexão com o runtime:
+    - FR-160: 29 regras avançadas (R83-R111) — ALCOA, MAPE-K, Self-Healing, SIEM, etc.
+    - FR-171: Due Diligence (R59) + Strangler Fig (R68) — hash validation + migration tracker
+    - FR-155: Graceful Degradation (R71) + Bulkhead (R65) + CQRS (R66) + Backpressure (R72)
+    Wire todas via governance.resilience.advanced + actions específicas.
+  why: |
+    43 regras mortas porque as engines nunca foram conectadas ao MCP.
+    FR-160 tem 29 regras avançadas com código real — é a maior dívida
+    técnica do sistema. FR-171 completa o Strangler Fig (R68 — 2 wrappers
+    restantes). FR-155 implementa resiliência operacional.
+
+rca:
+  symptom: "43 regras (R59,R62,R63,R68,R71,R83-R111,R131-R133) sem implementação"
+  why_1: "FR-160/171/155 existem mas nunca foram importadas no governance"
+  why_2: "Criadas como engines standalone sem wire-up MCP"
+  why_3: "Prioridade era MCP core + tools, não governança avançada"
+  why_4: "Sem documentação de como wire engines → MCP tools"
+  why_5: "Causa raiz: engines e tools desenvolvidas em silos diferentes"
+  root_cause: "Falta de contrato de API entre engines e MCP tools (mesmo root cause de NC-DS-264)"
+  corrective_action: "Wire FR-160/171/155 no governance com 1 import cada"
+  preventive_action: "Template de wire-up: toda engine NC-CORE-FR-* deve ter action correspondente em NC-SUPER-*"
+
+kiss:
+  approach: "3 imports no governance.py. Cada engine já tem API pronta. Só conectar. Zero lógica nova."
+  lines_changed: "~20 (3 actions × ~6 linhas cada)"
+  risk: "Baixo — cada action com try/except. Engine indisponível → graceful degradation"
+
+tasks:
+  - id: T1
+    title: "Wire FR-160 (advanced resilience) no governance"
+    priority: P0
+    steps:
+      - "Action resilience.advanced → importar FR-160 AdvancedResilience"
+      - "Retornar status das 29 regras: health check por conceito"
+      - "Action resilience.advanced → self_heal.status, drift.status, etc."
+    validation:
+      - "governance resilience.advanced → retorna dict com 13+ conceitos"
+
+  - id: T2
+    title: "Wire FR-171 (due diligence + strangler) no governance"
+    priority: P0
+    steps:
+      - "Action governance.due_diligence.check → FR-171 hash validation"
+      - "Action governance.strangler.status → FR-171 migration tracker"
+      - "Completar migração dos 2 stranglers restantes (FR-162, próprio FR-171)"
+    validation:
+      - "governance strangler.status → retorna remaining_wrappers count"
+
+  - id: T3
+    title: "Wire FR-155 (graceful degradation) no governance"
+    priority: P1
+    steps:
+      - "Action governance.resiliency.audit → FR-155 Bulkhead+CQRS+Backpressure"
+      - "Wire Bulkhead no ToolGuard pipeline (proteger ferramentas críticas)"
+      - "Wire Backpressure no gateway (limitar taxa de chamadas)"
+    validation:
+      - "governance resiliency.audit → retorna bulkhead/cqrs/backpressure status"
+
+  - id: T4
+    title: "Wire PREMATURE (R131) no gateway"
+    priority: P2
+    steps:
+      - "No gateway_check: se ação é 'optimize' sem profiling → warning"
+      - "KISS: 3 linhas no _gateway_hook"
+
+  - id: T5
+    title: "Wire COBIT (R132) e BSC Scorecard (R133)"
+    priority: P2
+    steps:
+      - "governance.cobit.alignment → compara roadmap vs LEXICO status"
+      - "governance.bsc.scorecard → agrega KPI+ROI+compliance em score 0-100"
+
+acceptance_criteria:
+  - "governance resilience.advanced → 13+ conceitos ativos (não mock)"
+  - "governance strangler.status → 0 remaining_wrappers (após migração)"
+  - "governance resiliency.audit → bulkhead/cqrs/backpressure wired"
+  - "PREMATURE check ativo no gateway (R131)"
+
+write_zone: "TOOLS → NC-SUPER-001 | ENGINES → FR-160/171/155"
+handoff_required: true

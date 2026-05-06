@@ -1,0 +1,80 @@
+ticket_id: "NC-DS-271"
+title: "Wire Corporate Governance Rules — KPI + BSC + SWOT + ROI (FR-157)"
+status: OPEN
+priority: HIGH
+owner: T0
+category: governance
+created_at: "2026-05-06"
+roadmap_ref: CICLO_6
+depends_on: ["NC-DS-270"]
+
+three_w:
+  who: "FR-157 (corporate engines) + NC-SUPER-001 (governance)"
+  what: |
+    As engines FR-157 (BSC/ROI/SWOT/KPI analyzers) existem mas não
+    estão wired no governance tool. As actions (kpi.report, roi.analyze,
+    bsc.report, swot.analyze) já são listadas no menu mas retornam
+    "indisponível" ou dados mock. Precisam ser conectadas às engines reais.
+    Kaizen e KPI foram restaurados do archive (2026-05-06).
+  why: |
+    10 regras corporativas (R52-R63) estão 65% mortas. FR-157 tem o
+    código mas ninguém conectou no MCP. Kaizen e KPI foram injustamente
+    arquivados. Governança sem métricas = cega.
+
+rca:
+  symptom: "kpi.report, roi.analyze, bsc.report, swot.analyze retornam mock"
+  why_1: "FR-157 corporate engines nunca foram importadas no governance"
+  why_2: "Governance tool foi expandida com actions listadas mas sem implementação"
+  why_3: "Kaizen/KPI arquivados durante limpeza de lobos (remoção indevida)"
+  why_4: "Sem validação de que actions listadas têm implementação real"
+  why_5: "Corporate rules (R52-R63) nunca foram priorizadas — foco era infra"
+  root_cause: "Divergência entre actions declaradas e engines wired"
+  corrective_action: "Wire FR-157 no governance + restaurar Kaizen/KPI"
+  preventive_action: "lexico-validator.py também checa se action tem implementação"
+
+kiss:
+  approach: "Cada action no governance ganha 1 try/except importando a engine real. Zero refactor. As actions já estão listadas no menu — só precisam de código real em vez de mock."
+  lines_changed: ~30 (4 actions × ~7 linhas cada)
+  risk: "Baixo — cada action tem fallback para mock se engine indisponível"
+
+tasks:
+  - id: T1
+    title: "Wire KPI engine no governance (R56)"
+    priority: P0
+    steps:
+      - "No governance action kpi.report: importar FR-154 KPIEngine"
+      - "Retornar health score real + grade + trending"
+      - "Substituir mock data por dados reais do MetricsStore"
+    validation:
+      - "governance kpi.report → retorna health_score numérico (não mock)"
+
+  - id: T2
+    title: "Wire BSC+SWOT+ROI engines no governance (R54,R55,R57)"
+    priority: P0
+    steps:
+      - "No governance: bsc.report → FR-157 BalancedScorecard"
+      - "No governance: swot.analyze → FR-157 SWOTAnalyzer"
+      - "No governance: roi.analyze → FR-154 ROIEngine"
+    validation:
+      - "governance swot.analyze domain=all → retorna S/W/O/T reais"
+
+  - id: T3
+    title: "Restaurar Kaizen lobe (R52) — já feito"
+    priority: P1
+    status: DONE
+    note: "NC-LBE-FR-KAIZEN-001.mdc restaurado de 99-archive/ para 02_memory_lobes/06_governance/"
+
+  - id: T4
+    title: "Restaurar KPI metrics (R56) — já feito"
+    priority: P1
+    status: DONE
+    note: "NC-METRICS-KPIS-v0.1-20260422.yaml restaurado para 07-agent-config/"
+
+acceptance_criteria:
+  - "kpi.report retorna health_score > 0 (dados reais)"
+  - "swot.analyze retorna análise com 4 quadrantes preenchidos"
+  - "bsc.report retorna scorecard com métricas"
+  - "Kaizen lobe acessível via neocortex_memory lobe.get"
+
+write_zone: "TOOLS → NC-SUPER-001 | LOBES → 02_memory_lobes/06_governance/"
+handoff_required: true
