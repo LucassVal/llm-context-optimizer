@@ -1,0 +1,208 @@
+# @UBL @UBL @DS-299 | LEXICO: #TICKETS #ARCHITECTURE #CLEANUP
+ticket_id: "NC-DS-299"
+title: "Deprovision neocortex_brain (LiteLLM) + neocortex_vscode — remoção limpa de tools obsoletas"
+status: OPEN
+priority: HIGH
+owner: T0
+category: architecture
+created_at: "2026-05-06"
+roadmap_ref: CICLO_7
+depends_on: []
+
+shared_kernel:
+  ulq_symbols:
+    - "@LOCKS"
+    - "@SSOT"
+    - "#ARCHITECTURE"
+    - "#CLEANUP"
+  nc_ids_referenced:
+    - "NC-SUPER-001-brain"
+    - "NC-SUPER-017-vscode"
+    - "NC-NAM-FR-001"
+  lexico_validated: false
+  paths_verified: false
+
+working_directory: "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
+framework_subdir: "01_neocortex_framework"
+
+three_w:
+  who: "neocortex_brain (NC-SUPER-001) + neocortex_vscode (NC-SUPER-017) — tools a descontinuar"
+  what: |
+    Remover/arquivar neocortex_brain (dependência LiteLLM porta 4000 — será desabilitada).
+    Remover neocortex_vscode (bridge VSCode fora do escopo — Pydantic serialization error).
+    Remover ambas do registro do MCP server, do allowlist do settings.json, e arquivar código.
+    Atualizar SSOT (@NAM-FR-001) e manifesto de tools (NC-LBE-FR-TOOLS-MANIFEST-001).
+  why: |
+    Tools com erro permanente degradam o status do MCP e confundem agentes externos.
+    neocortex_brain: LiteLLM (porta 4000) será desabilitado — tool perde razão de existir.
+    neocortex_vscode: Pydantic serialization error estrutural, fora do escopo do projeto.
+    R05: arquivar (99-archive/), nunca deletar. Manter tools carregadas = 17 (real) vs 19 (atual).
+
+rca:
+  symptom: "neocortex_brain e neocortex_vscode retornam erros estruturais permanentes"
+  why_1: "neocortex_brain depende do LiteLLM proxy em porta 4000 — decisão de desativar LiteLLM"
+  why_2: "neocortex_vscode tem erro Pydantic de serialização de output (input_type=dict vs string)"
+  why_3: "Ambas foram mantidas no registry mesmo após as decisões de descontinuação"
+  why_4: "Sem ticket formal de deprovision, tools ficam no registry causando 'degraded' no health_check"
+  why_5: "tools_loaded: 19 inclui 2 tools não funcionais — número real operacional é 17"
+  root_cause: "Ausência de processo formal de deprovision — tools obsoletas acumulam no registry"
+  corrective_action: |
+    1. Arquivar NC-SUPER-001 e NC-SUPER-017 em 99-archive/ (R05)
+    2. Remover registro de ambas do MCP server (sem tocar server.py — via config)
+    3. Remover do allowlist em settings.json global
+    4. Atualizar NC-LBE-FR-TOOLS-MANIFEST-001: tools_total: 17
+    5. Registrar no changelog NC-CHG-FR-001
+  preventive_action: |
+    Criar processo formal de deprovision (checklist no template de ticket).
+    health_check deve listar tools com erro como 'degraded_tools', não contá-las como ativas.
+
+swot:
+  strengths:
+    - "Decisão já tomada pelo T0 — sem ambiguidade"
+    - "R05 define o processo: arquivar, não deletar"
+    - "17 tools operacionais suficientes para todas as operações atuais"
+  weaknesses:
+    - "health_check conta 19 tools, 2 com erro — número inflado"
+    - "Sem processo formal de deprovision documentado"
+  opportunities:
+    - "Após remoção: health_check pode reportar tools_loaded: 17, status: healthy"
+    - "neocortex_brain pode ser re-implementado com Ollama local no futuro (sem LiteLLM)"
+  threats:
+    - "Se algum agente depende de neocortex_brain no allowlist, vai receber permission denied"
+    - "Atualizar settings.json global requer cuidado para não quebrar outras permissões"
+
+kiss:
+  approach: "Arquivar 2 arquivos + remover 2 entradas de allowlist + atualizar 2 lobes/docs"
+  lines_changed: "~20 linhas (remoção de entradas, não escrita de código)"
+  risk: "Baixo — operação de limpeza, não de criação"
+  no_new_engines: true
+  no_refactor_adjacent: true
+
+step_0:
+  r21_verifications:
+    - "Test-Path NC-SUPER-001*.py → confirmar existe antes de arquivar"
+    - "Test-Path NC-SUPER-017*.py → confirmar existe antes de arquivar"
+    - "Test-Path 99-archive/ → confirmar dir de destino existe"
+    - "Grep 'neocortex_brain\\|neocortex_vscode' em settings.json → localizar entradas"
+    - "Grep 'neocortex_brain\\|neocortex_vscode' em neocortex_config.yaml → confirmar não é LOCK"
+    - "Confirmar com T0 que neocortex_vscode NÃO é referenciado por nenhum ticket OPEN"
+  atomic_locks:
+    - "01_neocortex_framework/neocortex/mcp/server.py → NUNCA MODIFICAR (LOCK-01)"
+    - "01_neocortex_framework/neocortex/mcp/sub_server.py → NUNCA MODIFICAR (LOCK-01)"
+    - "01_neocortex_framework/neocortex_config.yaml → NUNCA MODIFICAR (LOCK-03)"
+
+tasks:
+  - id: T1
+    title: "Arquivar NC-SUPER-001 (brain) e NC-SUPER-017 (vscode) em 99-archive/"
+    priority: P0
+    write_zone: "ARCHIVE → 99-archive/neocortex-tools-deprecated-2026-05-06/"
+    steps:
+      - "Criar 99-archive/neocortex-tools-deprecated-2026-05-06/ se não existir"
+      - "Mover NC-SUPER-001*.py → 99-archive/neocortex-tools-deprecated-2026-05-06/"
+      - "Mover NC-SUPER-017*.py → 99-archive/neocortex-tools-deprecated-2026-05-06/"
+      - "Criar README-deprovision.md no dir de archive com: data, motivo, ticket ref"
+    validation:
+      - "Test-Path 99-archive/neocortex-tools-deprecated-2026-05-06/NC-SUPER-001*.py → True"
+      - "Test-Path 99-archive/neocortex-tools-deprecated-2026-05-06/NC-SUPER-017*.py → True"
+
+  - id: T2
+    title: "Remover mcp__neocortex__neocortex_brain e mcp__neocortex__neocortex_vscode do allowlist"
+    priority: P0
+    write_zone: "CONFIG → C:\\Users\\Lucas Valério\\.claude\\settings.json"
+    steps:
+      - "Ler settings.json → localizar as 2 entradas no array permissions.allow"
+      - "Remover 'mcp__neocortex__neocortex_brain' do array"
+      - "Remover 'mcp__neocortex__neocortex_vscode' do array"
+      - "Salvar settings.json com JSON válido"
+      - "Validar JSON: python -c \"import json; json.load(open('settings.json'))\" → OK"
+    validation:
+      - "grep 'neocortex_brain\\|neocortex_vscode' settings.json → 0 resultados"
+      - "JSON válido confirmado"
+
+  - id: T3
+    title: "Atualizar NC-LBE-FR-TOOLS-MANIFEST-001 e NC-CHG-FR-001"
+    priority: P1
+    write_zone: "DOCS → 02_memory_lobes/01_framework/NC-LBE-FR-TOOLS-MANIFEST-001.mdc"
+    steps:
+      - "No manifesto: remover NC-SUPER-001 e NC-SUPER-017 da lista de tools ativas"
+      - "Atualizar 'tools_total' de 19 para 17"
+      - "Atualizar 'Última verificação' para 2026-05-06"
+      - "No NC-CHG-FR-001: adicionar entrada de changelog para este ticket"
+    validation:
+      - "grep 'neocortex_brain\\|neocortex_vscode' NC-LBE-FR-TOOLS-MANIFEST-001.mdc → 0 em lista ativa"
+      - "tools_total: 17 no manifesto"
+
+  - id: T4
+    title: "Verificar health_check pós-remoção: tools_loaded = 17, status = healthy"
+    priority: P1
+    write_zone: "READ-ONLY — validação"
+    steps:
+      - "Reiniciar MCP"
+      - "health_check → confirmar tools_loaded = 17"
+      - "health_check → confirmar status = healthy (não degraded)"
+    validation:
+      - "tools_loaded: 17"
+      - "status: healthy"
+
+acceptance_criteria:
+  - "NC-SUPER-001 e NC-SUPER-017 arquivados em 99-archive/ (R05)"
+  - "settings.json sem entradas de neocortex_brain e neocortex_vscode"
+  - "health_check pós-restart: tools_loaded=17, status=healthy"
+  - "NC-LBE-FR-TOOLS-MANIFEST-001 atualizado: tools_total=17"
+  - "NC-CHG-FR-001 com entrada de changelog"
+  - "JSON de settings.json válido (python json.load → OK)"
+
+validation:
+  - json_valid
+  - health_check_tools_count
+  - test_path_archive
+
+pre_handoff_checklist:
+  - "Test-Path 99-archive/NC-SUPER-001*.py → True"
+  - "Test-Path 99-archive/NC-SUPER-017*.py → True"
+  - "grep 'neocortex_brain' settings.json → 0"
+  - "grep 'neocortex_vscode' settings.json → 0"
+  - "health_check: tools_loaded=17"
+  - "Nenhum @LOCK violado"
+
+deliverables:
+  - "99-archive/neocortex-tools-deprecated-2026-05-06/NC-SUPER-001*.py"
+  - "99-archive/neocortex-tools-deprecated-2026-05-06/NC-SUPER-017*.py"
+  - "02_memory_lobes/01_framework/NC-LBE-FR-TOOLS-MANIFEST-001.mdc (modificado)"
+  - "C:\\Users\\Lucas Valério\\.claude\\settings.json (modificado)"
+  - "DIR-DS-002-audit-logs\\NC-DS-299-handoff-<YYYYMMDDTHHMMSS>.yaml"
+
+handoff_template_inline:
+  ticket_id: "NC-DS-299"
+  status: "PENDING_REVIEW"
+  submitted_at: ""
+  submitted_by: "deepseek-agent"
+  review_by: "T0"
+  summary:
+    files_created: []
+    files_modified: []
+    lines_added: 0
+    validation_rounds: 1
+    locks_violated: []
+    overall: "SUCCESS"
+  t0_review_checklist:
+    compile_ok: true
+    ruff_ok: true
+    no_print: true
+    ssot_updated: true
+    locks_clean: true
+  escalation:
+    escalated: false
+    reason: ""
+
+implementation_notes: |
+  - R05 ABSOLUTO: NUNCA deletar — sempre mover para 99-archive/
+  - R21: Confirmar que nenhum ticket OPEN referencia neocortex_brain ou neocortex_vscode
+  - LOCK-01: server.py é IMUTÁVEL — a remoção do registro de tools deve ser via config,
+    não via edição do server.py. Confirmar como o MCP registra tools (auto-discovery?)
+    antes de T1. Se via auto-discovery de diretório, basta arquivar os arquivos.
+  - settings.json: editar com cuidado — JSON mal-formado quebra Claude Code inteiro.
+    Sempre validar com json.load após editar.
+
+write_zone: "ARCHIVE → 99-archive/ | CONFIG → settings.json | DOCS → NC-LBE-FR-TOOLS-MANIFEST-001"
+handoff_required: true

@@ -601,6 +601,10 @@ def create_mcp_server(host="127.0.0.1", port=8765):
             ok, report = _gw(action=tool, agent_id="T0", agent_role="T0")
             status = "OK" if ok else f"BLOCKED: {report.get('violations',[])}"
             _hlog(f"Gateway: {tool} → {status}")
+            if not ok:
+                raise RuntimeError(f"H-MORDACA: {tool} blocked — {report.get('violations',[])}")
+        except RuntimeError:
+            raise
         except ImportError:
             _hlog("Gateway: unavailable (import error)")
         except Exception as e:

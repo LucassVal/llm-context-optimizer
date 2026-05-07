@@ -1,0 +1,220 @@
+# @UBL @UBL @DS-300 | LEXICO: #TICKETS #GOVERNANCE #STABILITY #LOCKS
+ticket_id: "NC-DS-300"
+title: "MCP Stability Lockdown — Formalizar freeze de core files + corrigir SSOT gap (ssot_exists:false)"
+status: OPEN
+priority: CRITICAL
+owner: T0
+category: governance
+created_at: "2026-05-06"
+roadmap_ref: CICLO_7
+depends_on:
+  - "NC-DS-296"  # H mordaça deve estar restaurada para enforcement funcionar
+
+shared_kernel:
+  ulq_symbols:
+    - "@LOCKS"
+    - "@SSOT"
+    - "@BOOT"
+    - "#GOVERNANCE"
+    - "#STABILITY"
+  nc_ids_referenced:
+    - "NC-SEC-FR-001"
+    - "NC-NAM-FR-001"
+    - "NC-LBE-FR-CONSTITUTION-001"
+    - "NC-LBE-FR-RULES-MULTILAYER-001"
+  lexico_validated: false
+  paths_verified: false
+
+working_directory: "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
+framework_subdir: "01_neocortex_framework"
+
+three_w:
+  who: "Gateway (LockGuard) + NC-SEC-FR-001 (@LOCKS) + NC-NAM-FR-001 (@SSOT) + todo agente externo"
+  what: |
+    1. Formalizar e expandir o @LOCKS (NC-SEC-FR-001) para cobrir TODOS os arquivos core do MCP.
+    2. Corrigir o gap: ssot.diff retorna ssot_exists:false — SSOT não está acessível via MCP.
+    3. Criar CLAUDE.md no projeto documentando: quais arquivos são IMUTÁVEIS, quais são
+       read-only para agentes externos (Claude Code, OpenCode, DeepSeek).
+    4. Adicionar regra explícita no SSOT: agentes CLI não modificam arquivos MCP core.
+  why: |
+    ssot.diff retorna ssot_exists:false → a principal referência de governança não está
+    acessível via MCP. Qualquer agente externo que consultar ssot.diff recebe falso negativo.
+    Sem lockdown formalizado, um agente mal-calibrado pode modificar core files sem bloqueio
+    (especialmente com H mordaça offline — NC-DS-296).
+    MURPHY (R127): "O que pode falhar?" — agente externo modificando server.py = sistema morto.
+
+rca:
+  symptom: "ssot.diff retorna ssot_exists:false. Nenhum documento formal proíbe explicitamente agentes CLI de modificar MCP core."
+  why_1: "O MCP tool ssot.diff não consegue localizar NC-NAM-FR-001 no path configurado"
+  why_2: "O path do SSOT no MCP config (neocortex_config.yaml) pode estar desatualizado ou errado"
+  why_3: "Sem SSOT acessível, agentes externos não podem verificar regras — R21 não é possível"
+  why_4: "CLAUDE.md do projeto não documenta explicitamente a arquitetura backbone-first"
+  why_5: "Sem documentação explícita + sem H mordaça ativa: nada impede CLI agent de editar core files"
+  root_cause: "SSOT inacessível via MCP + ausência de documentação de lockdown para agentes externos"
+  corrective_action: |
+    1. Localizar NC-NAM-FR-001 no filesystem → corrigir path no MCP config
+    2. Verificar e expandir NC-SEC-FR-001 com lista completa de LOCK files
+    3. Criar/atualizar CLAUDE.md com seção de arquitetura MCP-as-backbone e lista de @LOCKS
+    4. Verificar se CLAUDE.md project está sendo carregado pelo Claude Code
+  preventive_action: |
+    CICLO-0 deve incluir: ssot.diff → confirmar ssot_exists:true.
+    health_check deve testar ssot_exists como parte do status.
+    Adicionar ao Prompt Mestre §0: "Confirmar ssot.diff antes de qualquer ação estrutural."
+
+swot:
+  strengths:
+    - "LOCK-01 a LOCK-06 definidos na Constitution e em NC-SEC-FR-001"
+    - "LockGuard existe e valida paths (quando H mordaça ativa)"
+    - "Prompt Mestre SUPREMO já documenta @LOCKS e proibições"
+  weaknesses:
+    - "ssot.diff retorna ssot_exists:false — SSOT inacessível via MCP"
+    - "CLAUDE.md pode não ter a lista de @LOCKS explícita para agentes externos"
+    - "Sem H mordaça (NC-DS-296): LockGuard não é chamado em tempo real"
+    - "bootup.sync retorna erro (NC-SCR-FR-066-bootup-sync.py ausente)"
+  opportunities:
+    - "CLAUDE.md bem documentado previne erros de agentes externos sem precisar de código"
+    - "SSOT acessível via MCP habilita ssot.diff como parte do CICLO-0 de todo agente"
+    - "Formalizar lockdown no SSOT eleva compliance score"
+  threats:
+    - "SSOT inacessível = R21 impossível de executar via MCP = agentes externos operam às cegas"
+    - "Claude Code com permissão ampla pode editar qualquer arquivo se não houver instrução clara"
+
+kiss:
+  approach: "Corrigir 1 path config + atualizar CLAUDE.md + verificar NC-SEC-FR-001"
+  lines_changed: "~50 linhas (config path fix + CLAUDE.md seções)"
+  risk: "Baixo — documentação e config, sem alteração de lógica"
+  no_new_engines: true
+  no_refactor_adjacent: true
+
+step_0:
+  r21_verifications:
+    - "Test-Path 01_neocortex_framework/neocortex_config.yaml → confirmar existe (não modificar)"
+    - "Grep 'ssot\\|NC-NAM-FR-001' em neocortex_config.yaml → localizar path configurado"
+    - "Test-Path <path_configurado_do_ssot> → confirmar se existe ou está errado"
+    - "Test-Path CLAUDE.md → confirmar se existe no projeto"
+    - "Test-Path 01_neocortex_framework/neocortex/core/security_service.py ou NC-SEC-FR-001 → confirmar @LOCKS"
+    - "Grep 'ssot_path\\|ssot_file\\|NC-NAM-FR-001' em neocortex_config.yaml → path atual"
+  atomic_locks:
+    - "01_neocortex_framework/neocortex/mcp/server.py → NUNCA MODIFICAR (LOCK-01)"
+    - "01_neocortex_framework/neocortex/mcp/sub_server.py → NUNCA MODIFICAR (LOCK-01)"
+    - "01_neocortex_framework/neocortex_config.yaml → NUNCA MODIFICAR (LOCK-03) — só ler para diagnosticar"
+
+tasks:
+  - id: T1
+    title: "Diagnosticar: localizar NC-NAM-FR-001 e corrigir path no MCP (se possível sem tocar config.yaml)"
+    priority: P0
+    write_zone: "READ-ONLY (diagnóstico) — se path errado e config.yaml for LOCK, escalate para T0"
+    steps:
+      - "Glob '**/*NAM-FR-001*' em TURBOQUANT_V42 → localizar arquivo real"
+      - "Grep 'ssot' em neocortex_config.yaml → ler path configurado"
+      - "Comparar path configurado vs path real → identificar gap"
+      - "SE path configurado está em arquivo editável (não config.yaml): corrigir"
+      - "SE apenas em config.yaml (@LOCK): escalar para T0 para decisão de unlock temporário"
+    validation:
+      - "ssot.diff pós-fix: ssot_exists=true"
+
+  - id: T2
+    title: "Atualizar CLAUDE.md — documentar MCP-as-backbone + lista completa de @LOCKS"
+    priority: P0
+    write_zone: "DOCS → CLAUDE.md (raiz do projeto)"
+    steps:
+      - "Ler CLAUDE.md atual (se existir)"
+      - "Adicionar seção: ARQUITETURA — MCP é a espinha dorsal, CLIs são clientes"
+      - "Adicionar seção: ARQUIVOS IMUTÁVEIS (@LOCKS) com lista explícita:"
+      - "  - server.py, sub_server.py (LOCK-01)"
+      - "  - NC-NAM-FR-001 (LOCK-02)"
+      - "  - neocortex_config.yaml (LOCK-03)"
+      - "  - NC-SEC-FR-001 (LOCK-04)"
+      - "  - start_*.bat, start_*.ps1 (LOCK-06 root_files)"
+      - "Adicionar seção: PROTOCOLO PARA AGENTES EXTERNOS"
+      - "  - SEMPRE acessar lobes via lobe.get(), NUNCA via path direto"
+      - "  - NUNCA modificar @LOCKS files"
+      - "  - SEMPRE verificar ssot.diff antes de ação estrutural"
+    validation:
+      - "CLAUDE.md contém seções: ARQUITETURA, ARQUIVOS IMUTÁVEIS, PROTOCOLO AGENTES"
+      - "Lista de LOCKS presente e completa"
+
+  - id: T3
+    title: "Verificar e expandir NC-SEC-FR-001 (@LOCKS) com todos os core files MCP"
+    priority: P1
+    write_zone: "DOCS → arquivo NC-SEC-FR-001 (identificar path via Glob)"
+    steps:
+      - "Glob '**/NC-SEC-FR-001*' → localizar arquivo"
+      - "Ler conteúdo atual → verificar se cobre todos os arquivos NC-SUPER-*.py"
+      - "Adicionar lista explícita de arquivos NC-SUPER-* como read-only para CLIs externos"
+      - "Adicionar: 'neocortex/mcp/tools/*.py → modificação apenas via ticket aprovado'"
+    validation:
+      - "NC-SEC-FR-001 lista server.py, sub_server.py, config.yaml, NC-NAM-FR-001"
+      - "NC-SEC-FR-001 referencia NC-DS-300 como ticket de lockdown formal"
+
+  - id: T4
+    title: "Diagnosticar NC-SCR-FR-066-bootup-sync.py ausente (bootup.sync falha)"
+    priority: P1
+    write_zone: "READ-ONLY — diagnóstico + recomendação"
+    steps:
+      - "Glob '**/NC-SCR-FR-066*' → verificar se arquivo existe"
+      - "Se não existe: criar ticket NC-DS-301 para recriar o script"
+      - "Se existe mas path errado: corrigir referência no MCP config (via T1)"
+    validation:
+      - "Se ausente: NC-DS-301 criado"
+      - "Se presente: bootup.sync funciona"
+
+acceptance_criteria:
+  - "ssot.diff retorna ssot_exists:true"
+  - "CLAUDE.md contém seção @LOCKS com todos os arquivos imutáveis"
+  - "NC-SEC-FR-001 atualizado com lista completa de core files"
+  - "bootup.sync: ou funcionando ou NC-DS-301 criado para script ausente"
+  - "neocortex_governance action=cf.status confirma Constitution §3 (LOCK-01 a LOCK-06) ativo"
+
+validation:
+  - ssot_diff_exists_true
+  - claude_md_locks_present
+  - cf_status_locks_active
+
+pre_handoff_checklist:
+  - "ssot.diff: ssot_exists=true"
+  - "CLAUDE.md: grep '@LOCKS\\|IMUTÁVEIS\\|server.py' → presente"
+  - "Nenhum @LOCK violado"
+  - "NC-SEC-FR-001 contém lista de LOCKs atualizada"
+  - "shared_kernel.paths_verified = true"
+
+deliverables:
+  - "CLAUDE.md (criado ou atualizado — raiz do projeto)"
+  - "NC-SEC-FR-001 (atualizado — via Glob para localizar)"
+  - "DIR-DS-002-audit-logs\\NC-DS-300-handoff-<YYYYMMDDTHHMMSS>.yaml"
+
+handoff_template_inline:
+  ticket_id: "NC-DS-300"
+  status: "PENDING_REVIEW"
+  submitted_at: ""
+  submitted_by: "deepseek-agent"
+  review_by: "T0"
+  summary:
+    files_created: []
+    files_modified: []
+    lines_added: 0
+    validation_rounds: 1
+    locks_violated: []
+    overall: "SUCCESS"
+  t0_review_checklist:
+    compile_ok: true
+    ruff_ok: true
+    no_print: true
+    ssot_updated: true
+    locks_clean: true
+  escalation:
+    escalated: false
+    reason: ""
+
+implementation_notes: |
+  - LOCK-03: neocortex_config.yaml é IMUTÁVEL. Se o gap do SSOT estiver apenas lá,
+    ESCALAR para T0 antes de qualquer edição. NÃO editar config.yaml sem autorização.
+  - R05: Se algum arquivo for encontrado no lugar errado: mover, não deletar.
+  - R21: ssot.diff, cf.status e naming.check ANTES de qualquer escrita.
+  - CLAUDE.md é lido pelo Claude Code no início de cada sessão — é a primeira linha
+    de defense para agentes externos. Deve ser claro, conciso e não-ambíguo.
+  - Este ticket DEPENDE de NC-DS-296 (H mordaça) para enforcement ativo via Gateway.
+    Sem NC-DS-296, CLAUDE.md é a única barreira para agentes externos.
+
+write_zone: "DOCS → CLAUDE.md | DOCS → NC-SEC-FR-001 | CONFIG (diagnóstico apenas)"
+handoff_required: true

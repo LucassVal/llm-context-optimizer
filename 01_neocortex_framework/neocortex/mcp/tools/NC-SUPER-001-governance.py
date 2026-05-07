@@ -280,11 +280,14 @@ def register_tool(mcp) -> None:
                     "pattern": "NC-<TIPO>-<SIGLA>-<NUM>-<desc>.<ext>", "timestamp": ts}
 
         elif action == "ssot.diff":
-            ssot_path = root / "01_neocortex_framework" / "DIR-DOC-FR-001-docs-main" / "NC-NAM-FR-001-naming-convention.md"
+            ssot_path = root / "01_neocortex_framework" / "23-docs" / "NC-NAM-FR-001-naming-convention.md"
+            lexico_path = root / "01_neocortex_framework" / ".neocortex" / "lexico" / "NC-LEXICO-LATEST.json"
             exists = ssot_path.exists()
             mtime = datetime.fromtimestamp(ssot_path.stat().st_mtime).isoformat() if exists else None
+            lexico_ok = lexico_path.exists()
             return {"success": True, "action": action, "ssot_exists": exists,
-                    "ssot_last_modified": mtime, "drift_check": "manual", "timestamp": ts}
+                    "ssot_last_modified": mtime, "lexico_exists": lexico_ok,
+                    "ssot_path": str(ssot_path.relative_to(root)), "timestamp": ts}
 
         elif action == "cycle.check":
             wf = root / ".agents" / "workflows" / "NC-WF-001-workspace-routine.md"

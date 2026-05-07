@@ -25,7 +25,7 @@ from pathlib import Path
 from typing import Any
 from ..errors import mcp_response
 TOOL_NAME = "neocortex_evolution"
-root = Path(__file__).parents[4]
+root = Path(__file__).parents[5]
 
 def _ts(): return datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
 

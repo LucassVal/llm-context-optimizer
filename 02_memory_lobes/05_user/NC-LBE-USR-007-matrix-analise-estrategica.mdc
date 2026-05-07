@@ -8,7 +8,7 @@ status: active
 module: strategic
 version: 1.0
 created: 2026-05-03
-temperature: 60
+temperature: 0
 ---
 
 

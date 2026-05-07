@@ -1,0 +1,201 @@
+# @UBL @UBL @DS-296 | LEXICO: #TICKETS #HOOKS #GOVERNANCE
+ticket_id: "NC-DS-296"
+title: "Restaurar H Mordaça — Fix asyncio conflict no HookRegistry init (Gateway offline)"
+status: OPEN
+priority: CRITICAL
+owner: T0
+category: governance
+created_at: "2026-05-06"
+roadmap_ref: CICLO_7
+depends_on: []
+
+shared_kernel:
+  ulq_symbols:
+    - "@LOCKS"
+    - "@BOOT"
+    - "#HOOKS"
+    - "#GOVERNANCE"
+  nc_ids_referenced:
+    - "NC-HK-FR-001-hook-registry"
+    - "NC-HK-FR-002-example-hook"
+    - "NC-SUPER-008-security"
+  lexico_validated: false
+  paths_verified: false
+
+working_directory: "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
+framework_subdir: "01_neocortex_framework"
+
+three_w:
+  who: "HookRegistry (NC-HK-FR-001) + neocortex_security (NC-SUPER-008) + MCP server startup"
+  what: |
+    Corrigir o conflito asyncio que impede a inicialização do HookRegistry.
+    Erro atual: health_check retorna hook_registry: ERROR — 'This event loop is already running'.
+    A mordaça H (Gateway.validate_action — 17 checks instantâneos) está OFFLINE.
+    Regras R05 e R06 sem fallback C — gap de contenção ativo.
+  why: |
+    A mordaça H é a única camada de enforcement instantâneo (pré-execução) das 133 regras.
+    Com H offline, R05 (NUNCA Deletar) e R06 (Write Zones) têm apenas S e U como contenção —
+    nenhuma delas opera em tempo real. Risco de escrita destrutiva não bloqueada.
+
+rca:
+  symptom: "health_check retorna hook_registry: ERROR 'This event loop is already running'"
+  why_1: "O MCP server roda dentro de um event loop asyncio (FastMCP stdio transport)"
+  why_2: "O código de inicialização do HookRegistry ou do hook.register chama asyncio.run() dentro do loop ativo"
+  why_3: "asyncio.run() cria um novo event loop, mas não pode rodar dentro de um loop já existente"
+  why_4: "NC-HK-FR-001 foi projetado para inicialização síncrona, sem adaptação para contexto asyncio"
+  why_5: "A integração do HookRegistry no MCP server nunca passou por teste de inicialização em contexto async"
+  root_cause: "asyncio.run() chamado dentro de coroutine ativa — incompatibilidade de contexto de execução"
+  corrective_action: |
+    Localizar o ponto de inicialização do HookRegistry no MCP server.
+    Substituir asyncio.run(init_hooks()) por await init_hooks() (se async) ou
+    mover a inicialização para o bloco síncrono de startup (antes do loop iniciar).
+    Alternativa KISS: usar asyncio.get_event_loop().run_until_complete() apenas se fora de coroutine.
+  preventive_action: |
+    Adicionar ao health_check um teste ativo do hook_registry (já previsto em NC-DS-259 / R127 MURPHY).
+    Documentar no NC-HK-FR-001 que a inicialização DEVE ocorrer no startup síncrono do server.
+
+swot:
+  strengths:
+    - "HookRegistry usa threading.Lock + ThreadPoolExecutor — compatível com asyncio se inicializado corretamente"
+    - "neocortex_security hook.list/hook.register funcionam — a infra existe"
+    - "Mordaça C (PulseScheduler 300s) ainda ativa como fallback"
+  weaknesses:
+    - "H mordaça OFFLINE — 17 checks instantâneos não executam"
+    - "R05 e R06 sem contenção em tempo real"
+    - "Zero hooks registrados no sistema atual"
+  opportunities:
+    - "Fix simples — mover 1-3 linhas de código de lugar"
+    - "Após fix, registrar hooks para R01, R04, R05, R06 imediatamente"
+  threats:
+    - "Enquanto H offline, agente pode sobrescrever @LOCKS sem bloqueio imediato"
+    - "Erro silencioso — health_check degraded mas MCP continua servindo"
+
+kiss:
+  approach: "Mover inicialização do HookRegistry para fora do event loop asyncio — mudança de 1-5 linhas"
+  lines_changed: "5-15 linhas no arquivo de startup do MCP"
+  risk: "Baixo — não altera lógica do registry, apenas o ponto de inicialização"
+  no_new_engines: true
+  no_refactor_adjacent: true
+
+step_0:
+  r21_verifications:
+    - "Test-Path 01_neocortex_framework/neocortex/mcp/server.py → confirmar existe (não modificar — @LOCK)"
+    - "Grep 'asyncio.run' em neocortex/core/hooks/ e neocortex/mcp/ → localizar ocorrência"
+    - "Grep 'hook_registry\\|HookRegistry\\|get_hook_registry' em neocortex/mcp/tools/ → localizar chamada"
+    - "python -c 'import asyncio; print(asyncio.get_event_loop().is_running())' dentro do server → confirmar True"
+    - "python -m py_compile 01_neocortex_framework/neocortex/core/hooks/NC-HK-FR-001-hook-registry.py → PASS"
+  atomic_locks:
+    - "01_neocortex_framework/neocortex/mcp/server.py → NUNCA MODIFICAR (LOCK-01)"
+    - "01_neocortex_framework/neocortex/mcp/sub_server.py → NUNCA MODIFICAR (LOCK-01)"
+    - "01_neocortex_framework/neocortex_config.yaml → NUNCA MODIFICAR (LOCK-03)"
+
+tasks:
+  - id: T1
+    title: "Localizar ponto exato de asyncio.run() no startup do MCP"
+    priority: P0
+    write_zone: "READ-ONLY — diagnóstico sem escrita"
+    steps:
+      - "Grep 'asyncio.run' em 01_neocortex_framework/neocortex/ (excluindo server.py e sub_server.py)"
+      - "Grep 'get_hook_registry\\|HookRegistry' em neocortex/mcp/tools/NC-SUPER-008*.py"
+      - "Identificar o arquivo e linha exata do conflito"
+    validation:
+      - "Output: arquivo + linha confirmados — sem ambiguidade (R21)"
+
+  - id: T2
+    title: "Corrigir inicialização — mover para contexto síncrono ou adaptar para await"
+    priority: P0
+    write_zone: "CORE → 01_neocortex_framework/neocortex/mcp/tools/ (arquivo identificado em T1)"
+    steps:
+      - "Se asyncio.run(f()): substituir por await f() dentro de async def, ou mover antes do loop"
+      - "Se inicialização em __init__ de tool: extrair para função async de startup chamada pelo server"
+      - "python -m py_compile <arquivo_modificado> → PASS"
+      - "ruff check <arquivo_modificado> → 0 erros"
+    validation:
+      - "python -m py_compile → PASS"
+      - "ruff check → 0 erros"
+
+  - id: T3
+    title: "Verificar health_check pós-fix: hook_registry status = OK"
+    priority: P0
+    write_zone: "READ-ONLY — validação"
+    steps:
+      - "Reiniciar MCP server"
+      - "Chamar health_check → confirmar 'hook_registry' ausente de 'degraded'"
+      - "Chamar neocortex_security action=hook.list → confirmar success: true"
+    validation:
+      - "health_check: status = 'healthy' (não 'degraded')"
+      - "hook_registry não aparece em 'degraded'"
+
+  - id: T4
+    title: "Registrar hooks mínimos para R05 e R06 após fix"
+    priority: P1
+    write_zone: "CORE → NC-HK-FR-002 ou novo NC-HK-FR-003"
+    steps:
+      - "Criar hook PreToolUse que chama Gateway.validate_action para R05 (delete detection)"
+      - "Criar hook PreToolUse que chama LockGuard.check_write para R06 (write zones)"
+      - "Registrar via neocortex_security action=hook.register"
+    validation:
+      - "neocortex_security hook.list → 2+ hooks registrados"
+      - "Testar com ação de delete simulada → hook bloqueia"
+
+acceptance_criteria:
+  - "health_check retorna status: healthy (hook_registry não em degraded)"
+  - "neocortex_security hook.list retorna >= 2 hooks ativos (R05 + R06)"
+  - "Simulação de rm/delete em path protegido → bloqueado pela mordaça H"
+  - "ruff check → 0 erros em arquivo modificado"
+  - "py_compile → PASS"
+
+validation:
+  - ruff
+  - py_compile
+  - health_check_post_restart
+
+pre_handoff_checklist:
+  - "python -m py_compile <arquivo_modificado>.py → PASS"
+  - "python -m ruff check <arquivo_modificado>.py --select F,E9 → 0 erros"
+  - "Nenhum @LOCK violado (server.py, sub_server.py, neocortex_config.yaml)"
+  - "health_check pós-restart: status = healthy"
+  - "hook.list: >= 2 hooks registrados"
+  - "shared_kernel.paths_verified = true"
+  - "shared_kernel.lexico_validated = true"
+
+deliverables:
+  - "01_neocortex_framework/neocortex/mcp/tools/<arquivo_identificado>.py (modificado)"
+  - "01_neocortex_framework/neocortex/core/hooks/NC-HK-FR-003-core-guards.py (novo, se T4)"
+  - "DIR-DS-002-audit-logs\\NC-DS-296-handoff-<YYYYMMDDTHHMMSS>.yaml"
+
+handoff_template_inline:
+  ticket_id: "NC-DS-296"
+  status: "PENDING_REVIEW"
+  submitted_at: ""
+  submitted_by: "deepseek-agent"
+  review_by: "T0"
+  summary:
+    files_created: []
+    files_modified: []
+    lines_added: 0
+    validation_rounds: 1
+    locks_violated: []
+    overall: "SUCCESS"
+  t0_review_checklist:
+    compile_ok: true
+    ruff_ok: true
+    no_print: true
+    ssot_updated: false
+    locks_clean: true
+  escalation:
+    escalated: false
+    reason: ""
+
+implementation_notes: |
+  Regras INVIOLÁVEIS:
+  - R09: NUNCA 'import NC-HK-FR-001'. Usar importlib.util.spec_from_file_location()
+  - R10: NUNCA hardcode paths. Usar Path(__file__)
+  - R11: NUNCA print(). Usar logger = logging.getLogger(__name__)
+  - R21: Grep antes de editar. Confirmar linha exata. Zero suposições.
+  - LOCK-01: server.py e sub_server.py são IMUTÁVEIS — não tocar.
+  - A correção deve ser em arquivo de tool/startup FORA do server.py.
+  - Dead code em NC-HK-FR-001 linhas 271-281 (após return): remover em T2 se tocar o arquivo.
+
+write_zone: "CORE → neocortex/mcp/tools/ (arquivo a identificar em T1)"
+handoff_required: true

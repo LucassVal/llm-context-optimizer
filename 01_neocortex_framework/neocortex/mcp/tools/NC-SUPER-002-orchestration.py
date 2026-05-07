@@ -52,8 +52,14 @@ def _get_orchestration_service():
 
 def _get_task_queue():
     try:
-        from neocortex.core import get_task_queue_service
-        return get_task_queue_service()
+        import importlib.util
+        core_dir = Path(__file__).parents[3]
+        spec = importlib.util.spec_from_file_location("tq", str(core_dir / "core" / "NC-CORE-FR-105-cascade-consolidator.py"))
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        if hasattr(mod, "get_task_queue_service"):
+            return mod.get_task_queue_service()
+        return None
     except Exception:
         return None
 

@@ -1,0 +1,181 @@
+# @UBL @UBL @DS-297 | LEXICO: #TICKETS #ORCHESTRATION #INFRASTRUCTURE
+ticket_id: "NC-DS-297"
+title: "Fix neocortex_orchestration — TaskQueue indisponível (Poder Executivo offline)"
+status: OPEN
+priority: CRITICAL
+owner: T0
+category: infrastructure
+created_at: "2026-05-06"
+roadmap_ref: CICLO_7
+depends_on: []
+
+shared_kernel:
+  ulq_symbols:
+    - "@BOOT"
+    - "#ORCHESTRATION"
+    - "#INFRASTRUCTURE"
+  nc_ids_referenced:
+    - "NC-SUPER-007-orchestration"
+    - "NC-SVC-FR-010-agent-executor"
+  lexico_validated: false
+  paths_verified: false
+
+working_directory: "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
+framework_subdir: "01_neocortex_framework"
+
+three_w:
+  who: "neocortex_orchestration (NC-SUPER-007) — Poder Executivo do NeoCortex"
+  what: |
+    Corrigir o erro 'TaskQueue indisponível' que impede qualquer ação de:
+    task.execute, task.list, task.cancel, agent.spawn, dispatch.create, workers.spawn.
+    O Poder Executivo (orquestração de tasks e agentes) está completamente offline.
+  why: |
+    Sem orquestração funcional, o sistema não pode delegar trabalho a agentes T2/T3,
+    não pode criar dispatches paralelos, nem executar tasks assíncronas.
+    Viola a hierarquia de agentes (Constitution §4) e bloqueia CICLO-2 (Execução).
+
+rca:
+  symptom: "neocortex_orchestration action=task.list retorna Error: TaskQueue indisponível"
+  why_1: "A tool tenta acessar uma instância de TaskQueue que não foi inicializada"
+  why_2: "O TaskQueue é um serviço que precisa ser instanciado no startup do MCP"
+  why_3: "O startup não inicializa o TaskQueue — ausência de wiring no boot sequence"
+  why_4: "Nenhum teste de smoke verificou task.list após o colapso de tools (19 vs 43)"
+  why_5: "A consolidação de 43→17 super-tools quebrou dependências de inicialização que não foram re-wired"
+  root_cause: "TaskQueue não inicializado no startup pós-consolidação de super-tools"
+  corrective_action: |
+    Localizar a classe TaskQueue no código.
+    Adicionar instanciação no bloco de inicialização da super-tool NC-SUPER-007.
+    Garantir que task.list retorna [] (vazio) em vez de erro quando fila está vazia.
+  preventive_action: |
+    Adicionar task.list ao smoke test do CICLO-0.
+    health_check deve testar task.list ativamente (retorno de lista, não erro).
+
+swot:
+  strengths:
+    - "neocortex_orchestration está carregado (schema disponível)"
+    - "AgentExecutor (NC-SVC-FR-010) existe como serviço core"
+    - "Estrutura de dispatch e workers está definida"
+  weaknesses:
+    - "TaskQueue não inicializado — todas as actions de task falham"
+    - "Poder Executivo 100% offline"
+    - "CICLO-2 (Execução de tickets) não pode usar delegação"
+  opportunities:
+    - "Fix de inicialização — instanciar TaskQueue no __init__ da tool"
+    - "Após fix, implementar task.list para retornar tarefas do PulseScheduler"
+  threats:
+    - "Sem orchestration, todos os tickets precisam de execução direta T0 (viola R15)"
+    - "Escalar para MCP instável se inicialização causar efeito colateral"
+
+kiss:
+  approach: "Instanciar TaskQueue no __init__ de NC-SUPER-007. Retornar [] em task.list quando vazio."
+  lines_changed: "10-20 linhas"
+  risk: "Baixo — adicionar inicialização, não alterar lógica existente"
+  no_new_engines: true
+  no_refactor_adjacent: true
+
+step_0:
+  r21_verifications:
+    - "Grep 'TaskQueue' em 01_neocortex_framework/neocortex/ → localizar definição e uso"
+    - "Grep 'task.list\\|task_list\\|task.execute' em NC-SUPER-007*.py → confirmar handlers"
+    - "Test-Path NC-SUPER-007*.py → confirmar arquivo existe"
+    - "python -m py_compile NC-SUPER-007*.py → PASS antes de modificar"
+    - "Confirmar: task.list retorna erro de TaskQueue, não de permissão ou import"
+  atomic_locks:
+    - "01_neocortex_framework/neocortex/mcp/server.py → NUNCA MODIFICAR (LOCK-01)"
+    - "01_neocortex_framework/neocortex/mcp/sub_server.py → NUNCA MODIFICAR (LOCK-01)"
+    - "01_neocortex_framework/neocortex_config.yaml → NUNCA MODIFICAR (LOCK-03)"
+
+tasks:
+  - id: T1
+    title: "Localizar TaskQueue e ponto de inicialização ausente"
+    priority: P0
+    write_zone: "READ-ONLY — diagnóstico"
+    steps:
+      - "Grep 'class TaskQueue' em neocortex/ → encontrar definição"
+      - "Grep 'TaskQueue()' em NC-SUPER-007*.py → confirmar ausência de instanciação"
+      - "Ler __init__ de NC-SUPER-007 → confirmar gap de inicialização"
+    validation:
+      - "Ponto exato de falha identificado (arquivo + linha)"
+
+  - id: T2
+    title: "Corrigir inicialização do TaskQueue em NC-SUPER-007"
+    priority: P0
+    write_zone: "CORE → 01_neocortex_framework/neocortex/mcp/tools/NC-SUPER-007*.py"
+    steps:
+      - "Adicionar self._task_queue = TaskQueue() no __init__ da super-tool"
+      - "Garantir que task.list retorna {'tasks': [], 'count': 0} quando fila vazia"
+      - "Garantir que task.execute retorna erro descritivo se payload inválido"
+      - "python -m py_compile NC-SUPER-007*.py → PASS"
+      - "ruff check NC-SUPER-007*.py → 0 erros"
+    validation:
+      - "python -m py_compile → PASS"
+      - "ruff check → 0 erros"
+
+  - id: T3
+    title: "Smoke test pós-fix: task.list retorna [] (não erro)"
+    priority: P0
+    write_zone: "READ-ONLY — validação"
+    steps:
+      - "Reiniciar MCP"
+      - "neocortex_orchestration action=task.list → confirmar success:true, tasks:[]"
+      - "neocortex_orchestration action=agent.list → confirmar success:true"
+    validation:
+      - "task.list: success=true, tasks=[], sem Error"
+      - "agent.list: success=true"
+
+acceptance_criteria:
+  - "neocortex_orchestration action=task.list retorna success:true com tasks:[]"
+  - "neocortex_orchestration action=agent.list retorna success:true"
+  - "neocortex_orchestration action=workers.status retorna success:true"
+  - "ruff check → 0 erros"
+  - "py_compile → PASS"
+
+validation:
+  - ruff
+  - py_compile
+  - smoke_task_list
+
+pre_handoff_checklist:
+  - "python -m py_compile NC-SUPER-007*.py → PASS"
+  - "python -m ruff check NC-SUPER-007*.py --select F,E9 → 0 erros"
+  - "Nenhum @LOCK violado"
+  - "task.list pós-restart: success=true"
+  - "shared_kernel.paths_verified = true"
+
+deliverables:
+  - "01_neocortex_framework/neocortex/mcp/tools/NC-SUPER-007*.py (modificado)"
+  - "DIR-DS-002-audit-logs\\NC-DS-297-handoff-<YYYYMMDDTHHMMSS>.yaml"
+
+handoff_template_inline:
+  ticket_id: "NC-DS-297"
+  status: "PENDING_REVIEW"
+  submitted_at: ""
+  submitted_by: "deepseek-agent"
+  review_by: "T0"
+  summary:
+    files_created: []
+    files_modified: []
+    lines_added: 0
+    validation_rounds: 1
+    locks_violated: []
+    overall: "SUCCESS"
+  t0_review_checklist:
+    compile_ok: true
+    ruff_ok: true
+    no_print: true
+    ssot_updated: false
+    locks_clean: true
+  escalation:
+    escalated: false
+    reason: ""
+
+implementation_notes: |
+  - R09: NUNCA import direto. Usar importlib.util.spec_from_file_location()
+  - R11: NUNCA print(). Usar logger.
+  - R21: Confirmar definição de TaskQueue antes de instanciar.
+  - KISS: TaskQueue() simples no __init__ — zero refactor do resto da tool.
+  - Se TaskQueue não tiver __init__ simples, usar dict/list como stub temporário
+    e criar NC-DS-XXX para implementação completa.
+
+write_zone: "CORE → neocortex/mcp/tools/NC-SUPER-007*.py"
+handoff_required: true

@@ -1,0 +1,184 @@
+# @UBL @UBL @DS-298 | LEXICO: #TICKETS #EVOLUTION #ARCHITECTURE
+ticket_id: "NC-DS-298"
+title: "Fix neocortex_evolution — relative import sem parent package (módulo quebrado)"
+status: OPEN
+priority: HIGH
+owner: T0
+category: architecture
+created_at: "2026-05-06"
+roadmap_ref: CICLO_7
+depends_on: []
+
+shared_kernel:
+  ulq_symbols:
+    - "@BOOT"
+    - "#EVOLUTION"
+    - "#ARCHITECTURE"
+  nc_ids_referenced:
+    - "NC-SUPER-016-evolution"
+  lexico_validated: false
+  paths_verified: false
+
+working_directory: "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
+framework_subdir: "01_neocortex_framework"
+
+three_w:
+  who: "neocortex_evolution (NC-SUPER-016) — FASE 6, sandbox + mutation governance"
+  what: |
+    Corrigir erro: 'attempted relative import with no known parent package'
+    em qualquer action de neocortex_evolution (drift.status, mutation.list, sandbox.test).
+    O módulo usa 'from . import X' ou 'from ..module import Y' mas é carregado
+    como arquivo standalone pelo MCP (sem package context).
+  why: |
+    neocortex_evolution governa mutações e evolução do sistema (R27-R40).
+    Sem ele, drift.status não funciona — não é possível detectar desvios do estado canônico (R97).
+    Viola BSL (Biosafety Levels) e bloqueia FASE 6 do roadmap.
+
+rca:
+  symptom: "neocortex_evolution action=drift.status retorna: attempted relative import with no known parent package"
+  why_1: "O arquivo NC-SUPER-016 usa imports relativos (from . import X)"
+  why_2: "O MCP carrega tools via importlib.util.spec_from_file_location() como módulo standalone"
+  why_3: "Módulo standalone não tem __package__ definido — imports relativos falham"
+  why_4: "O padrão correto do NeoCortex (R09) é usar importlib.util.spec_from_file_location() para deps"
+  why_5: "NC-SUPER-016 foi criado antes ou sem seguir R09 — usa imports relativos proibidos"
+  root_cause: "Imports relativos em arquivo carregado como standalone — viola R09"
+  corrective_action: |
+    Substituir todos os imports relativos em NC-SUPER-016 por:
+    importlib.util.spec_from_file_location('modulo', Path(__file__).parent / 'NC-DEP-XXX.py')
+    OU converter para imports absolutos se o package está no PYTHONPATH.
+  preventive_action: |
+    Adicionar ao CICLO-0: grep 'from \.' em todos os NC-SUPER-*.py — detectar violações R09.
+    Adicionar ao CI/lint: 'ruff check --select TID252' para relative imports.
+
+swot:
+  strengths:
+    - "neocortex_evolution está carregado no MCP (schema disponível)"
+    - "A lógica de mutação/drift existe — apenas o import está quebrado"
+    - "R09 define o padrão correto de import para o NeoCortex"
+  weaknesses:
+    - "Todas as actions de evolution falham"
+    - "drift.status offline — R97 (Drift Observability) não detecta desvios"
+    - "genome.fork / mutation.propose inoperantes"
+  opportunities:
+    - "Fix de 1 arquivo — substituir N imports relativos por spec_from_file_location"
+    - "Boa oportunidade para auditar TODOS os NC-SUPER-*.py por imports relativos"
+  threats:
+    - "Se muitas deps usam import relativo, o fix pode revelar mais módulos quebrados"
+    - "Modificar imports pode alterar comportamento se há side effects de import"
+
+kiss:
+  approach: "Substituir 'from . import X' por importlib.util.spec_from_file_location em NC-SUPER-016"
+  lines_changed: "10-30 linhas (1 por import relativo encontrado)"
+  risk: "Baixo-Médio — mudança de import sem alterar lógica, mas testar cada dep"
+  no_new_engines: true
+  no_refactor_adjacent: true
+
+step_0:
+  r21_verifications:
+    - "Grep 'from \\.' em NC-SUPER-016*.py → listar todos imports relativos"
+    - "Test-Path NC-SUPER-016*.py → confirmar existe"
+    - "python -m py_compile NC-SUPER-016*.py → confirmar que erro é de import (não sintaxe)"
+    - "Grep 'from \\.' em todos NC-SUPER-*.py → auditar scope completo (informativo)"
+    - "Para cada dep relativa: Test-Path do arquivo alvo → confirmar que existe"
+  atomic_locks:
+    - "01_neocortex_framework/neocortex/mcp/server.py → NUNCA MODIFICAR (LOCK-01)"
+    - "01_neocortex_framework/neocortex/mcp/sub_server.py → NUNCA MODIFICAR (LOCK-01)"
+    - "01_neocortex_framework/neocortex_config.yaml → NUNCA MODIFICAR (LOCK-03)"
+
+tasks:
+  - id: T1
+    title: "Mapear todos imports relativos em NC-SUPER-016"
+    priority: P0
+    write_zone: "READ-ONLY — diagnóstico"
+    steps:
+      - "grep -n 'from \\.' NC-SUPER-016*.py → listar linha e módulo de cada import"
+      - "Para cada import: localizar o arquivo alvo (parent/modulo.py)"
+      - "Montar lista: {import_atual → path_absoluto_alvo}"
+    validation:
+      - "Lista completa de imports relativos com paths absolutos correspondentes"
+
+  - id: T2
+    title: "Substituir imports relativos por spec_from_file_location (R09)"
+    priority: P0
+    write_zone: "CORE → 01_neocortex_framework/neocortex/mcp/tools/NC-SUPER-016*.py"
+    steps:
+      - "Para cada 'from .X import Y': substituir por bloco spec_from_file_location"
+      - |
+        Padrão R09:
+          _spec = importlib.util.spec_from_file_location('X', Path(__file__).parent / 'X.py')
+          _mod = importlib.util.module_from_spec(_spec)
+          _spec.loader.exec_module(_mod)
+          Y = _mod.Y
+      - "python -m py_compile NC-SUPER-016*.py → PASS"
+      - "ruff check NC-SUPER-016*.py → 0 erros"
+    validation:
+      - "python -m py_compile → PASS (sem ImportError)"
+      - "ruff check → 0 erros"
+
+  - id: T3
+    title: "Smoke test: drift.status retorna resposta válida"
+    priority: P0
+    write_zone: "READ-ONLY — validação"
+    steps:
+      - "Reiniciar MCP"
+      - "neocortex_evolution action=drift.status → confirmar success:true (sem import error)"
+      - "neocortex_evolution action=mutation.list → confirmar success:true"
+    validation:
+      - "drift.status: success=true, sem 'relative import' no error"
+
+acceptance_criteria:
+  - "neocortex_evolution action=drift.status retorna success:true"
+  - "neocortex_evolution action=mutation.list retorna success:true"
+  - "python -m py_compile NC-SUPER-016*.py → PASS"
+  - "ruff check → 0 erros"
+  - "Zero imports relativos em NC-SUPER-016"
+
+validation:
+  - ruff
+  - py_compile
+  - smoke_drift_status
+
+pre_handoff_checklist:
+  - "python -m py_compile NC-SUPER-016*.py → PASS"
+  - "python -m ruff check NC-SUPER-016*.py --select F,E9 → 0 erros"
+  - "Nenhum @LOCK violado"
+  - "drift.status: success=true pós-restart"
+  - "grep 'from \\.' NC-SUPER-016*.py → 0 resultados"
+
+deliverables:
+  - "01_neocortex_framework/neocortex/mcp/tools/NC-SUPER-016*.py (modificado)"
+  - "DIR-DS-002-audit-logs\\NC-DS-298-handoff-<YYYYMMDDTHHMMSS>.yaml"
+
+handoff_template_inline:
+  ticket_id: "NC-DS-298"
+  status: "PENDING_REVIEW"
+  submitted_at: ""
+  submitted_by: "deepseek-agent"
+  review_by: "T0"
+  summary:
+    files_created: []
+    files_modified: []
+    lines_added: 0
+    validation_rounds: 1
+    locks_violated: []
+    overall: "SUCCESS"
+  t0_review_checklist:
+    compile_ok: true
+    ruff_ok: true
+    no_print: true
+    ssot_updated: false
+    locks_clean: true
+  escalation:
+    escalated: false
+    reason: ""
+
+implementation_notes: |
+  - R09 ABSOLUTO: NUNCA from . import. SEMPRE spec_from_file_location.
+  - R11: NUNCA print(). Usar logger.
+  - R21: Confirmar path de cada dep antes de spec_from_file_location.
+  - KISS: Só substituir imports. Não refatorar lógica da tool.
+  - Se dep não existir (Test-Path falha): escalate para T0, não criar stub.
+  - Ticket paralelo sugerido: auditar TODOS NC-SUPER-*.py por 'from \.' (NC-DS-30X).
+
+write_zone: "CORE → neocortex/mcp/tools/NC-SUPER-016*.py"
+handoff_required: true
