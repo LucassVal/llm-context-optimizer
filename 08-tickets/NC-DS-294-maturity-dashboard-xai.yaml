@@ -1,7 +1,7 @@
 # @UBL @UBL @DS-294 | LEXICO: #TICKETS
 ticket_id: "NC-DS-294"
 title: "Maturity Dashboard + CoT/XAI Logging — Mission Control Wire-up"
-status: OPEN
+status: DONE
 priority: MEDIUM
 owner: T0
 category: governance

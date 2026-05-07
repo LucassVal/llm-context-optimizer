@@ -1,7 +1,7 @@
 # @UBL @UBL @DS-297 | LEXICO: #TICKETS #ORCHESTRATION #INFRASTRUCTURE
 ticket_id: "NC-DS-297"
 title: "Fix neocortex_orchestration — TaskQueue indisponível (Poder Executivo offline)"
-status: OPEN
+status: DONE
 priority: CRITICAL
 owner: T0
 category: infrastructure

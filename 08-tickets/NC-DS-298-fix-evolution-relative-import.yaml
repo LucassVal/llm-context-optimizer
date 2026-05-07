@@ -1,7 +1,7 @@
 # @UBL @UBL @DS-298 | LEXICO: #TICKETS #EVOLUTION #ARCHITECTURE
 ticket_id: "NC-DS-298"
 title: "Fix neocortex_evolution — relative import sem parent package (módulo quebrado)"
-status: OPEN
+status: DONE
 priority: HIGH
 owner: T0
 category: architecture

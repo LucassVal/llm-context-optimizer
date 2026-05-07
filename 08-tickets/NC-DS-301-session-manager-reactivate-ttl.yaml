@@ -1,7 +1,7 @@
 # @UBL @UBL @DS-301 | LEXICO: #TICKETS #SESSION #TTL #INFRASTRUCTURE
 ticket_id: "NC-DS-301"
 title: "Reativar SessionManager + TTLManager — session.status retorna 'desabilitado'"
-status: OPEN
+status: DONE
 priority: HIGH
 owner: T0
 category: infrastructure

@@ -1,7 +1,7 @@
 # @UBL @UBL @DS-305 | LEXICO: #TICKETS #CONFIDENCE #FEATUREFLAGS #GOVERNANCE
 ticket_id: "NC-DS-305"
 title: "ConfidenceReviewService + FeatureFlagService — gaps CC-004 e CC-010"
-status: OPEN
+status: DONE
 priority: MEDIUM
 owner: T0
 category: governance

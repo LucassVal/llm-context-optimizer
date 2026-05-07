@@ -1,7 +1,7 @@
 # @UBL @UBL @DS-296 | LEXICO: #TICKETS #HOOKS #GOVERNANCE
 ticket_id: "NC-DS-296"
 title: "Restaurar H Mordaça — Fix asyncio conflict no HookRegistry init (Gateway offline)"
-status: OPEN
+status: DONE
 priority: CRITICAL
 owner: T0
 category: governance

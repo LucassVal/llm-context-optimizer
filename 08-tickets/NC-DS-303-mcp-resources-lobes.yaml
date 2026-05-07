@@ -1,7 +1,7 @@
 # @UBL @UBL @DS-303 | LEXICO: #TICKETS #MCP #RESOURCES #LOBES #PROTOCOL
 ticket_id: "NC-DS-303"
 title: "MCP Resources — Expor lobes como MCP Resources (gap da spec oficial INT-006)"
-status: OPEN
+status: DONE
 priority: HIGH
 owner: T0
 category: architecture

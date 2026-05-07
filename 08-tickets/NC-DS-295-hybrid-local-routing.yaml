@@ -1,7 +1,7 @@
 # @UBL @UBL @DS-295 | LEXICO: #TICKETS
 ticket_id: "NC-DS-295"
 title: "Hybrid Local Routing — Ollama para tarefas simples, DeepSeek para complexas"
-status: OPEN
+status: DONE
 priority: MEDIUM
 owner: T0
 category: infrastructure

@@ -1,7 +1,7 @@
 # @UBL @UBL @DS-299 | LEXICO: #TICKETS #ARCHITECTURE #CLEANUP
 ticket_id: "NC-DS-299"
 title: "Deprovision neocortex_brain (LiteLLM) + neocortex_vscode — remoção limpa de tools obsoletas"
-status: OPEN
+status: DONE
 priority: HIGH
 owner: T0
 category: architecture

@@ -1,7 +1,7 @@
 # @UBL @UBL @DS-300 | LEXICO: #TICKETS #GOVERNANCE #STABILITY #LOCKS
 ticket_id: "NC-DS-300"
 title: "MCP Stability Lockdown — Formalizar freeze de core files + corrigir SSOT gap (ssot_exists:false)"
-status: OPEN
+status: DONE
 priority: CRITICAL
 owner: T0
 category: governance
