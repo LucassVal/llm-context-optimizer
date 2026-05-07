@@ -1,0 +1,264 @@
+---
+name: NC-LBE-USR-007-sistema-analise-estrategica
+description: Centro de comando estrategico — analise 5 dimensoes, hooks cross-ref, ecossistema MCP, gaps de seguranca, plano de acao. R21/KISS/3W aplicado.
+tags: [analise, estrategia, mcp, seguranca, hooks, ecossistema, governanca]
+status: active
+module: strategic
+version: 1.0
+created: 2026-05-07
+temperature: 65
+---
+
+<!-- NC-READ-HASH: NC-LBE-USR-007-sistema-analise-estrategica-v1 -->
+
+# NC-LBE-USR-007 — Sistema: Análise Estratégica 5 Dimensões
+
+> **3W:** What = Centro de Comando Estratégico. Why = Priorizar investimento em skills, ferramentas e segurança com base em dados reais. Where = 02_memory_lobes/05_user/
+> **R21:** Nada aqui é suposição — cada item foi verificado contra o sistema real.
+> **KISS:** 50 skills mapeadas em 5 dimensões + 1 ecossistema, priorizadas por Eisenhower.
+
+---
+
+## 📊 Dimensão 1: Maturidade em IA — NeoCortex Status Atual
+
+**Estágio MIT:** Construção → Expansão (transicionando)
+
+| # | Skill | Eisenhower | RCA | Status NeoCortex |
+|---|---|---|---|---|
+| 1 | Agentes de IA | 🔴 Q1 | Falta ROI claro, orquestração multi-agente complexa | ✅ 21 MCP tools, 3 agents (guardian/auditor/courier) |
+| 2 | Python | 🟡 Q2 | Proficiência IA é gargalo (bibliotecas, async) | ✅ 715 .py files, ruff+mypy+bandit ativos |
+| 3 | RAG | 🟡 Q2 | Chunking + qualidade de dados | ⚠️ LexicoService + ULQ fazem busca, sem RAG formal |
+| 4 | LLMs | 🟡 Q2 | Orquestrar múltiplos LLMs | ⚠️ LiteLLM :4000 configurado, roteamento manual |
+| 5 | Engenharia de Dados | 🟡 Q2 | Falta governança documentada | ✅ 724 YAML catalogados, artifact_catalog.json |
+| 6 | No-Code/Low-Code | 🟢 Q3 | Resistência técnica | ❌ Não utilizado |
+| 7 | MLOps | 🔴 Q1 | Gap protótipo→produção | ⚠️ 0 savepoints reais, regression sem baseline |
+| 8 | Pensamento Algorítmico | 🟡 Q2 | Falta base junior | ✅ R41+R42 (5 Porquês) implementados |
+| 9 | Adaptabilidade | 🟡 Q2 | Falta plano de aprendizado | ⚠️ LOBES existem, sem trilha formal |
+| 10 | Colaboração Humano-IA | 🔴 Q1 | Confiança no julgamento IA | ⚠️ STEP0 hook ativo mas sem validação pós-uso |
+
+---
+
+## 🚀 Dimensão 2: Orquestração — Ecossistema GitHub vs NeoCortex
+
+| # | Skill | Estrelas | Q | SWOT | Decisão NeoCortex |
+|---|---|---|---|---|---|
+| 1 | LangChain | ~100k | Q1 | S=Flexível, W=Curva ingreme | ❌ Já temos FastMCP próprio |
+| 2 | CrewAI | ~25k | Q2 | S=Multi-agente natural | ⏳ Avaliar para sub-agentes |
+| 3 | AutoGPT | ~170k | Q2 | S=Pioneiro, W=Instável | ❌ Experimental demais |
+| 4 | Dify/Flowise | ~60k/30k | Q3 | S=Prototipagem visual | ❌ Não se aplica |
+| 5 | LlamaIndex | ~40k | Q2 | S=RAG expert | ⏳ Para expansão RAG |
+| 6 | **MCP** | Padrão | **Q1** | S=Conector universal | ✅ JÁ IMPLEMENTADO (21 tools) |
+| 7 | MS Agents | Integrado | Q1 | S=Corporativo, W=Azure lock | ❌ Ecossistema fechado |
+| 8 | N8n | ~55k | Q3 | S=Automação low-code | ❌ Não se aplica |
+| 9 | A2A | Padrão | Q2 | S=Comunicação padronizada | ⏳ PicoClaw :18790 já faz A2A |
+| 10 | Frontier Agents | Preview | Q2 | S=Alta autonomia | ⏳ Futuro (Fase Rust) |
+
+---
+
+## 🛡️ Dimensão 3: Governança e Risco — Gap Analysis
+
+| # | Skill | Q | RCA | Coberto? | Gap |
+|---|---|---|---|---|---|
+| 1 | NIST AI RMF / ISO 42001 | Q1 | Governança fragmentada | ❌ | Sem framework formal |
+| 2 | Modelos Maturidade IA | Q2 | Projetos-piloto colapsam | ⚠️ | Compliance 97.6% mas sem baseline |
+| 3 | EU AI Act | Q1 | Multas/reputação | ❌ | Sem conformidade legal |
+| 4 | Risco Terceiros | Q1 | Elo fraco supply chain | ❌ | Sem auditoria de dependências |
+| 5 | Auditoria Vieses | Q2 | Danos sociais | ❌ | Não implementado |
+| 6 | Explicabilidade XAI | Q2 | Caixa-preta desconfiança | ❌ | Sem layer de explainability |
+| 7 | Segurança Dados | Q1 | Ações judiciais | ⚠️ | .gitignore cobre .env, sem vault |
+| 8 | Resiliência Cibernética | Q1 | Ataques adversariais | ❌ | Sem red teaming |
+| 9 | Ciclo de Vida Ativos | Q3 | Débito técnico | ✅ | artifact_catalog.json ativo |
+| 10 | Resposta a Incidentes | Q1 | Sem rollback = desastre | ⚠️ | Savepoints existem mas 0 usados |
+
+---
+
+## 📚 Dimensão 4: Governança Bibliotecária — Hooks Cross-Reference
+
+### Auditoria de Hooks (R21 applied)
+
+**Hooks no disco (13 arquivos):**
+| Arquivo | Tipo | Status | Referenciado por |
+|---|---|---|---|
+| NC-HK-FR-001-hook-registry.py | Core | ✅ Ativo | Todos os hooks |
+| NC-HK-FR-002-simple-hook.py | Core | ⚠️ Órfão | Ninguém referencia |
+| NC-HK-FR-003-mission-control-hook.py | Core | ⚠️ Órfão | Ninguém referencia |
+| NC-HK-FR-004-conversation-hook.py | Core | ⚠️ Órfão | Ninguém referencia |
+| NC-HK-FR-004-lexico-step0-hook.py | Core | ✅ Ativo | CFG-001, CFG-002, FR-008 |
+| NC-HK-FR-005-lexico-boot-loader.py | Core | ⚠️ Órfão | Ninguém referencia |
+| NC-HK-FR-006-lexico-hook-chain.py | Core | ⚠️ Órfão | CFG-002 referencia mas script vazio |
+| NC-HK-FR-007-lexico-integration.py | Core | ⚠️ Órfão | CFG-002 referencia mas script vazio |
+| NC-HK-FR-008-hooks-governance.yaml | Config | ❌ Desabilitado | enabled:false (falta hook_handler) |
+| NC-HK-FR-009-lexico-step0-hook.py | Core | 🔴 DUPLICATA | Cópia exata do FR-004 |
+| NC-CFG-HK-001-hooks.yaml | Config | ✅ Ativo | 1 hook definido (lexico_step0) |
+| NC-CFG-HK-002-lexico-hooks.yaml | Config | ⚠️ Parcial | 4 hooks, 2 com script vazio |
+
+**Hooks REGISTRADOS no HookRegistry (4):**
+- lexico_step0 (PreToolUse) — ✅ REAL, busca léxico
+- lexico_post_tokenization (PostToolUse) — ⚠️ script vazio
+- lexico_semantic_enrichment (PreToolUse) — ❌ script vazio
+- lexico_context_compression (ToolError) — ❌ script vazio
+
+**Problemas encontrados:**
+1. **NC-HK-FR-009** = duplicata exata de NC-HK-FR-004 — arquivar em DIR-ARC
+2. **FR-002, FR-003, FR-004-conversation, FR-005** = 4 hooks órfãos no disco, sem config
+3. **FR-008** = governance-validator + guardian-pulse desabilitados (falta hook_handler)
+4. **FR-006, FR-007** = registrados mas com script="" = stubs disfarçados
+5. **Ciclos não usam hooks** — CICLO 1-5 rodam no governance, não no HookRegistry
+6. **NC-HK-FR-003** (mission-control) existe mas MC não está ativo
+
+**Ação:**
+- Arquivar FR-009 (duplicata)
+- Registrar ou arquivar FR-002, FR-003, FR-004-conversation, FR-005
+- Fixar FR-008: criar hook_handler() nos scripts referenciados
+- Remover registros stub de FR-006, FR-007 (ou implementar)
+
+### 5 Leis de Ranganathan aplicadas ao NeoCortex
+1. Livros são para usar → Dados são para consultar via @ULQ + busca
+2. Cada leitor seu livro → Cada agente seu lobe
+3. Cada livro seu leitor → Cada lobe indexado por $REGIÃO
+4. Poupe o tempo do leitor → @BOOT + SSOT para acesso rápido
+5. Biblioteca é organismo em crescimento → Lobos + catalog vivo
+
+---
+
+## ⚙️ Dimensão 5: Ação e Automação — Pareto aplicado
+
+Os 20% que geram 80% de resultado:
+
+| # | Skill | Q | Pareto | Status |
+|---|---|---|---|---|
+| 1 | Geração Código (Copilot) | Q1 | Boilerplates, testes, docs | ✅ MCP + 21 tools |
+| 2 | Orquestração Workflows | Q1 | Conectar sistemas | ✅ PicoClaw :18790 |
+| 3 | Testes Automatizados | Q1 | Casos de borda | ❌ Sem test suite automatizada |
+| 4 | Observabilidade | Q1 | Dashboards saúde | ⚠️ HUD Tkinter existe, MC não ativo |
+| 5 | RLHF | Q2 | Alinhamento fino | ❌ Não implementado |
+| 6 | Red Teaming | Q2 | Vulnerabilidades | ❌ Sem adversarial testing |
+| 7 | CI/CD | Q1 | Deploy seguro | ❌ Sem pipeline automático |
+| 8 | Assistentes Especialistas | Q1 | Domínios restritos | ✅ 3 agents (guardian/auditor/courier) |
+| 9 | Análise Preditiva | Q2 | Logs→decisões | ❌ Não implementado |
+| 10 | Gerenciamento Conhecimento | Q1 | Cache semântico | ✅ Lobos + Léxico |
+
+---
+
+## 🌐 Ecossistema MCP — Links Analisados
+
+### Fetch MCP Server (modelcontextprotocol)
+- **What:** Busca conteúdo web e converte para markdown
+- **Tools:** fetch(url, max_length, start_index, raw)
+- **Q:** Q2 (já temos webfetch tool)
+- **Decisão:** ⏳ Complementar — nosso webfetch é limitado, Fetch MCPServer tem chunking + robots.txt
+- **Config:** `npx -y @modelcontextprotocol/server-fetch`
+
+### Mercado Livre MCP (newerton)
+- **What:** Busca produtos no Mercado Livre
+- **Tools:** get-produtos
+- **Q:** Q4 (fora do escopo NeoCortex)
+- **Decisão:** ❌ Não implementar — sem relação com o sistema
+
+### Shopee MCP (PedroGuilhermeSilv)
+- **What:** Busca produtos Shopee + categorias + comissões
+- **Tools:** search_shopee_products, search_shopee_categories
+- **Q:** Q4 (fora do escopo)
+- **Decisão:** ❌ Não implementar
+
+### Trade Router MCP (TradeRouter)
+- **What:** Engine de trading Solana não-custodial
+- **Tools:** 20 tools (swap, limit, TWAP, trailing, holdings)
+- **Q:** Q4 (cripto trading)
+- **Decisão:** ❌ Não implementar — se houver interesse em trading futuro, revisar
+
+### Awesome MCP Servers (punkpeye ~86k estrelas)
+- **What:** Catálogo com 6630+ commits de MCP servers
+- **Relevância:** 🔴 Fonte de consulta para novos MCP servers
+- **Decisão:** ✅ Referenciar no lobe — pesquisar antes de implementar qualquer MCP novo
+
+### Model Context Protocol Servers (Anthropic ~85k estrelas)
+- **What:** Repositório oficial com 7 reference servers
+- **Referências arquivadas:** GitHub, PostgreSQL, Redis, SQLite, Puppeteer, Google Maps, Slack
+- **Decisão:** ⚠️ Avaliar PostgreSQL e Redis MCP para futura persistência
+
+---
+
+## 🧠 5 Aspectos de Engenharia (Prompt + Custo + Resiliência + Infra + Segurança)
+
+### Engenharia de Prompt — Status
+- Thinking Mode: ✅ Ativo (thinking: true, effort: high)
+- 4D (Papel+Tarefa+Restrições+Exemplos): ⚠️ Parcial (nos lobos, não no system prompt)
+- JSON estruturado: ❌ MCP usa JSON-RPC, sem response_format
+- Chain-of-Thought: ✅ R41+R42 forçam 5 Porquês
+- Refatorar prompts: ❌ Sem processo formal
+
+### Estratégia de Custos — Status
+- Cache de Contexto: ⚠️ System prompt não é imutável
+- Estabilidade prompt: ❌ Varia por sessão
+- Poda de histórico: ❌ Sem compressão seletiva
+- Novas sessões: ⚠️ Manual, não automático
+- Modelos Flash: ❌ Sem roteamento dinâmico (tudo vai pro mesmo modelo)
+
+### Resiliência — Status
+- Retry-After 429: ❌ Não implementado
+- Token Bucket: ❌ Sem rate limiting local
+- Erro 502: ❌ Sem tratamento de gateway
+- Content Filter: ❌ Sem isolamento
+- Plano B regional: ⚠️ PicoClaw + Ollama local são fallback manual
+
+### Infraestrutura — Status
+- Batch API: ❌ Não usada
+- Streaming: ✅ Ativo (stream=true)
+- Compressão Contexto: ⚠️ Atenção híbrida (modelo), sem controle local
+- Protobuf: ❌ JSON puro
+- Cache Local Redis: ❌ Não implementado
+
+### Segurança — Status
+- Chaves via env: ⚠️ Via .env (não versionado), sem vault
+- Tokens vida curta: ❌ API keys fixas
+- Injeção de Prompt: ⚠️ STEP0 hook + R51, sem sanitização formal
+- Telemetria: ❌ Dados vão para API sem isolamento
+- Menor Privilégio: ⚠️ Uma chave para tudo
+
+---
+
+## 🎯 Plano de Ação Priorizado (Eisenhower Final)
+
+### 🔴 Q1 — Executar AGORA
+1. Arquivar NC-HK-FR-009 (duplicata) + hooks órfãos (FR-002/003/004-conversation/005)
+2. Criar hook_handler() para FR-008 (governance-validator + guardian-pulse)
+3. Implementar savepoint periódico (regression baseline + checkpoint)
+4. Estabilizar system prompt para cache de contexto (economia tokens)
+5. Implementar Token Bucket (rate limiting local)
+
+### 🟡 Q2 — Agendar esta semana
+6. Roteamento dinâmico (Qwen local para tarefas simples)
+7. Pipeline CI/CD (ruff → mypy → py_compile → bandit automatizado)
+8. Cache Redis local para respostas frequentes
+9. Expandir hooks com script real (FR-006/007)
+10. Implementar Poda de histórico automática
+
+### 🟢 Q3 — Delegar (via Courier/Engineer)
+11. Remover stubs dos hooks registrados
+12. Criar test suite automatizada
+13. Documentação de segurança (injeção prompt, content filter)
+
+### ⚪ Q4 — Arquivar
+14. Hooks órfãos sem uso → DIR-ARC
+15. FR-009 (duplicata) → DIR-ARC
+16. Mercado Livre/Shopee/TradeRouter MCPs (fora do escopo)
+
+---
+
+## 🔗 Links de Referência
+
+| Recurso | URL | Relevância |
+|---|---|---|
+| Fetch MCP Server | https://glama.ai/mcp/servers/modelcontextprotocol/fetch | ⏳ Q2 |
+| Awesome MCP Servers | https://github.com/punkpeye/awesome-mcp-servers | 🔴 Consulta |
+| MCP Official Servers | https://github.com/modelcontextprotocol/servers | 🔴 Referência |
+| Google Labs Code | https://github.com/google-labs-code | ⏳ Avaliar |
+| Trade Router MCP | https://glama.ai/mcp/servers/TradeRouter/trade-router-mcp | ❌ Fora escopo |
+| Mercado Livre MCP | https://glama.ai/mcp/servers/newerton/mcp-mercado-livre | ❌ Fora escopo |
+| Shopee MCP | https://glama.ai/mcp/servers/PedroGuilhermeSilv/mcp-shopee | ❌ Fora escopo |
+| OpenCode Ecosystem | NC-LBE-USR-006 | 🔴 SSOT |
+| OpenCode Server API | opencode serve --port 4096 | 🟡 Futuro |
+
+## Changelog
+- [2026-05-07] Lobe criado. Análise completa 5 dimensões + hooks cross-ref + ecossistema MCP + engenharia DeepSeek + gaps de segurança + plano de ação Eisenhower.

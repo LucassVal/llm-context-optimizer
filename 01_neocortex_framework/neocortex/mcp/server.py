@@ -610,10 +610,48 @@ def create_mcp_server(host="127.0.0.1", port=8765):
         except Exception as e:
             _hlog(f"Gateway: error — {str(e)[:60]}")
     _hooks_pre.append(_gateway_hook)
-    _hooks_pre.append(lambda **ctx: _hlog("LockGuard: @LOCKS check"))
-    _hooks_pre.append(lambda **ctx: _hlog("BashGuard: ok"))
-    _hooks_pre.append(lambda **ctx: _hlog("DelGuard: R05"))
-    _hooks_pre.append(lambda **ctx: _hlog("Naming: NC- check"))
+
+    def _lockguard_hook(**ctx):
+        tool = ctx.get("tool_name", "unknown")
+        args = str(ctx.get("args", ""))
+        locked = ["server.py", "sub_server.py", "neocortex_config.yaml", "NC-NAM-FR-001", "NC-SEC-FR-001"]
+        for lock in locked:
+            if lock.lower() in args.lower():
+                raise RuntimeError(f"H-MORDACA LockGuard: acesso a @LOCKS '{lock}' bloqueado para tool '{tool}'")
+        _hlog(f"LockGuard: {tool} OK")
+    _hooks_pre.append(_lockguard_hook)
+
+    def _bashguard_hook(**ctx):
+        tool = ctx.get("tool_name", "unknown")
+        args = str(ctx.get("args", ""))
+        blocked = ["rm -rf", "rm -r", "del /f", "format", "dd if=", "shred", "> /dev/"]
+        for pattern in blocked:
+            if pattern.lower() in args.lower():
+                raise RuntimeError(f"H-MORDACA BashGuard: comando destrutivo '{pattern}' bloqueado em '{tool}'")
+        _hlog(f"BashGuard: {tool} OK")
+    _hooks_pre.append(_bashguard_hook)
+
+    def _delguard_hook(**ctx):
+        tool = ctx.get("tool_name", "unknown")
+        args = str(ctx.get("args", ""))
+        destroy = ["delete", "remove", "rm ", "del ", "unlink"]
+        archive_ok = ["archive", "99-archive", "DIR-ARC"]
+        for pattern in destroy:
+            if pattern.lower() in args.lower():
+                if not any(a.lower() in args.lower() for a in archive_ok):
+                    raise RuntimeError(f"H-MORDACA DelGuard R05: deleção bloqueada em '{tool}'. Use archive (99-archive/).")
+        _hlog(f"DelGuard: {tool} OK")
+    _hooks_pre.append(_delguard_hook)
+
+    def _naming_hook(**ctx):
+        tool = ctx.get("tool_name", "unknown")
+        args = str(ctx.get("args", ""))
+        file_patterns = [w for w in args.replace('"','').replace("'","").split() if "." in w and "/" not in w and w.endswith((".py",".yaml",".mdc",".md",".json"))]
+        for fp in file_patterns:
+            if not fp.startswith("NC-") and fp not in ("config.py", "__init__.py", "server.py", "sub_server.py", "errors.py", "mdc_loader.py"):
+                _hlog(f"Naming WARNING: '{fp}' não segue NC- prefix em '{tool}'")
+        _hlog(f"Naming: {tool} OK")
+    _hooks_pre.append(_naming_hook)
 
     _critical_tools = set()
     _server_ref = server
