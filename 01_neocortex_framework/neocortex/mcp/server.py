@@ -520,7 +520,7 @@ def create_mcp_server(host="127.0.0.1", port=8765):
                 "service": "neocortex-mcp",
                 "version": "4.2-cortex",
                 "timestamp": datetime.now(UTC).isoformat() + "Z",
-                "tools_loaded": 19,
+                "tools_loaded": 17,
                 "hooks": hooks_details,
                 "pulse": pulse_details,
             }

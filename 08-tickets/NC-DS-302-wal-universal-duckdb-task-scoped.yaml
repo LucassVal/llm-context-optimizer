@@ -1,0 +1,281 @@
+# @UBL @UBL @DS-302 | LEXICO: #TICKETS #WAL #DUCKDB #MULTIUSER #INFRASTRUCTURE
+ticket_id: "NC-DS-302"
+title: "WAL Universal + DuckDB Task-Scoped — Padrão multi-usuário para todos os bancos do sistema"
+status: OPEN
+priority: CRITICAL
+owner: T0
+category: infrastructure
+created_at: "2026-05-06"
+roadmap_ref: CICLO_7
+depends_on:
+  - "NC-DS-297"  # TaskQueue usa sqlite3 sem WAL — fix concurrent
+
+shared_kernel:
+  ulq_symbols: ["@BOOT", "@SSOT", "#WAL", "#INFRASTRUCTURE", "#MULTIUSER"]
+  nc_ids_referenced:
+    - "NC-INFRA-FR-001-metrics-store"
+    - "NC-INFRA-FR-008-task-queue"
+    - "NC-SVC-FR-016-wal-service"
+    - "NC-SVC-FR-003-savepoint-stub"
+    - "NC-CORE-FR-142-pulse-scheduler-orbital"
+    - "NC-CORE-FR-153-pareto-real"
+    - "NC-CORE-FR-154-corporate-engines"
+    - "NC-CORE-FR-157-bsc-swot"
+    - "NC-CORE-FR-160-advanced-resilience"
+    - "NC-AUD-SSO-001-ssot-audit-system"
+  lexico_validated: false
+  paths_verified: false
+
+working_directory: "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
+framework_subdir: "01_neocortex_framework"
+
+three_w:
+  who: "11 arquivos com sqlite3.connect() sem WAL + 2 arquivos com DuckDB file lock"
+  what: |
+    PROBLEMA 1 — DuckDB file lock (bloqueio total multi-usuário):
+      metrics_store.py e NC-INFRA-FR-001-metrics-store.py abrem DuckDB em modo exclusivo
+      → processo 2 cai para read_only → processo 3 cai para :memory: (perde dados).
+      DuckDB não suporta múltiplos escritores em arquivo. Solução: remover persistência DuckDB.
+
+    PROBLEMA 2 — SQLite sem WAL (leitores bloqueiam escritores e vice-versa):
+      11 sqlite3.connect() em produção sem PRAGMA journal_mode=WAL.
+      Mode padrão DELETE: um writer bloqueia TODOS os readers (e vice-versa).
+      Com WAL: múltiplos readers simultâneos + 1 writer sem bloqueio mútuo.
+
+    PROBLEMA 3 — Duplicação R50:
+      metrics_store.py e NC-INFRA-FR-001-metrics-store.py são o mesmo código (DRY violado).
+
+    SOLUÇÃO:
+      SQLite WAL = backend persistente universal (multi-user nativo).
+      DuckDB = SOMENTE analytics task-scoped (open → query → close por tarefa).
+      Arquivar metrics_store.py (duplicata), manter NC-INFRA-FR-001 como canônico.
+  why: |
+    Mission Control (NC-LBE-INT-004) já usa SQLite WAL como padrão.
+    NC-LBE-CC-005 (SessionMate) documenta que MetricsCollector é a base.
+    Multi-agente (Claude Code + OpenCode + DeepSeek simultâneos) exige multi-write.
+    DuckDB file lock quebra silenciosamente — fallback :memory: perde métricas sem log claro.
+
+rca:
+  symptom: "DuckDB cai para :memory: em multi-processo. SQLite bloqueia em acesso concorrente."
+  why_1: "DuckDB foi escolhido como backend preferido sem considerar cenário multi-processo"
+  why_2: "DuckDB file lock é exclusivo por design — não suporta múltiplos escritores em arquivo"
+  why_3: "SQLite sem WAL usa journal DELETE que bloqueia readers durante writes"
+  why_4: "Nenhuma auditoria verificou todos os sqlite3.connect() do sistema por WAL"
+  why_5: "O padrão WAL foi implementado no WAL service (NC-SVC-FR-016) mas não propagado"
+  root_cause: "Padrão WAL não foi estabelecido como obrigatório no framework — cada módulo escolheu independentemente"
+  corrective_action: |
+    1. Remover DuckDB file persistence de metrics_store — DuckDB só :memory: para analytics
+    2. Adicionar PRAGMA journal_mode=WAL + synchronous=NORMAL em todos os 11 connect()
+    3. Arquivar metrics_store.py (duplicata) em 99-archive/
+    4. Criar wrapper WALConnect() para padronizar futuros usos
+  preventive_action: |
+    Adicionar ao CICLO-0: grep 'sqlite3.connect' sem 'journal_mode=WAL' → deve ser 0.
+    Adicionar ao ruff/lint: regra custom que detecta sqlite3.connect() sem WAL pragma.
+    Documentar em CLAUDE.md: 'SQLite WAL é o padrão. DuckDB apenas task-scoped :memory:'
+
+swot:
+  strengths:
+    - "SQLite WAL permite N leitores + 1 escritor sem bloqueio — built-in Python"
+    - "Mission Control já validou o padrão WAL em produção"
+    - "DuckDB :memory: é o backend mais rápido para analytics (sem I/O de arquivo)"
+    - "Fix é additive — apenas adicionar 2 PRAGMAs após connect()"
+  weaknesses:
+    - "11 arquivos para atualizar — risco de esquecer algum"
+    - "DuckDB remove persistência de métricas analytics — precisam ser carregadas do SQLite"
+    - "metrics_store.py duplicado confunde qual é o canônico"
+  opportunities:
+    - "WALConnect() wrapper unifica e previne regressão futura"
+    - "DuckDB task-scoped é mais rápido que file lock (sem contenção de I/O)"
+    - "Após fix: múltiplos agentes CLI podem escrever métricas simultaneamente"
+  threats:
+    - "Se algum módulo abre conexão em contexto async (asyncio), WAL pode ter race condition"
+    - "check_same_thread=False (NC-SVC-FR-016) + WAL precisa de teste de thread safety"
+    - "NC-AUD-SSO-001 tem 8 connect() bare — auditoria pode ser frequente e concorrente"
+
+kiss:
+  approach: |
+    Fase 1 (2 linhas por arquivo × 11 arquivos): adicionar WAL pragma após cada connect().
+    Fase 2 (1 arquivo): remover DuckDB file path de metrics_store, tornar DuckDB sempre :memory:.
+    Fase 3 (arquivar): mover metrics_store.py → 99-archive/ (R05).
+    Fase 4 (wrapper opcional): criar WALConnect() como helper de 10 linhas.
+  lines_changed: "~30 linhas total (2 por arquivo × 11 + remoção DuckDB ~10)"
+  risk: "Baixo — PRAGMAs são idempotentes, WAL é retrocompatível com dados existentes"
+  no_new_engines: true
+  no_refactor_adjacent: true
+
+step_0:
+  r21_verifications:
+    - "Grep 'sqlite3.connect' em neocortex/ → confirmar 11 arquivos listados abaixo"
+    - "Grep 'journal_mode=WAL' em neocortex/ → deve ser 0 (confirma ausência)"
+    - "Test-Path neocortex/infra/metrics_store.py → confirmar duplicata existe"
+    - "Test-Path neocortex/infra/NC-INFRA-FR-001-metrics-store.py → confirmar canônico"
+    - "python -m py_compile <cada arquivo> → PASS antes de modificar"
+    - "Grep 'duckdb.connect' → confirmar apenas nos 2 metrics_store (não há outros)"
+  atomic_locks:
+    - "neocortex/mcp/server.py → NUNCA MODIFICAR (LOCK-01)"
+    - "neocortex/mcp/sub_server.py → NUNCA MODIFICAR (LOCK-01)"
+    - "neocortex_config.yaml → NUNCA MODIFICAR (LOCK-03)"
+
+tasks:
+  - id: T1
+    title: "Adicionar PRAGMA WAL em todos os 11 sqlite3.connect() do sistema"
+    priority: P0
+    write_zone: "CORE → múltiplos arquivos (listados abaixo)"
+    steps:
+      - |
+        Após CADA sqlite3.connect() dos arquivos abaixo, adicionar:
+          conn.execute("PRAGMA journal_mode=WAL")
+          conn.execute("PRAGMA synchronous=NORMAL")
+        ARQUIVOS (11):
+          neocortex/infra/NC-INFRA-FR-001-metrics-store.py (3 connects SQLite)
+          neocortex/infra/NC-INFRA-FR-008-task-queue.py (2 connects)
+          neocortex/core/services/NC-SVC-FR-016-wal-service.py (1 connect)
+          neocortex/core/services/NC-SVC-FR-003-savepoint-stub.py (1 connect)
+          neocortex/core/NC-CORE-FR-142-pulse-scheduler-orbital.py (2 connects)
+          neocortex/core/NC-CORE-FR-153-pareto-real.py (2 connects)
+          neocortex/core/NC-CORE-FR-154-corporate-engines.py (2 connects)
+          neocortex/core/NC-CORE-FR-157-bsc-swot.py (1 connect)
+          neocortex/core/NC-CORE-FR-160-advanced-resilience.py (1 connect)
+          32-scripts/NC-AUD-SSO-001-ssot-audit-system.py (8 connects)
+      - "python -m py_compile <cada arquivo> → PASS"
+      - "ruff check <cada arquivo> → 0 erros"
+    validation:
+      - "grep 'journal_mode=WAL' em todos os arquivos → 1+ resultado por arquivo"
+      - "py_compile todos → PASS"
+
+  - id: T2
+    title: "Refatorar DuckDB em NC-INFRA-FR-001-metrics-store.py — task-scoped :memory: only"
+    priority: P0
+    write_zone: "CORE → neocortex/infra/NC-INFRA-FR-001-metrics-store.py"
+    steps:
+      - "Remover MetricsBackend.DUCKDB como opção de arquivo (persistência)"
+      - "Manter DuckDB apenas como analytics engine task-scoped:"
+      - |
+        Novo padrão DuckDB (apenas para queries pesadas, nunca persistente):
+          def run_analytics(self, query: str) -> list:
+              import duckdb
+              conn = duckdb.connect(":memory:")  # task-scoped, nunca arquivo
+              # carregar dados do SQLite para DuckDB :memory:
+              conn.execute("INSTALL sqlite; LOAD sqlite;")
+              conn.execute(f"ATTACH '{self.db_path}' AS src (TYPE SQLITE)")
+              result = conn.execute(query).fetchall()
+              conn.close()  # sempre fechar após tarefa
+              return result
+      - "Garantir que _init_duckdb() é removido — substituído por run_analytics()"
+      - "Backend padrão: sempre SQLite com WAL (aplicar T1 aqui também)"
+      - "py_compile → PASS, ruff → 0 erros"
+    validation:
+      - "grep 'duckdb.connect(str' NC-INFRA-FR-001 → 0 resultados (sem file connect)"
+      - "grep 'journal_mode=WAL' NC-INFRA-FR-001 → presente"
+      - "py_compile → PASS"
+
+  - id: T3
+    title: "Arquivar metrics_store.py (duplicata R50) em 99-archive/"
+    priority: P0
+    write_zone: "ARCHIVE → 99-archive/neocortex-tools-deprecated-2026-05-06/"
+    steps:
+      - "Confirmar que metrics_store.py e NC-INFRA-FR-001-metrics-store.py são o mesmo código"
+      - "Grep em todo neocortex/ por 'from.*metrics_store import\\|import metrics_store' → listar importadores"
+      - "Atualizar todos importadores para usar NC-INFRA-FR-001-metrics-store"
+      - "Mover metrics_store.py → 99-archive/ (R05)"
+    validation:
+      - "Test-Path 99-archive/metrics_store.py → True"
+      - "grep 'from.*metrics_store import' em neocortex/ → 0 (sem import da duplicata)"
+
+  - id: T4
+    title: "Criar NC-INFRA-FR-002-wal-connect.py — helper WALConnect() para futuros usos"
+    priority: P1
+    write_zone: "CORE → neocortex/infra/NC-INFRA-FR-002-wal-connect.py"
+    steps:
+      - |
+        Criar helper de ~15 linhas:
+          def wal_connect(db_path: str | Path, **kwargs) -> sqlite3.Connection:
+              conn = sqlite3.connect(str(db_path), **kwargs)
+              conn.execute("PRAGMA journal_mode=WAL")
+              conn.execute("PRAGMA synchronous=NORMAL")
+              conn.row_factory = sqlite3.Row
+              return conn
+      - "Documentar: 'Use wal_connect() em vez de sqlite3.connect() — WAL é obrigatório (R302)'"
+      - "py_compile → PASS, ruff → 0 erros"
+    validation:
+      - "py_compile NC-INFRA-FR-002-wal-connect.py → PASS"
+      - "from neocortex.infra.NC-INFRA-FR-002 import wal_connect → OK"
+
+  - id: T5
+    title: "Verificar multi-processo: 2 instâncias Python escrevendo SQLite simultaneamente"
+    priority: P1
+    write_zone: "READ-ONLY — teste"
+    steps:
+      - "Criar script temp: 2 threads escrevem em metrics.db ao mesmo tempo"
+      - "Confirmar: sem OperationalError 'database is locked'"
+      - "Confirmar: ambas as escritas persistiram"
+    validation:
+      - "Zero OperationalError em teste de 2 escritores simultâneos"
+      - "Ambas as escritas presentes no banco após teste"
+
+acceptance_criteria:
+  - "grep 'journal_mode=WAL' em neocortex/ → presente em todos os 11 arquivos"
+  - "grep 'duckdb.connect(str' em neocortex/ → 0 (sem DuckDB file persistence)"
+  - "metrics_store.py arquivado em 99-archive/"
+  - "run_analytics() em NC-INFRA-FR-001 usa DuckDB :memory: task-scoped"
+  - "py_compile todos os arquivos modificados → PASS"
+  - "ruff check → 0 erros em todos"
+  - "Teste multi-processo: 2 writers simultâneos sem database locked"
+
+validation: [ruff, py_compile, multiprocess_test, grep_wal_present]
+
+implementation_notes: |
+  PADRÃO DEFINITIVO (adicionar ao CLAUDE.md após NC-DS-300):
+
+  SQLite WAL = padrão para TODO armazenamento persistente:
+    conn = sqlite3.connect(path)
+    conn.execute("PRAGMA journal_mode=WAL")   # multi-reader sem bloqueio
+    conn.execute("PRAGMA synchronous=NORMAL") # seguro com WAL, +performance
+
+  DuckDB = SOMENTE analytics task-scoped:
+    conn = duckdb.connect(":memory:")  # nunca arquivo
+    result = conn.execute(query).fetchall()
+    conn.close()  # sempre fechar imediatamente
+
+  RocksDB (Meta) = avaliar apenas se WAL não for suficiente para KV de alta
+  frequência. YAGNI até ter profiling que prove necessidade (R131 PREMATURE).
+
+  NUNCA:
+    - duckdb.connect("arquivo.db") — lock exclusivo
+    - sqlite3.connect() sem PRAGMA WAL — bloqueia em concorrência
+    - Conexão persistente DuckDB em serviço daemon
+
+pre_handoff_checklist:
+  - "grep 'journal_mode=WAL' em todos os 11 arquivos → presente"
+  - "grep 'duckdb.connect(str' → 0"
+  - "metrics_store.py em 99-archive/"
+  - "py_compile todos → PASS"
+  - "ruff → 0 erros"
+  - "Nenhum @LOCK violado"
+
+deliverables:
+  - "neocortex/infra/NC-INFRA-FR-001-metrics-store.py (modificado — WAL + DuckDB task-scoped)"
+  - "neocortex/infra/NC-INFRA-FR-002-wal-connect.py (criado — helper WALConnect)"
+  - "99-archive/metrics_store.py (arquivado)"
+  - "9 outros arquivos modificados (WAL pragma)"
+  - "DIR-DS-002-audit-logs\\NC-DS-302-handoff-<YYYYMMDDTHHMMSS>.yaml"
+
+handoff_template_inline:
+  ticket_id: "NC-DS-302"
+  status: "PENDING_REVIEW"
+  submitted_at: ""
+  submitted_by: "deepseek-agent"
+  review_by: "T0"
+  summary:
+    files_created: ["NC-INFRA-FR-002-wal-connect.py"]
+    files_modified: []
+    lines_added: 0
+    validation_rounds: 1
+    locks_violated: []
+    overall: "SUCCESS"
+  escalation:
+    escalated: false
+    reason: ""
+
+write_zone: "CORE → neocortex/infra/ + neocortex/core/ + 32-scripts/ | ARCHIVE → 99-archive/"
+handoff_required: true

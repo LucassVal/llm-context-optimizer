@@ -1,0 +1,131 @@
+# @UBL @UBL @DS-303 | LEXICO: #TICKETS #MCP #RESOURCES #LOBES #PROTOCOL
+ticket_id: "NC-DS-303"
+title: "MCP Resources — Expor lobes como MCP Resources (gap da spec oficial INT-006)"
+status: OPEN
+priority: HIGH
+owner: T0
+category: architecture
+created_at: "2026-05-06"
+roadmap_ref: CICLO_7
+depends_on: []
+
+shared_kernel:
+  ulq_symbols: ["@BOOT", "#MCP", "#RESOURCES", "#LOBES", "#PROTOCOL"]
+  nc_ids_referenced:
+    - "NC-LBE-INT-006-mcp-specification"
+    - "NC-LBE-FR-MCP-001-fastmcp-sdk"
+    - "NC-SUPER-006-memory"
+  lexico_validated: false
+  paths_verified: false
+
+working_directory: "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
+framework_subdir: "01_neocortex_framework"
+
+three_w:
+  who: "MCP server (NC-SUPER-006-memory) + todos os 58 lobes ativos"
+  what: |
+    Expor lobes como MCP Resources com URI scheme lobe://<lobe_name>.
+    Clientes MCP (Claude Code, OpenCode) poderiam subscrever e ler lobes
+    diretamente via protocolo MCP sem chamar lobe.get() como tool.
+    NC-LBE-INT-006 (spec oficial): Resources são uma primitiva core do MCP.
+  why: |
+    Atualmente lobes são acessíveis APENAS via tool call (lobe.get).
+    MCP Resources permitem: listagem (resources/list), leitura (resources/read),
+    e subscrição (resources/subscribe para notificação de mudança).
+    Clientes externos que seguem a spec MCP esperam Resources — não apenas Tools.
+    Reduz overhead: ler um lobe não precisa de tool call completo.
+
+rca:
+  symptom: "neocortex_memory usa Tools para tudo — Resources MCP nunca implementados"
+  why_1: "FastMCP facilita @mcp.tool() — @mcp.resource() é menos óbvio"
+  why_2: "Sem requisito externo que forçasse Resources (uso interno apenas)"
+  why_3: "Nenhuma auditoria contra spec oficial foi realizada antes"
+  why_4: "58 lobes como Tools seria 58 endpoints de tool — Resources é o padrão correto"
+  why_5: "Auditoria NC-DS-206 focou em compliance interno, não spec MCP"
+  root_cause: "Resources MCP nunca foram projetados — todos os acessos são via Tool"
+  corrective_action: "Registrar lobes como @mcp.resource com URI lobe://{name}"
+  preventive_action: "Adicionar ao CICLO-0: verificar resources/list retorna lobes ativos"
+
+swot:
+  strengths:
+    - "FastMCP suporta @mcp.resource() nativamente — NC-LBE-FR-MCP-001 documenta"
+    - "lobe.list() já existe — base para resources/list"
+    - "58 lobes indexados — conteúdo disponível"
+  weaknesses:
+    - "Requer registro de recursos no server — próximo ao LOCK-01 (cuidado)"
+    - "Resources dinâmicos (58 lobes) precisam de URI template, não estáticos"
+  opportunities:
+    - "Clientes externos (OpenCode, outros) podem ler lobes via protocolo nativo"
+    - "resources/subscribe: notificar cliente quando lobe muda"
+    - "Reduz dependência de tool calls para acesso a conhecimento"
+  threats:
+    - "URI templates em FastMCP podem ter limitações — testar antes"
+    - "Resources expostos podem vazar conteúdo sensível (lobes com secrets)"
+
+kiss:
+  approach: |
+    URI template: @mcp.resource('lobe://{lobe_name}')
+    Impl: chamar lobe.get(lobe_name) internamente.
+    resources/list: retornar lista dos 58 lobes.
+    2 funções, ~20 linhas.
+  lines_changed: "20-30 linhas em novo arquivo NC-SUPER-019-resources.py"
+  risk: "Médio — mexe na camada MCP, mas via nova super-tool (não server.py)"
+  no_new_engines: true
+  no_refactor_adjacent: true
+
+step_0:
+  r21_verifications:
+    - "Grep '@mcp.resource' em neocortex/ → confirmar 0 (ausência atual)"
+    - "Test-Path neocortex/mcp/tools/ → confirmar diretório"
+    - "Verificar FastMCP versão suporta URI templates: fastmcp --version"
+    - "Grep 'lobe.list\\|lobe_list' em NC-SUPER-006 → confirmar implementação base"
+    - "Confirmar que lobes não têm conteúdo com secrets (scan R114)"
+  atomic_locks:
+    - "neocortex/mcp/server.py → NUNCA MODIFICAR (LOCK-01)"
+    - "neocortex/mcp/sub_server.py → NUNCA MODIFICAR (LOCK-01)"
+
+tasks:
+  - id: T1
+    title: "Criar NC-SUPER-019-resources.py com @mcp.resource para lobes"
+    priority: P0
+    write_zone: "CORE → neocortex/mcp/tools/NC-SUPER-019-resources.py"
+    steps:
+      - |
+        Criar arquivo com:
+          @mcp.resource("lobe://{lobe_name}")
+          async def get_lobe_resource(lobe_name: str) -> str:
+              # Delegar para lobe.get interno
+              from neocortex.memory import get_lobe_content
+              return get_lobe_content(lobe_name)
+
+          @mcp.resource("lobe://list")
+          async def list_lobe_resources() -> str:
+              # Retornar lista JSON dos 58 lobes
+              from neocortex.memory import list_lobes
+              return json.dumps(list_lobes())
+      - "py_compile → PASS, ruff → 0 erros"
+    validation:
+      - "py_compile → PASS"
+      - "ruff → 0 erros"
+
+  - id: T2
+    title: "Verificar resources/list via MCP após restart"
+    priority: P0
+    write_zone: "READ-ONLY"
+    steps:
+      - "Reiniciar MCP"
+      - "Verificar se Claude Code lista resources via protocolo MCP"
+      - "Testar leitura de um lobe via resource URI: lobe://NC-LBE-FR-CONSTITUTION-001"
+    validation:
+      - "resources/list retorna lobes"
+      - "resources/read lobe://NC-LBE-FR-CONSTITUTION-001 retorna conteúdo"
+
+acceptance_criteria:
+  - "resources/list retorna 58+ lobes"
+  - "resources/read lobe://<nome> retorna conteúdo correto"
+  - "py_compile NC-SUPER-019 → PASS"
+  - "ruff → 0 erros"
+
+validation: [ruff, py_compile, resources_list_test]
+write_zone: "CORE → neocortex/mcp/tools/NC-SUPER-019-resources.py"
+handoff_required: true

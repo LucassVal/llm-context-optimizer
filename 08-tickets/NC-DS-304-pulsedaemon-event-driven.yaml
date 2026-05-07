@@ -1,0 +1,136 @@
+# @UBL @UBL @DS-304 | LEXICO: #TICKETS #PULSEDAEMON #EVENTDRIVEN #INFRASTRUCTURE
+ticket_id: "NC-DS-304"
+title: "PulseDaemon Event-Driven — Evoluir PulseScheduler de interval-fixo para hooks por evento"
+status: OPEN
+priority: HIGH
+owner: T0
+category: architecture
+created_at: "2026-05-06"
+roadmap_ref: CICLO_7
+depends_on:
+  - "NC-DS-296"  # HookRegistry deve estar funcional para PulseDaemon usar hooks
+
+shared_kernel:
+  ulq_symbols: ["@BOOT", "#PULSEDAEMON", "#EVENTDRIVEN", "#INFRASTRUCTURE"]
+  nc_ids_referenced:
+    - "NC-LBE-CC-008-pulse-daemon"
+    - "NC-LBE-CC-009-ttl-session-manager"
+    - "NC-CORE-FR-122-pulse-scheduler"
+    - "NC-CORE-FR-142-pulse-scheduler-orbital"
+    - "NC-SVC-FR-011-pulse-scheduler"
+  lexico_validated: false
+  paths_verified: false
+
+working_directory: "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
+framework_subdir: "01_neocortex_framework"
+
+three_w:
+  who: "NC-CORE-FR-122/142 (PulseScheduler) + NC-SVC-FR-011 + HookRegistry (NC-HK-FR-001)"
+  what: |
+    PulseScheduler atual: loop com intervalos fixos (5min, 30min, etc.)
+    NC-LBE-CC-008 (KAIROS/PulseDaemon) documenta o padrão event-driven:
+      - Hooks registráveis por tipo de evento (idle, session_timeout, cache_miss, queue_non_empty)
+      - TTLs configuráveis: SESSION_LEASE=18000s, HEARTBEAT=60s, TOKEN_REFRESH=300s
+      - EXIT_CODE_PERMANENT=42 para erros irrecuperáveis
+    Evoluir para PulseDaemon que combina intervalos + eventos.
+  why: |
+    Interval-fixo dispara tasks desnecessárias (context.pruning a cada 5min sem contexto mudado).
+    Event-driven: task dispara quando há trabalho real (queue_non_empty, cache_miss, etc.)
+    Economiza recursos + reage mais rápido a eventos críticos (session_timeout, heartbeat miss).
+
+rca:
+  symptom: "PulseScheduler dispara tasks em intervalos fixos independente de haver trabalho"
+  why_1: "Implementado com asyncio.sleep() em loop — modelo mais simples"
+  why_2: "Sem sistema de eventos no momento da implementação"
+  why_3: "EventBus (NC-SVC-FR-005) existe mas não está integrado ao PulseScheduler"
+  why_4: "NC-LBE-CC-008 foi documentado mas nunca implementado como ticket"
+  why_5: "PulseDaemon ficou como análise arquitetural sem execução"
+  root_cause: "EventBus e PulseScheduler existem isolados — nunca foram wired juntos"
+  corrective_action: |
+    Adicionar ao PulseScheduler: register_hook(event_type, callback, ttl=None)
+    Integrar EventBus para disparar tarefas on-event além de on-interval.
+    Implementar TTLManager para expiração de sessões/tokens.
+  preventive_action: "Adicionar ao CICLO-0: pulse.status deve mostrar hooks registrados"
+
+swot:
+  strengths:
+    - "EventBus (NC-SVC-FR-005) existe — pub/sub interno disponível"
+    - "PulseScheduler orbital (NC-CORE-FR-142) tem estrutura extensível"
+    - "NC-LBE-CC-008 tem spec completa com TTLs e tipos de evento"
+  weaknesses:
+    - "EventBus e PulseScheduler nunca foram conectados"
+    - "Sem TTLManager — expiração de sessões não existe"
+  opportunities:
+    - "PulseDaemon event-driven reduz overhead em 60-80% (apenas trabalho real)"
+    - "TTLManager habilita gestão de sessão correta (NC-DS-301 complementar)"
+  threats:
+    - "Event-driven pode perder eventos se EventBus não é persistente"
+    - "Depende de NC-DS-296 (HookRegistry) para hooks funcionarem"
+
+kiss:
+  approach: |
+    Adicionar register_event_hook() ao PulseScheduler existente.
+    Wire EventBus → PulseScheduler para eventos críticos.
+    TTLManager como dict simples com timestamps + callbacks.
+    ~50 linhas adicionais no PulseScheduler existente.
+  lines_changed: "50-80 linhas em NC-CORE-FR-142 + NC-SVC-FR-011"
+  risk: "Médio — modifica scheduler em produção, testar com rollback (R12)"
+  no_new_engines: true
+  no_refactor_adjacent: true
+
+step_0:
+  r21_verifications:
+    - "Test-Path neocortex/core/NC-CORE-FR-142-pulse-scheduler-orbital.py → confirmar"
+    - "Test-Path neocortex/core/services/NC-SVC-FR-005-event-bus.py → confirmar EventBus"
+    - "python -m py_compile NC-CORE-FR-142 → PASS antes de modificar"
+    - "Grep 'register_hook\\|event_hook' em NC-CORE-FR-142 → confirmar ausência"
+    - "Grep 'EventBus\\|event_bus' em NC-CORE-FR-142 → confirmar não conectado"
+  atomic_locks:
+    - "neocortex/mcp/server.py → NUNCA MODIFICAR"
+    - "neocortex_config.yaml → NUNCA MODIFICAR"
+
+tasks:
+  - id: T1
+    title: "Adicionar register_event_hook() ao PulseScheduler"
+    priority: P0
+    write_zone: "CORE → neocortex/core/NC-CORE-FR-142-pulse-scheduler-orbital.py"
+    steps:
+      - "Adicionar dict: self._event_hooks: dict[str, list[Callable]] = {}"
+      - "Adicionar método: register_event_hook(event_type: str, callback: Callable)"
+      - "Adicionar método: dispatch_event(event_type: str, payload: dict)"
+      - "dispatch_event chama todos callbacks registrados para o evento"
+    validation:
+      - "py_compile → PASS, ruff → 0 erros"
+
+  - id: T2
+    title: "Wire EventBus → PulseScheduler"
+    priority: P0
+    write_zone: "CORE → NC-CORE-FR-142 (adicionar subscrição ao EventBus)"
+    steps:
+      - "No startup do PulseScheduler: subscrever EventBus para eventos críticos"
+      - "Eventos: session_timeout, cache_miss, queue_non_empty, heartbeat_miss"
+      - "Cada evento dispara task relevante imediatamente (sem esperar intervalo)"
+    validation:
+      - "py_compile → PASS"
+
+  - id: T3
+    title: "TTLManager simples — expiração de sessão e token refresh"
+    priority: P1
+    write_zone: "CORE → neocortex/core/NC-CORE-FR-142 ou novo NC-SVC-FR-021-ttl-manager.py"
+    steps:
+      - "Criar TTLManager com: register(key, ttl_seconds, on_expire_callback)"
+      - "PulseDaemon verifica TTLManager a cada tick (60s)"
+      - "SESSION_LEASE=18000s, TOKEN_REFRESH_BEFORE=300s, HEARTBEAT=60s (CC-009)"
+    validation:
+      - "py_compile → PASS, ruff → 0 erros"
+
+acceptance_criteria:
+  - "PulseScheduler tem register_event_hook() funcional"
+  - "EventBus wired: evento session_timeout dispara task de consolidação"
+  - "TTLManager operacional com TTLs do CC-009"
+  - "pulse.status mostra hooks registrados e TTLs ativos"
+  - "py_compile todos → PASS, ruff → 0 erros"
+
+validation: [ruff, py_compile, pulse_status_hooks]
+write_zone: "CORE → neocortex/core/NC-CORE-FR-142 + NC-SVC-FR-011"
+handoff_required: true

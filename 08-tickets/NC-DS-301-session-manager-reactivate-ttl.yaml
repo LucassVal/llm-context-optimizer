@@ -1,0 +1,122 @@
+# @UBL @UBL @DS-301 | LEXICO: #TICKETS #SESSION #TTL #INFRASTRUCTURE
+ticket_id: "NC-DS-301"
+title: "Reativar SessionManager + TTLManager — session.status retorna 'desabilitado'"
+status: OPEN
+priority: HIGH
+owner: T0
+category: infrastructure
+created_at: "2026-05-06"
+roadmap_ref: CICLO_7
+depends_on: []
+
+shared_kernel:
+  ulq_symbols: ["@BOOT", "#SESSION", "#TTL", "#INFRASTRUCTURE"]
+  nc_ids_referenced:
+    - "NC-SUPER-004-state"
+    - "NC-SVC-FR-009-session-buddy"
+    - "NC-CORE-FR-122-pulse-scheduler"
+  lexico_validated: false
+  paths_verified: false
+
+working_directory: "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
+framework_subdir: "01_neocortex_framework"
+
+three_w:
+  who: "NC-SUPER-004-state (neocortex_state) + NC-SVC-FR-009-session-buddy"
+  what: |
+    Linha 308 de NC-SUPER-004-state.py: session_manager = None  # R26 orbital: no server.py dependency
+    O SessionManager está hardcoded como None — retorna sempre session_active: false.
+    TTLs documentados em NC-LBE-CC-009 (SESSION_LEASE_TTL=18000s, HEARTBEAT=60s,
+    TOKEN_REFRESH=300s) nunca são aplicados.
+    Reativar via importlib.util.spec_from_file_location (R09) — sem tocar server.py (LOCK-01).
+  why: |
+    Sem SessionManager ativo: sem TTL de sessão, sem heartbeat, sem detecção de sessão morta.
+    CICLO-3 (consolidação fim de sessão) não tem sessão para consolidar.
+    NC-LBE-CC-009 documenta o padrão — sistema foi projetado para tê-lo.
+
+rca:
+  symptom: "neocortex_state action=session.status retorna session_active:false, note:'SessionManager desabilitado'"
+  why_1: "NC-SUPER-004 linha 308: session_manager = None — nunca carrega o SessionManager"
+  why_2: "Comentário: 'no server.py dependency' indica que import direto quebrava por importar server.py"
+  why_3: "Import direto viola LOCK-01 (server.py imutável) e cria circular dependency"
+  why_4: "O padrão correto R09 (importlib.util.spec_from_file_location) não foi aplicado aqui"
+  why_5: "Nenhum ticket formalizou a reativação após o comentário ser adicionado"
+  root_cause: "SessionManager desativado por falta de padrão de import R09 aplicado"
+  corrective_action: |
+    Substituir session_manager = None por carregamento via spec_from_file_location
+    apontando para NC-SVC-FR-009-session-buddy.py diretamente, sem passar por server.py.
+  preventive_action: "Adicionar smoke test: session.status → session_active deve ser true após startup"
+
+swot:
+  strengths:
+    - "NC-SVC-FR-009-session-buddy.py existe e tem a lógica"
+    - "R09 (spec_from_file_location) é o padrão estabelecido no NeoCortex"
+    - "NC-LBE-CC-009 documenta TTLs reais a implementar"
+  weaknesses:
+    - "SessionManager = None hardcoded — todas as features de sessão estão mortas"
+    - "Sem TTL: sessões não expiram, não há heartbeat, não há detecção de worker morto"
+  opportunities:
+    - "Após reativação: CICLO-3 pode consolidar sessões corretamente"
+    - "Heartbeat a cada 60s detecta CLIs desconectados"
+  threats:
+    - "Se NC-SVC-FR-009 tem dependências circulares próprias, fix pode revelar mais issues"
+    - "Sessões com TTL ativo podem expirar e interromper workflows longos — configurar TTL adequado"
+
+kiss:
+  approach: |
+    Substituir 3 linhas (307-317 em NC-SUPER-004) por spec_from_file_location para NC-SVC-FR-009.
+    TTLs iniciais: SESSION_LEASE=18000s, HEARTBEAT=60s, TOKEN_REFRESH=300s (conforme CC-009).
+  lines_changed: "10-20 linhas"
+  risk: "Baixo — carregamento via spec_from_file_location, sem alterar server.py"
+  no_new_engines: true
+  no_refactor_adjacent: true
+
+step_0:
+  r21_verifications:
+    - "Test-Path neocortex/core/services/NC-SVC-FR-009-session-buddy.py → confirmar existe"
+    - "python -m py_compile NC-SVC-FR-009-session-buddy.py → PASS"
+    - "Grep 'class SessionManager\\|class SessionBuddy' em NC-SVC-FR-009 → confirmar classe"
+    - "Grep 'server.py\\|from.*server' em NC-SVC-FR-009 → confirmar zero deps de server.py"
+    - "Grep 'session_manager = None' em NC-SUPER-004 → confirmar linha 308"
+  atomic_locks:
+    - "neocortex/mcp/server.py → NUNCA MODIFICAR (LOCK-01)"
+    - "neocortex/mcp/sub_server.py → NUNCA MODIFICAR (LOCK-01)"
+    - "neocortex_config.yaml → NUNCA MODIFICAR (LOCK-03)"
+
+tasks:
+  - id: T1
+    title: "Carregar SessionManager via spec_from_file_location em NC-SUPER-004"
+    priority: P0
+    write_zone: "CORE → neocortex/mcp/tools/NC-SUPER-004-state.py"
+    steps:
+      - "Localizar bloco session_manager = None (linha ~308)"
+      - "Substituir por importlib.util.spec_from_file_location('session_buddy', Path(__file__).parent.parent.parent / 'core/services/NC-SVC-FR-009-session-buddy.py')"
+      - "Instanciar SessionManager com TTLs: session_ttl=18000, heartbeat_interval=60, token_refresh=300"
+      - "python -m py_compile NC-SUPER-004-state.py → PASS"
+      - "ruff check NC-SUPER-004-state.py → 0 erros"
+    validation:
+      - "py_compile → PASS"
+      - "ruff → 0 erros"
+
+  - id: T2
+    title: "Smoke test: session.status retorna session_active:true após restart"
+    priority: P0
+    write_zone: "READ-ONLY"
+    steps:
+      - "Reiniciar MCP"
+      - "neocortex_state action=session.status → session_active:true"
+      - "neocortex_state action=session.heartbeat → heartbeat registrado"
+    validation:
+      - "session_active: true"
+      - "heartbeat: timestamp válido"
+
+acceptance_criteria:
+  - "neocortex_state action=session.status → session_active:true"
+  - "neocortex_state action=session.heartbeat → success:true"
+  - "py_compile NC-SUPER-004 → PASS"
+  - "ruff → 0 erros"
+  - "Zero imports de server.py em NC-SVC-FR-009"
+
+validation: [ruff, py_compile, smoke_session_status]
+write_zone: "CORE → neocortex/mcp/tools/NC-SUPER-004-state.py"
+handoff_required: true
