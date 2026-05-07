@@ -182,6 +182,27 @@ class DeepSeekBackend(LLMBackend):
 
         except Exception as e:
             logger.error(f"DeepSeek generation failed: {e}")
+            # NC-DS-295 T2: Ollama fallback
+            try:
+                import aiohttp
+                async with aiohttp.ClientSession() as fb_session:
+                    async with fb_session.post(
+                        "http://localhost:11434/api/generate",
+                        json={"model": "qwen2.5-coder:1.5b", "prompt": request.prompt, "stream": False},
+                        timeout=aiohttp.ClientTimeout(total=60)
+                    ) as fb_resp:
+                        if fb_resp.status == 200:
+                            data = await fb_resp.json()
+                            return LLMResponse(
+                                content=data.get("response", ""),
+                                model="qwen2.5-coder:1.5b (fallback)",
+                                provider=LLMProvider.OLLAMA,
+                                tokens_used=0,
+                                completion_time_ms=0.0,
+                                metadata={"_fallback": True, "_deepseek_error": str(e)[:100]},
+                            )
+            except Exception:
+                pass
             raise
 
     async def generate_stream(self, request: LLMRequest) -> AsyncGenerator[str, None]:
