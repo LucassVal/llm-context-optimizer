@@ -20,7 +20,7 @@ methodology: "Criar NC-UTL-FR-002-hash-utils.py:\n  - hash_file(path: Path, algo
   *.py\") -> dict[str, str]  # {filename: hash}\n  - generate_ssot_fingerprint(files:\
   \ list[Path]) -> str  # hash composto de múltiplos arquivos\n  Sem dependências\
   \ externas além de hashlib (stdlib)\n"
-priority: MEDIUM
+priority: LOW
 roadmap_ticket: UTIL-002
 status: DONE
 ticket_id: NC-DS-025

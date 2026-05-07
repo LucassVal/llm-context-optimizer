@@ -1,7 +1,7 @@
 ticket_id: NC-DS-203
 title: 'OpenClaude: NeoCortex MCP Bridge Development'
 status: DONE
-priority: CRITICAL
+priority: LOW
 roadmap_ref: 'Phase 8: Hardening'
 created_at: '2026-04-25T23:56:00'
 created_by: T0-Antigravity

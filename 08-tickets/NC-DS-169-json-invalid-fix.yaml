@@ -2,7 +2,7 @@ ticket_id: NC-DS-169
 title: ALTA — Corrigir 5 JSONs inválidos (inclui antigravity_neocortex_config.json
   crítico)
 status: DONE
-priority: HIGH
+priority: LOW
 created_at: '2026-04-22T10:00:00-03:00'
 created_by: T0-Antigravity
 source: audit_system.py — System-Wide YAML Audit 2026-04-22

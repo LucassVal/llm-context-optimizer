@@ -6,7 +6,7 @@
 ticket_id: NC-DS-253
 title: "MCP Capability Negotiation — Declarar capabilities explícitas no initialize (tools.listChanged=true, resources, prompts, elicitation) + outputSchema em 20+ tools"
 status: DONE
-priority: P1
+priority: LOW
 assignee: opencode
 created: "2026-05-04"
 description: |

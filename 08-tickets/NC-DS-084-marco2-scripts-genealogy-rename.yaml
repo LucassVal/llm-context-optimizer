@@ -1,6 +1,6 @@
 ticket_id: NC-DS-084
 status: DONE
-priority: MEDIUM
+priority: LOW
 title: 'Marco 2 — Rastreabilidade: NC-SCR-FR-075 (genealogy-injector) + NC-SCR-FR-065
   (rename-impact-analyzer)'
 created_at: '2026-04-16T01:50:00-03:00'

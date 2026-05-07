@@ -40,7 +40,7 @@ pre_handoff_checklist:
 - python 05_examples/NC-TEST-FR-150-smoke-test-40-tools.py → gera NC-RPT-150
 - 'Verificar: NC-RPT-150-smoke-test-results.json existe e tem campo ''results'''
 - git diff --name-only HEAD | grep -E 'server\.py|sub_server\.py' → VAZIO
-priority: CRITICAL
+priority: LOW
 regras:
   LOCK: server.py e sub_server.py são IMUTÁVEIS
   R09: 'NUNCA ''import NC-TOOL-FR-XXX''. Usar: importlib.util.spec_from_file_location()'

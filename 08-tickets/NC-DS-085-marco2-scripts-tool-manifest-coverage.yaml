@@ -1,6 +1,6 @@
 ticket_id: NC-DS-085
 status: DONE
-priority: MEDIUM
+priority: LOW
 title: 'Marco 2 — Rastreabilidade: NC-SCR-FR-002 (tool-manifest-generator) + NC-SCR-FR-022
   (coverage-auditor)'
 created_at: '2026-04-16T01:50:00-03:00'

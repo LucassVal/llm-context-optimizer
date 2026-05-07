@@ -1,7 +1,7 @@
 ticket_id: "NC-DS-280"
 title: "Mission Control Integration — Generic Adapter + Webhook Bridge"
 status: DONE
-priority: MEDIUM
+priority: LOW
 owner: T0
 category: integration
 created_at: "2026-05-06"

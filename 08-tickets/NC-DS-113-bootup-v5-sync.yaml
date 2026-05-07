@@ -1,6 +1,6 @@
 ticket_id: NC-DS-113
 status: DONE
-priority: HIGH
+priority: LOW
 title: Bootup v5 — Atualizar NC-BOOT-FR-001 com estado real pós-Fase 1
 created_at: '2026-04-16T11:00:00-03:00'
 created_by: T0-Claude-Code

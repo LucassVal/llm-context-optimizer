@@ -8,7 +8,7 @@ description: |
   'neocortex://' e os paths absolutos são hardcoded. A missão é tornar 
   o servidor ciente do Workspace via Roots e engatilhar popups nativos via Sampling.
 status: DONE
-priority: "HIGH"
+priority: LOW
 owner: "OpenCode"
 category: "architecture"
 dependencies: ["NC-DS-262"]

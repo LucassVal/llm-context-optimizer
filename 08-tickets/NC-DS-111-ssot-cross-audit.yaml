@@ -1,6 +1,6 @@
 ticket_id: NC-DS-111
 status: DONE
-priority: MEDIUM
+priority: LOW
 title: 'AUDIT-001 — Cross-audit SSOT vs arquivos físicos: mapear drift completo'
 created_at: '2026-04-16T11:00:00-03:00'
 created_by: T0-Claude-Code

@@ -11,7 +11,7 @@
 ticket_id: NC-DS-121
 status: DONE
 completed_at: "2026-04-27T12:30:00-03:00"
-priority: "🟡 NEXT"
+priority: LOW
 created_at: "2026-04-20T18:16:52-03:00"
 assigned_to: opencode-agent-5
 tier: T1

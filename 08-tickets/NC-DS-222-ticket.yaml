@@ -1,6 +1,6 @@
 ticket_id: NC-DS-222
 status: DONE
-priority: URGENT
+priority: LOW
 title: S2 - Template Injection automatico (frontmatter+hash+3W ao criar arquivo)
 front: 'FASE 2: PREVENCAO'
 description: 'VACINA preventiva: todo novo arquivo .py/.yaml/.mdc recebe template

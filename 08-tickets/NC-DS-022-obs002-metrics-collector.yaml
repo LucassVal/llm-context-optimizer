@@ -18,7 +18,7 @@ methodology: "Criar NC-SVC-FR-006-metrics-collector.py com MetricsCollector:\n  
   \ tool_calls, avg_duration_ms}\n  - get_daily_report() -> dict: {date, sessions,\
   \ top_tools, cost_breakdown}\n  - reset_session()\n  - Persistência simples: JSON\
   \ em get_config().metrics_dir / \"metrics-{date}.json\"\n"
-priority: HIGH
+priority: LOW
 roadmap_ticket: OBS-002
 status: DONE
 ticket_id: NC-DS-022

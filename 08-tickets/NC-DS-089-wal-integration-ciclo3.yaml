@@ -1,6 +1,6 @@
 ticket_id: NC-DS-089
 status: DONE
-priority: MEDIUM
+priority: LOW
 title: Integrar NC-SVC-FR-016-wal-service nos scripts do Ciclo 3
 created_at: '2026-04-15T00:00:00-03:00'
 created_by: T0-Claude-Code

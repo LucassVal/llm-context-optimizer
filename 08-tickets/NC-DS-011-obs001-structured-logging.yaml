@@ -72,7 +72,7 @@ methodology: '1. Ler neocortex/core/config.py para entender estrutura de diretó
   8. Handoff PENDING_REVIEW
 
   '
-priority: MEDIUM
+priority: LOW
 roadmap_ticket: OBS-001
 status: DONE
 ticket_id: NC-DS-011

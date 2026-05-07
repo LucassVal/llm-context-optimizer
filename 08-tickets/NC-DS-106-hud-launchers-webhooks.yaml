@@ -1,6 +1,6 @@
 ticket_id: NC-DS-106
 status: DONE
-priority: MEDIUM
+priority: LOW
 title: HUD launchers + webhooks MC — NC-SCR-FR-106-launcher.py (NC-DS-045)
 created_at: '2026-04-16T11:00:00-03:00'
 created_by: T0-Claude-Code

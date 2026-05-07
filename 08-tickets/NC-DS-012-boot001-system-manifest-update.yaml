@@ -38,7 +38,7 @@ methodology: "1. Ler NC-BOOT-FR-001 atual — identificar o que está desatualiz
   \ parcial, SAVE-005 pendente, FR-024 em andamento\n4. ADD linha em NC-NAM-FR-001\
   \ para BOOT-001 [2026-04-12T17:20:00]\n5. Marcar BOOT-001 %DONE no roadmap\n6. Handoff\
   \ PENDING_REVIEW\n"
-priority: HIGH
+priority: LOW
 roadmap_ticket: BOOT-001
 status: DONE
 ticket_id: NC-DS-012

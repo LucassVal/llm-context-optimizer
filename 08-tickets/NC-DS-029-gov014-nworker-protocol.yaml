@@ -22,7 +22,7 @@ methodology: "Ler NC-PROMPT-DS-002-worker-universal.md + NC-CFG-DS-004-task-queu
   \ fila (checklist)\n  - Auto-approve conditions e quando escalar para T0\n  - Limites\
   \ de escala: filesystem concurrency, API keys separadas\n  - FAQ: \"por que BLOCKED?\"\
   , \"como resetar claim expirado?\"\n"
-priority: MEDIUM
+priority: LOW
 roadmap_ticket: GOV-014
 status: DONE
 ticket_id: NC-DS-029

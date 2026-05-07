@@ -19,7 +19,7 @@ methodology: "Criar NC-UTL-FR-003-path-resolver.py:\n  - resolve_ticket_path(tic
   \ str) -> Optional[Path]  # busca em neocortex/mcp/tools/\n  - list_zone_files(write_zone:\
   \ str) -> list[Path]  # resolve write_zone do ticket\n  - Todas as funções usam\
   \ get_config() como base, sem hardcode\n"
-priority: MEDIUM
+priority: LOW
 roadmap_ticket: UTIL-003
 status: DONE
 ticket_id: NC-DS-026

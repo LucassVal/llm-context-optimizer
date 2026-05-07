@@ -20,7 +20,7 @@ methodology: "1. Ler NC-PROMPT-DS-002-worker-universal.md (novo prompt)\n2. Ler 
   \ em NC-GOV-FR-001:\n   - Diagrama ASCII do flow N-workers\n   - Claim protocol\
   \ (EL-1/2/3/4)\n   - Auto-approve conditions\n   - Como adicionar tasks à fila\n\
   \   - Limites de escala (API keys, filesystem)\n"
-priority: MEDIUM
+priority: LOW
 roadmap_ticket: GOV-014
 status: DONE
 ticket_id: NC-DS-017

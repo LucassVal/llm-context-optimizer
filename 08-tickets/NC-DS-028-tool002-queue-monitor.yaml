@@ -20,7 +20,7 @@ methodology: "Criar NC-SCR-FR-007-queue-monitor.py com display ASCII:\n  CLI: py
   \ 2\n    ACTIVE:     3  ██████░░░░░░░░░░  DONE:    7\n    ───────────────────────────────────────────────\n\
   \    [NC-DS-020] AVAILABLE  | PERF-001   | HIGH\n    [NC-DS-021] CLAIMED    | ARCH-001\
   \   | HIGH  ← worker-18:27:01\n    ...\n  --watch: refresh automático a cada N segundos\n"
-priority: MEDIUM
+priority: LOW
 roadmap_ticket: TOOL-002
 status: DONE
 ticket_id: NC-DS-028

@@ -1,0 +1,46 @@
+ticket_id: "NC-DS-292"
+title: "Memory System Complete — Wire auto-populate + PulseScheduler + Kaizen"
+status: OPEN
+priority: HIGH
+owner: T0
+category: governance
+created_at: "2026-05-06"
+roadmap_ref: CICLO_7
+depends_on: ["NC-DS-290"]
+
+three_w:
+  who: "memory-auto (NC-SUPER-015), PulseScheduler (NC-CORE-FR-142), Kaizen (R52), KPI (R56)"
+  what: "Wire lobe.auto + lobe.decay no PulseScheduler. Wire kaizen.log no ConversationHook. Verificar execução real do PulseScheduler."
+  why: "Memória de longo prazo não funciona. PulseScheduler nunca foi verificado. Kaizen restaurado mas não wired."
+
+rca:
+  symptom: "Sistema sem memória automática de longo prazo"
+  root_cause: "NC-SUPER-015 existe mas auto-populate não é chamado por nenhum ciclo"
+
+kiss:
+  approach: "Adicionar 1 chamada no PulseScheduler: a cada 300s → lobe.auto + lobe.decay. Wire kaizen no ConversationHook já existente."
+  lines_changed: "~15"
+  risk: "Baixo — ações já existem, só precisam ser chamadas"
+
+tasks:
+  - id: T1
+    title: "Verificar + wire PulseScheduler execution"
+    priority: P0
+  - id: T2
+    title: "Wire lobe.auto + lobe.decay no PulseScheduler (300s)"
+    priority: P1
+  - id: T3
+    title: "Wire kaizen.log no ConversationHook PostToolUse"
+    priority: P1
+  - id: T4
+    title: "Wire kpi.report automático no PulseScheduler"
+    priority: P2
+
+acceptance_criteria:
+  - "PulseScheduler executa e loga a cada 300s"
+  - "lobe.auto cria novo lobe após 10+ turns"
+  - "kaizen.log registra melhoria após cada ticket concluído"
+  - "kpi.report atualiza métricas automaticamente"
+
+write_zone: "MCP → server.py | TOOLS → NC-SUPER-015"
+handoff_required: true

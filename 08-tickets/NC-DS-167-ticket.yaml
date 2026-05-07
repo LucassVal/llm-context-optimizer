@@ -35,7 +35,7 @@ description: 'Consolidar arquivos de regras de governança:
   5. Definir arquivo canônico único
 
   '
-priority: HIGH
+priority: LOW
 resolution: 'RESOLVED: YAML 94.5% (52/55). 3 legacy em dirs orfaos sem impacto.'
 status: DONE
 ticket_id: NC-DS-167

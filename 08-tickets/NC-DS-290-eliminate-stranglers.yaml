@@ -1,0 +1,46 @@
+ticket_id: "NC-DS-290"
+title: "Eliminar 25 Strangler Wrappers — substituir por imports diretos"
+status: OPEN
+priority: HIGH
+owner: T0
+category: architecture
+created_at: "2026-05-06"
+roadmap_ref: CICLO_7
+depends_on: []
+
+three_w:
+  who: "25 arquivos .py em neocortex/ (core, infra, llm, repositories) — 14 linhas cada"
+  what: "Substituir strangler wrappers por imports diretos nos consumidores. Arquivar wrappers (R05)."
+  why: "R23 (Extend Don't Create) + R68 (Strangler Fig). 25 wrappers são ponto único de falha."
+
+rca:
+  symptom: "25 .py de 14L que só fazem importlib para NC-CORE-FR-*"
+  root_cause: "Migração NC-SVC → NC-CORE criou wrappers temporários. Nunca foram eliminados."
+  corrective_action: "Para cada strangler: encontrar consumidores, substituir import, arquivar wrapper."
+
+kiss:
+  approach: "25 wrappers, 25 imports diretos. ~50 linhas. Zero lógica nova."
+  lines_changed: "~50"
+  risk: "Baixo — wrappers já delegam para módulos reais. Só eliminar intermediário."
+
+tasks:
+  - id: T1
+    title: "Eliminar 17 stranglers em neocortex/core/ (agent_service.py, akl_service.py, ...)"
+    priority: P0
+  - id: T2
+    title: "Eliminar 4 stranglers em neocortex/infra/ (ledger_store.py, vector_store.py)"
+    priority: P1
+  - id: T3
+    title: "Eliminar 2 stranglers em neocortex/llm/ (backend.py, factory.py)"
+    priority: P1
+  - id: T4
+    title: "Eliminar 2 stranglers em neocortex/repositories/ (base.py, file_system_repository.py)"
+    priority: P1
+
+acceptance_criteria:
+  - "0 strangler wrappers em neocortex/ (< 30 linhas com importlib delegando)"
+  - "Todos consumidores compilam (py_compile)"
+  - "Wrappers arquivados em 99-archive/stranglers-20260506/"
+
+write_zone: "CORE → neocortex/"
+handoff_required: true

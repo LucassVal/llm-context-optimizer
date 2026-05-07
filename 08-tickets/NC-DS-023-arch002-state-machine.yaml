@@ -18,7 +18,7 @@ methodology: "Criar NC-SVC-FR-007-state-machine.py com AgentStateMachine:\n  Sta
   \ str\n  - get_history() -> list[dict]  # {state, timestamp, reason}\n  - is_terminal()\
   \ -> bool  # HANDOFF ou ESCALATED\n  - reset() -> None\n  - ALLOWED_TRANSITIONS:\
   \ dict[str, list[str]] (matriz de transição)\n"
-priority: MEDIUM
+priority: LOW
 roadmap_ticket: ARCH-002
 status: DONE
 ticket_id: NC-DS-023

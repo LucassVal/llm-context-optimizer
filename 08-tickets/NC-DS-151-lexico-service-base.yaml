@@ -1,7 +1,7 @@
 ticket_id: NC-DS-151
 title: NC-SVC-FR-020 LexicoService — Base do dicionário de átomos semânticos (LEXICO-001)
 status: DONE
-priority: HIGH
+priority: LOW
 roadmap_ref: NC-DS-132 + NC-DS-144 (LEXICO-001)
 created_at: '2026-04-20T20:25:00-03:00'
 created_by: T0-Antigravity

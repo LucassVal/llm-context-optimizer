@@ -1,7 +1,7 @@
 ticket_id: NC-DS-121
 title: Constitution Layer — NC-CONST-FR-001 — Organismo Vivo NeoCortex
 status: DONE
-priority: CRITICAL
+priority: LOW
 created_at: '2026-04-18T09:54:00-03:00'
 assigned_to: T0-Antigravity
 tags:

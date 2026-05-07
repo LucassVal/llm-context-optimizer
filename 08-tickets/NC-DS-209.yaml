@@ -1,7 +1,7 @@
 created_at: '2026-04-28T23:42:36.845295'
 description: The governance tool action roadmap.done has a TODO marker. Need to implement
   roadmap sync completion.
-priority: MEDIUM
+priority: LOW
 source: audit_session_20260428
 status: DONE
 ticket_id: NC-DS-209

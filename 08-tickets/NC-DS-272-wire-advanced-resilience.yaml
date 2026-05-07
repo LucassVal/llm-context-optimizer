@@ -1,7 +1,7 @@
 ticket_id: "NC-DS-272"
 title: "Wire Advanced Resilience (FR-160) + Strangler Fig (FR-171) + Graceful Degradation (FR-155)"
 status: DONE
-priority: HIGH
+priority: LOW
 owner: T0
 category: architecture
 created_at: "2026-05-06"

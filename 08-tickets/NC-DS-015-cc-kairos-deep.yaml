@@ -23,7 +23,7 @@ methodology: '1. Ler NC-LBE-CC-005-features-kairos.mdc (session-b) para base
   4. Analogia NeoCortex: pulse_scheduler.py = KAIROS equivalente?
 
   '
-priority: HIGH
+priority: LOW
 roadmap_ticket: CC-002-B
 status: DONE
 ticket_id: NC-DS-015

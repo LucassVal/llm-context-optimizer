@@ -1,6 +1,6 @@
 ticket_id: NC-DS-083
 status: DONE
-priority: HIGH
+priority: LOW
 type: RETROSPECTIVE
 title: NC-WF-001 v3.0 — Governança centralizada e consolidação de baseline
 created_at: '2026-04-16T01:30:00-03:00'

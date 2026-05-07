@@ -1,6 +1,6 @@
 ticket_id: NC-DS-255
 status: DONE
-priority: HIGH
+priority: LOW
 title: Semantic Response Cache com Embedding Similarity — eliminar chamadas a API
 front: 'CICLO 5: API EFICIENCIA'
 description: 'RCA: Infraestrutura existe (KG + LanceDB + Semantic Router) mas cache

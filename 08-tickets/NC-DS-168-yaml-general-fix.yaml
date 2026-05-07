@@ -1,7 +1,7 @@
 ticket_id: NC-DS-168
 title: ALTA — Corrigir 27 YAMLs gerais inválidos (tickets, handoffs, audit-logs)
 status: DONE
-priority: HIGH
+priority: LOW
 created_at: '2026-04-22T10:00:00-03:00'
 created_by: T0-Antigravity
 source: audit_system.py — System-Wide YAML Audit 2026-04-22

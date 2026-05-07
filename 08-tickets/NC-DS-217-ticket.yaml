@@ -1,6 +1,6 @@
 ticket_id: NC-DS-217
 status: DONE
-priority: URGENT
+priority: LOW
 title: Sanitizar 3 YAMLs quebrados (multi-doc) - NC-DIAG-GOV-001, NC-DS-122, NC-DS-170
 front: 'FASE 2: YAML'
 description: 3 tickets com YAML multi-documento que falham yaml.safe_load. Corrigir

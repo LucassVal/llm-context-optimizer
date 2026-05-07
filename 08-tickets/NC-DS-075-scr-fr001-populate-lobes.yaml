@@ -1,6 +1,6 @@
 ticket_id: NC-DS-075
 status: DONE
-priority: MEDIUM
+priority: LOW
 title: 'SCR-FR-001 — Rastreabilidade: NC-SCR-FR-001-populate-lobes-ssot.py'
 created_at: '2026-04-15T01:08:00-03:00'
 created_by: T0-Antigravity

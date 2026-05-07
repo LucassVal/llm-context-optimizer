@@ -19,7 +19,7 @@ created_by: T0-Claude-Code
 entry_state: Sem smoke test — tools carregam somente no runtime do server
 exit_state: Script NC-SCR-FR-101 valida todas as tools, exit 0 = tudo OK
 integrity_hash: NC-DS-101-v1.0-20260416
-priority: HIGH
+priority: LOW
 protocolo_agente:
   falha_ou_bloqueio:
     instrucao: 'Se falhar ou ficar bloqueado:

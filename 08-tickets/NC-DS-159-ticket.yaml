@@ -1,7 +1,7 @@
 ticket_id: NC-DS-159
 title: Thermal Decay (TTL) Logic for Context Pruning
 status: DONE
-priority: MEDIUM
+priority: LOW
 created: '2026-04-21T19:49:54'
 agent: T0
 description: 'Criar lógica de decaimento térmico (Thermal Decay) no Auto-Memory e

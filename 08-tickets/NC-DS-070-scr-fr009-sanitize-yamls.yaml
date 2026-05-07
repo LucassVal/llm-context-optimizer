@@ -1,6 +1,6 @@
 ticket_id: NC-DS-070
 status: DONE
-priority: HIGH
+priority: LOW
 title: 'SCR-FR-009 — Rastreabilidade: NC-SCR-FR-009-sanitize-all-yamls.py'
 created_at: '2026-04-15T01:08:00-03:00'
 created_by: T0-Antigravity

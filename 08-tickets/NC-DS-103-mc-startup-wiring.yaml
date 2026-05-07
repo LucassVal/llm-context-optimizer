@@ -1,6 +1,6 @@
 ticket_id: NC-DS-103
 status: DONE
-priority: HIGH
+priority: LOW
 title: Mission Control startup wiring — NC-SCR-FR-103-mc-startup-hook.py (sem tocar
   @LOCKS)
 created_at: '2026-04-16T11:00:00-03:00'

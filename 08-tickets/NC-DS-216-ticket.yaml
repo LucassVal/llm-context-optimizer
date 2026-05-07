@@ -1,6 +1,6 @@
 ticket_id: NC-DS-216
 status: DONE
-priority: URGENT
+priority: LOW
 title: Substituir 20 hardcoded paths por ulq.resolve() + wire-up nos 77 engines
 front: 'FASE 2: ULQ'
 description: Todo hardcoded path substituido por ulq.resolve("@SIMBOLO"). 20 arquivos

@@ -1,7 +1,7 @@
 ticket_id: NC-DS-202
 title: 'OpenClaude: gRPC Server Activation & Validation'
 status: DONE
-priority: HIGH
+priority: LOW
 roadmap_ref: 'Phase 8: Hardening'
 created_at: '2026-04-25T23:56:00'
 created_by: T0-Antigravity

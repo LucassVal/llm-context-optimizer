@@ -20,7 +20,7 @@ methodology: "1. Ler NC-SVC-FR-001-logging-service.py para padrão\n2. Criar NC-
   \ com:\n   - get_health_status() -> dict: uptime, pid, version, tools_count\n  \
   \ - check_mcp_alive(port) -> bool\n   - format_health_response() -> JSON compatível\
   \ com /health\n3. py_compile, naming, SSOT, roadmap\n"
-priority: MEDIUM
+priority: LOW
 roadmap_ticket: AGENT-206
 status: DONE
 ticket_id: NC-DS-018

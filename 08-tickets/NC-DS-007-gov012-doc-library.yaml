@@ -63,7 +63,7 @@ notes: '- NÃO renomear NC-NAM-FR-001 original — apenas adicionar referências
   - Timestamp em todos os changelogs: ISO 8601 YYYY-MM-DDTHH:MM:SS
 
   '
-priority: HIGH
+priority: LOW
 roadmap_ticket: GOV-012
 status: DONE
 ticket_id: NC-DS-007

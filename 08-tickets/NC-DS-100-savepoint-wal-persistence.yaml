@@ -1,6 +1,6 @@
 ticket_id: NC-DS-100
 status: DONE
-priority: MEDIUM
+priority: LOW
 title: 'SavePoint → WAL: conectar NC-SVC-FR-003 ao NC-SVC-FR-016 para persistência
   real'
 created_at: '2026-04-16T11:00:00-03:00'

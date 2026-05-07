@@ -1,7 +1,7 @@
 ticket_id: NC-DS-152
 title: WAL Persistence + SavePoint wiring — NC-SVC-FR-016 + NC-SVC-FR-003
 status: DONE
-priority: HIGH
+priority: LOW
 roadmap_ref: NC-DS-100 (SavePoint → WAL persistence)
 created_at: '2026-04-20T20:25:00-03:00'
 created_by: T0-Antigravity

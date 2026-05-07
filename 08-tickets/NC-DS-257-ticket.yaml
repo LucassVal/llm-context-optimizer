@@ -6,7 +6,7 @@
 ticket_id: NC-DS-257
 title: "MCP Elicitation + Logging — Implementar elicitation/create (confirmação T0 nativa, substituir stdout hack) + logging/setLevel + notifications/message"
 status: DONE
-priority: P0
+priority: LOW
 assignee: opencode
 created: "2026-05-04"
 description: |

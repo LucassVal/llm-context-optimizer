@@ -76,7 +76,7 @@ part_2_gov013:
   format: YYYY-MM-DDTHH:MM:SS
   nota: GOV-013 global (todos os artefatos existentes) = ticket futuro separado
   scope: Apenas no arquivo NC-TOOL-FR-024 que será criado neste ticket
-priority: HIGH
+priority: LOW
 roadmap_ticket: FR-024
 status: DONE
 ticket_id: NC-DS-010

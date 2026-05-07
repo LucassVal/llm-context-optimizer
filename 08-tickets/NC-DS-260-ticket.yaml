@@ -1,7 +1,7 @@
 id: "NC-DS-260"
 title: "R129 ITIL — Pre-commit hook bloqueia checkout sem savepoint"
 status: DONE
-priority: "P1"
+priority: LOW
 assignee: "opencode"
 created: "2026-05-05"
 description: |

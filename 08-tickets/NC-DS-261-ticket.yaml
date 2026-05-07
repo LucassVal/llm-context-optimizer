@@ -1,7 +1,7 @@
 id: "NC-DS-261"
 title: "R130 POSTEL — Validacao de input/output nos hooks"
 status: DONE
-priority: "P1"
+priority: LOW
 assignee: "opencode"
 created: "2026-05-05"
 description: |

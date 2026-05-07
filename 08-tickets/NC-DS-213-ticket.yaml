@@ -1,6 +1,6 @@
 ticket_id: NC-DS-213
 status: DONE
-priority: HIGH
+priority: LOW
 title: LEXICO como SSOT unico - deletar _INDEX.yaml + _INDEX.mdc (x5)
 front: 'FASE 2: CATALOG'
 description: NC-LEXICO-LATEST.json vira catalogo unico com 3 secoes. Deletar _INDEX.yaml

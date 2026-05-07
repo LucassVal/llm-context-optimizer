@@ -57,7 +57,7 @@ nota: 'Este ticket é para a PRÓXIMA frente disponível após NC-DS-009 (DS-B)
   Reatribuir manualmente no NC-CFG-DS-003 quando disponível.
 
   '
-priority: MEDIUM
+priority: LOW
 roadmap_ticket: GOV-013
 status: DONE
 ticket_id: NC-DS-013

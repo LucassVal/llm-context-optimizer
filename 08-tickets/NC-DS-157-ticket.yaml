@@ -1,7 +1,7 @@
 ticket_id: NC-DS-157
 title: Implement Memory-Mapped Files (mmap) IPC
 status: DONE
-priority: HIGH
+priority: LOW
 created: '2026-04-21T19:49:53'
 agent: T0
 description: 'Resolver overhead do socket TCP do MCP ao trafegar conteúdos pesados.

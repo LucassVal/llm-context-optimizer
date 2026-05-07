@@ -1,7 +1,7 @@
 ticket_id: NC-DS-206
 title: 'STUB/MOCK: LockGuard FR-014 missing validate_write method'
 status: DONE
-priority: NORMAL
+priority: LOW
 created: '2026-04-28T22:16:26'
 agent: T0
 description: 'F229 — LockGuard has check_write() but not validate_write(). Fixed in

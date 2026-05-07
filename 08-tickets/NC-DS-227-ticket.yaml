@@ -1,6 +1,6 @@
 ticket_id: NC-DS-227
 status: DONE
-priority: MEDIUM
+priority: LOW
 title: S6 - Circuito Anti-Fragil (R96) vacina de erros
 front: 'FASE 2: RESILIENCIA'
 description: Erro detectado - corrigido - vacina registrada. Mesmo erro nao se repete.

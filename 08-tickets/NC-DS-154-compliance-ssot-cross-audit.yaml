@@ -1,7 +1,7 @@
 ticket_id: NC-DS-154
 title: Compliance Sprint — Governance Auditor + SSOT cross-audit (NC-DS-108 + 111)
 status: DONE
-priority: MEDIUM
+priority: LOW
 roadmap_ref: NC-DS-108 (Compliance >80%) + NC-DS-111 (SSOT cross-audit)
 created_at: '2026-04-20T20:25:00-03:00'
 created_by: T0-Antigravity

@@ -1,7 +1,7 @@
 ticket_id: NC-DS-161
 title: Agente de Audição - Serviços Offline
 status: DONE
-priority: MEDIUM
+priority: LOW
 created: '2026-04-21T19:51:22'
 agent: T0
 description: "Auditar serviços offline:\n1. LiteLLM Gateway (4000) - down\n2. Picoclaw\

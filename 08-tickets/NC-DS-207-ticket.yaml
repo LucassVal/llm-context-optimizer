@@ -1,7 +1,7 @@
 ticket_id: NC-DS-207
 title: Checkpoints all in 00-cortex domain — need distribution by domain
 status: DONE
-priority: NORMAL
+priority: LOW
 created: '2026-04-28T22:16:29'
 agent: T0
 description: 'R230 — 5 checkpoints exist, all going to lobe_id 00-cortex. Should distribute

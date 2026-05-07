@@ -1,6 +1,6 @@
 ticket_id: NC-DS-211
 status: DONE
-priority: URGENT
+priority: LOW
 title: Gateway orquestra LockGuard+BashGuard+ToolGuard - validacao unificada
 front: 'FASE 2: VALIDATION'
 description: Gateway.validate_action() orquestra todos os validadores. LockGuard.check(),

@@ -1,6 +1,6 @@
 ticket_id: NC-DS-224
 status: DONE
-priority: MEDIUM
+priority: LOW
 title: S1 - Pre-commit hook local (ruff+yaml antes do commit)
 front: 'FASE 2: PREVENCAO'
 description: Hook .git/hooks/pre-commit que roda ruff check + yaml.safe_load em arquivos

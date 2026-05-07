@@ -1,6 +1,6 @@
 ticket_id: NC-DS-087
 status: DONE
-priority: HIGH
+priority: LOW
 title: 'Compliance Audit: NC-SCR-FR-080 score + NC-SVC-FR-004-cache-service.py ausente'
 created_at: '2026-04-16T01:50:00-03:00'
 created_by: T0-Claude-Code

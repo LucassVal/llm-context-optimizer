@@ -69,7 +69,7 @@ methodology: "1. Ler NC-NAM-FR-001-naming-convention.md COMPLETAMENTE (read-only
   \ com NC-NAM-FR-001 original para verificar paridade\n   - usa get_config() — SEM\
   \ hardcode de paths\n   - logger = logging.getLogger(__name__)\n5. py_compile em\
   \ NC-SCR-FR-004\n6. Gerar handoff PENDING_REVIEW\n"
-priority: HIGH
+priority: LOW
 roadmap_ticket: GOV-012
 status: DONE
 supersedes: NC-DS-007

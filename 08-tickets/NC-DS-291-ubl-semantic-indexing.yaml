@@ -1,0 +1,39 @@
+ticket_id: "NC-DS-291"
+title: "UBL Semantic Indexing — adicionar @UBL/LEXICO em 308 .py files"
+status: OPEN
+priority: HIGH
+owner: T0
+category: governance
+created_at: "2026-05-06"
+roadmap_ref: CICLO_7
+depends_on: ["NC-DS-290"]
+
+three_w:
+  who: "308 arquivos .py no framework sem tags @UBL (0.3% coverage)"
+  what: "Adicionar seção @UBL + LEXICO no header de cada .py. Script automatizado."
+  why: "Sistema não é semanticamente navegável. Sem @UBL, auditoria por UBL é impossível."
+
+rca:
+  symptom: "0.3% dos .py têm @UBL"
+  root_cause: "UBL tagging nunca foi feita em escala. Só lobos (.mdc) foram taggeados (94.7%)."
+
+kiss:
+  approach: "Script Python que lê cada .py, extrai NC-ID, adiciona header @UBL padronizado."
+  lines_changed: "0 manuais — 100% automatizado"
+  risk: "Nenhum — header comment não afeta execução."
+
+tasks:
+  - id: T1
+    title: "Criar NC-SCR-FR-030-ubl-tagger.py (script de tagging automático)"
+    priority: P0
+  - id: T2
+    title: "Rodar tagger em 308 .py files"
+    priority: P1
+
+acceptance_criteria:
+  - ">= 90% dos .py files com @UBL tag"
+  - "py_compile PASS em todos após tagging"
+  - "LEXICO validator continua PASS"
+
+write_zone: "SCRIPTS → 32-scripts/"
+handoff_required: true

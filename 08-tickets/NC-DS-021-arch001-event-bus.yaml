@@ -17,7 +17,7 @@ methodology: "Criar NC-SVC-FR-005-event-bus.py com:\n  - NeoCortexEvent: datacla
   \ publish(event), unsubscribe(event_type, callback)\n  - get_event_bus() -> singleton\
   \ EventBus\n  - Event types: TOOL_CALLED, TOOL_RESULT, AGENT_STATE_CHANGED, HANDOFF_SUBMITTED\n\
   \  - Sincronous (sem asyncio) para compatibilidade MCP\n"
-priority: HIGH
+priority: LOW
 roadmap_ticket: ARCH-001
 status: DONE
 ticket_id: NC-DS-021

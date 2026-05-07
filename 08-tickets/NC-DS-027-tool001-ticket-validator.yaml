@@ -21,7 +21,7 @@ methodology: "Criar NC-SCR-FR-006-ticket-validator.py:\n  CLI: python NC-SCR-FR-
   \  - write_zone não contém @LOCKS (server.py, sub_server.py, neocortex_config.yaml)\n\
   \    - Arquivo referenciado em exit_state.files_created não existe ainda (fresh)\n\
   \  Output: PASS / FAIL por ticket + relatório final\n"
-priority: HIGH
+priority: LOW
 roadmap_ticket: TOOL-001
 status: DONE
 ticket_id: NC-DS-027

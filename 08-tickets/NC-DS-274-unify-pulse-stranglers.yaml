@@ -1,7 +1,7 @@
 ticket_id: "NC-DS-274"
 title: "Unify pulse-bridge (NC-MCP-FR-001) → NC-SUPER-006-system + Eliminar Strangler Wrappers"
 status: DONE
-priority: HIGH
+priority: LOW
 owner: T0
 category: architecture
 created_at: "2026-05-06"

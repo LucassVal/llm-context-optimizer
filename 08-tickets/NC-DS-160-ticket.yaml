@@ -1,7 +1,7 @@
 ticket_id: NC-DS-160
 title: Agente de Revisão - Correção MCP Health Check
 status: DONE
-priority: HIGH
+priority: LOW
 created: '2026-04-21T19:51:15'
 agent: T0
 description: "Revisar correções implementadas no MCP server:\n1. Adicionada ferramenta\

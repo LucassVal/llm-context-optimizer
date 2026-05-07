@@ -61,7 +61,7 @@ methodology: "=== FASE 0 — GREP GLOBAL free-code ===\nExecutar grep em free-co
   \ ULTRAPLAN, flags futuras, BUDDY)\nProduzir NC-ANA-CC-003 com padrão de cada plugin\
   \ + recomendações para NeoCortex\nProduzir NC-ANA-CC-004 \"O que a Anthropic tem\
   \ que nós não temos?\" (priorizados)\n"
-priority: RESEARCH
+priority: LOW
 roadmap_ticket: CC-001-B
 source_map:
   B1_free-code_kairos_features:

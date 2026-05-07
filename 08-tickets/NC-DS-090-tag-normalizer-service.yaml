@@ -1,6 +1,6 @@
 ticket_id: NC-DS-090
 status: DONE
-priority: HIGH
+priority: LOW
 title: Criar NC-SVC-FR-018-tag-normalizer.py — Central Universal de Sanitização de
   Tags
 created_at: '2026-04-16T00:00:00-03:00'

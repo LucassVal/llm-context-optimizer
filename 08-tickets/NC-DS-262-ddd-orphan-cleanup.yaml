@@ -7,7 +7,7 @@ description: |
   Adicionalmente, processar 'orphan_audit_final.txt' e sanear falhas críticas de 
   unicidade de nomenclatura (IDs duplicados), além de arquivar scripts obsoletos.
 status: DONE
-priority: "CRITICAL"
+priority: LOW
 owner: "OpenCode"
 category: "architecture"
 dependencies: []

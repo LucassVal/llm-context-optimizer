@@ -1,6 +1,6 @@
 ticket_id: NC-DS-078
 status: DONE
-priority: MEDIUM
+priority: LOW
 title: ORCH-301 — Task Broker persistente para orquestração
 handoff_ref: NC-DS-078-handoff-20260415T143000.yaml
 completed_at: '2026-04-15T14:30:00-03:00'

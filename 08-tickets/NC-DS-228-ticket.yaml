@@ -1,6 +1,6 @@
 ticket_id: NC-DS-228
 status: DONE
-priority: MEDIUM
+priority: LOW
 title: S5 - Verification Gates por regiao cerebral (STRICT/MEDIUM/BASIC)
 front: 'FASE 2: GOVERNANCA'
 description: Arquivos no $FRONTAL tem gates mais rigidos que $TEMPORAL. Criticidade

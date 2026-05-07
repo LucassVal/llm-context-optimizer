@@ -8,7 +8,7 @@ resolution: |
   - T2: NC-ORPHAN-opencode.json lido, campo lsp inserido, gravado em .opencode/opencode.json e arquivado.
   - T3: pyrightconfig.json criado na raiz.
   - T4: exceptions_r01_naming adicionado ao @LOCKS (NC-SEC-FR-001).
-priority: HIGH
+priority: LOW
 owner: T0-Antigravity
 category: tooling
 created_at: "2026-05-06T15:25:00"

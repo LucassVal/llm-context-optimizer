@@ -1,6 +1,6 @@
 ticket_id: NC-DS-212
 status: DONE
-priority: HIGH
+priority: LOW
 title: FR-173 absorve FR-149 - auditor unico 3 camadas
 front: 'FASE 2: AUDIT'
 description: 'FR-173 absorve todas as funcoes do FR-149. FR-149 deprecated. #GOV chama

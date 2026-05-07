@@ -1,6 +1,6 @@
 ticket_id: NC-DS-225
 status: DONE
-priority: MEDIUM
+priority: LOW
 title: S3 - Auto-fix Pipeline no PulseScheduler (corrige erros triviais)
 front: 'FASE 2: AUTOMACAO'
 description: 'PulseScheduler nao so detecta - CORRIGE: ruff --fix, ruff format, hash

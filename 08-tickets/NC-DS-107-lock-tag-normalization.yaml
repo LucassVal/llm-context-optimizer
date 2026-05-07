@@ -1,6 +1,6 @@
 ticket_id: NC-DS-107
 status: DONE
-priority: MEDIUM
+priority: LOW
 title: Normalizar 27 tags @LOCKS/@LOCKS → @LOCKS nos tickets YAML
 created_at: '2026-04-16T11:00:00-03:00'
 created_by: T0-Claude-Code

@@ -1,6 +1,6 @@
 ticket_id: NC-DS-221
 status: DONE
-priority: URGENT
+priority: LOW
 title: Reiniciar PulseScheduler + criar baseline no Regression Buffer
 front: 'FASE 2: ENFORCE'
 description: PulseScheduler crashado (is_running bug corrigido). Reiniciar. Criar

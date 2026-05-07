@@ -1,7 +1,7 @@
 id: "NC-DS-259"
 title: "R127 MURPHY — Health check testa hook_registry ativamente"
 status: DONE
-priority: "P0"
+priority: LOW
 assignee: "opencode"
 created: "2026-05-05"
 description: |

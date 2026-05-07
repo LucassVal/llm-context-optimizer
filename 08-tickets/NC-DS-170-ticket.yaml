@@ -1,7 +1,7 @@
 ticket_id: "NC-DS-170"
 title: "Investigar gaps críticos YAML/JSON identificados na última análise"
 status: DONE
-priority: "HIGH"
+priority: LOW
 created: "2026-04-22T12:50:15"
 agent: "T0"
 description: |

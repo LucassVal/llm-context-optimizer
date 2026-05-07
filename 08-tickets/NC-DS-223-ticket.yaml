@@ -1,6 +1,6 @@
 ticket_id: NC-DS-223
 status: DONE
-priority: URGENT
+priority: LOW
 title: Atualizar requirements.txt (2 deps vs ~15 reais)
 front: 'FASE 2: DEPENDENCIAS'
 description: 'Adicionar: fastmcp, ruamel.yaml, rich, cachetools, platformdirs, notifypy,

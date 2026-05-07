@@ -1,6 +1,6 @@
 ticket_id: NC-DS-220
 status: DONE
-priority: HIGH
+priority: LOW
 title: STEP 0 + Mentor Mode ativo no Gateway (validate_action)
 front: 'FASE 2: ENFORCE'
 description: 'Ativar verificacao de ambiente (python, ruff, mypy) antes de toda acao

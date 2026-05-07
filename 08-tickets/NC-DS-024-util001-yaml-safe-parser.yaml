@@ -21,7 +21,7 @@ methodology: "Criar NC-UTL-FR-001-yaml-safe-parser.py:\n  - safe_load(path: Path
   \ str) -> None  # atualiza campo sem parser completo\n  - validate_schema(data:\
   \ dict, required_fields: list) -> tuple[bool, list[str]]\n  - Detecta automaticamente\
   \ se yaml está disponível; usa regex como fallback\n"
-priority: MEDIUM
+priority: LOW
 roadmap_ticket: UTIL-001
 status: DONE
 ticket_id: NC-DS-024

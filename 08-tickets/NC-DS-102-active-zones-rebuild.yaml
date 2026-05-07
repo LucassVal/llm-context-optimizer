@@ -1,6 +1,6 @@
 ticket_id: NC-DS-102
 status: DONE
-priority: MEDIUM
+priority: LOW
 title: Reconstruir active-zones em NC-CFG-FR-002-rules-policy.yaml (sanitizer detectou
   zeragem)
 created_at: '2026-04-16T11:00:00-03:00'

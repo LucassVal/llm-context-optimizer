@@ -25,7 +25,7 @@ methodology: '1. Ler NC-LBE-CC-001 atual (master lobe)
   5. Atualizar seção "competitive_intel" e "replicability_map"
 
   '
-priority: HIGH
+priority: LOW
 roadmap_ticket: CC-003
 status: DONE
 ticket_id: NC-DS-016

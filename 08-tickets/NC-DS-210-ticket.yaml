@@ -1,6 +1,6 @@
 ticket_id: NC-DS-210
 status: DONE
-priority: URGENT
+priority: LOW
 title: Gateway le MCP hook registry - unificar hooks (SSOT unico)
 front: 'FASE 2: HOOKS'
 description: 'Gateway consulta MCP hook registry como fonte unica de verdade. Remove

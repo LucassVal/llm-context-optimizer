@@ -1,7 +1,7 @@
 ticket_id: NC-DS-153
 title: TTL-002 — NC-SVC-FR-011 TTLManager wiring com WAL prune automático
 status: DONE
-priority: MEDIUM
+priority: LOW
 roadmap_ref: NC-DS-110 (TTL-002 log wiring)
 created_at: '2026-04-20T20:25:00-03:00'
 created_by: T0-Antigravity

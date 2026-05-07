@@ -6,7 +6,7 @@
 ticket_id: NC-DS-250
 title: "MCP Resources — Expor Lobes, KG e Manifest como Resources (resources/list, resources/read, resources/templates/list, resources/subscribe)"
 status: DONE
-priority: P0
+priority: LOW
 assignee: opencode
 created: "2026-05-04"
 implementation_note: "T0-implemented 2026-05-04: 5 resources added inline to server.py lines 451-526 (LEXICO, Lobe Manifest, Boot Manifest, Active Locks, Lobe by ID template). Uses @server.resource() decorator pattern. resources.py not created — inline implementation chosen for FastMCP compatibility."

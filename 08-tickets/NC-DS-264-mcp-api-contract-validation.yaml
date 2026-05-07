@@ -1,7 +1,7 @@
 ticket_id: "NC-DS-264"
 title: "MCP API Contract Validation — Reauditoria NC-DS-206 + Correção Falso Positivo"
 status: DONE
-priority: HIGH
+priority: LOW
 owner: T0-Antigravity
 category: architecture
 created_at: "2026-05-06T13:26:00"

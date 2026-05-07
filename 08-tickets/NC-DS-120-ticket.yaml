@@ -1,7 +1,7 @@
 ticket_id: NC-DS-120
 title: Frente B - Completar parciais MCP (P-001 a P-016)
 status: DONE
-priority: HIGH
+priority: LOW
 created_at: '2026-04-18T09:35:00-03:00'
 assigned_to: OpenCode-1-agent
 mode: single_agent

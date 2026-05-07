@@ -47,7 +47,7 @@ methodology: "1. Listar todos os plugins em official-claude-code/ para identific
   \ Padrões de extensão unificados\n   - Top 3 insights para NeoCortex\n4. Atualizar\
   \ NC-ANA-CC-003-plugin-patterns.md com refinamentos\n5. Timestamp ISO 8601 em tudo\
   \ (GOV-013)\n6. Handoff PENDING_REVIEW\n"
-priority: MEDIUM
+priority: LOW
 roadmap_ticket: CC-002-A
 status: DONE
 ticket_id: NC-DS-014

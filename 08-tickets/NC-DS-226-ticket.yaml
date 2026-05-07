@@ -1,6 +1,6 @@
 ticket_id: NC-DS-226
 status: DONE
-priority: MEDIUM
+priority: LOW
 title: S4 - Regression baseline semanal (CICLO 4)
 front: 'FASE 2: QUALIDADE'
 description: Salvar estado do sistema a cada CICLO 4. Comparar semana a semana. Score

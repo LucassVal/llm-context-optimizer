@@ -6,7 +6,7 @@
 ticket_id: NC-DS-252
 title: "MCP Authorization — Implementar OAuth 2.1 Flow para Streamable HTTP (:8765) — 401+WWW-Authenticate, PRM, AS Discovery, DCR, Token Validation"
 status: DONE
-priority: P0
+priority: LOW
 assignee: opencode
 created: "2026-05-04"
 description: |

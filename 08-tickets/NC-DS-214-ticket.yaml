@@ -1,6 +1,6 @@
 ticket_id: NC-DS-214
 status: DONE
-priority: HIGH
+priority: LOW
 title: ConfigProvider central via ulq.resolve - cache 60s, hot-reload
 front: 'FASE 2: CONFIG'
 description: 8 modulos carregam YAML independentemente. Criar ConfigProvider unico

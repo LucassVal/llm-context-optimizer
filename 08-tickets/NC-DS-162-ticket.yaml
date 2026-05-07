@@ -1,7 +1,7 @@
 ticket_id: NC-DS-162
 title: Auditoria Estrutural - 223 No-Conformidades
 status: DONE
-priority: MEDIUM
+priority: LOW
 created: '2026-04-21T19:55:50'
 agent: T0
 description: 'Relatório audit_structural_report.md mostra 223/275 arquivos violam

@@ -62,7 +62,7 @@ methodology: "=== FASE 0 — GOLDEN FILES (máxima prioridade) ===\n1. Ler comma
   \ (orquestração): coordinator, workers, anti-lazy\nProduzir NC-ANA-CC-001: análise\
   \ do engine Python vs NeoCortex\nProduzir NC-ANA-CC-002: esquema de tools/commands\
   \ da Anthropic vs nosso\n"
-priority: RESEARCH
+priority: LOW
 roadmap_ticket: CC-001-A
 source_map:
   A1_claw-code_python_engine:

@@ -38,7 +38,7 @@ description: 'PROBLEMA: FastMCP inicia (logs mostram "Uvicorn running on http://
   4. Corrigir ou workaround
 
   '
-priority: CRITICAL
+priority: LOW
 resolution: 'RESOLVED: MCP estavel na porta 8766 desde 2026-04-27'
 status: DONE
 ticket_id: NC-DS-164
