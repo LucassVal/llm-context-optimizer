@@ -141,7 +141,7 @@ def mentor_step_0(agent_role: str, task_description: str, lobe_dir: Path | None 
 
     # Importação lazy para evitar circular imports no startup
     try:
-        from neocortex.core.lobe_service import get_lobe_service
+        from neocortex.core.NC_CORE_FR_117_lobe_service import get_lobe_service
         lobe_svc = get_lobe_service()
     except Exception as e:
         mentor_logger.error(f"[Mentor] ❌ Falha ao inicializar LobeService: {e}")

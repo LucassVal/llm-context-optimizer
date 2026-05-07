@@ -17,7 +17,7 @@ from typing import Any
 
 # from ..infra.lobe_index import LobeIndexService
 from ..repositories import LobeRepository
-from .ledger_service import get_ledger_service
+from neocortex.core.NC_CORE_FR_115_ledger_service import get_ledger_service
 
 
 class LobeService:

@@ -122,7 +122,7 @@ def _save_to_akl(patterns: list[dict], session_id: str) -> int:
     try:
         import sys
         sys.path.insert(0, str(FW_DIR))
-        from neocortex.core.akl_service import get_akl_service
+        from neocortex.core.NC_CORE_FR_103_akl_service import get_akl_service
         akl = get_akl_service()
         saved = 0
         for i, p in enumerate(patterns):
@@ -143,7 +143,7 @@ def _save_to_akl(patterns: list[dict], session_id: str) -> int:
 def _save_to_kg(patterns: list[dict]) -> int:
     """Adiciona entidades/relações ao KG."""
     try:
-        from neocortex.core.kg_service import get_kg_service
+        from neocortex.core.NC_CORE_FR_114_kg_service import get_kg_service
         kg = get_kg_service()
         added = 0
         for p in patterns:

@@ -26,7 +26,7 @@ import logging
 import re
 from typing import Any
 
-from ..core.file_utils import (
+from neocortex.core.NC_CORE_FR_112_file_utils import (
     find_lobes,
     get_lobe_content,
     get_project_root,
@@ -38,7 +38,7 @@ from ..core.file_utils import (
     write_json_file,
     write_ledger,
 )
-from .base import CortexRepository, LedgerRepository, LobeRepository, ProfileRepository
+from neocortex.core.NC_REP_FR_002_base_repository import CortexRepository, LedgerRepository, LobeRepository, ProfileRepository
 
 logger = logging.getLogger(__name__)
 

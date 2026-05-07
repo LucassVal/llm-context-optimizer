@@ -17,7 +17,7 @@ import uuid
 from datetime import UTC, datetime
 from pathlib import Path
 
-from ..core.pulse_scheduler import PulseScheduler  # type: ignore[import-untyped]
+from ..core.NC_CORE_FR_142_pulse_scheduler_orbital import PulseScheduler  # type: ignore[import-untyped]
 from ..infra.metrics_store import create_metrics_store  # type: ignore[import-untyped]
 
 _workspace_roots = None
