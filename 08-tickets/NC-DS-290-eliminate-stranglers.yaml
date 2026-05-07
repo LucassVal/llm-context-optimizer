@@ -1,6 +1,7 @@
 ticket_id: "NC-DS-290"
 title: "Eliminar 25 Strangler Wrappers — substituir por imports diretos"
-status: OPEN
+status: BLOCKED
+reason: "Python nao suporta import de filenames com hyphen (NC-CORE-FR-142). Stranglers sao adaptadores necessarios, nao divida. Solucao real: renomear TODOS os NC-CORE-FR-*.py para underscore (NC_CORE_FR_142_*.py). Impacto massivo."
 priority: HIGH
 owner: T0
 category: architecture
