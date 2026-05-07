@@ -29,9 +29,9 @@ logger = logging.getLogger(__name__)
 DEFAULT_CONFIG = {
     "enabled": True,
     "compression": True,
-    "max_turns_per_session": 1000,
+    "max_turns_per_session": 15,  # NC-DS-293 T4: reduced from 1000 for KV cache efficiency
     "hot_buffer_size": 10,
-    "exclude_patterns": ["health", "status", "ping"],  # Patterns para excluir
+    "exclude_patterns": ["health", "status", "ping"],
 }
 
 class ConversationHook:
