@@ -118,7 +118,9 @@ tasks:
     priority: P0
     write_zone: "DOCS → CLAUDE.md (raiz do projeto)"
     steps:
-      - "Ler CLAUDE.md atual (se existir)"
+      - "PRIMÁRIO: criar AGENTS.md (raiz) — OpenCode + DeepSeek lê este"
+      - "SECUNDÁRIO: criar/atualizar CLAUDE.md — Claude Code apenas"
+      - "Ambos com conteúdo idêntico: arquitetura MCP-as-backbone + @LOCKS"
       - "Adicionar seção: ARQUITETURA — MCP é a espinha dorsal, CLIs são clientes"
       - "Adicionar seção: ARQUIVOS IMUTÁVEIS (@LOCKS) com lista explícita:"
       - "  - server.py, sub_server.py (LOCK-01)"

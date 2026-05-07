@@ -3,8 +3,8 @@
     "synapses": {
       "current_context": {
         "lobe_id": "NC-LBE-FR-002-claude-assistant",
-        "checkpoint_id": "CP-AUTO-20260506-235026-918c3a25",
-        "set_at": "2026-05-06T23:50:26.970926"
+        "checkpoint_id": "CP-AUTO-20260507-000358-ce0c8506",
+        "set_at": "2026-05-07T00:03:58.865329"
       }
     },
     "global_checkpoint_index": {
@@ -61,7 +61,12 @@
         "CP-AUTO-20260506-234358-79671d48",
         "CP-AUTO-20260506-234526-e0fb820a",
         "CP-AUTO-20260506-234858-c912904e",
-        "CP-AUTO-20260506-235026-918c3a25"
+        "CP-AUTO-20260506-235026-918c3a25",
+        "CP-AUTO-20260506-235358-3aac4f78",
+        "CP-AUTO-20260506-235527-fd9ca059",
+        "CP-AUTO-20260506-235858-1d9936e3",
+        "CP-AUTO-20260507-000028-667dcef7",
+        "CP-AUTO-20260507-000358-ce0c8506"
       ]
     },
     "consolidation_sessions": [
@@ -235,6 +240,13 @@
       },
       {
         "id": "session_pulse_20260507_024858_d0ac56fe",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260507_030028_0b7787d1",
         "summary": "Consolidao automtica via PulseScheduler",
         "created_at": "auto_generated",
         "metadata": {},
@@ -611,6 +623,41 @@
       "timestamp": "2026-05-06T23:50:26.970926",
       "event": "checkpoint_set",
       "checkpoint_id": "CP-AUTO-20260506-235026-918c3a25",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-06T23:53:58.772108",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260506-235358-3aac4f78",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-06T23:55:27.012048",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260506-235527-fd9ca059",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-06T23:58:58.801449",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260506-235858-1d9936e3",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-07T00:00:28.341114",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260507-000028-667dcef7",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-07T00:03:58.865329",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260507-000358-ce0c8506",
       "lobe_id": "NC-LBE-FR-002-claude-assistant",
       "description": "Auto-checkpoint created by PulseScheduler"
     }
