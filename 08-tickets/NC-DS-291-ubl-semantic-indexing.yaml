@@ -1,6 +1,6 @@
 ticket_id: "NC-DS-291"
 title: "UBL Semantic Indexing — adicionar @UBL/LEXICO em 308 .py files"
-status: OPEN
+status: DONE
 priority: HIGH
 owner: T0
 category: governance

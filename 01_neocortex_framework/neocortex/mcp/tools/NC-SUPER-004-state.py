@@ -35,6 +35,24 @@ TOOL_NAME = "neocortex_state"
 def _ts() -> str:
     return datetime.now().isoformat(timespec="seconds")
 
+_session_mgr_cache = None
+
+def _get_session_manager():
+    global _session_mgr_cache
+    if _session_mgr_cache is not None:
+        return _session_mgr_cache
+    try:
+        import importlib.util
+        server_path = Path(__file__).parents[1] / "server.py"
+        spec = importlib.util.spec_from_file_location("srv", str(server_path))
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        if hasattr(mod, "session_manager"):
+            _session_mgr_cache = mod.session_manager
+        return _session_mgr_cache
+    except Exception:
+        return None
+
 
 def _root() -> Path:
     # parents[4] = TURBOQUANT_V42/ (acima de tools/mcp/neocortex/01_neocortex_framework/)
@@ -305,7 +323,7 @@ def register_tool(mcp) -> None:
 
         elif action == "session.status":
             try:
-                session_manager = None  # R26 orbital: no server.py dependency
+                session_manager = _get_session_manager()
                 if session_manager is not None:
                     return {"success": True, "action": action,
                             "session_active": session_manager.active,

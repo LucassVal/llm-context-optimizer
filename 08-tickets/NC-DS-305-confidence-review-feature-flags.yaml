@@ -1,0 +1,156 @@
+# @UBL @UBL @DS-305 | LEXICO: #TICKETS #CONFIDENCE #FEATUREFLAGS #GOVERNANCE
+ticket_id: "NC-DS-305"
+title: "ConfidenceReviewService + FeatureFlagService — gaps CC-004 e CC-010"
+status: OPEN
+priority: MEDIUM
+owner: T0
+category: governance
+created_at: "2026-05-06"
+roadmap_ref: CICLO_7
+depends_on: []
+
+shared_kernel:
+  ulq_symbols: ["@BOOT", "#CONFIDENCE", "#FEATUREFLAGS", "#GOVERNANCE"]
+  nc_ids_referenced:
+    - "NC-LBE-CC-004-confidence-review"
+    - "NC-LBE-CC-010-feature-flags-channels"
+    - "NC-SVC-FR-006-metrics-collector"
+    - "NC-SUPER-005-governance"
+  lexico_validated: false
+  paths_verified: false
+
+working_directory: "C:\\Users\\Lucas Valério\\Desktop\\TURBOQUANT_V42"
+framework_subdir: "01_neocortex_framework"
+
+three_w:
+  who: "neocortex_governance + NC-SVC-FR-006 (MetricsCollector) + handoff pipeline"
+  what: |
+    PARTE 1 — ConfidenceReviewService (CC-004):
+      Score 0-100 para handoffs. >80 auto-aprovado, 50-80 revisão manual, <50 rejeitado.
+      Validadores: naming NC- (R01), py_compile, @LOCKS check, SSOT update, ruff.
+      Substitui o processo manual de review de handoffs.
+
+    PARTE 2 — FeatureFlagService (CC-010):
+      Cache TTL=3600s para flags. Flags por YAML local (sem Growthbook externo).
+      Flags iniciais: persistent_worker, confidence_review, channel_notifications.
+      Habilitar/desabilitar features sem restart do MCP.
+  why: |
+    Handoffs sem scoring: T0 revisa manualmente 100% dos handoffs (viola R15: T0 não faz trabalho braçal).
+    FeatureFlags hardcoded: cada mudança de comportamento requer edição de código + restart.
+    CC-004 e CC-010 documentam os padrões — sem implementação o sistema está incompleto.
+
+rca:
+  symptom: "Handoffs aprovados manualmente. Features habilitadas por código hardcoded."
+  why_1: "ConfidenceReviewService nunca foi priorizado — handoffs são poucos por sessão"
+  why_2: "Feature flags não foram necessárias antes — sistema era monolítico"
+  why_3: "Com multi-agente (T0/T1/T2/T3), aprovação manual de handoff é gargalo"
+  why_4: "CC-004 e CC-010 foram documentados como análise, sem ticket de implementação"
+  why_5: "YAGNI foi aplicado — mas agora há necessidade real com múltiplos agentes"
+  root_cause: "Funcionalidades documentadas mas nunca priorizadas"
+  corrective_action: |
+    ConfidenceReviewService: ~80 linhas, 5 validadores, scoring simples.
+    FeatureFlagService: ~40 linhas, YAML config local, cache TTL=3600s.
+  preventive_action: |
+    Handoffs com score <50 bloqueados automaticamente.
+    Feature flags no CICLO-0: flags.list() → confirmar estado.
+
+swot:
+  strengths:
+    - "NC-SVC-FR-006 (MetricsCollector) fornece dados para scoring"
+    - "NC-LBE-CC-004 tem spec completa com thresholds"
+    - "NC-LBE-CC-010 tem YAML de configuração exemplo"
+    - "neocortex_governance já tem actions para policies"
+  weaknesses:
+    - "5 validadores paralelos (CC-004) requerem threading ou async"
+    - "FeatureFlags YAML precisa de path definido (R07 ConfigProvider)"
+  opportunities:
+    - "Score de handoffs → métrica de qualidade de agentes T2/T3"
+    - "Feature flags permitem rollout gradual de novas features"
+  threats:
+    - "Score falso-positivo pode bloquear handoffs válidos — calibrar thresholds"
+    - "FeatureFlags YAML em config.yaml → não pode modificar (LOCK-03)"
+
+kiss:
+  approach: |
+    ConfidenceReviewService: 1 arquivo ~80 linhas, 5 validadores sequenciais (não paralelos — KISS).
+    FeatureFlagService: 1 arquivo ~40 linhas, lê YAML de .nc/feature-flags.yaml (não config.yaml).
+  lines_changed: "~120 linhas em 2 novos arquivos"
+  risk: "Baixo — novos arquivos, sem modificar existentes"
+  no_new_engines: true
+  no_refactor_adjacent: true
+
+step_0:
+  r21_verifications:
+    - "Grep 'ConfidenceReview\\|confidence_review' em neocortex/ → confirmar ausência"
+    - "Grep 'FeatureFlagService\\|feature_flags' em neocortex/ → confirmar ausência"
+    - "Test-Path .nc/feature-flags.yaml → confirmar se existe (criar se não)"
+    - "Grep 'from.*NC-SVC-FR-006' em neocortex/ → confirmar padrão de import de MetricsCollector"
+  atomic_locks:
+    - "neocortex/mcp/server.py → NUNCA MODIFICAR"
+    - "neocortex_config.yaml → NUNCA MODIFICAR (LOCK-03) — usar .nc/feature-flags.yaml"
+
+tasks:
+  - id: T1
+    title: "Criar NC-SVC-FR-022-confidence-review.py"
+    priority: P0
+    write_zone: "CORE → neocortex/core/services/NC-SVC-FR-022-confidence-review.py"
+    steps:
+      - |
+        Criar ConfidenceReviewService com 5 validadores:
+          V1: naming_check — arquivo tem prefix NC-? (R01) → peso 20
+          V2: py_compile — arquivo compila? → peso 25
+          V3: ruff_check — 0 erros ruff? → peso 20
+          V4: locks_check — nenhum @LOCK modificado? → peso 25
+          V5: ssot_updated — changelog referenciado? → peso 10
+        Score = soma dos pesos dos validadores que passaram (0-100)
+        >80: auto-aprovado | 50-80: manual | <50: rejeitado
+      - "py_compile → PASS, ruff → 0 erros"
+    validation:
+      - "py_compile → PASS, ruff → 0 erros"
+      - "Testar com handoff válido → score >80"
+
+  - id: T2
+    title: "Criar NC-CFG-FR-002-feature-flags.py + .nc/feature-flags.yaml"
+    priority: P1
+    write_zone: "CORE → neocortex/config/ | CONFIG → .nc/feature-flags.yaml"
+    steps:
+      - |
+        Criar FeatureFlagService:
+          flags carregados de .nc/feature-flags.yaml
+          cache TTL=3600s
+          is_enabled(flag: str) → bool
+          refresh(flag: str) → força reload
+      - |
+        Criar .nc/feature-flags.yaml:
+          persistent_worker: false
+          confidence_review: true
+          channel_notifications: false
+          pulsedaemon_event_driven: false
+          mcp_resources: false
+      - "py_compile → PASS, ruff → 0 erros"
+    validation:
+      - "FeatureFlagService.is_enabled('confidence_review') → True"
+      - "py_compile → PASS"
+
+  - id: T3
+    title: "Wire ConfidenceReviewService no pipeline de handoff"
+    priority: P1
+    write_zone: "CORE → neocortex/mcp/tools/NC-SUPER-005-governance.py (action handoff.create)"
+    steps:
+      - "No action handoff.create: chamar ConfidenceReviewService.score(handoff)"
+      - "Adicionar score ao output: {'score': 85, 'decision': 'auto_approved'}"
+      - "Se score <50: retornar erro 'Handoff rejeitado (score: X)'"
+    validation:
+      - "handoff.create com handoff válido retorna score >0"
+      - "py_compile NC-SUPER-005 → PASS"
+
+acceptance_criteria:
+  - "NC-SVC-FR-022-confidence-review.py: py_compile PASS, ruff 0 erros"
+  - "NC-CFG-FR-002-feature-flags.py: py_compile PASS, ruff 0 erros"
+  - ".nc/feature-flags.yaml: yaml válido"
+  - "handoff.create retorna score no output"
+  - "FeatureFlagService.is_enabled('confidence_review') → True"
+
+validation: [ruff, py_compile, handoff_score_test, feature_flag_test]
+write_zone: "CORE → neocortex/core/services/ + neocortex/config/ | CONFIG → .nc/"
+handoff_required: true
