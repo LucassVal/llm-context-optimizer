@@ -3,8 +3,8 @@
     "synapses": {
       "current_context": {
         "lobe_id": "NC-LBE-FR-002-claude-assistant",
-        "checkpoint_id": "CP-AUTO-20260507-003528-71df09c3",
-        "set_at": "2026-05-07T00:35:28.585730"
+        "checkpoint_id": "CP-AUTO-20260507-125902-0271f8b1",
+        "set_at": "2026-05-07T12:59:02.170981"
       }
     },
     "global_checkpoint_index": {
@@ -75,7 +75,13 @@
         "CP-AUTO-20260507-002028-0ba4ed6b",
         "CP-AUTO-20260507-002528-e449f234",
         "CP-AUTO-20260507-003028-16df0891",
-        "CP-AUTO-20260507-003528-71df09c3"
+        "CP-AUTO-20260507-003528-71df09c3",
+        "CP-AUTO-20260507-004028-2925a0b3",
+        "CP-AUTO-20260507-004547-c55de518",
+        "CP-AUTO-20260507-125402-2b9859ea",
+        "CP-AUTO-20260507-125700-25edd36a",
+        "CP-AUTO-20260507-125702-76ad91fe",
+        "CP-AUTO-20260507-125902-0271f8b1"
       ]
     },
     "consolidation_sessions": [
@@ -264,6 +270,34 @@
       {
         "id": "session_pulse_20260507_033028_05f4b760",
         "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260507_034547_482c7a7d",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260507_155402_b0e88a83",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260507_155700_f3d730a5",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_2026-05-07T15-56-54-457113+00-00Z",
+        "summary": "Sess\u00e3o finalizada automaticamente via SessionManager",
         "created_at": "auto_generated",
         "metadata": {},
         "status": "summarized"
@@ -739,14 +773,56 @@
       "checkpoint_id": "CP-AUTO-20260507-003528-71df09c3",
       "lobe_id": "NC-LBE-FR-002-claude-assistant",
       "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-07T00:40:28.614458",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260507-004028-2925a0b3",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-07T00:45:47.774239",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260507-004547-c55de518",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-07T12:54:02.147229",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260507-125402-2b9859ea",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-07T12:57:00.079212",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260507-125700-25edd36a",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-07T12:57:02.695647",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260507-125702-76ad91fe",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-07T12:59:02.170981",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260507-125902-0271f8b1",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
     }
   ],
   "session_metrics": {
-    "total_interactions": 15,
+    "total_interactions": 18,
     "compactions_executed": 0,
     "token_budget_warnings": 0,
     "interaction_types": {
-      "heartbeat": 15
+      "heartbeat": 18
     },
     "total_tokens_used": 0
   }

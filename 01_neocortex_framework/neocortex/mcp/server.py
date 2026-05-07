@@ -721,8 +721,12 @@ def create_mcp_server(host="127.0.0.1", port=8765):
 
     # NC-DS-270: Wire ConversationHook — turn.record automático (R52 Kaizen)
     try:
-        from ..core.hooks.NC_HK_FR_004_conversation_hook import get_conversation_hook
-        _conv_hook = get_conversation_hook()
+        import importlib.util as _iu_cv
+        _cv_path = Path(__file__).parent.parent / "core" / "hooks" / "NC-HK-FR-004-conversation-hook.py"
+        _cv_spec = _iu_cv.spec_from_file_location("conversation_hook", str(_cv_path))
+        _cv_mod = _iu_cv.module_from_spec(_cv_spec)
+        _cv_spec.loader.exec_module(_cv_mod)
+        _conv_hook = _cv_mod.get_conversation_hook()
         def _conv_hook_cb(**ctx):
             try:
                 loop = asyncio.get_event_loop()

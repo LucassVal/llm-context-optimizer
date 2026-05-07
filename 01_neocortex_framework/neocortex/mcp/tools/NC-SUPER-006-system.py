@@ -421,7 +421,7 @@ def set_pulse_scheduler(scheduler):
     logger.info("[system] PulseScheduler registered")
     try:
         import importlib.util
-        script = Path(__file__).parents[2] / "scripts" / "NC-SCR-FR-115-guardian-daemon.py"
+        script = Path(__file__).parents[4] / "32-scripts" / "NC-SCR-FR-115-guardian-daemon.py"
         if script.exists():
             spec = importlib.util.spec_from_file_location("guardian_daemon", script)
             mod = importlib.util.module_from_spec(spec)
