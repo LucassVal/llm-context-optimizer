@@ -1,0 +1,64 @@
+ticket_id: "NC-DS-293"
+title: "DeepSeek Optimization — Cache Markers + Flash Routing + Retry-After + Token Bucket"
+status: OPEN
+priority: HIGH
+owner: T0
+category: infrastructure
+created_at: "2026-05-06"
+roadmap_ref: CICLO_7
+source_audit: "NC-AUD-FR-005 + NC-AUD-FR-006"
+
+three_w:
+  who: "DeepSeekBackend (NC-LLM-FR-001) + NC-SUPER-005-llm-router + NC-CORE-FR-174-response-cache"
+  what: "4 otimizações táticas de custo: (1) Cache markers para estabilizar prefixo de 40k tokens, (2) Flash routing para tarefas simples, (3) Retry-After + Token Bucket no cliente HTTP, (4) Poda de turns (1000→15)."
+  why: "Auditoria NC-AUD-FR-005: sistema envia tudo para DeepSeek Pro, sem cache KV estável, sem backoff inteligente. Custo desnecessário de 30-40%."
+
+rca:
+  symptom: "Custo elevado sem otimização de cache e roteamento"
+  why_1: "Lobes dinâmicos quebram cache KV do DeepSeek"
+  why_2: "Sem marcadores de cache explícitos no prefixo de regras"
+  why_3: "Todas as chamadas vão para Pro (sem roteamento Flash)"
+  why_4: "Sem Retry-After ou Token Bucket — ignora cabeçalhos 429 da API"
+  why_5: "ConversationHook config default = 1000 turns (inviável para produção)"
+  root_cause: "Camada de otimização de custo nunca foi priorizada"
+  corrective_action: "4 correções KISS — uma por subsistema"
+  preventive_action: "Adicionar métricas de custo ao PulseScheduler (KPI)"
+
+kiss:
+  approach: "4 mudanças em 4 arquivos. Zero refactor. Config + imports."
+  lines_changed: "~40 (10 por correção)"
+  risk: "Baixo — todas são adições incrementais, não mudanças estruturais"
+
+tasks:
+  - id: T1
+    title: "Cache Markers — congelar prefixo de regras como bloco imutável"
+    priority: P0
+    approach: "No NC-CORE-FR-174: adicionar modo 'stable_prefix' que congela as primeiras N linhas do prompt para garantir cache KV hit no DeepSeek."
+    effort: "15min"
+
+  - id: T2
+    title: "Flash Routing — tarefas simples (status/ping/health) → Flash, complexas → Pro"
+    priority: P0
+    approach: "No NC-SUPER-005: adicionar tier FLASH. Ações conhecidas (ollama.list, ollama.pull, workers.status) → Flash. Prompt genérico → Pro."
+    effort: "15min"
+
+  - id: T3
+    title: "Retry-After + Token Bucket no DeepSeekBackend"
+    priority: P1
+    approach: "No NC-LLM-FR-001: ler cabeçalho Retry-After em respostas 429. Implementar rate limiter de 3 req/s."
+    effort: "30min"
+
+  - id: T4
+    title: "ConversationHook: reduzir max_turns 1000→15 + compressão seletiva"
+    priority: P1
+    approach: "No NC-HK-FR-004: DEFAULT_CONFIG['max_turns_per_session'] = 15. Adicionar compressão que preserva início do contexto (cauda removida)."
+    effort: "10min"
+
+acceptance_criteria:
+  - "Cache KV hit rate > 80% em prefixo estável"
+  - "Tarefas de status/ping roteadas para Flash (não Pro)"
+  - "DeepSeekBackend respeita Retry-After em 429"
+  - "ConversationHook max_turns = 15"
+
+write_zone: "CORE → NC-CORE-FR-174 | TOOLS → NC-SUPER-005 | INFRA → NC-LLM-FR-001"
+handoff_required: true

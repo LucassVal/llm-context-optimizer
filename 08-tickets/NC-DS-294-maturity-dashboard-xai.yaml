@@ -1,0 +1,58 @@
+ticket_id: "NC-DS-294"
+title: "Maturity Dashboard + CoT/XAI Logging — Mission Control Wire-up"
+status: OPEN
+priority: MEDIUM
+owner: T0
+category: governance
+created_at: "2026-05-06"
+roadmap_ref: CICLO_7
+source_audit: "NC-AUD-FR-004"
+depends_on: ["NC-DS-280"]
+
+three_w:
+  who: "Mission Control (NC-LBE-INT-004) + governance.audit.reasoning"
+  what: "(1) Wire Mission Control adapter (NC-DS-280). (2) Adicionar Chain-of-Thought (CoT) logging nas tools — cada decisão de agente registrada como reasoning_log. (3) Dashboard de visibilidade de agentes."
+  why: "Auditoria NC-AUD-FR-004: decisões dos agentes são opacas (sem XAI). Sem dashboard, T0 não tem visibilidade de runtime. Sem CoT, auditoria é impossível."
+
+rca:
+  symptom: "Agentes tomam decisões sem registro de reasoning"
+  why_1: "Nenhuma tool loga o 'porquê' de uma decisão"
+  why_2: "CoT não foi implementado — assumiu-se que o modelo faria internamente"
+  why_3: "Mission Control adapter documentado mas nunca implementado"
+  why_4: "Prioridade era MCP core, não observabilidade"
+  why_5: "Sem exigência de XAI no protocolo de governança"
+  root_cause: "Observabilidade e XAI nunca foram requerimentos de aceitação"
+  corrective_action: "Wire Mission Control + adicionar reasoning_log a 3 tools críticas"
+  preventive_action: "Todo ticket de governança deve incluir critério de XAI"
+
+kiss:
+  approach: "2 integrações: Mission Control (POST /api/adapters) + CoT logger (1 função reutilizável em 3 tools)."
+  lines_changed: "~50 (30 Mission Control adapter + 20 CoT logging)"
+  risk: "Baixo — Mission Control é serviço externo. Falha não quebra NeoCortex."
+
+tasks:
+  - id: T1
+    title: "Wire Mission Control Generic Adapter"
+    priority: P1
+    approach: "POST /api/adapters para registrar agentes NeoCortex. Cliente Python simples em 32-scripts/."
+    effort: "30min"
+    note: "Já documentado em NC-DS-280. Lobe NC-LBE-INT-004 contém API spec completa."
+
+  - id: T2
+    title: "CoT/XAI Logging — reasoning_log em tools críticas"
+    priority: P2
+    approach: "Função _log_reasoning(action, decision, why) que escreve em 09-audit-logs/reasoning.jsonl. Wire em governance, brain, orchestration."
+    effort: "15min"
+
+  - id: T3
+    title: "Agent Visibility Dashboard (via Mission Control)"
+    priority: P2
+    approach: "Após T1: agentes aparecem no dashboard Mission Control com status online, heartbeats, task queue."
+
+acceptance_criteria:
+  - "Mission Control mostra agentes NeoCortex como online"
+  - "governance.audit.reasoning retorna log de decisões com 'why'"
+  - "3 tools críticas logam reasoning em reasoning.jsonl"
+
+write_zone: "SCRIPTS → 32-scripts/ | TOOLS → NC-SUPER-001/007"
+handoff_required: true

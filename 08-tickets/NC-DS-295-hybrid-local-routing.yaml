@@ -1,0 +1,61 @@
+ticket_id: "NC-DS-295"
+title: "Hybrid Local Routing — Ollama para tarefas simples, DeepSeek para complexas"
+status: OPEN
+priority: MEDIUM
+owner: T0
+category: infrastructure
+created_at: "2026-05-06"
+roadmap_ref: CICLO_7
+source_audit: "NC-AUD-FR-006"
+
+three_w:
+  who: "NC-SUPER-005-llm-router + NC-LLM-FR-002-ollama-backend"
+  what: "Adicionar roteamento automático por complexidade: tarefas simples (status, health, ping, lint) → Ollama local (custo zero). Tarefas complexas → DeepSeek. Classificador de complexidade via heurística simples."
+  why: "Auditoria NC-AUD-FR-006: RTX 3050 (4GB) ociosa enquanto sistema gasta créditos Cloud. 30-40% das chamadas são tarefas triviais que rodariam localmente."
+
+rca:
+  symptom: "Ollama local UP mas não usado para tarefas de rotina"
+  why_1: "NC-SUPER-005 tem ollama.ask mas tools não roteiam automaticamente"
+  why_2: "Não há classificador de complexidade — tudo vai para DeepSeek"
+  why_3: "Roteamento era via LiteLLM (removido) — nunca foi substituído"
+  why_4: "Prioridade era estabilidade MCP, não otimização de custo"
+  why_5: "Sem métricas de custo visíveis (KPI estava arquivado)"
+  root_cause: "Arquitetura híbrida existe (Ollama + DeepSeek) mas sem orquestrador inteligente"
+  corrective_action: "Adicionar classificador de complexidade no llm-router + wire Ollama fallback"
+  preventive_action: "KPI dashboard mostra split de custo Cloud vs Local"
+
+kiss:
+  approach: "2 mudanças no NC-SUPER-005: (1) Classificador heurístico (pattern match em action), (2) Ollama fallback quando DeepSeek offline."
+  lines_changed: "~20"
+  risk: "Baixo — Ollama já está UP e funcional. Só adicionar roteamento."
+
+tasks:
+  - id: T1
+    title: "Classificador de complexidade — route.call com tier dinâmico"
+    priority: P1
+    approach: |
+      Heurística simples no NC-SUPER-005:
+      - Ações conhecidas de baixa complexidade (ollama.list, ollama.pull, workers.status, health, ping) → tier LOCAL
+      - Prompt < 100 chars → LOCAL
+      - Prompt > 500 chars OU contém "analyze|audit|refactor|implement" → CLOUD (DeepSeek)
+      - Default → LOCAL (economizar por padrão)
+    effort: "15min"
+
+  - id: T2
+    title: "Ollama fallback — se DeepSeek API falhar, chama Ollama automaticamente"
+    priority: P1
+    approach: "No DeepSeekBackend.generate(): se API falhar (timeout, 502, 429), tentar Ollama como fallback. Já temos NC-LLM-FR-002 implementado."
+    effort: "15min"
+
+  - id: T3
+    title: "Métrica de custo no KPI — Cloud vs Local split"
+    priority: P2
+    approach: "NC-SUPER-001 governance kpi.report: adicionar campo cloud_vs_local com contagem de chamadas. KPI restaurado em NC-DS-271."
+
+acceptance_criteria:
+  - "Tarefas de status/health roteadas para Ollama local (custo zero)"
+  - "DeepSeek API offline → Ollama fallback automático"
+  - "KPI mostra % de chamadas Cloud vs Local"
+
+write_zone: "TOOLS → NC-SUPER-005 | INFRA → NC-LLM-FR-001"
+handoff_required: true

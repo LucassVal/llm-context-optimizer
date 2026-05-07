@@ -6,7 +6,7 @@ status: active
 module: strategic
 version: 1.0
 created: 2026-05-03
-temperature: 75
+temperature: 60
 ---
 
 <!-- NC-READ-HASH: NC-LBE-USR-007-matrix-v1 -->

@@ -38,6 +38,7 @@ def load_mdc_rules(root: Path | None = None) -> dict[str, Any]:
 
 def inject_rules_into_fastmcp(server: Any) -> bool:
     """Inject governance rules into the FastMCP server's metadata/instructions.
+    Uses NC-CFG-FR-010 canonical order for KV cache stability.
     Returns True if injection succeeded.
     """
     try:
@@ -46,24 +47,44 @@ def inject_rules_into_fastmcp(server: Any) -> bool:
             logger.warning("MDC Loader: nenhuma regra encontrada para injetar")
             return False
 
+        # NC-CFG-FR-010: canonical prefix order for KV cache stability
+        canonical_order = _load_canonical_order()
+        ordered_keys = [k for k in canonical_order if k in rules]
+        remaining = [k for k in rules if k not in canonical_order]
+        ordered_keys.extend(sorted(remaining))
+
         top_rules = []
-        priority_keys = [
-            "NC-LBE-FR-CONSTITUTION-001",
-            "NC-LBE-FR-RULES-MULTILAYER-001",
-            "NC-LBE-FR-GOVERNANCE-001",
-        ]
-        for key in priority_keys:
-            if key in rules:
-                top_rules.append(rules[key][:800])
+        for key in ordered_keys[:15]:
+            content = rules[key]
+            top_rules.append(content[:800])
 
         if hasattr(server, "instructions"):
             existing = getattr(server, "instructions", "") or ""
-            injected = "\n\n--- Governance Rules (MDC) ---\n" + "\n---\n".join(top_rules)
+            injected = "\n\n--- Governance Rules (MDC - Canonical Order) ---\n" + "\n---\n".join(top_rules)
             try:
                 server.instructions = (existing + injected)[:8192]
             except Exception:
                 pass
+            logger.info(f"MDC Loader: {len(ordered_keys)} regras injetadas em ordem canônica")
             return True
     except Exception as e:
         logger.warning(f"MDC Loader: falha ao injetar regras — {e}")
     return False
+
+
+def _load_canonical_order() -> list[str]:
+    """Load canonical lobe order from NC-CFG-FR-010-stable-prefix.yaml."""
+    try:
+        import yaml
+        cfg_path = Path(__file__).parent.parent.parent.parent / "07-agent-config" / "NC-CFG-FR-010-stable-prefix.yaml"
+        if not cfg_path.exists():
+            return []
+        with open(cfg_path, "r", encoding="utf-8") as f:
+            cfg = yaml.safe_load(f)
+        order = []
+        for section in ["constitution", "semantics", "governance", "integrations"]:
+            items = cfg.get(section, [])
+            order.extend([i for i in items if isinstance(i, str)])
+        return order
+    except Exception:
+        return []

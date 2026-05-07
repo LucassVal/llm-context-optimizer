@@ -1,0 +1,46 @@
+# NC-CFG-FR-010: Canonical Lobe Order for KV Cache Stability
+# UBL: @CACHE-PREFIX | LEXICO: #CACHE #PREFIX #KV-STABLE
+# Immutable prompt prefix order. Changes invalidate DeepSeek KV cache.
+# Rule: APPEND-ONLY. Never reorder existing entries.
+
+version: "1.0"
+status: ACTIVE
+created: "2026-05-06"
+created_by: T0
+
+# ── BLOCO 1: CONSTITUIÇÃO (IMUTÁVEL — nunca alterar ordem) ──
+constitution:
+  - "@CONSTITUTION"            # NC-LBE-FR-CONSTITUTION-001: regras R01-R133
+  - "@SSOT"                    # NC-NAM-FR-001: fonte única da verdade
+  - "@POLICY"                  # NC-CFG-FR-001: políticas de governança
+
+# ── BLOCO 2: SEMÂNTICA (IMUTÁVEL) ──
+semantics:
+  - "@ULQ"                     # NC-DOC-FR-001: dicionário semântico
+  - "@LOCKS"                   # NC-SEC-FR-001: estado dos locks atômicos
+  - "@MANIFEST"                # NC-MAN-LOBE-001.csv: manifesto do sistema
+
+# ── BLOCO 3: GOVERNANÇA (IMUTÁVEL) ──
+governance:
+  - "NC-LBE-FR-CONSTITUTION-001"
+  - "NC-LBE-FR-RULES-MULTILAYER-001"
+  - "NC-LBE-FR-LEGAL-001-legal-framework"
+  - "NC-LBE-FR-TICKETS-001"
+  - "NC-LBE-FR-KAIZEN-001"
+
+# ── BLOCO 4: INTEGRAÇÕES (ESTÁVEL — adicionar apenas ao final) ──
+integrations:
+  - "NC-LBE-INT-004-mission-control"
+  - "NC-LBE-INT-005-pixel-agents"
+
+# ── BLOCO 5: DOMÍNIOS (ESTÁVEL — ordem alfabética dentro de cada domínio) ──
+domains:
+  - "01_architecture"
+  - "02_integrations"
+  - "03_development"
+  - "04_quality"
+  - "05_security"
+  - "06_governance"
+  - "07_mcp"
+  - "08_ciclo_vida"
+  - "09_framework"
