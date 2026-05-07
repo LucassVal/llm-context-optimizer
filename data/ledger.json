@@ -3,8 +3,8 @@
     "synapses": {
       "current_context": {
         "lobe_id": "NC-LBE-FR-002-claude-assistant",
-        "checkpoint_id": "CP-AUTO-20260506-234526-e0fb820a",
-        "set_at": "2026-05-06T23:45:26.957294"
+        "checkpoint_id": "CP-AUTO-20260506-235026-918c3a25",
+        "set_at": "2026-05-06T23:50:26.970926"
       }
     },
     "global_checkpoint_index": {
@@ -59,7 +59,9 @@
         "CP-AUTO-20260506-233858-d1d2f445",
         "CP-AUTO-20260506-234026-37b56652",
         "CP-AUTO-20260506-234358-79671d48",
-        "CP-AUTO-20260506-234526-e0fb820a"
+        "CP-AUTO-20260506-234526-e0fb820a",
+        "CP-AUTO-20260506-234858-c912904e",
+        "CP-AUTO-20260506-235026-918c3a25"
       ]
     },
     "consolidation_sessions": [
@@ -226,6 +228,13 @@
       },
       {
         "id": "session_pulse_20260507_023026_54e9946e",
+        "summary": "Consolidao automtica via PulseScheduler",
+        "created_at": "auto_generated",
+        "metadata": {},
+        "status": "summarized"
+      },
+      {
+        "id": "session_pulse_20260507_024858_d0ac56fe",
         "summary": "Consolidao automtica via PulseScheduler",
         "created_at": "auto_generated",
         "metadata": {},
@@ -588,6 +597,20 @@
       "timestamp": "2026-05-06T23:45:26.957294",
       "event": "checkpoint_set",
       "checkpoint_id": "CP-AUTO-20260506-234526-e0fb820a",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-06T23:48:58.757500",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260506-234858-c912904e",
+      "lobe_id": "NC-LBE-FR-002-claude-assistant",
+      "description": "Auto-checkpoint created by PulseScheduler"
+    },
+    {
+      "timestamp": "2026-05-06T23:50:26.970926",
+      "event": "checkpoint_set",
+      "checkpoint_id": "CP-AUTO-20260506-235026-918c3a25",
       "lobe_id": "NC-LBE-FR-002-claude-assistant",
       "description": "Auto-checkpoint created by PulseScheduler"
     }

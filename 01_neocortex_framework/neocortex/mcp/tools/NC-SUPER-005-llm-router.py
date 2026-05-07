@@ -16,13 +16,14 @@ WHERE: Registered as 'neocortex_llm_router' — called by agents needing local
        categorization scripts requiring semantic labeling.
 
 Actions: ollama.ask, ollama.list, ollama.pull,
-  workers.spawn, workers.status
+  workers.spawn, workers.status, route.call
 ---
 """
 import logging
 from pathlib import Path
 from typing import Any
 from ..errors import mcp_response
+
 logger = logging.getLogger(__name__)
 TOOL_NAME = "neocortex_llm_router"
 root = Path(__file__).parents[4]
@@ -30,11 +31,30 @@ root = Path(__file__).parents[4]
 _OLLAMA_BASE = "http://localhost:11434"
 
 _TIER_MODEL = {
-    "OPERACIONAL": "qwen-1.5b",
-    "TECNICO": "deepseek-v4-flash",
-    "RACIOCINIO": "deepseek-v4-pro",
+    "LOCAL": "qwen2.5-coder:1.5b",       # NC-DS-295: free local tier
+    "OPERACIONAL": "qwen2.5-coder:1.5b",
+    "FLASH": "qwen2.5-coder:3b",          # NC-DS-293 T2: mid-tier for simple tasks
+    "TECNICO": "qwen2.5-coder:3b",
+    "RACIOCINIO": "qwen2.5-coder:3b",
     "SOBERANO": None,
 }
+
+# NC-DS-295 T1: Complexity classifier
+SIMPLE_ACTIONS = {"ollama.list", "ollama.pull", "workers.status", "workers.spawn", "health", "ping", "status"}
+COMPLEX_KEYWORDS = ["analyze", "audit", "refactor", "implement", "design", "optimize", "migrate", "debug"]
+
+def _classify_complexity(action: str, prompt: str) -> str:
+    """Classify task complexity to route to appropriate model tier."""
+    if action in SIMPLE_ACTIONS:
+        return "LOCAL"
+    if len(prompt) < 100:
+        return "LOCAL"
+    for kw in COMPLEX_KEYWORDS:
+        if kw in prompt.lower():
+            return "RACIOCINIO"
+    if len(prompt) > 500:
+        return "FLASH"
+    return "FLASH"
 
 
 def register_tool(mcp) -> None:
@@ -112,6 +132,23 @@ def register_tool(mcp) -> None:
                 models = r.json().get("models", []) if r.ok else []
                 return {"success": True, "action": action, "ollama_online": r.ok,
                         "models": [m.get("name") for m in models]}
+            except Exception as e:
+                return {"success": False, "error": str(e)}
+
+        # NC-DS-293 T2 + NC-DS-295 T1: Complexity-based routing
+        elif action == "route.call":
+            if not prompt:
+                return {"success": False, "error": "prompt obrigatório para route.call"}
+            tier = _classify_complexity(action, prompt)
+            target_model = model or _TIER_MODEL.get(tier.upper(), "qwen2.5-coder:1.5b")
+            try:
+                import requests
+                r = requests.post(f"{_OLLAMA_BASE}/api/generate",
+                                  json={"model": target_model, "prompt": prompt, "stream": False},
+                                  timeout=timeout)
+                data = r.json() if r.ok else {}
+                return {"success": r.ok, "action": action, "model": target_model, "tier": tier,
+                        "response": data.get("response", ""), "done": data.get("done", False)}
             except Exception as e:
                 return {"success": False, "error": str(e)}
 
