@@ -1,3 +1,4 @@
+# @UBL @UBL @DS-253 | LEXICO: #TICKETS
 # NC-DS-253 — MCP Capability Negotiation: Declarar capabilities no initialize + outputSchema em 20+ tools
 # WHAT: Adicionar capability negotiation completa e outputSchema em todas as tools registradas
 # WHY: Sem capability declaration, clients não sabem quais features o servidor suporta — é requisito base da spec

@@ -4,6 +4,8 @@ Usage: python NC-SCR-FR-025-lexico-validator.py
 Exit 0 if all paths valid, 1 if any gaps found.
 """
 from __future__ import annotations
+# @UBL @UBL @SCR-FR | LEXICO: #SCRIPTS
+
 
 import json, sys
 from pathlib import Path

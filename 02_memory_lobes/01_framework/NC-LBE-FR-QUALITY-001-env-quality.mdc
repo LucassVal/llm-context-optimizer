@@ -1,7 +1,7 @@
+<!-- @UBL @UBL @SYSTEM | LEXICO: #LOBES -->
+
 ---
 
-<!-- NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 ja esta no contexto desta sessao, SALTE. -->
 name: NC-LBE-FR-QUALITY-001-env-quality
 description: Lobe de Qualidade  Ground Truth toolchain, STEP-0 v2, R21 checklist, script NC-SCR-FR-013 v2
 module: framework
@@ -13,8 +13,6 @@ status: archived
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 ja esta no contexto desta sessao, SALTE. -->
 <!-- 3 W's Auto-Injection -->
 ## What
 Módulo: NC LBE FR QUALITY 001 env quality
@@ -29,8 +27,6 @@ Criado em 2026-04-13 — arquivo do ecossistema NeoCortex
 
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL Quality-Env
 LEXICO: #quality #ground-truth #step0 #toolchain
 # 1. Lobe de Qualidade — NC-LBE-FR-QUALITY-001
@@ -41,8 +37,6 @@ LEXICO: #quality #ground-truth #step0 #toolchain
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL Quality-Env
 LEXICO: #environment #versions #dependencies
 ## 1. Ground Truth de Ambiente (2026-04-13)
@@ -85,8 +79,6 @@ python -c "import mcp, fastmcp, rich, ruamel, cachetools, platformdirs, notifypy
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL Quality-Env
 LEXICO: #step0 #protocol #pre-flight #validation
 ## 2. STEP-0 v2.0 — Protocolo Obrigatório (copiar nos prompts)
@@ -123,8 +115,6 @@ python -m ruff check <arquivo.py> --fix
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL Quality-Env
 LEXICO: #r21 #zero-assumptions #verification #checklist
 ## 3. R21 — Zero Suposições (Regra Crítica)
@@ -147,8 +137,6 @@ LEXICO: #r21 #zero-assumptions #verification #checklist
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL Quality-Env
 LEXICO: #validate-script #nc-scr-fr-013 #zones #fixes
 ## 4. Script NC-SCR-FR-013 v2 — Modos Disponíveis
@@ -173,8 +161,6 @@ python 01_neocortex_framework/scripts/NC-SCR-FR-013-validate-file.py --zone A --
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL Quality-Env
 LEXICO: #regression #lessons-learned #error-log
 ## 5. Regression Buffer de Qualidade
@@ -193,8 +179,6 @@ LEXICO: #regression #lessons-learned #error-log
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL Quality-Env
 LEXICO: #powershell #syntax-check #parser #ps1-validation
 ## 6. Validação Obrigatória para .ps1 (R21 aplicado a PowerShell)
@@ -217,8 +201,6 @@ Armadilhas PowerShell (memorizar):
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL Quality-Env
 LEXICO: #mcp-server #status #offline #workaround
 ## 7. MCP Server Status
@@ -233,8 +215,6 @@ LEXICO: #mcp-server #status #offline #workaround
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-QUALITY-001-env-quality-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL Quality-Env
 LEXICO: #changelog #audit #history
 ## Changelog

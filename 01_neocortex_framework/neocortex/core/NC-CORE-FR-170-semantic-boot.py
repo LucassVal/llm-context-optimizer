@@ -1,3 +1,4 @@
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 """---
 NC-CORE-FR-170-semantic-boot.py — Semantic Boot Sequence Engine
 1. ULQ lookup -> 2. TAG index -> 3. PREP action

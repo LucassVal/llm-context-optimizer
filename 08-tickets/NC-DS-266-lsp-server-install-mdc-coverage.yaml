@@ -1,3 +1,4 @@
+# @UBL @UBL @DS-266 | LEXICO: #TICKETS
 ticket_id: "NC-DS-266"
 title: "LSP Server Install — pyright + yaml-ls + taplo + marksman (.mdc coverage)"
 status: DONE

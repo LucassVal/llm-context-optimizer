@@ -1,3 +1,4 @@
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 """---
 @Replicator NC-CORE-FR-130-genome-replicator mcp NC-CORE-FR-130-genome-replicator.py — DNA/RNA + Fo
 ---

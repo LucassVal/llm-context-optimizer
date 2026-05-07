@@ -1,3 +1,4 @@
+# @UBL @UBL @CFG-HK | LEXICO: #SYSTEM
 # NC-CFG-HK-002-lexico-hooks.yaml
 # Configuração YAML para hooks lexicais - carregado pelo LexicoBootLoader
 # Formato compatível com HookRegistry.load_yaml() e LexicoBootLoader

@@ -1,9 +1,4 @@
-"""---
-@Guard NC-CORE-FR-124-security-service mcp _genealogy:   injected_at: '2026-04-16T00:23:58.07
----
-"""
-
-
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 #!/usr/bin/env python3
 """
 Security Service - Business logic for security operations.

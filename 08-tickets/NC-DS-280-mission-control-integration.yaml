@@ -1,3 +1,4 @@
+# @UBL @UBL @DS-280 | LEXICO: #TICKETS
 ticket_id: "NC-DS-280"
 title: "Mission Control Integration — Generic Adapter + Webhook Bridge"
 status: DONE

@@ -1,3 +1,4 @@
+# @UBL @UBL @SUPER-006 | LEXICO: #MCP
 #!/usr/bin/env python3
 """---
 NC-SUPER-006 — neocortex_system

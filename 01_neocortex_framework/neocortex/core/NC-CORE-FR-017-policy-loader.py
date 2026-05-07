@@ -1,9 +1,4 @@
-"""---
-@Module NC-CORE-FR-017-policy-loader mcp _genealogy:   injected_at: '2026-04-16T00:23:57.84
----
-"""
-
-
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 #!/usr/bin/env python3
 """
 NC-SRV-FR-002  PolicyLoader: Reads NC-CFG-FR-001-agent-policy-template.yaml at runtime.

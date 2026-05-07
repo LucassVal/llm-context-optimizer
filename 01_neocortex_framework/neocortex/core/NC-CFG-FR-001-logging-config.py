@@ -1,9 +1,4 @@
-"""---
-@Module NC-CFG-FR-001-logging-config mcp domain: "core" layer: "core" type: "file" tags: ["
----
-"""
-
-
+# @UBL @UBL @CFG-FR | LEXICO: #SYSTEM
 """
 logging_config.py
 Default logging configuration for NeoCortex.

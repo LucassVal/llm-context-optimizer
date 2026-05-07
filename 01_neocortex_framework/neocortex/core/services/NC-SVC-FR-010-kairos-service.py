@@ -1,9 +1,4 @@
-"""---
-@Module NC-SVC-FR-010-kairos-service mcp _genealogy:   injected_at: '2026-04-16T00:23:58.89
----
-"""
-
-
+# @UBL @UBL @SVC-FR | LEXICO: #SYSTEM
 """
 NC-SVC-FR-010-kairos-service.py
 FR-010  KairosService: Event-driven scheduling service for NeoCortex.

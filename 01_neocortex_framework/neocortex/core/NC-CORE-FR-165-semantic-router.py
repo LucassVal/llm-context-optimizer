@@ -1,3 +1,4 @@
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 """---
 @Router NC-CORE-FR-165-semantic-router mcp NC-CORE-FR-165-semantic-router.py — Semantic Route
 ---

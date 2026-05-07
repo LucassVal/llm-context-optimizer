@@ -1,3 +1,4 @@
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 """---
 @Service NC-CORE-FR-133-regulatory-agencies mcp NC-CORE-FR-133-regulatory-agencies.py — Agências R
 ---

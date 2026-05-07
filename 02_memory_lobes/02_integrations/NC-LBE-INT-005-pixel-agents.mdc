@@ -1,7 +1,7 @@
+<!-- @UBL @UBL @LBE-INT | LEXICO: #LOBES -->
+
 ---
 
-<!-- NC-READ-HASH: NC-LBE-INT-005-pixel-agents-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-005-pixel-agents-v1 ja esta no contexto desta sessao, SALTE. -->
 id: NC-LBE-INT-005
 name: pixel-agents
 status: ACTIVE  documentao completa gerada por NC-DS-008
@@ -20,8 +20,6 @@ status: archived
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-005-pixel-agents-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-005-pixel-agents-v1 ja esta no contexto desta sessao, SALTE. -->
 <!-- 3 W's Auto-Injection -->
 ## What
 Cria arquivo JSONL para nova sesso
@@ -36,8 +34,6 @@ o da bridge
 
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-005-pixel-agents-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-005-pixel-agents-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL pixel-agents-overview
 LEXICO: #pixel-agents #visualization #pixel-art #integration
 # 1. NC-LBE-INT-005: Pixel Agents Integration
@@ -546,6 +542,4 @@ LEXICO: #references #documentation
 
 ---
 
-<!-- NC-READ-HASH: NC-LBE-INT-005-pixel-agents-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-005-pixel-agents-v1 ja esta no contexto desta sessao, SALTE. -->
 *Documentao gerada pelo agente 32879 (NC-DS-008) em 2026-04-14. Especificao da bridge pronta para implementao pelo prximo agente na cadeia.*

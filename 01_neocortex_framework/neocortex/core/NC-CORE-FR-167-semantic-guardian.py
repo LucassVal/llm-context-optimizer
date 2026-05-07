@@ -1,3 +1,4 @@
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 """---
 @Guard NC-CORE-FR-167-semantic-guardian mcp NC-CORE-FR-167-semantic-guardian.py — R119: Semant
 ---

@@ -1,9 +1,4 @@
-"""---
-@Module NC-CORE-FR-145-subserver-spawner mcp NC-CORE-FR-145-subserver-spawner.py — Sub-Server S
----
-"""
-
-
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 import json
 import logging
 import socket

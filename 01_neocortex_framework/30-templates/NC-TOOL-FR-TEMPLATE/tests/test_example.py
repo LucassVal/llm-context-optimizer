@@ -1,18 +1,4 @@
-"""---
-_genealogy:
-  injected_at: '2026-04-16T00:23:57.192714'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: templates
-level: 3
-parent_ssot: NC-CFG-FR-001-plugin
-tags:
-  - tem
----
-"""
-
-
-
+# @UBL @UBL @SYSTEM | LEXICO: #SYSTEM
 """
 test_example.py  Template de testes unitrios para plugins do NeoCortex.
 

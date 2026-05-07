@@ -1,7 +1,7 @@
+<!-- @UBL @UBL @LBE-INT | LEXICO: #LOBES -->
+
 ---
 
-<!-- NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
 name: NC-LBE-INT-002-opencode-architecture
 description: Documentao arquitetural completa do OpenCode para integrao com NeoCortex
 tags: [opencode, ide, rest-api, mcp, sessions, headless, tui, deepseek]
@@ -12,8 +12,6 @@ status: archived
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
 <!-- 3 W's Auto-Injection -->
 ## What
 Módulo: NC LBE INT 002 opencode architecture
@@ -28,8 +26,6 @@ Criado em 2026-04-13 — arquivo do ecossistema NeoCortex
 
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL opencode-overview
 LEXICO: #opencode #architecture #cli #llm #ide
 # 1. Lobe de Arquitetura OpenCode  NC-LBE-INT-002
@@ -39,8 +35,6 @@ LEXICO: #opencode #architecture #cli #llm #ide
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL opencode-definition
 LEXICO: #definition #ai-assistant #terminal #cli
 # 2. O que  o OpenCode
@@ -63,8 +57,6 @@ OpenCode  um assistente de codificao baseado em terminal (CLI escrito em Go) que
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL opencode-modes
 LEXICO: #operation-modes #tui #headless #server #api
 # 3. Modos de Operao
@@ -109,8 +101,6 @@ Inicia apenas o servidor HTTP, sem interface grfica.  o modo usado para integrao
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL opencode-rest-api
 LEXICO: #rest-api #sse #endpoints #authentication
 # 4. REST API Completa (modo server)
@@ -172,8 +162,6 @@ eventSource.onmessage = (e) => {
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL opencode-tui
 LEXICO: #tui #commands #keybindings #shortcuts
 # 5. TUI  Comandos Completos
@@ -233,8 +221,6 @@ A varivel `OPENCODE_TUI_CONFIG` pode apontar para um arquivo de configurao alter
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL opencode-mcp
 LEXICO: #mcp #model-context-protocol #tools #oauth
 # 6. MCP  Configurao
@@ -291,8 +277,6 @@ opencode mcp logout <nome>    # remove credenciais
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL opencode-config
 LEXICO: #configuration #opencode-json #providers #settings
 # 7. Configurao Completa `opencode.json`
@@ -409,8 +393,6 @@ Cada provedor pode ter opes especficas (`timeout`, `chunkTimeout`, `setCacheKey`
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL opencode-persistence
 LEXICO: #persistence #sqlite #state #storage
 # 8. Persistncia e Estado
@@ -439,8 +421,6 @@ opencode/
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL opencode-picoclaw
 LEXICO: #picoclaw #integration #execution #gateway
 # 9. Integrao com PicoClaw
@@ -460,8 +440,6 @@ Exemplo de fluxo:
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL opencode-neocortex
 LEXICO: #neocortex #integration #mcp-server #task-dispatch
 # 10. Integrao com NeoCortex
@@ -514,8 +492,6 @@ Antes de qualquer operao, o agente OpenCode deve executar o **STEP0** (definido 
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL opencode-limitations
 LEXICO: #limitations #edge-cases #context-window #timeout
 # 11. Limitaes e Edge Cases
@@ -561,8 +537,6 @@ Como o OpenCode original foi arquivado, eventuais bugs ou vulnerabilidades no se
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL opencode-references
 LEXICO: #references #documentation #links
 # 12. Referncias Oficiais
@@ -579,8 +553,6 @@ LEXICO: #references #documentation #links
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL opencode-crush-decision
 LEXICO: #strategic-decision #crush-vs-opencode #lock-in #governance
 # 13. Deciso Estratgica  OpenCode vs. Crush
@@ -605,8 +577,6 @@ OpenCode / PicoClaw / qualquer_ferramenta   ADAPTER, descartvel
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-002-opencode-architecture-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL opencode-changelog
 LEXICO: #changelog #history
 # 14. Changelog

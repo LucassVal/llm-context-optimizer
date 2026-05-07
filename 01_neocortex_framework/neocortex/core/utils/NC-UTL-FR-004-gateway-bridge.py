@@ -1,3 +1,4 @@
+# @UBL @UBL @UTL-FR | LEXICO: #SYSTEM
 """---
 @Tool NC-UTL-FR-004-gateway-bridge mcp NC-UTL-FR-004-gateway-bridge.py — Gateway Bridge (
 ---

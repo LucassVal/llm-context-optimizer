@@ -1,3 +1,4 @@
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 """---
 @Engine NC-CORE-FR-153-pareto-real mcp NC-CORE-FR-153-pareto-real.py — Conecta ParetoEngi
 ---

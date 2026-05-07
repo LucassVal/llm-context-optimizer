@@ -1,3 +1,4 @@
+# @UBL @UBL @SCR-ACT | LEXICO: #SCRIPTS
 #!/usr/bin/env python3
 """---
 Complete MCP activation for neocortex - ciclo 1

@@ -1,9 +1,4 @@
-"""---
-@Module NC-CORE-FR-157-bsc-swot mcp NC-CORE-FR-157-bsc-swot.py — Bloco 3: BSC + SWOT (
----
-"""
-
-
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 import os
 import pathlib
 import sqlite3

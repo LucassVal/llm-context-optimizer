@@ -1,3 +1,4 @@
+# @UBL @UBL @DS-290 | LEXICO: #TICKETS
 ticket_id: "NC-DS-290"
 title: "Eliminar 25 Strangler Wrappers — substituir por imports diretos"
 status: BLOCKED

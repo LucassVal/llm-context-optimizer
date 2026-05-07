@@ -1,9 +1,4 @@
-"""---
-@Module NC-CORE-FR-117-lobe-service mcp _genealogy:   injected_at: '2026-04-16T00:23:57.73
----
-"""
-
-
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 #!/usr/bin/env python3
 """
 Lobe Service - Business logic for lobe operations.

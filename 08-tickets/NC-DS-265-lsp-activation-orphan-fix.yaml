@@ -1,3 +1,4 @@
+# @UBL @UBL @DS-265 | LEXICO: #TICKETS
 ticket_id: "NC-DS-265"
 title: "LSP Config Orphan Fix — pyproject.toml + opencode.json + pyrightconfig.json"
 status: DONE

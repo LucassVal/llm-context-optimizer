@@ -1,9 +1,4 @@
-"""---
-@Module NC-CORE-FR-110-cortex-service mcp _genealogy:   injected_at: '2026-04-16T00:23:57.51
----
-"""
-
-
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 #!/usr/bin/env python3
 """
 Cortex Service - Business logic for cortex operations.

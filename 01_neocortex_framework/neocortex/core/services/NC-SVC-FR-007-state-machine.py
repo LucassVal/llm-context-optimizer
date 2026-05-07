@@ -1,9 +1,4 @@
-"""---
-@Module NC-SVC-FR-007-state-machine mcp _genealogy:   injected_at: '2026-04-16T00:23:58.78
----
-"""
-
-
+# @UBL @UBL @SVC-FR | LEXICO: #SYSTEM
 """
 NC-SVC-FR-007-state-machine.py
 FR-007  Agent State Machine: Finite State Machine for T1 agent lifecycle.

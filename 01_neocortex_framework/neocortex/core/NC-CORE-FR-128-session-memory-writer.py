@@ -1,3 +1,4 @@
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 """---
 NC-CORE-FR-128-session-memory-writer.py — SessionMemoryWriter (real, substitui stub)
 ---

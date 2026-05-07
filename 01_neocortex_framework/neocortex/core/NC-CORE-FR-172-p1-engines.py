@@ -1,3 +1,4 @@
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 """---
 NC-CORE-FR-172-p1-engines.py — P1: R60 Stakeholder Map + R62 Lean + R95 Self-Healing
 Stakeholder: privilege mapping by hierarchy

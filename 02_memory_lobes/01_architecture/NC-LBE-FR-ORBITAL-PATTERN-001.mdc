@@ -1,7 +1,7 @@
+<!-- @UBL @UBL @SYSTEM | LEXICO: #LOBES -->
+
 ---
 
-<!-- NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 ja esta no contexto desta sessao, SALTE. -->
 title: NC-LBE-FR-ORBITAL-PATTERN-001
 version: v1.0
 created: 2026-04-28
@@ -14,8 +14,6 @@ priority: L0 (PRIME DIRECTIVE)
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 ja esta no contexto desta sessao, SALTE. -->
 <!-- 3 W's Auto-Injection -->
 ## What
 Módulo: NC LBE FR ORBITAL PATTERN 001
@@ -30,8 +28,6 @@ Criado em 2026-04-28 — arquivo do ecossistema NeoCortex
 
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL Orbital-Pattern
 LEXICO: #architecture #orbital #ddd #federative #modular
 # 1. NC-LBE-FR-ORBITAL-PATTERN-001 — Padrão Orbital Universal
@@ -43,8 +39,6 @@ LEXICO: #architecture #orbital #ddd #federative #modular
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL Orbital-Pattern
 LEXICO: #principle #shared-kernel #bidirectional #parent-child
 ## 1. PRINCÍPIO FUNDAMENTAL
@@ -77,8 +71,6 @@ LEXICO: #principle #shared-kernel #bidirectional #parent-child
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL Orbital-Pattern
 LEXICO: #connections #vertical #horizontal #diagonal
 ## 2. TIPOS DE CONEXÃO
@@ -102,8 +94,6 @@ LEXICO: #connections #vertical #horizontal #diagonal
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL Orbital-Pattern
 LEXICO: #implementation #importlib #no-code-injection
 ## 3. REGRAS DE IMPLEMENTAÇÃO (R26 binding)
@@ -132,8 +122,6 @@ elif action == "nova_acao":  # ← Isso quebra o tool!
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL Orbital-Pattern
 LEXICO: #mapping #orbitals #domains #topology
 ## 4. MAPEAMENTO DOS ORBITAIS ATUAIS
@@ -154,8 +142,6 @@ LEXICO: #mapping #orbitals #domains #topology
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL Orbital-Pattern
 LEXICO: #anti-patterns #forbidden #code-injection
 ## 5. ANTI-PADRÕES (O que NUNCA fazer)
@@ -170,8 +156,6 @@ LEXICO: #anti-patterns #forbidden #code-injection
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL Orbital-Pattern
 LEXICO: #checklist #new-orbital #compliance #quality
 ## 6. CHECKLIST DE NOVO ORBITAL
@@ -188,8 +172,6 @@ LEXICO: #checklist #new-orbital #compliance #quality
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-ORBITAL-PATTERN-001-v1 ja esta no contexto desta sessao, SALTE. -->
 **Hash:** ORBITAL-PATTERN-v1.0-20260428
 **Priority:** L0 (PRIME DIRECTIVE)
 _"Não injete. Orbite."_

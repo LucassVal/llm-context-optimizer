@@ -1,10 +1,4 @@
-"""---
-@Module NC-SVC-FR-003-savepoint-stub mcp _genealogy:   injected_at: '2026-04-16T00:23:58.63
----
-"""
-
-
-
+# @UBL @UBL @SVC-FR | LEXICO: #SYSTEM
 """
 NC-SVC-FR-003-savepoint-stub.py
 FR-003  SavePoint Service: WAL/SavePoint stub for NeoCortex.

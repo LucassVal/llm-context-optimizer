@@ -1,3 +1,4 @@
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 """---
 @Service NC-CORE-FR-127-knowledge-service mcp NC-CORE-FR-127-knowledge-service.py — KnowledgeSer
 ---

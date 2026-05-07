@@ -1,3 +1,4 @@
+# @UBL @UBL @SUPER-001 | LEXICO: #MCP
 #!/usr/bin/env python3
 """---
 NC-SUPER-001 — neocortex_governance

@@ -1,3 +1,4 @@
+# @UBL @UBL @SCR-FR | LEXICO: #SCRIPTS
 #!/usr/bin/env python3
 """---
 NC-SCR-FR-151: Compliance Audit com @BOOT e Regras

@@ -1,3 +1,4 @@
+# @UBL @UBL @SYSTEM | LEXICO: #INFRA
 # Stub — NC-INFRA ledger_store replacement (T0 2026-05-04)
 import json
 from pathlib import Path

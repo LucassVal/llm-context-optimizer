@@ -1,3 +1,4 @@
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 """---
 @Audit NC-CORE-FR-156-ai-governance mcp NC-CORE-FR-156-ai-governance.py — Bloco 5: Governa
 ---

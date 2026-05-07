@@ -1,3 +1,4 @@
+# @UBL @UBL @SCR-FR | LEXICO: #SCRIPTS
 #!/usr/bin/env python3
 """
 NC-SCR-FR-120 — Batch Rename Fix for SSOT Compliance

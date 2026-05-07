@@ -1,7 +1,7 @@
+<!-- @UBL @UBL @LBE-USR | LEXICO: #LOBES -->
+
 ---
 
-<!-- NC-READ-HASH: NC-LBE-USR-001-user-consciousness-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-001-user-consciousness-v1 ja esta no contexto desta sessao, SALTE. -->
 description: "User Consciousness Lobe — Lucas Valério (T0 Orchestrator). Carregar ANTES de qualquer ação. Este lobe injeta o perfil cognitivo do usuário no contexto de todos os agentes."
 version: "1.0"
 hash: "NC-LBE-USR-001-v1.0-20260415"
@@ -14,8 +14,6 @@ status: archived
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-USR-001-user-consciousness-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-001-user-consciousness-v1 ja esta no contexto desta sessao, SALTE. -->
 <!-- 3 W's Auto-Injection -->
 
 
@@ -48,8 +46,6 @@ LEXICO: #section #content
 
 
 
-<!-- NC-READ-HASH: NC-LBE-USR-001-user-consciousness-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-001-user-consciousness-v1 ja esta no contexto desta sessao, SALTE. -->
 
 
 
@@ -65,8 +61,6 @@ LEXICO: #t0 #orchestrator
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-USR-001-user-consciousness-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-001-user-consciousness-v1 ja esta no contexto desta sessao, SALTE. -->
 
 
 
@@ -87,8 +81,6 @@ LEXICO: #identity #cognitive
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-USR-001-user-consciousness-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-001-user-consciousness-v1 ja esta no contexto desta sessao, SALTE. -->
 
 
 
@@ -116,8 +108,6 @@ LEXICO: #output #rules
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-USR-001-user-consciousness-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-001-user-consciousness-v1 ja esta no contexto desta sessao, SALTE. -->
 
 
 
@@ -137,8 +127,6 @@ LEXICO: #productivity #deep-work
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-USR-001-user-consciousness-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-001-user-consciousness-v1 ja esta no contexto desta sessao, SALTE. -->
 
 
 
@@ -161,8 +149,6 @@ LEXICO: #projects #sprint
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-USR-001-user-consciousness-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-001-user-consciousness-v1 ja esta no contexto desta sessao, SALTE. -->
 
 
 
@@ -188,8 +174,6 @@ Quando qualquer um desses nomes aparecer no contexto:
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-USR-001-user-consciousness-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-001-user-consciousness-v1 ja esta no contexto desta sessao, SALTE. -->
 
 
 
@@ -211,8 +195,6 @@ LEXICO: #laws #governance
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-USR-001-user-consciousness-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-001-user-consciousness-v1 ja esta no contexto desta sessao, SALTE. -->
 
 
 
@@ -235,8 +217,6 @@ Quando a tarefa tocar múltiplos domínios, ativar o council correspondente:
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-USR-001-user-consciousness-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-001-user-consciousness-v1 ja esta no contexto desta sessao, SALTE. -->
 
 
 
@@ -258,8 +238,6 @@ LEXICO: #clone #mcp
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-USR-001-user-consciousness-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-001-user-consciousness-v1 ja esta no contexto desta sessao, SALTE. -->
 
 
 
@@ -275,8 +253,6 @@ LEXICO: #location #timezone
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-USR-001-user-consciousness-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-001-user-consciousness-v1 ja esta no contexto desta sessao, SALTE. -->
 *Gerado automaticamente a partir de NC-PRF-USR-001-profile.json v2.0.0*
 *Source: Lucas.json v6.2.0 — identity_hash: User_Clone_Ultimate_v6_Absolute_Parity*
 *Hash: NC-LBE-USR-001-v1.0-20260415*

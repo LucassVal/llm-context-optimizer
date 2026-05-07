@@ -1,9 +1,4 @@
-"""---
-@Module NC-CORE-FR-113-init-service mcp _genealogy:   injected_at: '2026-04-16T00:23:57.62
----
-"""
-
-
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 #!/usr/bin/env python3
 """
 Init Service - Business logic for project initialization.

@@ -1,7 +1,7 @@
+<!-- @UBL @UBL @SYSTEM | LEXICO: #LOBES -->
+
 ---
 
-<!-- NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 ja esta no contexto desta sessao, SALTE. -->
 title: NC-LBE-FR-GOVERNANCE-001
 version: v1.0
 created: 2026-04-18
@@ -14,8 +14,6 @@ status: archived
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 ja esta no contexto desta sessao, SALTE. -->
 <!-- 3 W's Auto-Injection -->
 ## What
 Módulo: NC LBE FR GOVERNANCE 001
@@ -30,8 +28,6 @@ Criado em 2026-04-18 — arquivo do ecossistema NeoCortex
 
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 ja esta no contexto desta sessao, SALTE. -->
 # NC-LBE-FR-GOVERNANCE-001 — Framework de Governança NeoCortex
 
 ## Resumo Executivo
@@ -43,8 +39,6 @@ Toda IA que interagir com este sistema DEVE ler este lobe antes de agir.
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL master-law
 # 1. A Lei Mestra (Hierarquia)
 LEXICO: #master-law #hierarchy #ssot #roadmap #locks #boot #ulq
@@ -64,8 +58,6 @@ NC-WF-001 (lei mestra — .agents/workflows/NC-WF-001-workspace-routine.md)
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL operational-cycles
 # 2. Os 4 Ciclos Operacionais
 LEXICO: #operational-cycles #ciclo-0-4 #mcp-verification #session #execution #maintenance
@@ -81,8 +73,6 @@ LEXICO: #operational-cycles #ciclo-0-4 #mcp-verification #session #execution #ma
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL atomic-locks
 # 3. Atomic Locks — Arquivos SAGRADOS
 LEXICO: #atomic-locks #sacred-files #immutable #server-py #ssot #config
@@ -100,8 +90,6 @@ locked_files:
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL write-zones
 # 4. Zonas de Escrita por Role
 LEXICO: #write-zones #roles #t0 #t1 #courier #machine-memory #r06
@@ -115,8 +103,6 @@ LEXICO: #write-zones #roles #t0 #t1 #courier #machine-memory #r06
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL ticket-lifecycle
 # 5. Ciclo de Vida do Ticket (CRÍTICO)
 LEXICO: #ticket-lifecycle #open #in-progress #done #failed #escalated #handoff
@@ -140,8 +126,6 @@ Campos mandatórios no handoff:
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL naming-convention
 # 6. Naming Convention NC- (R01 — CRÍTICO)
 LEXICO: #naming-convention #nc-prefix #r01 #tool #svc #lbe #scr #ds #led #boot
@@ -167,8 +151,6 @@ LEXICO: #naming-convention #nc-prefix #r01 #tool #svc #lbe #scr #ds #led #boot
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL compact-encoding
 # 7. Compact Encoding — Símbolos @/$/%
 LEXICO: #compact-encoding #symbols #ssot #roadmap #locks #boot #ulq #brain-regions
@@ -191,8 +173,6 @@ LEXICO: #compact-encoding #symbols #ssot #roadmap #locks #boot #ulq #brain-regio
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL health-watchdog
 # 8. Health Watchdog — Stack Mínimo
 LEXICO: #health-watchdog #stack-minimo #mcp-core #litellm #ollama #pulse-scheduler #ports
@@ -218,8 +198,6 @@ neocortex_system.pulse.status  → verifica PulseScheduler
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL ia-governance-rules
 # 9. 20 Regras de Governança de IA (Resumo)
 LEXICO: #ia-governance #20-regras #r01-r21 #critical #alto #enforcement
@@ -243,8 +221,6 @@ LEXICO: #ia-governance #20-regras #r01-r21 #critical #alto #enforcement
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-GOVERNANCE-001-v1 ja esta no contexto desta sessao, SALTE. -->
 ## Referências
 
 - Workflow: `.agents/workflows/NC-WF-001-workspace-routine.md`

@@ -1,7 +1,7 @@
+<!-- @UBL @UBL @SYSTEM | LEXICO: #LOBES -->
+
 ---
 
-<!-- NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
 title: NC-LBE-FR-CONSTITUTION-001
 version: v1.0
 created: 2026-04-28
@@ -15,8 +15,6 @@ priority: ABSOLUTE
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
 <!-- 3 W's Auto-Injection -->
 ## What
 Módulo: NC LBE FR CONSTITUTION 001
@@ -31,8 +29,6 @@ Criado em 2026-04-28 — arquivo do ecossistema NeoCortex
 
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
 # NC-LBE-FR-CONSTITUTION-001 — Constituição do NeoCortex (Shared Kernel)
 
 > **DDD Shared Kernel:** Este lobe é o ponto único de verdade para TODAS as regras globais.
@@ -42,8 +38,6 @@ Criado em 2026-04-28 — arquivo do ecossistema NeoCortex
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL prime-directives
 # 1. PRIME DIRECTIVES (IMUTÁVEIS — NUNCA ALTERAR)
 LEXICO: #prime-directives #immutable #step-0 #wal #atomic-locks #p0
@@ -60,8 +54,6 @@ LEXICO: #prime-directives #immutable #step-0 #wal #atomic-locks #p0
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL governance-rules
 # 2. REGRAS DE GOVERNANÇA (R01-R21)
 LEXICO: #governance #rules-r01-r21 #naming #ssot #tickets #handoff
@@ -91,8 +83,6 @@ R21: Zero Suposições — verificar, nunca presumir
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL security-rules
 # 3. REGRAS DE SEGURANÇA (ATOMIC LOCKS)
 LEXICO: #security #atomic-locks #lock-guard #immutable-files #lock01-lock06
@@ -116,8 +106,6 @@ Categorias protegidas:
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL agent-rules
 # 4. REGRAS DOS AGENTES (HIERARQUIA + R126)
 LEXICO: #agents #hierarchy #t0 #ta #t1 #t2 #t3 #structural-boundary #r126
@@ -169,8 +157,6 @@ AGENT-08: Handoffs YAML são o protocolo de comunicação entre tiers.
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL operational-cycles
 # 5. CICLOS OPERACIONAIS
 LEXICO: #operational-cycles #ciclo-0-4 #mcp-health #baseline #execution #consolidation
@@ -184,8 +170,6 @@ CICLO-4: Limpeza Semanal — arquivar + auditar + popular lobes
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL compact-encoding
 # 6. COMPACT ENCODING (@/$/%)
 LEXICO: #compact-encoding #symbols #ssot #ulq #brain-regions #actions
@@ -209,8 +193,6 @@ Ações (%):
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL toolguard-pipeline
 # 7. TOOLGUARD PIPELINE (6 etapas)
 LEXICO: #toolguard #pipeline #step-0 #lock-guard #naming #savepoint #audit
@@ -225,8 +207,6 @@ LEXICO: #toolguard #pipeline #step-0 #lock-guard #naming #savepoint #audit
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL ddd-architecture
 # 8. DDD ARCHITECTURE (6 camadas)
 LEXICO: #ddd #architecture #layers #stf #stj #brain #memory #system #orchestration #governance
@@ -241,8 +221,6 @@ LEGISLATIVO (gov)  → Governança: regras, tickets, handoffs
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL evolution-rules
 # 9. EVOLUTION RULES (DNA/RNA)
 LEXICO: #evolution #dna #rna #epi-genome #replication #mutation #biosafety
@@ -258,8 +236,6 @@ Biosafety: BSL-1 (local) → BSL-4 (teórico)
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL compliance-targets
 # 10. COMPLIANCE TARGETS
 LEXICO: #compliance #targets #ruff #py-compile #ssot #score-minimum
@@ -273,8 +249,6 @@ SSOT: 100% arquivos registrados
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
 **Hash:** CONSTITUTION-v1.0-20260428
 **Tipo:** SHARED_KERNEL (DDD)
 **Prioridade:** ABSOLUTA — carregar antes de qualquer ação
@@ -283,8 +257,6 @@ _"Este lobe é a Constituição. Tudo passa por aqui."_
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CONSTITUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL classification-system
 # 11. SISTEMA DE CLASSIFICAÇÃO (R22-R25) — VINCULANTE NO STEP 0
 LEXICO: #classification #r22-r25 #l0-l3 #binding #step-0 #extend-dont-create

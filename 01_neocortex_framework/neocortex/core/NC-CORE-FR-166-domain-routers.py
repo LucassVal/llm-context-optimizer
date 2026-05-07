@@ -1,3 +1,4 @@
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 """---
 @Router NC-CORE-FR-166-domain-routers mcp NC-CORE-FR-166-domain-routers.py — Domain Routers
 ---

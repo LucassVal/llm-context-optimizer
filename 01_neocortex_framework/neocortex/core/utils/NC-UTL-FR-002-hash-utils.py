@@ -1,9 +1,4 @@
-"""---
-@Module NC-UTL-FR-002-hash-utils mcp _genealogy:   injected_at: '2026-04-16T00:23:59.11
----
-"""
-
-
+# @UBL @UBL @UTL-FR | LEXICO: #SYSTEM
 """
 NC-UTL-FR-002-hash-utils.py
 Hash utilities for NeoCortex framework.

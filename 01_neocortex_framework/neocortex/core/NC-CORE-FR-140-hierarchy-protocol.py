@@ -1,3 +1,4 @@
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 """---
 @Pact NC-CORE-FR-140-hierarchy-protocol mcp NC-CORE-FR-140-hierarchy-protocol.py — Protocolo d
 ---

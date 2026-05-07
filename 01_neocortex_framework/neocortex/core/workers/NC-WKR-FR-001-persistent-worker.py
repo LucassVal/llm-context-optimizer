@@ -1,9 +1,4 @@
-"""---
-@Module  mcp _genealogy:   injected_at: '2026-04-16T00:23:59.23
----
-"""
-
-
+# @UBL @UBL @WKR-FR | LEXICO: #SYSTEM
 """
 NC-WKR-FR-001-persistent-worker.py
 FR-WKR-001  PersistentWorker: Worker assncrono persistente para processar

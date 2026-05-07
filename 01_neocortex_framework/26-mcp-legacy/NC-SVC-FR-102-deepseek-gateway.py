@@ -1,3 +1,4 @@
+# @UBL @UBL @SVC-FR | LEXICO: #MCP
 #!/usr/bin/env python3
 """---
 NC-SVC-FR-102 - DeepSeek Gateway

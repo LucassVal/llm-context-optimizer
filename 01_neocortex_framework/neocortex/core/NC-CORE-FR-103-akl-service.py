@@ -1,9 +1,4 @@
-"""---
-@Module NC-CORE-FR-103-akl-service mcp _genealogy:   injected_at: '2026-04-16T00:23:57.34
----
-"""
-
-
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 #!/usr/bin/env python3
 """
 Adaptive Knowledge Lifecycle Service - Business logic for knowledge relevance management.

@@ -1,7 +1,7 @@
+<!-- @UBL @UBL @SYSTEM | LEXICO: #LOBES -->
+
 ---
 
-<!-- NC-READ-HASH: NC-LBE-FR-MEMORY-DOMAIN-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MEMORY-DOMAIN-001-v1 ja esta no contexto desta sessao, SALTE. -->
 lobe_id: NC-LBE-FR-MEMORY-DOMAIN-001
 domain: 02_memory_lobes
 type: DOMAIN_INDEX
@@ -15,8 +15,6 @@ status: archived
 @UBL $MEMORY_DOMAIN
 LEXICO: #memory #domain #index #lobes #structure
 
-<!-- NC-READ-HASH: NC-LBE-FR-MEMORY-DOMAIN-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MEMORY-DOMAIN-001-v1 ja esta no contexto desta sessao, SALTE. -->
 <!-- 3 W's Auto-Injection -->
 
 @UBL 3Ws
@@ -35,8 +33,6 @@ Criado em 2026-04-28 — arquivo do ecossistema NeoCortex
 
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-MEMORY-DOMAIN-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MEMORY-DOMAIN-001-v1 ja esta no contexto desta sessao, SALTE. -->
 
 @UBL Dominio02MemoryLobes
 LEXICO: #dominio #memory #lobes #indice
@@ -92,6 +88,4 @@ LEXICO: #popular #dominio #lobe #index #catalog
 
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-MEMORY-DOMAIN-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MEMORY-DOMAIN-001-v1 ja esta no contexto desta sessao, SALTE. -->
 *Populado em 2026-04-28 para resolver domínio vazio*

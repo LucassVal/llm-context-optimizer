@@ -1,9 +1,4 @@
-"""---
-@Module NC-SVC-FR-011-ttl-manager mcp _genealogy:   injected_at: '2026-04-16T00:23:58.93
----
-"""
-
-
+# @UBL @UBL @SVC-FR | LEXICO: #SYSTEM
 """
 NC-SVC-FR-011-ttl-manager.py
 FR-011  TTL Manager: Time-to-live manager with cachetools.TTLCache for granular entity expiration.

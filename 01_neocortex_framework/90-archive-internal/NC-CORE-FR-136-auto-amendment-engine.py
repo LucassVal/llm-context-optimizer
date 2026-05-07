@@ -1,3 +1,4 @@
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 """---
 NC-CORE-FR-136-auto-amendment-engine.py — Motor de Auto-Emenda Constitucional
 STEP 0 + Governance: propõe alterações com base em erros recorrentes

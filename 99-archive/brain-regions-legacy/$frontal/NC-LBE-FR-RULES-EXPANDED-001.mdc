@@ -1,7 +1,7 @@
+<!-- @UBL @UBL @SYSTEM | LEXICO: #LOBES -->
+
 ---
 
-<!-- NC-READ-HASH: NC-LBE-FR-RULES-EXPANDED-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-RULES-EXPANDED-001-v1 ja esta no contexto desta sessao, SALTE. -->
 lobe_id: NC-LBE-FR-RULES-EXPANDED-001
 domain: 06_governance
 type: RULES_REGISTRY
@@ -14,8 +14,6 @@ status: archived
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-RULES-EXPANDED-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-RULES-EXPANDED-001-v1 ja esta no contexto desta sessao, SALTE. -->
 # 70 Conceitos Aplicados — Regras com 3 W's + 4 Mordacas
 
 <!-- 3 W's Auto-Injection -->
@@ -31,8 +29,6 @@ Para garantir que cada conceito de engenharia, gestão e IA seja formalizado com
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-RULES-EXPANDED-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-RULES-EXPANDED-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL bloco-fundamentais
 # 1. Bloco 1: 12 Conceitos Fundamentais (R42-R53)
 LEXICO: #fundamentais #r42-r53 #3ws #rca #eisenhower #pareto #pdca #dry #kiss
@@ -141,8 +137,6 @@ LEXICO: #avancados #r83-r111 #alcoa #mape-k #self-healing #anti-fragile #drift #
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-RULES-EXPANDED-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-RULES-EXPANDED-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL resumo-mordaca
 # 6. Resumo por Mordaca
 LEXICO: #mordaca #hook #checkpoint #schedule #user #coverage
@@ -167,8 +161,6 @@ LEXICO: #status #implementado #parcial #pendente #coverage-percent
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-RULES-EXPANDED-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-RULES-EXPANDED-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL proximos-passos
 # 8. Próximos Passos (Ordem de Ataque)
 LEXICO: #next-steps #priority #corporativos #sistemas #ia #avancados #enforcement

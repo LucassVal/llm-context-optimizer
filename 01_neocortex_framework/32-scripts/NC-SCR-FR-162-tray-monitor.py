@@ -1,3 +1,4 @@
+# @UBL @UBL @SCR-FR | LEXICO: #SCRIPTS
 #!/usr/bin/env python3
 """NeoCortex MCP Tray Monitor — shows MCP status in system tray."""
 import subprocess

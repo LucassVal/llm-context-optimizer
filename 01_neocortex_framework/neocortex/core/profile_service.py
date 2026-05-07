@@ -1,3 +1,4 @@
+# @UBL @UBL @SYSTEM | LEXICO: #SYSTEM
 # Strangler wrapper → NC-CORE-FR-121-profile-service.py (T0-fixed 2026-05-04)
 import importlib.util, sys
 from pathlib import Path

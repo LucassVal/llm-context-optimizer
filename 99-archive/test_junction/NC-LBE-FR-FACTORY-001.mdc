@@ -1,7 +1,7 @@
+<!-- @UBL @UBL @SYSTEM | LEXICO: #LOBES -->
+
 ---
 
-<!-- NC-READ-HASH: NC-LBE-FR-FACTORY-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-FACTORY-001-v1 ja esta no contexto desta sessao, SALTE. -->
 title: NC-LBE-FR-FACTORY-001
 version: v1.0
 created: 2026-04-27
@@ -13,8 +13,6 @@ temperature: 0
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-FACTORY-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-FACTORY-001-v1 ja esta no contexto desta sessao, SALTE. -->
 <!-- 3 W's Auto-Injection -->
 ## What
 Módulo: NC LBE FR FACTORY 001
@@ -29,8 +27,6 @@ Criado em 2026-04-27 — arquivo do ecossistema NeoCortex
 
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-FACTORY-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-FACTORY-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL Factory
 LEXICO: #factory #autonomous #software-generation #governance
 # 1. NC-LBE-FR-FACTORY-001 — NeoCortex Factory: Fábrica de Software Autônoma
@@ -46,8 +42,6 @@ O "Vibe Coding" já é um mercado de US$ 4.7 bilhões (38% CAGR), com 92% dos de
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-FACTORY-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-FACTORY-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL Factory
 LEXICO: #ideas #templates #scaffolding #categories
 ## 1. 50 IDEIAS PARA A FÁBRICA
@@ -115,8 +109,6 @@ LEXICO: #ideas #templates #scaffolding #categories
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-FACTORY-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-FACTORY-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL Factory
 LEXICO: #rules #governance #quality #security #replication
 ## 2. 100 REGRAS DA FACTORY (R101-R200)
@@ -217,6 +209,4 @@ blue-green, canary, circuit breaker, rate limiting, documentação de customizá
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-FACTORY-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-FACTORY-001-v1 ja esta no contexto desta sessao, SALTE. -->
 **Versão:** NC-LBE-FR-FACTORY-001 v1.0 | **Hash:** FACTORY-LOBE-v1.0-20260427

@@ -1,9 +1,4 @@
-"""---
-@Module NC-CORE-FR-106-checkpoint-service mcp _genealogy:   injected_at: '2026-04-16T00:23:57.41
----
-"""
-
-
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 #!/usr/bin/env python3
 """
 Checkpoint Service - Business logic for checkpoint and timeline operations.

@@ -1,7 +1,7 @@
+<!-- @UBL @UBL @LBE-CC | LEXICO: #LOBES -->
+
 ---
 
-<!-- NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 ja esta no contexto desta sessao, SALTE. -->
 description: "Plugin Template  padro plugin-dev do Claude Code adaptado para NCTOOLFRTEMPLATE/ no NeoCortex. Scaffolding completo para novas tools."
 lobe_name: "$PLUGIN_TEMPLATE"
 lobe_id: "NC-LBE-CC-007"
@@ -14,8 +14,6 @@ status: archived
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 ja esta no contexto desta sessao, SALTE. -->
 <!-- 3 W's Auto-Injection -->
 ## What
 NCHK001example.py  Example hook for NCTOOLFRXXX.
@@ -30,8 +28,6 @@ tion
 
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL plugin-template-overview
 LEXICO: #plugin-template #scaffolding #nctoolfr #autodiscovery
 # 1. $PLUGIN_TEMPLATE  Plugindev  NCTOOLFRTEMPLATE
@@ -42,8 +38,6 @@ LEXICO: #plugin-template #scaffolding #nctoolfr #autodiscovery
 
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL plugindev-in-claude-code
 LEXICO: #claude-code #plugindev #plugin-json #autodiscovery
 ## 2. O QUE  O PLUGINDEV NO CLAUDE CODE?
@@ -76,8 +70,6 @@ plugindev/
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL naming-decision-neocortex
 LEXICO: #naming-convention #nctoolfr #nc-prefix #command-syntax
 ## 3. DECISO DE NOMENCLATURA NEOCORTEX
@@ -109,8 +101,6 @@ NCTOOLFRTEMPLATE/
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL template-components
 LEXICO: #template-detail #plugin-json #commands #hooks #readme
 ## 4. COMPONENTES DETALHADOS DO TEMPLATE
@@ -165,8 +155,6 @@ LEXICO: #template-detail #plugin-json #commands #hooks #readme
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 ja esta no contexto desta sessao, SALTE. -->
 ## Prompt
 
 You are a NeoCortex tool. Your task is to [...]
@@ -254,8 +242,6 @@ class ShortNameTool(BaseTool):
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL scaffolding-script
 LEXICO: #new-tool-script #ncscrf012 #scaffolding #placeholders
 ## 5. NCSCRFR012NEWTOOL.PY (SCAFFOLDING)
@@ -292,8 +278,6 @@ python scripts/NCSCRFR012newtool.py --name "My Tool" --slug "mytool" --output-di
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL autodiscovery-loading
 LEXICO: #autodiscovery #plugin-scan #search-paths #ncrefreshplugins
 ## 6. AUTODISCOVERY E CARREGAMENTO
@@ -314,8 +298,6 @@ LEXICO: #autodiscovery #plugin-scan #search-paths #ncrefreshplugins
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL ticket-mapping-ncds033
 LEXICO: #ticket-mapping #ncds033 #write-zone #implementation-plan
 ## 7. MAPEAMENTO PARA NCDS033 (TICKET)
@@ -337,8 +319,6 @@ LEXICO: #ticket-mapping #ncds033 #write-zone #implementation-plan
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL command-pattern
 LEXICO: #command-naming #nc-prefix #slash-commands #namespace
 ## 8. PADRO DE COMANDOS: `/nc<comando>`
@@ -357,8 +337,6 @@ LEXICO: #command-naming #nc-prefix #slash-commands #namespace
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL integration-other-systems
 LEXICO: #integration #hook-registry #project-config #metrics-collector #session-mate
 ## 9. INTEGRAO COM OUTROS SISTEMAS
@@ -380,8 +358,6 @@ LEXICO: #integration #hook-registry #project-config #metrics-collector #session-
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL warnings-future-improvements
 LEXICO: #warnings #versioning #dependencies #sandboxing #roadmap
 ## 10. ADVERTNCIAS E MELHORIAS FUTURAS
@@ -401,8 +377,6 @@ LEXICO: #warnings #versioning #dependencies #sandboxing #roadmap
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL cross-lobe-links
 LEXICO: #cross-reference #linked-lobes #master-strategy
 ## 11. LINKS PARA OUTROS LOBES
@@ -416,8 +390,6 @@ LEXICO: #cross-reference #linked-lobes #master-strategy
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-007-plugin-template-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL next-actions
 LEXICO: #next-steps #implementation #ncds033 #scaffolding #nctoolfr999demo
 ## 12. PRXIMAS AES

@@ -1,3 +1,4 @@
+# @UBL @UBL @SCR-FR | LEXICO: #SCRIPTS
 #!/usr/bin/env python3
 """---
 NC-SCR-FR-135-lexico-semantic-scope.py — LEXICO-002

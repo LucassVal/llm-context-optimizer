@@ -1,7 +1,7 @@
+<!-- @UBL @UBL @LBE-CC | LEXICO: #LOBES -->
+
 ---
 
-<!-- NC-READ-HASH: NC-LBE-CC-005-session-mate-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-005-session-mate-v1 ja esta no contexto desta sessao, SALTE. -->
 description: "SessionMate  Buddy pattern do Claude Code transformado em stats de sesso leve com gamificao. Mapeamento: CC Buddy  NeoCortex SessionMate."
 lobe_name: "$SESSION_MATE"
 lobe_id: "NC-LBE-CC-005"
@@ -14,8 +14,6 @@ status: archived
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-005-session-mate-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-005-session-mate-v1 ja esta no contexto desta sessao, SALTE. -->
 <!-- 3 W's Auto-Injection -->
 ## What
 Inicializa com referncia ao MetricsCollector.
@@ -30,8 +28,6 @@ Criado em 2026-04-12 — arquivo do ecossistema NeoCortex
 
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-005-session-mate-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-005-session-mate-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL session-mate-overview
 LEXICO: #session-stats #buddy-pattern #gamification #metrics-collector
 # 1. $SESSION_MATE  Buddy Light  SessionMate Stats
@@ -42,8 +38,6 @@ LEXICO: #session-stats #buddy-pattern #gamification #metrics-collector
 
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-005-session-mate-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-005-session-mate-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL buddy-in-claude-code
 LEXICO: #claude-code #buddy #ascii-sprites #gacha #tamagotchi
 ## 2. O QUE  O BUDDY NO CLAUDE CODE?
@@ -69,8 +63,6 @@ Tasks: 12 | Tokens: 4.2k | Success: 94%
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-005-session-mate-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-005-session-mate-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL metrics-collected-cc-to-nc
 LEXICO: #metrics-mapping #tokens #success-rate #cost-usd #streak
 ## 3. MTRICAS COLETADAS (CC  NeoCortex)
@@ -94,8 +86,6 @@ LEXICO: #metrics-mapping #tokens #success-rate #cost-usd #streak
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-005-session-mate-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-005-session-mate-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL naming-decision-neocortex
 LEXICO: #naming-convention #buddy-to-sessionmate #rename-mapping
 ## 4. DECISO DE NOMENCLATURA NEOCORTEX
@@ -115,8 +105,6 @@ LEXICO: #naming-convention #buddy-to-sessionmate #rename-mapping
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-005-session-mate-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-005-session-mate-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL integration-metrics-collector
 LEXICO: #integration #metrics-collector #session-summary #output-format
 ## 5. INTEGRAO COM NCSVCFR006METRICSCOLLECTOR.PY
@@ -153,8 +141,6 @@ print(summary)
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-005-session-mate-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-005-session-mate-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL session-mate-api
 LEXICO: #api #sessionmate-class #record-task #end-session #singleton
 ## 6. API DO SESSIONMATE (NCSVCFR009SESSIONBUDDY.PY)
@@ -223,8 +209,6 @@ class SessionMate:
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-005-session-mate-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-005-session-mate-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL ticket-mapping-ncds030
 LEXICO: #ticket-mapping #ncds030 #write-zone #implementation-plan
 ## 7. MAPEAMENTO PARA NCDS030 (TICKET)
@@ -245,8 +229,6 @@ LEXICO: #ticket-mapping #ncds030 #write-zone #implementation-plan
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-005-session-mate-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-005-session-mate-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL lite-gamification
 LEXICO: #gamification #achievements #ascii-avatars #daily-streak #opt-in
 ## 8. GAMIFICAO LEVE (OPCIONAL)
@@ -273,8 +255,6 @@ session_mate:
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-005-session-mate-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-005-session-mate-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL cross-lobe-links
 LEXICO: #cross-reference #linked-lobes #master-strategy
 ## 9. LINKS PARA OUTROS LOBES
@@ -287,8 +267,6 @@ LEXICO: #cross-reference #linked-lobes #master-strategy
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-005-session-mate-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-005-session-mate-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL next-actions
 LEXICO: #next-steps #implementation #ncds030 #naming-registry
 ## 10. PRXIMAS AES

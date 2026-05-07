@@ -1,3 +1,4 @@
+# @UBL @UBL @DS-101 | LEXICO: #TICKETS
 agent: AGENTE-A
 atomic_locks_proibidos:
 - 01_neocortex_framework/neocortex/mcp/server.py

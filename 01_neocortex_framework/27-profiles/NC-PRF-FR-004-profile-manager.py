@@ -1,19 +1,4 @@
-"""---
-_genealogy:
-  injected_at: '2026-04-16T00:23:57.926071'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: profiles
-level: 3
-tags:
-  - profiles
-  - level-3
-  - python
----
-"""
-
-
-
+# @UBL @UBL @PRF-FR | LEXICO: #SYSTEM
 """
 NeoCortex Profile Manager
 

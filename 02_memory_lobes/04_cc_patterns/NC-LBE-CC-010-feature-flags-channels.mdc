@@ -1,7 +1,7 @@
+<!-- @UBL @UBL @LBE-CC | LEXICO: #LOBES -->
+
 ---
 
-<!-- NC-READ-HASH: NC-LBE-CC-010-feature-flags-channels-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-010-feature-flags-channels-v1 ja esta no contexto desta sessao, SALTE. -->
 description: "Feature Flags & Channels  Growthbook cache, KAIROS_CHANNELS, KAIROS_PUSH_NOTIFICATION"
 lobe_name: "$FEATURE_FLAGS_CHANNELS"
 lobe_id: "NC-LBE-CC-010"
@@ -14,8 +14,6 @@ status: archived
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-010-feature-flags-channels-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-010-feature-flags-channels-v1 ja esta no contexto desta sessao, SALTE. -->
 <!-- 3 W's Auto-Injection -->
 ## What
 Retorna True se flag habilitada (com cache).
@@ -30,8 +28,6 @@ Criado em 2026-04-12 — arquivo do ecossistema NeoCortex
 
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-010-feature-flags-channels-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-010-feature-flags-channels-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL feature-flags-overview
 LEXICO: #feature-flags #growthbook #cache-ttl #kairos-channels #push-notification
 # $FEATURE_FLAGS_CHANNELS  Flags e Notificaes
@@ -244,6 +240,4 @@ LEXICO: #references #tools-ts #main-tsx #checkgate #master-strategy #kairos-deep
 
 ---
 
-<!-- NC-READ-HASH: NC-LBE-CC-010-feature-flags-channels-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-010-feature-flags-channels-v1 ja esta no contexto desta sessao, SALTE. -->
 *Lobe gerado por worker{PORT}{HASH} em {TIMESTAMP}*

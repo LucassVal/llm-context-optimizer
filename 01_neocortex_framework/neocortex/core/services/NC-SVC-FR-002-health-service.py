@@ -1,10 +1,4 @@
-"""---
-@Service NC-SVC-FR-002-health-service mcp _genealogy:   injected_at: '2026-04-16T00:23:58.59
----
-"""
-
-
-
+# @UBL @UBL @SVC-FR | LEXICO: #SYSTEM
 """
 NC-SVC-FR-002-health-service.py
 FR-002  Health Service: Health status and monitoring wrapper for NeoCortex.

@@ -1,3 +1,4 @@
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 """---
 NC-CORE-FR-169-ulq-registry.py — ULQ Auto-Registry + Deep Cross-Reference
 - File watcher: auto-registra novos arquivos no catalogo

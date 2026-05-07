@@ -1,3 +1,4 @@
+# @UBL @UBL @SUPER-003 | LEXICO: #MCP
 #!/usr/bin/env python3
 """---
 NC-SUPER-003 — neocortex_memory
@@ -516,5 +517,3 @@ def register_tool(mcp) -> None:
                                   "lexico.build", "lexico.search", "lexico.stats",
                                   "semantic.categorize"],
                     "timestamp": ts}
-
-

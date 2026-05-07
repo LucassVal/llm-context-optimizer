@@ -1,3 +1,5 @@
+<!-- @UBL @UBL @LBE-USR | LEXICO: #LOBES -->
+
 ---
 name: NC-LBE-USR-007-matrix-analise-estrategica
 description: Matriz estrategica 5 dimensoes — Eisenhower + RCA + SWOT + 3W + Pareto. Analise ponto a ponto do sistema NeoCortex.
@@ -9,8 +11,6 @@ created: 2026-05-03
 temperature: 60
 ---
 
-<!-- NC-READ-HASH: NC-LBE-USR-007-matrix-v1 -->
-<!-- DEDUP: Se NC-LBE-USR-007-matrix-v1 ja esta no contexto, SALTE -->
 
 # NC-LBE-USR-007 — Matriz Estrategica 5 Dimensoes
 

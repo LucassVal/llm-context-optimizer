@@ -1,9 +1,4 @@
-"""---
-@Module NC-CORE-FR-114-kg-service mcp _genealogy:   injected_at: '2026-04-16T00:23:57.66
----
-"""
-
-
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 #!/usr/bin/env python3
 """
 Knowledge Graph Service - Business logic for knowledge graph operations.

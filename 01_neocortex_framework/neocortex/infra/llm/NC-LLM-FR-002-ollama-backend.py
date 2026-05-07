@@ -1,3 +1,4 @@
+# @UBL @UBL @LLM-FR | LEXICO: #INFRA
 """---
 @Service  mcp domain: "infrastructure" layer: "infra" type: "ser
 ---

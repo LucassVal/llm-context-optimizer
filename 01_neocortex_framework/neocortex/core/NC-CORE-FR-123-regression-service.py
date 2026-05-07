@@ -1,9 +1,4 @@
-"""---
-@Module NC-CORE-FR-123-regression-service mcp _genealogy:   injected_at: '2026-04-16T00:23:58.03
----
-"""
-
-
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 #!/usr/bin/env python3
 """
 Regression Service - Business logic for regression buffer and STEP 0 operations.

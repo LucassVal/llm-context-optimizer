@@ -1,3 +1,4 @@
+# @UBL @UBL @SCR-FR | LEXICO: #SCRIPTS
 #!/usr/bin/env python3
 """---
 NC-SCR-FR-114 — NC-DS-148: Auto-Categorização de Lobes com Qwen 1.5b

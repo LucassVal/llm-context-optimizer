@@ -1,7 +1,7 @@
+<!-- @UBL @UBL @LBE-CC | LEXICO: #LOBES -->
+
 ---
 
-<!-- NC-READ-HASH: NC-LBE-CC-003-persistent-worker-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-003-persistent-worker-v1 ja esta no contexto desta sessao, SALTE. -->
 alwaysApply: false
 description: "Worker persistente estilo RalphWiggum do Claude Code. Mapeamento para NeoCortex: PersistentWorker. Loop whiletrue, flags DAEMON/PROACTIVE, funes maybeActivateProactive/maybeActivateBrief, EXIT_CODE_PERMANENT=42, condio de parada: fila vazia 3x consecutivas."
 temperature: 0
@@ -9,8 +9,6 @@ status: archived
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-003-persistent-worker-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-003-persistent-worker-v1 ja esta no contexto desta sessao, SALTE. -->
 <!-- 3 W's Auto-Injection -->
 ## What
 Módulo: NC LBE CC 003 persistent worker
@@ -24,8 +22,6 @@ Criado em 2026-04-12 — arquivo do ecossistema NeoCortex
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-003-persistent-worker-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-003-persistent-worker-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL persistent-worker-overview
 LEXICO: #persistent-worker #ralphwiggum #daemon-loop #whiletrue #exit-code-42
 # $PERSISTENT_WORKER  RalphWiggum do Claude Code  NeoCortex
@@ -37,8 +33,6 @@ LEXICO: #persistent-worker #ralphwiggum #daemon-loop #whiletrue #exit-code-42
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-003-persistent-worker-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-003-persistent-worker-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL visao-geral-ralphwiggum
 LEXICO: #ralphwiggum #loop-architecture #daemon-flag #proactive #exit-codes
 ## 1. VISO GERAL DO RALPHWIGGUM NO CLAUDE CODE
@@ -117,8 +111,6 @@ function ralphWiggumLoop(initialPrompt: string, maxIterations: number = 100) {
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-003-persistent-worker-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-003-persistent-worker-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL mapeamento-neocortex
 LEXICO: #neocortex-mapping #persistent-worker #context-preservation #resilience #proactivity
 ## 2. MAPEAMENTO PARA NEOCORTEX
@@ -156,8 +148,6 @@ LEXICO: #neocortex-mapping #persistent-worker #context-preservation #resilience 
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-003-persistent-worker-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-003-persistent-worker-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL worker-structure
 LEXICO: #prompt-template #master-prompt #loop-logic #config-params #queue-yaml
 ## 3. ESTRUTURA DO PERSISTENT WORKER (NCPROMPTDS003persistentworker.md)
@@ -217,8 +207,6 @@ persistent_worker:
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-003-persistent-worker-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-003-persistent-worker-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL error-recovery-flow
 LEXICO: #error-handling #exit-codes #permanent-error #transient-error #supervisor
 ## 4. FLUXO DE ERROS E RECUPERAO
@@ -262,8 +250,6 @@ except TransientError as e:
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-003-persistent-worker-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-003-persistent-worker-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL usage-example
 LEXICO: #cli-examples #logs #initialization #daemon-flags
 ## 5. EXEMPLO DE USO
@@ -298,8 +284,6 @@ python neocortex/worker.py --daemon --persistent --brief
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-003-persistent-worker-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-003-persistent-worker-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL implementation-ncds029
 LEXICO: #ticket-implementation #ncds029 #component-list #dev-flow #dependencies
 ## 6. IMPLEMENTAO NO TICKET NCDS029
@@ -329,8 +313,6 @@ LEXICO: #ticket-implementation #ncds029 #component-list #dev-flow #dependencies
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-003-persistent-worker-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-003-persistent-worker-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL conclusion
 LEXICO: #conclusion #next-steps #ncds029 #cli-flags #exit-codes
 ## 7. CONCLUSO
@@ -345,8 +327,6 @@ O **padro RalphWiggum (worker persistente)** do Claude Code oferece um modelo ro
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-003-persistent-worker-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-003-persistent-worker-v1 ja esta no contexto desta sessao, SALTE. -->
 **Referncias:**
 - NCANACC005pluginsdeep.md (anlise do plugin ralphwiggum)
 - NCSTRCC001masterstrategy.md (gap analysis  worker persistente)

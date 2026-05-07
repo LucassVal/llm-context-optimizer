@@ -1,7 +1,7 @@
+<!-- @UBL @UBL @LBE-CC | LEXICO: #LOBES -->
+
 ---
 
-<!-- NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 ja esta no contexto desta sessao, SALTE. -->
 alwaysApply: false
 description: "Sistema de hooks reativos do Claude Code (hookify/securityguidance). Mapeamento para NeoCortex: MentorHooks/GuardHooks. Estrutura hooks.json + Python, eventos tool_called/file_written/bash_executed, regras YAML para @LOCKS e SSOT."
 temperature: 0
@@ -9,8 +9,6 @@ status: archived
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 ja esta no contexto desta sessao, SALTE. -->
 <!-- 3 W's Auto-Injection -->
 ## What
 Módulo: NC LBE CC 002 hooks system
@@ -24,8 +22,6 @@ Criado em 2026-04-16 — arquivo do ecossistema NeoCortex
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL hooks-system-overview
 LEXICO: #hooks-system #hookify #reactive-hooks #claude-code-pattern
 # $HOOKS_SYSTEM  Hookifylike do Claude Code  NeoCortex
@@ -37,8 +33,6 @@ LEXICO: #hooks-system #hookify #reactive-hooks #claude-code-pattern
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL visao-geral-hookify
 LEXICO: #hookify-overview #pretooluse #posttooluse #event-flow #architecture
 ## 1. VISO GERAL DO HOOKIFY NO CLAUDE CODE
@@ -119,8 +113,6 @@ LEXICO: #hookify-overview #pretooluse #posttooluse #event-flow #architecture
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL mapeamento-neocortex
 LEXICO: #neocortex-mapping #mentorhooks #guardhooks #event-mapping
 ## 2. MAPEAMENTO PARA NEOCORTEX
@@ -158,8 +150,6 @@ LEXICO: #neocortex-mapping #mentorhooks #guardhooks #event-mapping
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL hook-registry-structure
 LEXICO: #hook-registry #nchkfr001 #yaml-rules #python-scripts #mentor-mode
 ## 3. ESTRUTURA DO HOOK REGISTRY (NCHKFR001hookregistry.py)
@@ -226,8 +216,6 @@ print(json.dumps({"block": False}))
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL guard-examples
 LEXICO: #lock-guards #ssot-guards #naming-guards #yaml-examples
 ## 4. EXEMPLOS DE REGRAS YAML PARA GUARDS DE @LOCKS E SSOT
@@ -284,8 +272,6 @@ hooks:
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL implementation-ncds031
 LEXICO: #ticket-implementation #ncds031 #component-list #activation-flow #integration
 ## 5. IMPLEMENTAO NO TICKET NCDS031
@@ -318,8 +304,6 @@ LEXICO: #ticket-implementation #ncds031 #component-list #activation-flow #integr
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL security-performance
 LEXICO: #security #performance #sync-hooks #fallback #priorities
 ## 6. CONSIDERAES DE SEGURANA E PERFORMANCE
@@ -341,8 +325,6 @@ LEXICO: #security #performance #sync-hooks #fallback #priorities
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL conclusion
 LEXICO: #conclusion #next-steps #ncds031 #ncds032 #mentor-mode
 ## 7. CONCLUSO
@@ -357,8 +339,6 @@ O **sistema de hooks do Claude Code (hookify)** oferece uma **governana leve e r
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-002-hooks-system-v1 ja esta no contexto desta sessao, SALTE. -->
 **Referncias:**
 - NCANACC005pluginsdeep.md (anlise dos plugins securityguidance e hookify)
 - NCSTRCC001masterstrategy.md (gap analysis  hooks reativos)

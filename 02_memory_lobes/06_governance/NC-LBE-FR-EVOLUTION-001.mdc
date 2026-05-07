@@ -1,7 +1,7 @@
+<!-- @UBL @UBL @SYSTEM | LEXICO: #LOBES -->
+
 ---
 
-<!-- NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
 title: NC-LBE-FR-EVOLUTION-001
 version: v1.0
 created: 2026-04-27
@@ -16,8 +16,6 @@ temperature: 0
 LEXICO: #evolution #replication #mutation #genome #governance
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
 <!-- 3 W's Auto-Injection -->
 
 @UBL 3Ws
@@ -37,8 +35,6 @@ Criado em 2026-04-27 — arquivo do ecossistema NeoCortex
 
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
 
 @UBL EvolutionSistema
 LEXICO: #evolution #sistema #evolutivo #governado
@@ -67,8 +63,6 @@ LEXICO: #fundamentacao #HyperAgents #BUM #DGM #mutation
 
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
 
 @UBL ReplicacaoControlada
 LEXICO: #replicacao #controlada #fork #DNA #RNA
@@ -100,8 +94,6 @@ LEXICO: #replicacao #controlada #fork #DNA #RNA
 
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
 
 @UBL EvolucaoMutacaoControlada
 LEXICO: #evolucao #mutacao #controlada #MCP #AgentFactory
@@ -133,8 +125,6 @@ LEXICO: #evolucao #mutacao #controlada #MCP #AgentFactory
 
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
 
 @UBL GovernancaEvolucao
 LEXICO: #governanca #evolucao #constituicao #sandbox #BSL
@@ -166,8 +156,6 @@ LEXICO: #governanca #evolucao #constituicao #sandbox #BSL
 
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
 
 @UBL RegrasAdicionais
 LEXICO: #regras #R201 #R250 #replicacao #mutacao #plugins
@@ -197,8 +185,6 @@ R250: Segue convenção NC- para todos os artefatos.
 
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
 
 @UBL GenomaNeoCortex
 LEXICO: #genoma #neocortex #immutable #directives #mutation
@@ -233,8 +219,6 @@ genome:
 
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
 
 @UBL PosicionamentoNeoCortex
 LEXICO: #posicionamento #neocortex #organismo #digital
@@ -256,6 +240,4 @@ O NeoCortex não é apenas um framework. É um **organismo digital governado**, 
 
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-EVOLUTION-001-v1 ja esta no contexto desta sessao, SALTE. -->
 **Versão:** NC-LBE-FR-EVOLUTION-001 v1.0 | **Hash:** EVOLUTION-LOBE-v1.0-20260427

@@ -1,8 +1,4 @@
-"""---
-@Module NC-CORE-FR-174-response-cache mcp NC-CORE-FR-174-response-cache.py
----
-"""
-
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 import hashlib
 import json
 import logging

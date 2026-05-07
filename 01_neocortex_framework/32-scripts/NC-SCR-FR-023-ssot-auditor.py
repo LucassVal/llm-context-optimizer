@@ -1,28 +1,7 @@
+# @UBL @UBL @SCR-FR | LEXICO: #SCRIPTS
 #!/usr/bin/env python3
 # Fix encoding for Windows (UTF-8)
-"""---
-_genealogy:
-  injected_at: '2026-04-16T00:24:01.707207'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-parent_ssot: NC-SCR-FR-023-ssot-auditor
-r
----
-"""
 
-"""---
-_genealogy:
-  injected_at: '2026-04-16T00:24:01.707207'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: neocortex-other
-level: 0
-parent_ssot: NC-SCR-FR-023-ssot-auditor
-r
----
-"""
 
 import sys
 

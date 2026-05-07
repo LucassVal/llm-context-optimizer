@@ -6,6 +6,8 @@ NC-SVC-FR-018-tag-normalizer.py
 
 
 from __future__ import annotations
+# @UBL @UBL @SVC-FR | LEXICO: #SYSTEM
+
 
 import hashlib
 import importlib.util

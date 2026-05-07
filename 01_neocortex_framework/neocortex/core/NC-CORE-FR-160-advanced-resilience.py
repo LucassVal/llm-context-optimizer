@@ -1,9 +1,4 @@
-"""---
-@Module NC-CORE-FR-160-advanced-resilience mcp NC-CORE-FR-160-advanced-resilience.py — Bloco 6a:
----
-"""
-
-
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 import os
 import pathlib
 from datetime import datetime

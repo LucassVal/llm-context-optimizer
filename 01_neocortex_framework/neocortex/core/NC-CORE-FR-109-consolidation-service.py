@@ -1,9 +1,4 @@
-"""---
-@Module NC-CORE-FR-109-consolidation-service mcp _genealogy:   injected_at: '2026-04-16T00:23:57.48
----
-"""
-
-
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 #!/usr/bin/env python3
 """
 Consolidation Service - Business logic for semantic consolidation.

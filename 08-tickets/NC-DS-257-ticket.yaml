@@ -1,3 +1,4 @@
+# @UBL @UBL @DS-257 | LEXICO: #TICKETS
 # NC-DS-257 — MCP Elicitation + Logging: Implementar elicitation/create (substituir stdout hack) + logging/setLevel + notifications/message
 # WHAT: Substituir o workaround atual de stdout para confirmação T0 por elicitation MCP nativo + logging via protocolo
 # WHY: O stdout hack atual é frágil, não-conforme com spec MCP, e quebra clients que usam stdio como canal JSON-RPC

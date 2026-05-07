@@ -1,9 +1,4 @@
-"""---
-@Service NC-SVC-FR-004-cache-service mcp _genealogy:   injected_at: '2026-04-16T00:23:58.67
----
-"""
-
-
+# @UBL @UBL @SVC-FR | LEXICO: #SYSTEM
 """
 NC-SVC-FR-004-cache-service.py
 FR-004  HotCache Service: In-memory cache with TTL for NeoCortex.

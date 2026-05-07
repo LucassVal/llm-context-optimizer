@@ -1,3 +1,4 @@
+# @UBL @UBL @SUPER-005 | LEXICO: #MCP
 #!/usr/bin/env python3
 """---
 NC-SUPER-005 — neocortex_llm_router

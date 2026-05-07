@@ -1,9 +1,4 @@
-"""---
-@Module NC-CORE-FR-104-benchmark-service mcp _genealogy:   injected_at: '2026-04-16T00:23:57.38
----
-"""
-
-
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 #!/usr/bin/env python3
 """
 Benchmark Service - Business logic for benchmark operations.

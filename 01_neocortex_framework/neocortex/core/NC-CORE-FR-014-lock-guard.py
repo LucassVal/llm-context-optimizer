@@ -1,9 +1,4 @@
-"""---
-@Module NC-CORE-FR-014-lock-guard mcp _genealogy:   injected_at: '2026-04-16T00:23:57.81
----
-"""
-
-
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 #!/usr/bin/env python3
 """
 NC-SRV-FR-001  LockGuard: Path-Based Atomic Lock Enforcer

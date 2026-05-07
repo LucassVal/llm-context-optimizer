@@ -1,3 +1,4 @@
+# @UBL @UBL @MOD-FR | LEXICO: #SCRIPTS
 #!/usr/bin/env python3
 """---
 Fix trailing whitespace in metrics_store.py

@@ -1,3 +1,4 @@
+# @UBL @UBL @BOOT-FR | LEXICO: #SCRIPTS
 #!/usr/bin/env python3
 # Script de boot para ativação automática do ConversationHook
 # Gerado por NC-SCR-FR-152-activate-memory-hook.py

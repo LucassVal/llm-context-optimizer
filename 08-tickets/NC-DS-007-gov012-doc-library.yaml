@@ -1,3 +1,4 @@
+# @UBL @UBL @DS-007 | LEXICO: #TICKETS
 acceptance_criteria:
 - NC-NAM-FR-001 mantém seção de índice com links para sub-registros
 - Cada sub-registro cobre UMA categoria (tools, lobes, config, prompts)

@@ -1,3 +1,4 @@
+# @UBL @UBL @SYSTEM | LEXICO: #MCP
 #!/usr/bin/env python3
 """---
 NC-MCP-FR-001 — neocortex_pulse_bridge

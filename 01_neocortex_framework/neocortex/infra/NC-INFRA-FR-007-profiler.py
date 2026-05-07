@@ -1,9 +1,4 @@
-"""---
-@Module  mcp _genealogy:   injected_at: '2026-04-16T00:23:59.61
----
-"""
-
-
+# @UBL @UBL @INFRA-FR | LEXICO: #INFRA
 #!/usr/bin/env python3
 """
 Performance profiler for NeoCortex infrastructure.

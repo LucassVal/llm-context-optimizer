@@ -1,3 +1,4 @@
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 """---
 @Code NC-CORE-FR-132-civil-procedure-code mcp NC-CORE-FR-132-civil-procedure-code.py — CPC Digit
 ---

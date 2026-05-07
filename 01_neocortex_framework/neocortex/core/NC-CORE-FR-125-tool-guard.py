@@ -1,3 +1,4 @@
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 """---
 @Tool NC-CORE-FR-125-tool-guard mcp NC-CORE-FR-125-tool-guard.py — STEP 0 + LockGuard
 ---

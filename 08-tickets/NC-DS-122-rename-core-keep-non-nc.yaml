@@ -1,3 +1,4 @@
+# @UBL @UBL @DS-122 | LEXICO: #TICKETS
 ticket_id: NC-DS-122
 title: "Renomear 24 arquivos KEEP_NON_NC em neocortex/core/ para padrão NC-CORE-FR-NNN"
 status: DONE

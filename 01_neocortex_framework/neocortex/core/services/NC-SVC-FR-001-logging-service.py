@@ -1,9 +1,4 @@
-"""---
-@Audit NC-SVC-FR-001-logging-service mcp _genealogy:   injected_at: '2026-04-16T00:23:58.56
----
-"""
-
-
+# @UBL @UBL @SVC-FR | LEXICO: #SYSTEM
 """
 NC-SVC-FR-001-logging-service.py
 FR-001  Logging Service: Structured JSON logging wrapper for NeoCortex.

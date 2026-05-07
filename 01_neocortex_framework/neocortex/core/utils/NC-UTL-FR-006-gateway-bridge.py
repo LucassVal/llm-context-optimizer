@@ -1,3 +1,4 @@
+# @UBL @UBL @UTL-FR | LEXICO: #SYSTEM
 """---
 @Tool  mcp bridge: Gateway → Tools MCP (Shared Kernel) ÚNICO
 ---

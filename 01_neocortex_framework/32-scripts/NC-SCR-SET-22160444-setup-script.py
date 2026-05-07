@@ -1,3 +1,4 @@
+# @UBL @UBL @SCR-SET | LEXICO: #SCRIPTS
 #!/usr/bin/env python3
 """---
 Configuração de monitoramento contínuo para YAML/JSON

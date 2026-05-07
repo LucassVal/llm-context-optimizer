@@ -1,3 +1,4 @@
+# @UBL @UBL @DS-158 | LEXICO: #TICKETS
 ticket_id: NC-DS-158
 title: Optimize LanceDB with HNSW and PQ Quantization
 status: DONE

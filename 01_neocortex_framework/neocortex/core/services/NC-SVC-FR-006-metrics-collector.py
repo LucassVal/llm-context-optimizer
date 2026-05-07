@@ -1,9 +1,4 @@
-"""---
-@Module NC-SVC-FR-006-metrics-collector mcp _genealogy:   injected_at: '2026-04-16T00:23:58.74
----
-"""
-
-
+# @UBL @UBL @SVC-FR | LEXICO: #SYSTEM
 """
 NC-SVC-FR-006-metrics-collector.py
 FR-006  MetricsCollector: Coleta de mtricas de execuo do NeoCortex.

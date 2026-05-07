@@ -1,3 +1,4 @@
+# @UBL @UBL @SUPER-002 | LEXICO: #MCP
 #!/usr/bin/env python3
 """---
 NC-SUPER-002 — neocortex_orchestration
@@ -297,4 +298,3 @@ def register_tool(mcp) -> None:
                                   "policy.check", "policy.list",
                                   "cascade.run", "cascade.status"],
                     "timestamp": ts}
-

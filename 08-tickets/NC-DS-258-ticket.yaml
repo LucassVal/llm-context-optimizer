@@ -1,3 +1,4 @@
+# @UBL @UBL @DS-258 | LEXICO: #TICKETS
 # NC-DS-258 — MCP Utility Primitives: Implementar progress tracking (tools >5s), ping keepalive, cancellation ($/cancelRequest)
 # WHAT: Adicionar primitivas utilitárias do protocolo MCP — progress, ping, cancellation
 # WHY: Tools long-running (>5s) precisam de progress feedback. Conexões precisam de keepalive. Requests precisam ser canceláveis.

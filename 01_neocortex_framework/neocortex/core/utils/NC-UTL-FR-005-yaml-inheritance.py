@@ -1,13 +1,6 @@
+# @UBL @UBL @UTL-FR | LEXICO: #SYSTEM
 #!/usr/bin/env python3
-"""---
-@Module  mcp _genealogy:   injected_at: '2026-04-14T22:00:00.00
----
-"""
 
-"""---
-@Module  mcp _genealogy:   injected_at: '2026-04-14T22:00:00.00
----
-"""
 
 """---
 _genealogy:

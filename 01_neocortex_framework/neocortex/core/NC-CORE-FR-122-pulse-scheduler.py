@@ -1,9 +1,4 @@
-"""---
-@Module NC-CORE-FR-122-pulse-scheduler mcp _genealogy:   injected_at: '2026-04-16T00:23:57.99
----
-"""
-
-
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 #!/usr/bin/env python3
 """
 Pulse Scheduler - Autonomous maintenance scheduler for NeoCortex.

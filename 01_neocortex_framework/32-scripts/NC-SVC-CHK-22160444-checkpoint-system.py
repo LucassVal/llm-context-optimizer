@@ -1,3 +1,4 @@
+# @UBL @UBL @SVC-CHK | LEXICO: #SCRIPTS
 """---
 Extrai nome do módulo do caminho do arquivo
 ---

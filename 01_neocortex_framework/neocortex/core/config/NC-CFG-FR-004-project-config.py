@@ -1,9 +1,4 @@
-"""---
-@Module NC-CFG-FR-004-project-config mcp domain: "core" layer: "core" type: "file" tags: ["
----
-"""
-
-
+# @UBL @UBL @CFG-FR | LEXICO: #SYSTEM
 #!/usr/bin/env python3
 """
 NC-CFG-FR-004-project-config.py

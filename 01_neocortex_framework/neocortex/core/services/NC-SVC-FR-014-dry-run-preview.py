@@ -1,9 +1,4 @@
-"""---
-@Module NC-SVC-FR-014-dry-run-preview mcp _genealogy:   injected_at: '2026-04-16T00:23:59.00
----
-"""
-
-
+# @UBL @UBL @SVC-FR | LEXICO: #SYSTEM
 #!/usr/bin/env python3
 """
 NC-SVC-FR-014-dry-run-preview.py

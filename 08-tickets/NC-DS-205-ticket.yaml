@@ -1,3 +1,4 @@
+# @UBL @UBL @DS-205 | LEXICO: #TICKETS
 ticket_id: NC-DS-205
 title: 'CRITICAL: Session memory-auto not tracking conversations — stats empty'
 status: DONE

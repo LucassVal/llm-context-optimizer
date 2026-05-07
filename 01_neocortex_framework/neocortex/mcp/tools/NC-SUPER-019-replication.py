@@ -1,3 +1,4 @@
+# @UBL @UBL @SUPER-019 | LEXICO: #MCP
 """---
 NC-SUPER-019 — neocortex_replication
 FASE 6 — Replicação governada para agentes

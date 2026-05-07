@@ -1,7 +1,7 @@
+<!-- @UBL @UBL @LBE-CC | LEXICO: #LOBES -->
+
 ---
 
-<!-- NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 ja esta no contexto desta sessao, SALTE. -->
 alwaysApply: false
 description: "Sistema de reviso com confiana (codereview plugin) do Claude Code. Mapeamento para NeoCortex: ConfidenceReviewService. Score 0100, mltiplos validadores, thresholds >80 autoaprovado/<50 rejeitado/5080 manual, validadores: naming NC*, py_compile, @LOCKS check, SSOT update."
 temperature: 0
@@ -9,8 +9,6 @@ status: archived
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 ja esta no contexto desta sessao, SALTE. -->
 <!-- 3 W's Auto-Injection -->
 ## What
 Avalia um arquivo handoff YAML e retorna score agregado + deciso.
@@ -24,8 +22,6 @@ Criado em 2026-04-16 — arquivo do ecossistema NeoCortex
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL confidence-review-overview
 LEXICO: #confidence-review #codereview #scoring #thresholds #autoapproval
 # $CONFIDENCE_REVIEW  Codereview Plugin do Claude Code  NeoCortex
@@ -37,8 +33,6 @@ LEXICO: #confidence-review #codereview #scoring #thresholds #autoapproval
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL visao-geral-codereview
 LEXICO: #codereview-plugin #parallel-agents #confidence-thresholds #pr-review
 ## 1. VISO GERAL DO CODEREVIEW PLUGIN NO CLAUDE CODE
@@ -99,8 +93,6 @@ O plugin **prreviewtoolkit** (relacionado) usa 6 agentes:
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL mapeamento-neocortex
 LEXICO: #neocortex-mapping #confidencereviewservice #validators #batch-approve-replacement
 ## 2. MAPEAMENTO PARA NEOCORTEX
@@ -146,8 +138,6 @@ Cada validador retorna:
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL service-structure
 LEXICO: #review-service #api #review-result #aggregation #decision-thresholds
 ## 3. ESTRUTURA DO CONFIDENCE REVIEW SERVICE (NCREVFR001confidencereview.py)
@@ -224,8 +214,6 @@ per_validator_scores:
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL thresholds-decisions
 LEXICO: #thresholds #auto-approve #manual-review #reject #configurable-limits
 ## 4. THRESHOLDS E DECISES
@@ -271,8 +259,6 @@ confidence_review:
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL validators-detail
 LEXICO: #validators #naming-check #atomic-locks #pycompile #ssot #barriers #yaml
 ## 5. VALIDADORES EM DETALHE
@@ -316,8 +302,6 @@ LEXICO: #validators #naming-check #atomic-locks #pycompile #ssot #barriers #yaml
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL implementation-ncds034
 LEXICO: #ticket-implementation #ncds034 #component-list #dev-flow #dependencies
 ## 6. IMPLEMENTAO NO TICKET NCDS034
@@ -351,8 +335,6 @@ LEXICO: #ticket-implementation #ncds034 #component-list #dev-flow #dependencies
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL conclusion
 LEXICO: #conclusion #next-steps #ncds034 #batch-approve #thresholds-config
 ## 7. CONCLUSO
@@ -367,8 +349,6 @@ O **sistema de reviso com confiana do Claude Code (codereview plugin)** oferece 
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-004-confidence-review-v1 ja esta no contexto desta sessao, SALTE. -->
 **Referncias:**
 - NCANACC005pluginsdeep.md (anlise dos plugins codereview e prreviewtoolkit)
 - NCSTRCC001masterstrategy.md (gap analysis  autoreview com confiana)

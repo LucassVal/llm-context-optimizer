@@ -1,10 +1,4 @@
-"""---
-@Module  mcp _genealogy:   injected_at: '2026-04-16T00:23:58.39
----
-"""
-
-
-
+# @UBL @UBL @VAL-FR | LEXICO: #SYSTEM
 """---
 domain: "core"
 layer: "core"

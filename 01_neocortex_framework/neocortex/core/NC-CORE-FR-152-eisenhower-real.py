@@ -1,3 +1,4 @@
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 """---
 @Engine NC-CORE-FR-152-eisenhower-real mcp NC-CORE-FR-152-eisenhower-real.py — Conecta Eisenh
 ---

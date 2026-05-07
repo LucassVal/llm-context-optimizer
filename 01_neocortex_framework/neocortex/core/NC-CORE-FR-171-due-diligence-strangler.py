@@ -1,3 +1,4 @@
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 """---
 NC-CORE-FR-171-due-diligence-strangler.py — P0: R59 + R68
 Due Diligence: hash validation of new modules before loading

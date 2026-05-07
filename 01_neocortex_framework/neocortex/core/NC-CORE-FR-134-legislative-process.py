@@ -1,9 +1,4 @@
-"""---
-@Module NC-CORE-FR-134-legislative-process mcp NC-CORE-FR-134-legislative-process.py — Processo L
----
-"""
-
-
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 import logging
 from datetime import datetime, timedelta
 from enum import Enum

@@ -1,3 +1,4 @@
+# @UBL @UBL @SCR-FR | LEXICO: #SCRIPTS
 #!/usr/bin/env python3
 """---
 NC-SCR-FR-112 — Gerador de .manifest.json por Lobe (NC-DS-142)

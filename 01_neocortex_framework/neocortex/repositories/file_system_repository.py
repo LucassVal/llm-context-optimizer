@@ -1,3 +1,4 @@
+# @UBL @UBL @SYSTEM | LEXICO: #REPOS
 # Strangler wrapper → NC-REP-FR-001-file-system-repository.py (T0-fixed 2026-05-04)
 import importlib.util
 import sys

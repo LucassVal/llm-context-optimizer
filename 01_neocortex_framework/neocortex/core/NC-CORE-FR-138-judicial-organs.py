@@ -1,3 +1,4 @@
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 """---
 @Audit NC-CORE-FR-138-judicial-organs mcp NC-CORE-FR-138-judicial-organs.py — Órgãos Judicia
 ---

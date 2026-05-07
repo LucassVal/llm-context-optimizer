@@ -1,9 +1,4 @@
-"""---
-@Module  mcp _genealogy:   injected_at: '2026-04-16T00:23:59.92
----
-"""
-
-
+# @UBL @UBL @LLM-FR | LEXICO: #INFRA
 #!/usr/bin/env python3
 """
 LLMBackendFactory - Factory for creating LLM backends from configuration.

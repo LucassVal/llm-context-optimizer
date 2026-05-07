@@ -1,3 +1,4 @@
+# @UBL @UBL @DS-150 | LEXICO: #TICKETS
 assigned_to: OpenCode-Agent-1
 atomic_locks_inviolaveis:
 - neocortex/mcp/server.py → NUNCA modificar

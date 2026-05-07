@@ -1,7 +1,7 @@
+<!-- @UBL @UBL @LBE-INT | LEXICO: #LOBES -->
+
 ---
 
-<!-- NC-READ-HASH: NC-LBE-INT-003-antigravity-integration-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-003-antigravity-integration-v1 ja esta no contexto desta sessao, SALTE. -->
 name: NC-LBE-INT-003-antigravity-integration
 description: Documentao do papel de T0 (Antigravity) como orquestrador e sua integrao com PicoClaw/OpenCode/NeoCortex
 tags: [antigravity, t0, orchestration, mcp, picoclaw, opencode, neocortex, deepseek]
@@ -12,8 +12,6 @@ status: archived
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-003-antigravity-integration-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-003-antigravity-integration-v1 ja esta no contexto desta sessao, SALTE. -->
 <!-- 3 W's Auto-Injection -->
 ## What
 Módulo: NC LBE INT 003 antigravity integration
@@ -28,8 +26,6 @@ Criado em 2026-04-13 — arquivo do ecossistema NeoCortex
 
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-003-antigravity-integration-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-003-antigravity-integration-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL antigravity-overview
 LEXICO: #t0 #orchestrator #neocortex #antigravity
 # 1. Lobe de Integrao Antigravity  NC-LBE-INT-003
@@ -39,8 +35,6 @@ LEXICO: #t0 #orchestrator #neocortex #antigravity
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-003-antigravity-integration-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-003-antigravity-integration-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL antigravity-identity
 LEXICO: #identity #t0-role #claude #deepseek
 # 2. Quem  Antigravity (T0)
@@ -56,8 +50,6 @@ Antigravity  o T0 (nvel mximo de inteligncia) do NeoCortex  o modelo Claude/Deep
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-003-antigravity-integration-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-003-antigravity-integration-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL antigravity-hierarchy
 LEXICO: #agent-hierarchy #t0 #t1 #t2 #t3
 # 3. Hierarquia de Agentes no NeoCortex
@@ -78,8 +70,6 @@ T3: Scripts autnomos  Python puro, sem LLM
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-003-antigravity-integration-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-003-antigravity-integration-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL antigravity-mcp-tools
 LEXICO: #mcp-tools #tool-mapping #34-tools
 # 4. Ferramentas MCP disponveis para T0
@@ -125,8 +115,6 @@ O NeoCortex MCP expe 34 ferramentas organizadas por domnio. Mapeamento em `TOOL_
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-003-antigravity-integration-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-003-antigravity-integration-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL antigravity-delegation
 LEXICO: #task-delegation #dispatch #workflow
 # 5. Como T0 Delega Tasks
@@ -156,8 +144,6 @@ dispatch  poll  receber handoff.yaml  validar  %DONE
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-003-antigravity-integration-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-003-antigravity-integration-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL antigravity-protocol
 LEXICO: #communication-protocol #handoff #step0 #r20
 # 6. Protocolo de Comunicao T0  Agentes
@@ -177,8 +163,6 @@ LEXICO: #communication-protocol #handoff #step0 #r20
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-003-antigravity-integration-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-003-antigravity-integration-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL antigravity-neocortex-mcp
 LEXICO: #neocortex-mcp #server #sub-server #lobes
 # 7. Como T0 Usa o NeoCortex MCP
@@ -201,8 +185,6 @@ LEXICO: #neocortex-mcp #server #sub-server #lobes
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-003-antigravity-integration-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-003-antigravity-integration-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL antigravity-picoclaw
 LEXICO: #picoclaw-integration #gateway #nc-tool-fr-036
 # 8. Integrao T0  PicoClaw
@@ -224,8 +206,6 @@ LEXICO: #picoclaw-integration #gateway #nc-tool-fr-036
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-003-antigravity-integration-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-003-antigravity-integration-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL antigravity-opencode
 LEXICO: #opencode-integration #sse #prompt-dispatch
 # 9. Integrao T0  OpenCode
@@ -242,8 +222,6 @@ LEXICO: #opencode-integration #sse #prompt-dispatch
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-003-antigravity-integration-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-003-antigravity-integration-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL antigravity-prompt-engineering
 LEXICO: #prompt-engineering #nc-prompt #ssot #template
 # 10. Prompt Engineering para Agentes
@@ -272,8 +250,6 @@ LEXICO: #prompt-engineering #nc-prompt #ssot #template
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-003-antigravity-integration-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-003-antigravity-integration-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL antigravity-limitations
 LEXICO: #limitations #context-window #amnesia #latency
 # 11. Limitaes de T0
@@ -288,8 +264,6 @@ LEXICO: #limitations #context-window #amnesia #latency
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-003-antigravity-integration-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-003-antigravity-integration-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL antigravity-decisions
 LEXICO: #architectural-decisions #tools-status #roadmap
 # 12. Decises Arquiteturais Finais (2026-04-13)
@@ -335,8 +309,6 @@ OpenCode / PicoClaw / qualquer_ferramenta   ADAPTER descartvel
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-003-antigravity-integration-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-003-antigravity-integration-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL antigravity-cross-refs
 LEXICO: #cross-references #related-lobes
 # 13. Referncias Cruzadas
@@ -352,8 +324,6 @@ LEXICO: #cross-references #related-lobes
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-003-antigravity-integration-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-003-antigravity-integration-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL antigravity-changelog
 LEXICO: #changelog #history
 # 14. Changelog

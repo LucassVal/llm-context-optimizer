@@ -1,3 +1,4 @@
+# @UBL @UBL @HLP-VAL | LEXICO: #SCRIPTS
 #!/usr/bin/env python3
 """---
 NC-HLP-VAL-001: Validador de Convenção de Nomenclatura NC-

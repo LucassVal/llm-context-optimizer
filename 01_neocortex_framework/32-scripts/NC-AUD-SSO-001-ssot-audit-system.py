@@ -1,3 +1,4 @@
+# @UBL @UBL @AUD-SSO | LEXICO: #SCRIPTS
 #!/usr/bin/env python3
 """---
 NC-AUD-SSO-001: Sistema de Auditoria SSOT para Arquivos Renomeados

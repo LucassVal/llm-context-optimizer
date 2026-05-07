@@ -1,9 +1,4 @@
-"""---
-@Validator NC-UTL-FR-004-id-validator mcp _genealogy:   injected_at: '2026-04-16T00:23:59.19
----
-"""
-
-
+# @UBL @UBL @UTL-FR | LEXICO: #SYSTEM
 """
 NC-UTL-FR-004-id-validator.py
 FR-004  ID Validator: Validador de IDs e constantes compartilhadas.

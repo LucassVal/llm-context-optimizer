@@ -1,9 +1,4 @@
-"""---
-@Module  mcp _genealogy:   injected_at: '2026-04-16T00:23:57.23
----
-"""
-
-
+# @UBL @UBL @AGENT-FR | LEXICO: #AGENT
 #!/usr/bin/env python3
 """
 AgentExecutor - Executes agent tasks using hybrid LLM backends.

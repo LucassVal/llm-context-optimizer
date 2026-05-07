@@ -1,7 +1,7 @@
+<!-- @UBL @UBL @SYSTEM | LEXICO: #LOBES -->
+
 ---
 
-<!-- NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 ja esta no contexto desta sessao, SALTE. -->
 name: NC-LBE-FR-MCP-001-fastmcp-sdk
 description: Documentação exaustiva do FastMCP Python SDK para integração de ferramentas, recursos e prompts no NeoCortex.
 tags: [mcp, fastmcp, python-sdk, tools, resources, prompts, transport, security]
@@ -13,8 +13,6 @@ status: archived
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 ja esta no contexto desta sessao, SALTE. -->
 <!-- 3 W's Auto-Injection -->
 ## What
 Calcula o ROI de uma operação.
@@ -29,8 +27,6 @@ Criado em 2026-04-17 — arquivo do ecossistema NeoCortex
 
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL FastMCP-SDK
 LEXICO: #mcp #fastmcp #sdk-ground-truth
 # 1. Lobe FastMCP Python SDK — NC-LBE-FR-MCP-001
@@ -40,8 +36,6 @@ LEXICO: #mcp #fastmcp #sdk-ground-truth
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL FastMCP-SDK
 LEXICO: #install #setup #configuration
 ## 1. Instalação e Configuração
@@ -58,8 +52,6 @@ LEXICO: #install #setup #configuration
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL FastMCP-SDK
 LEXICO: #tools #mcp-tool #type-hints
 ## 2. Ferramentas (@mcp.tool)
@@ -93,8 +85,6 @@ def calculate_roi(investment: float, return_val: float) -> str:
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL FastMCP-SDK
 LEXICO: #resources #uri-templates #read-only
 ## 3. Recursos (@mcp.resource)
@@ -116,8 +106,6 @@ def get_config_resource(name: str) -> str:
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL FastMCP-SDK
 LEXICO: #prompts #templates #llm-guidance
 ## 4. Prompts (@mcp.prompt)
@@ -135,8 +123,6 @@ def analyze_code_pattern(language: str, code: str):
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL FastMCP-SDK
 LEXICO: #transport #stdio #sse #server
 ## 5. Transportes e Servidor
@@ -153,8 +139,6 @@ LEXICO: #transport #stdio #sse #server
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL FastMCP-SDK
 LEXICO: #context #async #progress #sampling
 ## 6. O Objeto Context (Avançado)
@@ -178,8 +162,6 @@ async def long_running_task(ctx: Context):
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL FastMCP-SDK
 LEXICO: #security #best-practices #r21 #validation
 ## 7. Segurança e Melhores Práticas (R21 aplicada)
@@ -193,8 +175,6 @@ LEXICO: #security #best-practices #r21 #validation
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL FastMCP-SDK
 LEXICO: #testing #testclient #unit-tests
 ## 8. Testes
@@ -211,8 +191,6 @@ def test_tool():
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MCP-001-fastmcp-sdk-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL FastMCP-SDK
 LEXICO: #changelog #audit #history
 ## Changelog

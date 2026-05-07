@@ -1,3 +1,4 @@
+# @UBL @UBL @SYSTEM | LEXICO: #REPOS
 # Strangler Fig wrapper - re-exports from NC-REP-FR-002-base.py
 # Keep for backward compatibility. Migrate imports to NC- name.
 # R09: importlib for hyphenated module names.

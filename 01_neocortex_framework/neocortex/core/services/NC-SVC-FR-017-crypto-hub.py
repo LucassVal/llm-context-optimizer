@@ -6,6 +6,8 @@ NC-SVC-FR-017-crypto-hub.py
 
 
 from __future__ import annotations
+# @UBL @UBL @SVC-FR | LEXICO: #SYSTEM
+
 
 import base64
 import hashlib

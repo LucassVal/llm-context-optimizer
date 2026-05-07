@@ -1,3 +1,4 @@
+# @UBL @UBL @DS-049 | LEXICO: #TICKETS
 id: NC-DS-049
 code: AUDIT-001
 title: Auditoria Estrutural Cruzada e Otimização de Tokens (SSOT vs Docs)

@@ -1,3 +1,4 @@
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 #!/usr/bin/env python3
 """---
 NC-CORE-FR-105-cascade-consolidator.py — CASC-001

@@ -1,9 +1,4 @@
-"""---
-@Module  mcp _genealogy:   injected_at: '2026-04-16T00:23:57.27
----
-"""
-
-
+# @UBL @UBL @CLI-FR | LEXICO: #SYSTEM
 #!/usr/bin/env python3
 """
 NeoCortex CLI Tool

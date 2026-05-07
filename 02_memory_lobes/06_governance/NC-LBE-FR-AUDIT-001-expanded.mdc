@@ -1,7 +1,7 @@
+<!-- @UBL @UBL @SYSTEM | LEXICO: #LOBES -->
+
 ---
 
-<!-- NC-READ-HASH: NC-AUDIT-001-expanded-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-AUDIT-001-expanded-v1 ja esta no contexto desta sessao, SALTE. -->
 title: NC-AUDIT-001-expanded
 version: v1.0
 created: 2026-04-28
@@ -11,8 +11,6 @@ status: archived
 ---
 
 
-<!-- NC-READ-HASH: NC-AUDIT-001-expanded-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-AUDIT-001-expanded-v1 ja esta no contexto desta sessao, SALTE. -->
 <!-- 3 W's Auto-Injection -->
 ## What
 Módulo: NC AUDIT 001 expanded
@@ -27,8 +25,6 @@ Criado em 2026-04-28 — arquivo do ecossistema NeoCortex
 
 
 
-<!-- NC-READ-HASH: NC-AUDIT-001-expanded-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-AUDIT-001-expanded-v1 ja esta no contexto desta sessao, SALTE. -->
 # AUDITORIA EXPANDIDA — TODOS OS PONTOS
 
 ## 1. ORFÃOS (Arquivos no disco sem SSOT)

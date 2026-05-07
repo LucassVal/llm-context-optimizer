@@ -1,3 +1,4 @@
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 """---
 @Engine NC-CORE-FR-155-resiliency-engine mcp NC-CORE-FR-155-resiliency-engine.py — Bloco 4: Inf
 ---

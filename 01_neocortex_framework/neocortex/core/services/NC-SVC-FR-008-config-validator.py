@@ -1,9 +1,4 @@
-"""---
-@Module NC-SVC-FR-008-config-validator mcp _genealogy:   injected_at: '2026-04-16T00:23:58.82
----
-"""
-
-
+# @UBL @UBL @SVC-FR | LEXICO: #SYSTEM
 """
 NC-SVC-FR-008-config-validator.py
 FR-008  Config Validator: Validates neocortex_config.yaml for required fields, types, and path existence.

@@ -1,3 +1,4 @@
+# @UBL @UBL @SYSTEM | LEXICO: #SCRIPTS
 """---
 NC-SCR-FR-inject-three-ws.py — Injeta ## What / ## Why / ## Where em todo arquivo NC-
 Conceito juridico: Auto de Infração (Processo Administrativo)

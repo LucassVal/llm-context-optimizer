@@ -1,9 +1,4 @@
-"""---
-@Module NC-CORE-FR-102-agent-service mcp _genealogy:   injected_at: '2026-04-16T00:23:57.31
----
-"""
-
-
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 #!/usr/bin/env python3
 """
 Agent Service - Business logic for ephemeral agent orchestration.

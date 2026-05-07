@@ -1,3 +1,4 @@
+# @UBL @UBL @SCR-FR | LEXICO: #SCRIPTS
 #!/usr/bin/env python3
 """---
 NC-SCR-FR-113 — NC-DS-143: Popular Knowledge Graph com lobes existentes

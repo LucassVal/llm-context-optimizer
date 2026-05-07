@@ -1,7 +1,7 @@
+<!-- @UBL @UBL @LBE-INT | LEXICO: #LOBES -->
+
 ---
 
-<!-- NC-READ-HASH: NC-LBE-INT-004-mission-control-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-004-mission-control-v1 ja esta no contexto desta sessao, SALTE. -->
 id: NC-LBE-INT-004
 name: mission-control
 status: DOCUMENTED  anlise completa concluda via NC-DS-007
@@ -20,8 +20,6 @@ status: archived
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-004-mission-control-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-004-mission-control-v1 ja esta no contexto desta sessao, SALTE. -->
 <!-- 3 W's Auto-Injection -->
 ## What
 Adiciona uma aba que redireciona para o Mission Control.
@@ -36,8 +34,6 @@ Criado em 2026-04-14 — arquivo do ecossistema NeoCortex
 
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-004-mission-control-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-004-mission-control-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL mission-control-overview
 LEXICO: #mission-control #orchestration #dashboard #integration
 # 1. NC-LBE-INT-004: Mission Control Integration
@@ -477,8 +473,6 @@ LEXICO: #integration-roadmap #tickets #phases
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-004-mission-control-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-004-mission-control-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL mission-control-references
 LEXICO: #references #documentation
 # 8. REFERNCIAS
@@ -494,6 +488,4 @@ LEXICO: #references #documentation
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-INT-004-mission-control-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-INT-004-mission-control-v1 ja esta no contexto desta sessao, SALTE. -->
 *Documentao gerada pelo agente 45132 em 20260414 como parte do ticket NCDS007. Atualizar este lobe quando a integrao for implementada.*

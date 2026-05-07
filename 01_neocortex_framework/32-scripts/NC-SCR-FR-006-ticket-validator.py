@@ -1,4 +1,6 @@
 from __future__ import annotations
+# @UBL @UBL @SCR-FR | LEXICO: #SCRIPTS
+
 # Fix encoding for Windows (UTF-8)
 """--- NC-SCR-FR-006 — Ticket Validator v2 ---
 NC-SCR-FR-006-ticket-validator.py

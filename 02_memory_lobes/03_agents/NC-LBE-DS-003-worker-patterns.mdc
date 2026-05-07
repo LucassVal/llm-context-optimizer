@@ -1,7 +1,7 @@
+<!-- @UBL @UBL @LBE-DS | LEXICO: #AGENT #LOBES -->
+
 ---
 
-<!-- NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 ja esta no contexto desta sessao, SALTE. -->
 description: "Worker Patterns  Protocolos, REG-001 a 013, estado atual sesso 2026-04-12, regras 100k"
 lobe_name: "$WORKER_PATTERNS"
 lobe_id: "NC-LBE-DS-003"
@@ -17,8 +17,6 @@ status: archived
 LEXICO: #worker #patterns #protocol #REG #agent
 
 
-<!-- NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 ja esta no contexto desta sessao, SALTE. -->
 <!-- 3 W's Auto-Injection -->
 
 @UBL 3Ws
@@ -38,8 +36,6 @@ Criado em 2026-04-12 — arquivo do ecossistema NeoCortex
 
 
 
-<!-- NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 ja esta no contexto desta sessao, SALTE. -->
 
 @UBL WorkerPatterns
 LEXICO: #worker #patterns #execucao #nworkers
@@ -52,8 +48,6 @@ LEXICO: #worker #patterns #execucao #nworkers
 
 
 
-<!-- NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 ja esta no contexto desta sessao, SALTE. -->
 
 @UBL RegraCritica100k
 LEXICO: #regra #critica #contexto #100k #janela
@@ -74,8 +68,6 @@ LEXICO: #regra #critica #contexto #100k #janela
 
 
 
-<!-- NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 ja esta no contexto desta sessao, SALTE. -->
 
 @UBL EstadoAtualSistema
 LEXICO: #estado #atual #fila #entregaveis #2026-04-12
@@ -132,8 +124,6 @@ DOCS/ANLISES
 
 
 
-<!-- NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 ja esta no contexto desta sessao, SALTE. -->
 
 @UBL IdentidadePortBased
 LEXICO: #identidade #port #hash #claim #worker
@@ -151,8 +141,6 @@ MY_CLAIM = f"worker-{MY_PORT}-{MY_HASH}"
 
 
 
-<!-- NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 ja esta no contexto desta sessao, SALTE. -->
 
 @UBL RegressionBuffer
 LEXICO: #regression #buffer #REG-001 #REG-013 #erros
@@ -180,8 +168,6 @@ LEXICO: #regression #buffer #REG-001 #REG-013 #erros
 
 
 
-<!-- NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 ja esta no contexto desta sessao, SALTE. -->
 
 @UBL ProtocoloDispatch
 LEXICO: #protocolo #dispatch #individual #agent #task
@@ -202,8 +188,6 @@ T0  Agent N: "Execute task XYZ descrita em 08-tickets/NC-DS-XXX.yaml
 
 
 
-<!-- NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 ja esta no contexto desta sessao, SALTE. -->
 
 @UBL ProtocoloRevisaoT0
 LEXICO: #protocolo #revisao #T0 #batch_approve #handoff
@@ -227,8 +211,6 @@ LINE_FIELDS = ["lines_added", "lines_of_code", "total_lines_of_code", "lines_cou
 
 
 
-<!-- NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 ja esta no contexto desta sessao, SALTE. -->
 
 @UBL ProximosTickets
 LEXICO: #proximos #tickets #NC-DS-029 #pre-MCP
@@ -251,8 +233,6 @@ Aguardando NC-STR-CC-001 do Agent 1 para lista definitiva. Prvia:
 
 
 
-<!-- NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 ja esta no contexto desta sessao, SALTE. -->
 
 @UBL ScriptsManutencaoT0
 LEXICO: #scripts #manutencao #T0 #queue #repair
@@ -272,8 +252,6 @@ LEXICO: #scripts #manutencao #T0 #queue #repair
 
 
 
-<!-- NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 ja esta no contexto desta sessao, SALTE. -->
 
 @UBL ArquiteturaSQLiteHibrida
 LEXICO: #arquitetura #sqlite #hibrida #MCP-WQUEUE #roadmap
@@ -294,8 +272,6 @@ LEXICO: #arquitetura #sqlite #hibrida #MCP-WQUEUE #roadmap
 
 
 
-<!-- NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-DS-003-worker-patterns-v1 ja esta no contexto desta sessao, SALTE. -->
 
 @UBL AnaliseCCLeak
 LEXICO: #analise #CC #leak #estrategia #insights

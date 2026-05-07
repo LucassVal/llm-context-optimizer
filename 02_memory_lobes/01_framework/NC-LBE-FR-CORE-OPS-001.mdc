@@ -1,7 +1,7 @@
+<!-- @UBL @UBL @SYSTEM | LEXICO: #LOBES -->
+
 ---
 
-<!-- NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 ja esta no contexto desta sessao, SALTE. -->
 title: NC-LBE-FR-CORE-OPS-001
 version: v1.0
 created: 2026-04-18
@@ -14,8 +14,6 @@ status: archived
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 ja esta no contexto desta sessao, SALTE. -->
 <!-- 3 W's Auto-Injection -->
 ## What
 Módulo: NC LBE FR CORE OPS 001
@@ -30,8 +28,6 @@ Criado em 2026-04-26 — arquivo do ecossistema NeoCortex
 
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL Core-Ops
 LEXICO: #core-services #operations #infrastructure
 # 1. NC-LBE-FR-CORE-OPS-001 — Core Services e Operações
@@ -69,8 +65,6 @@ O NeoCortex tem **20 serviços core** localizados em:
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL Core-Ops
 LEXICO: #pulse-scheduler #automation #tasks
 ## PulseScheduler — Tarefas Automáticas
@@ -104,8 +98,6 @@ neocortex_system(
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL Core-Ops
 LEXICO: #litellm #gateway #routing #fallback
 ## LiteLLM Gateway — Operação
@@ -139,8 +131,6 @@ FALLBACK    → deepseek-v4-flash → qwen-3b → qwen-1.5b (automático se API 
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL Core-Ops
 LEXICO: #lexico #compression #token-savings #semantic
 ## LEXICO Service — Compressão Semântica
@@ -182,8 +172,6 @@ Próximo passo (LEXICO-002): popular via KG-002 com termos do projeto
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL Core-Ops
 LEXICO: #wal #audit-trail #sqlite #pruning
 ## WAL Service — Auditoria
@@ -196,8 +184,6 @@ Localização do DB: `DIR-DS-003-wal/neocortex_wal.db`
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL Core-Ops
 LEXICO: #startup #boot-order #deployment
 ## Startup Order Completa
@@ -215,8 +201,6 @@ LEXICO: #startup #boot-order #deployment
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL Core-Ops
 LEXICO: #env-vars #configuration #ollama #litellm
 ## Variáveis de Ambiente Importantes
@@ -229,8 +213,6 @@ LITELLM_MASTER_KEY=sk-my-master-key-123  → autenticação do gateway
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-CORE-OPS-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL Core-Ops
 LEXICO: #references #related-lobes #cross-reference
 ## Referências

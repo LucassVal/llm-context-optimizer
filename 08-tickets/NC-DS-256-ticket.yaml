@@ -1,3 +1,4 @@
+# @UBL @UBL @DS-256 | LEXICO: #TICKETS
 # NC-DS-256 — MCP Error Protocol: Migrar todas as tools de {"success": false} para isError: true
 # WHAT: Substituir padrão de erro caseiro {"success": false, "error": "..."} pelo protocolo MCP isError: true
 # WHY: Spec MCP define isError: true como mecanismo padrão de erro — o formato atual é não-conforme

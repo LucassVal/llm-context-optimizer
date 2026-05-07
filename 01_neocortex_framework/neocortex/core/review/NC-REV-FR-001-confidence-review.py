@@ -1,9 +1,4 @@
-"""---
-@Module  mcp _genealogy:   injected_at: '2026-04-16T00:23:58.35
----
-"""
-
-
+# @UBL @UBL @REV-FR | LEXICO: #SYSTEM
 """
 NC-REV-FR-001-confidence-review.py
 FR-REV-001  ConfidenceReviewService: Validador de handoffs com score 0-100.

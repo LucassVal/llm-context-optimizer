@@ -1,3 +1,4 @@
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 """---
 @Pact NC-CORE-FR-131-federative-pact mcp NC-CORE-FR-131-federative-pact.py — Pacto Federati
 ---

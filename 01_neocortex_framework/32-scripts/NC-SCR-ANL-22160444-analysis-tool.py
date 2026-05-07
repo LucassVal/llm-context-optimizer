@@ -1,3 +1,4 @@
+# @UBL @UBL @SCR-ANL | LEXICO: #SCRIPTS
 #!/usr/bin/env python3
 """---
 Análise da estrutura de lobes do NeoCortex

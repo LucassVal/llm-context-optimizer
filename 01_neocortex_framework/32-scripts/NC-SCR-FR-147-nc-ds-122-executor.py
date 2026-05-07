@@ -1,3 +1,4 @@
+# @UBL @UBL @SCR-FR | LEXICO: #SCRIPTS
 #!/usr/bin/env python3
 """---
 NC-DS-122 — Executor de renomeação segura de neocortex/core/ KEEP_NON_NC

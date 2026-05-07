@@ -1,3 +1,4 @@
+# @UBL @UBL @SVC-FR | LEXICO: #SYSTEM
 #!/usr/bin/env python3
 """---
 NC-SVC-FR-021 — SessionMemoryWriter

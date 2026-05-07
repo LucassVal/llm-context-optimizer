@@ -1,3 +1,4 @@
+# @UBL @UBL @DS-221 | LEXICO: #AUDIT
 status: APPROVED
 ticket_id: NC-DS-221
 title: "Reiniciar PulseScheduler + criar baseline no Regression Buffer"

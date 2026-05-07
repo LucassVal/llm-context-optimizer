@@ -1,9 +1,4 @@
-"""---
-@Module  mcp _genealogy:   injected_at: '2026-04-16T00:23:58.44
----
-"""
-
-
+# @UBL @UBL @VAL-FR | LEXICO: #SYSTEM
 """
 NC-VAL-FR-001-naming-validator.py
 Validador de naming: verifica se arquivos seguem padro NC-TIPO-SIGLA-NUM.

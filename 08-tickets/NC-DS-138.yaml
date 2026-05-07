@@ -1,3 +1,4 @@
+# @UBL @UBL @DS-138 | LEXICO: #TICKETS
 ticket_id: NC-DS-138
 title: NC-HK-FR-004 conversation hook (on_response → turn.record)
 status: DONE

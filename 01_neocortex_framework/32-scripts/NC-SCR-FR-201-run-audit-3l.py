@@ -1,3 +1,4 @@
+# @UBL @UBL @SCR-FR | LEXICO: #SCRIPTS
 import json, sys, importlib.util, os
 base = r'C:\Users\Lucas Valério\Desktop\TURBOQUANT_V42'
 fw = os.path.join(base, '01_neocortex_framework')

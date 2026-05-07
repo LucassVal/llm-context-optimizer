@@ -1,3 +1,4 @@
+# @UBL @UBL @DS-119 | LEXICO: #TICKETS
 ticket_id: NC-DS-119
 title: Fix mcp_config.json — NEOCORTEX_PROJECT_ROOT incorreto
 status: DONE

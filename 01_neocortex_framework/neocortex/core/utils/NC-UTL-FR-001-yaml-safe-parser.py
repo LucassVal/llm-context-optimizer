@@ -1,9 +1,4 @@
-"""---
-@Module NC-UTL-FR-001-yaml-safe-parser mcp _genealogy:   injected_at: '2026-04-16T00:23:59.08
----
-"""
-
-
+# @UBL @UBL @UTL-FR | LEXICO: #SYSTEM
 """
 NC-UTL-FR-001-yaml-safe-parser.py
 FR-001  YAML safe parser with regex fallback.

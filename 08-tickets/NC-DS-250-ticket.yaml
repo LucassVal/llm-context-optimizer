@@ -1,3 +1,4 @@
+# @UBL @UBL @DS-250 | LEXICO: #TICKETS
 # NC-DS-250 — MCP Resources: Implementar resources/list, resources/read, resources/templates/list, resources/subscribe
 # WHAT: Expor dados de Lobes, KG e manifest como MCP Resources com URIs canônicas
 # WHY: MCP clients (OpenCode, Claude Code, VS Code Copilot) esperam Resources como fonte de contexto passiva e read-only

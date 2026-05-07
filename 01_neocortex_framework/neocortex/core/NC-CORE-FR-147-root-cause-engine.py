@@ -1,3 +1,4 @@
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 """---
 @Engine NC-CORE-FR-147-root-cause-engine mcp NC-CORE-FR-147-root-cause-engine.py — Motor de 5 P
 ---

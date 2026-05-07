@@ -1,9 +1,4 @@
-"""---
-@Module NC-CORE-FR-141-secretariats mcp NC-CORE-FR-141-secretariats.py — Secretarias do Po
----
-"""
-
-
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 import logging
 from datetime import datetime
 from pathlib import Path

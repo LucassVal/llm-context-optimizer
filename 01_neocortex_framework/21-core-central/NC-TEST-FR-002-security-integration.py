@@ -1,31 +1,6 @@
+# @UBL @UBL @TEST-FR | LEXICO: #SYSTEM
 #!/usr/bin/env python3
-"""---
-_genealogy:
-  injected_at: '2026-04-16T00:23:57.054253'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: core-central
-level: 1
-tags:
-  - core-central
-  - level-1
-  - pytho
----
-"""
 
-"""---
-_genealogy:
-  injected_at: '2026-04-16T00:23:57.054253'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: core-central
-level: 1
-tags:
-  - core-central
-  - level-1
-  - pytho
----
-"""
 
 """---
 _genealogy:

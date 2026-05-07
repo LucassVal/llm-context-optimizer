@@ -1,3 +1,4 @@
+# @UBL @UBL @SUPER-009 | LEXICO: #MCP
 #!/usr/bin/env python3
 """---
 NC-SUPER-009 — neocortex_security
@@ -278,4 +279,3 @@ def register_tool(mcp) -> None:
                                   "audit.log_event", "gateway.status",
                                   "cb.status", "cb.reset", "cb.list", "cb.record"],
                     "timestamp": ts}
-

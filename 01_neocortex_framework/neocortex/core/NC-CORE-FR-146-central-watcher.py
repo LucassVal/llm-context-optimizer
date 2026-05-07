@@ -1,3 +1,4 @@
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 """---
 @Gateway NC-CORE-FR-146-central-watcher mcp NC-CORE-FR-146-central-watcher.py — Vigia Central
 ---

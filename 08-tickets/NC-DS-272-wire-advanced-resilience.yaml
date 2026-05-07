@@ -1,3 +1,4 @@
+# @UBL @UBL @DS-272 | LEXICO: #TICKETS
 ticket_id: "NC-DS-272"
 title: "Wire Advanced Resilience (FR-160) + Strangler Fig (FR-171) + Graceful Degradation (FR-155)"
 status: DONE

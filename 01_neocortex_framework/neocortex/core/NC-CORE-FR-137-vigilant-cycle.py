@@ -1,9 +1,4 @@
-"""---
-@Module NC-CORE-FR-137-vigilant-cycle mcp NC-CORE-FR-137-vigilant-cycle.py — CICLO 0 Vigilan
----
-"""
-
-
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 import json
 import logging
 from datetime import datetime

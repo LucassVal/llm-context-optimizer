@@ -1,9 +1,4 @@
-"""---
-@Module NC-CORE-FR-159-crypto-integrity mcp NC-CORE-FR-159-crypto-integrity.py — Central de Cr
----
-"""
-
-
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 import hashlib
 import json
 import os

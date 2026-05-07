@@ -1,7 +1,7 @@
+<!-- @UBL @UBL @SYSTEM | LEXICO: #LOBES -->
+
 ---
 
-<!-- NC-READ-HASH: NC-LBE-FR-PDCA-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-PDCA-001-v1 ja esta no contexto desta sessao, SALTE. -->
 lobe_id: NC-LBE-FR-PDCA-001
 domain: 06_governance
 type: CYCLE_DOCUMENTATION
@@ -13,8 +13,6 @@ status: archived
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-PDCA-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-PDCA-001-v1 ja esta no contexto desta sessao, SALTE. -->
 <!-- 3 W's Auto-Injection -->
 ## What
 Módulo: NC LBE FR PDCA 001
@@ -29,8 +27,6 @@ Criado em 2026-04-28 — arquivo do ecossistema NeoCortex
 
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-PDCA-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-PDCA-001-v1 ja esta no contexto desta sessao, SALTE. -->
 # PDCA — Plan-Do-Check-Act (Ciclo Deming)
 
 @UBL pdca-ciclo-init
@@ -76,7 +72,5 @@ LEXICO: #pdca #ciclo4 #maintenance #drift-control #mutation-board #replication #
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-PDCA-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-PDCA-001-v1 ja esta no contexto desta sessao, SALTE. -->
 *Ciclo PDCA formalizado — cada CICLO é um PDCA completo*
 *Última atualização: 2026-04-28*

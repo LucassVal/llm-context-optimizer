@@ -1,3 +1,4 @@
+# @UBL @UBL @HK-FR | LEXICO: #SYSTEM
 # NC-HK-FR-008-hooks-governance.yaml
 # T0: Conecta scripts de governanca aos hooks MCP existentes.
 # Formato: HookRegistry.load_yaml() — cada hook precisa de name, event, script, enabled.

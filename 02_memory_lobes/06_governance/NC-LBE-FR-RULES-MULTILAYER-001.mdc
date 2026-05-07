@@ -1,7 +1,7 @@
+<!-- @UBL @UBL @SYSTEM | LEXICO: #LOBES -->
+
 ---
 
-<!-- NC-READ-HASH: NC-LBE-FR-RULES-MULTILAYER-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-RULES-MULTILAYER-001-v1 ja esta no contexto desta sessao, SALTE. -->
 title: NC-LBE-FR-RULES-MULTILAYER-001
 version: v4.0
 created: 2026-04-28
@@ -14,8 +14,6 @@ status: archived
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-RULES-MULTILAYER-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-RULES-MULTILAYER-001-v1 ja esta no contexto desta sessao, SALTE. -->
 # 4 MORDAÇAS DE GOVERNANÇA — 133 REGRAS (R01-R133)
 
 Cada regra deve ser coberta por 4 camadas cumulativas:
@@ -177,8 +175,6 @@ LEXICO: #matriz #bloco7 #r112-r115 #integridade #yaml-validate #mdc-header #secr
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-RULES-MULTILAYER-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-RULES-MULTILAYER-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL super-rules
 # 8. SUPER RULES — Tabela de Ativação (TUDO que roda e quando)
 LEXICO: #super-rules #activation #auto-checks #manual-checks #pulse-scheduler #gateway
@@ -228,8 +224,6 @@ LEXICO: #super-rules #activation #auto-checks #manual-checks #pulse-scheduler #g
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-RULES-MULTILAYER-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-RULES-MULTILAYER-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL score-camada
 # 9. SCORE POR CAMADA (111 regras)
 LEXICO: #score #camada #hook #checkpoint #schedule #user #coverage-delta
@@ -278,8 +272,6 @@ LEXICO: #gateway #p1-p3 #ferramentas #lobes #tickets #savepoint #handoff #config
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-RULES-MULTILAYER-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-RULES-MULTILAYER-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL mordaca-supervision
 # 13. 3 W's + 3 Whos — Quem Supervisiona Cada Mordaca
 LEXICO: #mordaca #supervision #what-why-where-who #t0 #central-watcher #pulse-scheduler
@@ -410,8 +402,6 @@ Pipeline (submit ou auto-trigger):
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-RULES-MULTILAYER-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-RULES-MULTILAYER-001-v1 ja esta no contexto desta sessao, SALTE. -->
 **v3.1 FINAL (2026-04-28 21:00) — 115 Regras | Audit 80.0% | 7 Blocos**
 
 ```

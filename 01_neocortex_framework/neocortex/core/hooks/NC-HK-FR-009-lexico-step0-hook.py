@@ -1,3 +1,4 @@
+# @UBL @UBL @HK-FR | LEXICO: #SYSTEM
 #!/usr/bin/env python3
 """---
 NC-HK-FR-004-lexico-step0-hook.py

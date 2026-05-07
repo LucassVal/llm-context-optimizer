@@ -1,3 +1,4 @@
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 """---
 @Gateway NC-CORE-FR-129-shared-kernel-gateway mcp NC-CORE-FR-129-shared-kernel-gateway.py — T0→T1 Ga
 ---

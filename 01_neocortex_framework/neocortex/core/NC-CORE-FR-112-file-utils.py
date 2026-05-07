@@ -1,9 +1,4 @@
-"""---
-@Module NC-CORE-FR-112-file-utils mcp _genealogy:   injected_at: '2026-04-16T00:23:57.59
----
-"""
-
-
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 #!/usr/bin/env python3
 """
 NeoCortex File Utilities

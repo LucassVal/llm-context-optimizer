@@ -1,9 +1,4 @@
-"""---
-@Module NC-SVC-FR-005-event-bus mcp _genealogy:   injected_at: '2026-04-16T00:23:58.70
----
-"""
-
-
+# @UBL @UBL @SVC-FR | LEXICO: #SYSTEM
 """
 NC-SVC-FR-005-event-bus.py
 FR-005  Event Bus: Synchronous event bus for inter-tool communication in NeoCortex.

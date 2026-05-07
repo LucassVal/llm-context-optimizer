@@ -1,9 +1,4 @@
-"""---
-@Module NC-SVC-FR-015-task-broker mcp _genealogy:   injected_at: '2026-04-16T00:23:59.04
----
-"""
-
-
+# @UBL @UBL @SVC-FR | LEXICO: #SYSTEM
 """
 NC-SVC-FR-015-task-broker.py
 FR-015  TaskBroker: Persistent task tracking with retry and polling.

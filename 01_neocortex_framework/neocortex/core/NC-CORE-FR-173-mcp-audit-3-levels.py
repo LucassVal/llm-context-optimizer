@@ -1,3 +1,4 @@
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 """---
 NC-CORE-FR-173-mcp-audit-3-levels.py — Auditoria Organica de 3 Camadas
 - CAMADA 1 (compile-time): sintaxe, tipo, lint, parse — por tipo de arquivo

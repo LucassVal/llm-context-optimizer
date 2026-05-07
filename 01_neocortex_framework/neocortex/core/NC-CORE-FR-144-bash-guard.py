@@ -1,3 +1,4 @@
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 """---
 @Guard NC-CORE-FR-144-bash-guard mcp NC-CORE-FR-144-bash-guard.py — Bash Command Guard
 ---

@@ -1,3 +1,4 @@
+# @UBL @UBL @DS-260 | LEXICO: #TICKETS
 id: "NC-DS-260"
 title: "R129 ITIL — Pre-commit hook bloqueia checkout sem savepoint"
 status: DONE

@@ -1,3 +1,4 @@
+# @UBL @UBL @CFG-DS | LEXICO: #AGENT #CONFIG
 queue_version: "2.0"
 created_at: "2026-04-12T17:40:00"
 doc: "Sistema de fila central para N workers paralelos. Ver NC-SEC-FR-002 para entry locks."

@@ -1,3 +1,4 @@
+# @UBL @UBL @DS-252 | LEXICO: #TICKETS
 # NC-DS-252 — MCP Authorization: Implementar OAuth 2.1 Flow para Streamable HTTP (:8765)
 # WHAT: Adicionar camada de autorização OAuth 2.1 completa ao servidor Streamable HTTP na porta 8765
 # WHY: Porta 8765 atualmente sem auth — qualquer client pode chamar tools sem autorização

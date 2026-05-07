@@ -1,3 +1,4 @@
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 """---
 @Guard NC-CORE-FR-168-semantic-audit mcp NC-CORE-FR-168-semantic-audit.py — Deep Semantic C
 ---

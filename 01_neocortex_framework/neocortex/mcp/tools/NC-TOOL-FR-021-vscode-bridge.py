@@ -1,3 +1,4 @@
+# @UBL @UBL @TOOL-FR | LEXICO: #MCP
 """---
 NC-TOOL-FR-021 — neocortex_vscode
 VS Code IDE Bridge + DeepSeek Account Tools

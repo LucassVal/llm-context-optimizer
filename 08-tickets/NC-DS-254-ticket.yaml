@@ -1,3 +1,4 @@
+# @UBL @UBL @DS-254 | LEXICO: #TICKETS
 # NC-DS-254 — MCP Notifications: Implementar notifications/tools/list_changed, resources/list_changed, prompts/list_changed
 # WHAT: Wirear hooks do NeoCortex → MCP notifications para clients receberem updates em tempo real
 # WHY: Sem notifications, clients precisam de polling manual para descobrir mudanças em tools/resources/prompts

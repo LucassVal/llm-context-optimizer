@@ -1,3 +1,4 @@
+# @UBL @UBL @SYSTEM | LEXICO: #INFRA
 # Strangler Fig wrapper - re-exports from NC-LLM-FR-004-backend.py
 # Keep for backward compatibility. Migrate imports to NC- name.
 # R09: importlib for hyphenated module names.

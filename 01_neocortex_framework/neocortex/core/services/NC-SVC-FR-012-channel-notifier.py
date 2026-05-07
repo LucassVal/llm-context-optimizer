@@ -1,9 +1,4 @@
-"""---
-@Module NC-SVC-FR-012-channel-notifier mcp _genealogy:   injected_at: '2026-04-16T00:23:58.97
----
-"""
-
-
+# @UBL @UBL @SVC-FR | LEXICO: #SYSTEM
 """
 NC-SVC-FR-012-channel-notifier.py
 FR-012  ChannelNotifier: Sistema de canais de notificao para NeoCortex.

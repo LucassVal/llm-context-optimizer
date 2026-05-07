@@ -1,9 +1,4 @@
-"""---
-@Module  mcp _genealogy:   injected_at: '2026-04-16T00:24:00.00
----
-"""
-
-
+# @UBL @UBL @LLM-FR | LEXICO: #INFRA
 #!/usr/bin/env python3
 """
 LLMBackend - Abstract base class for LLM backends.

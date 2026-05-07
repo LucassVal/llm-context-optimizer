@@ -1,6 +1,6 @@
+<!-- @UBL @UBL @LBE-USR | LEXICO: #LOBES -->
+
 ---
-<!-- NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v2 -->
-<!-- DEDUP: Se NC-LBE-USR-003-opencode-editor-mcp-v2 ja esta no contexto desta sessao, SALTE. -->
 name: NC-LBE-USR-003-opencode-editor-mcp
 description: SSOT OpenCode — integracao completa: MCP + LSP + Skills + Custom Tools + Agents. Guia exaustivo v2.0.
 tags: [opencode, mcp, lsp, skills, agents, custom-tools, editor, config]
@@ -12,8 +12,6 @@ updated: 2026-05-03
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 ja esta no contexto desta sessao, SALTE. -->
 <!-- 3 W's Auto-Injection -->
 
 
@@ -46,8 +44,6 @@ LEXICO: #section #content
 
 
 
-<!-- NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 ja esta no contexto desta sessao, SALTE. -->
 
 
 
@@ -61,8 +57,6 @@ LEXICO: #opencode #mcp
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 ja esta no contexto desta sessao, SALTE. -->
 
 
 
@@ -79,8 +73,6 @@ O OpenCode suporta a adição de ferramentas MCP locais e remotas. Uma vez adici
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 ja esta no contexto desta sessao, SALTE. -->
 
 
 
@@ -131,8 +123,6 @@ Usado para processos que rodam na sua máquina (stdio).
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 ja esta no contexto desta sessao, SALTE. -->
 ### 2.3 Servidores Remotos (`type": "remote"`)
 Conectam-se via URL (HTTP/SSE).
 
@@ -154,8 +144,6 @@ Conectam-se via URL (HTTP/SSE).
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 ja esta no contexto desta sessao, SALTE. -->
 
 
 
@@ -188,8 +176,6 @@ Se você já possui as credenciais:
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 ja esta no contexto desta sessao, SALTE. -->
 
 
 
@@ -216,8 +202,6 @@ As ferramentas MCP são prefixadas com o nome do servidor: `nome-servidor_nome-f
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 ja esta no contexto desta sessao, SALTE. -->
 
 
 
@@ -235,11 +219,8 @@ LEXICO: #examples #servers
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v1 ja esta no contexto desta sessao, SALTE. -->
 ---
 
-<!-- NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v2 -->
 
 
 
@@ -268,7 +249,6 @@ Configuracao em `opencode.json`:
 
 ---
 
-<!-- NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v2 -->
 
 
 
@@ -297,7 +277,6 @@ nc-lint → nc-validate → nc-ssot-update → nc-handoff → nc-boot-sync
 
 ---
 
-<!-- NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v2 -->
 
 
 
@@ -319,7 +298,6 @@ Chamam scripts Python existentes do NeoCortex.
 
 ---
 
-<!-- NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v2 -->
 
 
 
@@ -346,7 +324,6 @@ Agentes especializados configurados em `.opencode/agents/*.md`.
 
 ---
 
-<!-- NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v2 -->
 
 
 
@@ -378,7 +355,6 @@ OpenCode (TUI)
 
 ---
 
-<!-- NC-READ-HASH: NC-LBE-USR-003-opencode-editor-mcp-v2 -->
 
 
 

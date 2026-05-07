@@ -1,9 +1,4 @@
-"""---
-@Module NC-CORE-FR-022-save-point-service mcp _genealogy:   injected_at: '2026-04-16T00:23:57.88
----
-"""
-
-
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 #!/usr/bin/env python3
 """
 NC-SVC-FR-001-save-point-service.py

@@ -1,3 +1,4 @@
+# @UBL @UBL @DS-256 | LEXICO: #TICKETS
 ticket_id: NC-DS-256
 title: FIX — Correção crítica de configuração LSP no opencode.json
 status: DONE

@@ -1,9 +1,4 @@
-"""---
-@Module NC-UTL-FR-003-path-resolver mcp _genealogy:   injected_at: '2026-04-16T00:23:59.15
----
-"""
-
-
+# @UBL @UBL @UTL-FR | LEXICO: #SYSTEM
 """
 NC-UTL-FR-003-path-resolver.py
 UTIL-003  PathResolver: resoluo de paths respeitando get_config()

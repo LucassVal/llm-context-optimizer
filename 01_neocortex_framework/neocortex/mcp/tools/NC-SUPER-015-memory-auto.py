@@ -1,3 +1,4 @@
+# @UBL @UBL @SUPER-015 | LEXICO: #MCP
 #!/usr/bin/env python3
 """---
 NC-SUPER-015 — neocortex_memory_auto

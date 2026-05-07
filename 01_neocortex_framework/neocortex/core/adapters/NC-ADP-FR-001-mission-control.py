@@ -1,10 +1,4 @@
-"""---
-@Module  mcp _genealogy:   injected_at: '2026-04-16T00:23:58.13
----
-"""
-
-
-
+# @UBL @UBL @ADP-FR | LEXICO: #SYSTEM
 #!/usr/bin/env python3
 """
 NC-ADP-FR-001  Mission Control Generic Adapter Implementation

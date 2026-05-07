@@ -1,3 +1,4 @@
+# @UBL @UBL @DS-206 | LEXICO: #TICKETS
 ticket_id: NC-DS-206
 title: 'STUB/MOCK: LockGuard FR-014 missing validate_write method'
 status: DONE

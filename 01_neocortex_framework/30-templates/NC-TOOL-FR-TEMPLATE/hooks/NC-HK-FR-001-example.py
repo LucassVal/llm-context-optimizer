@@ -1,19 +1,4 @@
-"""---
-_genealogy:
-  injected_at: '2026-04-16T00:23:57.162874'
-  injected_by: NC-SCR-FR-075-genealogy-injector.py
-  version: '1.0'
-topology: templates
-level: 3
-tags:
-  - templates
-  - level-3
-  - nc-prefix
----
-"""
-
-
-
+# @UBL @UBL @HK-FR | LEXICO: #SYSTEM
 """
 NC-HK-FR-001-example.py  Exemplo de hook Python para NeoCortex.
 Evento: PostToolUse

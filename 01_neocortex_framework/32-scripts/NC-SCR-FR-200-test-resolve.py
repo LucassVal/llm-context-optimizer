@@ -1,3 +1,4 @@
+# @UBL @UBL @SCR-FR | LEXICO: #SCRIPTS
 import sys, importlib.util
 base = r'C:\Users\Lucas Valério\Desktop\TURBOQUANT_V42\01_neocortex_framework'
 spec = importlib.util.spec_from_file_location("sr", base + r"\neocortex\core\NC-CORE-FR-165-semantic-router.py")

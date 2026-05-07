@@ -1,3 +1,4 @@
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 #!/usr/bin/env python3
 """---
 NC-CORE-FR-116-lexico-service.py — LEXICO-001

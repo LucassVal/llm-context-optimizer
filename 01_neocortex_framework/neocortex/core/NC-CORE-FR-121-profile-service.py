@@ -1,9 +1,4 @@
-"""---
-@Module NC-CORE-FR-121-profile-service mcp _genealogy:   injected_at: '2026-04-16T00:23:57.96
----
-"""
-
-
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 #!/usr/bin/env python3
 """
 Profile Service - Business logic for profile operations.

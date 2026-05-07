@@ -1,10 +1,4 @@
-"""---
-@Module  mcp _genealogy:   injected_at: '2026-04-16T00:24:01.83
----
-"""
-
-
-
+# @UBL @UBL @CFG-FR | LEXICO: #SYSTEM
 #!/usr/bin/env python3
 """
 Configuration provider for NeoCortex framework.

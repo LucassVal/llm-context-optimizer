@@ -1,3 +1,4 @@
+# @UBL @UBL @SUPER-020 | LEXICO: #MCP
 """---
 NC-SUPER-020 — neocortex_evolution
 FASE 6 — Evolução governada com sandbox + user approval

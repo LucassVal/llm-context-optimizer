@@ -1,9 +1,4 @@
-"""---
-@Module NC-SVC-FR-009-session-buddy mcp _genealogy:   injected_at: '2026-04-16T00:23:58.86
----
-"""
-
-
+# @UBL @UBL @SVC-FR | LEXICO: #SYSTEM
 """
 NC-SVC-FR-009-session-buddy.py
 FR-009  SessionMate: Gamified session statistics with achievements.

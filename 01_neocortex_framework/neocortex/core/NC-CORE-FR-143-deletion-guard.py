@@ -1,3 +1,4 @@
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 """---
 @Guard NC-CORE-FR-143-deletion-guard mcp NC-CORE-FR-143-deletion-guard.py — R05 Enforcement
 ---

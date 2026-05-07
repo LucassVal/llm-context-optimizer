@@ -1,9 +1,4 @@
-"""---
-@Module NC-CORE-FR-151-missing-techniques mcp NC-CORE-FR-151-missing-techniques.py — Motores das
----
-"""
-
-
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 import json
 import os
 import re

@@ -1,3 +1,4 @@
+# @UBL @UBL @DS-251 | LEXICO: #TICKETS
 # NC-DS-251 — MCP Prompts: Implementar prompts/list, prompts/get
 # WHAT: Expor SOPs, handoff templates e audit workflows como Prompts MCP parametrizados
 # WHY: Prompts são templates de instrução controlados pelo usuário — sem eles, não há "melhores práticas" expostas via protocolo

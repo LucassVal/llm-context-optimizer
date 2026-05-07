@@ -1,3 +1,4 @@
+# @UBL @UBL @SYSTEM | LEXICO: #SYSTEM
 # Strangler Fig wrapper - re-exports from NC-UTL-FR-006-gateway-bridge.py
 # Keep for backward compatibility. Migrate imports to NC- name.
 # R09: importlib for hyphenated module names.

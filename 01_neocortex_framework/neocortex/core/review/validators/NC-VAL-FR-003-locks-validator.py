@@ -1,9 +1,4 @@
-"""---
-@Module  mcp _genealogy:   injected_at: '2026-04-16T00:23:58.51
----
-"""
-
-
+# @UBL @UBL @VAL-FR | LEXICO: #SYSTEM
 """
 NC-VAL-FR-003-locks-validator.py
 Validador de locks: verifica que nenhum arquivo modificado est em @LOCKS.

@@ -1,3 +1,4 @@
+# @UBL @UBL @SYSTEM | LEXICO: #SYSTEM
 #!/usr/bin/env python3
 """---
 Verify MCP server startup and tool registration.

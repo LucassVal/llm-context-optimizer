@@ -1,7 +1,7 @@
+<!-- @UBL @UBL @SYSTEM | LEXICO: #LOBES -->
+
 ---
 
-<!-- NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 ja esta no contexto desta sessao, SALTE. -->
 title: NC-LBE-FR-SECURITY-MATRIX-001
 version: v1.0
 created: 2026-04-28
@@ -12,8 +12,6 @@ temperature: 0
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 ja esta no contexto desta sessao, SALTE. -->
 <!-- 3 W's Auto-Injection -->
 ## What
 Módulo: NC LBE FR SECURITY MATRIX 001
@@ -28,8 +26,6 @@ Criado em 2026-04-28 — arquivo do ecossistema NeoCortex
 
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 ja esta no contexto desta sessao, SALTE. -->
 # NC-LBE-FR-SECURITY-MATRIX-001 — Matriz de Poder e Segurança
 
 > **Arquitetura Federada:** Kernel 0 detém o poder real (chaves, senhas, constituição).
@@ -39,8 +35,6 @@ Criado em 2026-04-28 — arquivo do ecossistema NeoCortex
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL power-hierarchy
 # 1. HIERARQUIA DE PODER (Vertical)
 LEXICO: #power-hierarchy #kernel-0 #parent #orbital #child #federated #vertical
@@ -92,8 +86,6 @@ KERNEL 0 (ROOT) — "O Cofre"
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL credential-flow
 # 2. FLUXO DE CREDENCIAIS (Quem tem o quê)
 LEXICO: #credentials #cryptohub #master-key #derived-key #zero-keys #wal
@@ -113,8 +105,6 @@ LEXICO: #credentials #cryptohub #master-key #derived-key #zero-keys #wal
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL bidirectional-comms
 # 3. COMUNICAÇÃO BIDIRECIONAL
 LEXICO: #communication #bidirectional #downstream #upstream #dna #policies #mutations
@@ -138,8 +128,6 @@ UPSTREAM (Child → Parent → Kernel):
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL horizontal-vertical-matrix
 # 4. MATRIZ HORIZONTAL x VERTICAL (Segurança)
 LEXICO: #matrix #horizontal #vertical #security #backup #production #governance
@@ -155,8 +143,6 @@ LEXICO: #matrix #horizontal #vertical #security #backup #production #governance
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL instance-lifecycle
 # 5. CICLO DE VIDA DA INSTÂNCIA
 LEXICO: #lifecycle #instance #newborn #staging #production #archived #decommissioned
@@ -181,8 +167,6 @@ DECOMMISSIONED → WAL preservado, dados removidos
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL security-gaps
 # 6. GAPS IDENTIFICADOS (O que falta implementar)
 LEXICO: #gaps #security #backup #production #review #ddd-gateway #governance
@@ -220,7 +204,5 @@ LEXICO: #gaps #security #backup #production #review #ddd-gateway #governance
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-SECURITY-MATRIX-001-v1 ja esta no contexto desta sessao, SALTE. -->
 **Hash:** SECURITY-MATRIX-v1.0-20260428
 _"Kernel 0 tem as chaves. Parent tem os dados. Child tem as regras. Ninguém tem tudo."_

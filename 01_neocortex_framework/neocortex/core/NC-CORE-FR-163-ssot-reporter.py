@@ -1,3 +1,4 @@
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 """---
 @Reporter NC-CORE-FR-163-ssot-reporter mcp NC-CORE-FR-163-ssot-reporter.py — R117: SSOT Statu
 ---

@@ -1,3 +1,4 @@
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 """---
 @Service NC-CORE-FR-126-search-service mcp NC-CORE-FR-126-search-service.py — SearchService (
 ---

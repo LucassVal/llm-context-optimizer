@@ -1,7 +1,7 @@
+<!-- @UBL @UBL @LBE-CC | LEXICO: #LOBES -->
+
 ---
 
-<!-- NC-READ-HASH: NC-LBE-CC-006-project-config-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-006-project-config-v1 ja esta no contexto desta sessao, SALTE. -->
 description: "Projectlevel configuration  padro .claude/ do Claude Code adaptado para .nc/ no NeoCortex. Precedncia local > global, merge seguro de configs."
 lobe_name: "$PROJECT_CONFIG"
 lobe_id: "NC-LBE-CC-006"
@@ -14,8 +14,6 @@ status: archived
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-006-project-config-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-006-project-config-v1 ja esta no contexto desta sessao, SALTE. -->
 <!-- 3 W's Auto-Injection -->
 ## What
 Merge recursivo com proteo de campos @LOCKS.
@@ -30,8 +28,6 @@ Criado em 2026-04-16 — arquivo do ecossistema NeoCortex
 
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-006-project-config-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-006-project-config-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL project-config-overview
 LEXICO: #project-config #local-override #nc-directory #precedence
 # 1. $PROJECT_CONFIG  .claude/  .nc/ Local Override
@@ -42,8 +38,6 @@ LEXICO: #project-config #local-override #nc-directory #precedence
 
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-006-project-config-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-006-project-config-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL claude-dotdir
 LEXICO: #claude-code #project-config #isolation #autodiscovery
 ## 2. O QUE  O `.claude/` NO CLAUDE CODE?
@@ -75,8 +69,6 @@ LEXICO: #claude-code #project-config #isolation #autodiscovery
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-006-project-config-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-006-project-config-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL naming-decision-nc-dir
 LEXICO: #naming-convention #dotnc #project-loader #nccfgfr004
 ## 3. DECISO DE NOMENCLATURA NEOCORTEX
@@ -106,8 +98,6 @@ LEXICO: #naming-convention #dotnc #project-loader #nccfgfr004
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-006-project-config-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-006-project-config-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL precedence-local-over-global
 LEXICO: #merge-rules #recursive-merge #yaml-config #priority
 ## 4. PRECEDNCIA: LOCAL > GLOBAL
@@ -160,8 +150,6 @@ hooks:
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-006-project-config-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-006-project-config-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL merge-without-breaking-locks
 LEXICO: #atomic-locks #protected-fields #merge-safety #locked-paths
 ## 5. COMO MESCLAR SEM QUEBRAR @LOCKS
@@ -203,8 +191,6 @@ def merge_configs(global_cfg: dict, local_cfg: dict) -> dict:
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-006-project-config-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-006-project-config-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL project-loader-sketch
 LEXICO: #project-loader #nccfgfr004 #get-config #hierarchical-search
 ## 6. NCCFGFR004PROJECTLOADER.PY (ESBOO)
@@ -261,8 +247,6 @@ def get_config() -> dict:
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-006-project-config-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-006-project-config-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL example-local-config
 LEXICO: #example #dotnc-config #yaml-sample #locks-ignored
 ## 7. EXEMPLO DE `.nc/config.yaml` (COMPLETO)
@@ -309,8 +293,6 @@ atomic_locks:
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-006-project-config-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-006-project-config-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL integration-other-systems
 LEXICO: #integration #hook-registry #plugin-loader #session-mate #metrics
 ## 8. INTEGRAO COM OUTROS SISTEMAS
@@ -332,8 +314,6 @@ LEXICO: #integration #hook-registry #plugin-loader #session-mate #metrics
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-006-project-config-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-006-project-config-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL ticket-mapping-ncds032
 LEXICO: #ticket-mapping #ncds032 #write-zone #implementation-plan
 ## 9. MAPEAMENTO PARA NCDS032 (TICKET)
@@ -354,8 +334,6 @@ LEXICO: #ticket-mapping #ncds032 #write-zone #implementation-plan
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-006-project-config-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-006-project-config-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL warnings-limitations
 LEXICO: #warnings #security #performance #versioning #compatibility
 ## 10. ADVERTNCIAS E LIMITAES
@@ -370,8 +348,6 @@ LEXICO: #warnings #security #performance #versioning #compatibility
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-006-project-config-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-006-project-config-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL cross-lobe-links
 LEXICO: #cross-reference #linked-lobes #master-strategy
 ## 11. LINKS PARA OUTROS LOBES
@@ -384,8 +360,6 @@ LEXICO: #cross-reference #linked-lobes #master-strategy
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-CC-006-project-config-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-CC-006-project-config-v1 ja esta no contexto desta sessao, SALTE. -->
 @UBL next-actions
 LEXICO: #next-steps #implementation #ncds032 #get-config #testing
 ## 12. PRXIMAS AES

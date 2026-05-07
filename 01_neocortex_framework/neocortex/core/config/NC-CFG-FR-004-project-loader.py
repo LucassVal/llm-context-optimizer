@@ -1,9 +1,4 @@
-"""---
-@Module NC-CFG-FR-004-project-loader mcp _genealogy:   injected_at: '2026-04-16T00:23:58.23
----
-"""
-
-
+# @UBL @UBL @CFG-FR | LEXICO: #SYSTEM
 """
 NC-CFG-FR-004-project-loader.py
 FR-004  ProjectConfigLoader: Hierarchical configuration loader with .nc/config.yaml support.

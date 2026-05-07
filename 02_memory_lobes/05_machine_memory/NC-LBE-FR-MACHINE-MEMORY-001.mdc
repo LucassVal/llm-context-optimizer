@@ -1,7 +1,7 @@
+<!-- @UBL @UBL @SYSTEM | LEXICO: #LOBES -->
+
 ---
 
-<!-- NC-READ-HASH: NC-LBE-FR-MACHINE-MEMORY-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MACHINE-MEMORY-001-v1 ja esta no contexto desta sessao, SALTE. -->
 lobe_id: NC-LBE-FR-MACHINE-MEMORY-001
 domain: 05_machine_memory
 type: ARTIFACT_REGISTRY
@@ -13,8 +13,6 @@ status: archived
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-MACHINE-MEMORY-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MACHINE-MEMORY-001-v1 ja esta no contexto desta sessao, SALTE. -->
 <!-- 3 W's Auto-Injection -->
 
 
@@ -47,8 +45,6 @@ LEXICO: #section #content
 
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-MACHINE-MEMORY-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MACHINE-MEMORY-001-v1 ja esta no contexto desta sessao, SALTE. -->
 
 
 
@@ -100,6 +96,4 @@ LEXICO: #actions #todo
 ---
 
 
-<!-- NC-READ-HASH: NC-LBE-FR-MACHINE-MEMORY-001-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-MACHINE-MEMORY-001-v1 ja esta no contexto desta sessao, SALTE. -->
 *Populado em 2026-04-28 para resolver domínio vazio*

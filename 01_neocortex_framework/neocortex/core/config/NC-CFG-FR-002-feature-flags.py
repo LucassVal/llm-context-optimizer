@@ -1,9 +1,4 @@
-"""---
-@Module NC-CFG-FR-002-feature-flags mcp _genealogy:   injected_at: '2026-04-16T00:23:58.18
----
-"""
-
-
+# @UBL @UBL @CFG-FR | LEXICO: #SYSTEM
 """
 NC-CFG-FR-002-feature-flags.py
 FR-CFG-002  FeatureFlagService: Flags de funcionalidade com cache TTL 1h.

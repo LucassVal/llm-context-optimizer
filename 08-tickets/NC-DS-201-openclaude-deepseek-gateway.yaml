@@ -1,3 +1,4 @@
+# @UBL @UBL @DS-201 | LEXICO: #TICKETS
 ticket:
   id: NC-DS-201
   title: DeepSeek v4-Pro Gateway - Proxy exclusivo sem fallback

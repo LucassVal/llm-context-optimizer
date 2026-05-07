@@ -1,7 +1,7 @@
+<!-- @UBL @UBL @SYSTEM | LEXICO: #LOBES -->
+
 ---
 
-<!-- NC-READ-HASH: NC-LBE-FR-R117-response-template-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-R117-response-template-v1 ja esta no contexto desta sessao, SALTE. -->
 rule_id: R117
 domain: 06_governance
 type: RESPONSE_TEMPLATE
@@ -15,8 +15,6 @@ status: archived
 @UBL $R117_TEMPLATE
 LEXICO: #R117 #ssot #header #template #response
 
-<!-- NC-READ-HASH: NC-LBE-FR-R117-response-template-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-R117-response-template-v1 ja esta no contexto desta sessao, SALTE. -->
 
 @UBL R117Header
 LEXICO: #R117 #ssot #header #obrigatorio
@@ -52,8 +50,6 @@ LEXICO: #template #YAML #ssot #governanca #semantica
 ```yaml
 ---
 
-<!-- NC-READ-HASH: NC-LBE-FR-R117-response-template-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-R117-response-template-v1 ja esta no contexto desta sessao, SALTE. -->
 ssot:
   timestamp: "2026-04-29T00:15:00"
   session: "SESS-20260429-001500"
@@ -124,8 +120,6 @@ tickets:
 ultima_acao: "implementacao R117"
 ---
 
-<!-- NC-READ-HASH: NC-LBE-FR-R117-response-template-v1 -->
-<!-- DEDUP: Se NC-READ-HASH: NC-LBE-FR-R117-response-template-v1 ja esta no contexto desta sessao, SALTE. -->
 ```
 
 @UBL Enforcement

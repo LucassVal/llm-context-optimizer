@@ -1,3 +1,4 @@
+# @UBL @UBL @CORE-FR | LEXICO: #SYSTEM
 """---
 @Audit NC-CORE-FR-150-techniques-audit mcp NC-CORE-FR-150-techniques-audit.py — Auditoria REA
 ---

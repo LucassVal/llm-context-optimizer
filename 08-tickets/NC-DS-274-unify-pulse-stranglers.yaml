@@ -1,3 +1,4 @@
+# @UBL @UBL @DS-274 | LEXICO: #TICKETS
 ticket_id: "NC-DS-274"
 title: "Unify pulse-bridge (NC-MCP-FR-001) → NC-SUPER-006-system + Eliminar Strangler Wrappers"
 status: DONE
