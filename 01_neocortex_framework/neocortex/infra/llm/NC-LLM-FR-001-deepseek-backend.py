@@ -46,6 +46,9 @@ class DeepSeekBackend(LLMBackend):
 
         self.base_url = config.get("base_url", "https://api.deepseek.com")
         self.session: aiohttp.ClientSession | None = None
+        self._last_request_time = 0.0
+        self._rate_limit_interval = 1.0 / 3  # NC-DS-293 T3: 3 req/s max
+        self._retry_after = 0.0
         super().__init__(config)
 
     def _initialize(self) -> None:
@@ -137,6 +140,11 @@ class DeepSeekBackend(LLMBackend):
             ) as response:
                 if response.status != 200:
                     error_text = await response.text()
+                    # NC-DS-293 T3: Retry-After header handling
+                    if response.status == 429:
+                        retry = response.headers.get("Retry-After", "5")
+                        self._retry_after = float(retry)
+                        raise RuntimeError(f"DeepSeek rate limited. Retry-After: {retry}s")
                     raise RuntimeError(
                         f"DeepSeek API error {response.status}: {error_text}"
                     )

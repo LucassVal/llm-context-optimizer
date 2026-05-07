@@ -180,6 +180,7 @@ class MetricsStore:
         # Try the normal path first
         try:
             self.conn = sqlite3.connect(str(self.db_path))
+            self.conn.execute("PRAGMA journal_mode=WAL")  # NC-DS-302
             self.conn.row_factory = sqlite3.Row
             logger.info("SQLite connection established")
             return
