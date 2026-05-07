@@ -1,0 +1,15 @@
+# NC-CFG-FR-011: Feature Flags
+# UBL: @FEATURE-FLAGS | LEXICO: #FEATUREFLAGS #CONFIG
+# NC-DS-305: Enables/disables features without MCP restart
+# Cache TTL: 3600s
+
+flags:
+  persistent_worker:
+    enabled: true
+    description: "Keep worker threads alive between tasks"
+  confidence_review:
+    enabled: true
+    description: "Auto-score handoffs (NC-DS-305)"
+  channel_notifications:
+    enabled: false
+    description: "Send notifications to external channels"
