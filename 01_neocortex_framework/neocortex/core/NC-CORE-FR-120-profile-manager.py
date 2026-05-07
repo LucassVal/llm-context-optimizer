@@ -22,7 +22,7 @@ from pathlib import Path
 from typing import Any
 
 # Importar constante PROJECT_ROOT do mdulo file_utils
-from neocortex.core.NC_CORE_FR_112_file_utils import PROJECT_ROOT
+from .file_utils import PROJECT_ROOT
 
 # ==================== CONFIGURAES ====================
 

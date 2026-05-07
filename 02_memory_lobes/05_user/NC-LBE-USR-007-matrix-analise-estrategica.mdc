@@ -1,0 +1,221 @@
+---
+name: NC-LBE-USR-007-matrix-analise-estrategica
+description: Matriz estrategica 5 dimensoes — Eisenhower + RCA + SWOT + 3W + Pareto. Analise ponto a ponto do sistema NeoCortex.
+tags: [estrategia, eisenhower, rca, swot, audit, governanca]
+status: active
+module: strategic
+version: 1.0
+created: 2026-05-03
+temperature: 75
+---
+
+<!-- NC-READ-HASH: NC-LBE-USR-007-matrix-v1 -->
+<!-- DEDUP: Se NC-LBE-USR-007-matrix-v1 ja esta no contexto, SALTE -->
+
+# NC-LBE-USR-007 — Matriz Estrategica 5 Dimensoes
+
+> R21: Zero suposicoes. Toda afirmacao tem evidencia no sistema real.
+> KISS: Cada gap mapeado = 1 acao objetiva.
+> 3W: What = gap, Why = causa raiz, Where = no sistema.
+
+---
+
+## 📊 DIMENSAO 1: MATURIDADE DE COMPETENCIAS IA (Eisenhower + RCA)
+
+| # | Skill | Q | RCA (Causa Raiz no NeoCortex) | Evidencia |
+|---|---|---|---|---|
+| 1 | **Agentes IA (Agentic AI)** | 🔴 Q1 | Orquestracao multi-agente existe (nc-guardian, nc-auditor, nc-courier em .md) mas NAO executam — sao prompts, nao agentes reais. Falta integracao com sistema de tasks. | .opencode/agents/ tem 3 arquivos .md, nenhum esta no HookRegistry |
+| 2 | **Python** | 🟡 Q2 | Framework 100% Python. Gargalo: 18 super-tools MCP tem interfaces inconsistentes (algumas com elif, outras com dicionarios). Falta padronizacao de contratos. | NC-CORE-FR-173 mostra 18 tools, varias com NotImplementedError |
+| 3 | **RAG** | 🟡 Q2 | LexicoService tem search() mas nao usa chunking estrategico. ULQ dicionario tem 1041 termos sem segmentacao por dominio. | NC-DOC-FR-001 dicionario plano, sem indice semantico |
+| 4 | **LLMs** | 🟡 Q2 | LiteLLM :4000 configurado. 3 backends (DeepSeek, Ollama, Qwen). Mas nao ha roteamento dinamico por complexidade. | NC-SCR-FR-110 litellm startup, sem classificador de tarefas |
+| 5 | **Engenharia de Dados** | 🟡 Q2 | WAL (DIR-DS-003-wal) e ledger existem mas sem pipeline ETL. Dados brutos, sem governance de metadados. | neocortex_wal.db existe, ledger_stats mostra 4161 entradas sem schema |
+| 6 | **No-Code/Low-Code** | 🟢 Q3 | YAML tickets e YAML configs sao o low-code do sistema. 724 YAML analisados. Subutilizado: hooks YAML (FR-008) desabilitados. | NC-CFG-HK-001 tem hooks YAML, NC-CFG-HK-008 disabled |
+| 7 | **MLOps** | 🔴 Q1 | Zero pipeline CI/CD. Ruff+mypy rodam manual. Regression sem baseline persistente. Savepoint unico criado hoje. | regression.baseline criada agora, sem automacao |
+| 8 | **Pensamento Algoritmico** | 🟡 Q2 | 111 regras no sistema (R01-R111). Mas a arvore de decisao para aplicar qual regra em qual contexto nao existe. | NC-LBE-FR-RULES-MULTILAYER tem 111 regras sem engine de resolucao |
+| 9 | **Adaptabilidade** | 🟡 Q2 | Decay mechanism existe (NC-CORE-FR-170) mas nunca foi ativado. Thermal decay configurado em NC-DS-159 mas DONE sem execucao real. | NC-DS-159 DONE, decay_check() existe mas nunca chamado |
+| 10 | **Colaboracao Humano-IA** | 🔴 Q1 | T0 decide, T1 executa (R17). Mas as 4 mordacas (H/C/S/U) tem gaps: H=4 hooks ativos, C=PulseScheduler rodando, S=CICLO4 pendente, U=via governance tool. | compliance.report mostra S ausente |
+
+---
+
+## 🚀 DIMENSAO 2: FRONTEIRA DA ORQUESTRACAO (Eisenhower + SWOT)
+
+| # | Skill | Q | SWOT no NeoCortex |
+|---|---|---|---|
+| 1 | **MCP** | 🔴 Q1 | S: 21 tools via stdio, conectado. O: Substitui todas integracoes manuais. |
+| 2 | **PicoClaw (A2A)** | 🟡 Q2 | S: Gateway A2A :18790 ativo. W: Nao integrado ao MCP core. |
+| 3 | **HookRegistry** | 🟡 Q2 | S: 4 hooks registrados. W: Soh 2 eventos cobertos (PreToolUse, PostToolUse, ToolError). Faltam eventos de ciclo. |
+| 4 | **CrewAI/LangChain** | 🟢 Q3 | Nao usados. NeoCortex tem orquestracao propria (PicoClaw + Orbital). SWOT: S=independencia, O=integracao futura. |
+| 5 | **A2A Protocol** | 🟡 Q2 | PicoClaw implementa A2A proprietario. Padrao aberto A2A do Google nao adotado. |
+| 6 | **Frontier Agents** | 🟢 Q3 | Preview AWS. NeoCortex em fase de build, nao expansion. |
+
+**SWOT Geral Orquestracao:**
+- S: 21 tools MCP, PicoClaw ativo, 4 hooks, 3 agentes definidos
+- W: Agentes sao .md (prompts), nao executaveis. Hooks cobrem 3/5 eventos
+- O: Integrar nc-guardian/auditor/courier como agentes reais no HookRegistry
+- T: Fragmentacao entre MCP tools, hooks Python, e agentes .md
+
+---
+
+## 🛡️ DIMENSAO 3: GOVERNANCA E RISCO (Eisenhower + RCA)
+
+| # | Skill | Q | RCA no NeoCortex | Status |
+|---|---|---|---|---|
+| 1 | **NIST AI RMF / ISO 42001** | 🔴 Q1 | Nao ha framework de governanca referenciado. Compliance 97.6% usa rules proprias (NC-RULE-*), nao padrao ISO. | ❌ GAP |
+| 2 | **Modelos Maturidade** | 🟡 Q2 | Sistema em estagio 2/4 (construcao). 18 tools criadas, mas nenhuma em "expansao". | ⚠️ |
+| 3 | **EU AI Act** | 🔴 Q1 | Nao ha conformidade legal. Dados do usuario podem estar em logs sem anonimizacao. | ❌ GAP |
+| 4 | **Riscos Terceiros** | 🔴 Q1 | LiteLLM, DeepSeek API, DuckDB — dependencias externas sem controle de versao ou SBOM. | ❌ GAP |
+| 5 | **Vies/Justica** | 🟡 Q2 | Auditoria de saida de LLM nao existe. nc-audit (FR-173) verifica so saude tecnica. | ❌ GAP |
+| 6 | **XAI** | 🟡 Q2 | 111 regras sao deterministicas. Mas decisoes do LLM sao caixa-preta. | ❌ GAP |
+| 7 | **Seguranca Dados** | 🔴 Q1 | secret.scan existe. Mas API keys (LiteLLM, DeepSeek) estao em .env sem criptografia. | ⚠️ |
+| 8 | **Resiliencia Cibernetica** | 🔴 Q1 | Nao ha testes adversariais. Nenhum red teaming. | ❌ GAP |
+| 9 | **Ciclo de Vida Ativos** | 🟢 Q3 | artifact_catalog.json com 724 YAML + 715 PY. Versionamento por git. | ✅ PARCIAL |
+| 10 | **Resposta a Incidentes** | 🔴 Q1 | Savepoint criado manualmente. Rollback nao testado. Regression sem baseline ate hoje. | ❌ GAP |
+
+---
+
+## 📚 DIMENSAO 4: GOVERNANCA BIBLIOTECARIA (Eisenhower + 3W + Cruzamento Hooks)
+
+### 4.1 Auditoria Cruzada de Hooks
+
+| Hook File | Status | Evento | Script | Duplicata? | Referenciado por? |
+|---|---|---|---|---|---|
+| NC-HK-FR-001-registry | ✅ ATIVO | — | hook-registry.py | Base do sistema | Todos |
+| NC-HK-FR-002-simple | ⚠️ ORFAO | — | simple-hook.py | Nao | Nenhum YAML referencia |
+| NC-HK-FR-003-mission-control | ⚠️ ORFAO | — | mission-control-hook.py | Nao | NC-CFG-HK-002 integration neocortex_system |
+| NC-HK-FR-004-conversation | ⚠️ ORFAO | — | conversation-hook.py | PARCIAL (similar FR-004-lexico) | Nenhum config referencia |
+| NC-HK-FR-004-lexico-step0 | ✅ REGISTRADO | PreToolUse | lexico-step0-hook.py | — | HK-001 yaml + HK-002 yaml (duas configs pro mesmo hook) |
+| NC-HK-FR-005-boot-loader | ⚠️ ORFAO | — | boot-loader.py | Nao | NC-CFG-HK-002 boot_loader referencia |
+| NC-HK-FR-006-hook-chain | ⚠️ ORFAO | — | hook-chain.py | Nao | NC-CFG-HK-002 hook_chains referencia mas nunca carregado |
+| NC-HK-FR-007-integration | ⚠️ ORFAO | — | integration.py | Nao | NC-CFG-HK-002 integration referencia |
+| NC-HK-FR-008-governance | ❌ DISABLED | PreToolUse | governance-validator.py | Nao | Nenhum — disabled=true |
+| NC-HK-FR-008-governance (2) | ❌ DISABLED | PostToolUse | guardian-daemon.py | Nao | Nenhum — disabled=true |
+| NC-HK-FR-009-lexico-step0 | ✅ ATIVO | PreToolUse | step0-hook.py | **DUPLICATA EXATA** de FR-004-lexico-step0! | Mesmo codigo, nome diferente |
+
+### 4.2 Orfaos e Duplicatas Encontradas
+
+**ORFAOS (arquivos existem mas nao sao carregados por nenhum config):**
+1. NC-HK-FR-002-simple-hook.py — existe, nunca referenciado
+2. NC-HK-FR-004-conversation-hook.py — existe, 0 referencias
+3. NC-HK-FR-005-lexico-boot-loader.py — referenciado na config mas nunca carregado via load_yaml()
+4. NC-HK-FR-006-lexico-hook-chain.py — referenciado na config mas nunca carregado
+5. NC-HK-FR-007-lexico-integration.py — referenciado na config mas nunca carregado
+6. NC-HK-FR-008-governance.yaml — disabled (2 hooks dentro)
+
+**DUPLICATAS:**
+1. NC-HK-FR-004-lexico-step0-hook.py ≡ NC-HK-FR-009-lexico-step0-hook.py — MESMO CODIGO (197 linhas identicas)
+
+**SOBRECARGA DE CONFIG:**
+- NC-CFG-HK-001.yaml define `lexico_step0` apontando para FR-004
+- NC-CFG-HK-002.yaml define `lexico_pre_analysis` tb apontando para FR-004
+- Mesmo hook registrado 2x com nomes diferentes no HookRegistry
+
+### 4.3 Ciclos vs Hooks (Quem usa o que?)
+
+| Ciclo | Hooks que DEVERIA usar | Hooks que REALMENTE usa |
+|---|---|---|
+| CICLO 1 (Boot) | lexico-boot-loader (FR-005) | NENHUM — boot loader nunca executado |
+| CICLO 2 (Execucao) | lexico_step0 (FR-004), hook-chain (FR-006) | lexico_step0 apenas (registrado manualmente na sessao) |
+| CICLO 3 (Encerramento) | post_tokenization (FR-004), handoff hooks | NENHUM |
+| CICLO 4 (Semanal) | governance-validator (FR-008), guardian-pulse | NENHUM — ambos disabled |
+
+### 4.4 Ciclos Disponiveis vs Hooks Usados
+
+O sistema tem 5 ciclos definidos no PulseScheduler:
+- CICLO 0 (Boot) — hooks NAO usam
+- CICLO 1 (Inicio) — hooks NAO usam
+- CICLO 2 (Execucao) — hooks USAM apenas lexico_step0
+- CICLO 3 (Encerramento) — hooks NAO usam
+- CICLO 4 (Semanal) — hooks NAO usam
+
+**GAP:** 4 hooks registrados, mas apenas 1 (lexico_step0 em PreToolUse) é efetivamente usado por 1 ciclo. Os outros 3 hooks registrados (semantic_enrichment, post_tokenization, context_compression) estao registrados mas NENHUM CICLO os invoca.
+
+### 4.5 3W por Skill Bibliotecaria no NeoCortex
+
+| # | Skill | Q | 3W no NeoCortex | Gap |
+|---|---|---|---|---|
+| 1 | Arquit. Informacao | Q2 | What: @SSOT. Why: Encontrabilidade. Where: NC-NAM-FR-001 | ✅ OK |
+| 2 | Controle Autoridade | Q2 | What: @ULQ. Why: Precisao. Where: NC-DOC-FR-001 | ✅ OK |
+| 3 | Preservacao Digital | Q3 | What: DIR-ARC. Why: Acesso futuro. Where: DIR-ARC-FR-001 | ✅ OK |
+| 4 | Catalogacao | Q2 | What: artifact_catalog.json. Why: Descoberta. Where: DIR-DOC-FR-001 | ✅ 724 YAML catalogados |
+| 5 | Tesauros/Taxonomia | Q2 | What: @LEXICO. Why: Contexto. Where: NC-LEXICO-LATEST.json | ✅ 1041 termos |
+| 6 | Documentacao | Q1 | What: Evidence. Why: Auditoria. Where: checkpoints | ⚠️ Handoffs sem padrao |
+| 7 | Metadados Tecnicos | Q1 | What: Linhagem. Why: Confianca. Where: ledger | ❌ Ledger sem schema |
+| 8 | Versionamento | Q1 | What: Git. Why: Rollback. Where: git log | ✅ Git ativo |
+| 9 | Curadoria Dados | Q2 | What: Qualidade. Why: Performance. Where: WAL | ❌ WAL sem ETL |
+| 10 | Redes Informacao | Q2 | What: Conexoes. Why: Silos. Where: lobe.search | ⚠️ Search existe mas KG disperso |
+
+---
+
+## ⚙️ DIMENSAO 5: ACAO E AUTOMACAO (Pareto + Eisenhower)
+
+Pareto: 20% acoes = 80% impacto
+
+| # | Acao | Q | 20% Esforco → 80% Resultado | Implementacao |
+|---|---|---|---|---|
+| 1 | Geracao Codigo | Q1 | Criar wrappers NC- para ferramentas sem hook_handler() | NC-HK-FR-008 disabled → criar handler |
+| 2 | Orquestracao Workflows | Q1 | Pipeline fixa: lint → validate → ssot → handoff → boot | 6 skills criadas, pipeline documentado |
+| 3 | Testes QA | Q1 | Regression.baseline existe mas sem automacao | Criar cron no PulseScheduler |
+| 4 | Observabilidade | Q1 | Ledger tem 4161 entradas, sem dashboard | Criar resumo executivo no nc-audit |
+| 5 | CI/CD | Q1 | Zero pipeline. Tudo manual. | GitHub Actions + ruff + mypy automatico |
+| 6 | Assistentes Expert | Q1 | 3 agentes (.md) + 6 skills + 5 tools. Nao integrados. | Integrar agentes ao HookRegistry |
+| 7 | Gestao Conhecimento | Q1 | Cache semantico nao existe. Lobos .mdc + knowledge .json | Unificar em grafo de conhecimento |
+| 8 | RLHF | Q2 | Feedback humano via handoffs T0. Nao estruturado. | — |
+| 9 | Red Teaming | Q2 | Zero. | — |
+| 10 | Analise Preditiva | Q2 | Ledger tem dados historicos, sem analise. | — |
+
+---
+
+## 🎯 PLANO DE ACAO PRIORIZADO (Comando Final da Matriz)
+
+### EXECUCAO IMEDIATA (Q1 — Urgente + Importante)
+
+| # | Acao | Onde | Por que |
+|---|---|---|---|
+| 1 | **Remover duplicata** FR-004 ≡ FR-009 | Apagar NC-HK-FR-009 | 197 linhas identicas |
+| 2 | **Ativar hooks FR-008** | governance-validator + guardian-pulse | Unico caminho para PreToolUse + PostToolUse de governanca |
+| 3 | **Eliminar orfaos:** FR-002, FR-004-conversation | Arquivar em DIR-ARC | 2 arquivos sem uso |
+| 4 | **Criar hook_handler()** para scripts FR-008 | NC-SCR-FR-004 + FR-115 | Desbloquear os 2 hooks disabled |
+| 5 | **Criar baseline CI/CD** | GitHub Actions: ruff + mypy automatico | Regression precisa de baseline persistente |
+| 6 | **Ativar CICLO 4** | PulseScheduler schedule | Mordaca S parada desde 30/04 |
+
+### ESTRATEGIA (Q2 — Importante, Nao Urgente)
+
+| # | Acao | Onde | Por que |
+|---|---|---|---|
+| 7 | **Unificar hooks chain** | Carregar NC-CFG-HK-002 via load_yaml() | 4 hooks definidos mas nunca instanciados |
+| 8 | **Criar schema ledger** | neocortex_wal.db | 4161 entradas sem estrutura |
+| 9 | **Roteamento dinamico de LLM** | Classificador local (Qwen) + DeepSeek Pro | Corte de custo via caching |
+| 10 | **Governanca NIST-alinhada** | Mapear 41 regras vs NIST AI RMF | Compliance 97.6% mas sem referencia externa |
+
+### DELEGACAO (Q3 — Urgente, Nao Importante)
+
+| # | Acao | Onde | Por que |
+|---|---|---|---|
+| 11 | **Integrar A2A padrao** | PicoClaw :18790 | Agentes falam entre si |
+| 12 | **Cache de contexto** | Redis ou local | Otimizar tokens DeepSeek |
+| 13 | **Dashboard observabilidade** | nc-audit FR-173 | Ledger metrics visiveis |
+
+### ELIMINAR (Q4 — Nao Urgente, Nao Importante)
+
+- Low-Code/No-Code tools (Dify, Flowise, N8n) — redundantes com YAML tickets
+- AutoGPT — instavel, experimental, NeoCortex ja tem PicoClaw
+- Frontier Agents AWS — preview, aguardar maturacao
+
+---
+
+## 🔗 CRUZAMENTO FINAL: 5 DIMENSOES vs SISTEMA REAL
+
+| Dimensao | Score NeoCortex | Gaps Criticos | Prioridade |
+|---|---|---|---|
+| D1: Maturidade IA | 4/10 | Sem CI/CD, sem decay ativo, sem roteamento LLM | 🔴 |
+| D2: Orquestracao | 6/10 | Agentes so .md, hooks subutilizados | 🟡 |
+| D3: Governanca/Risco | 3/10 | Sem NIST, sem EU AI Act, sem red team | 🔴 |
+| D4: Bibliotecaria | 7/10 | Orfaos, duplicatas, ciclos sem hooks | 🟡 |
+| D5: Acao/Automacao | 4/10 | Sem CI/CD, sem dashboard, sem pipeline automatico | 🔴 |
+
+**Score Geral: 4.8/10 — Estagio 2 (Construcao)**
+
+---
+
+## 🔄 Changelog
+- [2026-05-03] Matriz estrategica completa — 5 dimensoes, auditoria cruzada de hooks (11 arquivos), 13 gaps criticos, 6 acoes Q1, 4 Q2, 3 Q3, plano de acao final.

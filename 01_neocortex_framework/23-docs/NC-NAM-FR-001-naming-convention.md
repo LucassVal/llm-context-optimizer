@@ -595,6 +595,10 @@ $HIPOCAMPO (mem. episódica) → sessions, savepoints, handoffs, audit
 | Registro | Local | Conteúdo |
 |----------|-------|----------|
 | NC-NAM-FR-001-tools-registry.md | `\01_neocortex_framework\23-docs` | Catálogo de 21 tools MCP |
+| NC-AUD-FR-003 | Relatório de Reconciliação de Hooks | `01_neocortex_framework/23-docs/` | hooks, audit | — |
+| NC-AUD-FR-004 | Maturity & Skills Deep Dive (50 Itens) | `01_neocortex_framework/23-docs/` | skills, maturity, mit | — |
+| NC-AUD-FR-005 | DeepSeek Optimization Blueprint (25 Itens) | `01_neocortex_framework/23-docs/` | deepseek, optimization, costs | — |
+| NC-AUD-FR-006 | Quantum Hybrid Efficiency (5 Itens) | `01_neocortex_framework/23-docs/` | hybrid, rtx3050, quantum | — |
 | NC-NAM-FR-001-lobes-registry.md | `\01_neocortex_framework\23-docs` | Registro de 75 lobes |
 | NC-NAM-FR-001-config-registry.md | `\01_neocortex_framework\23-docs` | Registro de configurações |
 | NC-NAM-FR-001-prompts-registry.md | `\01_neocortex_framework\23-docs` | Registro de prompts de agente |

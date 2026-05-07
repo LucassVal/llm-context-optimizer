@@ -781,9 +781,9 @@ def create_mcp_server(host="127.0.0.1", port=8765):
         server.set_logging_level = lambda level: _handle_set_level(level) if not None else None
 
     # Register pulse tool with scheduler instance (NC-DS-274: unified from system)
-    from .tools.NC_SUPER_006_system import set_pulse_scheduler
+    from .tools import pulse
 
-    set_pulse_scheduler(pulse_scheduler)
+    pulse.set_pulse_scheduler(pulse_scheduler)
 
     # Dynamically scan the tools directory and load all tools
     tools_dir = Path(__file__).parent / "tools"

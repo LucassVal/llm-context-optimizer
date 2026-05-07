@@ -11,14 +11,14 @@ hash: "auto-generated"
 Repository Pattern implementations for NeoCortex storage abstraction.
 """
 
-from neocortex.core.NC_REP_FR_002_base_repository import (
+from .base import (
     CortexRepository,
     LedgerRepository,
     LobeRepository,
     ProfileRepository,
     Repository,
 )
-from neocortex.core.NC_REP_FR_001_file_system_repository import (
+from .file_system_repository import (
     FileSystemCortexRepository,
     FileSystemLedgerRepository,
     FileSystemLobeRepository,
