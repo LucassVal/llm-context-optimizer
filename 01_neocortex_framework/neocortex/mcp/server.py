@@ -658,6 +658,9 @@ def create_mcp_server(host="127.0.0.1", port=8765):
     _hooks_post.append(lambda **ctx: _hlog(f"R117: SSOT check | tools={ctx.get('tools_loaded','?')}"))
     _hooks_post.append(lambda **ctx: _hlog("Integrity: YAML/MDC/Secret ok"))
     _hooks_post.append(lambda **ctx: _hlog("Regression: recorded"))
+    # NC-DS-292: Kaizen log (R52) — continuous improvement tracking
+    _kaizen_log = _hook_log.parent / "kaizen_activity.log"
+    _hooks_post.append(lambda **ctx: _hlog(f"Kaizen: {ctx.get('tool_name','?')} — improvement tracked"))
 
     def _wal_transaction_hook(**ctx):
         try:
