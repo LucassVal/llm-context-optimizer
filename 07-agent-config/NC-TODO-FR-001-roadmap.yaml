@@ -1,25 +1,43 @@
 # @UBL @UBL @TODO-FR | LEXICO: #AGENT #CONFIG
-# NeoCortex Roadmap — v5.0
+# NeoCortex Roadmap — v5.4
 # frozen: false
-# version: 5.0
-# last_updated: 2026-05-05
-# updated_by: T0-OpenCode (sessao MCP compliance + governanca 27 regras)
-# replaces: v3.0 (obsoleto — PicoClaw/LiteLLM/Ciclos 1-5 antigos)
+# version: 5.4
+# last_updated: 2026-05-15
+# updated_by: T0-Antigravity (NC-DS-AUTOSTART DONE, server.py path fixes, @MCP, NC-MAP-003)
+# replaces: v5.3
 
 metadata:
-  title: "NeoCortex Development Roadmap v5.0"
+  title: "NeoCortex Development Roadmap v5.3"
   status: ACTIVE
-  version: 5.0
-  last_updated: 2026-05-05
-  mcp_compliance: "71%"
+  version: 5.3
+  last_updated: 2026-05-15
+  mcp_compliance: "78%"
   rules_total: 133
-  server_py_lines: 900
-  active_tickets: 3
-  mcp_tools: 19
-  tools_audited: "2026-05-05"
-  tools_3w_documented: true
+  governance_rules: 37
+  server_py_lines: 1347
+  active_tickets: 0
+  mcp_tools: 21
+  tickets_completed: 41
+  skills: 16
 
 phases:
+  # ── ACTIVE ────────────────────────────────────────────────────
+  - phase: CICLO_6
+    title: "DDD Refactor — Monolith Break + Boot Optimization"
+    status: IN_PROGRESS
+    summary: "Extrair health_check/ping de server.py. Profile boot time. Background tool registration. Quebrar governance.py em Domain Handlers."
+    tickets_active:
+      - id: NC-DS-333
+        title: "extract health_check DDD"
+        status: DONE
+        closed_at: 2026-05-16
+      - id: NC-DS-334
+        title: "profile boot + background tools"
+        status: DONE
+      - id: NC-DS-335
+        title: "break governance domain handlers"
+        status: DONE
+
   # ── COMPLETED ─────────────────────────────────────────────────
   - phase: CICLO_1_5
     title: "Fundacao + MCP Core + Governanca"
@@ -85,39 +103,104 @@ phases:
         title: "SSOT + LEXICO Path Audit"
         result: "9/9 domains OK. lexico-validator.py criado. ULQ paths corrigidos."
     tickets_active:
+      - id: NC-DS-332
+        title: "Restaurar Mordaca G e V: Guardian Daemon Paths"
+        status: DONE
+        priority: P1
+        effort: 30min
+        created: 2026-05-13
+        impact: "Guardian offline, regras burlandas sem deteccao"
+        file: "08-tickets/NC-DS-332-restore-guardian-daemon-paths.yaml"
+      - id: NC-DS-331
+        title: "Fix MCP 3.x Breaking Change: sampling_approval"
+        status: DONE
+        closed_at: 2026-05-13
+        priority: P1
+        effort: 30min
+        created: 2026-05-13
+        impact: "Crashing sampling requests"
+        file: "08-tickets/NC-DS-331-fix-sampling-approval-context.yaml"
+      - id: NC-DS-330
+        title: "Fix R09 Violation: SessionMemoryWriter import"
+        status: DONE
+        closed_at: 2026-05-13
+        priority: P1
+        effort: 30min
+        created: 2026-05-13
+        impact: "Logs offline por erro de import de hifen"
+        file: "08-tickets/NC-DS-330-fix-sessionmemory-import.yaml"
+      - id: NC-DS-329
+        title: "Refactor Hook Execution Order and _notify_hook"
+        status: DONE
+        priority: P1
+        effort: 1h
+        created: 2026-05-13
+        impact: "Execucao nao deterministica de post-hooks."
+        file: "08-tickets/NC-DS-329-refactor-notify-hook-execution.yaml"
+      - id: NC-DS-328
+        title: "MCP Full Audit + health_check closure fix"
+        status: DONE
+        priority: P0
+        effort: 1h
+        created: 2026-05-13
+        impact: "health_check hooks_ok=False. tools_loaded hardcode 17→23+. locks/active path errado. TOOL_MODULES dead code."
+        file: "08-tickets/NC-DS-328-mcp-full-audit-health-fix.yaml"
+      # 2026-05-12/13: adicionados R21 (R03 violacao - ausentes do roadmap)
+      - id: NC-DS-296
+        title: "Fix H-Mordaca HookRegistry asyncio - health sempre degraded"
+        status: DONE
+        closed_at: 2026-05-13
+        priority: P0
+        effort: 30min
+        created: 2026-05-12
+        impact: "health_check hooks_ok=False. _health_check_impl antes de _real_hook_registry (closure bug)."
+      - id: NC-DS-327
+        title: "Wire HookRegistry Mordacas server.py - 4 mordacas H/C/S/U"
+        status: DONE
+        closed_at: 2026-05-15
+        priority: P1
+        effort: 1h
+        created: 2026-05-12
+        impact: "Mordaças ICLS ativadas com bloqueio real (RuntimeError). kwargs incluídos no contexto. BashGuard/LockGuard/SecretScan/IdempotentGuard wired."
       - id: NC-DS-270
         title: "Wire Conversation Hook + Kaizen Log (R52)"
-        status: OPEN
+        status: DONE
+        closed_at: 2026-05-16
         priority: P1
         effort: 15min
         impact: "turn.record automatico. Memoria por conversa."
       - id: NC-DS-271
         title: "Wire Corporate Rules — KPI, BSC, SWOT, ROI (FR-157)"
-        status: OPEN
+        status: DONE
+        closed_at: 2026-05-16
         priority: P1
         effort: 1h
         impact: "R52,R54,R55,R56,R57 — 5 regras vivas."
       - id: NC-DS-272
         title: "Wire Advanced Resilience (FR-160) + Strangler (FR-171) + Graceful (FR-155)"
-        status: OPEN
+        status: DONE
+        closed_at: 2026-05-16
         priority: P2
         effort: 1h
         impact: "R59,R68,R71,R83-R111 — 32 regras vivas."
       - id: NC-DS-273
         title: "SSOT Registration + Roadmap + BOOT Sync"
-        status: OPEN
+        status: DONE
+        closed_at: 2026-05-16
         priority: P1
         effort: 30min
         impact: "R24 compliance. Fecha CICLO_6."
       - id: NC-DS-274
         title: "Unify pulse-bridge → NC-SUPER-006 + Eliminar Stranglers"
-        status: OPEN
+        status: DONE
+        closed_at: 2026-05-16
         priority: P2
         effort: 30min
         impact: "R23+R68. -1 duplicata, -2 wrappers."
       - id: NC-DS-275
         title: "Wire Lean + Six Sigma + Due Diligence + Self-Healing + PREMATURE + COBIT + BSC"
-        status: OPEN
+        status: DONE
+        closed_at: 2026-05-16
         priority: P2
         effort: 1h
         impact: "R59,R62,R63,R95,R131,R132,R133 — 7 regras. Fecha 133/133."
@@ -133,6 +216,14 @@ phases:
     status: PLANNED
     summary: "Reduzir debito tecnico. Substituir Strangler wrappers. Lobificar legacy. Pre-commit hooks."
     tickets_planned:
+      - id: NC-DS-336
+        title: "Integrar Karpathy Coding Guidelines como nc-karpathy skill"
+        status: DONE
+        closed_at: 2026-05-15
+        priority: MEDIUM
+        effort: 45min
+        file: "08-tickets/NC-DS-336-karpathy-skill-integration.yaml"
+        note: "16 skills. Categoria behavior criada. WF-002 patched. BOOT v11.1."
       - id: NC-DS-STRANGLER
         title: "Substituir 17 Strangler wrappers -> imports diretos"
         priority: P1
@@ -142,11 +233,82 @@ phases:
         title: "Lobificar 02_memory_lobes/lobes/ (legacy agent workspace)"
         priority: P2
         effort: 1h
+      - id: NC-DS-338
+        title: "Wire @CHANGELOG + @KPI nos 3 pontos de entrada (Kernel P0, UBL, Boot)"
+        status: DONE
+        closed_at: 2026-05-15
+        priority: P1
+        effort: 10min
+        file: "08-tickets/NC-DS-338-wire-changelog-kpi-symbols.yaml"
+        note: "Zero Python. 8 linhas markdown/yaml. Risco zero."
+      - id: NC-DS-339
+        title: "PulseScheduler → auto-update NC-METRICS-KPIS (NC-SUPER-006)"
+        status: DONE
+        closed_at: 2026-05-15
+        priority: P2
+        effort: 30min
+        file: "08-tickets/NC-DS-339-pulse-kpi-auto-update.yaml"
+        depends_on: ["NC-DS-338"]
+        note: "KPI parado desde 2026-04-29. PulseScheduler já existe."
+      - id: NC-DS-340
+        title: "Hook Theater Audit — mapear hooks REAL vs LOG_ONLY vs STUB"
+        status: DONE
+        closed_at: 2026-05-15
+        priority: P0
+        effort: 1h
+        file: "08-tickets/NC-DS-340-hook-theater-audit.yaml"
+        note: "Causa raiz identificada (Exception suppression)"
+      - id: NC-DS-341
+        title: "Rules Coverage Real Audit — H/C/S/U declarado vs REAL"
+        status: DONE
+        closed_at: 2026-05-15
+        priority: P1
+        effort: 2h
+        file: "08-tickets/NC-DS-341-rules-coverage-audit.yaml"
+        depends_on: ["NC-DS-340"]
+        note: "Mordaças expandidas para kwargs. Honestidade sistêmica."
+      - id: NC-DS-342
+        title: "Teste SSE via MCP Studio/Inspector — validar mordaças em produção"
+        status: DONE
+        closed_at: 2026-05-15
+        priority: P1
+        effort: 1h
+        file: "08-tickets/NC-DS-342-sse-mordacas-live-test.yaml"
+        depends_on: ["NC-DS-340", "NC-DS-341"]
+        note: "Black-box: 5 testes BashGuard/DelGuard/LockGuard/ZoneGuard/Gateway via SSE real."
+      - id: NC-DS-334
+        title: "Profile Boot + Background Tools loading"
+        status: DONE
+        closed_at: 2026-05-15
+        priority: P1
+        effort: 2h
+        file: "08-tickets/NC-DS-334-profile-boot-background-tools.yaml"
+        note: "_bprof() profiler + background thread nc-tool-loader. Boot não-bloqueante."
+      - id: NC-DS-335
+        title: "Break Governance Domain Handlers (DDD)"
+        status: DONE
+        closed_at: 2026-05-15
+        priority: P1
+        effort: 2h
+        file: "08-tickets/NC-DS-335-break-governance-domain-handlers.yaml"
+        depends_on: ["NC-DS-334"]
+        note: "Router dict O(1) adicionado. Lookup unknown-action em O(1) vs O(59). Handlers preservados."
       - id: NC-DS-AUTOSTART
-        title: "Auto-start MCP no boot do OpenCode"
+        title: "Auto-start MCP no boot do OpenCode — SSE :8000 unificado"
+        status: DONE
+        closed_at: 2026-05-15
         priority: P2
         effort: 1h
-        note: "mcp.json criado, falta validar"
+        note: "Guardian ativo. .mcp.json, opencode.json, antigravity_neocortex_config.json unificados. @MCP adicionado ao @ULQ. 3 paths server.py corrigidos. NC-MAP-003 criado."
+      - id: NC-DS-360
+        title: "Cloud Integration for E-Commerce MCPs (Mercado Livre & Shopee)"
+        status: DONE
+        closed_at: 2026-05-18
+        priority: P1
+        effort: 2h
+        file: "08-tickets/NC-DS-360-cloud-integration-ecommerce-mcps.yaml"
+        note: "Offload do newerton/mcp-mercado-livre e PedroGuilhermeSilv/mcp-shopee para Firebase Cloud Functions com secrets seguros."
+
 
   # ── FUTURE ────────────────────────────────────────────────────
   - phase: CICLO_8

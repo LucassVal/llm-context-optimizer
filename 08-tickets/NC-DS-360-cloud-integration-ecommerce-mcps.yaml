@@ -1,0 +1,88 @@
+# @UBL @UBL @DS-360 | LEXICO: #TICKETS #INTEGRATIONS #FIREBASE
+ticket_id: "NC-DS-360"
+title: "Cloud Integration for E-Commerce MCPs (Mercado Livre & Shopee)"
+status: DONE
+completed_at: "2026-05-18"
+priority: P1
+effort: 2h
+owner: T0
+category: integration
+created_at: "2026-05-18"
+roadmap_ref: CICLO_7
+depends_on: []
+
+three_w:
+  who: "Firebase Cloud Functions Gateway + cloud_proxy.py + Shopee/ML APIs"
+  what: |
+    Implementar os servidores MCP Mercado Livre (newerton) e Shopee (PedroGuilhermeSilv)
+    no gateway central do Firebase Cloud Functions. A integração da Shopee utilizará o Google
+    Secret Manager para persistir com segurança o SHOPEE_APP_ID e SHOPEE_SECRET.
+    Mapeamento de ferramentas dedicadas:
+    - `mercado_livre_search_products(query)`
+    - `shopee_search_products(keyword, category_id, sort_by)`
+    - `shopee_search_categories(keyword)`
+  why: |
+    O ecossistema e-commerce é dinâmico e consome APIs externas. Rodar esses servidores
+    localmente expõe chaves secretas (Shopee), exige instalação de dependências pesadas
+    (Node.js/Poetry) e aumenta o footprint local. Ao migrar para o Firebase, centralizamos a
+    infraestrutura e segurança das chaves na nuvem, expondo as tools via nosso transporte
+    unificado `cloud_proxy`.
+
+rca:
+  symptom: "Ausência de ferramentas de consulta de e-commerce e risco de chaves expostas localmente"
+  why_1: "Os lobes USR-007 e USR-008 mapeiam os MCPs apenas para rodar em stdio local"
+  why_2: "O Shopee MCP exige credenciais de Afiliado (App ID e Secret) que não devem ser hardcoded"
+  why_3: "Não há um repositório centralizado ou padrão seguro local para rodar múltiplos runtimes (Python/Poetry + Node/NPX) em paralelo sem degradar performance"
+  root_cause: "Arquitetura anterior priorizava stdio local; a migração para a nuvem exige offloading de ferramentas baseadas em web APIs para o Firebase Cloud Functions."
+
+kiss:
+  approach: |
+    Em vez de subir múltiplos microsserviços ou stubs de proxy local, estender o arquivo de rotas
+    do Firebase Cloud Functions (`functions/main.py`) registrando as ferramentas individualmente.
+    As ferramentas farão requisições HTTP diretas para as APIs respectivas usando a lógica DDD de
+    cada MCP, aproveitando chaves seguras providas por variáveis de ambiente ou Secret Manager.
+  lines_changed: 80
+  risk: "Baixo. As novas rotas de integração não impactam as 21 super-tools de governança e infraestrutura já operantes."
+  no_new_files: false
+
+tasks:
+  - id: T1
+    title: "Mapeamento das dependências do e-commerce no functions/requirements.txt"
+    write_zone: "PROD → functions/requirements.txt"
+    steps:
+      - "Adicionar bibliotecas auxiliares necessárias para requests HTTP eficientes (httpx, python-dotenv)"
+    validation: "Concluir deploy sem erros de compilação de dependências no Firebase"
+
+  - id: T2
+    title: "Implementação das APIs no Firebase Cloud Functions (Várias Tools)"
+    write_zone: "PROD → functions/main.py"
+    steps:
+      - "Registrar a ferramenta `mercado_livre_search_products` consumindo a API pública de busca do Mercado Livre"
+      - "Registrar a ferramenta `shopee_search_products` com suporte a keyword, category_id e sort_by"
+      - "Registrar a ferramenta `shopee_search_categories` para indexar IDs de categorias"
+      - "Configurar a injeção do SHOPEE_APP_ID e SHOPEE_SECRET do Secret Manager"
+    validation: "Testar deploy local com emulador do Firebase e verificar as rotas expostas"
+
+  - id: T3
+    title: "Integração das novas ações na validação do ConstitutionGateway"
+    write_zone: "PROD → 01_neocortex_framework/neocortex/core/services/NC-CORE-FR-129-shared-kernel-gateway.py"
+    steps:
+      - "Adicionar as novas ações ao dicionário de validação e ao mapeamento de ações do gateway"
+    validation: "Testar chamada de get_produtos via local_agent e validar log de auditoria"
+
+  - id: T4
+    title: "Atualização do Roadmap, Manifest e UBL"
+    write_zone: "BOOT → 06-boot/NC-BOOT-FR-001-system-manifest.md | ROADMAP → 07-agent-config/NC-TODO-FR-001-roadmap.yaml"
+    steps:
+      - "Registrar o ticket NC-DS-360 como planned no roadmap"
+      - "Atualizar a contagem de ferramentas e cobertura de conformidade MCP"
+    validation: "Rodar lexico-validator.py e constatar 0 erros"
+
+acceptance_criteria:
+  - "As ferramentas do Mercado Livre e Shopee são expostas como rotas dedicadas e fortemente tipadas no Firebase"
+  - "Chaves da Shopee seguras em Secret Manager, sem variáveis expostas localmente"
+  - "Contrato MCP preservado com isError e schemas limpos"
+  - "@LOCKS e regras de governança do Shared Kernel respeitados"
+
+write_zone: "PROD → functions/ | PROD → neocortex/ | BOOT → 06-boot/ | ROADMAP → 07-agent-config/"
+handoff_required: true

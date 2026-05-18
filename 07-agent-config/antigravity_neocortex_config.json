@@ -1,16 +1,10 @@
 {
   "mcpServers": {
-    "neocortex-stdio": {
-      "name": "NeoCortex Framework (stdio)",
-      "command": "python",
-      "args": [
-        "-m",
-        "neocortex.mcp.server",
-        "--transport",
-        "stdio"
-      ],
-      "env": {},
-      "disabled": false,
+    "neocortex": {
+      "name": "NeoCortex Framework (SSE — instância única compartilhada)",
+      "type": "http",
+      "url": "http://127.0.0.1:8000/mcp",
+      "note": "NC-DS-AUTOSTART: Guardian (NeoCortex MCP.lnk no Desktop) deve estar rodando antes de abrir qualquer IDE. Transport: streamable-http via FastMCP. Porta: 8000.",
       "autoApprove": [
         "neocortex_cortex",
         "neocortex_ledger",
@@ -24,22 +18,22 @@
         "neocortex_governance"
       ]
     },
-    "neocortex-websocket": {
-      "name": "NeoCortex Framework (WebSocket)",
-      "url": "ws://localhost:8770",
-      "disabled": false,
-      "autoApprove": [
-        "neocortex_cortex",
-        "neocortex_ledger",
-        "neocortex_report",
-        "neocortex_checkpoint",
-        "neocortex_config",
-        "neocortex_lobes",
-        "neocortex_search",
-        "neocortex_agent",
-        "neocortex_pulse",
-        "neocortex_governance"
-      ]
+    "neocortex-stdio-fallback": {
+      "name": "NeoCortex Framework (stdio — fallback sem Guardian)",
+      "command": "python",
+      "args": [
+        "-m",
+        "neocortex.mcp.cloud_proxy"
+      ],
+      "env": {
+        "PYTHONPATH": "01_neocortex_framework",
+        "PYTHONUTF8": "1",
+        "NEOCORTEX_PROJECT_ROOT": "C:/Users/Lucas Valério/Desktop/TURBOQUANT_V42",
+        "NC_ROOT": "C:/Users/Lucas Valério/Desktop/TURBOQUANT_V42",
+        "NEOCORTEX_LOG_LEVEL": "ERROR"
+      },
+      "disabled": true,
+      "note": "Usar SOMENTE se Guardian nao estiver ativo. Estado NAO compartilhado com outros clientes."
     }
   }
-}
+}
