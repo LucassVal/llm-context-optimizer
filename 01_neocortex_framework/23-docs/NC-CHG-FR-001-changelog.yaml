@@ -13,6 +13,44 @@ metadata:
     - "02_memory_lobes/06_governance/NC-LBE-FR-KAIZEN-001.mdc (kaizen lobe)"
 
 entries:
+  - date: "2026-05-18"
+    type: "CLOUD-MCP-INTEGRATION"
+    kaizen: true
+    ticket: "NC-DS-360"
+    what: "Implantação e deploy das ferramentas de busca de produtos do Mercado Livre (api.mercadolibre.com) e Shopee (api.shopee.com.br fallback público/afiliado) diretamente no Firebase Cloud Functions. Exposição das ferramentas mercado_livre_search_products, shopee_search_products e shopee_search_categories de forma serverless."
+    why: "Evita dependência de setups locais complexos, protege credenciais em nuvem de forma nativa e entrega alta disponibilidade (24/7) com baixa latência."
+    files: ["functions/main.py", "07-agent-config/NC-TODO-FR-001-roadmap.yaml", "08-tickets/NC-DS-360-cloud-integration-ecommerce-mcps.yaml", "09-audit-logs/NC-DS-360-handoff-20260518.yaml"]
+
+  - date: "2026-05-15"
+    type: "INFRA-MCP-TRANSPORT"
+    kaizen: true
+    ticket: "NC-DS-AUTOSTART"
+    what: "Migração MCP stdio→SSE unificado :8000. Guardian (start_neocortex_mcp.ps1) inicia 1 instância compartilhada. Configs unificados: .mcp.json, .opencode/opencode.json, ~/.config/opencode/opencode.json, antigravity_neocortex_config.json. Adicionado @MCP ao @ULQ v2.1 + @BOOT v11.2. mcp_configs lock adicionado ao @LOCKS. R21: FastMCP 3.2.3, path=/mcp, port=8000 verificados."
+    why: "stdio criava N processos isolados — PulseScheduler/WAL/hooks duplicados. SSE = 1 processo, estado coerente cross-IDE."
+    files: [".mcp.json", ".opencode/opencode.json", "antigravity_neocortex_config.json", "start_neocortex_mcp.ps1", "NC-BOOT-FR-001-system-manifest.md", "NC-SEC-FR-001-atomic-locks.yaml", "NC-DOC-FR-001-ubiquitous-language-dictionary.md"]
+
+  - date: "2026-05-15"
+    type: "INFRA-PATH-FIX"
+    kaizen: true
+    ticket: "NC-DS-RESOURCE-AUDIT"
+    what: "R21 audit de todos os paths no server.py MCP Resources: 3 broken paths corrigidos (reports/→13-reports/ em linhas 484+614; _fw_root/15-docs/→_fw_root/23-docs/ em linha 1002 para @LOCKS). Novo resource neocortex://mcp/config adicionado (@MCP SSOT). @PROMPT atualizado para v4.0 (26 símbolos, mapa arquitetural obrigatório, paths canônicos corrigidos)."
+    why: "boot_progress.log e hook_activity.log silenciosamente falhando (pasta reports/ inexistente). @LOCKS resource retornando fallback vazio. Riscos de operação silenciosa sem rastro."
+    files: ["server.py", "NC-PROMPT-DS-001-deepseek-subordinate.md", "NC-DOC-FR-001-ubiquitous-language-dictionary.md"]
+
+  - date: "2026-05-15"
+    type: "GOVERNANCE-SECURITY"
+    kaizen: true
+    what: "Reativação Real das Mordaças (NC-DS-340/341/342): Removida supressão silenciosa de RuntimeError em server.py, habilitando bloqueios reais de segurança. Expandido contexto dos hooks para incluir kwargs, fechando bypass em LockGuard/BashGuard/DelGuard. Automação KPI (NC-DS-339): Implementada persistência via ruamel.yaml integrada ao PulseScheduler para telemetria em tempo real no @KPI."
+    why: "Segurança: Transição de log-only (teatro) para bloqueio real (constituição). KPI: Telemetria dinâmica substitui mocks estáticos."
+    files: ["server.py", "NC-CORE-FR-154-corporate-engines.py", "NC-CORE-FR-142-pulse-scheduler-orbital.py", "NC-METRICS-KPIS-v0.1-20260422.yaml"]
+
+  - date: "2026-05-08"
+    type: "FIX-LSP"
+    kaizen: true
+    what: "Correção crítica de opencode.json: Restaurados os campos 'command' ausentes para pyright, yaml_ls, bash e gopls. Corrigido erro de path com acento ('Lucas Valério') que impedia o carregamento correto do ambiente no Windows (R125)."
+    why: "OpenCode lançava ConfigInvalidError impedindo a operação dos agentes. Acentuação em paths causava falhas silenciosas na resolução de ambiente."
+    files: ["opencode.json"]
+
   - date: "2026-05-06"
     type: "AUDIT-INDUSTRIAL"
     kaizen: true
@@ -244,3 +282,41 @@ kaizen:
 
 
 
+  - date: "2026-05-13"
+    ticket: "NC-DS-328"
+    desc: "MCP Full Audit + health_check closure fix. tools_loaded=23+. locks/active path fixed."
+  - date: "2026-05-13"
+    ticket: "NC-DS-329"
+    desc: "Refactor Hook Execution Order and _notify_hook race condition."
+  - date: "2026-05-13"
+    ticket: "NC-DS-332"
+    desc: "Restored Guardian Daemon and Governance Validator paths."
+
+  - date: "2026-05-14"
+    type: "MILESTONE"
+    kaizen: true
+    what: "Roadmap v5.2. NC-DS-327(DONE mordacas H wired), NC-DS-330(DONE import fix), NC-DS-331(DONE sampling fix), NC-DS-333(DONE health/ping DDD). NC-DS-334/335 planejados."
+    why: "Estabilizacao pos-refactor DDD. MCP compliance 78%."
+    files: ["NC-TODO-FR-001-roadmap.yaml v5.2"]
+
+  - date: "2026-05-15"
+    type: "GOVERNANCE-HOOKS-UPGRADE"
+    kaizen: true
+    what: |
+      Ciclo 7.2 — Upgrades pós-auditoria (NC-DS-334/335 + hook refinements):
+      (1) IdempotentGuard R49 REAL: bloqueia chamadas duplicadas via MD5 hash na sessão.
+      (2) SecretScan R114 REAL: bloqueia transmissão de tokens/passwords em args de tools.
+      (3) NamingGuard R01 mantido como WARNING (R131 PREMATURE: bloquear só após NC-DS-343).
+      (4) Boot Profiling NC-DS-334: _bprof() em cada etapa; thread background nc-tool-loader;
+          servidor aceita conexões em <3s com health_check/ping; tools carregam gradualmente.
+      (5) Governance Router NC-DS-335: set O(1) _KNOWN_ACTIONS; unknown-action detectado antes
+          do if/elif chain de 59 branches; orbital bridge preservado; handlers intactos.
+    why: "R21 honestidade: só marcar DONE após test real. KISS: 0 novos arquivos, reaproveitando padrão dos guards já existentes."
+    files: ["server.py", "NC-SUPER-001-governance.py"]
+
+  - date: "2026-05-15"
+    type: "GOVERNANCE+SSOT-FIX"
+    kaizen: true
+    what: "NC-DS-336 DONE: skill nc-karpathy integrada. 16 skills. BOOT v11.1. Roadmap v5.3. NC-DS-337 DONE: @ROADMAP em NC-RULE-000 (kernel P0) corrigido para 07-agent-config/NC-TODO-FR-001-roadmap.yaml (apontava para MD inexistente). Backups sem data arquivados em 99-archive/backups-undated-20260515/. NOTA HISTORICA: roadmap.yaml.bak = v5.0 (2026-05-05) preservado no archive — continha historico CICLO_1_5 + tickets NC-DS-250..266."
+    why: "Karpathy skill formaliza R21/R50/R51/R53. SSOT fix elimina path fantasma no kernel P0."
+    files: [".opencode/skills/nc-karpathy/skill.md", "NC-SKL-FR-001-skills-catalog.yaml v1.2", "NC-WF-002-master-governance.md", "NC-BOOT-FR-001-system-manifest.md v11.1", "NC-TODO-FR-001-roadmap.yaml v5.3", ".agents/rules/NC-RULE-000-master-index.md", "09-audit-logs/NC-DS-337-handoff-20260515.yaml"]
